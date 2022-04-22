@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{0D0ACCB3-3794-4773-AE3C-4C06F31AC2A3}" SchemaVersion="89">
+	<SoundBanks>
+		<WorkUnit Name="Default Work Unit" ID="{0D0ACCB3-3794-4773-AE3C-4C06F31AC2A3}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="Deku" ID="{0382229E-F144-4E88-9713-942969570FD0}">
+					<ObjectInclusionList>
+						<ObjectRef Name="detroitexit" ID="{F7B36D41-23BE-400F-BC9B-98A0DF408C13}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="stlouissfx" ID="{9081AAEB-98B6-4028-939E-4D681DA50998}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="shootstylebulletvoice" ID="{64B6DB43-0555-4238-8E0D-2C6ADCBC1056}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="airforcesfx" ID="{DB029791-8559-4422-B112-F91E50417F48}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="blackwhipvoice" ID="{1B6CFFCE-B123-448E-9E4E-B3F9402262F3}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="airforcevoice" ID="{6A62BB05-1ED5-44DC-9CD1-CC611EDAD08C}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="event" ID="{80A424F7-E94F-44E8-A10B-78DFD0B64D6F}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="ofasfx" ID="{139B654F-C39F-4552-B7D5-AC05E60A9AC0}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="ofavoice" ID="{9C7468A3-FEED-48F5-8577-652C0D42478C}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="death" ID="{60F36010-2A10-49D8-AED9-ECA45F5F71DD}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="blackwhipsfx" ID="{3B48BBB0-768E-4A5E-ACB1-810887B42A10}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="detroitcharge" ID="{F702D838-287B-4B12-A453-60F73572B83D}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Entrance" ID="{1E8A360D-D364-4B45-8DFA-CAF3A2F1D66A}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="stlouisvoice" ID="{9B643E81-0966-4CF9-B539-FBB2B724AA0B}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="delawarevoice" ID="{C81EFC2E-261E-4FAB-9DE6-E610CBF0A88D}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="shootstylebulletsfx" ID="{4E06D5F1-137F-4FB4-A5AC-C69D29B67BB3}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="delawaresfx" ID="{98D516E3-063E-4FEC-B0AB-77B1A02E2424}" WorkUnitID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" Filter="7" Origin="Manual"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundBanks>
+</WwiseDocument>

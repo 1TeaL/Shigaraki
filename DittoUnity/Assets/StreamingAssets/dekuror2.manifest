@@ -1,0 +1,47 @@
+ManifestFileVersion: 0
+CRC: 3306343674
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4dfe856d6c8d4a9cbe5b71d548cf70d0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2a76a01bb5c529b8988c033daad76278
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 261c50d8a80898e4ebf2e8e415ea6766, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Deku/mdlDeku.prefab
+- Assets/Deku/DekuRor23.fbx
+- Assets/Deku/deku.mat
+- Assets/Deku/Deku all mats 3584x2049.png
+- Assets/Deku/DekuDisplay.prefab
+Dependencies:
+- F:/Theodore 3/Risk of Rain 2 modding/Unity/DekuRor2/Assets/Deku/myassetbundle

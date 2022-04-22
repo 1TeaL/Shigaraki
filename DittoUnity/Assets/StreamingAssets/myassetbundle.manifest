@@ -1,0 +1,212 @@
+ManifestFileVersion: 0
+CRC: 3804122533
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f8d98157d50fb18a27f71fbfb08c6611
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 972103ac939f0471d19a07f535135cc4
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9a68da65c907acb4eb4dbcd042f172e7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fc41cd48bee14034db80323ab44fbd3e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 261c50d8a80898e4ebf2e8e415ea6766, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 751bd37d2e55f5f448dbb0d97812d9ba, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 144
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 319
+  Script: {instanceID: 0}
+Assets:
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/maskAimBazooka.mask
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texShotgunIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matAnimeShapes.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texPunchImpactShadow.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matBazookaRocket.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texPrimaryIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texHenrySwing2.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texBazookaIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texMasteryAchievement.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshHenry.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/HenryDisplay.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Mesh/meshBoxingGlove.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matHenry.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/FistBarrageEffect.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texHenryAlt.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texPassiveIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texFire.tga
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/Jump.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshHenryNeo.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/WalkR.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/HenryDustEffect.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/SprintL.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matRebellion.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matSmoke.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texSwingEffect.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texBoxingGlove.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/maskAimYaw.mask
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texDanteAchievement.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texSecondaryIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/animHenry.controller
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matHenrySwing2.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texBazooka.png
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texRipple.png
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/ImpactHenrySlash.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Mesh/meshSwing.asset
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/HenryBazookaMuzzleFlash.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/HenryFistSwingEffect.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshVergil.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texFistSwing.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/LightImpact.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texHenryAchievement.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/WalkB.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/maskGesture.mask
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matPunchImpact.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshHenryAlt.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texHenryJedi.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/SprintR.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/animHenryMenu.controller
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texVergilAchievement.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texShotgun.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/WalkL.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/maskImpact.mask
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/Idle.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/BombExplosionEffect.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/Slash2.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshYamato.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texDust.png
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texHitSpark.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matBoxingGlove.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matHenryAlt.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/WalkF.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matPunchImpactShadow.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matDante.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/maskLeftArm.mask
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/MeshHenryGun.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/DescendFast.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/HenryBazookaRocketGhost.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texScepterSpecialIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matFistSwing.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshDante.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matTrail.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matHenryJedi.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matHitSpark.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshNeoCoat.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/ShootGun.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/SprintF.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshHenrySwordAlt.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texHenry.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texBazookaOutIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/maskAimPitch.mask
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texUziIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matHenryNeo.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Mesh/meshPunchShockwave.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matRoy.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texBazookaIconScepter.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texHenryNeo.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texMainSkin.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texBoxingGlovesIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matVergil.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matHitboxPreview.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/IdleIn.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matSwingShadow.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texHenryJediEmission.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshDanteCoat.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/RestIdle.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/ThrowBomb.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texHenryIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texUtilityIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/Ascend.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matPunchEffect.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texPunchImpact.png
+- Assets/HenryUnityProject/Assets/HenryAssets/mdlHenry.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshRebellion.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matHitSparkPunch.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matSwingEffect.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshHenrySword.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matEmbers.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/AimYaw.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/HenryBombGhost.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshPistol.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texStingerIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texHenryVergil.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshUzi.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matSlash.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texPistolIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matDust.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texSmoke.png
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texEmbers.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Mesh/meshVergilCoat.mesh
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texLightning.tif
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/RestIdleIn.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matRipple.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/DefaultPose.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matShotgun.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/IdleAdditive.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texBazookaFireIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Materials/matFire.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texGrandMasteryAchievement.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/maskBandana.mask
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/MenuIdle.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Materials/matBazooka.mat
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/HenrySwordSwingEffect.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/Descend.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texHenryDante.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/AimPitch.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/Textures/texSlash.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Icons/texSpecialIcon.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Textures/texHenryDanteEmission.png
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/MenuIdleIn.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/ImpactHenryPunch.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/Slash1.anim
+- Assets/HenryUnityProject/Assets/HenryAssets/VFX/HenryBazookaExplosionEffect.prefab
+- Assets/HenryUnityProject/Assets/HenryAssets/Animations/Roll.anim
+Dependencies: []

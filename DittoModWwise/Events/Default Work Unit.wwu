@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" SchemaVersion="97">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="DittoVoice" ID="{6AE1EABB-A814-449E-BE2B-970428553A67}">
+					<ChildrenList>
+						<Action Name="" ID="{A53555B3-DE30-410D-812F-5B2F2ABBB116}" ShortID="303797993">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Dittovoice" ID="{7884A4F0-5F1C-4644-AF90-5D66506EB578}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="TransformSFX" ID="{1231FAA1-FBE1-4E1B-8ADF-90C4E091AA6E}">
+					<ChildrenList>
+						<Action Name="" ID="{960B4DD4-3ABF-463D-A6A1-EE8ED143E119}" ShortID="1046431072">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="TransformSFX" ID="{6EC2D162-425D-4A43-ACD4-7CBC984479CD}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="StruggleSFX" ID="{02992101-1FAF-4CD0-9CC4-5C9C8E0AF6E7}">
+					<ChildrenList>
+						<Action Name="" ID="{0A9A5CB3-CE37-4893-AF82-7C8FE74CF897}" ShortID="559214489">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Struggle" ID="{40162BE6-2839-4DFD-84FC-2CF3AAC2EE32}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="AButtonSFX" ID="{D62DF349-8743-4C0C-ACA4-3384E3D533FB}">
+					<ChildrenList>
+						<Action Name="" ID="{24FB79DF-5681-410C-BB66-E7958F06BEE3}" ShortID="170029522">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Pokemon (A Button) - Sound Effect (HD)" ID="{25855112-7896-42B3-ADDE-AECC1D5AEF80}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

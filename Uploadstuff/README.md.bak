@@ -1,0 +1,56 @@
+## Deku
+Adds Deku from My Hero Academia, a high risk survivor which can boost his stats and skills, in exchange losing health and taking damage from his stronger skills. 
+#### Multiplayer works (hopefully).
+
+<img src="https://user-images.githubusercontent.com/93917577/143686542-fefd5db9-a008-48c2-8a53-5bcee9c911a6.PNG">
+
+## Overview
+Deku's general game plan is that his base form is safe with range and crowd control but with low damage. Then, when needed, he can use his special (OFA 100%) to increase his damage output and mobility. When at low health he can rely on his passive increased regen in base form to heal up.
+Attack speed scales fairly well with him as most skills do scale with it. Aiming to mitigate the health drain costs in OFA 100% mode can also make him very powerful.
+
+## Skills
+### Passive
+Deku has innate increased health regen the lower his health is. He also has a double jump.
+### Primary - Airforce
+Shoots a bullet dealing 2 x 100% damage.
+### Secondary - Blackwhip
+Pulls and stuns enemies in front for 300% damage. Gain barrier if an enemy is hit (based on attack damage). Attack speed increases the pull radius and barrier gain as well.
+### Utility - Shoot Style
+Dashes and hits enemies for 200% damage multiple times while having invincibility during the attack (Basically mercenary's eviscerate). 
+## Special - One For All 100%
+Deku's key ability- 100% boosts his Attack speed (1.5x), Damage (2x), Movement speed(1.5x) and Armor(5x) as well as changing all his abilities. This comes at the cost of negative health regen(-8x) and self-damage on his skills.
+### Boosted Primary - St. Louis Smash
+Dash and hit enemies passed through, dealing ? x 200% damage (Attack speed increases the number of attacks). Have invincibility during the duration. This doesn't cost health.
+### Boosted Secondary - Detroit Smash
+Charge up a punch that teleports you and does damage and stun on release, dealing a minimum of 600% damage, charging infinitely. Costs 10% of your max health to use. 
+### Boosted Utility - Delaware Smash 100%
+Send a blast forward, stunning and dealing 600% damage to enemies in front, while sending Deku backwards as well. Costs 10% of your max health to use.
+
+## Numbers
+##### Armor = 15 +0.5 per level
+##### Damage = 10 + 2 per level
+##### Regen = 1 + 0.2 per level (note: increases the lower his health is)
+##### Health = 150 +30 per level
+##### Movespeed = 7
+
+These stats are prone to change.
+
+## Changelog
+1.0.0 - released
+
+## Future plans
+##### Currently he's just using the effects from RoR2.
+##### Better animations (I animated them myself and they are not great).
+##### Ancient Scepter support (not sure what to do yet- maybe just further increasing the effects of his special).
+##### Alt skills (tried to use loader hook code for blackwhip and..yea, similarly might try to implement artificer's hover for float).
+##### Code clean-up (lots of leftover code that I commented out).
+##### Alt skins
+
+
+## Credits
+##### UA High - VRChat MHA community discord for the 3d model (airforce deku in particular).
+##### HenryMod for the template.
+##### Enforcer/Nemesis Enforcer mod for nemesis enforcer passive code.
+##### EggSkills for the alternate artificer utility, used for detroit smash.
+##### MinerUnearthed for utility/alt utility code for blackwhip and delaware smash.
+##### Ninja for partial utility code for st louis smash.

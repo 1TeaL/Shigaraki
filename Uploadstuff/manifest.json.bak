@@ -1,0 +1,10 @@
+{
+    "name": "DekuMod",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/1TeaL/DekuRor2",
+    "description": "Adds Deku from My Hero Academia, a high risk survivor that can boost his stats and skills, losing health and taking damage from his skills",
+    "dependencies": [
+		"tristanmcpherson-R2API-3.0.59"
+		"ebkr-r2modman-3.1.25"
+    ]
+}

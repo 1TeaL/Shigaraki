@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ValidationCache Version="1" SchemaVersion="97">
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Virtual Acoustics\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Triggers\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Switches\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\States\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\SoundBanks\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Queries\Factory Queries.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Queries\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Presets\Factory Spatial Audio.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Presets\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Modulators\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Mixing Sessions\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Game Parameters\Factory Motion.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Game Parameters\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Events\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Effects\Factory Effects.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Effects\Factory Auro Headphone.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Effects\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Dynamic Dialogue\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\DekuMod.wproj" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\DekuMod.theod.wsettings" DateLow="1646649294" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Conversion Settings\Factory Conversion Settings.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Conversion Settings\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Control Surface Sessions\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Audio Devices\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Attenuations\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Actor-Mixer Hierarchy\Factory Synth One.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Actor-Mixer Hierarchy\Factory Motion.wwu" DateLow="1646648807" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\DekuRor2\DekuModWwise\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1646648807" DateHigh="0"/>
+</ValidationCache>

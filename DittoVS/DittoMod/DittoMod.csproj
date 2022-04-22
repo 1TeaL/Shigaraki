@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Deku.bnk" />
+    <None Remove="Deku1.bnk" />
+    <None Remove="DekuAssetBundle" />
+    <None Remove="DelikuBank.bnk" />
+    <None Remove="Ditto.bnk" />
+    <None Remove="DittoAssetBundle" />
+    <None Remove="Modules\Survivors\DekuHenryDeku.cs~RF6221a098.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Ditto.bnk" />
+    <EmbeddedResource Include="DittoAssetBundle" />
+  </ItemGroup>
+	
+  <ItemGroup>
+	<PackageReference Include="BepInEx.Analyzers" Version="1.0.*">
+		<PrivateAssets>all</PrivateAssets>
+		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="R2API" Version="4.3.5" />
+	<PackageReference Include="RiskOfRain2.GameLibs" Version="1.2.3.1-r.0" />
+	<PackageReference Include="UnityEngine.Modules" Version="2019.4.26" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Reference Include="MMHOOK_Assembly-CSharp">
+      <HintPath>C:\Users\theod\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\test\BepInEx\plugins\RiskofThunder-HookGenPatcher\MMHOOK\MMHOOK_Assembly-CSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

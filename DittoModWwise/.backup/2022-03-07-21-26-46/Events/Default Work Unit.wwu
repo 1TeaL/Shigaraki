@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" SchemaVersion="89">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{208D4B7F-2C4F-468E-BE46-FF447DC649C0}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="airforcesfx" ID="{DB029791-8559-4422-B112-F91E50417F48}">
+					<ChildrenList>
+						<Action Name="" ID="{EC0F7C57-78BA-42AF-B075-2DFF57ADB04F}" ShortID="470877899">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="airforcesfx" ID="{3B9B5082-3ACF-4238-8274-4D6CC629D779}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="airforcevoice" ID="{6A62BB05-1ED5-44DC-9CD1-CC611EDAD08C}">
+					<ChildrenList>
+						<Action Name="" ID="{1DCE5272-8F62-4A78-8FED-EC7C25A2EF7C}" ShortID="1051589150">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="airforcevoice" ID="{7884A4F0-5F1C-4644-AF90-5D66506EB578}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="detroitcharge" ID="{F702D838-287B-4B12-A453-60F73572B83D}">
+					<ChildrenList>
+						<Action Name="" ID="{370500F8-A39D-4EC0-AAEC-C2BC94B35DB2}" ShortID="897165710">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="detroitcharge" ID="{46DC3C35-4BE3-45C3-823C-4F4A6C046D92}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="detroitexit" ID="{F7B36D41-23BE-400F-BC9B-98A0DF408C13}">
+					<ChildrenList>
+						<Action Name="" ID="{733676A5-F7CC-4726-B48A-FA37E7EE11ED}" ShortID="129847353">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="detroitexit" ID="{FE55D0BB-053A-4E93-9B77-BBEB3666EFF7}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="event" ID="{80A424F7-E94F-44E8-A10B-78DFD0B64D6F}">
+					<ChildrenList>
+						<Action Name="" ID="{E4990478-E4F0-4D49-A644-C94576C7672C}" ShortID="528228869">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="entrance" ID="{48554783-E3B0-4195-9A6B-CE0D728E3009}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ofavoice" ID="{9C7468A3-FEED-48F5-8577-652C0D42478C}">
+					<ChildrenList>
+						<Action Name="" ID="{BD50538B-6954-4859-97E8-E21999857B7F}" ShortID="516670380">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ofavoice" ID="{5C1399C7-24C8-4034-8BE3-DFC28013D1C3}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ofasfx" ID="{139B654F-C39F-4552-B7D5-AC05E60A9AC0}">
+					<ChildrenList>
+						<Action Name="" ID="{37AF8374-7341-4D3B-8A3F-B796D13B87BA}" ShortID="773590980">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ofasfx" ID="{13032015-9031-4592-A324-027FB57F5476}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="shootstylebulletsfx" ID="{4E06D5F1-137F-4FB4-A5AC-C69D29B67BB3}">
+					<ChildrenList>
+						<Action Name="" ID="{3047B189-DCBA-4007-9EC3-967F2CC3CAAD}" ShortID="933111016">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="shootstylebulletsfx" ID="{0C9D24AE-84C0-4619-A7B4-34A526F87CBB}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="shootstylebulletvoice" ID="{64B6DB43-0555-4238-8E0D-2C6ADCBC1056}">
+					<ChildrenList>
+						<Action Name="" ID="{27A51D56-2B49-41C9-B8EB-E50A65E28077}" ShortID="959833888">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="shootstylebulletvoice" ID="{D5FB01D5-2FDE-4CCE-B94A-2E3567A64221}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="stlouissfx" ID="{9081AAEB-98B6-4028-939E-4D681DA50998}">
+					<ChildrenList>
+						<Action Name="" ID="{9F25A4DD-1860-4A2C-A1AE-0B16E041D03C}" ShortID="747733694">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="stlouissfx" ID="{60F6E920-8072-4C9D-B745-2C61CDBDB7EF}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="stlouisvoice" ID="{9B643E81-0966-4CF9-B539-FBB2B724AA0B}">
+					<ChildrenList>
+						<Action Name="" ID="{FBAECDE9-83B4-432A-906D-384505FA6971}" ShortID="584996140">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="stlouisvoice" ID="{B76C5DA7-0439-4176-A86F-6686AED6490D}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="blackwhipsfx" ID="{3B48BBB0-768E-4A5E-ACB1-810887B42A10}">
+					<ChildrenList>
+						<Action Name="" ID="{3408C391-7B87-4C55-8EF0-95B233D9F04F}" ShortID="134210769">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="blackwhipsfx" ID="{7A40015F-01D6-4FAC-A61F-0E2800400D41}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="blackwhipvoice" ID="{1B6CFFCE-B123-448E-9E4E-B3F9402262F3}">
+					<ChildrenList>
+						<Action Name="" ID="{78E3791B-C890-469D-A911-683C9FE4ABF9}" ShortID="157126061">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="blackwhipvoice" ID="{C3D132D0-149F-4B1E-A835-6DE9BE5946C8}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="delawaresfx" ID="{98D516E3-063E-4FEC-B0AB-77B1A02E2424}">
+					<ChildrenList>
+						<Action Name="" ID="{5A5CA753-9160-499E-8820-FB817D5182DA}" ShortID="173502749">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="delawaresfx" ID="{572AEB15-89D6-4CCF-81A6-C8603645104C}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="delawarevoice" ID="{C81EFC2E-261E-4FAB-9DE6-E610CBF0A88D}">
+					<ChildrenList>
+						<Action Name="" ID="{F142693D-FB34-4B3C-A7AA-DEBFC4CDFF3A}" ShortID="336282730">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="delawarevoice" ID="{4D2849B9-1DF9-4F17-96AE-46545501C930}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Entrance" ID="{1E8A360D-D364-4B45-8DFA-CAF3A2F1D66A}">
+					<ChildrenList>
+						<Action Name="" ID="{C2E0B3A6-8CC2-42BA-B647-38F293418C87}" ShortID="407856813">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="entrance" ID="{48554783-E3B0-4195-9A6B-CE0D728E3009}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="death" ID="{60F36010-2A10-49D8-AED9-ECA45F5F71DD}">
+					<ChildrenList>
+						<Action Name="" ID="{442C046A-E88E-4A26-BF95-D6FDC11BC66F}" ShortID="698167104">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="death" ID="{50BE8A17-2848-4E2B-AF52-88E2783AA16E}" WorkUnitID="{7A2A7AB7-4882-45C9-B8AE-FB8A248CB8B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

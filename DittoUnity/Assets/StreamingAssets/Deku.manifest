@@ -1,0 +1,11 @@
+ManifestFileVersion: 0
+CRC: 2172885094
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: myassetbundle
+      Dependencies: {}
+    Info_1:
+      Name: dekuror2
+      Dependencies:
+        Dependency_0: myassetbundle

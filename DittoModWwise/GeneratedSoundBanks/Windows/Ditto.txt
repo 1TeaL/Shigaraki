@@ -1,0 +1,30 @@
+Event	ID	Name			Wwise Object Path	Notes
+	500315785	StruggleSFX			\Default Work Unit\StruggleSFX	
+	1531773223	AButtonSFX			\Default Work Unit\AButtonSFX	
+	1719197672	TransformSFX			\Default Work Unit\TransformSFX	
+	3468082827	DittoVoice			\Default Work Unit\DittoVoice	
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	3673881719	Volume_SFX			\Default Work Unit\Volume_SFX	
+	3695994288	Volume_Master			\Default Work Unit\Volume_Master	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	98812312	Transformgen5	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\SFX\Transformgen5_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\TransformSFX\TransformSFX\Transformgen5		23370
+	108164889	Pokemon (A Button) - Sound Effect (HD)	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Pokemon (A Button) - Sound Effect (HD)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\TransformSFX\AButton\Pokemon (A Button) - Sound Effect (HD)		14853
+	239728054	5	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Voice\5_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\DittoVoice\Dittovoice\5		6628
+	272812737	Transformgen8	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Transformgen8_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\TransformSFX\TransformSFX\Transformgen8		31462
+	431749713	Transformgen6	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\SFX\Transformgen6_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\TransformSFX\TransformSFX\Transformgen6		27578
+	521554246	6	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Voice\6_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\DittoVoice\Dittovoice\6		4760
+	584940816	ditto	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Voice\ditto_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\DittoVoice\Dittovoice\ditto		6786
+	709287427	Transformgen7	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\SFX\Transformgen7_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\TransformSFX\TransformSFX\Transformgen7		24935
+	712165525	4	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Voice\4_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\DittoVoice\Dittovoice\4		6641
+	772237646	Transform2	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\SFX\Transform2_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\TransformSFX\TransformSFX\Transform2		45772
+	850620808	Struggle	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Struggle_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\TransformSFX\Struggle\Struggle		10063
+	857057351	3	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Voice\3_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\DittoVoice\Dittovoice\3		5846
+	890851370	Transformgen4	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\SFX\Transformgen4_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\TransformSFX\TransformSFX\Transformgen4		20173
+	895644732	1	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Voice\1_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\DittoVoice\Dittovoice\1		7240
+	918189934	Transformgen3	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\SFX\Transformgen3_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\TransformSFX\TransformSFX\Transformgen3		23379
+	941595436	2	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Voice\2_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\DittoVoice\Dittovoice\2		7448
+	966217517	Transform	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\SFX\Transform_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\TransformSFX\TransformSFX\Transform		17638
+	968851876	7	F:\Theodore 3\GameDev\Mods\DittoRor2\DittoModWwise\.cache\Windows\SFX\Voice\7_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixer\Sfx Mixer\Ditto\DittoVoice\Dittovoice\7		5075
+
