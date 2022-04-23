@@ -21,7 +21,7 @@ namespace ShiggyMod.Modules
             string outro = "..and so it left, ever evolving.";
             string outroFailure = "Shiggy has Fainted.";
 
-            LanguageAPI.Add(prefix + "NAME", "Shiggy");
+            LanguageAPI.Add(prefix + "NAME", "Shigaraki");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
             LanguageAPI.Add(prefix + "SUBTITLE", "The Transform Pokémon");
             LanguageAPI.Add(prefix + "LORE", "Pokemon #132. Normal Type. Altering every cell in its body, Shiggy can transform into a perfect copy of many different Pokémon.");

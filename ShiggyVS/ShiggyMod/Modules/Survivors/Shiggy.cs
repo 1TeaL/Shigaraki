@@ -51,7 +51,7 @@ namespace ShiggyMod.Modules.Survivors
             maxHealth = 100f,
             moveSpeed = 7f,
             subtitleNameToken = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SUBTITLE",
-            podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod")
+            //podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod")
         };
 
         internal static Material ShiggyMat = Modules.Assets.CreateMaterial("ShiggyMat");
