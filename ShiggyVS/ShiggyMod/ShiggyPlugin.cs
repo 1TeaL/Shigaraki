@@ -50,9 +50,9 @@ namespace ShiggyMod
         public ShiggyController Shiggycon;
         public ShiggyMasterController Shiggymastercon;
 
-        public const string MODUID = "com.TeaL.ShiggyMod";
-        public const string MODNAME = "ShiggyMod";
-        public const string MODVERSION = "1.1.4";
+        public const string MODUID = "com.TeaL.ShigarakiMod";
+        public const string MODNAME = "ShigarakiMod";
+        public const string MODVERSION = "0.0.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -62,21 +62,21 @@ namespace ShiggyMod
         private GameObject effectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/LightningStakeNova");
         public static ShiggyPlugin instance;
         public static CharacterBody ShiggyCharacterBody;
-        GameObject voidcrabphase1 = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidRaidCrab/MiniVoidRaidCrabBodyPhase1.prefab").WaitForCompletion();
-        GameObject voidcrabphase2 = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidRaidCrab/MiniVoidRaidCrabBodyPhase2.prefab").WaitForCompletion();
-        GameObject voidcrabphase3 = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidRaidCrab/MiniVoidRaidCrabBodyPhase3.prefab").WaitForCompletion();
-        //GameObject shopkeeper = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Shopkeeper/ShopkeeperBody.prefab").WaitForCompletion();
-        GameObject xiconstruct = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MegaConstructBody.prefab").WaitForCompletion();
-        GameObject alphaconstruct = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MinorConstructBody.prefab").WaitForCompletion();
-        GameObject voidinfestor = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/EliteVoid/VoidInfestorBody.prefab").WaitForCompletion();
-        GameObject voidbarnacle = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidBarnacle/VoidBarnacleBody.prefab").WaitForCompletion();
-        GameObject voidjailer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidJailer/VoidJailerBody.prefab").WaitForCompletion();
-        GameObject voidmegacrab = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidMegaCrab/VoidMegaCrabBody.prefab").WaitForCompletion();
-        GameObject droneman = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/DroneCommander/DroneCommanderBody.prefab").WaitForCompletion();
-        GameObject gip = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GipBody.prefab").WaitForCompletion();
-        GameObject geep = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GeepBody.prefab").WaitForCompletion();
-        GameObject gup = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GupBody.prefab").WaitForCompletion();
-        GameObject impboss = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/ImpBoss/ImpBossBody.prefab").WaitForCompletion();
+        //GameObject voidcrabphase1 = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidRaidCrab/MiniVoidRaidCrabBodyPhase1.prefab").WaitForCompletion();
+        //GameObject voidcrabphase2 = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidRaidCrab/MiniVoidRaidCrabBodyPhase2.prefab").WaitForCompletion();
+        //GameObject voidcrabphase3 = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidRaidCrab/MiniVoidRaidCrabBodyPhase3.prefab").WaitForCompletion();
+        ////GameObject shopkeeper = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Shopkeeper/ShopkeeperBody.prefab").WaitForCompletion();
+        //GameObject xiconstruct = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MegaConstructBody.prefab").WaitForCompletion();
+        //GameObject alphaconstruct = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MinorConstructBody.prefab").WaitForCompletion();
+        //GameObject voidinfestor = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/EliteVoid/VoidInfestorBody.prefab").WaitForCompletion();
+        //GameObject voidbarnacle = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidBarnacle/VoidBarnacleBody.prefab").WaitForCompletion();
+        //GameObject voidjailer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidJailer/VoidJailerBody.prefab").WaitForCompletion();
+        //GameObject voidmegacrab = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidMegaCrab/VoidMegaCrabBody.prefab").WaitForCompletion();
+        //GameObject droneman = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/DroneCommander/DroneCommanderBody.prefab").WaitForCompletion();
+        //GameObject gip = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GipBody.prefab").WaitForCompletion();
+        //GameObject geep = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GeepBody.prefab").WaitForCompletion();
+        //GameObject gup = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GupBody.prefab").WaitForCompletion();
+        //GameObject impboss = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/ImpBoss/ImpBossBody.prefab").WaitForCompletion();
 
 
         public List<ItemBase> Items = new List<ItemBase>();
@@ -105,12 +105,12 @@ namespace ShiggyMod
             new Shiggy().Initialize();
 
             //Equipment Initialization;
-            var EquipmentTypes = Assembly.GetExecutingAssembly().GetTypes().Where(type => !type.IsAbstract && type.IsSubclassOf(typeof(EquipmentBase)));
-            foreach (var equipmentType in EquipmentTypes)
-            {
-                EquipmentBase equipment = (EquipmentBase)System.Activator.CreateInstance(equipmentType);
-                equipment.Init();
-            }
+            //var EquipmentTypes = Assembly.GetExecutingAssembly().GetTypes().Where(type => !type.IsAbstract && type.IsSubclassOf(typeof(EquipmentBase)));
+            //foreach (var equipmentType in EquipmentTypes)
+            //{
+            //    EquipmentBase equipment = (EquipmentBase)System.Activator.CreateInstance(equipmentType);
+            //    equipment.Init();
+            //}
 
             //Item Initialization
             //var ItemTypes = Assembly.GetExecutingAssembly().GetTypes().Where(type => !type.IsAbstract && type.IsSubclassOf(typeof(ItemBase)));
@@ -132,223 +132,223 @@ namespace ShiggyMod
 
             Hook();
 
-            //give equipment slot
-            GameObject shopkeeper = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/ShopkeeperBody");
-            GameObject beetlequeen = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/BeetleQueen2Body");
-            GameObject golem = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GolemBody");
-            GameObject titan = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/TitanBody");
-            GameObject titangold = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/TitanGoldBody");
-            GameObject gravekeeper = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GravekeeperBody");
-            GameObject vagrant = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VagrantBody");
-            GameObject magmaworm = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/MagmaWormBody");
-            GameObject overloadingworm = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ElectricWormBody");
-            GameObject claydunestrider = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ClayBossBody");
-            GameObject roboballboss = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/RoboBallBossBody");
-            GameObject superroboballboss = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/SuperRoboBallBossBody");
-            GameObject xiconstruct2 = PrefabAPI.InstantiateClone(xiconstruct, "1xiconstruct");
-            GameObject grandparent = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GrandParentBody");
-            GameObject scavenger = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ScavBody");
-            GameObject brother = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody");
-            GameObject brotherhurt = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BrotherHurtBody");
-            GameObject drone1 = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/Drone1Body");
-            GameObject drone2 = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/Drone2Body");
-            GameObject turret1 = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/Turret1Body");
-            GameObject missiledrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/MissileDroneBody");
-            GameObject flamedrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/FlameDroneBody");
-            GameObject backupdrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BackupDroneBody");
-            GameObject emergencydrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/EmergencyDroneBody");
-            GameObject equipmentdrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/EquipmentDroneBody");
-            GameObject megadrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/MegaDroneBody");
-            GameObject engiturret = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/EngiTurretBody");
-            GameObject engiwalkerturret = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/EngiWalkerTurretBody");
-            GameObject squidturret = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/SquidTurretBody");
-            GameObject urchinturret = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/UrchinTurretBody");
-            GameObject beetle = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BeetleBody");
-            GameObject beetleguard = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BeetleGuardBody");
-            GameObject acidlarva = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/AcidLarvaBody");
-            GameObject lemurian = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/LemurianBody");
-            GameObject lemurianbruiser = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/LemurianBruiserBody");
-            GameObject flyingvermin = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/FlyingVerminBody");
-            GameObject vermin = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VerminBody");
-            GameObject wisp = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/WispBody");
-            GameObject greaterwisp = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GreaterWispBody");
-            GameObject imp = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ImpBody");
-            GameObject jellyfish = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/JellyfishBody");
-            GameObject bison = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BisonBody");
-            GameObject claybruiser = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ClayBruiserBody");
-            GameObject claygrenadier = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ClayGrenadierBody");
-            GameObject vulture = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VultureBody");
-            GameObject roboballmini = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/RoboBallMiniBody");
-            GameObject roboballgreen = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/RoboBallGreenBuddyBody");
-            GameObject roboballred = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/RoboBallRedBuddyBody");
-            GameObject bellbody = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BellBody");
-            GameObject alphaconstruct2 = PrefabAPI.InstantiateClone(alphaconstruct, "1alphaconstruct");
-            GameObject minimushroom = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/MiniMushroomBody");
-            GameObject gip2 = PrefabAPI.InstantiateClone(gip, "1gip");
-            GameObject geep2 = PrefabAPI.InstantiateClone(geep, "1geep");
-            GameObject gup2 = PrefabAPI.InstantiateClone(gup, "1gup");
-            GameObject hermitcrab = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/HermitCrabBody");
-            GameObject voidinfestor2 = PrefabAPI.InstantiateClone(voidinfestor, "1voidinfestor");
-            GameObject voidbarnacle2 = PrefabAPI.InstantiateClone(voidbarnacle, "1voidbarnacle");
-            GameObject nullifier = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/NullifierBody");
-            GameObject voidjailer2 = PrefabAPI.InstantiateClone(voidjailer, "PCVoidJailerBody");
-            GameObject voidmegacrab2 = PrefabAPI.InstantiateClone(voidmegacrab, "1voidmegacrab");
-            GameObject lunarexploder = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/LunarExploderBody");
-            GameObject lunargolem = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/LunarGolemBody");
-            GameObject lunarwisp = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/LunarWispBody");
-            GameObject droneman2 = PrefabAPI.InstantiateClone(droneman, "1droneman");
-            GameObject voidcrabphase12 = PrefabAPI.InstantiateClone(voidcrabphase1, "1voidcrabphase1");
-            GameObject voidcrabphase22 = PrefabAPI.InstantiateClone(voidcrabphase2, "1voidcrabphase2");
-            GameObject voidcrabphase32 = PrefabAPI.InstantiateClone(voidcrabphase3, "1voidcrabphase3");
-            GameObject impboss2 = PrefabAPI.InstantiateClone(impboss, "1impboss");
+            ////give equipment slot
+            //GameObject shopkeeper = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/ShopkeeperBody");
+            //GameObject beetlequeen = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/BeetleQueen2Body");
+            //GameObject golem = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GolemBody");
+            //GameObject titan = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/TitanBody");
+            //GameObject titangold = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/TitanGoldBody");
+            //GameObject gravekeeper = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GravekeeperBody");
+            //GameObject vagrant = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VagrantBody");
+            //GameObject magmaworm = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/MagmaWormBody");
+            //GameObject overloadingworm = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ElectricWormBody");
+            //GameObject claydunestrider = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ClayBossBody");
+            //GameObject roboballboss = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/RoboBallBossBody");
+            //GameObject superroboballboss = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/SuperRoboBallBossBody");
+            //GameObject xiconstruct2 = PrefabAPI.InstantiateClone(xiconstruct, "1xiconstruct");
+            //GameObject grandparent = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GrandParentBody");
+            //GameObject scavenger = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ScavBody");
+            //GameObject brother = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody");
+            //GameObject brotherhurt = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BrotherHurtBody");
+            //GameObject drone1 = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/Drone1Body");
+            //GameObject drone2 = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/Drone2Body");
+            //GameObject turret1 = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/Turret1Body");
+            //GameObject missiledrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/MissileDroneBody");
+            //GameObject flamedrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/FlameDroneBody");
+            //GameObject backupdrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BackupDroneBody");
+            //GameObject emergencydrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/EmergencyDroneBody");
+            //GameObject equipmentdrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/EquipmentDroneBody");
+            //GameObject megadrone = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/MegaDroneBody");
+            //GameObject engiturret = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/EngiTurretBody");
+            //GameObject engiwalkerturret = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/EngiWalkerTurretBody");
+            //GameObject squidturret = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/SquidTurretBody");
+            //GameObject urchinturret = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/UrchinTurretBody");
+            //GameObject beetle = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BeetleBody");
+            //GameObject beetleguard = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BeetleGuardBody");
+            //GameObject acidlarva = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/AcidLarvaBody");
+            //GameObject lemurian = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/LemurianBody");
+            //GameObject lemurianbruiser = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/LemurianBruiserBody");
+            //GameObject flyingvermin = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/FlyingVerminBody");
+            //GameObject vermin = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VerminBody");
+            //GameObject wisp = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/WispBody");
+            //GameObject greaterwisp = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/GreaterWispBody");
+            //GameObject imp = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ImpBody");
+            //GameObject jellyfish = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/JellyfishBody");
+            //GameObject bison = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BisonBody");
+            //GameObject claybruiser = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ClayBruiserBody");
+            //GameObject claygrenadier = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/ClayGrenadierBody");
+            //GameObject vulture = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/VultureBody");
+            //GameObject roboballmini = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/RoboBallMiniBody");
+            //GameObject roboballgreen = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/RoboBallGreenBuddyBody");
+            //GameObject roboballred = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/RoboBallRedBuddyBody");
+            //GameObject bellbody = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BellBody");
+            //GameObject alphaconstruct2 = PrefabAPI.InstantiateClone(alphaconstruct, "1alphaconstruct");
+            //GameObject minimushroom = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/MiniMushroomBody");
+            //GameObject gip2 = PrefabAPI.InstantiateClone(gip, "1gip");
+            //GameObject geep2 = PrefabAPI.InstantiateClone(geep, "1geep");
+            //GameObject gup2 = PrefabAPI.InstantiateClone(gup, "1gup");
+            //GameObject hermitcrab = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/HermitCrabBody");
+            //GameObject voidinfestor2 = PrefabAPI.InstantiateClone(voidinfestor, "1voidinfestor");
+            //GameObject voidbarnacle2 = PrefabAPI.InstantiateClone(voidbarnacle, "1voidbarnacle");
+            //GameObject nullifier = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/NullifierBody");
+            //GameObject voidjailer2 = PrefabAPI.InstantiateClone(voidjailer, "PCVoidJailerBody");
+            //GameObject voidmegacrab2 = PrefabAPI.InstantiateClone(voidmegacrab, "1voidmegacrab");
+            //GameObject lunarexploder = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/LunarExploderBody");
+            //GameObject lunargolem = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/LunarGolemBody");
+            //GameObject lunarwisp = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/LunarWispBody");
+            //GameObject droneman2 = PrefabAPI.InstantiateClone(droneman, "1droneman");
+            //GameObject voidcrabphase12 = PrefabAPI.InstantiateClone(voidcrabphase1, "1voidcrabphase1");
+            //GameObject voidcrabphase22 = PrefabAPI.InstantiateClone(voidcrabphase2, "1voidcrabphase2");
+            //GameObject voidcrabphase32 = PrefabAPI.InstantiateClone(voidcrabphase3, "1voidcrabphase3");
+            //GameObject impboss2 = PrefabAPI.InstantiateClone(impboss, "1impboss");
 
-            //EquipmentSlot equipmentSlot = VoidRaidCrabPlayer.GetComponent<EquipmentSlot>();
+            ////EquipmentSlot equipmentSlot = VoidRaidCrabPlayer.GetComponent<EquipmentSlot>();
 
-            //if (!equipmentSlot)
-            //{
-            //    equipmentSlot = VoidRaidCrabPlayer.AddComponent<EquipmentSlot>();
-            //}
-            //EquipmentSlot exists = beetlequeen.GetComponent<EquipmentSlot>();
-            //bool flag3 = !exists;
-            //if (flag3)
-            //{
-            //    exists = beetlequeen.AddComponent<EquipmentSlot>();
-            //}
-            PolishMonsterToSurvivor(beetle, 20f);
-            PolishMonsterToSurvivor(beetleguard, 20f);
-            PolishMonsterToSurvivor(acidlarva, 20f);
-            PolishMonsterToSurvivor(lemurian, 20f);
-            PolishMonsterToSurvivor(lemurianbruiser, 20f);
-            PolishMonsterToSurvivor(flyingvermin, 20f);
-            PolishMonsterToSurvivor(vermin, 20f);
-            PolishMonsterToSurvivor(wisp, 20f);
-            PolishMonsterToSurvivor(greaterwisp, 20f);
-            PolishMonsterToSurvivor(imp, 20f);
-            PolishMonsterToSurvivor(jellyfish, 20f);
-            PolishMonsterToSurvivor(bison, 20f);
-            PolishMonsterToSurvivor(claybruiser, 20f);
-            PolishMonsterToSurvivor(claygrenadier, 20f);
-            PolishMonsterToSurvivor(vulture, 20f);
-            PolishMonsterToSurvivor(roboballmini, 20f);
-            PolishMonsterToSurvivor(roboballgreen, 20f);
-            PolishMonsterToSurvivor(roboballred, 20f);
-            PolishMonsterToSurvivor(bellbody, 20f);
-            PolishMonsterToSurvivor(alphaconstruct2, 20f);
-            PolishMonsterToSurvivor(minimushroom, 20f);
-            PolishMonsterToSurvivor(gip2, 20f);
-            PolishMonsterToSurvivor(geep2, 20f);
-            PolishMonsterToSurvivor(gup2, 20f);
-            PolishMonsterToSurvivor(hermitcrab, 20f);
-            PolishMonsterToSurvivor(voidinfestor2, 20f);
-            PolishMonsterToSurvivor(voidbarnacle2, 20f);
-            PolishMonsterToSurvivor(nullifier, 10f);
-            PolishMonsterToSurvivor(voidjailer2, 10f);
-            PolishMonsterToSurvivor(voidmegacrab2, 10f);
-            PolishMonsterToSurvivor(lunarexploder, 10f);
-            PolishMonsterToSurvivor(lunargolem, 10f);
-            PolishMonsterToSurvivor(lunarwisp, 10f);
-            PolishMonsterToSurvivor(beetlequeen, 10f);
-            PolishMonsterToSurvivor(golem, 10f);
-            PolishMonsterToSurvivor(titan, 20f);
-            PolishMonsterToSurvivor(titangold, 20f);
-            PolishMonsterToSurvivor(gravekeeper, 20f);
-            PolishMonsterToSurvivor(vagrant, 20f);
-            PolishMonsterToSurvivor(magmaworm, 20f);
-            PolishMonsterToSurvivor(overloadingworm, 20f);
-            PolishMonsterToSurvivor(claydunestrider, 20f);
-            PolishMonsterToSurvivor(roboballboss, 20f);
-            PolishMonsterToSurvivor(superroboballboss, 20f);
-            PolishMonsterToSurvivor(xiconstruct2, 20f);
-            PolishMonsterToSurvivor(grandparent, 10f);
-            PolishMonsterToSurvivor(scavenger, 20f);
-            PolishMonsterToSurvivor(brother, 20f);
-            PolishMonsterToSurvivor(drone1, 20f);
-            PolishMonsterToSurvivor(drone2, 20f);
-            PolishMonsterToSurvivor(turret1, 20f);
-            PolishMonsterToSurvivor(missiledrone, 20f);
-            PolishMonsterToSurvivor(flamedrone, 20f);
-            PolishMonsterToSurvivor(backupdrone, 20f);
-            PolishMonsterToSurvivor(emergencydrone, 20f);
-            PolishMonsterToSurvivor(equipmentdrone, 20f);
-            PolishMonsterToSurvivor(megadrone, 20f);
-            PolishMonsterToSurvivor(engiturret, 20f);
-            PolishMonsterToSurvivor(engiwalkerturret, 20f);
-            PolishMonsterToSurvivor(squidturret, 20f);
-            PolishMonsterToSurvivor(urchinturret, 20f);
-            PolishMonsterToSurvivor(droneman2, 20f);
-            PolishMonsterToSurvivor(voidcrabphase12, 20f);
-            PolishMonsterToSurvivor(voidcrabphase22, 20f);
-            PolishMonsterToSurvivor(voidcrabphase32, 20f);
-            PolishMonsterToSurvivor(shopkeeper, 20f);
-            PolishMonsterToSurvivor(impboss2, 20f);
-            PolishMonsterToSurvivor(brotherhurt, 20f);
+            ////if (!equipmentSlot)
+            ////{
+            ////    equipmentSlot = VoidRaidCrabPlayer.AddComponent<EquipmentSlot>();
+            ////}
+            ////EquipmentSlot exists = beetlequeen.GetComponent<EquipmentSlot>();
+            ////bool flag3 = !exists;
+            ////if (flag3)
+            ////{
+            ////    exists = beetlequeen.AddComponent<EquipmentSlot>();
+            ////}
+            //PolishMonsterToSurvivor(beetle, 20f);
+            //PolishMonsterToSurvivor(beetleguard, 20f);
+            //PolishMonsterToSurvivor(acidlarva, 20f);
+            //PolishMonsterToSurvivor(lemurian, 20f);
+            //PolishMonsterToSurvivor(lemurianbruiser, 20f);
+            //PolishMonsterToSurvivor(flyingvermin, 20f);
+            //PolishMonsterToSurvivor(vermin, 20f);
+            //PolishMonsterToSurvivor(wisp, 20f);
+            //PolishMonsterToSurvivor(greaterwisp, 20f);
+            //PolishMonsterToSurvivor(imp, 20f);
+            //PolishMonsterToSurvivor(jellyfish, 20f);
+            //PolishMonsterToSurvivor(bison, 20f);
+            //PolishMonsterToSurvivor(claybruiser, 20f);
+            //PolishMonsterToSurvivor(claygrenadier, 20f);
+            //PolishMonsterToSurvivor(vulture, 20f);
+            //PolishMonsterToSurvivor(roboballmini, 20f);
+            //PolishMonsterToSurvivor(roboballgreen, 20f);
+            //PolishMonsterToSurvivor(roboballred, 20f);
+            //PolishMonsterToSurvivor(bellbody, 20f);
+            //PolishMonsterToSurvivor(alphaconstruct2, 20f);
+            //PolishMonsterToSurvivor(minimushroom, 20f);
+            //PolishMonsterToSurvivor(gip2, 20f);
+            //PolishMonsterToSurvivor(geep2, 20f);
+            //PolishMonsterToSurvivor(gup2, 20f);
+            //PolishMonsterToSurvivor(hermitcrab, 20f);
+            //PolishMonsterToSurvivor(voidinfestor2, 20f);
+            //PolishMonsterToSurvivor(voidbarnacle2, 20f);
+            //PolishMonsterToSurvivor(nullifier, 10f);
+            //PolishMonsterToSurvivor(voidjailer2, 10f);
+            //PolishMonsterToSurvivor(voidmegacrab2, 10f);
+            //PolishMonsterToSurvivor(lunarexploder, 10f);
+            //PolishMonsterToSurvivor(lunargolem, 10f);
+            //PolishMonsterToSurvivor(lunarwisp, 10f);
+            //PolishMonsterToSurvivor(beetlequeen, 10f);
+            //PolishMonsterToSurvivor(golem, 10f);
+            //PolishMonsterToSurvivor(titan, 20f);
+            //PolishMonsterToSurvivor(titangold, 20f);
+            //PolishMonsterToSurvivor(gravekeeper, 20f);
+            //PolishMonsterToSurvivor(vagrant, 20f);
+            //PolishMonsterToSurvivor(magmaworm, 20f);
+            //PolishMonsterToSurvivor(overloadingworm, 20f);
+            //PolishMonsterToSurvivor(claydunestrider, 20f);
+            //PolishMonsterToSurvivor(roboballboss, 20f);
+            //PolishMonsterToSurvivor(superroboballboss, 20f);
+            //PolishMonsterToSurvivor(xiconstruct2, 20f);
+            //PolishMonsterToSurvivor(grandparent, 10f);
+            //PolishMonsterToSurvivor(scavenger, 20f);
+            //PolishMonsterToSurvivor(brother, 20f);
+            //PolishMonsterToSurvivor(drone1, 20f);
+            //PolishMonsterToSurvivor(drone2, 20f);
+            //PolishMonsterToSurvivor(turret1, 20f);
+            //PolishMonsterToSurvivor(missiledrone, 20f);
+            //PolishMonsterToSurvivor(flamedrone, 20f);
+            //PolishMonsterToSurvivor(backupdrone, 20f);
+            //PolishMonsterToSurvivor(emergencydrone, 20f);
+            //PolishMonsterToSurvivor(equipmentdrone, 20f);
+            //PolishMonsterToSurvivor(megadrone, 20f);
+            //PolishMonsterToSurvivor(engiturret, 20f);
+            //PolishMonsterToSurvivor(engiwalkerturret, 20f);
+            //PolishMonsterToSurvivor(squidturret, 20f);
+            //PolishMonsterToSurvivor(urchinturret, 20f);
+            //PolishMonsterToSurvivor(droneman2, 20f);
+            //PolishMonsterToSurvivor(voidcrabphase12, 20f);
+            //PolishMonsterToSurvivor(voidcrabphase22, 20f);
+            //PolishMonsterToSurvivor(voidcrabphase32, 20f);
+            //PolishMonsterToSurvivor(shopkeeper, 20f);
+            //PolishMonsterToSurvivor(impboss2, 20f);
+            //PolishMonsterToSurvivor(brotherhurt, 20f);
         }
-        public bool ValidateItem(ItemBase item, List<ItemBase> itemList)
-        {
-            var enabled = Config.Bind<bool>("Item: " + item.ItemName, "Enable Item?", true, "Should this item appear in runs?").Value;
-            var aiBlacklist = Config.Bind<bool>("Item: " + item.ItemName, "Blacklist Item from AI Use?", false, "Should the AI not be able to obtain this item?").Value;
-            var printerBlacklist = Config.Bind<bool>("Item: " + item.ItemName, "Blacklist Item from Printers?", false, "Should the printers be able to print this item?").Value;
-            var requireUnlock = Config.Bind<bool>("Item: " + item.ItemName, "Require Unlock", true, "Should we require this item to be unlocked before it appears in runs? (Will only affect items with associated unlockables.)").Value;
+        //public bool ValidateItem(ItemBase item, List<ItemBase> itemList)
+        //{
+        //    var enabled = Config.Bind<bool>("Item: " + item.ItemName, "Enable Item?", true, "Should this item appear in runs?").Value;
+        //    var aiBlacklist = Config.Bind<bool>("Item: " + item.ItemName, "Blacklist Item from AI Use?", false, "Should the AI not be able to obtain this item?").Value;
+        //    var printerBlacklist = Config.Bind<bool>("Item: " + item.ItemName, "Blacklist Item from Printers?", false, "Should the printers be able to print this item?").Value;
+        //    var requireUnlock = Config.Bind<bool>("Item: " + item.ItemName, "Require Unlock", true, "Should we require this item to be unlocked before it appears in runs? (Will only affect items with associated unlockables.)").Value;
 
-            ItemStatusDictionary.Add(item, enabled);
+        //    ItemStatusDictionary.Add(item, enabled);
 
-            if (enabled)
-            {
-                itemList.Add(item);
-                if (aiBlacklist)
-                {
-                    item.AIBlacklisted = true;
-                }
-                if (printerBlacklist)
-                {
-                    item.PrinterBlacklisted = true;
-                }
+        //    if (enabled)
+        //    {
+        //        itemList.Add(item);
+        //        if (aiBlacklist)
+        //        {
+        //            item.AIBlacklisted = true;
+        //        }
+        //        if (printerBlacklist)
+        //        {
+        //            item.PrinterBlacklisted = true;
+        //        }
 
-                item.RequireUnlock = requireUnlock;
-            }
-            return enabled;
-        }
-        private void PolishMonsterToSurvivor(GameObject monsterSurvivor, float maxInteractionDistance)
-        {
-            NetworkIdentity networkIdentity = monsterSurvivor.GetComponent<NetworkIdentity>();
-            bool flag = !networkIdentity;
-            if (flag)
-            {
-                base.Logger.LogMessage("Missing NetworkIdentity! Adding...");
-                networkIdentity = monsterSurvivor.AddComponent<NetworkIdentity>();
-            }
-            bool flag2 = !networkIdentity.localPlayerAuthority;
-            if (flag2)
-            {
-                base.Logger.LogMessage("Ensuring Networking");
-                networkIdentity.localPlayerAuthority = true;
-            }
-            //DeathRewards component = monsterSurvivor.GetComponent<DeathRewards>();
-            //bool flag3 = component;
-            //if (flag3)
-            //{
-            //    Object.Destroy(component);
-            //}
-            //InteractionDriver exists = monsterSurvivor.GetComponent<InteractionDriver>();
-            //bool flag4 = !exists;
-            //if (flag4)
-            //{
-            //    exists = monsterSurvivor.AddComponent<InteractionDriver>();
-            //}
-            Interactor interactor = monsterSurvivor.GetComponent<Interactor>();
-            bool flag5 = !interactor;
-            if (flag5)
-            {
-                interactor = monsterSurvivor.AddComponent<Interactor>();
-            }
-            interactor.maxInteractionDistance = maxInteractionDistance;
-            EquipmentSlot exists2 = monsterSurvivor.GetComponent<EquipmentSlot>();
-            bool flag6 = !exists2;
-            if (flag6)
-            {
-                exists2 = monsterSurvivor.AddComponent<EquipmentSlot>();
-            }
-        }
+        //        item.RequireUnlock = requireUnlock;
+        //    }
+        //    return enabled;
+        //}
+        //private void PolishMonsterToSurvivor(GameObject monsterSurvivor, float maxInteractionDistance)
+        //{
+        //    NetworkIdentity networkIdentity = monsterSurvivor.GetComponent<NetworkIdentity>();
+        //    bool flag = !networkIdentity;
+        //    if (flag)
+        //    {
+        //        base.Logger.LogMessage("Missing NetworkIdentity! Adding...");
+        //        networkIdentity = monsterSurvivor.AddComponent<NetworkIdentity>();
+        //    }
+        //    bool flag2 = !networkIdentity.localPlayerAuthority;
+        //    if (flag2)
+        //    {
+        //        base.Logger.LogMessage("Ensuring Networking");
+        //        networkIdentity.localPlayerAuthority = true;
+        //    }
+        //    //DeathRewards component = monsterSurvivor.GetComponent<DeathRewards>();
+        //    //bool flag3 = component;
+        //    //if (flag3)
+        //    //{
+        //    //    Object.Destroy(component);
+        //    //}
+        //    //InteractionDriver exists = monsterSurvivor.GetComponent<InteractionDriver>();
+        //    //bool flag4 = !exists;
+        //    //if (flag4)
+        //    //{
+        //    //    exists = monsterSurvivor.AddComponent<InteractionDriver>();
+        //    //}
+        //    Interactor interactor = monsterSurvivor.GetComponent<Interactor>();
+        //    bool flag5 = !interactor;
+        //    if (flag5)
+        //    {
+        //        interactor = monsterSurvivor.AddComponent<Interactor>();
+        //    }
+        //    interactor.maxInteractionDistance = maxInteractionDistance;
+        //    EquipmentSlot exists2 = monsterSurvivor.GetComponent<EquipmentSlot>();
+        //    bool flag6 = !exists2;
+        //    if (flag6)
+        //    {
+        //        exists2 = monsterSurvivor.AddComponent<EquipmentSlot>();
+        //    }
+        //}
         private void LateSetup(HG.ReadOnlyArray<RoR2.ContentManagement.ReadOnlyContentPack> obj)
         {
             // have to set item displays later now because they require direct object references..
@@ -422,7 +422,7 @@ namespace ShiggyMod
                         blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
                         if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                            != ShiggyPlugin.developerPrefix + "_Shiggy_BODY_NAME" && damageInfo.attacker != null)
+                            != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME" && damageInfo.attacker != null)
                         {
                             blastAttack.Fire();
                         }
@@ -452,7 +452,7 @@ namespace ShiggyMod
                         blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
                         if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                            != ShiggyPlugin.developerPrefix + "_Shiggy_BODY_NAME" && damageInfo.attacker != null)
+                            != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME" && damageInfo.attacker != null)
                         {
                             blastAttack.Fire();
                         }
@@ -602,7 +602,7 @@ namespace ShiggyMod
         private void CharacterBody_OnDeathStart(On.RoR2.CharacterBody.orig_OnDeathStart orig, CharacterBody self)
         {
             orig(self);
-            if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_NAME")
+            if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
             {
                 AkSoundEngine.PostEvent(3468082827, this.gameObject);
             }

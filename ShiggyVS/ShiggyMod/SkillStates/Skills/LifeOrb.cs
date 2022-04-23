@@ -17,13 +17,13 @@ namespace ShiggyMod.SkillStates
             Shiggycon = base.GetComponent<ShiggyController>();
             if (!characterBody.HasBuff(Modules.Buffs.lifeorbBuff))
             {
-                if (Shiggycon.leftovers = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LIFEORB_NAME")
+                if (Shiggycon.leftovers = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LIFEORB_NAME")
                 {
                     Shiggycon.leftovers = true;
                     characterBody.AddBuff(Modules.Buffs.lifeorbBuff);
                     AkSoundEngine.PostEvent(1531773223, this.gameObject);
                 }
-                if (Shiggycon.leftovers2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LIFEORB_NAME")
+                if (Shiggycon.leftovers2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LIFEORB_NAME")
                 {
                     Shiggycon.leftovers2 = true;
                     characterBody.AddBuff(Modules.Buffs.lifeorbBuff);

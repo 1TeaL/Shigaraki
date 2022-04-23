@@ -18,13 +18,13 @@ namespace ShiggyMod.SkillStates
             if (!characterBody.HasBuff(Modules.Buffs.choicescarfBuff))
             {
                 {
-                    if (Shiggycon.choicescarf = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICESCARF_NAME")
+                    if (Shiggycon.choicescarf = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESCARF_NAME")
                     {
                         Shiggycon.choicescarf = true;
                         characterBody.AddBuff(Modules.Buffs.choicescarfBuff);
                         AkSoundEngine.PostEvent(1531773223, this.gameObject);
                     }
-                    if (Shiggycon.choicescarf2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICESCARF_NAME")
+                    if (Shiggycon.choicescarf2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESCARF_NAME")
                     {
                         Shiggycon.choicescarf2 = true;
                         characterBody.AddBuff(Modules.Buffs.choicescarfBuff);

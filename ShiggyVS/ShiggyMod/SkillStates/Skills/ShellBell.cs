@@ -17,13 +17,13 @@ namespace ShiggyMod.SkillStates
             Shiggycon = base.GetComponent<ShiggyController>();
             if (!characterBody.HasBuff(Modules.Buffs.shellbellBuff))
             {
-                if (Shiggycon.shellbell = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SHELLBELL_NAME")
+                if (Shiggycon.shellbell = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SHELLBELL_NAME")
                 {
                     Shiggycon.shellbell = true;
                     characterBody.AddBuff(Modules.Buffs.shellbellBuff);
                     AkSoundEngine.PostEvent(1531773223, this.gameObject);
                 }
-                if (Shiggycon.shellbell2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SHELLBELL_NAME")
+                if (Shiggycon.shellbell2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SHELLBELL_NAME")
                 {
                     Shiggycon.shellbell2 = true;
                     characterBody.AddBuff(Modules.Buffs.shellbellBuff);

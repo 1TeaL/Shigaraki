@@ -48,9 +48,9 @@ namespace ShiggyMod.Modules
 
 
         //Shiggy Equipment Obj
-        internal static GameObject ShiggyEquipmentPrefab;
-        //Shiggy Item Obj
-        internal static GameObject ShiggyItemPrefab;
+        //internal static GameObject ShiggyEquipmentPrefab;
+        ////Shiggy Item Obj
+        //internal static GameObject ShiggyItemPrefab;
 
         internal static void Initialize()
         {
@@ -100,9 +100,9 @@ namespace ShiggyMod.Modules
 
 
             //Shiggy Equipment prefab
-            ShiggyEquipmentPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyEquipmentModel");
-            //Shiggy Item prefab
-            ShiggyItemPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyItemModel");
+            //ShiggyEquipmentPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyEquipmentModel");
+            ////Shiggy Item prefab
+            //ShiggyItemPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyItemModel");
         }
 
         private static GameObject CreateTracer(string originalTracerName, string newTracerName)

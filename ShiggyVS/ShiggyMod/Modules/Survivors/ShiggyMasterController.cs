@@ -136,14 +136,14 @@ namespace ShiggyMod.Modules.Survivors
             self.SetBuffCount(Modules.Buffs.shellbellBuff.buffIndex, 0);
 
             characterMaster.luck = 0;
-            if (characterMaster.GetBody().skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LUCKYEGG_NAME" && !luckyegg)
+            if (characterMaster.GetBody().skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LUCKYEGG_NAME" && !luckyegg)
             {
                 luckyegg = true;
                 Shiggycon.luckyegg = true;
                 self.AddBuff(Modules.Buffs.luckyeggBuff);
                 characterMaster.luck += 1f;
             }
-            if (characterMaster.GetBody().skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LUCKYEGG_NAME" && !luckyegg2)
+            if (characterMaster.GetBody().skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LUCKYEGG_NAME" && !luckyegg2)
             {
                 luckyegg2 = true;
                 Shiggycon.luckyegg = true;
@@ -152,119 +152,119 @@ namespace ShiggyMod.Modules.Survivors
             }
 
 
-            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_ASSAULTVEST_NAME" && !assaultvest)
+            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ASSAULTVEST_NAME" && !assaultvest)
             {
                 assaultvest = true;
                 Shiggycon.assaultvest = true;
                 self.AddBuff(Modules.Buffs.assaultvestBuff);
             }
-            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICEBAND_NAME" && !choiceband)
+            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICEBAND_NAME" && !choiceband)
             {
                 choiceband = true;
                 Shiggycon.choiceband = true;
                 self.AddBuff(Modules.Buffs.choicebandBuff);
             }
-            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICESCARF_NAME" && !choicescarf)
+            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESCARF_NAME" && !choicescarf)
             {
                 choicescarf = true;
                 Shiggycon.choicescarf = true;
                 self.AddBuff(Modules.Buffs.choicescarfBuff);
             }
-            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICESPECS_NAME" && !choicespecs)
+            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESPECS_NAME" && !choicespecs)
             {
                 choicespecs = true;
                 Shiggycon.choicespecs = true;
                 self.AddBuff(Modules.Buffs.choicespecsBuff);
             }
-            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LEFTOVERS_NAME" && !leftovers)
+            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LEFTOVERS_NAME" && !leftovers)
             {
                 leftovers = true;
                 Shiggycon.leftovers = true;
                 self.AddBuff(Modules.Buffs.leftoversBuff);
             }
-            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LIFEORB_NAME" && !lifeorb)
+            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LIFEORB_NAME" && !lifeorb)
             {
                 lifeorb = true;
                 Shiggycon.lifeorb = true;
                 self.AddBuff(Modules.Buffs.lifeorbBuff);
             }
-            //if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LUCKYEGG_NAME" && !luckyegg)
+            //if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LUCKYEGG_NAME" && !luckyegg)
             //{
             //    luckyegg = true;
             //    self.AddBuff(Modules.Buffs.luckyeggBuff);
             //}
-            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_ROCKYHELMET_NAME" && !rockyhelmet)
+            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ROCKYHELMET_NAME" && !rockyhelmet)
             {
                 rockyhelmet = true;
                 Shiggycon.rockyhelmet = true;
                 self.AddBuff(Modules.Buffs.rockyhelmetBuff);
             }
-            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SCOPELENS_NAME" && !scopelens)
+            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SCOPELENS_NAME" && !scopelens)
             {
                 scopelens = true;
                 Shiggycon.scopelens = true;
                 self.AddBuff(Modules.Buffs.scopelensBuff);
             }
-            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SHELLBELL_NAME" && !shellbell)
+            if (self.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SHELLBELL_NAME" && !shellbell)
             {
                 shellbell = true;
                 Shiggycon.shellbell = true;
                 self.AddBuff(Modules.Buffs.shellbellBuff);
             }
-            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_ASSAULTVEST_NAME" && !assaultvest2)
+            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ASSAULTVEST_NAME" && !assaultvest2)
             {
                 assaultvest2 = true;
                 Shiggycon.assaultvest2 = true;
                 self.AddBuff(Modules.Buffs.assaultvestBuff);
             }
-            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICEBAND_NAME" && !choiceband2)
+            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICEBAND_NAME" && !choiceband2)
             {
                 choiceband2 = true;
                 Shiggycon.choiceband2 = true;
                 self.AddBuff(Modules.Buffs.choicebandBuff);
             }
-            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICESCARF_NAME" && !choicescarf2)
+            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESCARF_NAME" && !choicescarf2)
             {
                 choicescarf2 = true;
                 Shiggycon.choicescarf2 = true;
                 self.AddBuff(Modules.Buffs.choicescarfBuff);
             }
-            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICESPECS_NAME" && !choicespecs2)
+            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESPECS_NAME" && !choicespecs2)
             {
                 choicespecs2 = true;
                 Shiggycon.choicespecs2 = true;
                 self.AddBuff(Modules.Buffs.choicespecsBuff);
             }
-            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LEFTOVERS_NAME" && !leftovers2)
+            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LEFTOVERS_NAME" && !leftovers2)
             {
                 leftovers2 = true;
                 Shiggycon.leftovers2 = true;
                 self.AddBuff(Modules.Buffs.leftoversBuff);
             }
-            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LIFEORB_NAME" && !lifeorb2)
+            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LIFEORB_NAME" && !lifeorb2)
             {
                 lifeorb2 = true;
                 Shiggycon.lifeorb2 = true;
                 self.AddBuff(Modules.Buffs.lifeorbBuff);
             }
-            //if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LUCKYEGG_NAME" && !luckyegg2)
+            //if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LUCKYEGG_NAME" && !luckyegg2)
             //{
             //    luckyegg2 = true;
             //    self.AddBuff(Modules.Buffs.luckyeggBuff);
             //}
-            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_ROCKYHELMET_NAME" && !rockyhelmet2)
+            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ROCKYHELMET_NAME" && !rockyhelmet2)
             {
                 rockyhelmet2 = true;
                 Shiggycon.rockyhelmet2 = true;
                 self.AddBuff(Modules.Buffs.rockyhelmetBuff);
             }
-            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SCOPELENS_NAME" && !scopelens2)
+            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SCOPELENS_NAME" && !scopelens2)
             {
                 scopelens2 = true;
                 Shiggycon.scopelens2 = true;
                 self.AddBuff(Modules.Buffs.scopelensBuff);
             }
-            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SHELLBELL_NAME" && !shellbell2)
+            if (self.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SHELLBELL_NAME" && !shellbell2)
             {
                 shellbell2 = true;
                 Shiggycon.shellbell2 = true;

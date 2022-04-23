@@ -8,7 +8,7 @@ namespace ShiggyMod.Modules
         internal static void AddTokens()
         {
             #region Shiggy
-            string prefix = ShiggyPlugin.developerPrefix + "_Shiggy_BODY_";
+            string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
             string desc = "Shiggy can transform into any character/monster<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Shiggy copies every stat besides regen, armor and movespeed. The transformation will have 10% of its Max HP + Shiggy's Max HP" + Environment.NewLine + Environment.NewLine;

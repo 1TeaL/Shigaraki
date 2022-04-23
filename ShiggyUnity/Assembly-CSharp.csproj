@@ -607,6 +607,9 @@
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.AssetBundleBrowser.Editor">
+ <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.AssetBundleBrowser.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Rider.Editor">
  <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>

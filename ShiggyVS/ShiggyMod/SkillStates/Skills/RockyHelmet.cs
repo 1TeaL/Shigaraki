@@ -17,13 +17,13 @@ namespace ShiggyMod.SkillStates
             Shiggycon = base.GetComponent<ShiggyController>();
             if (!characterBody.HasBuff(Modules.Buffs.rockyhelmetBuff))
             {
-                if (Shiggycon.rockyhelmet = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_ROCKYHELMET_NAME")
+                if (Shiggycon.rockyhelmet = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ROCKYHELMET_NAME")
                 {
                     Shiggycon.rockyhelmet = true;
                     characterBody.AddBuff(Modules.Buffs.rockyhelmetBuff);
                     AkSoundEngine.PostEvent(1531773223, this.gameObject);
                 }
-                if (Shiggycon.rockyhelmet2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_ROCKYHELMET_NAME")
+                if (Shiggycon.rockyhelmet2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ROCKYHELMET_NAME")
                 {
                     Shiggycon.rockyhelmet2 = true;
                     characterBody.AddBuff(Modules.Buffs.rockyhelmetBuff);

@@ -22,7 +22,7 @@
 //        public float capChance { get; private set; } = 100f;
 //        public override string ItemName => "Shiggy Virus";
 
-//        public override string ItemLangTokenName => "Shiggy_VIRUS";
+//        public override string ItemLangTokenName => "SHIGGY_VIRUS";
 
 //        public override string ItemPickupDesc => $"Chance to transform an enemy into a Shiggy after 5 seconds.";
 

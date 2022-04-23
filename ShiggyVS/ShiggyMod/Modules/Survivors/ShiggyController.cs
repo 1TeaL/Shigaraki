@@ -204,121 +204,121 @@ namespace ShiggyMod.Modules.Survivors
 				this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
 			}
 
-			//if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_ASSAULTVEST_NAME" && !assaultvest)
+			//if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ASSAULTVEST_NAME" && !assaultvest)
    //         {
    //             Shiggymastercon.assaultvest = true;
    //             assaultvest = true;
    //             characterBody.AddBuff(Modules.Buffs.assaultvestBuff);
    //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICEBAND_NAME" && !choiceband)
+   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICEBAND_NAME" && !choiceband)
    //         {
    //             Shiggymastercon.choiceband = true;
    //             choiceband = true;
    //             characterBody.AddBuff(Modules.Buffs.choicebandBuff);
    //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICESCARF_NAME" && !choicescarf)
+   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESCARF_NAME" && !choicescarf)
    //         {
    //             Shiggymastercon.choicescarf = true;
    //             choicescarf = true;
    //             characterBody.AddBuff(Modules.Buffs.choicescarfBuff);
    //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICESPECS_NAME" && !choicespecs)
+   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESPECS_NAME" && !choicespecs)
    //         {
    //             Shiggymastercon.choicespecs = true;
    //             choicespecs = true;
    //             characterBody.AddBuff(Modules.Buffs.choicespecsBuff);
    //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LEFTOVERS_NAME" && !leftovers)
+   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LEFTOVERS_NAME" && !leftovers)
    //         {
    //             Shiggymastercon.leftovers = true;
    //             leftovers = true;
    //             characterBody.AddBuff(Modules.Buffs.leftoversBuff);
    //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LIFEORB_NAME" && !lifeorb)
+   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LIFEORB_NAME" && !lifeorb)
    //         {
    //             Shiggymastercon.lifeorb = true;
    //             lifeorb = true;
    //             characterBody.AddBuff(Modules.Buffs.lifeorbBuff);
    //         }
-   //         //if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LUCKYEGG_NAME" && !luckyegg)
+   //         //if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LUCKYEGG_NAME" && !luckyegg)
    //         //{
    //         //    Shiggymastercon.luckyegg = true;
    //         //    luckyegg = true;
    //         //    characterBody.AddBuff(Modules.Buffs.luckyeggBuff);
    //         //}
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_ROCKYHELMET_NAME" && !rockyhelmet)
+   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ROCKYHELMET_NAME" && !rockyhelmet)
    //         {
    //             Shiggymastercon.rockyhelmet = true;
    //             rockyhelmet = true;
    //             characterBody.AddBuff(Modules.Buffs.rockyhelmetBuff);
    //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SCOPELENS_NAME" && !scopelens)
+   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SCOPELENS_NAME" && !scopelens)
    //         {
    //             Shiggymastercon.scopelens = true;
    //             scopelens = true;
    //             characterBody.AddBuff(Modules.Buffs.scopelensBuff);
    //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SHELLBELL_NAME" && !shellbell)
+   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SHELLBELL_NAME" && !shellbell)
    //         {
    //             Shiggymastercon.shellbell = true;
    //             shellbell = true;
    //             characterBody.AddBuff(Modules.Buffs.shellbellBuff);
    //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_ASSAULTVEST_NAME" && !assaultvest2)
+   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ASSAULTVEST_NAME" && !assaultvest2)
    //         {
    //             Shiggymastercon.assaultvest2 = true;
    //             assaultvest2 = true;
    //             characterBody.AddBuff(Modules.Buffs.assaultvestBuff);
    //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICEBAND_NAME" && !choiceband2)
+   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICEBAND_NAME" && !choiceband2)
    //         {
    //             Shiggymastercon.choiceband2 = true;
    //             choiceband2 = true;
    //             characterBody.AddBuff(Modules.Buffs.choicebandBuff);
    //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICESCARF_NAME" && !choicescarf2)
+   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESCARF_NAME" && !choicescarf2)
    //         {
    //             Shiggymastercon.choicescarf2 = true;
    //             choicescarf2 = true;
    //             characterBody.AddBuff(Modules.Buffs.choicescarfBuff);
    //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICESPECS_NAME" && !choicespecs2)
+   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESPECS_NAME" && !choicespecs2)
    //         {
    //             Shiggymastercon.choicespecs2 = true;
    //             choicespecs2 = true;
    //             characterBody.AddBuff(Modules.Buffs.choicespecsBuff);
    //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LEFTOVERS_NAME" && !leftovers2)
+   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LEFTOVERS_NAME" && !leftovers2)
    //         {
    //             Shiggymastercon.leftovers2 = true;
    //             leftovers2 = true;
    //             characterBody.AddBuff(Modules.Buffs.leftoversBuff);
    //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LIFEORB_NAME" && !lifeorb2)
+   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LIFEORB_NAME" && !lifeorb2)
    //         {
    //             Shiggymastercon.lifeorb2 = true;
    //             lifeorb2 = true;
    //             characterBody.AddBuff(Modules.Buffs.lifeorbBuff);
    //         }
-   //         //if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LUCKYEGG_NAME" && !luckyegg2)
+   //         //if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LUCKYEGG_NAME" && !luckyegg2)
    //         //{
    //         //    Shiggymastercon.luckyegg2 = true;
    //         //    luckyegg2 = true;
    //         //    characterBody.AddBuff(Modules.Buffs.luckyeggBuff);
    //         //}
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_ROCKYHELMET_NAME" && !rockyhelmet2)
+   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ROCKYHELMET_NAME" && !rockyhelmet2)
    //         {
    //             Shiggymastercon.rockyhelmet2 = true;
    //             rockyhelmet2 = true;
    //             characterBody.AddBuff(Modules.Buffs.rockyhelmetBuff);
    //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SCOPELENS_NAME" && !scopelens2)
+   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SCOPELENS_NAME" && !scopelens2)
    //         {
    //             Shiggymastercon.scopelens2 = true;
    //             scopelens2 = true;
    //             characterBody.AddBuff(Modules.Buffs.scopelensBuff);
    //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SHELLBELL_NAME" && !shellbell2)
+   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SHELLBELL_NAME" && !shellbell2)
    //         {
    //             Shiggymastercon.shellbell2 = true;
    //             shellbell2 = true;

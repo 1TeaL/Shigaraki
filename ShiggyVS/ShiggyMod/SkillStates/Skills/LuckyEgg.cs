@@ -17,13 +17,13 @@ namespace ShiggyMod.SkillStates
             Shiggycon = base.GetComponent<ShiggyController>();
             if (!characterBody.HasBuff(Modules.Buffs.luckyeggBuff))
             {
-                if (Shiggycon.luckyegg = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LUCKYEGG_NAME")
+                if (Shiggycon.luckyegg = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LUCKYEGG_NAME")
                 {
                     Shiggycon.luckyegg = true;
                     characterBody.AddBuff(Modules.Buffs.luckyeggBuff);
                     AkSoundEngine.PostEvent(1531773223, this.gameObject);
                 }
-                if (Shiggycon.luckyegg2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_LUCKYEGG_NAME")
+                if (Shiggycon.luckyegg2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LUCKYEGG_NAME")
                 {
                     Shiggycon.luckyegg2 = true;
                     characterBody.AddBuff(Modules.Buffs.luckyeggBuff);

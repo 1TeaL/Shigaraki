@@ -40,7 +40,7 @@ namespace ShiggyMod.Modules.Survivors
             armor = 10f,
             armorGrowth = 0.5f,
             bodyName = "ShiggyBody",
-            bodyNameToken = ShiggyPlugin.developerPrefix + "_Shiggy_BODY_NAME",
+            bodyNameToken = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME",
             bodyColor = Color.magenta,
             characterPortrait = Modules.Assets.LoadCharacterIcon("Shiggy"),
             crosshair = Modules.Assets.LoadCrosshair("Standard"),
@@ -50,7 +50,7 @@ namespace ShiggyMod.Modules.Survivors
             jumpCount = 2,
             maxHealth = 100f,
             moveSpeed = 7f,
-            subtitleNameToken = ShiggyPlugin.developerPrefix + "_Shiggy_BODY_SUBTITLE",
+            subtitleNameToken = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SUBTITLE",
             podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod")
         };
 
@@ -106,7 +106,7 @@ namespace ShiggyMod.Modules.Survivors
         {
             Skills.CreateSkillFamilies(bodyPrefab);
 
-            string prefix = ShiggyPlugin.developerPrefix + "_Shiggy_BODY_";
+            string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
             #region Passive
             SkillLocator skillloc = bodyPrefab.GetComponent<SkillLocator>();
@@ -485,7 +485,7 @@ namespace ShiggyMod.Modules.Survivors
             List<SkinDef> skins = new List<SkinDef>();
 
             #region DefaultSkin
-            SkinDef defaultSkin = Modules.Skins.CreateSkinDef(ShiggyPlugin.developerPrefix + "_Shiggy_BODY_DEFAULT_SKIN_NAME",
+            SkinDef defaultSkin = Modules.Skins.CreateSkinDef(ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_DEFAULT_SKIN_NAME",
                 Assets.mainAssetBundle.LoadAsset<Sprite>("ShiggyBaseSkin"),
                 defaultRenderers,
                 mainRenderer,
@@ -505,28 +505,28 @@ namespace ShiggyMod.Modules.Survivors
             #endregion
 
             #region masteryskin
-            Material masteryMat = Modules.Assets.CreateMaterial("ShinyShiggyMat", 0f, Color.white, 1.0f);
-            CharacterModel.RendererInfo[] masteryRendererInfos = SkinRendererInfos(defaultRenderers, new Material[] {
-                masteryMat,
-                masteryMat,
-                masteryMat,
-                masteryMat,
-            });
-            SkinDef masterySkin = Modules.Skins.CreateSkinDef(ShiggyPlugin.developerPrefix + "_Shiggy_BODY_MASTERY_SKIN_NAME",
-                Assets.mainAssetBundle.LoadAsset<Sprite>("ShiggyShinySkin"),
-                masteryRendererInfos,
-                mainRenderer,
-                model,
-                masterySkinUnlockableDef);
+            //Material masteryMat = Modules.Assets.CreateMaterial("ShinyShiggyMat", 0f, Color.white, 1.0f);
+            //CharacterModel.RendererInfo[] masteryRendererInfos = SkinRendererInfos(defaultRenderers, new Material[] {
+            //    masteryMat,
+            //    masteryMat,
+            //    masteryMat,
+            //    masteryMat,
+            //});
+            //SkinDef masterySkin = Modules.Skins.CreateSkinDef(ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_MASTERY_SKIN_NAME",
+            //    Assets.mainAssetBundle.LoadAsset<Sprite>("ShiggyShinySkin"),
+            //    masteryRendererInfos,
+            //    mainRenderer,
+            //    model,
+            //    masterySkinUnlockableDef);
 
-            masterySkin.meshReplacements = new SkinDef.MeshReplacement[] {
-                new SkinDef.MeshReplacement
-                {
-                    mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("MeshShiggy"),
-                    renderer = defaultRenderers[instance.mainRendererIndex].renderer
-                },
-            };
-            skins.Add(masterySkin);
+            //masterySkin.meshReplacements = new SkinDef.MeshReplacement[] {
+            //    new SkinDef.MeshReplacement
+            //    {
+            //        mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("MeshShiggy"),
+            //        renderer = defaultRenderers[instance.mainRendererIndex].renderer
+            //    },
+            //};
+            //skins.Add(masterySkin);
             #endregion
 
             skinController.skins = skins.ToArray();

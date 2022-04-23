@@ -17,13 +17,13 @@ namespace ShiggyMod.SkillStates
             Shiggycon = base.GetComponent<ShiggyController>();
             if (!characterBody.HasBuff(Modules.Buffs.choicebandBuff))
             {
-                if (Shiggycon.choiceband = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICEBAND_NAME")
+                if (Shiggycon.choiceband = false && base.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICEBAND_NAME")
                 {
                     Shiggycon.choiceband = true;
                     characterBody.AddBuff(Modules.Buffs.choicebandBuff);
                     AkSoundEngine.PostEvent(1531773223, this.gameObject);
                 }
-                if (Shiggycon.choiceband2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_Shiggy_BODY_CHOICEBAND_NAME")
+                if (Shiggycon.choiceband2 = false && base.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICEBAND_NAME")
                 {
                     Shiggycon.choiceband2 = true;
                     characterBody.AddBuff(Modules.Buffs.choicebandBuff);
