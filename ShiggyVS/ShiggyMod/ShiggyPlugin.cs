@@ -314,7 +314,7 @@ namespace ShiggyMod
         {
             //alpha construct shield
             bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
-            if (!flag && self.body.HasBuff(Modules.Buffs.alphashieldonBuff) && damageInfo.damage > 0f)
+            if (!flag && self.body.HasBuff(Modules.Buffs.alphashieldonBuff.buffIndex) && damageInfo.damage > 0f)
             {
                 EffectData effectData2 = new EffectData
                 {
@@ -323,8 +323,8 @@ namespace ShiggyMod
                 };
                 EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
                 damageInfo.rejected = true;
-                self.body.RemoveBuff(Modules.Buffs.alphashieldonBuff);
-                self.body.AddTimedBuff(Modules.Buffs.alphashieldoffBuff, 10f);
+                self.body.RemoveBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
+                self.body.SetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex, 10);
                 
             }
 

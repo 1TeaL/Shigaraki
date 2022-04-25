@@ -147,13 +147,13 @@ namespace ShiggyMod.Modules.Survivors
             #endregion
 
             #region Items
-            SkillDef AssaultVest = Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef LemurianFireball = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ASSAULTVEST_NAME",
                 skillNameToken = prefix + "ASSAULTVEST_NAME",
                 skillDescriptionToken = prefix + "ASSAULTVEST_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.VultureFly)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.LemurianFireball)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -180,14 +180,14 @@ namespace ShiggyMod.Modules.Survivors
 
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
-                AssaultVest,
+                LemurianFireball,
             });
             #endregion
 
             #region Utility
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
-                AssaultVest,
+                LemurianFireball,
             });
             #endregion
 
@@ -226,7 +226,7 @@ namespace ShiggyMod.Modules.Survivors
 
             #region Extra Skills
 
-            SkillDef AFO = Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef AFOPrimary = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "SPECIAL_NAME",
                 skillNameToken = prefix + "SPECIAL_NAME",
@@ -249,10 +249,10 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1
             });
-            Modules.Skills.AddFirstExtraSkill(bodyPrefab, AFO);
-            Modules.Skills.AddSecondExtraSkill(bodyPrefab, AFO);
-            Modules.Skills.AddThirdExtraSkill(bodyPrefab, AFO);
-            Modules.Skills.AddFourthExtraSkill(bodyPrefab, AFO);
+            Modules.Skills.AddFirstExtraSkill(bodyPrefab, AFOPrimary);
+            Modules.Skills.AddSecondExtraSkill(bodyPrefab, AFOPrimary);
+            Modules.Skills.AddThirdExtraSkill(bodyPrefab, AFOPrimary);
+            Modules.Skills.AddFourthExtraSkill(bodyPrefab, AFOPrimary);
             #endregion
 
             #region Override Skills
@@ -262,7 +262,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "BOOSTEDPRIMARY_NAME",
                 skillDescriptionToken = prefix + "BOOSTEDPRIMARY_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.VultureFly)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.LemurianFireball)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -312,7 +312,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "BOOSTEDPRIMARY_NAME",
                 skillDescriptionToken = prefix + "BOOSTEDPRIMARY_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.VultureFly)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.VultureLand)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,

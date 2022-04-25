@@ -18,6 +18,7 @@ namespace ShiggyMod.Modules.Survivors
         public bool transformed;
         //private int buffCountToApply;
         public float transformage;
+        public float alphaconstructshieldtimer;
         public bool assaultvest;
         public bool choiceband;
         public bool choicescarf;
@@ -602,14 +603,30 @@ namespace ShiggyMod.Modules.Survivors
 
             if (self.hasEffectiveAuthority)
             {
-                if (alphaconstructQuirk)
+                if (self.HasBuff(Modules.Buffs.alphashieldoffBuff.buffIndex))
                 {
-                    if (!self.HasBuff(Modules.Buffs.alphashieldoffBuff))
-                    {
-                        self.AddBuff(Modules.Buffs.alphashieldonBuff);
-                    }
-                }
 
+                    if (alphaconstructshieldtimer > 1f)
+                    {
+                        int buffCountToApply = self.GetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex);
+                        if (buffCountToApply > 1)
+                        {
+                            if (buffCountToApply >= 2)
+                            {
+                                self.RemoveBuff(Modules.Buffs.alphashieldoffBuff.buffIndex);
+                                alphaconstructshieldtimer = 0f;
+                            }
+                        }
+                        else
+                        {
+                            self.RemoveBuff(Modules.Buffs.alphashieldoffBuff.buffIndex);
+                            self.AddBuff(Modules.Buffs.alphashieldonBuff);
+
+                        }
+                    }
+
+                    else alphaconstructshieldtimer += Time.fixedDeltaTime;
+                }
 
             }
 
