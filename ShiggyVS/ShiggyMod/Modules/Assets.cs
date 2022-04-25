@@ -46,6 +46,7 @@ namespace ShiggyMod.Modules
         public static BuffDef mendingelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/EliteEarth/bdEliteEarth.asset").WaitForCompletion();
         public static BuffDef voidelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/EliteVoid/bdEliteVoid.asset").WaitForCompletion();
 
+        public static Material alphaconstructShieldBuff = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
 
         //Shiggy Equipment Obj
         //internal static GameObject ShiggyEquipmentPrefab;
@@ -98,6 +99,7 @@ namespace ShiggyMod.Modules
                 return;
             }
 
+            alphaconstructShieldBuff.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
 
             //Shiggy Equipment prefab
             //ShiggyEquipmentPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyEquipmentModel");

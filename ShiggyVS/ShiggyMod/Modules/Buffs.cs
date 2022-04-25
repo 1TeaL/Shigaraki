@@ -23,8 +23,19 @@ namespace ShiggyMod.Modules
         internal static BuffDef scopelensBuff;
         internal static BuffDef shellbellBuff;
 
+        internal static BuffDef flyBuff;
+        internal static BuffDef beetleBuff;
+        internal static BuffDef alphashieldonBuff;
+        internal static BuffDef alphashieldoffBuff;
+
         internal static void RegisterBuffs()
         {
+            Sprite warcryBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/WarCryOnMultiKill/bdWarCryBuff.asset").WaitForCompletion().iconSprite;
+            flyBuff = Buffs.AddNewBuff("FlyBuff", warcryBuffIcon, Color.white, false, false);
+            beetleBuff = Buffs.AddNewBuff("WeakStrengthBuff", warcryBuffIcon, Color.white, false, false);
+            alphashieldonBuff = Buffs.AddNewBuff("ShieldOnBuff", warcryBuffIcon, Color.white, false, false);
+            alphashieldoffBuff = Buffs.AddNewBuff("ShieldOffBuff", warcryBuffIcon, Color.white, false, false);
+
             transformBuff = Buffs.AddNewBuff("transformBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("Transform"), Color.white, true, false);
             assaultvestBuff = Buffs.AddNewBuff("assaultvestBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"), Color.white, true, false);
             choicescarfBuff = Buffs.AddNewBuff("choicescarfBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("ChoiceScarf"), Color.white, true, false);
@@ -36,6 +47,7 @@ namespace ShiggyMod.Modules
             rockyhelmetBuff = Buffs.AddNewBuff("rockyhelmetBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("RockyHelmet"), Color.white, true, false);
             scopelensBuff = Buffs.AddNewBuff("scopelensBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("ScopeLens"), Color.white, true, false);
             shellbellBuff = Buffs.AddNewBuff("shellbellBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("ShellBell"), Color.white, true, false);
+
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;
             //transformBuff = AddNewBuff("TransformTimer", TransformBuff, Color.yellow, false, false);

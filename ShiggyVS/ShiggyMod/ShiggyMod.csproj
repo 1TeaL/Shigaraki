@@ -38,8 +38,14 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <Reference Include="ExtraSkillSlots">
+      <HintPath>bin\Debug\netstandard2.0\ExtraSkillSlots.dll</HintPath>
+    </Reference>
     <Reference Include="MMHOOK_Assembly-CSharp">
       <HintPath>C:\Users\theod\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\test\BepInEx\plugins\RiskofThunder-HookGenPatcher\MMHOOK\MMHOOK_Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="ScrollableLobbyUI">
+      <HintPath>bin\Debug\netstandard2.0\ScrollableLobbyUI.dll</HintPath>
     </Reference>
   </ItemGroup>
 

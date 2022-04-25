@@ -29,6 +29,7 @@ using UnityEngine.Networking;
 namespace ShiggyMod
 {
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.KingEnderBrine.ExtraSkillSlots", BepInDependency.DependencyFlags.HardDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
     [R2APISubmoduleDependency(new string[]
@@ -36,7 +37,6 @@ namespace ShiggyMod
         "PrefabAPI",
         "LanguageAPI",
         "SoundAPI",
-        "ItemAPI"
     })]
 
     public class ShiggyPlugin : BaseUnityPlugin
@@ -104,25 +104,6 @@ namespace ShiggyMod
             // survivor initialization
             new Shiggy().Initialize();
 
-            //Equipment Initialization;
-            //var EquipmentTypes = Assembly.GetExecutingAssembly().GetTypes().Where(type => !type.IsAbstract && type.IsSubclassOf(typeof(EquipmentBase)));
-            //foreach (var equipmentType in EquipmentTypes)
-            //{
-            //    EquipmentBase equipment = (EquipmentBase)System.Activator.CreateInstance(equipmentType);
-            //    equipment.Init();
-            //}
-
-            //Item Initialization
-            //var ItemTypes = Assembly.GetExecutingAssembly().GetTypes().Where(type => !type.IsAbstract && type.IsSubclassOf(typeof(ItemBase)));
-
-            //foreach (var itemType in ItemTypes)
-            //{
-            //    ItemBase item = (ItemBase)System.Activator.CreateInstance(itemType);
-            //    if (ValidateItem(item, Items))
-            //    {
-            //        item.Init(Config);
-            //    }
-            //}
 
 
             // now make a content pack and add it- this part will change with the next update
@@ -283,72 +264,6 @@ namespace ShiggyMod
             //PolishMonsterToSurvivor(impboss2, 20f);
             //PolishMonsterToSurvivor(brotherhurt, 20f);
         }
-        //public bool ValidateItem(ItemBase item, List<ItemBase> itemList)
-        //{
-        //    var enabled = Config.Bind<bool>("Item: " + item.ItemName, "Enable Item?", true, "Should this item appear in runs?").Value;
-        //    var aiBlacklist = Config.Bind<bool>("Item: " + item.ItemName, "Blacklist Item from AI Use?", false, "Should the AI not be able to obtain this item?").Value;
-        //    var printerBlacklist = Config.Bind<bool>("Item: " + item.ItemName, "Blacklist Item from Printers?", false, "Should the printers be able to print this item?").Value;
-        //    var requireUnlock = Config.Bind<bool>("Item: " + item.ItemName, "Require Unlock", true, "Should we require this item to be unlocked before it appears in runs? (Will only affect items with associated unlockables.)").Value;
-
-        //    ItemStatusDictionary.Add(item, enabled);
-
-        //    if (enabled)
-        //    {
-        //        itemList.Add(item);
-        //        if (aiBlacklist)
-        //        {
-        //            item.AIBlacklisted = true;
-        //        }
-        //        if (printerBlacklist)
-        //        {
-        //            item.PrinterBlacklisted = true;
-        //        }
-
-        //        item.RequireUnlock = requireUnlock;
-        //    }
-        //    return enabled;
-        //}
-        //private void PolishMonsterToSurvivor(GameObject monsterSurvivor, float maxInteractionDistance)
-        //{
-        //    NetworkIdentity networkIdentity = monsterSurvivor.GetComponent<NetworkIdentity>();
-        //    bool flag = !networkIdentity;
-        //    if (flag)
-        //    {
-        //        base.Logger.LogMessage("Missing NetworkIdentity! Adding...");
-        //        networkIdentity = monsterSurvivor.AddComponent<NetworkIdentity>();
-        //    }
-        //    bool flag2 = !networkIdentity.localPlayerAuthority;
-        //    if (flag2)
-        //    {
-        //        base.Logger.LogMessage("Ensuring Networking");
-        //        networkIdentity.localPlayerAuthority = true;
-        //    }
-        //    //DeathRewards component = monsterSurvivor.GetComponent<DeathRewards>();
-        //    //bool flag3 = component;
-        //    //if (flag3)
-        //    //{
-        //    //    Object.Destroy(component);
-        //    //}
-        //    //InteractionDriver exists = monsterSurvivor.GetComponent<InteractionDriver>();
-        //    //bool flag4 = !exists;
-        //    //if (flag4)
-        //    //{
-        //    //    exists = monsterSurvivor.AddComponent<InteractionDriver>();
-        //    //}
-        //    Interactor interactor = monsterSurvivor.GetComponent<Interactor>();
-        //    bool flag5 = !interactor;
-        //    if (flag5)
-        //    {
-        //        interactor = monsterSurvivor.AddComponent<Interactor>();
-        //    }
-        //    interactor.maxInteractionDistance = maxInteractionDistance;
-        //    EquipmentSlot exists2 = monsterSurvivor.GetComponent<EquipmentSlot>();
-        //    bool flag6 = !exists2;
-        //    if (flag6)
-        //    {
-        //        exists2 = monsterSurvivor.AddComponent<EquipmentSlot>();
-        //    }
-        //}
         private void LateSetup(HG.ReadOnlyArray<RoR2.ContentManagement.ReadOnlyContentPack> obj)
         {
             // have to set item displays later now because they require direct object references..
@@ -360,7 +275,6 @@ namespace ShiggyMod
             // run hooks here, disabling one is as simple as commenting out the line
             On.RoR2.CharacterBody.OnDeathStart += CharacterBody_OnDeathStart;
             On.RoR2.CharacterModel.Awake += CharacterModel_Awake;
-            On.RoR2.CharacterMaster.Start += CharacterMaster_Start;
             //On.RoR2.CharacterBody.Start += CharacterBody_Start;
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
@@ -368,6 +282,7 @@ namespace ShiggyMod
             GlobalEventManager.onServerDamageDealt += GlobalEventManager_OnDamageDealt;
             //On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate;
             //On.RoR2.CharacterBody.Update += CharacterBody_Update;
+            On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
         }
 
         //lifesteal
@@ -397,78 +312,23 @@ namespace ShiggyMod
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
-            //rocky helmet
-            if (self.body.HasBuff(Modules.Buffs.rockyhelmetBuff.buffIndex))
+            //alpha construct shield
+            bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
+            if (!flag && self.body.HasBuff(Modules.Buffs.alphashieldonBuff) && damageInfo.damage > 0f)
             {
-                int buffnumber = self.body.GetBuffCount(Modules.Buffs.rockyhelmetBuff);
-                if (buffnumber > 0)
+                EffectData effectData2 = new EffectData
                 {
-                    if (buffnumber >= 1 && buffnumber < 2)
-                    {
-
-                        var damageInfo2 = new DamageInfo();
-
-                        blastAttack = new BlastAttack();
-                        blastAttack.radius = 8f;
-                        blastAttack.procCoefficient = 1;
-                        blastAttack.position = self.transform.position;
-                        blastAttack.attacker = self.gameObject;
-                        blastAttack.crit = Util.CheckRoll(self.body.crit, self.body.master);
-                        blastAttack.baseDamage = self.body.damage * Modules.StaticValues.rockyhelmetreflect;
-                        blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                        blastAttack.baseForce = 100f;
-                        blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
-                        blastAttack.damageType = DamageType.Stun1s | DamageType.BypassArmor;
-                        blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-
-                        if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                            != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME" && damageInfo.attacker != null)
-                        {
-                            blastAttack.Fire();
-                        }
-
-
-                        EffectManager.SpawnEffect(effectPrefab, new EffectData
-                        {
-                            origin = self.transform.position,
-                            scale = 10f,
-                            rotation = Quaternion.LookRotation(self.transform.position)
-
-                        }, true);
-                    }
-                    if (buffnumber >= 2)
-                    {
-                        blastAttack = new BlastAttack();
-                        blastAttack.radius = 16f;
-                        blastAttack.procCoefficient = 2;
-                        blastAttack.position = self.transform.position;
-                        blastAttack.attacker = self.gameObject;
-                        blastAttack.crit = Util.CheckRoll(self.body.crit, self.body.master);
-                        blastAttack.baseDamage = self.body.damage * Modules.StaticValues.rockyhelmetreflect2;
-                        blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                        blastAttack.baseForce = 100f;
-                        blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
-                        blastAttack.damageType = DamageType.Stun1s | DamageType.BypassArmor;
-                        blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-
-                        if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                            != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME" && damageInfo.attacker != null)
-                        {
-                            blastAttack.Fire();
-                        }
-
-
-                        EffectManager.SpawnEffect(effectPrefab, new EffectData
-                        {
-                            origin = self.transform.position,
-                            scale = 10f,
-                            rotation = Quaternion.LookRotation(self.transform.position)
-
-                        }, true);
-                    }
-                }
-
+                    origin = damageInfo.position,
+                    rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
+                };
+                EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
+                damageInfo.rejected = true;
+                self.body.RemoveBuff(Modules.Buffs.alphashieldonBuff);
+                self.body.AddTimedBuff(Modules.Buffs.alphashieldoffBuff, 10f);
+                
             }
+
+            
             orig.Invoke(self, damageInfo);
         }
 
@@ -477,126 +337,16 @@ namespace ShiggyMod
             //buffs 
             orig.Invoke(self);
 
+            if (self.HasBuff(Buffs.flyBuff))
+            {
+                self.moveSpeed *= 1.5f;
+                self.acceleration *= 2f;
+            }
+            if (self.HasBuff(Buffs.beetleBuff))
+            {
+                self.damage *= 1.2f;
+            }
 
-            if (self.HasBuff(Modules.Buffs.assaultvestBuff))
-            {
-                int buffnumber = self.GetBuffCount(Modules.Buffs.assaultvestBuff);
-                if (buffnumber > 0)
-                {
-                    if (buffnumber >= 1 && buffnumber < 2)
-                    {
-                        self.armor += Modules.StaticValues.assaultvestboost;
-                    }
-                    if (buffnumber >= 2)
-                    {
-                        self.armor += Modules.StaticValues.assaultvestboost2;
-                    }
-                }
-            }
-            if (self.HasBuff(Modules.Buffs.choicebandBuff))
-            {
-                int buffnumber = self.GetBuffCount(Modules.Buffs.choicebandBuff);
-                if (buffnumber > 0)
-                {
-                    if (buffnumber >= 1 && buffnumber < 2)
-                    {
-                        self.attackSpeed *= Modules.StaticValues.choicebandboost;
-                    }
-                    if (buffnumber >= 2)
-                    {
-                        self.attackSpeed *= Modules.StaticValues.choicebandboost2;
-                    }
-                }
-            }
-            if (self.HasBuff(Modules.Buffs.choicescarfBuff))
-            {
-                int buffnumber = self.GetBuffCount(Modules.Buffs.choicescarfBuff);
-                if (buffnumber > 0)
-                {
-                    if (buffnumber >= 1 && buffnumber < 2)
-                    {
-                        self.moveSpeed *= Modules.StaticValues.choicescarfboost;
-                    }
-                    if (buffnumber >= 2)
-                    {
-                        self.moveSpeed *= Modules.StaticValues.choicescarfboost2;
-                    }
-                }
-            }
-            if (self.HasBuff(Modules.Buffs.choicespecsBuff))
-            {
-                int buffnumber = self.GetBuffCount(Modules.Buffs.choicespecsBuff);
-                if (buffnumber > 0)
-                {
-                    if (buffnumber >= 1 && buffnumber < 2)
-                    {
-                        self.skillLocator.primary.cooldownScale *= Modules.StaticValues.choicespecsboost;
-                        self.skillLocator.secondary.cooldownScale *= Modules.StaticValues.choicespecsboost;
-                        self.skillLocator.utility.cooldownScale *= Modules.StaticValues.choicespecsboost;
-                        self.skillLocator.special.cooldownScale *= Modules.StaticValues.choicespecsboost;
-                    }
-                    if (buffnumber >= 2)
-                    {
-                        self.skillLocator.primary.cooldownScale *= Modules.StaticValues.choicespecsboost2;
-                        self.skillLocator.secondary.cooldownScale *= Modules.StaticValues.choicespecsboost2;
-                        self.skillLocator.utility.cooldownScale *= Modules.StaticValues.choicespecsboost2;
-                        self.skillLocator.special.cooldownScale *= Modules.StaticValues.choicespecsboost2;
-                    }
-                }
-            }
-            if (self.HasBuff(Modules.Buffs.leftoversBuff))
-            {
-                int buffnumber = self.GetBuffCount(Modules.Buffs.leftoversBuff);
-                if (buffnumber > 0)
-                {
-                    if (buffnumber >= 1 && buffnumber < 2)
-                    {
-
-                        HealthComponent hp = self.healthComponent;
-                        float regenValue = hp.fullCombinedHealth * Modules.StaticValues.leftoversregen;
-                        self.regen += regenValue;
-                        //Chat.AddMessage("hpregen activated");
-                    }
-                    if (buffnumber >= 2)
-                    {
-
-                        HealthComponent hp = self.healthComponent;
-                        float regenValue = hp.fullCombinedHealth * Modules.StaticValues.leftoversregen2;
-                        self.regen += regenValue;
-                        //Chat.AddMessage("hpregen activated");
-                    }
-                }
-            }
-            if (self.HasBuff(Modules.Buffs.lifeorbBuff))
-            {
-                int buffnumber = self.GetBuffCount(Modules.Buffs.lifeorbBuff);
-                if (buffnumber > 0)
-                {
-                    if (buffnumber >= 1 && buffnumber < 2)
-                    {
-                        self.damage *= Modules.StaticValues.lifeorbboost;
-                    }
-                    if (buffnumber >= 2)
-                    {
-                        self.damage *= Modules.StaticValues.lifeorbboost2;
-                    }
-                }
-            }
-            if (self.HasBuff(Modules.Buffs.scopelensBuff))
-            {
-                int buffnumber = self.GetBuffCount(Modules.Buffs.scopelensBuff);
-                if (buffnumber > 0)
-                {
-                    if (buffnumber >= 1 && buffnumber < 2)
-                    {
-                        self.crit += Modules.StaticValues.scopelensboost;
-                    }
-                    if (buffnumber >= 2)
-                    {
-                        self.crit += Modules.StaticValues.scopelensboost2;
-                    }
-                }
-            }
         }
 
         private void CharacterBody_OnDeathStart(On.RoR2.CharacterBody.orig_OnDeathStart orig, CharacterBody self)
@@ -608,22 +358,6 @@ namespace ShiggyMod
             }
 
         }
-        private void CharacterMaster_Start(On.RoR2.CharacterMaster.orig_Start orig, CharacterMaster self)
-        {
-            orig.Invoke(self);
-
-            if (self.bodyPrefab)
-            {
-                Debug.Log(self.bodyPrefab);
-                if (self.bodyPrefab.name.Contains("Shiggy"))
-                {
-                    //Give equipment
-                    self.inventory.GiveEquipmentString("EQUIPMENT_TM_TRANSFORM");
-                    //reset buff bool
-
-                }
-            }
-        }
 
         private void CharacterModel_Awake(On.RoR2.CharacterModel.orig_Awake orig, CharacterModel self)
         {
@@ -632,11 +366,36 @@ namespace ShiggyMod
             {
                 AkSoundEngine.PostEvent(3468082827, self.gameObject);
 
-
             }
 
         }
+        private void CharacterModel_UpdateOverlays(On.RoR2.CharacterModel.orig_UpdateOverlays orig, CharacterModel self)
+        {
+            orig(self);
 
+            if (self)
+            {
+                if (self.body)
+                {
+                    this.OverlayFunction(Modules.Assets.alphaconstructShieldBuff, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
+                }
+            }
+        }
+
+        private void OverlayFunction(Material overlayMaterial, bool condition, CharacterModel model)
+        {
+            if (model.activeOverlayCount >= CharacterModel.maxOverlays)
+            {
+                return;
+            }
+            if (condition)
+            {
+                Material[] array = model.currentOverlays;
+                int num = model.activeOverlayCount;
+                model.activeOverlayCount = num + 1;
+                array[num] = overlayMaterial;
+            }
+        }
 
     }
 }

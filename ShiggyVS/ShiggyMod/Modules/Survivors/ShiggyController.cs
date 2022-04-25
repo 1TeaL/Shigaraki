@@ -45,7 +45,40 @@ namespace ShiggyMod.Modules.Survivors
 		public bool shellbell2;
 
 		private int buffCountToApply;
+		//public enum WhatSkill : uint
+		//{
+		//	Alloyvulture = 0,
+		//	Alphaconstruct = 1,
+		//	//Beetlequirkless = 2,
+		//	Beetleguard = 3,
+		//	Bighornbiso = 4,
+		//	Blindpest = 5,
+		//	Blindvermin = 6,
+		//	Brasscontraption = 7,
+		//	Clayapothecary = 8,
+		//	Claytemplar = 9,
+		//	ElderLemurian = 10,
+		//	Geepgupgip = 11,
+		//	Greaterwisp = 12,
+		//	Hermitcrab = 13,
+		//	Impblink = 14,
+		//	//Jellyfish = 15,
+		//	//Larva = 16,
+		//	Lemurian = 17,
+		//	Lesserwisp = 18,
+		//	Lunarchimeraexploder = 19,
+		//	Lunarchimeragolem = 20,
+		//	Lunarchimerawisp = 21,
+		//	Minimushrum = 22,
+		//	Parent = 23,
+		//	Solusprobe = 24,
+		//	Stonegolem = 25,
+		//	//Voidbarnacle = 26,
+		//	Voidjailer = 27,
+		//	Voidreaver = 28,
+		//}
 
+		//public WhatSkill SkillDef;
 
 		private void Awake()
 		{

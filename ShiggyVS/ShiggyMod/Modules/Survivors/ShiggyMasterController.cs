@@ -39,8 +39,13 @@ namespace ShiggyMod.Modules.Survivors
         public bool scopelens2;
         public bool shellbell2;
 
+
+        public bool alphaconstructQuirk;
+
         private void Awake()
         {
+            alphaconstructQuirk = false;
+
             transformed = false;
             assaultvest = false;
             choiceband = false;
@@ -75,6 +80,9 @@ namespace ShiggyMod.Modules.Survivors
 
         private void Start()
         {
+
+            alphaconstructQuirk = false;
+
             transformed = false;
             assaultvest = false;
             choiceband = false;
@@ -103,26 +111,6 @@ namespace ShiggyMod.Modules.Survivors
             Shiggymastercon = characterMaster.gameObject.GetComponent<ShiggyMasterController>();
             Shiggycon = self.gameObject.GetComponent<ShiggyController>();
 
-            Shiggycon.assaultvest = false;
-            Shiggycon.choiceband = false;
-            Shiggycon.choicescarf = false;
-            Shiggycon.choicespecs = false;
-            Shiggycon.leftovers = false;
-            Shiggycon.lifeorb = false;
-            Shiggycon.luckyegg = false;
-            Shiggycon.rockyhelmet = false;
-            Shiggycon.scopelens = false;
-            Shiggycon.shellbell = false;
-            Shiggycon.assaultvest2 = false;
-            Shiggycon.choiceband2 = false;
-            Shiggycon.choicescarf2 = false;
-            Shiggycon.choicespecs2 = false;
-            Shiggycon.leftovers2 = false;
-            Shiggycon.lifeorb2 = false;
-            Shiggycon.luckyegg2 = false;
-            Shiggycon.rockyhelmet2 = false;
-            Shiggycon.scopelens2 = false;
-            Shiggycon.shellbell2 = false;
 
             self.SetBuffCount(Modules.Buffs.assaultvestBuff.buffIndex, 0);
             self.SetBuffCount(Modules.Buffs.choicebandBuff.buffIndex, 0);
@@ -287,6 +275,7 @@ namespace ShiggyMod.Modules.Survivors
             orig(self);
             if (self.gameObject.name.Contains("ShiggyDisplay"))
             {
+                alphaconstructQuirk = false;
 
                 transformed = false;
                 assaultvest = false;
@@ -397,6 +386,11 @@ namespace ShiggyMod.Modules.Survivors
             {
                 if (self.master.bodyPrefab == BodyCatalog.FindBodyPrefab("ShiggyBody"))
                 {
+                    if (alphaconstructQuirk)
+                    {
+                        self.AddBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
+                    }
+
 
                     if (assaultvest && assaultvest2)
                     {
@@ -603,73 +597,17 @@ namespace ShiggyMod.Modules.Survivors
         //private void CharacterBody_FixedUpdate(On.RoR2.CharacterBody.orig_FixedUpdate orig, CharacterBody self)
         private void FixedUpdate()
         {
-            //orig(self);
-
             characterMaster = gameObject.GetComponent<CharacterMaster>();
-            //Debug.Log(transformed + "istransformed");
             CharacterBody self = characterMaster.GetBody();
 
             if (self.hasEffectiveAuthority)
             {
-                if (self.HasBuff(Modules.Buffs.transformBuff.buffIndex))
+                if (alphaconstructQuirk)
                 {
-
-                    if (transformage > 1f)
+                    if (!self.HasBuff(Modules.Buffs.alphashieldoffBuff))
                     {
-                        int buffCountToApply = self.GetBuffCount(Modules.Buffs.transformBuff.buffIndex);
-                        if (buffCountToApply > 1)
-                        {
-                            if (buffCountToApply >= 2)
-                            {
-                                //self.SetBuffCount(Modules.Buffs.transformBuff.buffIndex, (buffCountToApply - 1));
-                                self.RemoveBuff(Modules.Buffs.transformBuff.buffIndex);
-
-                                transformage = 0;
-
-
-                            }
-                        }
-                        else
-                        {
-
-                            if (self.master.bodyPrefab.name == "CaptainBody")
-                            {
-                                self.master.inventory.RemoveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
-                            }
-                            if (self.master.bodyPrefab.name == "HereticBody")
-                            {
-                                self.master.inventory.RemoveItem(RoR2Content.Items.LunarPrimaryReplacement, 1);
-                                self.master.inventory.RemoveItem(RoR2Content.Items.LunarSecondaryReplacement, 1);
-                                self.master.inventory.RemoveItem(RoR2Content.Items.LunarSpecialReplacement, 1);
-                                self.master.inventory.RemoveItem(RoR2Content.Items.LunarUtilityReplacement, 1);
-                            }
-
-                            //self.master.bodyPrefab = BodyCatalog.FindBodyPrefab("ShiggyBody");
-                            CharacterBody body;
-
-
-                            //body = self.master.Respawn(self.master.GetBody().transform.position, self.master.GetBody().transform.rotation);
-
-                            self.master.TransformBody("ShiggyBody");
-
-                            body = self.master.GetBody();
-
-                            body.RemoveBuff(RoR2Content.Buffs.OnFire);
-                            body.RemoveBuff(RoR2Content.Buffs.AffixBlue);
-                            body.RemoveBuff(RoR2Content.Buffs.AffixEcho);
-                            body.RemoveBuff(RoR2Content.Buffs.AffixHaunted);
-                            body.RemoveBuff(RoR2Content.Buffs.AffixLunar);
-                            body.RemoveBuff(RoR2Content.Buffs.AffixPoison);
-                            body.RemoveBuff(RoR2Content.Buffs.AffixRed);
-                            body.RemoveBuff(RoR2Content.Buffs.AffixWhite);
-                            body.RemoveBuff(ShiggyMod.Modules.Assets.mendingelitebuff);
-                            body.RemoveBuff(ShiggyMod.Modules.Assets.voidelitebuff);
-                            transformed = false;
-
-                        }
+                        self.AddBuff(Modules.Buffs.alphashieldonBuff);
                     }
-
-                    else transformage += Time.fixedDeltaTime;
                 }
 
 

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1670917530
+CRC: 1663125394
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 41840a5b5eaac76419410140f4f257d3
+    Hash: 94f915a699668ab9b63745779bcf739c
   TypeTreeHash:
     serializedVersion: 2
     Hash: 629e386d734ac71e9bc9dd2ba6bb23b5
@@ -40,13 +40,12 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Shigaraki/Animations/Tomura Shigaraki_arm_Idle.anim
+- Assets/Shigaraki/Assets/ShiggyDisplay.prefab
 - Assets/Shigaraki/Assets/ShiggyMat.mat
 - Assets/Shigaraki/Assets/ShiggyMat.png
-- Assets/Shigaraki/Assets/Shigaraki.fbx
-- Assets/Shigaraki/Assets/MeshShiggy.mesh
-- Assets/Shigaraki/Assets/ShiggyDisplay.prefab
-- Assets/Shigaraki/Assets/ShigarakiAvatar.asset
+- Assets/Shigaraki/Assets/mdlShiggy.prefab
+- Assets/Shigaraki/Assets/ShigarakifbxAvatar.asset
 - Assets/Shigaraki/Animations/animShiggy.controller
 - Assets/Shigaraki/Animations/animShiggyDiplay.controller
-- Assets/Shigaraki/Assets/mdlShiggy.prefab
+- Assets/Shigaraki/Assets/MeshShiggy.mesh
 Dependencies: []
