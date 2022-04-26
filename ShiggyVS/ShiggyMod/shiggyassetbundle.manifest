@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1663125394
+CRC: 1561334693
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 94f915a699668ab9b63745779bcf739c
+    Hash: 99e3e1398542ed2b8816f11825050997
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 629e386d734ac71e9bc9dd2ba6bb23b5
+    Hash: 5936d6eb45be86807ba2953f2460f429
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -15,7 +15,11 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 21
   Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
 - Class: 28
+  Script: {instanceID: 0}
+- Class: 33
   Script: {instanceID: 0}
 - Class: 43
   Script: {instanceID: 0}
@@ -44,8 +48,11 @@ Assets:
 - Assets/Shigaraki/Assets/ShiggyMat.mat
 - Assets/Shigaraki/Assets/ShiggyMat.png
 - Assets/Shigaraki/Assets/mdlShiggy.prefab
+- Assets/Shigaraki/Import/Hitbox.prefab
 - Assets/Shigaraki/Assets/ShigarakifbxAvatar.asset
+- Assets/Shigaraki/Import/matHitboxPreview.mat
 - Assets/Shigaraki/Animations/animShiggy.controller
+- Assets/Shigaraki/Blender/Shigarakiblend.blend
 - Assets/Shigaraki/Animations/animShiggyDiplay.controller
 - Assets/Shigaraki/Assets/MeshShiggy.mesh
 Dependencies: []

@@ -92,6 +92,18 @@ namespace ShiggyMod.Modules.Survivors
             ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
             GameObject model = childLocator.gameObject;
 
+            Transform hitboxTransform = childLocator.FindChild("SmallHitbox");
+            Modules.Prefabs.SetupHitbox(model, hitboxTransform, "SmallHitbox");
+
+            Transform hitboxTransform2 = childLocator.FindChild("DetectSmallHitbox");
+            Modules.Prefabs.SetupHitbox(model, hitboxTransform2, "DetectSmallHitbox");
+
+            Transform hitboxTransform3 = childLocator.FindChild("FrontHitbox");
+            Modules.Prefabs.SetupHitbox(model, hitboxTransform3, "FrontHitbox");
+
+            Transform hitboxTransform4 = childLocator.FindChild("AroundHitbox");
+            Modules.Prefabs.SetupHitbox(model, hitboxTransform4, "AroundHitbox");
+
         }
 
 
@@ -116,14 +128,14 @@ namespace ShiggyMod.Modules.Survivors
 
             #region Primary
 
-            SkillDef struggleSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef decaySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
 
                 skillName = prefix + "PRIMARY_NAME",
                 skillNameToken = prefix + "PRIMARY_NAME",
                 skillDescriptionToken = prefix + "PRIMARY_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Struggle"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.AFOPrimary)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Decay)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -131,7 +143,7 @@ namespace ShiggyMod.Modules.Survivors
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
                 fullRestockOnAssign = true,
-                interruptPriority = EntityStates.InterruptPriority.Skill,
+                interruptPriority = EntityStates.InterruptPriority.Any,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = false,
@@ -142,7 +154,7 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
 
-            Modules.Skills.AddPrimarySkill(bodyPrefab, struggleSkillDef);
+            Modules.Skills.AddPrimarySkill(bodyPrefab, decaySkillDef);
 
             #endregion
 
@@ -153,7 +165,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "ASSAULTVEST_NAME",
                 skillDescriptionToken = prefix + "ASSAULTVEST_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.LemurianFireball)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Decay)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -262,7 +274,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "BOOSTEDPRIMARY_NAME",
                 skillDescriptionToken = prefix + "BOOSTEDPRIMARY_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.LemurianFireball)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Decay)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
