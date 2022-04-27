@@ -1,0 +1,31 @@
+ScalarParameterValues[1] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[0] = {}
+VectorParameterValues[0] = {}
+Parent = Material3'Common/Material/Master_Material/M_ef_flow_no_fade_tr.M_ef_flow_no_fade_tr'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = true
+    BlendMode = BLEND_Additive (3)
+    bOverride_TwoSided = false
+    TwoSided = true
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0.3333
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

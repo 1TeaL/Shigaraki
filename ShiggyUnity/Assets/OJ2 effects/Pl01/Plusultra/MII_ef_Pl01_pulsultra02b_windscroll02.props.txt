@@ -1,0 +1,105 @@
+ScalarParameterValues[8] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = 0.03
+        ParameterInfo = { Name=FadeDistance }
+    }
+    ScalarParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = main_texture_U
+        }
+    }
+    ScalarParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo =
+        {
+            Name = main_texture_U_Nunbar
+        }
+    }
+    ScalarParameterValues[3] =
+    {
+        ParameterName = None
+        ParameterValue = -1
+        ParameterInfo =
+        {
+            Name = main_texture_V
+        }
+    }
+    ScalarParameterValues[4] =
+    {
+        ParameterName = None
+        ParameterValue = 0.2
+        ParameterInfo =
+        {
+            Name = main_texture_V_Nunbar
+        }
+    }
+    ScalarParameterValues[5] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo =
+        {
+            Name = TexCoord_U_Nomal2
+        }
+    }
+    ScalarParameterValues[6] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo =
+        {
+            Name = TexCoord_V_nomal2
+        }
+    }
+    ScalarParameterValues[7] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[2] =
+{
+    TextureParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_distorted_001_N.T_ef_distorted_001_N'
+        ParameterInfo = { Name=nomal_tex }
+    }
+    TextureParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_wind_000.T_ef_wind_000'
+        ParameterInfo = { Name=texture }
+    }
+}
+VectorParameterValues[0] = {}
+Parent = Material3'Common/Material/Master_Material/M_ef_windscrollurutla_tr.M_ef_windscrollurutla_tr'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Opaque (0)
+    bOverride_TwoSided = false
+    TwoSided = false
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

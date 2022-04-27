@@ -1,0 +1,75 @@
+ScalarParameterValues[4] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = 3
+        ParameterInfo =
+        {
+            Name = CellShadingLutV
+        }
+    }
+    ScalarParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = 0.75
+        ParameterInfo =
+        {
+            Name = DynamicLightScale
+        }
+    }
+    ScalarParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = 0.8
+        ParameterInfo = { Name=Normal_Power }
+    }
+    ScalarParameterValues[3] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[3] =
+{
+    TextureParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Stage/Texture/T_st301_ef_rock_A_D.T_st301_ef_rock_A_D'
+        ParameterInfo = { Name=ColorTexture }
+    }
+    TextureParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Stage/Texture/T_st301_ef_rock_A_M.T_st301_ef_rock_A_M'
+        ParameterInfo = { Name=Multi }
+    }
+    TextureParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Stage/Texture/T_st301_ef_rock_A_N.T_st301_ef_rock_A_N'
+        ParameterInfo = { Name=Normal }
+    }
+}
+VectorParameterValues[0] = {}
+Parent = MaterialInstanceConstant'Common/Material/Material_Instance/MI_ef_C1_toon_op.MI_ef_C1_toon_op'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Opaque (0)
+    bOverride_TwoSided = false
+    TwoSided = false
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

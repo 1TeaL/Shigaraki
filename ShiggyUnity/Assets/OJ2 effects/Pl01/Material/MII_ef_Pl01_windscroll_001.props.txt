@@ -1,0 +1,75 @@
+ScalarParameterValues[5] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = main_texture_U
+        }
+    }
+    ScalarParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo =
+        {
+            Name = main_texture_U_Nunbar
+        }
+    }
+    ScalarParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = 2
+        ParameterInfo =
+        {
+            Name = main_texture_V
+        }
+    }
+    ScalarParameterValues[3] =
+    {
+        ParameterName = None
+        ParameterValue = -1
+        ParameterInfo =
+        {
+            Name = main_texture_V_Nunbar
+        }
+    }
+    ScalarParameterValues[4] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[1] =
+{
+    TextureParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_wind_000.T_ef_wind_000'
+        ParameterInfo = { Name=texture }
+    }
+}
+VectorParameterValues[0] = {}
+Parent = MaterialInstanceConstant'Common/Material/Material_Instance/MI_ef_wind_000.MI_ef_wind_000'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Opaque (0)
+    bOverride_TwoSided = false
+    TwoSided = false
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

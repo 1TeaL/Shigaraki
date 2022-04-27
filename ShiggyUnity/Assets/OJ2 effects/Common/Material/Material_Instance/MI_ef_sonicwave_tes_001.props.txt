@@ -1,0 +1,72 @@
+ScalarParameterValues[4] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = -5
+        ParameterInfo =
+        {
+            Name = main_texture_V
+        }
+    }
+    ScalarParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = 6
+        ParameterInfo =
+        {
+            Name = main_texture_V_Nunbar
+        }
+    }
+    ScalarParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = 6
+        ParameterInfo = { Name=Offset_Scale }
+    }
+    ScalarParameterValues[3] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[2] =
+{
+    TextureParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_white_000_N.T_ef_white_000_N'
+        ParameterInfo = { Name=nomal_tex }
+    }
+    TextureParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_distorted_003_N.T_ef_distorted_003_N'
+        ParameterInfo =
+        {
+            Name = Offset_nomal_texture
+        }
+    }
+}
+VectorParameterValues[0] = {}
+Parent = Material3'Common/Material/Master_Material/M_ef_Pl09_scrollfadegradation_tr.M_ef_Pl09_scrollfadegradation_tr'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Additive (3)
+    bOverride_TwoSided = false
+    TwoSided = true
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0.3333
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

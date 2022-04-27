@@ -28,6 +28,7 @@ namespace ShiggyMod.Modules
             newUnlockableDef.getHowToUnlockString = unlockableInfo.HowToUnlockString;
             newUnlockableDef.getUnlockedString = unlockableInfo.UnlockedString;
             newUnlockableDef.sortScore = unlockableInfo.SortScore;
+            newUnlockableDef.achievementIcon = unlockableInfo.sprite;
 
             return newUnlockableDef;
         }
@@ -57,11 +58,13 @@ namespace ShiggyMod.Modules
                 Name = instance.UnlockableIdentifier,
                 HowToUnlockString = instance.GetHowToUnlock,
                 UnlockedString = instance.GetUnlocked,
-                SortScore = 200
+                SortScore = 200,
+                sprite = instance.Sprite,
             });
 
             unlockableDefs.Add(unlockableDef);
             achievementDefs.Add(achievementDef);
+            instance.achievementDef = achievementDef;
 
             moddedUnlocks.Add((achievementDef, unlockableDef, instance.UnlockableIdentifier));
 
@@ -123,6 +126,7 @@ where TDelegate : Delegate
             internal Func<string> HowToUnlockString;
             internal Func<string> UnlockedString;
             internal int SortScore;
+            internal Sprite sprite;
         }
     }
 

@@ -27,14 +27,17 @@ namespace ShiggyMod.Modules
         internal static BuffDef beetleBuff;
         internal static BuffDef alphashieldonBuff;
         internal static BuffDef alphashieldoffBuff;
+        internal static BuffDef decayDebuff;
 
         internal static void RegisterBuffs()
         {
             Sprite warcryBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/WarCryOnMultiKill/bdWarCryBuff.asset").WaitForCompletion().iconSprite;
+
             flyBuff = Buffs.AddNewBuff("FlyBuff", warcryBuffIcon, Color.magenta, false, false);
             beetleBuff = Buffs.AddNewBuff("WeakStrengthBuff", warcryBuffIcon, Color.blue, false, false);
             alphashieldonBuff = Buffs.AddNewBuff("ShieldOnBuff", warcryBuffIcon, Color.white, false, false);
             alphashieldoffBuff = Buffs.AddNewBuff("ShieldOffBuff", warcryBuffIcon, Color.green, true, true);
+            decayDebuff = Buffs.AddNewBuff("decayDebuff", warcryBuffIcon, Color.cyan, true, true);
 
             transformBuff = Buffs.AddNewBuff("transformBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("Transform"), Color.white, true, false);
             assaultvestBuff = Buffs.AddNewBuff("assaultvestBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"), Color.white, true, false);

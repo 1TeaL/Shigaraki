@@ -24,7 +24,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-
+            hasQuirk = false;
 
             Shiggycon = base.GetComponent<ShiggyController>();
             Shiggymastercon = characterBody.master.gameObject.GetComponent<ShiggyMasterController>();
@@ -119,7 +119,7 @@ namespace ShiggyMod.SkillStates
             //quirklist.Add("BeetleGuardBody");
             //quirklist.Add("BisonBody");
             //quirklist.Add("FlyingVerminBody");
-            //quirklist.Add("ScavBody");
+            //quirklist.Add("VerminBody");
             //quirklist.Add("ScavBody");
             //quirklist.Add("ScavBody");
             //quirklist.Add("ScavBody");

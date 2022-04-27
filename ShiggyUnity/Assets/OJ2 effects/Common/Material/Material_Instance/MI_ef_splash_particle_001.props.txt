@@ -1,0 +1,90 @@
+ScalarParameterValues[7] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = 30
+        ParameterInfo = { Name=depthFade }
+    }
+    ScalarParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo = { Name=noiseDensity }
+    }
+    ScalarParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = 0.3
+        ParameterInfo = { Name=noiseSpdX }
+    }
+    ScalarParameterValues[3] =
+    {
+        ParameterName = None
+        ParameterValue = 0.7
+        ParameterInfo = { Name=noiseSpdY }
+    }
+    ScalarParameterValues[4] =
+    {
+        ParameterName = None
+        ParameterValue = 2
+        ParameterInfo = { Name=noiseTileU }
+    }
+    ScalarParameterValues[5] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo = { Name=noiseTileV }
+    }
+    ScalarParameterValues[6] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[3] =
+{
+    TextureParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_noise5.T_ef_noise5'
+        ParameterInfo = { Name=baseNoise }
+    }
+    TextureParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_noise6.T_ef_noise6'
+        ParameterInfo =
+        {
+            Name = kezuri_texture
+        }
+    }
+    TextureParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_moyamask_001.T_ef_moyamask_001'
+        ParameterInfo = { Name=mask_texture }
+    }
+}
+VectorParameterValues[0] = {}
+Parent = Material3'Common/Material/Master_Material/M_ef_waterDust_tr.M_ef_waterDust_tr'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Translucent (2)
+    bOverride_TwoSided = false
+    TwoSided = true
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0.3333
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

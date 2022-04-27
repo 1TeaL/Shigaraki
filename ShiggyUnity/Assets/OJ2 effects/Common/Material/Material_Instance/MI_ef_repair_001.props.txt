@@ -1,0 +1,92 @@
+ScalarParameterValues[6] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = 0.05
+        ParameterInfo = { Name=EmissiveLine }
+    }
+    ScalarParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = 5
+        ParameterInfo =
+        {
+            Name = Noise_U_Tilling
+        }
+    }
+    ScalarParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = 0.1
+        ParameterInfo =
+        {
+            Name = Noise_V_scroll
+        }
+    }
+    ScalarParameterValues[3] =
+    {
+        ParameterName = None
+        ParameterValue = 5
+        ParameterInfo =
+        {
+            Name = Noise_V_Tilling
+        }
+    }
+    ScalarParameterValues[4] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo = { Name=Tex_V_scroll }
+    }
+    ScalarParameterValues[5] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[1] =
+{
+    TextureParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_Block_Noise_001_tes.T_ef_Block_Noise_001_tes'
+        ParameterInfo = { Name=Noise_Tex }
+    }
+}
+VectorParameterValues[1] =
+{
+    VectorParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue =
+        {
+            R = 10
+            G = 5.96348
+            B = 4.03697
+            A = 1
+        }
+        ParameterInfo = { Name=Line_color }
+    }
+}
+Parent = Material3'Common/Material/Master_Material/M_ef_Dissolve_001.M_ef_Dissolve_001'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Masked (1)
+    bOverride_TwoSided = false
+    TwoSided = false
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0.3333
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

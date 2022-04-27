@@ -1,0 +1,19 @@
+TwoSided = true
+bDisableDepthTest = false
+bIsMasked = false
+ReferencedTextures[4] =
+{
+    ReferencedTextures[0] = Texture2D'Common/Texture/T_ef_noize_001.T_ef_noize_001'
+    ReferencedTextures[1] = Texture2D'Common/Texture/T_ef_smoke_000_F.T_ef_smoke_000_F'
+    ReferencedTextures[2] = Texture2D'Common/Texture/T_ef_smoke_010.T_ef_smoke_010'
+    ReferencedTextures[3] = Texture2D'Common/Texture/T_ef_smokemask_000.T_ef_smokemask_000'
+}
+BlendMode = BLEND_Translucent (2)
+OpacityMaskClipValue = 0.333
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

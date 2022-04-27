@@ -182,22 +182,20 @@ namespace ShiggyMod.SkillStates
                     foreach (HurtBox hurtBox in list)
                     {
                         this.OnHitEnemyAuthority();
-                        //bool flag2 = hurtBox.healthComponent && hurtBox.healthComponent.body;
-                        //if (flag2)
-                        //{
+                        bool flag2 = hurtBox.healthComponent && hurtBox.healthComponent.body;
+                        if (flag2)
+                        {
 
-                        //    DotController.InflictDot(victim, damageInfo.attacker, poisonDot, duration);
-                        //    InflictDotInfo info = new InflictDotInfo();
-                        //    info.attackerObject = hurtBox.healthComponent.body.gameObject;
-                        //    info.victimObject = hurtBox.healthComponent.body.gameObject;
-                        //    info.duration = 5.0f;
-                        //    info.damageMultiplier = 1.0f;
-                        //    info.dotIndex = DotController.DotIndex.Burn;
-                        //    RoR2.StrengthenBurnUtils.CheckDotForUpgrade(gameObject.inventory, ref info);
-                        //    //for (int i = 0; i < Modules.StaticValues.solGateFireTicks; i++) {
-                        //    DotController.InflictDot(ref info);
-                        //    //}
-                        //}
+                            InflictDotInfo info = new InflictDotInfo();
+                            info.attackerObject = base.gameObject;
+                            info.victimObject = hurtBox.healthComponent.body.gameObject;
+                            info.duration = Modules.StaticValues.decayDamageTimer;
+                            info.damageMultiplier = Modules.StaticValues.decayDamageCoeffecient + Modules.StaticValues.decayDamageStack * hurtBox.healthComponent.body.GetBuffCount(Modules.Buffs.decayDebuff);
+                            info.dotIndex = Modules.Dots.decayDot;
+
+                            DotController.InflictDot(ref info);
+
+                        }
                     }
                 }
             }

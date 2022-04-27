@@ -4,6 +4,10 @@ namespace ShiggyMod.Modules
 {
     internal static class StaticValues
     {
+        internal const float decayDamageCoeffecient = 1f;
+        internal const float decayDamageStack = 1f;
+        internal const float decayDamageTimer = 10f;
+        internal const float decayInstaKillThreshold = 100f;
 
         internal const float struggleDamageCoefficient = 0.3f;
         internal const float invincibilityDuration = 7f;

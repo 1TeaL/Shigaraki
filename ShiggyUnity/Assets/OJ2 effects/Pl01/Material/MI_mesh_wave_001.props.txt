@@ -1,0 +1,69 @@
+ScalarParameterValues[4] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = 3
+        ParameterInfo =
+        {
+            Name = Normal_V_Speed
+        }
+    }
+    ScalarParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = 60
+        ParameterInfo = { Name=Offset_Scale }
+    }
+    ScalarParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo = { Name=Wipe_Scale }
+    }
+    ScalarParameterValues[3] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[2] =
+{
+    TextureParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_tornade_001.T_ef_tornade_001'
+        ParameterInfo = { Name=Wipe_Texture }
+    }
+    TextureParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_tornade_001.T_ef_tornade_001'
+        ParameterInfo =
+        {
+            Name = Wipe_Texture_1
+        }
+    }
+}
+VectorParameterValues[0] = {}
+Parent = Material3'Common/Material/Master_Material/M_ef_meshwave_tr.M_ef_meshwave_tr'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Opaque (0)
+    bOverride_TwoSided = false
+    TwoSided = false
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

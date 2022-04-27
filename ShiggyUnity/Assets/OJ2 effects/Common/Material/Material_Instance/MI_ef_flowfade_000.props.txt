@@ -1,0 +1,57 @@
+ScalarParameterValues[1] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[4] =
+{
+    TextureParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_smoke_001_F.T_ef_smoke_001_F'
+        ParameterInfo = { Name=flowmap_tex }
+    }
+    TextureParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_smokemask_000.T_ef_smokemask_000'
+        ParameterInfo = { Name=mask_texture }
+    }
+    TextureParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_smoke_010.T_ef_smoke_010'
+        ParameterInfo = { Name=texture }
+    }
+    TextureParameterValues[3] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_noize_001.T_ef_noize_001'
+        ParameterInfo = { Name=Wipe_Texture }
+    }
+}
+VectorParameterValues[0] = {}
+Parent = MaterialInstanceConstant'Common/Material/Material_Instance/MI_ef_C1_flow_tr.MI_ef_C1_flow_tr'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Opaque (0)
+    bOverride_TwoSided = false
+    TwoSided = false
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

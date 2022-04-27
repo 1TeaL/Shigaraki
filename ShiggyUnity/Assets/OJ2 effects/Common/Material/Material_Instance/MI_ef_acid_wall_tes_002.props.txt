@@ -1,0 +1,147 @@
+ScalarParameterValues[15] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = 4
+        ParameterInfo = { Name=Bace_tileU }
+    }
+    ScalarParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = 3
+        ParameterInfo = { Name=Bace_tileV }
+    }
+    ScalarParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = -0.2
+        ParameterInfo = { Name=Bace_U_Speed }
+    }
+    ScalarParameterValues[3] =
+    {
+        ParameterName = None
+        ParameterValue = -1
+        ParameterInfo = { Name=Bace_V_Speed }
+    }
+    ScalarParameterValues[4] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = grade_mask_OFF
+        }
+    }
+    ScalarParameterValues[5] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo = { Name=Offset_Scale }
+    }
+    ScalarParameterValues[6] =
+    {
+        ParameterName = None
+        ParameterValue = 2
+        ParameterInfo = { Name=Offset_tileU }
+    }
+    ScalarParameterValues[7] =
+    {
+        ParameterName = None
+        ParameterValue = 2
+        ParameterInfo = { Name=Offset_tileV }
+    }
+    ScalarParameterValues[8] =
+    {
+        ParameterName = None
+        ParameterValue = 0.2
+        ParameterInfo =
+        {
+            Name = Offset_U_Speed
+        }
+    }
+    ScalarParameterValues[9] =
+    {
+        ParameterName = None
+        ParameterValue = -0.3
+        ParameterInfo =
+        {
+            Name = Offset_V_Speed
+        }
+    }
+    ScalarParameterValues[10] =
+    {
+        ParameterName = None
+        ParameterValue = 2
+        ParameterInfo = { Name=Wipe_tileU }
+    }
+    ScalarParameterValues[11] =
+    {
+        ParameterName = None
+        ParameterValue = 2
+        ParameterInfo = { Name=Wipe_tileV }
+    }
+    ScalarParameterValues[12] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo = { Name=Wipe_U_Speed }
+    }
+    ScalarParameterValues[13] =
+    {
+        ParameterName = None
+        ParameterValue = -0.5
+        ParameterInfo = { Name=Wipe_V_Speed }
+    }
+    ScalarParameterValues[14] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[3] =
+{
+    TextureParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_noise_003.T_ef_noise_003'
+        ParameterInfo = { Name=Bace_Texture }
+    }
+    TextureParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_distorted_002_N.T_ef_distorted_002_N'
+        ParameterInfo =
+        {
+            Name = Offset_texture
+        }
+    }
+    TextureParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = Texture2D'Common/Texture/T_ef_distorted_001.T_ef_distorted_001'
+        ParameterInfo = { Name=Wipe_Texture }
+    }
+}
+VectorParameterValues[0] = {}
+Parent = Material3'Common/Material/Master_Material/M_ef_meshwave2_tr_two_side_001.M_ef_meshwave2_tr_two_side_001'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Translucent (2)
+    bOverride_TwoSided = false
+    TwoSided = true
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0.3333
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

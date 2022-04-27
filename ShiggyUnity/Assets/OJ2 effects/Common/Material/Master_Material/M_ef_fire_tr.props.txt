@@ -1,0 +1,18 @@
+TwoSided = true
+bDisableDepthTest = false
+bIsMasked = false
+ReferencedTextures[3] =
+{
+    ReferencedTextures[0] = Texture2D'Common/Texture/T_ef_Fire_Tile_00.T_ef_Fire_Tile_00'
+    ReferencedTextures[1] = Texture2D'Common/Texture/T_ef_fireMask_001.T_ef_fireMask_001'
+    ReferencedTextures[2] = Texture2D'Common/Texture/T_ef_gradation_001.T_ef_gradation_001'
+}
+BlendMode = BLEND_Translucent (2)
+OpacityMaskClipValue = 0.2
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None

@@ -1,0 +1,150 @@
+ScalarParameterValues[16] =
+{
+    ScalarParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = 3
+        ParameterInfo = { Name=bace_spd_V }
+    }
+    ScalarParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue = 3
+        ParameterInfo = { Name=bace_tile_U }
+    }
+    ScalarParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo = { Name=bace_tile_V }
+    }
+    ScalarParameterValues[3] =
+    {
+        ParameterName = None
+        ParameterValue = 0.5
+        ParameterInfo = { Name=black_power }
+    }
+    ScalarParameterValues[4] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo = { Name=black_spd_U }
+    }
+    ScalarParameterValues[5] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo = { Name=black_spd_V }
+    }
+    ScalarParameterValues[6] =
+    {
+        ParameterName = None
+        ParameterValue = 10
+        ParameterInfo = { Name=black_tile_U }
+    }
+    ScalarParameterValues[7] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo = { Name=black_tile_V }
+    }
+    ScalarParameterValues[8] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo = { Name=colorA_power }
+    }
+    ScalarParameterValues[9] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo = { Name=colorB_power }
+    }
+    ScalarParameterValues[10] =
+    {
+        ParameterName = None
+        ParameterValue = 60
+        ParameterInfo =
+        {
+            Name = Fresnel_Emissive
+        }
+    }
+    ScalarParameterValues[11] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo = { Name=white_power }
+    }
+    ScalarParameterValues[12] =
+    {
+        ParameterName = None
+        ParameterValue = 3
+        ParameterInfo = { Name=white_spd_V }
+    }
+    ScalarParameterValues[13] =
+    {
+        ParameterName = None
+        ParameterValue = 15
+        ParameterInfo = { Name=white_tile_U }
+    }
+    ScalarParameterValues[14] =
+    {
+        ParameterName = None
+        ParameterValue = 1
+        ParameterInfo = { Name=white_tile_V }
+    }
+    ScalarParameterValues[15] =
+    {
+        ParameterName = None
+        ParameterValue = 0
+        ParameterInfo =
+        {
+            Name = RefractionDepthBias
+        }
+    }
+}
+TextureParameterValues[0] = {}
+VectorParameterValues[3] =
+{
+    VectorParameterValues[0] =
+    {
+        ParameterName = None
+        ParameterValue = { R=6, G=4.34, B=0, A=1 }
+        ParameterInfo = { Name=color_baceA }
+    }
+    VectorParameterValues[1] =
+    {
+        ParameterName = None
+        ParameterValue =
+        {
+            R = 3
+            G = 2.91181
+            B = 0.718749
+            A = 1
+        }
+        ParameterInfo = { Name=color_baceB }
+    }
+    VectorParameterValues[2] =
+    {
+        ParameterName = None
+        ParameterValue = { R=5, G=3, B=1.1, A=1 }
+        ParameterInfo = { Name=color_white }
+    }
+}
+Parent = Material3'Common/Material/Master_Material/M_ef_plus02_ma.M_ef_plus02_ma'
+BasePropertyOverrides =
+{
+    bOverride_BlendMode = false
+    BlendMode = BLEND_Opaque (0)
+    bOverride_TwoSided = false
+    TwoSided = false
+    bOverride_OpacityMaskClipValue = false
+    OpacityMaskClipValue = 0
+}
+FlattenedTexture = None
+MobileBaseTexture = None
+MobileNormalTexture = None
+bUseMobileSpecular = false
+MobileSpecularPower = 16
+MobileSpecularMask = MSM_Constant (0)
+MobileMaskTexture = None
