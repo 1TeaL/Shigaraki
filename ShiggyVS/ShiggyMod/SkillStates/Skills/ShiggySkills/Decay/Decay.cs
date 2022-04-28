@@ -10,6 +10,7 @@ namespace ShiggyMod.SkillStates
     public class Decay : BaseSkillState
     {
 
+        public DecayController decaycon;
         public ShiggyController Shiggycon;
         protected string hitboxName = "SmallHitbox";
         protected string hitboxName2 = "DetectSmallHitbox";
@@ -154,7 +155,8 @@ namespace ShiggyMod.SkillStates
                 this.inHitPause = false;
                 base.characterMotor.velocity = Vector3.zero;
                 base.characterMotor.ApplyForce(this.bounceVector, true, false);
-                this.attack.Fire(null);
+                //this.attack.Fire(null);
+                this.detector.Fire(null);
             }
             bool flag2 = !this.inHitPause;
             if (flag2)
@@ -176,12 +178,21 @@ namespace ShiggyMod.SkillStates
             if (isAuthority)
             {
                 List<HurtBox> list = new List<HurtBox>();
-                bool flag = this.detector.Fire(list);
+                bool flag = this.attack.Fire(list);
                 if (flag)
                 {
                     foreach (HurtBox hurtBox in list)
                     {
+                        //Decay Controller
+                        if (!hurtBox.healthComponent.body.gameObject.GetComponent<DecayController>())
+                        {
+                            decaycon = hurtBox.healthComponent.body.gameObject.AddComponent<DecayController>();
+                        }
+
+                        
                         this.OnHitEnemyAuthority();
+
+                        //Decay Dot
                         bool flag2 = hurtBox.healthComponent && hurtBox.healthComponent.body;
                         if (flag2)
                         {

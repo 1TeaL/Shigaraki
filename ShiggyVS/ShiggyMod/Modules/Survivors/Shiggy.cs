@@ -38,7 +38,7 @@ namespace ShiggyMod.Modules.Survivors
             bodyColor = Color.magenta,
             characterPortrait = Modules.Assets.LoadCharacterIcon("Shiggy"),
             crosshair = Modules.Assets.LoadCrosshair("Standard"),
-            damage = 15f,
+            damage = 5f,
             healthGrowth = 20f,
             healthRegen = 1f,
             jumpCount = 2,
