@@ -21,6 +21,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 using RoR2.Orbs;
+using EmotesAPI;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -31,6 +32,7 @@ namespace ShiggyMod
 {
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.KingEnderBrine.ExtraSkillSlots", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
     [R2APISubmoduleDependency(new string[]
@@ -110,6 +112,10 @@ namespace ShiggyMod
 
         private void Hook()
         {
+            if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
+            {
+                On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
+            }
             // run hooks here, disabling one is as simple as commenting out the line
             On.RoR2.CharacterBody.OnDeathStart += CharacterBody_OnDeathStart;
             On.RoR2.CharacterModel.Awake += CharacterModel_Awake;
@@ -123,11 +129,31 @@ namespace ShiggyMod
             On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
         }
 
-        //lifesteal
+        private void SurvivorCatalog_Init(On.RoR2.SurvivorCatalog.orig_Init orig)
+        {
+            orig();
+            foreach(var item in SurvivorCatalog.allSurvivorDefs)
+            {
+                Debug.Log(item.bodyPrefab.name);
+                if(item.bodyPrefab.name == "ShiggyBody")
+                {
+                    CustomEmotesAPI.ImportArmature(item.bodyPrefab, Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("humanoidShiggy"));
+                }
+            }
+        }
+
+        //damage buffs
         private void GlobalEventManager_OnDamageDealt(DamageReport report)
         {
 
             bool flag = !report.attacker || !report.attackerBody;
+            //if (!flag && report.attackerBody.HasBuff(Modules.Buffs.multiplierBuff))
+            //{
+            //    report.damageDealt *= Modules.StaticValues.multiplierCoefficient;
+            //    report.attackerBody.RemoveBuff(Modules.Buffs.multiplierBuff);
+
+            //}
+
             if (!flag && report.attackerBody.HasBuff(Modules.Buffs.shellbellBuff))
             {
                 int buffnumber = report.attackerBody.GetBuffCount(Modules.Buffs.shellbellBuff);
@@ -150,7 +176,17 @@ namespace ShiggyMod
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
+
+            if (damageInfo.attacker)
+            {
+                if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
+                {
+                    damageInfo.attacker.GetComponent<CharacterBody>().RemoveBuff(Buffs.multiplierBuff);
+                }
+            }
+
             //alpha construct shield
+
             bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
             if (!flag && self.body.HasBuff(Modules.Buffs.alphashieldonBuff.buffIndex) && damageInfo.damage > 0f)
             {
@@ -174,6 +210,11 @@ namespace ShiggyMod
         {
             //buffs 
             orig.Invoke(self);
+
+            if (self.HasBuff(Buffs.multiplierBuff))
+            {
+                self.damage *= Modules.StaticValues.multiplierCoefficient;
+            }
 
             if (self.HasBuff(Buffs.flyBuff))
             {

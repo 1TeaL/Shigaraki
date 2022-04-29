@@ -20,7 +20,7 @@ namespace ShiggyMod.SkillStates
         private OverlapAttack attack;
         private OverlapAttack detector;
 
-        private DamageType damageType = DamageType.Generic;
+        private DamageType damageType;
         public static float baseduration = 0.8f;
         public float duration;
         public float fireTime;
@@ -33,7 +33,7 @@ namespace ShiggyMod.SkillStates
         public static float minExtraDuration = 0.2f;
         protected float hitStopDuration = 0.15f;
         private float extraDuration;
-        private float smallhopvelocity = 20f;
+        private float smallhopvelocity = 10f;
 
         private bool inHitPause;
         private bool hasHopped;
@@ -46,6 +46,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            damageType = DamageType.Generic;
 
             duration = baseduration / attackSpeedStat;
             if(duration <= 0.2f)

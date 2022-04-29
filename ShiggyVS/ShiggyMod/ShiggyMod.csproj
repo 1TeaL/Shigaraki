@@ -38,11 +38,14 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <Reference Include="CustomEmotesAPI">
+      <HintPath>bin\Debug\netstandard2.0\CustomEmotesAPI.dll</HintPath>
+    </Reference>
     <Reference Include="ExtraSkillSlots">
       <HintPath>bin\Debug\netstandard2.0\ExtraSkillSlots.dll</HintPath>
     </Reference>
-    <Reference Include="MMHOOK_Assembly-CSharp">
-      <HintPath>C:\Users\theod\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\test\BepInEx\plugins\RiskofThunder-HookGenPatcher\MMHOOK\MMHOOK_Assembly-CSharp.dll</HintPath>
+    <Reference Include="MMHOOK_RoR2">
+      <HintPath>bin\Debug\netstandard2.0\MMHOOK_RoR2.dll</HintPath>
     </Reference>
     <Reference Include="ScrollableLobbyUI">
       <HintPath>bin\Debug\netstandard2.0\ScrollableLobbyUI.dll</HintPath>

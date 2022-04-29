@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1561334693
+CRC: 1823904197
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 99e3e1398542ed2b8816f11825050997
+    Hash: e02c7b97092b09b1120623cefa4ea7f9
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5936d6eb45be86807ba2953f2460f429
@@ -49,10 +49,11 @@ Assets:
 - Assets/Shigaraki/Assets/ShiggyMat.png
 - Assets/Shigaraki/Assets/mdlShiggy.prefab
 - Assets/Shigaraki/Import/Hitbox.prefab
+- Assets/Shigaraki/Assets/humanoidShiggy.prefab
 - Assets/Shigaraki/Assets/ShigarakifbxAvatar.asset
 - Assets/Shigaraki/Import/matHitboxPreview.mat
+- Assets/Shigaraki/Emotes/ShigarakihumanoidAvatar.asset
 - Assets/Shigaraki/Animations/animShiggy.controller
-- Assets/Shigaraki/Blender/Shigarakiblend.blend
 - Assets/Shigaraki/Animations/animShiggyDiplay.controller
 - Assets/Shigaraki/Assets/MeshShiggy.mesh
 Dependencies: []

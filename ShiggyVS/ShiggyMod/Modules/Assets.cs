@@ -34,6 +34,9 @@ namespace ShiggyMod.Modules
         // CHANGE THIS
         private const string assetbundleName = "ShiggyAssetBundle";
 
+        //tracers
+        public static GameObject VoidFiendBeamTracer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
+
         //buffs
         //public static BuffDef fireelitebuff =  Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/EliteFire/bdEliteFire.asset").WaitForCompletion();
         //public static BuffDef hauntedelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/EliteHaunted/bdEliteHaunted.asset").WaitForCompletion();

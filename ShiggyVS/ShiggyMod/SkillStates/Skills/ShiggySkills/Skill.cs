@@ -7,17 +7,22 @@ namespace ShiggyMod.SkillStates
 {
     public class Skill : BaseSkillState
     {
-        public float duration = 1f;
+        public float baseDuration = 1f;
+        public float duration;
         public ShiggyController Shiggycon;
+        private DamageType damageType;
 
 
+        private float radius = 15f;
         private float damageCoefficient = 1f;
+        private float procCoefficient = 1f;
         private float force = 1f;
         private float speedOverride =1f;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
@@ -50,7 +55,7 @@ namespace ShiggyMod.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.PrioritySkill;
         }
 
     }

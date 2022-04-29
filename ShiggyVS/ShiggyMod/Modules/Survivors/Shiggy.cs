@@ -158,7 +158,7 @@ namespace ShiggyMod.Modules.Survivors
 
             #endregion
 
-            #region Items
+            #region MonsterSkills
             SkillDef LemurianFireball = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ASSAULTVEST_NAME",
@@ -184,33 +184,84 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
-            
+
 
             #endregion
 
             #region Secondary
 
+            SkillDef BulletLaser = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "ASSAULTVEST_NAME",
+                skillNameToken = prefix + "ASSAULTVEST_NAME",
+                skillDescriptionToken = prefix + "ASSAULTVEST_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BulletLaser)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
-                LemurianFireball,
+                BulletLaser,
             });
             #endregion
 
             #region Utility
+            SkillDef AirCannon = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "ASSAULTVEST_NAME",
+                skillNameToken = prefix + "ASSAULTVEST_NAME",
+                skillDescriptionToken = prefix + "ASSAULTVEST_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.AirCannon)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
-                LemurianFireball,
+                AirCannon,
             });
             #endregion
 
             #region Special
-            SkillDef skillDef41 = Skills.CreateSkillDef(new SkillDefInfo
+            SkillDef Multiplier = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "SPECIAL_NAME",
                 skillNameToken = prefix + "SPECIAL_NAME",
                 skillDescriptionToken = prefix + "SPECIAL_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Transform"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.AFOPrimary)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Multiplier)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -232,7 +283,7 @@ namespace ShiggyMod.Modules.Survivors
 
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
-                skillDef41,
+                Multiplier,
             });
             #endregion
 
@@ -274,7 +325,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "BOOSTEDPRIMARY_NAME",
                 skillDescriptionToken = prefix + "BOOSTEDPRIMARY_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.Decay)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.LemurianFireball)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
