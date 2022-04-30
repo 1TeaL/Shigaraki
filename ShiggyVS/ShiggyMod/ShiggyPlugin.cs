@@ -112,10 +112,6 @@ namespace ShiggyMod
 
         private void Hook()
         {
-            if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
-            {
-                On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
-            }
             // run hooks here, disabling one is as simple as commenting out the line
             On.RoR2.CharacterBody.OnDeathStart += CharacterBody_OnDeathStart;
             On.RoR2.CharacterModel.Awake += CharacterModel_Awake;
@@ -123,12 +119,17 @@ namespace ShiggyMod
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
             //On.RoR2.TeleporterInteraction.FinishedState.OnEnter += TeleporterInteraction_FinishedState;
-            GlobalEventManager.onServerDamageDealt += GlobalEventManager_OnDamageDealt;
+            //GlobalEventManager.onServerDamageDealt += GlobalEventManager_OnDamageDealt;
             //On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate;
             //On.RoR2.CharacterBody.Update += CharacterBody_Update;
             On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
+            if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
+            {
+                On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
+            }
         }
 
+        //EMOTES
         private void SurvivorCatalog_Init(On.RoR2.SurvivorCatalog.orig_Init orig)
         {
             orig();
@@ -137,46 +138,39 @@ namespace ShiggyMod
                 Debug.Log(item.bodyPrefab.name);
                 if(item.bodyPrefab.name == "ShiggyBody")
                 {
-                    CustomEmotesAPI.ImportArmature(item.bodyPrefab, Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("humanoidShiggy"));
+                    CustomEmotesAPI.ImportArmature(item.bodyPrefab, Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("humanoidShigaraki"));
                 }
             }
         }
 
-        //damage buffs
-        private void GlobalEventManager_OnDamageDealt(DamageReport report)
-        {
+        //private void GlobalEventManager_OnDamageDealt(DamageReport report)
+        //{
 
-            bool flag = !report.attacker || !report.attackerBody;
-            //if (!flag && report.attackerBody.HasBuff(Modules.Buffs.multiplierBuff))
-            //{
-            //    report.damageDealt *= Modules.StaticValues.multiplierCoefficient;
-            //    report.attackerBody.RemoveBuff(Modules.Buffs.multiplierBuff);
+        //    bool flag = !report.attacker || !report.attackerBody;
 
-            //}
+        //    if (!flag && report.attackerBody.HasBuff(Modules.Buffs.shellbellBuff))
+        //    {
+        //        int buffnumber = report.attackerBody.GetBuffCount(Modules.Buffs.shellbellBuff);
+        //        if (buffnumber > 0)
+        //        {
+        //            if (buffnumber >= 1 && buffnumber < 2)
+        //            {
+        //                CharacterBody attackerBody = report.attackerBody;
+        //                attackerBody.healthComponent.Heal(report.damageDealt * Modules.StaticValues.shellbelllifesteal, default(ProcChainMask), true);
+        //            }
+        //            if (buffnumber >= 2)
+        //            {
+        //                CharacterBody attackerBody = report.attackerBody;
+        //                attackerBody.healthComponent.Heal(report.damageDealt * Modules.StaticValues.shellbelllifesteal2, default(ProcChainMask), true);
+        //            }
+        //        }
 
-            if (!flag && report.attackerBody.HasBuff(Modules.Buffs.shellbellBuff))
-            {
-                int buffnumber = report.attackerBody.GetBuffCount(Modules.Buffs.shellbellBuff);
-                if (buffnumber > 0)
-                {
-                    if (buffnumber >= 1 && buffnumber < 2)
-                    {
-                        CharacterBody attackerBody = report.attackerBody;
-                        attackerBody.healthComponent.Heal(report.damageDealt * Modules.StaticValues.shellbelllifesteal, default(ProcChainMask), true);
-                    }
-                    if (buffnumber >= 2)
-                    {
-                        CharacterBody attackerBody = report.attackerBody;
-                        attackerBody.healthComponent.Heal(report.damageDealt * Modules.StaticValues.shellbelllifesteal2, default(ProcChainMask), true);
-                    }
-                }
-
-            }
-        }
+        //    }
+        //}
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
-
+            //multiplier remove
             if (damageInfo.attacker)
             {
                 if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
@@ -211,25 +205,49 @@ namespace ShiggyMod
             //buffs 
             orig.Invoke(self);
 
-            if (self.HasBuff(Buffs.multiplierBuff))
+            if(self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
             {
-                self.damage *= Modules.StaticValues.multiplierCoefficient;
+                //sprint buff
+                if (self.HasBuff(Buffs.sprintBuff))
+                {
+                    self.sprintingSpeedMultiplier *= Modules.StaticValues.sprintMultiplier;
+                }
+                //jump buff
+                if (self.HasBuff(Buffs.jumpBuff))
+                {
+                    self.baseJumpCount += Modules.StaticValues.jumpStacks;
+                }
+                //multiplier buff
+                if (self.HasBuff(Buffs.multiplierBuff))
+                {
+                    self.damage *= Modules.StaticValues.multiplierCoefficient;
+                }
+                //fly buff
+                if (self.HasBuff(Buffs.flyBuff))
+                {
+                    self.moveSpeed *= 1.5f;
+                    self.acceleration *= 2f;
+                    self.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                    self.characterMotor.useGravity = false;
+                }
+                else
+                {
+                    self.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
+                    self.characterMotor.useGravity = true;
+
+                }
+                if (self.HasBuff(Buffs.beetleBuff))
+                {
+                    self.damage *= 1.2f;
+                }
+
             }
 
-            if (self.HasBuff(Buffs.flyBuff))
-            {
-                self.moveSpeed *= 1.5f;
-                self.acceleration *= 2f;
-            }
-            if (self.HasBuff(Buffs.beetleBuff))
-            {
-                self.damage *= 1.2f;
-            }
             if (self.HasBuff(Buffs.decayDebuff))
             {
                 float decaybuffcount = self.GetBuffCount(Buffs.decayDebuff);
-                self.attackSpeed *= Mathf.Pow(0.98f, decaybuffcount);
-                self.moveSpeed *= Mathf.Pow(0.98f, decaybuffcount);
+                self.attackSpeed *= Mathf.Pow(0.97f, decaybuffcount);
+                self.moveSpeed *= Mathf.Pow(0.97f, decaybuffcount);
                 if(decaybuffcount >= Modules.StaticValues.decayInstaKillThreshold)
                 {
                     if (NetworkServer.active && self.healthComponent)

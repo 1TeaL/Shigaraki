@@ -16,69 +16,14 @@ namespace ShiggyMod.Modules.Survivors
 		private InputBankTest inputBank;
 		private float trackerUpdateStopwatch;
 		private Indicator indicator;
-		public bool transformed;
 		private readonly BullseyeSearch search = new BullseyeSearch();
 		private CharacterMaster characterMaster;
 		private CharacterBody origCharacterBody;
 		private string origName;
 		public ShiggyMasterController Shiggymastercon;
 
-		public bool assaultvest;
-		public bool choiceband;
-		public bool choicescarf;
-		public bool choicespecs;
-		public bool leftovers;
-		public bool lifeorb;
-		public bool luckyegg;
-		public bool rockyhelmet;
-		public bool scopelens;
-		public bool shellbell;
-		public bool assaultvest2;
-		public bool choiceband2;
-		public bool choicescarf2;
-		public bool choicespecs2;
-		public bool leftovers2;
-		public bool lifeorb2;
-		public bool luckyegg2;
-		public bool rockyhelmet2;
-		public bool scopelens2;
-		public bool shellbell2;
 
 		private int buffCountToApply;
-		//public enum WhatSkill : uint
-		//{
-		//	Alloyvulture = 0,
-		//	Alphaconstruct = 1,
-		//	//Beetlequirkless = 2,
-		//	Beetleguard = 3,
-		//	Bighornbiso = 4,
-		//	Blindpest = 5,
-		//	Blindvermin = 6,
-		//	Brasscontraption = 7,
-		//	Clayapothecary = 8,
-		//	Claytemplar = 9,
-		//	ElderLemurian = 10,
-		//	Geepgupgip = 11,
-		//	Greaterwisp = 12,
-		//	Hermitcrab = 13,
-		//	Impblink = 14,
-		//	//Jellyfish = 15,
-		//	//Larva = 16,
-		//	Lemurian = 17,
-		//	Lesserwisp = 18,
-		//	Lunarchimeraexploder = 19,
-		//	Lunarchimeragolem = 20,
-		//	Lunarchimerawisp = 21,
-		//	Minimushrum = 22,
-		//	Parent = 23,
-		//	Solusprobe = 24,
-		//	Stonegolem = 25,
-		//	//Voidbarnacle = 26,
-		//	Voidjailer = 27,
-		//	Voidreaver = 28,
-		//}
-
-		//public WhatSkill SkillDef;
 
 		private void Awake()
 		{
@@ -87,26 +32,6 @@ namespace ShiggyMod.Modules.Survivors
 			
 			characterBody = gameObject.GetComponent<CharacterBody>();
 			inputBank = gameObject.GetComponent<InputBankTest>();
-			assaultvest = false;
-			choiceband = false;
-			choicescarf = false;
-			choicespecs = false;
-			leftovers = false;
-			lifeorb = false;
-			luckyegg = false;
-			rockyhelmet = false;
-			scopelens = false;
-			shellbell = false;
-			assaultvest2 = false;
-			choiceband2 = false;
-			choicescarf2 = false;
-			choicespecs2 = false;
-			leftovers2 = false;
-			lifeorb2 = false;
-			luckyegg2 = false;
-			rockyhelmet2 = false;
-			scopelens2 = false;
-			shellbell2 = false;
 
 			buffCountToApply = 0;
 
@@ -115,90 +40,12 @@ namespace ShiggyMod.Modules.Survivors
 		private void Start()
 		{
 
-			assaultvest = false;
-			choiceband = false;
-			choicescarf = false;
-			choicespecs = false;
-			leftovers = false;
-			lifeorb = false;
-			luckyegg = false;
-			rockyhelmet = false;
-			scopelens = false;
-			shellbell = false;
-			assaultvest2 = false;
-			choiceband2 = false;
-			choicescarf2 = false;
-			choicespecs2 = false;
-			leftovers2 = false;
-			lifeorb2 = false;
-			luckyegg2 = false;
-			rockyhelmet2 = false;
-			scopelens2 = false;
-			shellbell2 = false;
-
 			characterMaster = characterBody.master;
 			if (!characterMaster.gameObject.GetComponent<ShiggyMasterController>())
 			{
 				Shiggymastercon = characterMaster.gameObject.AddComponent<ShiggyMasterController>();
 			}
 
-
-			//Shiggymastercon.assaultvest = false;
-			//Shiggymastercon.choiceband = false;
-			//Shiggymastercon.choicescarf = false;
-			//Shiggymastercon.choicespecs = false;
-			//Shiggymastercon.leftovers = false;
-			//Shiggymastercon.lifeorb = false;
-			//Shiggymastercon.luckyegg = false;
-			//Shiggymastercon.rockyhelmet = false;
-			//Shiggymastercon.scopelens = false;
-			//Shiggymastercon.shellbell = false;
-			//Shiggymastercon.assaultvest2 = false;
-			//Shiggymastercon.choiceband2 = false;
-			//Shiggymastercon.choicescarf2 = false;
-			//Shiggymastercon.choicespecs2 = false;
-			//Shiggymastercon.leftovers2 = false;
-			//Shiggymastercon.lifeorb2 = false;
-			//Shiggymastercon.luckyegg2 = false;
-			//Shiggymastercon.rockyhelmet2 = false;
-			//Shiggymastercon.scopelens2 = false;
-			//Shiggymastercon.shellbell2 = false;
-			if (characterBody.HasBuff(RoR2Content.Buffs.AffixBlue))
-			{
-				characterBody.RemoveBuff(RoR2Content.Buffs.AffixBlue);
-			}
-			if (characterBody.HasBuff(RoR2Content.Buffs.AffixEcho))
-			{
-				characterBody.RemoveBuff(RoR2Content.Buffs.AffixEcho);
-			}
-			if (characterBody.HasBuff(RoR2Content.Buffs.AffixHaunted))
-			{
-				characterBody.RemoveBuff(RoR2Content.Buffs.AffixHaunted);
-			}
-			if (characterBody.HasBuff(RoR2Content.Buffs.AffixLunar))
-			{
-				characterBody.RemoveBuff(RoR2Content.Buffs.AffixLunar);
-			}
-			if (characterBody.HasBuff(RoR2Content.Buffs.AffixPoison))
-			{
-				characterBody.RemoveBuff(RoR2Content.Buffs.AffixPoison);
-			}
-			if (characterBody.HasBuff(RoR2Content.Buffs.AffixRed))
-			{
-				characterBody.RemoveBuff(RoR2Content.Buffs.AffixRed);
-			}
-			if (characterBody.HasBuff(RoR2Content.Buffs.AffixWhite))
-			{
-				characterBody.RemoveBuff(RoR2Content.Buffs.AffixWhite);
-			}
-			if (characterBody.HasBuff(ShiggyMod.Modules.Assets.voidelitebuff))
-			{
-				characterBody.RemoveBuff(ShiggyMod.Modules.Assets.voidelitebuff);
-			}
-			if (characterBody.HasBuff(ShiggyMod.Modules.Assets.mendingelitebuff))
-			{
-				characterBody.RemoveBuff(ShiggyMod.Modules.Assets.mendingelitebuff);
-			}
 
 		}
 
@@ -216,14 +63,6 @@ namespace ShiggyMod.Modules.Survivors
 		{
 			this.indicator.active = false;
 		}
-		//public void AddToBuffCount(int numbertoadd)
-		//{
-		//	buffCountToApply += numbertoadd;
-		//}
-		//public int GetBuffCount()
-		//      {
-		//          return buffCountToApply;
-		//      }
 
 		private void FixedUpdate()
 		{
@@ -236,127 +75,6 @@ namespace ShiggyMod.Modules.Survivors
 				this.SearchForTarget(aimRay);
 				this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
 			}
-
-			//if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ASSAULTVEST_NAME" && !assaultvest)
-   //         {
-   //             Shiggymastercon.assaultvest = true;
-   //             assaultvest = true;
-   //             characterBody.AddBuff(Modules.Buffs.assaultvestBuff);
-   //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICEBAND_NAME" && !choiceband)
-   //         {
-   //             Shiggymastercon.choiceband = true;
-   //             choiceband = true;
-   //             characterBody.AddBuff(Modules.Buffs.choicebandBuff);
-   //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESCARF_NAME" && !choicescarf)
-   //         {
-   //             Shiggymastercon.choicescarf = true;
-   //             choicescarf = true;
-   //             characterBody.AddBuff(Modules.Buffs.choicescarfBuff);
-   //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESPECS_NAME" && !choicespecs)
-   //         {
-   //             Shiggymastercon.choicespecs = true;
-   //             choicespecs = true;
-   //             characterBody.AddBuff(Modules.Buffs.choicespecsBuff);
-   //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LEFTOVERS_NAME" && !leftovers)
-   //         {
-   //             Shiggymastercon.leftovers = true;
-   //             leftovers = true;
-   //             characterBody.AddBuff(Modules.Buffs.leftoversBuff);
-   //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LIFEORB_NAME" && !lifeorb)
-   //         {
-   //             Shiggymastercon.lifeorb = true;
-   //             lifeorb = true;
-   //             characterBody.AddBuff(Modules.Buffs.lifeorbBuff);
-   //         }
-   //         //if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LUCKYEGG_NAME" && !luckyegg)
-   //         //{
-   //         //    Shiggymastercon.luckyegg = true;
-   //         //    luckyegg = true;
-   //         //    characterBody.AddBuff(Modules.Buffs.luckyeggBuff);
-   //         //}
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ROCKYHELMET_NAME" && !rockyhelmet)
-   //         {
-   //             Shiggymastercon.rockyhelmet = true;
-   //             rockyhelmet = true;
-   //             characterBody.AddBuff(Modules.Buffs.rockyhelmetBuff);
-   //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SCOPELENS_NAME" && !scopelens)
-   //         {
-   //             Shiggymastercon.scopelens = true;
-   //             scopelens = true;
-   //             characterBody.AddBuff(Modules.Buffs.scopelensBuff);
-   //         }
-   //         if (characterBody.skillLocator.secondary.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SHELLBELL_NAME" && !shellbell)
-   //         {
-   //             Shiggymastercon.shellbell = true;
-   //             shellbell = true;
-   //             characterBody.AddBuff(Modules.Buffs.shellbellBuff);
-   //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ASSAULTVEST_NAME" && !assaultvest2)
-   //         {
-   //             Shiggymastercon.assaultvest2 = true;
-   //             assaultvest2 = true;
-   //             characterBody.AddBuff(Modules.Buffs.assaultvestBuff);
-   //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICEBAND_NAME" && !choiceband2)
-   //         {
-   //             Shiggymastercon.choiceband2 = true;
-   //             choiceband2 = true;
-   //             characterBody.AddBuff(Modules.Buffs.choicebandBuff);
-   //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESCARF_NAME" && !choicescarf2)
-   //         {
-   //             Shiggymastercon.choicescarf2 = true;
-   //             choicescarf2 = true;
-   //             characterBody.AddBuff(Modules.Buffs.choicescarfBuff);
-   //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_CHOICESPECS_NAME" && !choicespecs2)
-   //         {
-   //             Shiggymastercon.choicespecs2 = true;
-   //             choicespecs2 = true;
-   //             characterBody.AddBuff(Modules.Buffs.choicespecsBuff);
-   //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LEFTOVERS_NAME" && !leftovers2)
-   //         {
-   //             Shiggymastercon.leftovers2 = true;
-   //             leftovers2 = true;
-   //             characterBody.AddBuff(Modules.Buffs.leftoversBuff);
-   //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LIFEORB_NAME" && !lifeorb2)
-   //         {
-   //             Shiggymastercon.lifeorb2 = true;
-   //             lifeorb2 = true;
-   //             characterBody.AddBuff(Modules.Buffs.lifeorbBuff);
-   //         }
-   //         //if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_LUCKYEGG_NAME" && !luckyegg2)
-   //         //{
-   //         //    Shiggymastercon.luckyegg2 = true;
-   //         //    luckyegg2 = true;
-   //         //    characterBody.AddBuff(Modules.Buffs.luckyeggBuff);
-   //         //}
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_ROCKYHELMET_NAME" && !rockyhelmet2)
-   //         {
-   //             Shiggymastercon.rockyhelmet2 = true;
-   //             rockyhelmet2 = true;
-   //             characterBody.AddBuff(Modules.Buffs.rockyhelmetBuff);
-   //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SCOPELENS_NAME" && !scopelens2)
-   //         {
-   //             Shiggymastercon.scopelens2 = true;
-   //             scopelens2 = true;
-   //             characterBody.AddBuff(Modules.Buffs.scopelensBuff);
-   //         }
-   //         if (characterBody.skillLocator.utility.skillNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SHELLBELL_NAME" && !shellbell2)
-   //         {
-   //             Shiggymastercon.shellbell2 = true;
-   //             shellbell2 = true;
-   //             characterBody.AddBuff(Modules.Buffs.shellbellBuff);
-   //         }
 
         }
 

@@ -17,7 +17,7 @@ namespace ShiggyMod.SkillStates
         private float damageCoefficient = 1f;
         private float procCoefficient = 1f;
         private float force = 1f;
-        private float speedOverride =1f;
+        private float speedOverride = -1f;
 
         public override void OnEnter()
         {

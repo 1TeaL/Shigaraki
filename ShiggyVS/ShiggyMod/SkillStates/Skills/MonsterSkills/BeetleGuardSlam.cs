@@ -1,0 +1,258 @@
+﻿using RoR2;
+using UnityEngine;
+using System.Linq;
+using UnityEngine.Networking;
+using EntityStates;
+using ShiggyMod.Modules.Survivors;
+using System.Collections.Generic;
+
+namespace ShiggyMod.SkillStates
+{
+    public class BeetleGuardSlam : BaseSkillState
+    {
+        public static float basejumpDuration = 1f;
+        public static float jumpDuration;
+        public static float dropForce = 80f;
+
+        public static float slamRadius = 10f;
+        public static float slamProcCoefficient = 1f;
+        public static float slamForce = 1000f;
+        private float damageCoefficient = 1f;
+
+        private bool hasDropped;
+        private Vector3 flyVector = Vector3.zero;
+        private Transform modelTransform;
+        private Transform slamIndicatorInstance;
+        private Transform slamCenterIndicatorInstance;
+        private Ray downRay;
+
+        protected DamageType damageType;
+        public ShiggyController shiggycon;
+        private Vector3 theSpot;
+
+        //private NemforcerGrabController grabController;
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            this.modelTransform = base.GetModelTransform();
+            this.flyVector = Vector3.up;
+            damageType = DamageType.Stun1s;
+
+            jumpDuration = basejumpDuration / attackSpeedStat;
+
+
+            //base.PlayAnimation("FullBody, Override", "ManchesterBegin", "Attack.playbackRate", Manchester.jumpDuration);
+            //AkSoundEngine.PostEvent(687990298, this.gameObject);
+            //AkSoundEngine.PostEvent(1918362945, this.gameObject);
+
+
+            base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+            base.characterMotor.Motor.ForceUnground();
+            base.characterMotor.velocity = Vector3.zero;
+
+            //base.gameObject.layer = LayerIndex.fakeActor.intVal;
+            base.characterMotor.Motor.RebuildCollidableLayers();
+        }
+
+
+        public override void Update()
+        {
+            base.Update();
+
+            if (this.slamIndicatorInstance) this.UpdateSlamIndicator();
+        }
+        protected virtual void OnHitEnemyAuthority()
+        {
+            base.healthComponent.AddBarrierAuthority((healthComponent.fullCombinedHealth / 10) * (this.moveSpeedStat / 7));
+
+        }
+
+        public void ApplyDoT()
+        {
+            Ray aimRay = base.GetAimRay();
+            theSpot = base.characterBody.footPosition;
+            BullseyeSearch search = new BullseyeSearch
+            {
+
+                teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
+                filterByLoS = false,
+                searchOrigin = theSpot,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = slamRadius,
+                maxAngleFilter = 360f
+            };
+
+            search.RefreshCandidates();
+            search.FilterOutGameObject(base.gameObject);
+
+
+
+            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+            foreach (HurtBox singularTarget in target)
+            {
+                if (singularTarget)
+                {
+                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                    {
+                        InflictDotInfo info = new InflictDotInfo();
+                        info.attackerObject = base.gameObject;
+                        info.victimObject = singularTarget.healthComponent.body.gameObject;
+                        info.duration = Modules.StaticValues.decayDamageTimer;
+                        info.damageMultiplier = Modules.StaticValues.decayDamageCoeffecient + Modules.StaticValues.decayDamageStack * singularTarget.healthComponent.body.GetBuffCount(Modules.Buffs.decayDebuff);
+                        info.dotIndex = Modules.Dots.decayDot;
+
+                        DotController.InflictDot(ref info);
+                    }
+                }
+            }
+        }
+
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+
+            if (!this.hasDropped)
+            {
+                this.StartDrop();
+            }
+
+            if (base.fixedAge >= (0.25f * jumpDuration) && !this.slamIndicatorInstance)
+            {
+                this.CreateIndicator();
+            }
+
+            if (this.hasDropped && base.isAuthority && !base.characterMotor.disableAirControlUntilCollision)
+            {
+                this.LandingImpact();
+                this.outer.SetNextStateToMain();
+            }
+
+            if (this.hasDropped && base.isAuthority && base.fixedAge > jumpDuration)
+            {
+                this.LandingImpact();
+                this.outer.SetNextStateToMain();
+            }
+        }
+
+        private void StartDrop()
+        {
+            this.hasDropped = true;
+
+            base.characterMotor.disableAirControlUntilCollision = true;
+            base.characterMotor.velocity.y = -dropForce;
+
+            //base.PlayAnimation("Fullbody, Override", "ManchesterSmashExit", "Attack.playbackRate", jumpDuration / 3f);
+            bool active = NetworkServer.active;
+            if (active)
+            {
+                base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
+            }
+
+        }
+
+        private void CreateIndicator()
+        {
+            if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+            {
+                this.downRay = new Ray
+                {
+                    direction = Vector3.down,
+                    origin = base.transform.position
+                };
+
+                this.slamIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab).transform;
+                this.slamIndicatorInstance.localScale = Vector3.one * slamRadius;
+
+            }
+        }
+
+        private void LandingImpact()
+        {
+
+            if (base.isAuthority)
+            {
+                Ray aimRay = base.GetAimRay();
+                
+                base.characterMotor.velocity *= 0.1f;
+
+                BlastAttack blastAttack = new BlastAttack();
+                blastAttack.radius = slamRadius ;
+                blastAttack.procCoefficient = slamProcCoefficient;
+                blastAttack.position = base.characterBody.footPosition;
+                blastAttack.attacker = base.gameObject;
+                blastAttack.crit = base.RollCrit();
+                blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (moveSpeedStat / 7);
+                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                blastAttack.baseForce = slamForce;
+                blastAttack.teamIndex = base.teamComponent.teamIndex;
+                blastAttack.damageType = damageType;
+                blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+
+                ApplyDoT();
+                if (blastAttack.Fire().hitCount > 0)
+                {
+                    this.OnHitEnemyAuthority();
+
+                }
+
+                EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
+                {
+                    origin = base.characterBody.footPosition,
+                    scale = slamRadius,
+                }, true);
+
+
+            }
+        }
+
+        private void UpdateSlamIndicator()
+        {
+            if (this.slamIndicatorInstance)
+            {
+                float maxDistance = 250f;
+
+                this.downRay = new Ray
+                {
+                    direction = Vector3.down,
+                    origin = base.transform.position
+                };
+
+                RaycastHit raycastHit;
+                if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
+                {
+                    this.slamIndicatorInstance.transform.position = raycastHit.point;
+                    this.slamIndicatorInstance.transform.up = raycastHit.normal;
+
+                }
+            }
+        }
+
+        public override void OnExit()
+        {
+
+            if (this.slamIndicatorInstance) EntityState.Destroy(this.slamIndicatorInstance.gameObject);
+
+            base.PlayAnimation("FullBody, Override", "BufferEmpty");
+
+
+            base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
+
+
+            if (NetworkServer.active && base.characterBody.HasBuff(RoR2Content.Buffs.HiddenInvincibility)) base.characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);
+
+            base.gameObject.layer = LayerIndex.defaultLayer.intVal;
+            base.characterMotor.Motor.RebuildCollidableLayers();
+            base.OnExit();
+        }
+
+
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Frozen;
+        }
+    }
+}

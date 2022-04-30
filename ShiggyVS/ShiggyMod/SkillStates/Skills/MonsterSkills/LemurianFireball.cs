@@ -17,14 +17,14 @@ namespace ShiggyMod.SkillStates
         private string muzzleString;
         private float damageCoefficient = 1f;
         private float force = 1f;
-        private float speedOverride = 1f;
+        private float speedOverride = -1f;
 
         public override void OnEnter()
         {
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
-            this.muzzleString = "Spine";
+            this.muzzleString = "LHand";
 
             bool flag = LemurianFireball.effectPrefab;
             if (flag)

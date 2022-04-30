@@ -18,9 +18,13 @@ namespace ShiggyMod.Modules.Survivors
         internal override string bodyName { get; set; } = "Shiggy";
 
 
+        internal static SkillDef beetleguardslamDef;
+        internal static SkillDef bisonchargeDef;
+        internal static SkillDef brassballDef;
+        internal static SkillDef clayapothecarymortarDef;
+        internal static SkillDef claytemplarminigunDef;
         internal static SkillDef lemurianfireballDef;
         internal static SkillDef vultureflyDef;
-        internal static SkillDef vulturelandDef;
 
         internal override GameObject bodyPrefab { get; set; }
         internal override GameObject displayPrefab { get; set; }
@@ -196,7 +200,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "ASSAULTVEST_NAME",
                 skillDescriptionToken = prefix + "ASSAULTVEST_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.BulletLaser)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ClayApothecaryMortar)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -215,9 +219,35 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            SkillDef ClayTemplar = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "TEMPLAR_NAME",
+                skillNameToken = prefix + "TEMPLAR_NAME",
+                skillDescriptionToken = prefix + "TEMPLAR_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ClayTemplarMinigun)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = true,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
-                BulletLaser,
+                ClayTemplar,
+
             });
             #endregion
 
@@ -228,7 +258,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "ASSAULTVEST_NAME",
                 skillDescriptionToken = prefix + "ASSAULTVEST_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.AirCannon)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BrassBall)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -319,11 +349,136 @@ namespace ShiggyMod.Modules.Survivors
             #endregion
 
             #region Override Skills
+            Shiggy.beetleguardslamDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "BEETLEGUARD_NAME",
+                skillNameToken = prefix + "BEETLEGUARD_NAME",
+                skillDescriptionToken = prefix + "BEETLEGUARD_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BeetleGuardSlam)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = true,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.bisonchargeDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "BISON_NAME",
+                skillNameToken = prefix + "BISON_NAME",
+                skillDescriptionToken = prefix + "BISON_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BisonCharge)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = true,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.brassballDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "BRONZONG_NAME",
+                skillNameToken = prefix + "BRONZONG_NAME",
+                skillDescriptionToken = prefix + "BRONZONG_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BrassBall)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = true,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.clayapothecarymortarDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "APOTHECARY_NAME",
+                skillNameToken = prefix + "APOTHECARY_NAME",
+                skillDescriptionToken = prefix + "APOTHECARY_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ClayApothecaryMortar)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = true,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.claytemplarminigunDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "TEMPLAR_NAME",
+                skillNameToken = prefix + "TEMPLAR_NAME",
+                skillDescriptionToken = prefix + "TEMPLAR_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ClayTemplarMinigun)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = true,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             Shiggy.lemurianfireballDef = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "BOOSTEDPRIMARY_NAME",
-                skillNameToken = prefix + "BOOSTEDPRIMARY_NAME",
-                skillDescriptionToken = prefix + "BOOSTEDPRIMARY_DESCRIPTION",
+                skillName = prefix + "LEMURIAN_NAME",
+                skillNameToken = prefix + "LEMURIAN_NAME",
+                skillDescriptionToken = prefix + "LEMURIAN_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LemurianFireball)),
                 activationStateMachineName = "Weapon",
@@ -346,9 +501,9 @@ namespace ShiggyMod.Modules.Survivors
             });
             Shiggy.vultureflyDef = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "BOOSTEDPRIMARY_NAME",
-                skillNameToken = prefix + "BOOSTEDPRIMARY_NAME",
-                skillDescriptionToken = prefix + "BOOSTEDPRIMARY_DESCRIPTION",
+                skillName = prefix + "VULTURE_NAME",
+                skillNameToken = prefix + "VULTURE_NAME",
+                skillDescriptionToken = prefix + "VULTURE_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VultureFly)),
                 activationStateMachineName = "Weapon",
@@ -369,31 +524,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
-            Shiggy.vulturelandDef = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = prefix + "BOOSTEDPRIMARY_NAME",
-                skillNameToken = prefix + "BOOSTEDPRIMARY_NAME",
-                skillDescriptionToken = prefix + "BOOSTEDPRIMARY_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.VultureLand)),
-                activationStateMachineName = "Weapon",
-                baseMaxStock = 1,
-                baseRechargeInterval = 0f,
-                beginSkillCooldownOnSkillEnd = true,
-                canceledFromSprinting = false,
-                forceSprintDuringState = true,
-                fullRestockOnAssign = false,
-                interruptPriority = InterruptPriority.Skill,
-                resetCooldownTimerOnUse = false,
-                isCombatSkill = true,
-                mustKeyPress = false,
-                cancelSprintingOnActivation = false,
-                rechargeStock = 1,
-                requiredStock = 1,
-                stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            //Shiggy.vulturelandDef = Skills.CreateSkillDef(new SkillDefInfo
+            //{
+            //    skillName = prefix + "BOOSTEDPRIMARY_NAME",
+            //    skillNameToken = prefix + "BOOSTEDPRIMARY_NAME",
+            //    skillDescriptionToken = prefix + "BOOSTEDPRIMARY_DESCRIPTION",
+            //    skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+            //    activationState = new SerializableEntityStateType(typeof(SkillStates.VultureLand)),
+            //    activationStateMachineName = "Weapon",
+            //    baseMaxStock = 1,
+            //    baseRechargeInterval = 0f,
+            //    beginSkillCooldownOnSkillEnd = true,
+            //    canceledFromSprinting = false,
+            //    forceSprintDuringState = true,
+            //    fullRestockOnAssign = false,
+            //    interruptPriority = InterruptPriority.Skill,
+            //    resetCooldownTimerOnUse = false,
+            //    isCombatSkill = true,
+            //    mustKeyPress = false,
+            //    cancelSprintingOnActivation = false,
+            //    rechargeStock = 1,
+            //    requiredStock = 1,
+            //    stockToConsume = 1,
+            //    keywordTokens = new string[] { "KEYWORD_AGILE" }
 
-            });
+            //});
             #endregion
         }
 

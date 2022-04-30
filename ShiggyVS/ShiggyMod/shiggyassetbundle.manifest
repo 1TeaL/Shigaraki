@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1823904197
+CRC: 2914158983
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: e02c7b97092b09b1120623cefa4ea7f9
+    Hash: c13182e30f5ccf742c6b5f18063405d7
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 5936d6eb45be86807ba2953f2460f429
+    Hash: 8c02cdf14910a71057eb6077378fe355
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,6 +25,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
 - Class: 74
   Script: {instanceID: 0}
 - Class: 90
@@ -34,25 +36,36 @@ ClassTypes:
 - Class: 95
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 11500000, guid: f357c3926ab767649ac4c005ed5ad8e2, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f7f96b1b3cfe100499dfca3d240d96c9, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 44cd429d01af8d242b63633f797b37fe, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e2abe6cd6bb599045a8d08c03002d089, type: 3}
 - Class: 115
+  Script: {instanceID: 0}
+- Class: 135
   Script: {instanceID: 0}
 - Class: 136
   Script: {instanceID: 0}
 - Class: 137
   Script: {instanceID: 0}
+- Class: 144
+  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Shigaraki/Emotes/humanoidShigarakiAvatar.asset
 - Assets/Shigaraki/Animations/Tomura Shigaraki_arm_Idle.anim
 - Assets/Shigaraki/Assets/ShiggyDisplay.prefab
 - Assets/Shigaraki/Assets/ShiggyMat.mat
 - Assets/Shigaraki/Assets/ShiggyMat.png
 - Assets/Shigaraki/Assets/mdlShiggy.prefab
 - Assets/Shigaraki/Import/Hitbox.prefab
-- Assets/Shigaraki/Assets/humanoidShiggy.prefab
+- Assets/Shigaraki/Animations/ShigarakifbxAvatar.asset
+- Assets/Shigaraki/Emotes/humanoidShigaraki.prefab
 - Assets/Shigaraki/Assets/ShigarakifbxAvatar.asset
 - Assets/Shigaraki/Import/matHitboxPreview.mat
-- Assets/Shigaraki/Emotes/ShigarakihumanoidAvatar.asset
 - Assets/Shigaraki/Animations/animShiggy.controller
 - Assets/Shigaraki/Animations/animShiggyDiplay.controller
 - Assets/Shigaraki/Assets/MeshShiggy.mesh

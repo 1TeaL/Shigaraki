@@ -4,8 +4,14 @@ namespace ShiggyMod.Modules
 {
     internal static class StaticValues
     {
+        internal const int maxballCount = 3;
 
+
+        internal const float sprintMultiplier = 2f;
+        internal const int jumpStacks = 4;
         internal const float multiplierCoefficient = 3f;
+
+        internal const float flyduration = 10f;
 
         internal const float decayDamageCoeffecient = 0.5f;
         internal const float decayDamageStack = 0.5f;

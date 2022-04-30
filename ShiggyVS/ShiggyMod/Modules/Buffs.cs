@@ -29,6 +29,8 @@ namespace ShiggyMod.Modules
         internal static BuffDef alphashieldoffBuff;
         internal static BuffDef decayDebuff;
         internal static BuffDef multiplierBuff;
+        internal static BuffDef jumpBuff;
+        internal static BuffDef sprintBuff;
 
         internal static void RegisterBuffs()
         {
@@ -40,6 +42,9 @@ namespace ShiggyMod.Modules
             alphashieldoffBuff = Buffs.AddNewBuff("ShieldOffBuff", warcryBuffIcon, Color.green, true, true);
             decayDebuff = Buffs.AddNewBuff("decayDebuff", warcryBuffIcon, Color.cyan, true, true);
             multiplierBuff = Buffs.AddNewBuff("multiplierBuff", warcryBuffIcon, Color.white, false, false);
+            jumpBuff = Buffs.AddNewBuff("jumpBuff", warcryBuffIcon, Color.white, false, false);
+            sprintBuff = Buffs.AddNewBuff("sprintBuff", warcryBuffIcon, Color.white, false, false);
+
 
             transformBuff = Buffs.AddNewBuff("transformBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("Transform"), Color.white, true, false);
             assaultvestBuff = Buffs.AddNewBuff("assaultvestBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"), Color.white, true, false);

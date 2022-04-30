@@ -11,12 +11,19 @@ namespace ShiggyMod.Modules
         internal static void RegisterStates()
         {
             entityStates.Add(typeof(AFOPrimary));
+
+            entityStates.Add(typeof(Decay));
+            entityStates.Add(typeof(BulletLaser));
             entityStates.Add(typeof(AirCannon));
+            entityStates.Add(typeof(Multiplier));
+
+            entityStates.Add(typeof(BisonCharge));
+            entityStates.Add(typeof(BrassBall));
+            entityStates.Add(typeof(BeetleGuardSlam));
 
             entityStates.Add(typeof(LemurianFireball));
 
             entityStates.Add(typeof(VultureFly));
-            entityStates.Add(typeof(VultureLand));
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ShiggyMod.Modules
 
         public static void RegisterDots()
         {
-            decayDot = DotAPI.RegisterDotDef(CreateDot(1, 1, DamageColorIndex.DeathMark, Buffs.decayDebuff), DecayDotEffect);
+            decayDot = DotAPI.RegisterDotDef(CreateDot(1, Modules.StaticValues.decayDamageCoeffecient, DamageColorIndex.DeathMark, Buffs.decayDebuff), DecayDotEffect);
 
         }
 

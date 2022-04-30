@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{0786EE81-AEF2-BE42-F5D4-E2207CB509C0}</ProjectGuid>
+    <ProjectGuid>{13683CD5-802B-8A69-1933-2F38FFC6BD1E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>com.unity.postprocessing.Editor</AssemblyName>
@@ -281,17 +281,8 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Analytics.Editor">
- <HintPath>F:/Theodore 3/GameDev/Mods/DekuRor2/DekuUnity/Library/PackageCache/com.unity.analytics@3.3.5/Unity.Analytics.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.Tracker">
- <HintPath>F:/Theodore 3/GameDev/Mods/DekuRor2/DekuUnity/Library/PackageCache/com.unity.analytics@3.3.5/Unity.Analytics.Tracker.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>F:/Theodore 3/GameDev/Mods/DekuRor2/DekuUnity/Library/PackageCache/com.unity.analytics@3.3.5/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
- </Reference>
  <Reference Include="nunit.framework">
- <HintPath>F:/Theodore 3/GameDev/Mods/DekuRor2/DekuUnity/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -648,21 +639,21 @@
  <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>F:/Theodore 3/GameDev/Mods/DekuRor2/DekuUnity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>F:/Theodore 3/GameDev/Mods/DekuRor2/DekuUnity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.TestRunner">
- <HintPath>F:/Theodore 3/GameDev/Mods/DekuRor2/DekuUnity/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+ <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>F:/Theodore 3/GameDev/Mods/DekuRor2/DekuUnity/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="com.unity.postprocessing.Runtime.csproj">
-      <Project>{B3F66FAE-3C5D-D631-35D8-AF09D2C2028F}</Project>
+      <Project>{D31A1EC2-9F09-AC45-53E3-3D6F9C5F0C27}</Project>
       <Name>com.unity.postprocessing.Runtime</Name>
     </ProjectReference>
   </ItemGroup>

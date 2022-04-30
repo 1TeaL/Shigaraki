@@ -18,7 +18,6 @@ namespace ShiggyMod.SkillStates
         public static float slamRadius = 5f;
         private Transform modelTransform;
         private Vector3 flyVector = Vector3.zero;
-        public static SkillDef utilityDef = Shiggy.vulturelandDef;
 
         public override void OnEnter()
         {
@@ -52,7 +51,7 @@ namespace ShiggyMod.SkillStates
             bool active = NetworkServer.active;
             if (active)
             {
-                base.characterBody.AddBuff(Modules.Buffs.flyBuff);
+                base.characterBody.AddTimedBuffAuthority(Modules.Buffs.flyBuff.buffIndex, Modules.StaticValues.flyduration);
             }
 
             RecalculateRollSpeed();
@@ -69,7 +68,6 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.characterMotor.velocity.y = 0f;
-            base.skillLocator.utility.SetSkillOverride(base.skillLocator.utility, VultureFly.utilityDef, GenericSkill.SkillOverridePriority.Contextual);
             base.gameObject.layer = LayerIndex.defaultLayer.intVal;
             base.characterMotor.Motor.RebuildCollidableLayers();
             base.OnExit();

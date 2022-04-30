@@ -15,7 +15,7 @@ namespace ShiggyMod.SkillStates
         public GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
         public static event Action<int> Compacted;
 
-        public uint Distance = 100;
+        public uint Distance = 60;
         private float radius = 15f;
         private float damageCoefficient = 1f;
         private float procCoefficient = 1f;
