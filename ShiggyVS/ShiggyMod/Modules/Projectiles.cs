@@ -1,18 +1,22 @@
 ﻿using R2API;
 using RoR2;
 using RoR2.Projectile;
+using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 namespace ShiggyMod.Modules
 {
     public static class Projectiles
     {
+        internal static GameObject lemurianFireBall;
 
         internal static void RegisterProjectiles()
         {
             //only separating into separate methods for my sanity
-
+            CreateLemurianFireBall();
+            AddProjectile(lemurianFireBall);
 
         }
 
@@ -47,16 +51,61 @@ namespace ShiggyMod.Modules
             projectileImpactExplosion.offsetForLifetimeExpiredSound = 0f;
             projectileImpactExplosion.timerAfterImpact = false;
 
-            projectileImpactExplosion.GetComponent<ProjectileDamage>().damageType = DamageType.Generic;
+            //projectileImpactExplosion.GetComponent<ProjectileDamage>().damageType = DamageType.Generic;
         }
 
-        //private static void InitializeHookProjectileImpact(HookProjectileImpact hookProjectileImpact)
-        //{
-        //    hookProjectileImpact.flyTimer = 1f;
-        //    hookProjectileImpact.liveTimer = 1f;
-        //    hookProjectileImpact.Reel
+        private static void CreateLemurianFireBall()
+        {
+            lemurianFireBall = PrefabAPI.InstantiateClone(Modules.Assets.lemfireBall, "lemurianFireBall", true);
 
-        //}
+            ProjectileImpactExplosion checkProjectileExplosion = lemurianFireBall.GetComponent<ProjectileImpactExplosion>();
+
+            if (!checkProjectileExplosion)
+            {
+                ProjectileImpactExplosion lemurianFireBallexplosion = lemurianFireBall.AddComponent<ProjectileImpactExplosion>();
+                InitializeImpactExplosion(lemurianFireBallexplosion);
+
+                lemurianFireBallexplosion.blastDamageCoefficient = 1f;
+                lemurianFireBallexplosion.blastProcCoefficient = 1f;
+                lemurianFireBallexplosion.blastRadius = 5f;
+                lemurianFireBallexplosion.destroyOnEnemy = true;
+                lemurianFireBallexplosion.lifetime = 6f;
+                lemurianFireBallexplosion.impactEffect = EntityStates.LemurianMonster.FireFireball.effectPrefab;
+                lemurianFireBallexplosion.timerAfterImpact = false;
+                lemurianFireBallexplosion.lifetimeAfterImpact = 0f;
+                lemurianFireBallexplosion.destroyOnWorld = true;
+
+                lemurianFireBallexplosion.GetComponent<ProjectileDamage>().damageType = DamageType.IgniteOnHit;
+
+            }
+            else if(checkProjectileExplosion)
+            {
+                ProjectileImpactExplosion lemurianFireBallexplosion = lemurianFireBall.AddComponent<ProjectileImpactExplosion>();
+                InitializeImpactExplosion(lemurianFireBallexplosion);
+
+                lemurianFireBallexplosion.blastDamageCoefficient = 1f;
+                lemurianFireBallexplosion.blastProcCoefficient = 1f;
+                lemurianFireBallexplosion.blastRadius = 5f;
+                lemurianFireBallexplosion.destroyOnEnemy = true;
+                lemurianFireBallexplosion.lifetime = 6f;
+                lemurianFireBallexplosion.impactEffect = EntityStates.LemurianMonster.FireFireball.effectPrefab;
+                lemurianFireBallexplosion.timerAfterImpact = false;
+                lemurianFireBallexplosion.lifetimeAfterImpact = 0f;
+                lemurianFireBallexplosion.destroyOnWorld = true;
+
+                lemurianFireBallexplosion.GetComponent<ProjectileDamage>().damageType = DamageType.IgniteOnHit;
+
+            }
+
+
+            ProjectileController lemurianFireBallController = lemurianFireBall.GetComponent<ProjectileController>();
+            if (Assets.lemfireBall !=null) lemurianFireBallController.ghostPrefab = EntityStates.LemurianMonster.FireFireball.projectilePrefab;
+            lemurianFireBallController.startSound = "";
+            
+
+
+        }
+
 
         private static GameObject CreateGhostPrefab(string ghostName)
         {
@@ -71,7 +120,7 @@ namespace ShiggyMod.Modules
 
         private static GameObject CloneProjectilePrefab(string prefabName, string newPrefabName)
         {
-            GameObject newPrefab = PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/Projectiles/" + prefabName), newPrefabName);
+            GameObject newPrefab = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>(prefabName).WaitForCompletion(), newPrefabName);
             return newPrefab;
         }
     }

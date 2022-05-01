@@ -20,7 +20,7 @@ namespace ShiggyMod.Modules.Survivors
 
         internal static SkillDef beetleguardslamDef;
         internal static SkillDef bisonchargeDef;
-        internal static SkillDef brassballDef;
+        internal static SkillDef bronzongballDef;
         internal static SkillDef clayapothecarymortarDef;
         internal static SkillDef claytemplarminigunDef;
         internal static SkillDef lemurianfireballDef;
@@ -258,7 +258,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "ASSAULTVEST_NAME",
                 skillDescriptionToken = prefix + "ASSAULTVEST_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.BrassBall)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.GreaterWispBallFire)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -399,13 +399,13 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
-            Shiggy.brassballDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.bronzongballDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BRONZONG_NAME",
                 skillNameToken = prefix + "BRONZONG_NAME",
                 skillDescriptionToken = prefix + "BRONZONG_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.BrassBall)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BronzongBall)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,

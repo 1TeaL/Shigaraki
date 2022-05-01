@@ -31,6 +31,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef multiplierBuff;
         internal static BuffDef jumpBuff;
         internal static BuffDef sprintBuff;
+        internal static BuffDef spikeBuff;
 
         internal static void RegisterBuffs()
         {
@@ -44,6 +45,7 @@ namespace ShiggyMod.Modules
             multiplierBuff = Buffs.AddNewBuff("multiplierBuff", warcryBuffIcon, Color.white, false, false);
             jumpBuff = Buffs.AddNewBuff("jumpBuff", warcryBuffIcon, Color.white, false, false);
             sprintBuff = Buffs.AddNewBuff("sprintBuff", warcryBuffIcon, Color.white, false, false);
+            spikeBuff = Buffs.AddNewBuff("spikeBuff", warcryBuffIcon, Color.white, false, false);
 
 
             transformBuff = Buffs.AddNewBuff("transformBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("Transform"), Color.white, true, false);

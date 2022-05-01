@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3702404553240383158}
-  - component: {fileID: 8520455575282416904}
+  - component: {fileID: 4019319988525131852}
   m_Layer: 0
   m_Name: AC_R_Himo
   m_TagString: Untagged
@@ -62,7 +62,7 @@ Transform:
   m_Father: {fileID: 77619709399324216}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8520455575282416904
+--- !u!114 &4019319988525131852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,21 +77,21 @@ MonoBehaviour:
   m_Root: {fileID: 3702404553240383158}
   m_UpdateRate: 60
   m_UpdateMode: 0
-  m_Damping: 0.2
+  m_Damping: 0.1
   m_DampingDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Elasticity: 0.05
+  m_Elasticity: 0.1
   m_ElasticityDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Stiffness: 0.2
+  m_Stiffness: 0.1
   m_StiffnessDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -114,7 +114,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_EndLength: 0
   m_EndOffset: {x: 0, y: 0, z: 0}
-  m_Gravity: {x: 0, y: -0.002, z: 0}
+  m_Gravity: {x: 0, y: 0, z: 0}
   m_Force: {x: 0, y: 0, z: 0}
   m_Colliders: []
   m_Exclusions: []
@@ -911,15 +911,6 @@ Transform:
   - {fileID: 2707507794700443456}
   - {fileID: 4246166998273256179}
   - {fileID: 7870003065472696309}
-  - {fileID: 3152849282761846078}
-  - {fileID: 6709753983731797691}
-  - {fileID: 5887269749579070163}
-  - {fileID: 7932404339016951015}
-  - {fileID: 6411543793213432550}
-  - {fileID: 519497180745824680}
-  - {fileID: 1144132450787795681}
-  - {fileID: 6458773938662322375}
-  - {fileID: 846716773631679581}
   m_Father: {fileID: 6103005037329643589}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1277,6 +1268,15 @@ Transform:
   - {fileID: 3447565976558165489}
   - {fileID: 6103005037329643589}
   - {fileID: 5564976891077125954}
+  - {fileID: 519497180745824680}
+  - {fileID: 846716773631679581}
+  - {fileID: 6709753983731797691}
+  - {fileID: 3152849282761846078}
+  - {fileID: 7932404339016951015}
+  - {fileID: 5887269749579070163}
+  - {fileID: 6411543793213432550}
+  - {fileID: 1144132450787795681}
+  - {fileID: 6458773938662322375}
   m_Father: {fileID: 7511832231078423622}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1959,7 +1959,7 @@ GameObject:
   - component: {fileID: 519497180745824680}
   - component: {fileID: 7123687865416372386}
   m_Layer: 0
-  m_Name: Bronzong6
+  m_Name: Bronzong1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1972,12 +1972,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500199591512952250}
-  m_LocalRotation: {x: -0.43133807, y: -0.08346428, z: 0.05187709, w: 0.89682215}
-  m_LocalPosition: {x: 0.202, y: 0.136, z: -0.264}
+  m_LocalRotation: {x: 0.008657254, y: -0.00414637, z: 0.006560103, w: 0.99993247}
+  m_LocalPosition: {x: -0.003, y: 0.379, z: -0.044}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3751677340743957616}
-  m_RootOrder: 67
+  m_Father: {fileID: 3652685632069750564}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7123687865416372386
 CapsuleCollider:
@@ -2154,6 +2154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1170760891514016383}
+  - component: {fileID: 9031910407359160504}
   m_Layer: 0
   m_Name: AC_Scarf_B
   m_TagString: Untagged
@@ -2176,6 +2177,66 @@ Transform:
   m_Father: {fileID: 2198084664702744766}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9031910407359160504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555169768699273428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f357c3926ab767649ac4c005ed5ad8e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Root: {fileID: 1170760891514016383}
+  m_UpdateRate: 60
+  m_UpdateMode: 0
+  m_Damping: 0.2
+  m_DampingDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Elasticity: 0.005
+  m_ElasticityDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Stiffness: 0.9
+  m_StiffnessDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Inert: 0.5
+  m_InertDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Radius: 0
+  m_RadiusDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_EndLength: 0
+  m_EndOffset: {x: 0, y: 0, z: 0}
+  m_Gravity: {x: 0, y: -0.02, z: 0}
+  m_Force: {x: 0, y: 0, z: 0}
+  m_Colliders: []
+  m_Exclusions: []
+  m_FreezeAxis: 0
+  m_DistantDisable: 0
+  m_ReferenceObject: {fileID: 0}
+  m_DistanceToObject: 20
 --- !u!1 &1607304551519008618
 GameObject:
   m_ObjectHideFlags: 0
@@ -4677,24 +4738,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f357c3926ab767649ac4c005ed5ad8e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Root: {fileID: 5894754871262019580}
+  m_Root: {fileID: 3702404553240383158}
   m_UpdateRate: 60
   m_UpdateMode: 0
-  m_Damping: 0.2
+  m_Damping: 0.1
   m_DampingDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Elasticity: 0.05
+  m_Elasticity: 0.1
   m_ElasticityDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Stiffness: 0.2
+  m_Stiffness: 0.1
   m_StiffnessDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -4717,7 +4778,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_EndLength: 0
   m_EndOffset: {x: 0, y: 0, z: 0}
-  m_Gravity: {x: 0, y: -0.002, z: 0}
+  m_Gravity: {x: 0, y: 0, z: 0}
   m_Force: {x: 0, y: 0, z: 0}
   m_Colliders: []
   m_Exclusions: []
@@ -5384,7 +5445,7 @@ GameObject:
   - component: {fileID: 6458773938662322375}
   - component: {fileID: 203941449803674495}
   m_Layer: 0
-  m_Name: Bronzong8
+  m_Name: Bronzong9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5397,12 +5458,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4345015436147261040}
-  m_LocalRotation: {x: -0.43133807, y: -0.08346428, z: 0.05187709, w: 0.89682215}
-  m_LocalPosition: {x: -0.184, y: 0.128, z: -0.424}
+  m_LocalRotation: {x: 0.008657254, y: -0.00414637, z: 0.006560103, w: 0.99993247}
+  m_LocalPosition: {x: 0.163, y: 0.265, z: -0.004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3751677340743957616}
-  m_RootOrder: 69
+  m_Father: {fileID: 3652685632069750564}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &203941449803674495
 CapsuleCollider:
@@ -5460,7 +5521,7 @@ GameObject:
   - component: {fileID: 3152849282761846078}
   - component: {fileID: 5671821030812615415}
   m_Layer: 0
-  m_Name: Bronzong1
+  m_Name: Bronzong4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5473,12 +5534,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4422571147608061364}
-  m_LocalRotation: {x: -0.43133807, y: -0.08346428, z: 0.05187709, w: 0.89682215}
-  m_LocalPosition: {x: 0.0073, y: 0.0586, z: -0.1614}
+  m_LocalRotation: {x: 0.008657254, y: -0.00414637, z: 0.006560103, w: 0.99993247}
+  m_LocalPosition: {x: -0.003, y: 0.21, z: 0.011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3751677340743957616}
-  m_RootOrder: 62
+  m_Father: {fileID: 3652685632069750564}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &5671821030812615415
 CapsuleCollider:
@@ -6025,7 +6086,7 @@ GameObject:
   - component: {fileID: 1144132450787795681}
   - component: {fileID: 3471553869655871694}
   m_Layer: 0
-  m_Name: Bronzong7
+  m_Name: Bronzong8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6038,12 +6099,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4918110103940995053}
-  m_LocalRotation: {x: -0.43133807, y: -0.08346428, z: 0.05187709, w: 0.89682215}
-  m_LocalPosition: {x: 0.018, y: 0.149, z: -0.411}
+  m_LocalRotation: {x: 0.008657254, y: -0.00414637, z: 0.006560103, w: 0.99993247}
+  m_LocalPosition: {x: 0.16, y: 0.507, z: -0.082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3751677340743957616}
-  m_RootOrder: 68
+  m_Father: {fileID: 3652685632069750564}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3471553869655871694
 CapsuleCollider:
@@ -6310,6 +6371,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8535670174669310036}
+  - component: {fileID: 8315483772105090003}
   m_Layer: 0
   m_Name: AC_Scarf_C
   m_TagString: Untagged
@@ -6331,6 +6393,66 @@ Transform:
   m_Father: {fileID: 1170760891514016383}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8315483772105090003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5229565782515398088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f357c3926ab767649ac4c005ed5ad8e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Root: {fileID: 8535670174669310036}
+  m_UpdateRate: 60
+  m_UpdateMode: 0
+  m_Damping: 0.2
+  m_DampingDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Elasticity: 0.005
+  m_ElasticityDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Stiffness: 0.9
+  m_StiffnessDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Inert: 0.5
+  m_InertDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Radius: 0
+  m_RadiusDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_EndLength: 0
+  m_EndOffset: {x: 0, y: 0, z: 0}
+  m_Gravity: {x: 0, y: -0.02, z: 0}
+  m_Force: {x: 0, y: 0, z: 0}
+  m_Colliders: []
+  m_Exclusions: []
+  m_FreezeAxis: 0
+  m_DistantDisable: 0
+  m_ReferenceObject: {fileID: 0}
+  m_DistanceToObject: 20
 --- !u!1 &5241764956227051388
 GameObject:
   m_ObjectHideFlags: 0
@@ -6641,23 +6763,23 @@ MonoBehaviour:
   - name: DetectSmallHitbox
     transform: {fileID: 1377337097032393587}
   - name: Bronzong1
-    transform: {fileID: 3152849282761846078}
-  - name: Bronzong2
-    transform: {fileID: 6709753983731797691}
-  - name: Bronzong3
-    transform: {fileID: 5887269749579070163}
-  - name: Bronzong4
-    transform: {fileID: 7932404339016951015}
-  - name: Bronzong5
-    transform: {fileID: 6411543793213432550}
-  - name: Bronzong6
     transform: {fileID: 519497180745824680}
-  - name: Bronzong7
-    transform: {fileID: 1144132450787795681}
-  - name: Bronzong8
-    transform: {fileID: 6458773938662322375}
-  - name: Bronzong9
+  - name: Bronzong2
     transform: {fileID: 846716773631679581}
+  - name: Bronzong3
+    transform: {fileID: 6709753983731797691}
+  - name: Bronzong4
+    transform: {fileID: 3152849282761846078}
+  - name: Bronzong5
+    transform: {fileID: 7932404339016951015}
+  - name: Bronzong6
+    transform: {fileID: 5887269749579070163}
+  - name: Bronzong7
+    transform: {fileID: 6411543793213432550}
+  - name: Bronzong8
+    transform: {fileID: 1144132450787795681}
+  - name: Bronzong9
+    transform: {fileID: 6458773938662322375}
   - name: LHand
     transform: {fileID: 5228108206753806979}
   - name: LFinger1
@@ -7447,6 +7569,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2198084664702744766}
+  - component: {fileID: 5324773573203301019}
   m_Layer: 0
   m_Name: AC_Scarf_A
   m_TagString: Untagged
@@ -7469,6 +7592,66 @@ Transform:
   m_Father: {fileID: 3652685632069750564}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5324773573203301019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317558164684290613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f357c3926ab767649ac4c005ed5ad8e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Root: {fileID: 2198084664702744766}
+  m_UpdateRate: 60
+  m_UpdateMode: 0
+  m_Damping: 0.2
+  m_DampingDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Elasticity: 0.005
+  m_ElasticityDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Stiffness: 0.9
+  m_StiffnessDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Inert: 0.5
+  m_InertDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Radius: 0
+  m_RadiusDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_EndLength: 0
+  m_EndOffset: {x: 0, y: 0, z: 0}
+  m_Gravity: {x: 0, y: -0.02, z: 0}
+  m_Force: {x: 0, y: 0, z: 0}
+  m_Colliders: []
+  m_Exclusions: []
+  m_FreezeAxis: 0
+  m_DistantDisable: 0
+  m_ReferenceObject: {fileID: 0}
+  m_DistanceToObject: 20
 --- !u!1 &6329031196703605756
 GameObject:
   m_ObjectHideFlags: 0
@@ -8003,7 +8186,7 @@ GameObject:
   - component: {fileID: 7932404339016951015}
   - component: {fileID: 738738756700813167}
   m_Layer: 0
-  m_Name: Bronzong4
+  m_Name: Bronzong5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8016,12 +8199,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6856054444502559600}
-  m_LocalRotation: {x: -0.43133807, y: -0.08346428, z: 0.05187709, w: 0.89682215}
-  m_LocalPosition: {x: 0.013, y: 0.104, z: -0.285}
+  m_LocalRotation: {x: 0.008657254, y: -0.00414637, z: 0.006560103, w: 0.99993247}
+  m_LocalPosition: {x: -0.278, y: 0.375, z: -0.046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3751677340743957616}
-  m_RootOrder: 65
+  m_Father: {fileID: 3652685632069750564}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &738738756700813167
 CapsuleCollider:
@@ -8170,7 +8353,7 @@ GameObject:
   - component: {fileID: 6411543793213432550}
   - component: {fileID: 1455351442355001938}
   m_Layer: 0
-  m_Name: Bronzong5
+  m_Name: Bronzong7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8183,12 +8366,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6919948882866530457}
-  m_LocalRotation: {x: -0.43133807, y: -0.08346428, z: 0.05187709, w: 0.89682215}
-  m_LocalPosition: {x: -0.185, y: 0.083, z: -0.298}
+  m_LocalRotation: {x: 0.008657254, y: -0.00414637, z: 0.006560103, w: 0.99993247}
+  m_LocalPosition: {x: -0.162, y: 0.503, z: -0.085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3751677340743957616}
-  m_RootOrder: 66
+  m_Father: {fileID: 3652685632069750564}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1455351442355001938
 CapsuleCollider:
@@ -8307,7 +8490,7 @@ GameObject:
   - component: {fileID: 6709753983731797691}
   - component: {fileID: 7702732650377846110}
   m_Layer: 0
-  m_Name: Bronzong2
+  m_Name: Bronzong3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8320,12 +8503,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7086502733179691005}
-  m_LocalRotation: {x: -0.43133807, y: -0.08346428, z: 0.05187709, w: 0.89682215}
-  m_LocalPosition: {x: -0.186, y: 0.038, z: -0.175}
+  m_LocalRotation: {x: 0.008657254, y: -0.00414637, z: 0.006560103, w: 0.99993247}
+  m_LocalPosition: {x: 0.284, y: 0.392, z: -0.045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3751677340743957616}
-  m_RootOrder: 63
+  m_Father: {fileID: 3652685632069750564}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7702732650377846110
 CapsuleCollider:
@@ -8566,7 +8749,7 @@ GameObject:
   - component: {fileID: 846716773631679581}
   - component: {fileID: 5728192334156577391}
   m_Layer: 0
-  m_Name: Bronzong9
+  m_Name: Bronzong2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8579,12 +8762,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7433677680042771600}
-  m_LocalRotation: {x: -0.43133807, y: -0.08346428, z: 0.05187709, w: 0.89682215}
-  m_LocalPosition: {x: 0.207, y: 0.181, z: -0.39}
+  m_LocalRotation: {x: 0.008657254, y: -0.00414637, z: 0.006560103, w: 0.99993247}
+  m_LocalPosition: {x: -0.005, y: 0.588, z: -0.111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3751677340743957616}
-  m_RootOrder: 70
+  m_Father: {fileID: 3652685632069750564}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &5728192334156577391
 CapsuleCollider:
@@ -10249,7 +10432,7 @@ GameObject:
   - component: {fileID: 5887269749579070163}
   - component: {fileID: 9194578457534025630}
   m_Layer: 0
-  m_Name: Bronzong3
+  m_Name: Bronzong6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10262,12 +10445,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9076254563836721337}
-  m_LocalRotation: {x: -0.43133807, y: -0.08346428, z: 0.05187709, w: 0.89682215}
-  m_LocalPosition: {x: 0.197, y: 0.091, z: -0.141}
+  m_LocalRotation: {x: 0.008657254, y: -0.00414637, z: 0.006560103, w: 0.99993247}
+  m_LocalPosition: {x: -0.16, y: 0.297, z: -0.019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3751677340743957616}
-  m_RootOrder: 64
+  m_Father: {fileID: 3652685632069750564}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &9194578457534025630
 CapsuleCollider:

@@ -18,11 +18,11 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(Multiplier));
 
             entityStates.Add(typeof(BisonCharge));
-            entityStates.Add(typeof(BrassBall));
+            entityStates.Add(typeof(BronzongBall));
             entityStates.Add(typeof(BeetleGuardSlam));
-
+            entityStates.Add(typeof(ClayApothecaryMortar));
+            entityStates.Add(typeof(ClayTemplarMinigun));
             entityStates.Add(typeof(LemurianFireball));
-
             entityStates.Add(typeof(VultureFly));
         }
     }

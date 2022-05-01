@@ -40,30 +40,28 @@ namespace ShiggyMod.Modules
 
             #region Primary
             LanguageAPI.Add(prefix + "PRIMARY_NAME", "Struggle");
-            LanguageAPI.Add(prefix + "PRIMARY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Struggle around, dealing <style=cIsDamage>{100f * StaticValues.struggleDamageCoefficient}%</style>" + " multiple times.");
+            LanguageAPI.Add(prefix + "PRIMARY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Struggle around, dealing <style=cIsDamage>" + " multiple times.");
             #endregion
 
             #region Items
             LanguageAPI.Add(prefix + "ASSAULTVEST_NAME", "Assault Vest");
-            LanguageAPI.Add(prefix + "ASSAULTVEST_DESCRIPTION", $"Equip an Assault Vest, granting <style=cIsUtility>{(StaticValues.assaultvestboost)} armor</style>" + ".");
-            LanguageAPI.Add(prefix + "CHOICEBAND_NAME", "Choice Band");
-            LanguageAPI.Add(prefix + "CHOICEBAND_DESCRIPTION", $"Equip a Choice Band, granting <style=cIsDamage>{100f * (StaticValues.choicebandboost - 1f)}% attackspeed</style>" + ".");
-            LanguageAPI.Add(prefix + "CHOICESCARF_NAME", "Choice Scarf");
-            LanguageAPI.Add(prefix + "CHOICESCARF_DESCRIPTION", $"Equip a Choice Scarf, granting <style=cIsDamage>{100f * (StaticValues.choicescarfboost - 1f)}% movespeed</style>" + ".");
-            LanguageAPI.Add(prefix + "CHOICESPECS_NAME", "Choice Specs");
-            LanguageAPI.Add(prefix + "CHOICESPECS_DESCRIPTION", $"Equip a Choice Specs, granting <style=cIsUtility>{100f * (1-StaticValues.choicespecsboost)}% cooldown reduction</style>" + ".");
-            LanguageAPI.Add(prefix + "LEFTOVERS_NAME", "Leftovers");
-            LanguageAPI.Add(prefix + "LEFTOVERS_DESCRIPTION", $"Equip a Leftovers, granting " + Helpers.Passive($"{100f * (StaticValues.leftoversregen)}% of your max health regen") + " per second.");
-            LanguageAPI.Add(prefix + "LIFEORB_NAME", "Life Orb");
-            LanguageAPI.Add(prefix + "LIFEORB_DESCRIPTION", $"Equip a Life Orb, granting <style=cIsDamage>{100f * (StaticValues.lifeorbboost - 1f)}% damage</style>" + " </style>.");
-            LanguageAPI.Add(prefix + "LUCKYEGG_NAME", "Lucky Egg");
-            LanguageAPI.Add(prefix + "LUCKYEGG_DESCRIPTION", $"Equip a Lucky Egg, granting <style=cIsUtility>1 luck</style>" + " </style>.");
-            LanguageAPI.Add(prefix + "ROCKYHELMET_NAME", "Rocky Helmet");
-            LanguageAPI.Add(prefix + "ROCKYHELMET_DESCRIPTION", $"Equip a Rocky Helmet, stunning and dealing <style=cIsDamage>{100f * StaticValues.rockyhelmetreflect}% damage</style>" + " to attackers around you.");
-            LanguageAPI.Add(prefix + "SCOPELENS_NAME", "Scope Lens");
-            LanguageAPI.Add(prefix + "SCOPELENS_DESCRIPTION", $"Equip a Scope Lens, granting <style=cIsDamage>{StaticValues.scopelensboost}% critical hit chance</style>" + ".");
-            LanguageAPI.Add(prefix + "SHELLBELL_NAME", "Shell Bell");
-            LanguageAPI.Add(prefix + "SHELLBELL_DESCRIPTION", $"Equip a Shell Bell, granting <style=cIsUtility>{100f * (StaticValues.shellbelllifesteal)}% lifesteal</style>" + ".");
+            LanguageAPI.Add(prefix + "ASSAULTVEST_DESCRIPTION", $"Equip an Assault Vest, granting <style=cIsUtility armor</style>" + ".");
+            //LanguageAPI.Add(prefix + "CHOICESCARF_NAME", "Choice Scarf");
+            //LanguageAPI.Add(prefix + "CHOICESCARF_DESCRIPTION", $"Equip a Choice Scarf, granting <style=cIsDamage>{100f * (StaticValues.choicescarfboost - 1f)}% movespeed</style>" + ".");
+            //LanguageAPI.Add(prefix + "CHOICESPECS_NAME", "Choice Specs");
+            //LanguageAPI.Add(prefix + "CHOICESPECS_DESCRIPTION", $"Equip a Choice Specs, granting <style=cIsUtility>{100f * (1-StaticValues.choicespecsboost)}% cooldown reduction</style>" + ".");
+            //LanguageAPI.Add(prefix + "LEFTOVERS_NAME", "Leftovers");
+            //LanguageAPI.Add(prefix + "LEFTOVERS_DESCRIPTION", $"Equip a Leftovers, granting " + Helpers.Passive($"{100f * (StaticValues.leftoversregen)}% of your max health regen") + " per second.");
+            //LanguageAPI.Add(prefix + "LIFEORB_NAME", "Life Orb");
+            //LanguageAPI.Add(prefix + "LIFEORB_DESCRIPTION", $"Equip a Life Orb, granting <style=cIsDamage>{100f * (StaticValues.lifeorbboost - 1f)}% damage</style>" + " </style>.");
+            //LanguageAPI.Add(prefix + "LUCKYEGG_NAME", "Lucky Egg");
+            //LanguageAPI.Add(prefix + "LUCKYEGG_DESCRIPTION", $"Equip a Lucky Egg, granting <style=cIsUtility>1 luck</style>" + " </style>.");
+            //LanguageAPI.Add(prefix + "ROCKYHELMET_NAME", "Rocky Helmet");
+            //LanguageAPI.Add(prefix + "ROCKYHELMET_DESCRIPTION", $"Equip a Rocky Helmet, stunning and dealing <style=cIsDamage>{100f * StaticValues.rockyhelmetreflect}% damage</style>" + " to attackers around you.");
+            //LanguageAPI.Add(prefix + "SCOPELENS_NAME", "Scope Lens");
+            //LanguageAPI.Add(prefix + "SCOPELENS_DESCRIPTION", $"Equip a Scope Lens, granting <style=cIsDamage>{StaticValues.scopelensboost}% critical hit chance</style>" + ".");
+            //LanguageAPI.Add(prefix + "SHELLBELL_NAME", "Shell Bell");
+            //LanguageAPI.Add(prefix + "SHELLBELL_DESCRIPTION", $"Equip a Shell Bell, granting <style=cIsUtility>{100f * (StaticValues.shellbelllifesteal)}% lifesteal</style>" + ".");
             #endregion
 
             #region Special

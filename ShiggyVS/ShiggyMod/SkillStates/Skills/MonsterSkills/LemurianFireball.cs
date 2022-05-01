@@ -9,7 +9,8 @@ namespace ShiggyMod.SkillStates
 {
     public class LemurianFireball : BaseSkillState
     {
-        public float duration = 1f;
+        public float baseDuration = 0.5f;
+        public float duration;
         public ShiggyController Shiggycon;
 
         public static GameObject effectPrefab;
@@ -23,6 +24,8 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
+            duration = baseDuration / attackSpeedStat;
+
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "LHand";
 
@@ -34,11 +37,31 @@ namespace ShiggyMod.SkillStates
             bool isAuthority = base.isAuthority;
             if (isAuthority)
             {
-                ProjectileManager.instance.FireProjectile(FireFireball.projectilePrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageStat * damageCoefficient, force, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, speedOverride);
+                ProjectileManager.instance.FireProjectile(
+                    Modules.Projectiles.lemurianFireBall, //prefab
+                    FindModelChild(this.muzzleString).position, //position
+                    Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
+                    base.gameObject, //owner
+                    this.damageStat * damageCoefficient, //damage
+                    force, //force
+                    Util.CheckRoll(this.critStat, base.characterBody.master), //crit
+                    DamageColorIndex.Default, //damage color
+                    null, //target
+                    speedOverride); //speed }
+
+
+                ProjectileManager.instance.FireProjectile(
+                    FireFireball.projectilePrefab, //prefab
+                    FindModelChild(this.muzzleString).position, //position
+                    Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
+                    base.gameObject, //owner
+                    0f, //damage
+                    0f, //force
+                    Util.CheckRoll(this.critStat, base.characterBody.master), //crit
+                    DamageColorIndex.Default, //damage color
+                    null, //target
+                    speedOverride); //speed }
             }
-
-
-
         }
 
         public override void OnExit()

@@ -100,7 +100,6 @@ namespace ShiggyMod.SkillStates
                         info.attackerObject = base.gameObject;
                         info.victimObject = singularTarget.healthComponent.body.gameObject;
                         info.duration = Modules.StaticValues.decayDamageTimer;
-                        info.damageMultiplier = Modules.StaticValues.decayDamageCoeffecient + Modules.StaticValues.decayDamageStack * singularTarget.healthComponent.body.GetBuffCount(Modules.Buffs.decayDebuff);
                         info.dotIndex = Modules.Dots.decayDot;
 
                         DotController.InflictDot(ref info);

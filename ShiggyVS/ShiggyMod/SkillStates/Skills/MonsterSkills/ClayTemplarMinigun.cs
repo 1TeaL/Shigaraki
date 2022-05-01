@@ -24,9 +24,8 @@ namespace ShiggyMod.SkillStates
         private float speedOverride = -1f;
         private string muzzleString;
         private float baseFireInterval = 0.1f;
-        private float baseBulletCount = 5f;
+        private float baseBulletCount;
         private float baseFireRate;
-        private float baseBulletsPerSecond;
 
         private Run.FixedTimeStamp critEndTime;
         private Run.FixedTimeStamp lastCritCheck;
@@ -47,11 +46,11 @@ namespace ShiggyMod.SkillStates
             this.baseFireRate = 1f / baseFireInterval;
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
             {
-                this.baseBulletsPerSecond = (float)baseBulletCount * this.baseFireRate * Modules.StaticValues.multiplierCoefficient;
+                baseBulletCount = 3f * Modules.StaticValues.multiplierCoefficient;
             }
             else
             {
-                this.baseBulletsPerSecond = (float)baseBulletCount * this.baseFireRate;
+                baseBulletCount = 3f;
             }
             this.critEndTime = Run.FixedTimeStamp.negativeInfinity;
             this.lastCritCheck = Run.FixedTimeStamp.negativeInfinity;

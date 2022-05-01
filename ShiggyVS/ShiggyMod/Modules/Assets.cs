@@ -38,18 +38,16 @@ namespace ShiggyMod.Modules
         public static GameObject VoidFiendBeamTracer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
 
         //buffs
-        //public static BuffDef fireelitebuff =  Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/EliteFire/bdEliteFire.asset").WaitForCompletion();
-        //public static BuffDef hauntedelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/EliteHaunted/bdEliteHaunted.asset").WaitForCompletion();
-        //public static BuffDef iceelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/EliteIce/bdEliteIce.asset").WaitForCompletion();
-        //public static BuffDef lightningelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/EliteLightning/bdEliteLightning.asset").WaitForCompletion();
-        //public static BuffDef lunarelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/EliteLunar/bdEliteLunar.asset").WaitForCompletion();
-        //public static BuffDef malachiteelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/ElitePoison/bdElitePoison.asset").WaitForCompletion();
-        ////public static BuffDef speedelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/bdEliteSecretSpeed.asset").WaitForCompletion();
-        //public static BuffDef invincibilitybuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/EliteVoid/bdEliteVoid.asset").WaitForCompletion();
         public static BuffDef mendingelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/EliteEarth/bdEliteEarth.asset").WaitForCompletion();
         public static BuffDef voidelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/EliteVoid/bdEliteVoid.asset").WaitForCompletion();
 
+
         public static Material alphaconstructShieldBuff = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
+        public static GameObject GupSpikeEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GupExplosion.prefab").WaitForCompletion();
+
+        public static GameObject lemfireBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/Fireball.prefab").WaitForCompletion();
+        public static GameObject greaterwispBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/GreaterWisp/WispCannon.prefab").WaitForCompletion();
+        public static GameObject chargegreaterwispBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/GreaterWisp/OmniExplosionVFXGreaterWisp.prefab").WaitForCompletion();
 
         //Shiggy Equipment Obj
         //internal static GameObject ShiggyEquipmentPrefab;
