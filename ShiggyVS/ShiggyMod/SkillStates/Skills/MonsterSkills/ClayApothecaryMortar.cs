@@ -22,7 +22,7 @@ namespace ShiggyMod.SkillStates
 
         private float radius = 5f;
 		private float searchradius = 100f;
-		private float damageCoefficient = 1f;
+		private float damageCoefficient = Modules.StaticValues.clayapothecarymortarDamageCoeffecient;
         private float procCoefficient = 1f;
         private float force = 100f;
 		private float blastUpwardForce = 1000f;
@@ -136,7 +136,7 @@ namespace ShiggyMod.SkillStates
 				if (NetworkServer.active && base.healthComponent)
 				{
 					DamageInfo damageInfo = new DamageInfo();
-					damageInfo.damage = base.healthComponent.combinedHealth * healthCostFraction;
+					damageInfo.damage = base.healthComponent.fullCombinedHealth * healthCostFraction;
 					damageInfo.position = base.characterBody.corePosition;
 					damageInfo.force = Vector3.zero;
 					damageInfo.damageColorIndex = DamageColorIndex.Default;

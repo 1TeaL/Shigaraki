@@ -28,7 +28,8 @@ namespace ShiggyMod.SkillStates
 
             if (NetworkServer.active)
             {
-                base.characterBody.AddBuff(Modules.Buffs.spikeBuff);
+                base.characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
+                base.characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
 
             }
 

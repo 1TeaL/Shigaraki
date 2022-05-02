@@ -1,13 +1,24 @@
-﻿using RoR2;
+﻿using EntityStates;
+using R2API;
+using RoR2;
+using RoR2.Orbs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using EntityStates.LunarExploderMonster;
+using RoR2.Projectile;
 
 namespace ShiggyMod.Modules.Survivors
 {
 	public class ShiggyController : MonoBehaviour
 	{
+		public float lunarTimer;
+
+		public float mortarTimer;
+		public Transform mortarIndicatorInstance;
+		private Ray downRay;
+
 		public float maxTrackingDistance = 40f;
 		public float maxTrackingAngle = 30f;
 		public float trackerUpdateFrequency = 10f;
@@ -22,22 +33,24 @@ namespace ShiggyMod.Modules.Survivors
 		private string origName;
 		public ShiggyMasterController Shiggymastercon;
 
+		public bool larvabuffGiven;
+		public bool verminjumpbuffGiven;
 
-		private int buffCountToApply;
+
 
 		private void Awake()
 		{
 			indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
-			//On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
-			
+            //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
 			characterBody = gameObject.GetComponent<CharacterBody>();
 			inputBank = gameObject.GetComponent<InputBankTest>();
 
-			buffCountToApply = 0;
-
+			larvabuffGiven = false;
+			verminjumpbuffGiven = false;
 		}
 
-		private void Start()
+
+        private void Start()
 		{
 
 			characterMaster = characterBody.master;
@@ -66,6 +79,7 @@ namespace ShiggyMod.Modules.Survivors
 
 		private void FixedUpdate()
 		{
+			
 			this.trackerUpdateStopwatch += Time.fixedDeltaTime;
 			if (this.trackerUpdateStopwatch >= 1f / this.trackerUpdateFrequency)
 			{
@@ -76,7 +90,234 @@ namespace ShiggyMod.Modules.Survivors
 				this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
 			}
 
-        }
+
+			//mortarbuff
+			if (characterBody.HasBuff(Modules.Buffs.mortarBuff))
+			{
+                if (characterBody.GetNotMoving())
+				{
+					if (!this.mortarIndicatorInstance)
+					{
+						CreateIndicator();
+					}
+					mortarTimer += Time.fixedDeltaTime;
+					if (mortarTimer >= Modules.StaticValues.mortarbaseDuration/characterBody.attackSpeed)
+					{
+						characterBody.AddBuff(Modules.Buffs.mortararmorBuff);
+						mortarTimer = 0f;
+						FireMortar();
+					}
+				}
+                else if(!characterBody.GetNotMoving())
+				{
+					if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
+					characterBody.SetBuffCount(Modules.Buffs.mortararmorBuff.buffIndex, 0);
+                }
+			}
+
+
+			//verminjump buff
+			if (characterBody.HasBuff(Buffs.verminjumpBuff) && !verminjumpbuffGiven)
+			{
+				verminjumpbuffGiven = true;
+				characterBody.characterMotor.jumpCount += Modules.StaticValues.verminjumpStacks;
+				characterBody.maxJumpCount += Modules.StaticValues.verminjumpStacks;
+				characterBody.baseJumpCount += Modules.StaticValues.verminjumpStacks;
+				characterBody.jumpPower += Modules.StaticValues.verminjumpPower;
+                characterBody.baseJumpPower += Modules.StaticValues.verminjumpPower;
+            }
+			else
+			{
+				if (!characterBody.HasBuff(Buffs.verminjumpBuff))
+				{
+					verminjumpbuffGiven = false;
+				}
+			}
+			//larvajump buff
+			if (characterBody.HasBuff(Buffs.larvajumpBuff))
+			{
+                if (!larvabuffGiven)
+                {
+					larvabuffGiven = true;
+					characterBody.characterMotor.jumpCount += Modules.StaticValues.larvajumpStacks;
+					characterBody.maxJumpCount += Modules.StaticValues.larvajumpStacks;
+					characterBody.baseJumpCount += Modules.StaticValues.larvajumpStacks;
+					characterBody.jumpPower += Modules.StaticValues.larvajumpPower;
+					characterBody.baseJumpPower += Modules.StaticValues.larvajumpPower;
+					characterBody.maxJumpHeight = Trajectory.CalculateApex(characterBody.jumpPower);
+                }
+
+				if (characterBody.inputBank.jump.justPressed && characterBody && characterBody.characterMotor.jumpCount < characterBody.maxJumpCount)
+				{					
+					Vector3 footPosition = characterBody.footPosition;
+					EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
+					{
+						origin = footPosition,
+						scale = Modules.StaticValues.larvaRadius
+					}, true);
+
+					BlastAttack blastAttack = new BlastAttack();
+					blastAttack.radius = Modules.StaticValues.larvaRadius;
+					blastAttack.procCoefficient = Modules.StaticValues.larvaProcCoefficient;
+					blastAttack.position = characterBody.footPosition;
+					blastAttack.attacker = base.gameObject;
+					blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
+					blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5);
+					blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+					blastAttack.baseForce = Modules.StaticValues.larvaForce;
+					blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
+					blastAttack.damageType = DamageType.Generic;
+					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+
+					blastAttack.Fire();
+					ApplyDoT();
+				}
+			}
+			else
+            {
+				if (!characterBody.HasBuff(Buffs.larvajumpBuff))
+                {
+					larvabuffGiven = false;
+				}
+			}
+
+            if (characterBody.HasBuff(Buffs.lunarexploderBuff))
+            {
+				if(characterBody.healthComponent.combinedHealth < characterBody.healthComponent.fullCombinedHealth / 2)
+                {
+					lunarTimer += Time.fixedDeltaTime;
+					if (characterBody.hasEffectiveAuthority && lunarTimer >= Modules.StaticValues.lunarexploderbaseDuration)
+					{
+						lunarTimer = 0f;
+						for (int i = 0; i < Modules.StaticValues.lunarexploderprojectileCount; i++)
+						{
+							float num = 360f / Modules.StaticValues.lunarexploderprojectileCount;
+							Vector3 forward = Util.QuaternionSafeLookRotation(characterBody.transform.forward, characterBody.transform.up) * Util.ApplySpread(Vector3.forward, 0f, 0f, 1f, 1f, num * (float)i, 0f);
+							FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
+							fireProjectileInfo.projectilePrefab = DeathState.projectilePrefab;
+							fireProjectileInfo.position = characterBody.corePosition + Vector3.up * DeathState.projectileVerticalSpawnOffset;
+							fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(forward);
+							fireProjectileInfo.owner = characterBody.gameObject;
+							fireProjectileInfo.damage = characterBody.damage * Modules.StaticValues.lunarexploderDamageCoefficient;
+							fireProjectileInfo.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
+							ProjectileManager.instance.FireProjectile(fireProjectileInfo);
+						}
+						if (DeathState.deathExplosionEffect)
+						{
+							EffectManager.SpawnEffect(DeathState.deathExplosionEffect, new EffectData
+							{
+								origin = characterBody.corePosition,
+								scale = Modules.StaticValues.lunarexploderRadius
+							}, true);
+						}
+					}
+				}
+            }
+
+
+		}
+
+		public void ApplyDoT()
+		{
+			Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
+			BullseyeSearch search = new BullseyeSearch
+			{
+
+				teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+				filterByLoS = false,
+				searchOrigin = characterBody.corePosition,
+				searchDirection = UnityEngine.Random.onUnitSphere,
+				sortMode = BullseyeSearch.SortMode.Distance,
+				maxDistanceFilter = Modules.StaticValues.larvaRadius,
+				maxAngleFilter = 360f
+			};
+
+			search.RefreshCandidates();
+			search.FilterOutGameObject(base.gameObject);
+
+
+
+			List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+			foreach (HurtBox singularTarget in target)
+			{
+				if (singularTarget)
+				{
+					if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+					{
+						InflictDotInfo info = new InflictDotInfo();
+						info.attackerObject = base.gameObject;
+						info.victimObject = singularTarget.healthComponent.body.gameObject;
+						info.duration = Modules.StaticValues.decayDamageTimer;
+						info.dotIndex = Modules.Dots.decayDot;
+
+						DotController.InflictDot(ref info);
+					}
+				}
+			}
+		}
+
+		public  void Update()
+		{
+			if (this.mortarIndicatorInstance) this.UpdateIndicator();
+		}
+
+		private void UpdateIndicator()
+		{
+			if (this.mortarIndicatorInstance)
+			{
+				float maxDistance = 250f;
+
+				this.downRay = new Ray
+				{
+					direction = Vector3.down,
+					origin = base.transform.position
+				};
+
+				RaycastHit raycastHit;
+				if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
+				{
+					this.mortarIndicatorInstance.transform.position = raycastHit.point;
+					this.mortarIndicatorInstance.transform.up = raycastHit.normal;
+
+				}
+			}
+		}
+
+		private void CreateIndicator()
+		{
+			if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+			{
+				this.downRay = new Ray
+				{
+					direction = Vector3.down,
+					origin = base.transform.position
+				};
+
+				this.mortarIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab).transform;
+				this.mortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.mortarRadius;
+
+			}
+		}
+
+		private void FireMortar()
+		{
+			MortarOrb mortarOrb = new MortarOrb
+			{
+				attacker = characterBody.gameObject,
+				damageColorIndex = DamageColorIndex.WeakPoint,
+				damageValue = characterBody.damage * Modules.StaticValues.mortarDamageCoefficient,
+				origin = characterBody.corePosition,
+				procChainMask = default(ProcChainMask),
+				procCoefficient = 1f,
+				isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
+				teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
+			};
+			if (mortarOrb.target = mortarOrb.PickNextTarget(mortarOrb.origin, Modules.StaticValues.mortarRadius))
+			{
+				OrbManager.instance.AddOrb(mortarOrb);
+			}
+
+		}
 
 		private void SearchForTarget(Ray aimRay)
 		{
@@ -92,9 +333,73 @@ namespace ShiggyMod.Modules.Survivors
 			this.trackingTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
 		}
 
+	}
+	//mortar orb
+	public class MortarOrb : Orb
+	{
+		public override void Begin()
+		{
+			base.duration = 0.5f;
+			EffectData effectData = new EffectData
+			{
+				origin = this.origin,
+				genericFloat = base.duration
+			};
+			effectData.SetHurtBoxReference(this.target);
+            GameObject effectPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/OrbEffects/SquidOrbEffect");
+            EffectManager.SpawnEffect(effectPrefab, effectData, true);
+		}
+		public HurtBox PickNextTarget(Vector3 position, float range)
+		{
+			BullseyeSearch bullseyeSearch = new BullseyeSearch();
+			bullseyeSearch.searchOrigin = position;
+			bullseyeSearch.searchDirection = Vector3.zero;
+			bullseyeSearch.teamMaskFilter = TeamMask.allButNeutral;
+			bullseyeSearch.teamMaskFilter.RemoveTeam(this.teamIndex);
+			bullseyeSearch.filterByLoS = false;
+			bullseyeSearch.sortMode = BullseyeSearch.SortMode.Distance;
+			bullseyeSearch.maxDistanceFilter = range;
+			bullseyeSearch.RefreshCandidates();
+			List<HurtBox> list = bullseyeSearch.GetResults().ToList<HurtBox>();
+			if (list.Count <= 0)
+			{
+				return null;
+			}
+			return list[UnityEngine.Random.Range(0, list.Count)];
+		}
+		public override void OnArrival()
+		{
+			if (this.target)
+			{
+				HealthComponent healthComponent = this.target.healthComponent;
+				if (healthComponent)
+				{
+					DamageInfo damageInfo = new DamageInfo
+					{
+						damage = this.damageValue,
+						attacker = this.attacker,
+						inflictor = null,
+						force = Vector3.zero,
+						crit = this.isCrit,
+						procChainMask = this.procChainMask,
+						procCoefficient = this.procCoefficient,
+						position = this.target.transform.position,
+						damageColorIndex = this.damageColorIndex
+					};
+					healthComponent.TakeDamage(damageInfo);
+					GlobalEventManager.instance.OnHitEnemy(damageInfo, healthComponent.gameObject);
+					GlobalEventManager.instance.OnHitAll(damageInfo, healthComponent.gameObject);
+				}
+			}
+		}
 
-
-
+		public float damageValue;
+		public GameObject attacker;
+		public TeamIndex teamIndex;
+		public bool isCrit;
+		public ProcChainMask procChainMask;
+		public float procCoefficient = 1f;
+		public DamageColorIndex damageColorIndex;
 	}
 }
 

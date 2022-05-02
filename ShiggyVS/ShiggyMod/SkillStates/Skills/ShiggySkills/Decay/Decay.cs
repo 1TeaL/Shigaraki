@@ -4,6 +4,7 @@ using UnityEngine;
 using ShiggyMod.Modules.Survivors;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -26,7 +27,7 @@ namespace ShiggyMod.SkillStates
         public float fireTime;
         private float procCoefficient = 1f;
         private float pushForce = 100f;
-        private float damageCoefficient = 1f;
+        private float damageCoefficient = Modules.StaticValues.decayattackDamageCoeffecient;
         private float hitPauseTimer;
         private float stopwatch;
         public static float hitExtraDuration = 0.44f;
@@ -47,6 +48,11 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = DamageType.Generic;
+
+            if (NetworkServer.active)
+            {
+                base.characterBody.RemoveBuff(Modules.Buffs.larvajumpBuff);
+            }
 
             duration = baseduration / attackSpeedStat;
             if(duration <= 0.2f)

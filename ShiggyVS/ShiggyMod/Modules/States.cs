@@ -22,6 +22,9 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(BeetleGuardSlam));
             entityStates.Add(typeof(ClayApothecaryMortar));
             entityStates.Add(typeof(ClayTemplarMinigun));
+            entityStates.Add(typeof(GreaterWispBallFire));
+            entityStates.Add(typeof(ImpBlink));
+            entityStates.Add(typeof(JellyfishNova));
             entityStates.Add(typeof(LemurianFireball));
             entityStates.Add(typeof(VultureFly));
         }

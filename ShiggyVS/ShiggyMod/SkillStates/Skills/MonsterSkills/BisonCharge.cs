@@ -17,7 +17,7 @@ namespace ShiggyMod.SkillStates
 
 		private float totalDuration = 0.5f;
 		private float hitradius = 8f;
-		private float damageCoefficient = 1f;
+		private float damageCoefficient = Modules.StaticValues.bisonchargeDamageCoeffecient;
 		private float procCoefficient = 1f;
 		private float force = 1f;
         private Vector3 direction;

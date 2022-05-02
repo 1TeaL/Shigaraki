@@ -29,23 +29,33 @@ namespace ShiggyMod.Modules
         internal static BuffDef alphashieldoffBuff;
         internal static BuffDef decayDebuff;
         internal static BuffDef multiplierBuff;
-        internal static BuffDef jumpBuff;
-        internal static BuffDef sprintBuff;
+        internal static BuffDef verminjumpBuff;
+        internal static BuffDef verminsprintBuff;
         internal static BuffDef spikeBuff;
+        internal static BuffDef mortarBuff;
+        internal static BuffDef mortararmorBuff;
+        internal static BuffDef larvajumpBuff;
+        internal static BuffDef lesserwispBuff;
+        internal static BuffDef lunarexploderBuff;
 
         internal static void RegisterBuffs()
         {
             Sprite warcryBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/WarCryOnMultiKill/bdWarCryBuff.asset").WaitForCompletion().iconSprite;
 
             flyBuff = Buffs.AddNewBuff("FlyBuff", warcryBuffIcon, Color.magenta, false, false);
-            beetleBuff = Buffs.AddNewBuff("WeakStrengthBuff", warcryBuffIcon, Color.blue, false, false);
+            beetleBuff = Buffs.AddNewBuff("StrengthBuff", warcryBuffIcon, Color.blue, false, false);
             alphashieldonBuff = Buffs.AddNewBuff("ShieldOnBuff", warcryBuffIcon, Color.white, false, false);
             alphashieldoffBuff = Buffs.AddNewBuff("ShieldOffBuff", warcryBuffIcon, Color.green, true, true);
             decayDebuff = Buffs.AddNewBuff("decayDebuff", warcryBuffIcon, Color.cyan, true, true);
             multiplierBuff = Buffs.AddNewBuff("multiplierBuff", warcryBuffIcon, Color.white, false, false);
-            jumpBuff = Buffs.AddNewBuff("jumpBuff", warcryBuffIcon, Color.white, false, false);
-            sprintBuff = Buffs.AddNewBuff("sprintBuff", warcryBuffIcon, Color.white, false, false);
+            verminjumpBuff = Buffs.AddNewBuff("jumpBuff", warcryBuffIcon, Color.white, false, false);
+            verminsprintBuff = Buffs.AddNewBuff("sprintBuff", warcryBuffIcon, Color.white, false, false);
             spikeBuff = Buffs.AddNewBuff("spikeBuff", warcryBuffIcon, Color.white, false, false);
+            mortarBuff = Buffs.AddNewBuff("mortarBuff", warcryBuffIcon, Color.white, false, false);
+            mortararmorBuff = Buffs.AddNewBuff("mortararmorBuff", warcryBuffIcon, Color.green, true, false);
+            larvajumpBuff = Buffs.AddNewBuff("larvajumpBuff", warcryBuffIcon, Color.green, false, false);
+            lesserwispBuff = Buffs.AddNewBuff("RangedBuff", warcryBuffIcon, Color.green, false, false);
+            lunarexploderBuff = Buffs.AddNewBuff("lunarexploderBuff", warcryBuffIcon, Color.green, false, false);
 
 
             transformBuff = Buffs.AddNewBuff("transformBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("Transform"), Color.white, true, false);

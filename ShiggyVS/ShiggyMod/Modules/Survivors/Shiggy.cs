@@ -23,6 +23,9 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef bronzongballDef;
         internal static SkillDef clayapothecarymortarDef;
         internal static SkillDef claytemplarminigunDef;
+        internal static SkillDef greaterwispballDef;
+        internal static SkillDef impblinkDef;
+        internal static SkillDef jellyfishnovaDef;
         internal static SkillDef lemurianfireballDef;
         internal static SkillDef vultureflyDef;
 
@@ -225,7 +228,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "TEMPLAR_NAME",
                 skillDescriptionToken = prefix + "TEMPLAR_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.ClayTemplarMinigun)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.JellyfishNova)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -258,7 +261,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "ASSAULTVEST_NAME",
                 skillDescriptionToken = prefix + "ASSAULTVEST_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.GreaterWispBallFire)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ImpBlink)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -456,6 +459,81 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "TEMPLAR_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ClayTemplarMinigun)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = true,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.greaterwispballDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "GREATERWISP_NAME",
+                skillNameToken = prefix + "GREATERWISP_NAME",
+                skillDescriptionToken = prefix + "GREATERWISP_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.GreaterWispBallFire)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = true,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.impblinkDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "IMP_NAME",
+                skillNameToken = prefix + "IMP_NAME",
+                skillDescriptionToken = prefix + "IMP_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ImpBlink)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = true,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.jellyfishnovaDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "JELLYFISH_NAME",
+                skillNameToken = prefix + "JELLYFISH_NAME",
+                skillDescriptionToken = prefix + "JELLYFISH_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.JellyfishNova)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,

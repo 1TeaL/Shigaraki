@@ -122,10 +122,6 @@ namespace ShiggyMod
             //On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate;
             //On.RoR2.CharacterBody.Update += CharacterBody_Update;
             On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
-            if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
-            {
-                On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
-            }
         }
 
         //EMOTES
@@ -273,6 +269,71 @@ namespace ShiggyMod
 
                     }
                 }
+                if(self.body.HasBuff(Modules.Buffs.larvajumpBuff))
+                {
+                    DamageType tempDamageType = DamageType.FallDamage | DamageType.NonLethal;
+                    DamageType frailtyDamageType = DamageType.FallDamage | DamageType.BypassOneShotProtection;
+                    if(damageInfo.damageType == tempDamageType || damageInfo.damageType == frailtyDamageType)
+                    {
+                        Vector3 footPosition = self.body.footPosition;
+                        EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
+                        {
+                            origin = footPosition,
+                            scale = Modules.StaticValues.larvaRadius
+                        }, true);
+
+                        BlastAttack blastAttack = new BlastAttack();
+                        blastAttack.radius = Modules.StaticValues.larvaRadius;
+                        blastAttack.procCoefficient = Modules.StaticValues.larvaProcCoefficient;
+                        blastAttack.position = self.body.footPosition;
+                        blastAttack.attacker = base.gameObject;
+                        blastAttack.crit = Util.CheckRoll(self.body.crit, self.body.master);
+                        blastAttack.baseDamage = self.body.damage * Modules.StaticValues.larvaDamageCoefficient * (self.body.jumpPower / 5);
+                        blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                        blastAttack.baseForce = Modules.StaticValues.larvaForce;
+                        blastAttack.teamIndex = self.body.teamComponent.teamIndex;
+                        blastAttack.damageType = DamageType.Generic;
+                        blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+
+                        blastAttack.Fire();
+
+                        BullseyeSearch search = new BullseyeSearch
+                        {
+
+                            teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex),
+                            filterByLoS = false,
+                            searchOrigin = self.transform.position,
+                            searchDirection = UnityEngine.Random.onUnitSphere,
+                            sortMode = BullseyeSearch.SortMode.Distance,
+                            maxDistanceFilter = Modules.StaticValues.spikedamageRadius,
+                            maxAngleFilter = 360f
+                        };
+
+                        search.RefreshCandidates();
+                        search.FilterOutGameObject(self.gameObject);
+
+
+
+                        List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                        foreach (HurtBox singularTarget in target)
+                        {
+                            if (singularTarget)
+                            {
+                                if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                                {
+                                    InflictDotInfo info = new InflictDotInfo();
+                                    info.attackerObject = self.gameObject;
+                                    info.victimObject = singularTarget.healthComponent.body.gameObject;
+                                    info.duration = Modules.StaticValues.decayDamageTimer;
+                                    info.dotIndex = Modules.Dots.decayDot;
+
+                                    DotController.InflictDot(ref info);
+                                }
+                            }
+                        }
+
+                    }
+                }
 
             }
 
@@ -288,15 +349,16 @@ namespace ShiggyMod
 
             if(self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
             {
-                //sprint buff
-                if (self.HasBuff(Buffs.sprintBuff))
+                //mortararmor buff
+                if (self.HasBuff(Buffs.mortararmorBuff))
                 {
-                    self.sprintingSpeedMultiplier *= Modules.StaticValues.sprintMultiplier;
+                    int buffcount = self.GetBuffCount(Buffs.mortararmorBuff);
+                    self.armor += buffcount * Modules.StaticValues.mortararmorGain;
                 }
-                //jump buff
-                if (self.HasBuff(Buffs.jumpBuff))
+                //verminsprint buff
+                if (self.HasBuff(Buffs.verminsprintBuff))
                 {
-                    self.baseJumpCount += Modules.StaticValues.jumpStacks;
+                    self.sprintingSpeedMultiplier *= Modules.StaticValues.verminsprintMultiplier;
                 }
                 //multiplier buff
                 if (self.HasBuff(Buffs.multiplierBuff))
@@ -317,9 +379,15 @@ namespace ShiggyMod
                     self.characterMotor.useGravity = true;
 
                 }
+                //beetlebuff
                 if (self.HasBuff(Buffs.beetleBuff))
                 {
-                    self.damage *= 1.2f;
+                    self.damage *= 1.3f;
+                }
+                //lesserwispbuff
+                if (self.HasBuff(Buffs.lesserwispBuff))
+                {
+                    self.damage *= 1.3f;
                 }
 
             }

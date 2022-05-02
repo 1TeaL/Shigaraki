@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using EntityStates;
+using RoR2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,10 @@ namespace ShiggyMod.Modules.Survivors
             alphaconstructQuirk = false;
 
             On.RoR2.CharacterModel.Awake += CharacterModel_Awake;
+            On.RoR2.CharacterBody.OnDeathStart += CharacterBody_OnDeathStart;
 
         }
+
 
         private void Start()
         {
@@ -42,6 +45,16 @@ namespace ShiggyMod.Modules.Survivors
         }
 
 
+        private void CharacterBody_OnDeathStart(On.RoR2.CharacterBody.orig_OnDeathStart orig, CharacterBody self)
+        {
+            orig.Invoke(self);
+
+            Shiggycon = self.gameObject.GetComponent<ShiggyController>();
+            if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+            {
+                if (Shiggycon.mortarIndicatorInstance) EntityState.Destroy(Shiggycon.mortarIndicatorInstance.gameObject);
+            }
+        }
 
 
         private void CharacterModel_Awake(On.RoR2.CharacterModel.orig_Awake orig, CharacterModel self)

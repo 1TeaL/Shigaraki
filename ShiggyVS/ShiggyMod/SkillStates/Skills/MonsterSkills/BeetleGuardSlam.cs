@@ -17,7 +17,7 @@ namespace ShiggyMod.SkillStates
         public static float slamRadius = 10f;
         public static float slamProcCoefficient = 1f;
         public static float slamForce = 1000f;
-        private float damageCoefficient = 1f;
+        private float damageCoefficient = Modules.StaticValues.beetleguardslamDamageCoeffecient;
 
         private bool hasDropped;
         private Vector3 flyVector = Vector3.zero;

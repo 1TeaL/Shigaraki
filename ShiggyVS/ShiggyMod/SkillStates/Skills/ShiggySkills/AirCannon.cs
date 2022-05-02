@@ -17,7 +17,7 @@ namespace ShiggyMod.SkillStates
 
         public uint Distance = 60;
         private float radius = 15f;
-        private float damageCoefficient = 1f;
+        private float damageCoefficient = Modules.StaticValues.aircannonDamageCoeffecient;
         private float procCoefficient = 1f;
         private float force = 1f;
         private float speedOverride =1f;
