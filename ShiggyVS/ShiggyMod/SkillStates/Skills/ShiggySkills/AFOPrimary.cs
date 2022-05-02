@@ -28,7 +28,7 @@ namespace ShiggyMod.SkillStates
 
             if (NetworkServer.active)
             {
-                base.characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
+                base.characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
                 base.characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
 
             }
@@ -153,7 +153,7 @@ namespace ShiggyMod.SkillStates
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Flight Quirk</style> Get!");
 
-                    base.skillLocator.primary.SetSkillOverride(base.skillLocator.primary, Shiggy.vultureflyDef, GenericSkill.SkillOverridePriority.Contextual);
+                    base.skillLocator.primary.SetSkillOverride(base.skillLocator.primary, Shiggy.alloyvultureflyDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "BeetleBody")
                 {

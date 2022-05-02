@@ -26,6 +26,8 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(ImpBlink));
             entityStates.Add(typeof(JellyfishNova));
             entityStates.Add(typeof(LemurianFireball));
+            entityStates.Add(typeof(LunarGolemShots));
+            entityStates.Add(typeof(LunarWispMinigun));
             entityStates.Add(typeof(VultureFly));
         }
     }

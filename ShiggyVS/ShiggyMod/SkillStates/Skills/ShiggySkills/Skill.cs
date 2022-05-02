@@ -2,6 +2,7 @@
 using RoR2;
 using UnityEngine;
 using ShiggyMod.Modules.Survivors;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {

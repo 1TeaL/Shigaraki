@@ -8,19 +8,22 @@ using System.Linq;
 using UnityEngine;
 using EntityStates.LunarExploderMonster;
 using RoR2.Projectile;
+using EntityStates.MiniMushroom;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.Modules.Survivors
 {
 	public class ShiggyController : MonoBehaviour
 	{
+		public float alphaconstructshieldtimer;
 		public float lunarTimer;
-
+		public float larvaTimer;
 		public float mortarTimer;
 		public Transform mortarIndicatorInstance;
 		private Ray downRay;
 
-		public float maxTrackingDistance = 40f;
-		public float maxTrackingAngle = 30f;
+		public float maxTrackingDistance = 60f;
+		public float maxTrackingAngle = 60f;
 		public float trackerUpdateFrequency = 10f;
 		private HurtBox trackingTarget;
 		private CharacterBody characterBody;
@@ -32,13 +35,14 @@ namespace ShiggyMod.Modules.Survivors
 		private CharacterBody origCharacterBody;
 		private string origName;
 		public ShiggyMasterController Shiggymastercon;
+		public ShiggyController Shiggycon;
 
 		public bool larvabuffGiven;
 		public bool verminjumpbuffGiven;
+        private uint minimushrumsoundID;
+        private GameObject mushroomWard;
 
-
-
-		private void Awake()
+        private void Awake()
 		{
 			indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
             //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
@@ -77,6 +81,11 @@ namespace ShiggyMod.Modules.Survivors
 			this.indicator.active = false;
 		}
 
+		private void OnDestroy()
+        {			
+			if (mortarIndicatorInstance) EntityState.Destroy(mortarIndicatorInstance.gameObject);
+		}
+
 		private void FixedUpdate()
 		{
 			
@@ -90,9 +99,73 @@ namespace ShiggyMod.Modules.Survivors
 				this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
 			}
 
+			//mini mushrum buff
 
-			//mortarbuff
-			if (characterBody.HasBuff(Modules.Buffs.mortarBuff))
+			if (characterBody.HasBuff(Modules.Buffs.minimushrumBuff.buffIndex))
+			{
+				if (!NetworkServer.active)
+				{
+					return;
+				}
+				if (this.mushroomWard == null)
+				{
+					this.minimushrumsoundID = Util.PlaySound(Plant.healSoundLoop, characterBody.modelLocator.modelTransform.gameObject);
+					this.mushroomWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/MiniMushroomWard"), characterBody.footPosition, Quaternion.identity);
+					this.mushroomWard.transform.parent = characterBody.transform;
+					this.mushroomWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
+					if (this.mushroomWard)
+					{
+						HealingWard component = this.mushroomWard.GetComponent<HealingWard>();
+						component.healFraction = Modules.StaticValues.minimushrumhealFraction;
+						component.healPoints = 0f;
+						component.Networkradius = Modules.StaticValues.minimushrumRadius;
+                        component.interval = Modules.StaticValues.minimushrumInterval;
+                        //component.healTimer = Modules.StaticValues.minimushrumhealFraction;
+					}
+					NetworkServer.Spawn(this.mushroomWard);
+				}
+			}
+			else if (!characterBody.HasBuff(Modules.Buffs.minimushrumBuff.buffIndex))
+            {
+				if (this.mushroomWard)
+				{
+					AkSoundEngine.StopPlayingID(this.minimushrumsoundID);
+					Util.PlaySound(Plant.healSoundStop, base.gameObject);
+					EntityState.Destroy(this.mushroomWard);
+				}
+			}
+
+			//alpha shield buff
+			if (characterBody.hasEffectiveAuthority)
+			{
+				if (characterBody.HasBuff(Modules.Buffs.alphashieldoffBuff.buffIndex))
+				{
+
+					if (alphaconstructshieldtimer > 1f)
+					{
+						int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex);
+						if (buffCountToApply > 1)
+						{
+							if (buffCountToApply >= 2)
+							{
+								characterBody.RemoveBuff(Modules.Buffs.alphashieldoffBuff.buffIndex);
+								alphaconstructshieldtimer = 0f;
+							}
+						}
+						else
+						{
+							characterBody.RemoveBuff(Modules.Buffs.alphashieldoffBuff.buffIndex);
+							characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
+
+						}
+					}
+					else alphaconstructshieldtimer += Time.fixedDeltaTime;
+				}
+
+			}
+
+			//hermitcrab mortarbuff
+			if (characterBody.HasBuff(Modules.Buffs.hermitcrabmortarBuff))
 			{
                 if (characterBody.GetNotMoving())
 				{
@@ -103,7 +176,7 @@ namespace ShiggyMod.Modules.Survivors
 					mortarTimer += Time.fixedDeltaTime;
 					if (mortarTimer >= Modules.StaticValues.mortarbaseDuration/characterBody.attackSpeed)
 					{
-						characterBody.AddBuff(Modules.Buffs.mortararmorBuff);
+						characterBody.AddBuff(Modules.Buffs.hermitcrabmortararmorBuff);
 						mortarTimer = 0f;
 						FireMortar();
 					}
@@ -111,13 +184,13 @@ namespace ShiggyMod.Modules.Survivors
                 else if(!characterBody.GetNotMoving())
 				{
 					if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
-					characterBody.SetBuffCount(Modules.Buffs.mortararmorBuff.buffIndex, 0);
+					characterBody.SetBuffCount(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
                 }
 			}
 
 
 			//verminjump buff
-			if (characterBody.HasBuff(Buffs.verminjumpBuff) && !verminjumpbuffGiven)
+			if (characterBody.HasBuff(Buffs.pestjumpBuff) && !verminjumpbuffGiven)
 			{
 				verminjumpbuffGiven = true;
 				characterBody.characterMotor.jumpCount += Modules.StaticValues.verminjumpStacks;
@@ -128,7 +201,7 @@ namespace ShiggyMod.Modules.Survivors
             }
 			else
 			{
-				if (!characterBody.HasBuff(Buffs.verminjumpBuff))
+				if (!characterBody.HasBuff(Buffs.pestjumpBuff))
 				{
 					verminjumpbuffGiven = false;
 				}
@@ -169,6 +242,36 @@ namespace ShiggyMod.Modules.Survivors
 					blastAttack.damageType = DamageType.Generic;
 					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
+					blastAttack.Fire();
+					ApplyDoT();
+				}
+
+                if (!characterBody.characterMotor.isGrounded)
+                {
+					larvaTimer += Time.fixedDeltaTime;
+                }
+				if(characterBody.characterMotor.isGrounded && larvaTimer > 1f)
+                {
+					larvaTimer = 0f;
+					Vector3 footPosition = characterBody.footPosition;
+					EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
+					{
+						origin = footPosition,
+						scale = Modules.StaticValues.larvaRadius
+					}, true);
+
+					BlastAttack blastAttack = new BlastAttack();
+					blastAttack.radius = Modules.StaticValues.larvaRadius;
+					blastAttack.procCoefficient = Modules.StaticValues.larvaProcCoefficient;
+					blastAttack.position = characterBody.footPosition;
+					blastAttack.attacker = base.gameObject;
+					blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
+					blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5);
+					blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+					blastAttack.baseForce = Modules.StaticValues.larvaForce;
+					blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
+					blastAttack.damageType = DamageType.Generic;
+					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 					blastAttack.Fire();
 					ApplyDoT();
 				}

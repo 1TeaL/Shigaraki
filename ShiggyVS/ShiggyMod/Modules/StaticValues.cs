@@ -4,6 +4,10 @@ namespace ShiggyMod.Modules
 {
     internal static class StaticValues
     {
+        internal const float minimushrumInterval = 1f;
+        internal const float minimushrumhealFraction = 0.05f;
+        internal const float minimushrumRadius = 4f;
+
         internal const float lunarexploderprojectileCount = 1f;
         internal const float lunarexploderbaseDuration = 2f;
         internal const float lunarexploderRadius = 2.5f;
@@ -46,11 +50,14 @@ namespace ShiggyMod.Modules
         internal const float beetleguardslamDamageCoeffecient = 4f;
         internal const float bisonchargeDamageCoeffecient = 6f;
         internal const float bronzongballDamageCoeffecient = 3f;
-        internal const float lemurianfireballDamageCoeffecient = 2f;
         internal const float clayapothecarymortarDamageCoeffecient = 2f;
         internal const float claytemplarminigunDamageCoeffecient = 0.3f;
         internal const float greaterwispballDamageCoeffecient = 10f;
         internal const float jellyfishnovaDamageCoeffecient = 50f;
+        internal const float lemurianfireballDamageCoeffecient = 2f;
+        internal const float lunargolemshotsDamageCoeffecient = 2f;
+        internal const float lunarwispminigunDamageCoeffecient = 1f;
+        internal const float parentDamageCoeffecient = 8f;
 
     }
 }

@@ -29,14 +29,15 @@ namespace ShiggyMod.Modules
         internal static BuffDef alphashieldoffBuff;
         internal static BuffDef decayDebuff;
         internal static BuffDef multiplierBuff;
-        internal static BuffDef verminjumpBuff;
+        internal static BuffDef pestjumpBuff;
         internal static BuffDef verminsprintBuff;
         internal static BuffDef spikeBuff;
-        internal static BuffDef mortarBuff;
-        internal static BuffDef mortararmorBuff;
+        internal static BuffDef hermitcrabmortarBuff;
+        internal static BuffDef hermitcrabmortararmorBuff;
         internal static BuffDef larvajumpBuff;
         internal static BuffDef lesserwispBuff;
         internal static BuffDef lunarexploderBuff;
+        internal static BuffDef minimushrumBuff;
 
         internal static void RegisterBuffs()
         {
@@ -48,27 +49,15 @@ namespace ShiggyMod.Modules
             alphashieldoffBuff = Buffs.AddNewBuff("ShieldOffBuff", warcryBuffIcon, Color.green, true, true);
             decayDebuff = Buffs.AddNewBuff("decayDebuff", warcryBuffIcon, Color.cyan, true, true);
             multiplierBuff = Buffs.AddNewBuff("multiplierBuff", warcryBuffIcon, Color.white, false, false);
-            verminjumpBuff = Buffs.AddNewBuff("jumpBuff", warcryBuffIcon, Color.white, false, false);
+            pestjumpBuff = Buffs.AddNewBuff("jumpBuff", warcryBuffIcon, Color.white, false, false);
             verminsprintBuff = Buffs.AddNewBuff("sprintBuff", warcryBuffIcon, Color.white, false, false);
             spikeBuff = Buffs.AddNewBuff("spikeBuff", warcryBuffIcon, Color.white, false, false);
-            mortarBuff = Buffs.AddNewBuff("mortarBuff", warcryBuffIcon, Color.white, false, false);
-            mortararmorBuff = Buffs.AddNewBuff("mortararmorBuff", warcryBuffIcon, Color.green, true, false);
+            hermitcrabmortarBuff = Buffs.AddNewBuff("mortarBuff", warcryBuffIcon, Color.white, false, false);
+            hermitcrabmortararmorBuff = Buffs.AddNewBuff("mortararmorBuff", warcryBuffIcon, Color.green, true, false);
             larvajumpBuff = Buffs.AddNewBuff("larvajumpBuff", warcryBuffIcon, Color.green, false, false);
             lesserwispBuff = Buffs.AddNewBuff("RangedBuff", warcryBuffIcon, Color.green, false, false);
             lunarexploderBuff = Buffs.AddNewBuff("lunarexploderBuff", warcryBuffIcon, Color.green, false, false);
-
-
-            transformBuff = Buffs.AddNewBuff("transformBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("Transform"), Color.white, true, false);
-            assaultvestBuff = Buffs.AddNewBuff("assaultvestBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"), Color.white, true, false);
-            choicescarfBuff = Buffs.AddNewBuff("choicescarfBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("ChoiceScarf"), Color.white, true, false);
-            choicebandBuff = Buffs.AddNewBuff("choicebandBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("ChoiceBand"), Color.white, true, false);
-            choicespecsBuff = Buffs.AddNewBuff("choicespecsBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("ChoiceSpecs"), Color.white, true, false);
-            leftoversBuff = Buffs.AddNewBuff("leftoversBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("Leftovers"), Color.white, true, false);
-            lifeorbBuff = Buffs.AddNewBuff("lifeorbBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("LifeOrb"), Color.white, true, false);
-            luckyeggBuff = Buffs.AddNewBuff("luckyeggBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("LuckyEgg"), Color.white, true, false);
-            rockyhelmetBuff = Buffs.AddNewBuff("rockyhelmetBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("RockyHelmet"), Color.white, true, false);
-            scopelensBuff = Buffs.AddNewBuff("scopelensBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("ScopeLens"), Color.white, true, false);
-            shellbellBuff = Buffs.AddNewBuff("shellbellBuff", Assets.mainAssetBundle.LoadAsset<Sprite>("ShellBell"), Color.white, true, false);
+            minimushrumBuff = Buffs.AddNewBuff("minimushrumBuff", warcryBuffIcon, Color.green, false, false);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

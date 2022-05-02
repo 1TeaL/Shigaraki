@@ -51,7 +51,7 @@ namespace ShiggyMod.SkillStates
 
             if (NetworkServer.active)
             {
-                base.characterBody.RemoveBuff(Modules.Buffs.larvajumpBuff);
+                base.characterBody.RemoveBuff(Modules.Buffs.minimushrumBuff);
             }
 
             duration = baseduration / attackSpeedStat;

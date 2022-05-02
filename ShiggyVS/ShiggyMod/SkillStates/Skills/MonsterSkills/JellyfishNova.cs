@@ -56,12 +56,21 @@ namespace ShiggyMod.SkillStates
             this.soundID = Util.PlaySound(JellyNova.chargingSoundString, base.gameObject);
             if (JellyNova.chargingEffectPrefab)
             {
-                this.chargeEffect = UnityEngine.Object.Instantiate<GameObject>(JellyNova.chargingEffectPrefab, theSpot, Target.transform.rotation);
+                this.chargeEffect = UnityEngine.Object.Instantiate<GameObject>(JellyNova.chargingEffectPrefab, theSpot, base.transform.rotation);
                 this.chargeEffect.transform.parent = Target.transform;
                 this.chargeEffect.transform.localScale = new Vector3(radius, radius, radius);
-                this.chargeEffect.GetComponent<ScaleParticleSystemDuration>().newDuration = duration;
+                this.chargeEffect.GetComponent<ScaleParticleSystemDuration>().newDuration = fireTime;
             }
 
+            if (modelTransform)
+            {
+                this.printController = modelTransform.GetComponent<PrintController>();
+                if (this.printController)
+                {
+                    this.printController.enabled = true;
+                    this.printController.printTime = this.duration;
+                }
+            }
 
         }
 
