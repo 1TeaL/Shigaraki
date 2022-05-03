@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using ShiggyMod.Modules;
 using UnityEngine.Networking;
 using RoR2.ExpansionManagement;
+using ExtraSkillSlots;
 
 namespace ShiggyMod.SkillStates
 {
@@ -28,8 +29,8 @@ namespace ShiggyMod.SkillStates
 
             if (NetworkServer.active)
             {
-                base.characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
-                base.characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
+                base.characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
+                base.characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
 
             }
 
@@ -141,12 +142,15 @@ namespace ShiggyMod.SkillStates
                 var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
                 GameObject newbodyPrefab = BodyCatalog.FindBodyPrefab(name);
 
+                ExtraSkillLocator extraskillLocator = base.GetComponent<ExtraSkillLocator>();
+
                 if (newbodyPrefab.name == "MinorConstructBody" | newbodyPrefab.name == "MinorConstructOnKillBody")
                 {
                     hasQuirk = true;
                     Chat.AddMessage("Stole Lemurian's <style=cIsUtility>Quirk!</style>");
                     Shiggymastercon.alphaconstructQuirk = true;
                     base.characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
+                    extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.alloyvultureflyDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "VultureBody")
                 {
@@ -163,6 +167,7 @@ namespace ShiggyMod.SkillStates
                     Shiggymastercon.alphaconstructQuirk = true;
                     base.characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
                     base.skillLocator.primary.SetSkillOverride(base.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.alloyvultureflyDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "BeetleGuardBody")
                 {
@@ -302,7 +307,7 @@ namespace ShiggyMod.SkillStates
                 {
                     hasQuirk = true;
                     Chat.AddMessage("Stole Lemurian's <style=cIsUtility>Quirk!</style>");
-
+                                        
                     base.skillLocator.primary.SetSkillOverride(base.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "RoboBallMiniBody" | newbodyPrefab.name == "RoboBallGreenBuddyBody" | newbodyPrefab.name == "RoboBallRedBuddyBody")

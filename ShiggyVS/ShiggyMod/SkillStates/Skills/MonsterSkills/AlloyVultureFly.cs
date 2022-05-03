@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class VultureFly : BaseSkillState
+    public class AlloyVultureFly : BaseSkillState
     {
         public ShiggyController Shiggycon;
 

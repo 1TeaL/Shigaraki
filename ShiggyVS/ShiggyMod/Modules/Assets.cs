@@ -49,6 +49,9 @@ namespace ShiggyMod.Modules
         public static GameObject chargegreaterwispBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/GreaterWisp/OmniExplosionVFXGreaterWisp.prefab").WaitForCompletion();
         public static GameObject larvajumpEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/AcidLarva/AcidLarvaLeapExplosion.prefab").WaitForCompletion();
         public static GameObject parentslamEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Parent/ParentSlamEffect.prefab").WaitForCompletion();
+        public static GameObject roboballminibeamEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/LaserEngiTurret.prefab").WaitForCompletion();
+        public static GameObject roboballminiimpactEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/ImpactEngiTurret.prefab").WaitForCompletion();
+        public static GameObject roboballminimuzzleEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/MuzzleflashEngiTurret.prefab").WaitForCompletion();
 
         //Shiggy Equipment Obj
         //internal static GameObject ShiggyEquipmentPrefab;

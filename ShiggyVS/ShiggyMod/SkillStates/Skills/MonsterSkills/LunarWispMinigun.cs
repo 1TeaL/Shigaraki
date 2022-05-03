@@ -94,6 +94,7 @@ namespace ShiggyMod.SkillStates
             Util.PlaySound(FireLunarGuns.fireSound, base.gameObject);
             if (base.isAuthority)
             {
+                base.characterBody.SetAimTimer(1f);
                 this.OnFireAuthority();
                 Ray aimRay = base.GetAimRay();
                 
@@ -104,7 +105,8 @@ namespace ShiggyMod.SkillStates
             this.UpdateCrits();
             bool isCrit = !this.critEndTime.hasPassed;
 
-            //EffectManager.SimpleMuzzleFlash(FireLunarGuns.muzzleVfxPrefab, base.gameObject, this.muzzleString, false);
+
+            EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
 
             Ray aimRay = base.GetAimRay();
             new BulletAttack
@@ -143,31 +145,28 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            vfxTimerOff += Time.fixedDeltaTime;
-            if(vfxTimerOff > 1f)
+            if (this.muzzleVFXInstanceOne)
             {
-                vfxTimerOff = 0f;
-                if (this.muzzleVFXInstanceOne)
+                vfxTimerOff += Time.fixedDeltaTime;
+                if (vfxTimerOff > 2f)
                 {
                     EntityState.Destroy(this.muzzleVFXInstanceOne.gameObject);
                     this.muzzleVFXInstanceOne = null;
+                    vfxTimerOff = 0f;
                 }
             }
-            
 
-            if (base.skillLocator.primary.skillNameToken == prefix + "LUNARWISP_NAME")
+            if (base.IsKeyDownAuthority())
             {
-                if (base.inputBank.skill1.down)
+                this.fireTimer -= Time.fixedDeltaTime;
+                if (this.fireTimer <= 0f)
                 {
-                    this.fireTimer -= Time.fixedDeltaTime;
-                    if (this.fireTimer <= 0f)
-                    {
-                        float num = baseFireInterval / this.attackSpeedStat;
-                        this.fireTimer += num;
-                        this.OnFireShared();
-                    }
-
+                    float num = baseFireInterval / this.attackSpeedStat;
+                    this.fireTimer += num;
+                    this.OnFireShared();
                 }
+
+                
                 else
                 {
                     if (base.isAuthority)
@@ -178,80 +177,106 @@ namespace ShiggyMod.SkillStates
                     }
 
                 }
+
             }
-            if (base.skillLocator.secondary.skillNameToken == prefix + "LUNARWISP_NAME")
-            {
-                if (base.inputBank.skill2.down)
-                {
-                    this.fireTimer -= Time.fixedDeltaTime;
-                    if (this.fireTimer <= 0f)
-                    {
-                        float num = baseFireInterval / this.attackSpeedStat;
-                        this.fireTimer += num;
-                        this.OnFireShared();
-                    }
 
-                }
-                else
-                {
-                    if (base.isAuthority)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
+            //if (base.skillLocator.primary.skillNameToken == prefix + "LUNARWISP_NAME")
+            //{
+            //    if (base.inputBank.skill1.down)
+            //    {
+            //        this.fireTimer -= Time.fixedDeltaTime;
+            //        if (this.fireTimer <= 0f)
+            //        {
+            //            float num = baseFireInterval / this.attackSpeedStat;
+            //            this.fireTimer += num;
+            //            this.OnFireShared();
+            //        }
 
-                    }
+            //    }
+            //    else
+            //    {
+            //        if (base.isAuthority)
+            //        {
+            //            this.outer.SetNextStateToMain();
+            //            return;
 
-                }
-            }
-            if (base.skillLocator.utility.skillNameToken == prefix + "LUNARWISP_NAME")
-            {
-                if (base.inputBank.skill3.down)
-                {
-                    this.fireTimer -= Time.fixedDeltaTime;
-                    if (this.fireTimer <= 0f)
-                    {
-                        float num = baseFireInterval / this.attackSpeedStat;
-                        this.fireTimer += num;
-                        this.OnFireShared();
+            //        }
 
-                    }
+            //    }
+            //}
+            //if (base.skillLocator.secondary.skillNameToken == prefix + "LUNARWISP_NAME")
+            //{
+            //    if (base.inputBank.skill2.down)
+            //    {
+            //        this.fireTimer -= Time.fixedDeltaTime;
+            //        if (this.fireTimer <= 0f)
+            //        {
+            //            float num = baseFireInterval / this.attackSpeedStat;
+            //            this.fireTimer += num;
+            //            this.OnFireShared();
+            //        }
 
-                }
-                else
-                {
-                    if (base.isAuthority)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
+            //    }
+            //    else
+            //    {
+            //        if (base.isAuthority)
+            //        {
+            //            this.outer.SetNextStateToMain();
+            //            return;
 
-                    }
+            //        }
 
-                }
-            }
-            if (base.skillLocator.special.skillNameToken == prefix + "LUNARWISP_NAME")
-            {
-                if (base.inputBank.skill4.down)
-                {
-                    this.fireTimer -= Time.fixedDeltaTime;
-                    if (this.fireTimer <= 0f)
-                    {
-                        float num = baseFireInterval / this.attackSpeedStat;
-                        this.fireTimer += num;
-                        this.OnFireShared();
-                    }
+            //    }
+            //}
+            //if (base.skillLocator.utility.skillNameToken == prefix + "LUNARWISP_NAME")
+            //{
+            //    if (base.inputBank.skill3.down)
+            //    {
+            //        this.fireTimer -= Time.fixedDeltaTime;
+            //        if (this.fireTimer <= 0f)
+            //        {
+            //            float num = baseFireInterval / this.attackSpeedStat;
+            //            this.fireTimer += num;
+            //            this.OnFireShared();
 
-                }
-                else
-                {
-                    if (base.isAuthority)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
+            //        }
 
-                    }
+            //    }
+            //    else
+            //    {
+            //        if (base.isAuthority)
+            //        {
+            //            this.outer.SetNextStateToMain();
+            //            return;
 
-                }
-            }
+            //        }
+
+            //    }
+            //}
+            //if (base.skillLocator.special.skillNameToken == prefix + "LUNARWISP_NAME")
+            //{
+            //    if (base.inputBank.skill4.down)
+            //    {
+            //        this.fireTimer -= Time.fixedDeltaTime;
+            //        if (this.fireTimer <= 0f)
+            //        {
+            //            float num = baseFireInterval / this.attackSpeedStat;
+            //            this.fireTimer += num;
+            //            this.OnFireShared();
+            //        }
+
+            //    }
+            //    else
+            //    {
+            //        if (base.isAuthority)
+            //        {
+            //            this.outer.SetNextStateToMain();
+            //            return;
+
+            //        }
+
+            //    }
+            //}
 
         }
 

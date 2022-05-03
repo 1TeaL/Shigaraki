@@ -21,8 +21,8 @@ namespace ShiggyMod.Modules.Survivors
 		public float mortarTimer;
 		public Transform mortarIndicatorInstance;
 		private Ray downRay;
-
-		public float maxTrackingDistance = 60f;
+        private Transform voidmortarIndicatorInstance;
+        public float maxTrackingDistance = 60f;
 		public float maxTrackingAngle = 60f;
 		public float trackerUpdateFrequency = 10f;
 		private HurtBox trackingTarget;
@@ -41,6 +41,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool verminjumpbuffGiven;
         private uint minimushrumsoundID;
         private GameObject mushroomWard;
+        private float voidmortarTimer;
 
         private void Awake()
 		{
@@ -99,8 +100,42 @@ namespace ShiggyMod.Modules.Survivors
 				this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
 			}
 
-			//mini mushrum buff
+			//roboballmini buff
+			if (characterBody.HasBuff(Modules.Buffs.roboballminiBuff.buffIndex))
+            {
+                if (!characterBody.characterMotor.isGrounded)
+				{
+					if (characterBody.inputBank.jump.down)
+					{
+						characterBody.AddBuff(Buffs.flyBuff.buffIndex);
+						base.transform.position = characterBody.transform.position;
+						if (characterBody.hasEffectiveAuthority && characterBody.characterMotor)
+						{
+							if (characterBody.inputBank.moveVector != Vector3.zero)
+							{
+								characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed * Modules.StaticValues.roboballboostMultiplier);
+								characterBody.characterMotor.disableAirControlUntilCollision = false;
+							}
+						}
+					}
+                    else if(!characterBody.inputBank.jump.down)
+					{
+						characterBody.RemoveBuff(Buffs.flyBuff.buffIndex);
+						this.characterBody.characterMotor.disableAirControlUntilCollision = true;
+					}
 
+				}
+				else
+				if (characterBody.characterMotor.isGrounded && !characterBody.inputBank.jump.down)
+				{
+					characterBody.RemoveBuff(Buffs.flyBuff.buffIndex);
+					this.characterBody.characterMotor.disableAirControlUntilCollision = true;
+				}
+
+			}
+
+
+			//mini mushrum buff
 			if (characterBody.HasBuff(Modules.Buffs.minimushrumBuff.buffIndex))
 			{
 				if (!NetworkServer.active)
@@ -163,6 +198,29 @@ namespace ShiggyMod.Modules.Survivors
 				}
 
 			}
+			//hermitcrab mortarbuff
+			if (characterBody.HasBuff(Modules.Buffs.voidbarnaclemortarBuff))
+			{
+				if (characterBody.GetNotMoving())
+				{
+					if (!this.voidmortarIndicatorInstance)
+					{
+						CreateVoidMortarIndicator();
+					}
+					voidmortarTimer += Time.fixedDeltaTime;
+					if (voidmortarTimer >= Modules.StaticValues.voidmortarbaseDuration / (characterBody.armor/10))
+					{
+						characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff);
+						mortarTimer = 0f;
+						FireMortar();
+					}
+				}
+				else if (!characterBody.GetNotMoving())
+				{
+					if (this.mortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
+					characterBody.SetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
+				}
+			}
 
 			//hermitcrab mortarbuff
 			if (characterBody.HasBuff(Modules.Buffs.hermitcrabmortarBuff))
@@ -171,10 +229,10 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					if (!this.mortarIndicatorInstance)
 					{
-						CreateIndicator();
+						CreateMortarIndicator();
 					}
 					mortarTimer += Time.fixedDeltaTime;
-					if (mortarTimer >= Modules.StaticValues.mortarbaseDuration/characterBody.attackSpeed)
+					if (mortarTimer >= Modules.StaticValues.mortarbaseDuration/(characterBody.attackSpeed/10))
 					{
 						characterBody.AddBuff(Modules.Buffs.hermitcrabmortararmorBuff);
 						mortarTimer = 0f;
@@ -283,7 +341,7 @@ namespace ShiggyMod.Modules.Survivors
 					larvabuffGiven = false;
 				}
 			}
-
+			//lunar exploder buff
             if (characterBody.HasBuff(Buffs.lunarexploderBuff))
             {
 				if(characterBody.healthComponent.combinedHealth < characterBody.healthComponent.fullCombinedHealth / 2)
@@ -381,12 +439,32 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					this.mortarIndicatorInstance.transform.position = raycastHit.point;
 					this.mortarIndicatorInstance.transform.up = raycastHit.normal;
+					mortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.mortarRadius * (characterBody.armor/characterBody.baseArmor);
+
+				}
+			}
+			if (this.voidmortarIndicatorInstance)
+			{
+				float maxDistance = 250f;
+
+				this.downRay = new Ray
+				{
+					direction = Vector3.down,
+					origin = base.transform.position
+				};
+
+				RaycastHit raycastHit;
+				if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
+				{
+					this.voidmortarIndicatorInstance.transform.position = raycastHit.point;
+					this.voidmortarIndicatorInstance.transform.up = raycastHit.normal;
+					voidmortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.voidmortarRadius * characterBody.attackSpeed;
 
 				}
 			}
 		}
 
-		private void CreateIndicator()
+		private void CreateMortarIndicator()
 		{
 			if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
 			{
@@ -396,8 +474,23 @@ namespace ShiggyMod.Modules.Survivors
 					origin = base.transform.position
 				};
 
-				this.mortarIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab).transform;
-				this.mortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.mortarRadius;
+				mortarIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab).transform;
+				mortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.mortarRadius * characterBody.armor;
+
+			}
+		}
+		private void CreateVoidMortarIndicator()
+		{
+			if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+			{
+				this.downRay = new Ray
+				{
+					direction = Vector3.down,
+					origin = base.transform.position
+				};
+
+				voidmortarIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab).transform;
+				voidmortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.voidmortarRadius * characterBody.attackSpeed;
 
 			}
 		}
@@ -408,14 +501,14 @@ namespace ShiggyMod.Modules.Survivors
 			{
 				attacker = characterBody.gameObject,
 				damageColorIndex = DamageColorIndex.WeakPoint,
-				damageValue = characterBody.damage * Modules.StaticValues.mortarDamageCoefficient,
+				damageValue = characterBody.damage * Modules.StaticValues.mortarDamageCoefficient * characterBody.attackSpeed * (characterBody.armor/characterBody.baseArmor),
 				origin = characterBody.corePosition,
 				procChainMask = default(ProcChainMask),
 				procCoefficient = 1f,
 				isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
 				teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
 			};
-			if (mortarOrb.target = mortarOrb.PickNextTarget(mortarOrb.origin, Modules.StaticValues.mortarRadius))
+			if (mortarOrb.target = mortarOrb.PickNextTarget(mortarOrb.origin, Modules.StaticValues.mortarRadius * characterBody.attackSpeed * (characterBody.armor/characterBody.baseArmor)))
 			{
 				OrbManager.instance.AddOrb(mortarOrb);
 			}

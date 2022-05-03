@@ -4,6 +4,8 @@ namespace ShiggyMod.Modules
 {
     internal static class StaticValues
     {
+        internal const float roboballboostMultiplier = 3f;
+
         internal const float minimushrumInterval = 1f;
         internal const float minimushrumhealFraction = 0.05f;
         internal const float minimushrumRadius = 4f;
@@ -20,8 +22,12 @@ namespace ShiggyMod.Modules
         internal const float larvajumpPower = 5f;
         internal const int larvajumpStacks = 2;
 
+        internal const float voidmortarbaseDuration = 1f;
+        internal const float voidmortarRadius = 40f;
+        internal const float voidmortarattackspeedGain = 0.05f;
+
         internal const float mortarbaseDuration = 1f;
-        internal const float mortarRadius = 50f;
+        internal const float mortarRadius = 40f;
         internal const float mortarDamageCoefficient = 1f;
         internal const float mortararmorGain = 1f;
 
@@ -56,8 +62,9 @@ namespace ShiggyMod.Modules
         internal const float jellyfishnovaDamageCoeffecient = 50f;
         internal const float lemurianfireballDamageCoeffecient = 2f;
         internal const float lunargolemshotsDamageCoeffecient = 2f;
-        internal const float lunarwispminigunDamageCoeffecient = 1f;
+        internal const float lunarwispminigunDamageCoeffecient = 3f;
         internal const float parentDamageCoeffecient = 8f;
+        internal const float stonegolemDamageCoeffecient = 6f;
 
     }
 }

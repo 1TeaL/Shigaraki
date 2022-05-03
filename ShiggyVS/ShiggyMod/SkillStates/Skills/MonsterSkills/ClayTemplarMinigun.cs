@@ -85,6 +85,7 @@ namespace ShiggyMod.SkillStates
             Util.PlaySound(MinigunFire.fireSound, base.gameObject);
             if (base.isAuthority)
             {
+                base.characterBody.SetAimTimer(this.duration);
                 this.OnFireAuthority();
             }
         }
@@ -132,102 +133,124 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (base.skillLocator.primary.skillNameToken == prefix + "TEMPLAR_NAME")
+            if (base.IsKeyDownAuthority())
             {
-                if (base.inputBank.skill1.down)
+                this.fireTimer -= Time.fixedDeltaTime;
+                if (this.fireTimer <= 0f)
                 {
-                    this.fireTimer -= Time.fixedDeltaTime;
-                    if (this.fireTimer <= 0f)
-                    {
-                        float num = baseFireInterval / this.attackSpeedStat;
-                        this.fireTimer += num;
-                        this.OnFireShared();
-                    }
-
+                    float num = baseFireInterval / this.attackSpeedStat;
+                    this.fireTimer += num;
+                    this.OnFireShared();
                 }
-                else
-                {
-                    if (base.isAuthority)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
 
-                    }
-
-                }
             }
-            if (base.skillLocator.secondary.skillNameToken == prefix + "TEMPLAR_NAME")
+            else
             {
-                if (base.inputBank.skill2.down)
+                if (base.isAuthority)
                 {
-                    this.fireTimer -= Time.fixedDeltaTime;
-                    if (this.fireTimer <= 0f)
-                    {
-                        float num = baseFireInterval / this.attackSpeedStat;
-                        this.fireTimer += num;
-                        this.OnFireShared();
-                    }
+                    this.outer.SetNextStateToMain();
+                    return;
 
                 }
-                else
-                {
-                    if (base.isAuthority)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
 
-                    }
-
-                }
             }
-            if (base.skillLocator.utility.skillNameToken == prefix + "TEMPLAR_NAME")
-            {
-                if (base.inputBank.skill3.down)
-                {
-                    this.fireTimer -= Time.fixedDeltaTime;
-                    if (this.fireTimer <= 0f)
-                    {
-                        float num = baseFireInterval / this.attackSpeedStat;
-                        this.fireTimer += num;
-                        this.OnFireShared();
-                    }
 
-                }
-                else
-                {
-                    if (base.isAuthority)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
+            //if (base.skillLocator.primary.skillNameToken == prefix + "TEMPLAR_NAME")
+            //{
+            //    if (base.IsKeyDownAuthority())
+            //    {
+            //        this.fireTimer -= Time.fixedDeltaTime;
+            //        if (this.fireTimer <= 0f)
+            //        {
+            //            float num = baseFireInterval / this.attackSpeedStat;
+            //            this.fireTimer += num;
+            //            this.OnFireShared();
+            //        }
 
-                    }
+            //    }
+            //    else
+            //    {
+            //        if (base.isAuthority)
+            //        {
+            //            this.outer.SetNextStateToMain();
+            //            return;
 
-                }
-            }
-            if (base.skillLocator.special.skillNameToken == prefix + "TEMPLAR_NAME")
-            {
-                if (base.inputBank.skill4.down)
-                {
-                    this.fireTimer -= Time.fixedDeltaTime;
-                    if (this.fireTimer <= 0f)
-                    {
-                        float num = baseFireInterval / this.attackSpeedStat;
-                        this.fireTimer += num;
-                        this.OnFireShared();
-                    }
+            //        }
 
-                }
-                else
-                {
-                    if (base.isAuthority)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
+            //    }
+            //}
+            //if (base.skillLocator.secondary.skillNameToken == prefix + "TEMPLAR_NAME")
+            //{
+            //    if (base.inputBank.skill2.down)
+            //    {
+            //        this.fireTimer -= Time.fixedDeltaTime;
+            //        if (this.fireTimer <= 0f)
+            //        {
+            //            float num = baseFireInterval / this.attackSpeedStat;
+            //            this.fireTimer += num;
+            //            this.OnFireShared();
+            //        }
 
-                    }
+            //    }
+            //    else
+            //    {
+            //        if (base.isAuthority)
+            //        {
+            //            this.outer.SetNextStateToMain();
+            //            return;
 
-                }
-            }
+            //        }
+
+            //    }
+            //}
+            //if (base.skillLocator.utility.skillNameToken == prefix + "TEMPLAR_NAME")
+            //{
+            //    if (base.inputBank.skill3.down)
+            //    {
+            //        this.fireTimer -= Time.fixedDeltaTime;
+            //        if (this.fireTimer <= 0f)
+            //        {
+            //            float num = baseFireInterval / this.attackSpeedStat;
+            //            this.fireTimer += num;
+            //            this.OnFireShared();
+            //        }
+
+            //    }
+            //    else
+            //    {
+            //        if (base.isAuthority)
+            //        {
+            //            this.outer.SetNextStateToMain();
+            //            return;
+
+            //        }
+
+            //    }
+            //}
+            //if (base.skillLocator.special.skillNameToken == prefix + "TEMPLAR_NAME")
+            //{
+            //    if (base.inputBank.skill4.down)
+            //    {
+            //        this.fireTimer -= Time.fixedDeltaTime;
+            //        if (this.fireTimer <= 0f)
+            //        {
+            //            float num = baseFireInterval / this.attackSpeedStat;
+            //            this.fireTimer += num;
+            //            this.OnFireShared();
+            //        }
+
+            //    }
+            //    else
+            //    {
+            //        if (base.isAuthority)
+            //        {
+            //            this.outer.SetNextStateToMain();
+            //            return;
+
+            //        }
+
+            //    }
+            //}
 
         }
 

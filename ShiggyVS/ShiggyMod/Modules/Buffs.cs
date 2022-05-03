@@ -11,18 +11,6 @@ namespace ShiggyMod.Modules
     {
         internal static List<BuffDef> buffDefs = new List<BuffDef>();
 
-        internal static BuffDef transformBuff;
-        internal static BuffDef assaultvestBuff;
-        internal static BuffDef choicescarfBuff;
-        internal static BuffDef choicebandBuff;
-        internal static BuffDef choicespecsBuff;
-        internal static BuffDef leftoversBuff;
-        internal static BuffDef lifeorbBuff;
-        internal static BuffDef luckyeggBuff;
-        internal static BuffDef rockyhelmetBuff;
-        internal static BuffDef scopelensBuff;
-        internal static BuffDef shellbellBuff;
-
         internal static BuffDef flyBuff;
         internal static BuffDef beetleBuff;
         internal static BuffDef alphashieldonBuff;
@@ -38,6 +26,9 @@ namespace ShiggyMod.Modules
         internal static BuffDef lesserwispBuff;
         internal static BuffDef lunarexploderBuff;
         internal static BuffDef minimushrumBuff;
+        internal static BuffDef roboballminiBuff;
+        internal static BuffDef voidbarnaclemortarBuff;
+        internal static BuffDef voidbarnaclemortarattackspeedBuff;
 
         internal static void RegisterBuffs()
         {
@@ -58,6 +49,9 @@ namespace ShiggyMod.Modules
             lesserwispBuff = Buffs.AddNewBuff("RangedBuff", warcryBuffIcon, Color.green, false, false);
             lunarexploderBuff = Buffs.AddNewBuff("lunarexploderBuff", warcryBuffIcon, Color.green, false, false);
             minimushrumBuff = Buffs.AddNewBuff("minimushrumBuff", warcryBuffIcon, Color.green, false, false);
+            roboballminiBuff = Buffs.AddNewBuff("roboballminiBuff", warcryBuffIcon, Color.green, false, false);
+            voidbarnaclemortarBuff = Buffs.AddNewBuff("voidbarnaclemortarBuff", warcryBuffIcon, Color.white, false, false);
+            voidbarnaclemortarattackspeedBuff = Buffs.AddNewBuff("voidbarnaclemortarattackspeedBuff", warcryBuffIcon, Color.green, true, false);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

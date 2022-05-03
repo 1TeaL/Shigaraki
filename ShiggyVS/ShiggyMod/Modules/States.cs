@@ -28,7 +28,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(LemurianFireball));
             entityStates.Add(typeof(LunarGolemShots));
             entityStates.Add(typeof(LunarWispMinigun));
-            entityStates.Add(typeof(VultureFly));
+            entityStates.Add(typeof(AlloyVultureFly));
         }
     }
 }

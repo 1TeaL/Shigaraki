@@ -290,7 +290,14 @@ namespace ShiggyMod
 
             if(self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
             {
-                //mortararmor buff
+                //voidbarnaclemortararmor buff
+                if (self.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
+                {
+                    float baseattackspeed = self.attackSpeed;
+                    int buffcount = self.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff);
+                    self.attackSpeed *= (baseattackspeed + Modules.StaticValues.voidmortarattackspeedGain * (float)buffcount );
+                }
+                //hermitcrabmortararmor buff
                 if (self.HasBuff(Buffs.hermitcrabmortararmorBuff))
                 {
                     int buffcount = self.GetBuffCount(Buffs.hermitcrabmortararmorBuff);
