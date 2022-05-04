@@ -22,12 +22,12 @@ namespace ShiggyMod.Modules
         internal const float larvajumpPower = 5f;
         internal const int larvajumpStacks = 2;
 
-        internal const float voidmortarbaseDuration = 1f;
-        internal const float voidmortarRadius = 40f;
+        internal const float voidmortarbaseDuration = 2f;
+        internal const float voidmortarRadius = 20f;
         internal const float voidmortarattackspeedGain = 0.05f;
 
-        internal const float mortarbaseDuration = 1f;
-        internal const float mortarRadius = 40f;
+        internal const float mortarbaseDuration = 2f;
+        internal const float mortarRadius = 20f;
         internal const float mortarDamageCoefficient = 1f;
         internal const float mortararmorGain = 1f;
 
@@ -65,6 +65,7 @@ namespace ShiggyMod.Modules
         internal const float lunarwispminigunDamageCoeffecient = 3f;
         internal const float parentDamageCoeffecient = 8f;
         internal const float stonegolemDamageCoeffecient = 6f;
+        internal const float voidjailerDamageCoeffecient = 2f;
 
     }
 }

@@ -29,6 +29,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef roboballminiBuff;
         internal static BuffDef voidbarnaclemortarBuff;
         internal static BuffDef voidbarnaclemortarattackspeedBuff;
+        internal static BuffDef voidjailerBuff;
 
         internal static void RegisterBuffs()
         {
@@ -52,6 +53,7 @@ namespace ShiggyMod.Modules
             roboballminiBuff = Buffs.AddNewBuff("roboballminiBuff", warcryBuffIcon, Color.green, false, false);
             voidbarnaclemortarBuff = Buffs.AddNewBuff("voidbarnaclemortarBuff", warcryBuffIcon, Color.white, false, false);
             voidbarnaclemortarattackspeedBuff = Buffs.AddNewBuff("voidbarnaclemortarattackspeedBuff", warcryBuffIcon, Color.green, true, false);
+            voidjailerBuff = Buffs.AddNewBuff("voidjailerBuff", warcryBuffIcon, Color.green, false, false);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

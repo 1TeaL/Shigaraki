@@ -18,10 +18,11 @@ namespace ShiggyMod.Modules.Survivors
 		public float alphaconstructshieldtimer;
 		public float lunarTimer;
 		public float larvaTimer;
-		public float mortarTimer;
+        public float attackSpeedGain;
+        public float mortarTimer;
 		public Transform mortarIndicatorInstance;
 		private Ray downRay;
-        private Transform voidmortarIndicatorInstance;
+        public Transform voidmortarIndicatorInstance;
         public float maxTrackingDistance = 60f;
 		public float maxTrackingAngle = 60f;
 		public float trackerUpdateFrequency = 10f;
@@ -198,54 +199,63 @@ namespace ShiggyMod.Modules.Survivors
 				}
 
 			}
-			//hermitcrab mortarbuff
-			if (characterBody.HasBuff(Modules.Buffs.voidbarnaclemortarBuff))
-			{
-				if (characterBody.GetNotMoving())
-				{
-					if (!this.voidmortarIndicatorInstance)
-					{
-						CreateVoidMortarIndicator();
-					}
-					voidmortarTimer += Time.fixedDeltaTime;
-					if (voidmortarTimer >= Modules.StaticValues.voidmortarbaseDuration / (characterBody.armor/10))
-					{
-						characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff);
-						mortarTimer = 0f;
-						FireMortar();
-					}
-				}
-				else if (!characterBody.GetNotMoving())
-				{
-					if (this.mortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
-					characterBody.SetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
-				}
-			}
+			
 
-			//hermitcrab mortarbuff
-			if (characterBody.HasBuff(Modules.Buffs.hermitcrabmortarBuff))
+
+			if (characterBody.GetNotMoving())
 			{
-                if (characterBody.GetNotMoving())
+				//hermitcrab mortarbuff
+				if (characterBody.HasBuff(Modules.Buffs.hermitcrabmortarBuff))
 				{
 					if (!this.mortarIndicatorInstance)
 					{
 						CreateMortarIndicator();
 					}
 					mortarTimer += Time.fixedDeltaTime;
-					if (mortarTimer >= Modules.StaticValues.mortarbaseDuration/(characterBody.attackSpeed/10))
+					if (mortarTimer >= Modules.StaticValues.mortarbaseDuration/ (characterBody.attackSpeed))
 					{
 						characterBody.AddBuff(Modules.Buffs.hermitcrabmortararmorBuff);
 						mortarTimer = 0f;
 						FireMortar();
 					}
 				}
-                else if(!characterBody.GetNotMoving())
+                else
 				{
 					if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
 					characterBody.SetBuffCount(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
-                }
+
+				}
+
+				//voidbarnacle mortarbuff
+				if (characterBody.HasBuff(Modules.Buffs.voidbarnaclemortarBuff))
+				{
+					if (!this.voidmortarIndicatorInstance)
+					{
+						CreateVoidMortarIndicator();
+					}
+					voidmortarTimer += Time.fixedDeltaTime;
+					if (voidmortarTimer >= Modules.StaticValues.voidmortarbaseDuration/ (characterBody.armor/characterBody.baseArmor))
+					{
+						characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff);
+						attackSpeedGain = Modules.StaticValues.voidmortarattackspeedGain * characterBody.GetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff);
+						voidmortarTimer = 0f;
+						FireMortar();
+					}
+				}
+				else
+				{
+					if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
+					characterBody.SetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
+				}
 			}
 
+			else if (!characterBody.GetNotMoving())
+			{
+				if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
+				characterBody.SetBuffCount(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
+				if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
+				characterBody.SetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
+			}
 
 			//verminjump buff
 			if (characterBody.HasBuff(Buffs.pestjumpBuff) && !verminjumpbuffGiven)

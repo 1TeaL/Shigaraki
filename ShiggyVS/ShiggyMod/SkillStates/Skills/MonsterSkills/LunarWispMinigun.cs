@@ -21,7 +21,7 @@ namespace ShiggyMod.SkillStates
         private float procCoefficient = 0.2f;
         private float force = 60f;
         private string muzzleString;
-        private float baseFireInterval = 0.2f;
+        private float baseFireInterval = 0.3f;
         private float baseBulletCount;
 
         private Run.FixedTimeStamp critEndTime;
@@ -166,117 +166,18 @@ namespace ShiggyMod.SkillStates
                     this.OnFireShared();
                 }
 
-                
-                else
-                {
-                    if (base.isAuthority)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
 
-                    }
+            }
+            else
+            {
+                if (base.isAuthority)
+                {
+                    this.outer.SetNextStateToMain();
+                    return;
 
                 }
 
             }
-
-            //if (base.skillLocator.primary.skillNameToken == prefix + "LUNARWISP_NAME")
-            //{
-            //    if (base.inputBank.skill1.down)
-            //    {
-            //        this.fireTimer -= Time.fixedDeltaTime;
-            //        if (this.fireTimer <= 0f)
-            //        {
-            //            float num = baseFireInterval / this.attackSpeedStat;
-            //            this.fireTimer += num;
-            //            this.OnFireShared();
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        if (base.isAuthority)
-            //        {
-            //            this.outer.SetNextStateToMain();
-            //            return;
-
-            //        }
-
-            //    }
-            //}
-            //if (base.skillLocator.secondary.skillNameToken == prefix + "LUNARWISP_NAME")
-            //{
-            //    if (base.inputBank.skill2.down)
-            //    {
-            //        this.fireTimer -= Time.fixedDeltaTime;
-            //        if (this.fireTimer <= 0f)
-            //        {
-            //            float num = baseFireInterval / this.attackSpeedStat;
-            //            this.fireTimer += num;
-            //            this.OnFireShared();
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        if (base.isAuthority)
-            //        {
-            //            this.outer.SetNextStateToMain();
-            //            return;
-
-            //        }
-
-            //    }
-            //}
-            //if (base.skillLocator.utility.skillNameToken == prefix + "LUNARWISP_NAME")
-            //{
-            //    if (base.inputBank.skill3.down)
-            //    {
-            //        this.fireTimer -= Time.fixedDeltaTime;
-            //        if (this.fireTimer <= 0f)
-            //        {
-            //            float num = baseFireInterval / this.attackSpeedStat;
-            //            this.fireTimer += num;
-            //            this.OnFireShared();
-
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        if (base.isAuthority)
-            //        {
-            //            this.outer.SetNextStateToMain();
-            //            return;
-
-            //        }
-
-            //    }
-            //}
-            //if (base.skillLocator.special.skillNameToken == prefix + "LUNARWISP_NAME")
-            //{
-            //    if (base.inputBank.skill4.down)
-            //    {
-            //        this.fireTimer -= Time.fixedDeltaTime;
-            //        if (this.fireTimer <= 0f)
-            //        {
-            //            float num = baseFireInterval / this.attackSpeedStat;
-            //            this.fireTimer += num;
-            //            this.OnFireShared();
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        if (base.isAuthority)
-            //        {
-            //            this.outer.SetNextStateToMain();
-            //            return;
-
-            //        }
-
-            //    }
-            //}
 
         }
 

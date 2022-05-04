@@ -122,10 +122,24 @@ namespace ShiggyMod
             //On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate;
             //On.RoR2.CharacterBody.Update += CharacterBody_Update;
             On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
+            On.RoR2.CharacterBody.OnDeathStart += CharacterBody_OnDeathStart1;
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
                 On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
+            }
+        }
+
+        private void CharacterBody_OnDeathStart1(On.RoR2.CharacterBody.orig_OnDeathStart orig, CharacterBody self)
+        {
+            orig.Invoke(self);
+
+            if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+            {
+                Shiggycon = self.GetComponent<ShiggyController>();
+
+                if (Shiggycon.mortarIndicatorInstance) EntityState.Destroy(Shiggycon.mortarIndicatorInstance.gameObject);
+                if (Shiggycon.voidmortarIndicatorInstance) EntityState.Destroy(Shiggycon.voidmortarIndicatorInstance.gameObject);
             }
         }
 
@@ -290,12 +304,12 @@ namespace ShiggyMod
 
             if(self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
             {
-                //voidbarnaclemortararmor buff
+                //voidbarnaclemortarattackspeed buff
                 if (self.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
                 {
-                    float baseattackspeed = self.attackSpeed;
-                    int buffcount = self.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff);
-                    self.attackSpeed *= (baseattackspeed + Modules.StaticValues.voidmortarattackspeedGain * (float)buffcount );
+                    Shiggycon = base.GetComponent<ShiggyController>();
+                    self.attackSpeed += Modules.StaticValues.voidmortarattackspeedGain* self.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff);
+
                 }
                 //hermitcrabmortararmor buff
                 if (self.HasBuff(Buffs.hermitcrabmortararmorBuff))
