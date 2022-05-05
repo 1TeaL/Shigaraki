@@ -30,6 +30,12 @@ namespace ShiggyMod.Modules
         internal static BuffDef voidbarnaclemortarBuff;
         internal static BuffDef voidbarnaclemortarattackspeedBuff;
         internal static BuffDef voidjailerBuff;
+        internal static BuffDef stonetitanBuff;
+        internal static BuffDef vagrantBuff;
+        internal static BuffDef vagrantDebuff;
+        internal static BuffDef vagrantdisableBuff;
+        internal static BuffDef magmawormBuff;
+        internal static BuffDef overloadingwormBuff;
 
         internal static void RegisterBuffs()
         {
@@ -54,6 +60,12 @@ namespace ShiggyMod.Modules
             voidbarnaclemortarBuff = Buffs.AddNewBuff("voidbarnaclemortarBuff", warcryBuffIcon, Color.white, false, false);
             voidbarnaclemortarattackspeedBuff = Buffs.AddNewBuff("voidbarnaclemortarattackspeedBuff", warcryBuffIcon, Color.green, true, false);
             voidjailerBuff = Buffs.AddNewBuff("voidjailerBuff", warcryBuffIcon, Color.green, false, false);
+            stonetitanBuff = Buffs.AddNewBuff("stonetitanBuff", warcryBuffIcon, Color.green, false, false);
+            vagrantBuff = Buffs.AddNewBuff("vagrantBuff", warcryBuffIcon, Color.green, false, false);
+            vagrantdisableBuff = Buffs.AddNewBuff("vagrantdisableBuff ", warcryBuffIcon, Color.green, true, false);
+            vagrantDebuff = Buffs.AddNewBuff("vagrantDebuff", warcryBuffIcon, Color.green, true, true);
+            magmawormBuff = Buffs.AddNewBuff("magmawormBuff", warcryBuffIcon, Color.green, false, false);
+            overloadingwormBuff = Buffs.AddNewBuff("overloadingwormBuff", warcryBuffIcon, Color.green, false, false);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

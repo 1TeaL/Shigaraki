@@ -15,11 +15,17 @@ namespace ShiggyMod.Modules.Survivors
 {
 	public class ShiggyController : MonoBehaviour
 	{
+		public float overloadingtimer;
+		public float magmawormtimer;
+		public float vagranttimer;
 		public float alphaconstructshieldtimer;
 		public float lunarTimer;
 		public float larvaTimer;
         public float attackSpeedGain;
         public float mortarTimer;
+		private float voidmortarTimer;
+		private float voidjailerTimer;
+
 		public Transform mortarIndicatorInstance;
 		private Ray downRay;
         public Transform voidmortarIndicatorInstance;
@@ -30,7 +36,8 @@ namespace ShiggyMod.Modules.Survivors
 		private CharacterBody characterBody;
 		private InputBankTest inputBank;
 		private float trackerUpdateStopwatch;
-		private Indicator indicator;
+        private ChildLocator child;
+        private Indicator indicator;
 		private readonly BullseyeSearch search = new BullseyeSearch();
 		private CharacterMaster characterMaster;
 		private CharacterBody origCharacterBody;
@@ -41,11 +48,14 @@ namespace ShiggyMod.Modules.Survivors
 		public bool larvabuffGiven;
 		public bool verminjumpbuffGiven;
         private uint minimushrumsoundID;
-        private GameObject mushroomWard;
-        private float voidmortarTimer;
+        public GameObject mushroomWard;
+		public GameObject magmawormWard;
+		public GameObject overloadingWard;
 
-        private void Awake()
+		private void Awake()
 		{
+			child = GetComponentInChildren<ChildLocator>();
+
 			indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
             //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
 			characterBody = gameObject.GetComponent<CharacterBody>();
@@ -100,8 +110,99 @@ namespace ShiggyMod.Modules.Survivors
 				this.SearchForTarget(aimRay);
 				this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
 			}
+			//overloadingworm buff
+			if (characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
+			{
+				if (!NetworkServer.active)
+				{
+					return;
+				}
+				if (overloadingWard == null)
+				{
+					this.overloadingWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/NearbyDamageBonusIndicator"), characterBody.footPosition, Quaternion.identity);
+					this.overloadingWard.transform.parent = characterBody.transform;
+					//this.magmawormWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
 
-			//roboballmini buff
+					if (overloadingtimer > StaticValues.overloadingInterval / characterBody.attackSpeed)
+					{
+						overloadingtimer = 0f;
+						OverloadingFire();
+
+					}
+					else
+					{
+						overloadingtimer += Time.fixedDeltaTime;
+					}
+				}
+			}
+			else if (!characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
+			{
+				if (this.overloadingWard)
+				{
+					EntityState.Destroy(this.overloadingWard);
+				}
+			}
+
+			//magmaworm buff
+			if (characterBody.HasBuff(Modules.Buffs.magmawormBuff.buffIndex))
+			{
+				if (!NetworkServer.active)
+				{
+					return;
+				}
+				if (magmawormWard == null)
+				{
+					this.magmawormWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/NearbyDamageBonusIndicator"), characterBody.footPosition, Quaternion.identity);
+					this.magmawormWard.transform.parent = characterBody.transform;
+					//this.magmawormWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
+
+					if (magmawormtimer > StaticValues.magmawormInterval/characterBody.attackSpeed)
+					{
+						magmawormtimer = 0f;
+						MagmawormFire();
+
+					}
+					else
+					{
+						magmawormtimer += Time.fixedDeltaTime;
+					}
+				}
+			}
+			else if (!characterBody.HasBuff(Modules.Buffs.magmawormBuff.buffIndex))
+			{
+				if (this.magmawormWard)
+				{
+					EntityState.Destroy(this.magmawormWard);
+				}
+			}
+
+			//vagrant disablebuff
+			if (characterBody.HasBuff(Modules.Buffs.vagrantdisableBuff.buffIndex))
+			{
+				if (vagranttimer > 1f)
+				{
+					int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.vagrantdisableBuff.buffIndex);
+					if (buffCountToApply > 1)
+					{
+						if (buffCountToApply >= 2)
+						{
+							characterBody.RemoveBuff(Modules.Buffs.vagrantdisableBuff.buffIndex);
+							vagranttimer = 0f;
+						}
+					}
+					else
+					{
+						characterBody.RemoveBuff(Modules.Buffs.vagrantdisableBuff.buffIndex);
+						characterBody.AddBuff(Modules.Buffs.vagrantBuff);
+
+					}
+				}
+				else vagranttimer += Time.fixedDeltaTime;
+			}
+            
+
+
+		    //roboballmini buff
 			if (characterBody.HasBuff(Modules.Buffs.roboballminiBuff.buffIndex))
             {
                 if (!characterBody.characterMotor.isGrounded)
@@ -201,9 +302,10 @@ namespace ShiggyMod.Modules.Survivors
 			}
 			
 
-
+			//Standing still/not moving buffs
 			if (characterBody.GetNotMoving())
 			{
+
 				//hermitcrab mortarbuff
 				if (characterBody.HasBuff(Modules.Buffs.hermitcrabmortarBuff))
 				{
@@ -255,6 +357,17 @@ namespace ShiggyMod.Modules.Survivors
 				characterBody.SetBuffCount(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
 				if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
 				characterBody.SetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
+
+				//voidjailer buff
+				if (characterBody.HasBuff(Modules.Buffs.voidjailerBuff.buffIndex))
+				{
+					voidjailerTimer += Time.fixedDeltaTime;
+					if (voidjailerTimer > StaticValues.voidjailerInterval / (characterBody.moveSpeed / 7))
+					{
+						voidjailerTimer = 0f;
+						VoidJailerPull();
+					}
+				}
 			}
 
 			//verminjump buff
@@ -388,6 +501,130 @@ namespace ShiggyMod.Modules.Survivors
 
 		}
 
+		public void MagmawormFire()
+		{
+			Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
+			BullseyeSearch search = new BullseyeSearch
+			{
+
+				teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+				filterByLoS = false,
+				searchOrigin = characterBody.corePosition,
+				searchDirection = UnityEngine.Random.onUnitSphere,
+				sortMode = BullseyeSearch.SortMode.Distance,
+				maxDistanceFilter = StaticValues.magmawormRadius,
+				maxAngleFilter = 360f
+			};
+
+			search.RefreshCandidates();
+			search.FilterOutGameObject(characterBody.gameObject);
+
+
+
+			List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+			foreach (HurtBox singularTarget in target)
+			{
+				if (singularTarget)
+				{
+					if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+					{
+						InflictDotInfo info = new InflictDotInfo();
+						info.attackerObject = characterBody.gameObject;
+						info.victimObject = singularTarget.healthComponent.body.gameObject;
+						info.duration = Modules.StaticValues.magmawormDuration;
+						info.dotIndex = DotController.DotIndex.Burn;
+						info.totalDamage = characterBody.damage * Modules.StaticValues.magmawormCoefficient;
+						info.damageMultiplier = 1f;
+
+						RoR2.StrengthenBurnUtils.CheckDotForUpgrade(characterBody.inventory, ref info);
+						DotController.InflictDot(ref info);
+					}
+				}
+			}
+
+		}
+
+		public void VoidJailerPull()
+		{
+			BullseyeSearch search = new BullseyeSearch
+			{
+
+				teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+				filterByLoS = false,
+				searchOrigin = characterBody.corePosition,
+				searchDirection = UnityEngine.Random.onUnitSphere,
+				sortMode = BullseyeSearch.SortMode.Distance,
+				maxDistanceFilter = StaticValues.voidjailermaxpullDistance,
+				maxAngleFilter = 360f
+			};
+
+			search.RefreshCandidates();
+			search.FilterOutGameObject(characterBody.gameObject);
+
+
+
+			List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+			foreach (HurtBox singularTarget in target)
+			{
+				if (singularTarget)
+				{
+					Vector3 a = singularTarget.transform.position - characterBody.corePosition;
+					float magnitude = a.magnitude;
+					Vector3 vector = a / magnitude;
+					if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+					{
+						float Weight = 1f;
+						if (singularTarget.healthComponent.body.characterMotor)
+						{
+							Weight = singularTarget.healthComponent.body.characterMotor.mass;
+						}
+						else if (singularTarget.healthComponent.body.rigidbody)
+						{
+							Weight = singularTarget.healthComponent.body.rigidbody.mass;
+						}
+						Vector3 a2 = vector;
+						float d = Trajectory.CalculateInitialYSpeedForHeight(Mathf.Abs(StaticValues.voidjailerminpullDistance - magnitude)) * Mathf.Sign(StaticValues.voidjailerminpullDistance - magnitude);
+						a2 *= d;
+						a2.y = StaticValues.voidjailerpullLiftVelocity;
+						DamageInfo damageInfo = new DamageInfo
+						{
+							attacker = base.gameObject,
+							damage = characterBody.damage * Modules.StaticValues.voidjailerDamageCoeffecient,
+							position = singularTarget.transform.position,
+							procCoefficient = 0.5f,
+							damageType = DamageType.SlowOnHit,
+
+						};
+						singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);
+						singularTarget.healthComponent.TakeDamage(damageInfo);
+						GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
+
+
+                        EffectManager.SpawnEffect(Modules.Assets.voidjailerEffect, new EffectData
+                        {
+                            origin = singularTarget.transform.position,
+                            scale = 1f,
+
+                        }, true);
+
+						Vector3 position = singularTarget.transform.position;
+						Vector3 start = characterBody.corePosition;
+						Transform transform = child.FindChild("LHand").transform;
+						if (transform)
+						{
+							start = transform.position;
+						}
+						EffectData effectData = new EffectData
+						{
+							origin = position,
+							start = start
+						};
+						EffectManager.SpawnEffect(Modules.Assets.voidjailermuzzleEffect, effectData, true);
+						
+					}
+				}
+			}
+		}
 		public void ApplyDoT()
 		{
 			Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
@@ -404,7 +641,7 @@ namespace ShiggyMod.Modules.Survivors
 			};
 
 			search.RefreshCandidates();
-			search.FilterOutGameObject(base.gameObject);
+			search.FilterOutGameObject(characterBody.gameObject);
 
 
 
@@ -416,7 +653,7 @@ namespace ShiggyMod.Modules.Survivors
 					if (singularTarget.healthComponent && singularTarget.healthComponent.body)
 					{
 						InflictDotInfo info = new InflictDotInfo();
-						info.attackerObject = base.gameObject;
+						info.attackerObject = characterBody.gameObject;
 						info.victimObject = singularTarget.healthComponent.body.gameObject;
 						info.duration = Modules.StaticValues.decayDamageTimer;
 						info.dotIndex = Modules.Dots.decayDot;
@@ -473,7 +710,7 @@ namespace ShiggyMod.Modules.Survivors
 				}
 			}
 		}
-
+		//hermit crab mortar
 		private void CreateMortarIndicator()
 		{
 			if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
@@ -489,6 +726,7 @@ namespace ShiggyMod.Modules.Survivors
 
 			}
 		}
+		//void barnacle mortar	
 		private void CreateVoidMortarIndicator()
 		{
 			if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
@@ -505,6 +743,7 @@ namespace ShiggyMod.Modules.Survivors
 			}
 		}
 
+		//code for both mortars
 		private void FireMortar()
 		{
 			MortarOrb mortarOrb = new MortarOrb
@@ -539,7 +778,50 @@ namespace ShiggyMod.Modules.Survivors
 			this.trackingTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
 		}
 
+		//overloading orb
+		private void OverloadingFire()
+		{
+			Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
+			BullseyeSearch search = new BullseyeSearch
+			{
+
+				teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+				filterByLoS = false,
+				searchOrigin = characterBody.corePosition,
+				searchDirection = UnityEngine.Random.onUnitSphere,
+				sortMode = BullseyeSearch.SortMode.Distance,
+				maxDistanceFilter = StaticValues.overloadingRadius,
+				maxAngleFilter = 360f
+			};
+
+			search.RefreshCandidates();
+			search.FilterOutGameObject(characterBody.gameObject);
+
+			HurtBox target = this.search.GetResults().FirstOrDefault<HurtBox>();
+			ProcChainMask procChainMask1 = default(ProcChainMask);
+			procChainMask1.AddProc(ProcType.LightningStrikeOnHit);
+
+			OrbManager.instance.AddOrb(new SimpleLightningStrikeOrb
+			{
+				attacker = characterBody.gameObject,
+				damageColorIndex = DamageColorIndex.Item,
+				damageValue = characterBody.damage * Modules.StaticValues.overloadingCoefficient,
+				origin = characterBody.corePosition,
+				procChainMask = procChainMask1,
+				procCoefficient = 1f,
+				isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
+				teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
+				target = target,
+
+			});
+
+		}
+
 	}
+
+
+
+
 	//mortar orb
 	public class MortarOrb : Orb
 	{
@@ -608,4 +890,5 @@ namespace ShiggyMod.Modules.Survivors
 		public DamageColorIndex damageColorIndex;
 	}
 }
+
 

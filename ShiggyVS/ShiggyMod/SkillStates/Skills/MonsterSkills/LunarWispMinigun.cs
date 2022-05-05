@@ -21,13 +21,13 @@ namespace ShiggyMod.SkillStates
         private float procCoefficient = 0.2f;
         private float force = 60f;
         private string muzzleString;
-        private float baseFireInterval = 0.3f;
+        private float baseFireInterval = 0.2f;
         private float baseBulletCount;
 
         private Run.FixedTimeStamp critEndTime;
         private Run.FixedTimeStamp lastCritCheck;
         private float fireTimer;
-        private float bulletMaxDistance = 100f;
+        private float bulletMaxDistance = 200f;
 
         private Transform muzzleTransformOne;
         private GameObject muzzleVFXInstanceOne;

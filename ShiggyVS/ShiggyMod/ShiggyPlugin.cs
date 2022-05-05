@@ -22,6 +22,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 using RoR2.Orbs;
 using EmotesAPI;
+using EntityStates.JellyfishMonster;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -119,10 +120,10 @@ namespace ShiggyMod
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
             //On.RoR2.TeleporterInteraction.FinishedState.OnEnter += TeleporterInteraction_FinishedState;
             //GlobalEventManager.onServerDamageDealt += GlobalEventManager_OnDamageDealt;
-            //On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate;
+            On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate; ;
             //On.RoR2.CharacterBody.Update += CharacterBody_Update;
             On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
-            On.RoR2.CharacterBody.OnDeathStart += CharacterBody_OnDeathStart1;
+            On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy; ;
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
@@ -130,7 +131,62 @@ namespace ShiggyMod
             }
         }
 
-        private void CharacterBody_OnDeathStart1(On.RoR2.CharacterBody.orig_OnDeathStart orig, CharacterBody self)
+        private void CharacterBody_FixedUpdate(On.RoR2.CharacterBody.orig_FixedUpdate orig, CharacterBody self)
+        {
+            orig.Invoke(self);
+        }
+
+        private void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
+        {
+            orig.Invoke(self, damageInfo, victim);
+
+            var attacker = damageInfo.attacker;
+            if (attacker)
+            {
+                var body = attacker.GetComponent<CharacterBody>();
+                var victimBody = victim.GetComponent<CharacterBody>();
+                if (body && victimBody)
+                {
+                    if (body.HasBuff(Modules.Buffs.vagrantBuff) && !victimBody.HasBuff(Modules.Buffs.vagrantDebuff))
+                    {
+                        if (damageInfo.damage / body.damage >= StaticValues.vagrantdamageThreshold)
+                        {
+                            body.RemoveBuff(Modules.Buffs.vagrantBuff.buffIndex);
+                            body.SetBuffCount(Buffs.vagrantdisableBuff.buffIndex, 10);
+                            victimBody.AddTimedBuffAuthority(Buffs.vagrantDebuff.buffIndex, 10f);
+                            Util.PlaySound(JellyNova.novaSoundString, base.gameObject);
+                            
+                            if (JellyNova.novaEffectPrefab)
+                            {
+                                EffectManager.SpawnEffect(JellyNova.novaEffectPrefab, new EffectData
+                                {
+                                    origin = victimBody.transform.position,
+                                    scale = StaticValues.vagrantRadius * body.attackSpeed/3
+                                }, true);
+                            }
+                            new BlastAttack
+                            {
+                                attacker = base.gameObject,
+                                teamIndex = TeamComponent.GetObjectTeam(base.gameObject),
+                                falloffModel = BlastAttack.FalloffModel.SweetSpot,
+                                baseDamage = body.damage * StaticValues.vagrantDamageCoefficient * body.attackSpeed / 3,
+                                damageType = DamageType.Stun1s,
+                                damageColorIndex = DamageColorIndex.Fragile,
+                                baseForce = 0,
+                                position = victimBody.transform.position,
+                                radius = StaticValues.vagrantRadius * body.attackSpeed / 3,
+                                procCoefficient = 1f,
+                                attackerFiltering = AttackerFiltering.NeverHitSelf,
+                            }.Fire();
+                            
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CharacterBody_OnDeathStart(On.RoR2.CharacterBody.orig_OnDeathStart orig, CharacterBody self)
         {
             orig.Invoke(self);
 
@@ -138,8 +194,12 @@ namespace ShiggyMod
             {
                 Shiggycon = self.GetComponent<ShiggyController>();
 
+                if (Shiggycon.overloadingWard) EntityState.Destroy(Shiggycon.overloadingWard);
+                if (Shiggycon.mushroomWard) EntityState.Destroy(Shiggycon.mushroomWard);
+                if (Shiggycon.magmawormWard) EntityState.Destroy(Shiggycon.magmawormWard);
                 if (Shiggycon.mortarIndicatorInstance) EntityState.Destroy(Shiggycon.mortarIndicatorInstance.gameObject);
                 if (Shiggycon.voidmortarIndicatorInstance) EntityState.Destroy(Shiggycon.voidmortarIndicatorInstance.gameObject);
+                AkSoundEngine.PostEvent(3468082827, this.gameObject);
             }
         }
 
@@ -149,7 +209,7 @@ namespace ShiggyMod
             orig();
             foreach(var item in SurvivorCatalog.allSurvivorDefs)
             {
-                Debug.Log(item.bodyPrefab.name);
+                //Debug.Log(item.bodyPrefab.name);
                 if(item.bodyPrefab.name == "ShiggyBody")
                 {
                     CustomEmotesAPI.ImportArmature(item.bodyPrefab, Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("humanoidShigaraki"));
@@ -184,112 +244,131 @@ namespace ShiggyMod
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
-            //multiplier remove
-            if (damageInfo.attacker)
+            if (damageInfo != null && damageInfo.attacker && damageInfo.attacker.GetComponent<CharacterBody>())
             {
+                //multiplier remove
                 if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
                 {
                     damageInfo.attacker.GetComponent<CharacterBody>().RemoveBuff(Buffs.multiplierBuff);
                 }
-            }
-
-
-            if (self.body.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-            {
-                bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
-                if (!flag && damageInfo.damage > 0f)
+                if (self.body.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
                 {
-                    //alpha construct shield
-                    if (self.body.HasBuff(Modules.Buffs.alphashieldonBuff.buffIndex))
+                    bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
+                    if (!flag && damageInfo.damage > 0f)
                     {
-                        if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                            != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME" && damageInfo.attacker != null)
+                        //stone titan buff
+                        if (self.body.HasBuff(Buffs.stonetitanBuff.buffIndex) )
                         {
-                            EffectData effectData2 = new EffectData
+                            if (self.combinedHealthFraction < 0.5f && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                             {
-                                origin = damageInfo.position,
-                                rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
-                            };
-                            EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
-                            damageInfo.rejected = true;
-                            self.body.RemoveBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
-                            self.body.SetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex, 10);
-                        }
-
-                    }
-                    //spike buff
-                    if (self.body.HasBuff(Modules.Buffs.spikeBuff.buffIndex))
-                    {
-                        //Spike buff
-
-                        var damageInfo2 = new DamageInfo();
-
-                        blastAttack = new BlastAttack();
-                        blastAttack.radius = Modules.StaticValues.spikedamageRadius;
-                        blastAttack.procCoefficient = 0.5f;
-                        blastAttack.position = self.transform.position;
-                        blastAttack.attacker = self.gameObject;
-                        blastAttack.crit = Util.CheckRoll(self.body.crit, self.body.master);
-                        blastAttack.baseDamage = self.body.damage * Modules.StaticValues.spikedamageCoefficient;
-                        blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                        blastAttack.baseForce = 100f;
-                        blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
-                        blastAttack.damageType = DamageType.Generic;
-                        blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-
-                        if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                            != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME" && damageInfo.attacker != null)
-                        {
-                            blastAttack.Fire();
-                        }
-
-                        EffectManager.SpawnEffect(Modules.Assets.GupSpikeEffect, new EffectData
-                        {
-                            origin = self.transform.position,
-                            scale = Modules.StaticValues.spikedamageRadius/3,
-                            rotation = Quaternion.LookRotation(self.transform.position)
-
-                        }, true);
-
-                        BullseyeSearch search = new BullseyeSearch
-                        {
-
-                            teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex),
-                            filterByLoS = false,
-                            searchOrigin = self.transform.position,
-                            searchDirection = UnityEngine.Random.onUnitSphere,
-                            sortMode = BullseyeSearch.SortMode.Distance,
-                            maxDistanceFilter = Modules.StaticValues.spikedamageRadius,
-                            maxAngleFilter = 360f
-                        };
-
-                        search.RefreshCandidates();
-                        search.FilterOutGameObject(self.gameObject);
-
-
-
-                        List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-                        foreach (HurtBox singularTarget in target)
-                        {
-                            if (singularTarget)
-                            {
-                                if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                                damageInfo.force = Vector3.zero;
+                                damageInfo.damage -= self.body.armor;
+                                if (damageInfo.damage < 0f)
                                 {
-                                    InflictDotInfo info = new InflictDotInfo();
-                                    info.attackerObject = self.gameObject;
-                                    info.victimObject = singularTarget.healthComponent.body.gameObject;
-                                    info.duration = Modules.StaticValues.decayDamageTimer;
-                                    info.dotIndex = Modules.Dots.decayDot;
+                                    self.Heal(Mathf.Abs(damageInfo.damage), default(RoR2.ProcChainMask), true);
+                                    damageInfo.damage = 0f;
 
-                                    DotController.InflictDot(ref info);
                                 }
+
+                            }
+                            else
+                            {   
+                                damageInfo.damage = Mathf.Max(1f, damageInfo.damage - self.body.armor);
                             }
                         }
 
-                    }
-                }                
-                
+                        //alpha construct shield
+                        if (self.body.HasBuff(Modules.Buffs.alphashieldonBuff.buffIndex))
+                        {
+                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
+                                != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                            {
+                                EffectData effectData2 = new EffectData
+                                {
+                                    origin = damageInfo.position,
+                                    rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
+                                };
+                                EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
+                                damageInfo.rejected = true;
+                                self.body.RemoveBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
+                                self.body.SetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex, 10);
+                            }
 
+                        }
+                        //spike buff
+                        if (self.body.HasBuff(Modules.Buffs.spikeBuff.buffIndex))
+                        {
+                            //Spike buff
+
+                            var damageInfo2 = new DamageInfo();
+
+                            blastAttack = new BlastAttack();
+                            blastAttack.radius = Modules.StaticValues.spikedamageRadius;
+                            blastAttack.procCoefficient = 0.5f;
+                            blastAttack.position = self.transform.position;
+                            blastAttack.attacker = self.gameObject;
+                            blastAttack.crit = Util.CheckRoll(self.body.crit, self.body.master);
+                            blastAttack.baseDamage = self.body.damage * Modules.StaticValues.spikedamageCoefficient;
+                            blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                            blastAttack.baseForce = 100f;
+                            blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
+                            blastAttack.damageType = DamageType.Generic;
+                            blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+
+                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
+                                != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                            {
+                                blastAttack.Fire();
+                            }
+
+                            EffectManager.SpawnEffect(Modules.Assets.GupSpikeEffect, new EffectData
+                            {
+                                origin = self.transform.position,
+                                scale = Modules.StaticValues.spikedamageRadius / 3,
+                                rotation = Quaternion.LookRotation(self.transform.position)
+
+                            }, true);
+
+                            BullseyeSearch search = new BullseyeSearch
+                            {
+
+                                teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex),
+                                filterByLoS = false,
+                                searchOrigin = self.transform.position,
+                                searchDirection = UnityEngine.Random.onUnitSphere,
+                                sortMode = BullseyeSearch.SortMode.Distance,
+                                maxDistanceFilter = Modules.StaticValues.spikedamageRadius,
+                                maxAngleFilter = 360f
+                            };
+
+                            search.RefreshCandidates();
+                            search.FilterOutGameObject(self.gameObject);
+
+
+
+                            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                            foreach (HurtBox singularTarget in target)
+                            {
+                                if (singularTarget)
+                                {
+                                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                                    {
+                                        InflictDotInfo info = new InflictDotInfo();
+                                        info.attackerObject = self.gameObject;
+                                        info.victimObject = singularTarget.healthComponent.body.gameObject;
+                                        info.duration = Modules.StaticValues.decayDamageTimer;
+                                        info.dotIndex = Modules.Dots.decayDot;
+
+                                        DotController.InflictDot(ref info);
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
+
+                }
             }
 
 
@@ -304,6 +383,12 @@ namespace ShiggyMod
 
             if(self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
             {
+                //stonetitanarmor buff
+                if (self.HasBuff(Buffs.stonetitanBuff))
+                {
+                    self.armor += StaticValues.stonetitanarmorGain;
+
+                }
                 //voidbarnaclemortarattackspeed buff
                 if (self.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
                 {
@@ -381,15 +466,6 @@ namespace ShiggyMod
 
         }
 
-        private void CharacterBody_OnDeathStart(On.RoR2.CharacterBody.orig_OnDeathStart orig, CharacterBody self)
-        {
-            orig(self);
-            if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-            {
-                AkSoundEngine.PostEvent(3468082827, this.gameObject);
-            }
-
-        }
 
         private void CharacterModel_Awake(On.RoR2.CharacterModel.orig_Awake orig, CharacterModel self)
         {

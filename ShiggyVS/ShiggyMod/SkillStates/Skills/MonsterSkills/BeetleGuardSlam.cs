@@ -5,14 +5,14 @@ using UnityEngine.Networking;
 using EntityStates;
 using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
+using EntityStates.Huntress;
 
 namespace ShiggyMod.SkillStates
 {
     public class BeetleGuardSlam : BaseSkillState
     {
-        public static float basejumpDuration = 1f;
-        public static float jumpDuration;
         public static float dropForce = 80f;
+        public  float dropTimer;
 
         public static float slamRadius = 10f;
         public static float slamProcCoefficient = 1f;
@@ -22,8 +22,7 @@ namespace ShiggyMod.SkillStates
         private bool hasDropped;
         private Vector3 flyVector = Vector3.zero;
         private Transform modelTransform;
-        private Transform slamIndicatorInstance;
-        private Transform slamCenterIndicatorInstance;
+        private GameObject slamIndicatorInstance;
         private Ray downRay;
 
         protected DamageType damageType;
@@ -38,8 +37,8 @@ namespace ShiggyMod.SkillStates
             this.modelTransform = base.GetModelTransform();
             this.flyVector = Vector3.up;
             damageType = DamageType.Stun1s;
+            dropTimer = 1f;
 
-            jumpDuration = basejumpDuration / attackSpeedStat;
 
 
             //base.PlayAnimation("FullBody, Override", "ManchesterBegin", "Attack.playbackRate", Manchester.jumpDuration);
@@ -64,7 +63,7 @@ namespace ShiggyMod.SkillStates
         }
         protected virtual void OnHitEnemyAuthority()
         {
-            base.healthComponent.AddBarrierAuthority((healthComponent.fullCombinedHealth / 10) * (this.moveSpeedStat / 7));
+            base.healthComponent.AddBarrierAuthority((healthComponent.fullCombinedHealth / 20) * (this.moveSpeedStat / 7) * dropTimer);
 
         }
 
@@ -80,7 +79,7 @@ namespace ShiggyMod.SkillStates
                 searchOrigin = theSpot,
                 searchDirection = UnityEngine.Random.onUnitSphere,
                 sortMode = BullseyeSearch.SortMode.Distance,
-                maxDistanceFilter = slamRadius,
+                maxDistanceFilter = slamRadius * dropTimer,
                 maxAngleFilter = 360f
             };
 
@@ -113,14 +112,19 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
+            dropTimer += Time.fixedDeltaTime / 10;
             if (!this.hasDropped)
             {
                 this.StartDrop();
             }
 
-            if (base.fixedAge >= (0.25f * jumpDuration) && !this.slamIndicatorInstance)
+            if (!this.slamIndicatorInstance)
             {
                 this.CreateIndicator();
+            }
+            if (this.slamIndicatorInstance)
+            {
+                this.UpdateSlamIndicator();
             }
 
             if (this.hasDropped && base.isAuthority && !base.characterMotor.disableAirControlUntilCollision)
@@ -129,11 +133,6 @@ namespace ShiggyMod.SkillStates
                 this.outer.SetNextStateToMain();
             }
 
-            if (this.hasDropped && base.isAuthority && base.fixedAge > jumpDuration)
-            {
-                this.LandingImpact();
-                this.outer.SetNextStateToMain();
-            }
         }
 
         private void StartDrop()
@@ -156,18 +155,19 @@ namespace ShiggyMod.SkillStates
         {
             if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
             {
-                this.downRay = new Ray
-                {
-                    direction = Vector3.down,
-                    origin = base.transform.position
-                };
-
-                this.slamIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab).transform;
-                this.slamIndicatorInstance.localScale = Vector3.one * slamRadius;
+                this.slamIndicatorInstance = Object.Instantiate<GameObject>(ArrowRain.areaIndicatorPrefab);
+                this.slamIndicatorInstance.SetActive(true);
 
             }
         }
-
+        private void UpdateSlamIndicator()
+        {
+            if (this.slamIndicatorInstance)
+            {
+                this.slamIndicatorInstance.transform.localScale = Vector3.one * slamRadius * dropTimer;
+                this.slamIndicatorInstance.transform.localPosition = base.transform.position;
+            }
+        }
         private void LandingImpact()
         {
 
@@ -178,12 +178,12 @@ namespace ShiggyMod.SkillStates
                 base.characterMotor.velocity *= 0.1f;
 
                 BlastAttack blastAttack = new BlastAttack();
-                blastAttack.radius = slamRadius ;
+                blastAttack.radius = slamRadius * dropTimer;
                 blastAttack.procCoefficient = slamProcCoefficient;
                 blastAttack.position = base.characterBody.footPosition;
                 blastAttack.attacker = base.gameObject;
                 blastAttack.crit = base.RollCrit();
-                blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (moveSpeedStat / 7);
+                blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (moveSpeedStat / 7) * dropTimer;
                 blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                 blastAttack.baseForce = slamForce;
                 blastAttack.teamIndex = base.teamComponent.teamIndex;
@@ -200,39 +200,20 @@ namespace ShiggyMod.SkillStates
                 EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
                 {
                     origin = base.characterBody.footPosition,
-                    scale = slamRadius,
+                    scale = slamRadius * dropTimer,
                 }, true);
 
 
             }
         }
 
-        private void UpdateSlamIndicator()
-        {
-            if (this.slamIndicatorInstance)
-            {
-                float maxDistance = 250f;
-
-                this.downRay = new Ray
-                {
-                    direction = Vector3.down,
-                    origin = base.transform.position
-                };
-
-                RaycastHit raycastHit;
-                if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
-                {
-                    this.slamIndicatorInstance.transform.position = raycastHit.point;
-                    this.slamIndicatorInstance.transform.up = raycastHit.normal;
-
-                }
-            }
-        }
 
         public override void OnExit()
         {
 
-            if (this.slamIndicatorInstance) EntityState.Destroy(this.slamIndicatorInstance.gameObject);
+            if (this.slamIndicatorInstance)
+                this.slamIndicatorInstance.SetActive(false);
+            EntityState.Destroy(this.slamIndicatorInstance);
 
             base.PlayAnimation("FullBody, Override", "BufferEmpty");
 

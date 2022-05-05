@@ -17,6 +17,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(AirCannon));
             entityStates.Add(typeof(Multiplier));
 
+            entityStates.Add(typeof(AlloyVultureFly));
             entityStates.Add(typeof(BisonCharge));
             entityStates.Add(typeof(BronzongBall));
             entityStates.Add(typeof(BeetleGuardSlam));
@@ -26,9 +27,14 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(ImpBlink));
             entityStates.Add(typeof(JellyfishNova));
             entityStates.Add(typeof(LemurianFireball));
-            entityStates.Add(typeof(LunarGolemShots));
+            entityStates.Add(typeof(LunarGolemSlide));
             entityStates.Add(typeof(LunarWispMinigun));
-            entityStates.Add(typeof(AlloyVultureFly));
+            entityStates.Add(typeof(ParentTeleport));
+            entityStates.Add(typeof(StoneGolemLaserCharge));
+            entityStates.Add(typeof(StoneGolemLaserFire));
+            entityStates.Add(typeof(VoidReaverPortal));
+
+            entityStates.Add(typeof(BeetleQueenShotgun));
         }
     }
 }

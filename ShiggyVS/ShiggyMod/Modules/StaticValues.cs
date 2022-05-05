@@ -4,6 +4,28 @@ namespace ShiggyMod.Modules
 {
     internal static class StaticValues
     {
+
+        internal const float overloadingInterval = 1f;
+        internal const float overloadingRadius = 6.5f;
+        internal const float overloadingCoefficient = 5f;
+
+        internal const float magmawormInterval = 0.5f;
+        internal const float magmawormRadius = 6.5f;
+        internal const float magmawormDuration = 5f;
+        internal const float magmawormCoefficient = 1.5f;
+
+        internal const float vagrantDamageCoefficient = 20f;
+        internal const float vagrantRadius = 12f;
+        internal const float vagrantdamageThreshold = 4f;
+
+        internal const float stonetitanarmorGain = 10f;
+
+        internal const float voidjailerInterval = 1f;
+        internal const float voidjailerDamageCoeffecient = 1f;
+        internal const float voidjailerminpullDistance = 10f;
+        internal const float voidjailermaxpullDistance = 50f;
+        internal const float voidjailerpullLiftVelocity = -10f;
+
         internal const float roboballboostMultiplier = 3f;
 
         internal const float minimushrumInterval = 1f;
@@ -59,13 +81,17 @@ namespace ShiggyMod.Modules
         internal const float clayapothecarymortarDamageCoeffecient = 2f;
         internal const float claytemplarminigunDamageCoeffecient = 0.3f;
         internal const float greaterwispballDamageCoeffecient = 10f;
-        internal const float jellyfishnovaDamageCoeffecient = 50f;
+        internal const float jellyfishnovaDamageCoeffecient = 30f;
         internal const float lemurianfireballDamageCoeffecient = 2f;
-        internal const float lunargolemshotsDamageCoeffecient = 2f;
         internal const float lunarwispminigunDamageCoeffecient = 3f;
         internal const float parentDamageCoeffecient = 8f;
         internal const float stonegolemDamageCoeffecient = 6f;
-        internal const float voidjailerDamageCoeffecient = 2f;
+        internal const float voidreaverDamageCoeffecient = 2f;
+
+        internal const float beetlequeenDamageCoeffecient = 4f;
+        internal const float grovetenderDamageCoeffecient = 3f;
+        internal const float claydunestriderDamageCoeffecient = 8f;
+        internal const float soluscontrolunitDamageCoeffecient = 1f;
 
     }
 }

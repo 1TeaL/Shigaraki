@@ -16,7 +16,7 @@ namespace ShiggyMod.SkillStates
 		private Vector3 idealDirection;
 
 		private float totalDuration = 0.5f;
-		private float hitradius = 8f;
+		private float hitradius = 15f;
 		private float damageCoefficient = Modules.StaticValues.bisonchargeDamageCoeffecient;
 		private float procCoefficient = 1f;
 		private float force = 1f;
@@ -28,7 +28,8 @@ namespace ShiggyMod.SkillStates
 			Ray aimRay = base.GetAimRay();
 			base.StartAimMode(aimRay, 2f, false);
 			bool isAuthority = base.isAuthority;
-			Util.PlaySound(BaseChargeFist.startChargeLoopSFXString, base.gameObject);
+            Util.PlaySound(BaseChargeFist.startChargeLoopSFXString, base.gameObject);
+            //Util.PlaySound(EntityStates.Bison.Charge.startSoundString, base.gameObject);
 			bool flag = isAuthority;
 			if (flag)
 			{
@@ -79,42 +80,22 @@ namespace ShiggyMod.SkillStates
 				base.characterBody.isSprinting = false;
 				base.OnExit();
 			}
-			Util.PlaySound(BaseChargeFist.endChargeLoopSFXString, base.gameObject);
+            Util.PlaySound(BaseChargeFist.endChargeLoopSFXString, base.gameObject);
+            Util.PlaySound(EntityStates.Bison.Charge.endSoundString, base.gameObject);
 		}
 
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
 
-			if (base.skillLocator.primary.skillNameToken == prefix + "BISON_NAME")
-			{
-                if (base.inputBank.skill1.down)
-				{
-					Loop();
-				}
-			}
-			if (base.skillLocator.secondary.skillNameToken == prefix + "BISON_NAME")
-			{
-				if (base.inputBank.skill2.down)
-				{
-					Loop();
-				}
-			}
-			if (base.skillLocator.utility.skillNameToken == prefix + "BISON_NAME")
-			{
-				if (base.inputBank.skill3.down)
-				{
-					Loop();
-				}
-			}
-			if (base.skillLocator.special.skillNameToken == prefix + "BISON_NAME")
-			{
-				if (base.inputBank.skill4.down)
-				{
-					Loop();
-				}
-			}
-
+            if (base.IsKeyDownAuthority())
+            {
+				Loop();
+            }
+            else
+            {
+				base.outer.SetNextStateToMain();
+            }
 
 		}
 
@@ -124,6 +105,14 @@ namespace ShiggyMod.SkillStates
 			bool isAuthority = base.isAuthority;
 			if (isAuthority)
 			{
+				Ray aimRay = base.GetAimRay();
+				EffectManager.SpawnEffect(Modules.Assets.bisonEffect, new EffectData
+				{
+					origin = base.transform.position,
+					scale = 1f,
+					rotation = Quaternion.LookRotation(aimRay.direction)
+				}, true);
+
 				this.direction = base.GetAimRay().direction.normalized;
 				base.characterDirection.forward = this.direction;
 
@@ -143,7 +132,6 @@ namespace ShiggyMod.SkillStates
 
 					for (int i = 0; i <= 2; i += 1)
 					{
-						Ray aimRay = base.GetAimRay();
 						Vector3 effectPosition = base.characterBody.transform.position + (UnityEngine.Random.insideUnitSphere * 2f);
 						effectPosition.y = base.characterBody.transform.position.y;
 						EffectManager.SpawnEffect(EntityStates.Bison.Charge.hitEffectPrefab, new EffectData
@@ -168,7 +156,8 @@ namespace ShiggyMod.SkillStates
 					blastAttack.damageType = damageType;
 					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
-					ApplyDoT();
+                    Util.PlaySound(EntityStates.Bison.Headbutt.attackSoundString, base.gameObject);
+                    ApplyDoT();
 					if (blastAttack.Fire().hitCount > 0)
 					{
 						this.OnHitEnemyAuthority();

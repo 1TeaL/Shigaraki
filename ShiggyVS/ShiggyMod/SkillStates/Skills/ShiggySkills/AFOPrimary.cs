@@ -29,8 +29,8 @@ namespace ShiggyMod.SkillStates
 
             if (NetworkServer.active)
             {
-                base.characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
-                base.characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
+                base.characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
+                base.characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
 
             }
 
@@ -347,6 +347,7 @@ namespace ShiggyMod.SkillStates
                 base.skillLocator.primary.SetSkillOverride(base.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
             }
 
+
             if (newbodyPrefab.name == "BeetleQueen2Body")
             {
                 hasQuirk = true;
@@ -354,14 +355,7 @@ namespace ShiggyMod.SkillStates
 
                 base.skillLocator.primary.SetSkillOverride(base.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
             }
-            if (newbodyPrefab.name == "TitanBody")
-            {
-                hasQuirk = true;
-                Chat.AddMessage("Stole Lemurian's <style=cIsUtility>Quirk!</style>");
-
-                base.skillLocator.primary.SetSkillOverride(base.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
-            }
-            if (newbodyPrefab.name == "TitanGoldBody")
+            if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
             {
                 hasQuirk = true;
                 Chat.AddMessage("Stole Lemurian's <style=cIsUtility>Quirk!</style>");
@@ -403,14 +397,7 @@ namespace ShiggyMod.SkillStates
 
                 base.skillLocator.primary.SetSkillOverride(base.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
             }
-            if (newbodyPrefab.name == "RoboBallBossBody")
-            {
-                hasQuirk = true;
-                Chat.AddMessage("Stole Lemurian's <style=cIsUtility>Quirk!</style>");
-
-                base.skillLocator.primary.SetSkillOverride(base.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
-            }
-            if (newbodyPrefab.name == "SuperRoboBallBossBody")
+            if (newbodyPrefab.name == "RoboBallBossBody" | newbodyPrefab.name == "SuperRoboBallBossBody")
             {
                 hasQuirk = true;
                 Chat.AddMessage("Stole Lemurian's <style=cIsUtility>Quirk!</style>");
