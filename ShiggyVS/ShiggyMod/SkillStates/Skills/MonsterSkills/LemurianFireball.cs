@@ -29,6 +29,11 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "LHand";
 
+
+        }
+        public void FireBall()
+        {
+            Ray aimRay = base.GetAimRay();
             bool flag = LemurianFireball.effectPrefab;
             if (flag)
             {
@@ -62,6 +67,7 @@ namespace ShiggyMod.SkillStates
                     null, //target
                     speedOverride); //speed }
             }
+
         }
 
         public override void OnExit()

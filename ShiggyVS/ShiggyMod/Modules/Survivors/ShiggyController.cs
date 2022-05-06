@@ -52,6 +52,49 @@ namespace ShiggyMod.Modules.Survivors
 		public GameObject magmawormWard;
 		public GameObject overloadingWard;
 
+		public bool alphacontructpassiveDef;
+		public bool beetlepassiveDef;
+		public bool pestpassiveDef;
+		public bool verminpassiveDef;
+		public bool guppassiveDef;
+		public bool hermitcrabpassiveDef;
+		public bool larvapassiveDef;
+		public bool lesserwisppassiveDef;
+		public bool lunarexploderpassiveDef;
+		public bool minimushrumpassiveDef;
+		public bool roboballminibpassiveDef;
+		public bool voidbarnaclepassiveDef;
+		public bool voidjailerpassiveDef;
+
+		public bool stonetitanpassiveDef;
+		public bool magmawormpassiveDef;
+		public bool overloadingwormpassiveDef;
+
+
+		public bool alloyvultureflyDef;
+		public bool beetleguardslamDef;
+		public bool bisonchargeDef;
+		public bool bronzongballDef;
+		public bool clayapothecarymortarDef;
+		public bool claytemplarminigunDef;
+		public bool greaterwispballDef;
+		public bool impblinkDef;
+		public bool jellyfishnovaDef;
+		public bool lemurianfireballDef;
+		public bool lunargolemshotsDef;
+		public bool lunarwispminigunDef;
+		public bool parentteleportDef;
+		public bool stonegolemlaserDef;
+		public bool voidreaverportalDef;
+
+		public bool beetlequeenshotgunDef;
+		public bool grovetenderhookDef;
+		public bool claydunestriderballDef;
+		public bool soluscontrolunityknockupDef;
+		public bool xiconstructbeamDef;
+		public bool voiddevastatorhomingDef;
+		public bool scavengerthqwibDef;
+
 		private void Awake()
 		{
 			child = GetComponentInChildren<ChildLocator>();

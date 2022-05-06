@@ -4,6 +4,7 @@ using UnityEngine;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine.Networking;
 using RoR2.Audio;
+using static RoR2.BulletAttack;
 
 namespace ShiggyMod.SkillStates
 {
@@ -12,57 +13,145 @@ namespace ShiggyMod.SkillStates
         public float baseDuration = 0.3f;
         public float duration;
         public ShiggyController Shiggycon;
-        private DamageType damageType;
+        private DamageType damageType = DamageType.Generic;
+        private Ray aimRay;
 
 
-        private float radius = 15f;
-        private float damageCoefficient = Modules.StaticValues.decayDamageCoeffecient;
-        private float procCoefficient = 1f;
-        private float force = 1f;
-        private float speedOverride = -1f;
+        private bool beamPlay;
+        private float radius = 10f;
+        private float range = 200f;
+        private float damageCoefficient = Modules.StaticValues.xiconstructDamageCoeffecient;
+        private float procCoefficient = Modules.StaticValues.xiconstructProcCoefficient;
+        private float force = 100f;
         private float fireTimer;
-        private Transform modelTransform;
-        public string muzzleString = "LHand";
-        private GameObject laserEffectInstance;
+        public string muzzleString = "RHand";
         public LoopSoundDef loopSoundDef = Modules.Assets.xiconstructsound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
-        private GameObject laserPrefab;
+
+        private GameObject beam;
+        private ParticleSystem mainBeam;
+        private BulletAttack attack;
+        private BlastAttack blastAttack;
+        private float fireInterval = 0.1f;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            updateAimRay();
             this.duration = this.baseDuration / this.attackSpeedStat;
-            Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.xiconstructmuzzleEffect, base.gameObject, muzzleString, false);
+            EffectManager.SimpleMuzzleFlash(Modules.Assets.xiconstructbeamEffect, base.gameObject, muzzleString, false);
             if (this.loopSoundDef)
             {
                 this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
             }
             this.fireTimer = 0f;
-            this.modelTransform = base.GetModelTransform();
-            if (this.modelTransform)
+
+            base.characterBody.SetAimTimer(2f);
+
+            beam = UnityEngine.Object.Instantiate(Modules.Assets.beam);
+            if (NetworkServer.active)
             {
-                ChildLocator component = this.modelTransform.GetComponent<ChildLocator>();
-                if (component)
+                NetworkServer.Spawn(beam);
+            }
+            mainBeam = beam.transform.GetChild(0).GetComponent<ParticleSystem>();
+            mainBeam.Stop();
+            beamPlay = false;
+
+            attack = new BulletAttack
+            {
+                bulletCount = 1,
+                aimVector = aimRay.direction,
+                origin = FindModelChild(this.muzzleString).transform.position,
+                damage = damageStat * damageCoefficient,
+                damageColorIndex = DamageColorIndex.Default,
+                damageType = DamageType.Generic,
+                falloffModel = BulletAttack.FalloffModel.None,
+                maxDistance = range,
+                force = 0f,
+                hitMask = LayerIndex.CommonMasks.bullet,
+                minSpread = 0f,
+                maxSpread = 0f,
+                isCrit = false,
+                owner = base.gameObject,
+                muzzleName = muzzleString,
+                smartCollision = false,
+                procChainMask = default(ProcChainMask),
+                procCoefficient = procCoefficient,
+                radius = 0.6f,
+                sniper = false,
+                stopperMask = LayerIndex.noCollision.mask,
+                weapon = null,
+                spreadPitchScale = 0f,
+                spreadYawScale = 0f,
+                queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+                hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,
+                hitCallback = laserHitCallback
+            };
+        }
+
+        public bool laserHitCallback(BulletAttack bulletRef, ref BulletHit hitInfo)
+        {
+            var hurtbox = hitInfo.hitHurtBox;
+            if (hurtbox)
+            {
+                var healthComponent = hurtbox.healthComponent;
+                if (healthComponent)
                 {
-                    Transform transform = component.FindChild(this.muzzleString);
-        
-                    this.laserEffectInstance = UnityEngine.Object.Instantiate<GameObject>(this.laserPrefab, transform.position, transform.rotation);
-                    this.laserEffectInstance.transform.parent = transform;
-                    this.laserEffectInstanceEndTransform = this.laserEffectInstance.GetComponent<ChildLocator>().FindChild("LHand");
-                    
+                    var body = healthComponent.body;
+                    if (body)
+                    {
+                        Ray aimRay = base.GetAimRay();
+                        EffectManager.SpawnEffect(Modules.Assets.xiconstructexplosionEffect, new EffectData
+                        {
+                            origin = healthComponent.body.corePosition,
+                            scale = 1f,
+                            rotation = Quaternion.LookRotation(aimRay.direction)
+
+                        }, true);
+
+                        blastAttack = new BlastAttack();
+                        blastAttack.radius = radius;
+                        blastAttack.procCoefficient = procCoefficient;
+                        blastAttack.position = healthComponent.body.corePosition;
+                        blastAttack.attacker = base.gameObject;
+                        blastAttack.crit = base.RollCrit();
+                        blastAttack.baseDamage = damageStat * damageCoefficient;
+                        blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                        blastAttack.baseForce = force;
+                        blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
+                        blastAttack.damageType = damageType;
+                        blastAttack.attackerFiltering = AttackerFiltering.Default;
+
+                        blastAttack.Fire();
+                    }
                 }
             }
-
-
-
+            return false;
+        }
+        public override void Update()
+        {
+            base.Update();
+            updateAimRay();
+            base.characterDirection.forward = aimRay.direction;
+            beam.transform.position = FindModelChild(this.muzzleString).transform.position;
+            beam.transform.rotation = Quaternion.LookRotation(aimRay.direction);
+        }
+        public void updateAimRay()
+        {
+           aimRay = base.GetAimRay();
         }
 
         public override void OnExit()
         {
             base.OnExit();
+            LoopSoundManager.StopSoundLoopLocal(this.loopPtr);
+            mainBeam.Stop();
+            if (NetworkServer.active)
+            {
+                NetworkServer.Destroy(beam);
+            }
         }
 
 
@@ -70,10 +159,31 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (base.fixedAge >= this.duration && base.isAuthority)
+            if (base.IsKeyDownAuthority())
             {
-                this.outer.SetNextState(new XiConstructBeamFire());
+                if (!beamPlay)
+                {
+                    mainBeam.Play();
+                    beamPlay = false;
+                }
+                fireTimer += Time.fixedDeltaTime;
+                //Fire the laser
+                if (fireTimer > fireInterval)
+                {                    
+                    base.characterBody.SetAimTimer(2f);
+                    attack.muzzleName = muzzleString;
+                    attack.aimVector = aimRay.direction;
+                    attack.origin = FindModelChild(this.muzzleString).position;
+                    attack.Fire();
+                    fireTimer = 0f;
+                }
+
             }
+            else
+            {
+                base.outer.SetNextStateToMain();
+            }
+
         }
 
 

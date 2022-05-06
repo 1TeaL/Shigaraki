@@ -16,8 +16,8 @@ namespace ShiggyMod.Modules
         internal static AssetBundle mainAssetBundle;
 
         // particle effects
-        //internal static GameObject swordSwingEffect;
-        //internal static GameObject swordHitImpactEffect;
+        internal static GameObject beam;
+        internal static List<GameObject> networkObjDefs = new List<GameObject>();
 
         // networked hit sounds
         internal static NetworkSoundEventDef swordHitSoundEvent;
@@ -55,9 +55,9 @@ namespace ShiggyMod.Modules
         public static GameObject voidjailerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidJailer/VoidJailerDeathBombExplosion.prefab").WaitForCompletion();
         public static GameObject voidjailermuzzleEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
         public static GameObject xiconstructbeamEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructInitialMuzzleFlash.prefab").WaitForCompletion();
-        public static GameObject xiconstructexplosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/OmniExplosionVFXMajorConstruct.prefab").WaitForCompletion();
+        public static GameObject xiconstructexplosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructSecondMuzzleFlash.prefab").WaitForCompletion();
         public static RoR2.Audio.LoopSoundDef xiconstructsound = Addressables.LoadAssetAsync<RoR2.Audio.LoopSoundDef>("RoR2/DLC1/MajorAndMinorConstruct/lsdMajorConstructLaser.asset").WaitForCompletion();
-        public static GameObject xiconstructbarrierEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MegaConstructBubbleShield.prefab").WaitForCompletion();
+
 
 
         //Shiggy Equipment Obj
@@ -110,8 +110,15 @@ namespace ShiggyMod.Modules
                 Debug.LogError("There is no AssetBundle to load assets from.");
                 return;
             }
+            //alpha shield effect
             alphaconstructShieldBuff = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
             alphaconstructShieldBuff.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
+
+            //xiconstruct beam effect
+            beam = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("XiConstructBeam");
+            beam.AddComponent<NetworkIdentity>();
+            networkObjDefs.Add(beam);
+            PrefabAPI.RegisterNetworkPrefab(beam);
 
             //Shiggy Equipment prefab
             //ShiggyEquipmentPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyEquipmentModel");

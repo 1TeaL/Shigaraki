@@ -35,6 +35,12 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(VoidReaverPortal));
 
             entityStates.Add(typeof(BeetleQueenShotgun));
+            entityStates.Add(typeof(ClayDunestriderBall));
+            entityStates.Add(typeof(GrovetenderHook));
+            entityStates.Add(typeof(SolusControlUnitKnockup));
+            entityStates.Add(typeof(XiConstructBeam));
+            entityStates.Add(typeof(VoidDevastatorHoming));
+            entityStates.Add(typeof(ScavengerThqwibs));
         }
     }
 }

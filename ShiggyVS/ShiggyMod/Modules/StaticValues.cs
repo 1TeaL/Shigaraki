@@ -73,25 +73,74 @@ namespace ShiggyMod.Modules
         internal const float decayInstaKillThreshold = 100f;
 
         internal const float decayattackDamageCoeffecient = 1.5f;
+        internal const float decayattackProcCoefficient = 1f;
+
         internal const float aircannonDamageCoeffecient = 4f;
+        internal const float aircannonProcCoefficient = 1f;
+
         internal const float bulletlaserDamageCoeffecient = 1f;
+        internal const float bulletlaserProcCoefficient = 0.2f;
+
         internal const float beetleguardslamDamageCoeffecient = 4f;
+        internal const float beetleguardslamProcCoefficient = 1f;
+
         internal const float bisonchargeDamageCoeffecient = 6f;
+        internal const float bisonchargeProcCoefficient = 1f;
+
         internal const float bronzongballDamageCoeffecient = 3f;
+        internal const float bronzongballProcCoefficient = 0.3f;
+
         internal const float clayapothecarymortarDamageCoeffecient = 2f;
+        internal const float clayapothecarymortarProcCoefficient = 0.5f;
+
         internal const float claytemplarminigunDamageCoeffecient = 0.3f;
+        internal const float claytemplarminigunProcCoefficient = 0.05f;
+
         internal const float greaterwispballDamageCoeffecient = 10f;
+        internal const float greaterwispballProcCoefficient = 1f;
+
         internal const float jellyfishnovaDamageCoeffecient = 30f;
+        internal const float jellyfishnovaProcCoefficient = 2f;
+
         internal const float lemurianfireballDamageCoeffecient = 2f;
+        internal const float lemurianfireballProcCoefficient = 1f;
+
         internal const float lunarwispminigunDamageCoeffecient = 3f;
+        internal const float lunarwispminigunProcCoefficient = 0.1f;
+
         internal const float parentDamageCoeffecient = 8f;
+        internal const float parentProcCoefficient = 1f;
+
         internal const float stonegolemDamageCoeffecient = 6f;
+        internal const float stonegolemProcCoefficient = 2f;
+
         internal const float voidreaverDamageCoeffecient = 2f;
+        internal const float voidreaverProcCoefficient = 0.2f;
 
         internal const float beetlequeenDamageCoeffecient = 4f;
+        internal const float beetlequeenProcCoefficient = 0.5f;
+
         internal const float grovetenderDamageCoeffecient = 3f;
+        internal const float grovetenderProcCoefficient = 0.5f;
+
         internal const float claydunestriderDamageCoeffecient = 8f;
+        internal const float claydunestriderProcCoefficient = 1f;
+
         internal const float soluscontrolunitDamageCoeffecient = 1f;
+        internal const float soluscontrolunitProcCoefficient = 1f;
+
+        internal const float xiconstructDamageCoeffecient = 1f;
+        internal const float xiconstructProcCoefficient = 0.2f;
+
+        internal const int voiddevastatorTotalMissiles = 8;
+        internal const float voiddevastatorDamageCoeffecient = 1f;
+        internal const float voiddevastatorProcCoefficient = 0.5f;
+
+        internal const int scavengerProjectileCount = 3;
+        internal const float scavengerDamageCoeffecient = 4f;
+        internal const float scavengerProcCoefficient = 0.5f;
+
+
 
     }
 }

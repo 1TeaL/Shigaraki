@@ -15,7 +15,7 @@ namespace ShiggyMod.SkillStates
 		private DamageType damageType;
 		private Vector3 idealDirection;
 
-		private float totalDuration = 0.5f;
+		private float totalDuration;
 		private float hitradius = 15f;
 		private float damageCoefficient = Modules.StaticValues.bisonchargeDamageCoeffecient;
 		private float procCoefficient = 1f;
@@ -27,6 +27,7 @@ namespace ShiggyMod.SkillStates
 			base.OnEnter();
 			Ray aimRay = base.GetAimRay();
 			base.StartAimMode(aimRay, 2f, false);
+			totalDuration = 0f;
 			bool isAuthority = base.isAuthority;
             Util.PlaySound(BaseChargeFist.startChargeLoopSFXString, base.gameObject);
             //Util.PlaySound(EntityStates.Bison.Charge.startSoundString, base.gameObject);
@@ -87,8 +88,9 @@ namespace ShiggyMod.SkillStates
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
+			totalDuration += Time.fixedDeltaTime / 2;
 
-            if (base.IsKeyDownAuthority())
+			if (base.IsKeyDownAuthority())
             {
 				Loop();
             }
@@ -137,19 +139,19 @@ namespace ShiggyMod.SkillStates
 						EffectManager.SpawnEffect(EntityStates.Bison.Charge.hitEffectPrefab, new EffectData
 						{
 							origin = effectPosition,
-							scale = hitradius / 6,
+							scale = hitradius * totalDuration,
 							rotation = Quaternion.LookRotation(aimRay.direction)
 						}, true);
 					}
 
 
 					BlastAttack blastAttack = new BlastAttack();
-					blastAttack.radius = hitradius;
+					blastAttack.radius = hitradius * totalDuration;
 					blastAttack.procCoefficient = procCoefficient;
 					blastAttack.position = base.transform.position;
 					blastAttack.attacker = base.gameObject;
 					blastAttack.crit = base.RollCrit();
-					blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (moveSpeedStat / 7);
+					blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (moveSpeedStat / 7) * totalDuration;
 					blastAttack.falloffModel = BlastAttack.FalloffModel.None;
 					blastAttack.baseForce = force;
 					blastAttack.teamIndex = base.teamComponent.teamIndex;
@@ -187,7 +189,7 @@ namespace ShiggyMod.SkillStates
 				searchOrigin = base.transform.position,
 				searchDirection = UnityEngine.Random.onUnitSphere,
 				sortMode = BullseyeSearch.SortMode.Distance,
-				maxDistanceFilter = hitradius,
+				maxDistanceFilter = hitradius * totalDuration,
 				maxAngleFilter = 360f
 			};
 

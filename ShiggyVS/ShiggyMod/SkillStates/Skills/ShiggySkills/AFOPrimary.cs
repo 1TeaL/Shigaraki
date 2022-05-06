@@ -29,7 +29,7 @@ namespace ShiggyMod.SkillStates
 
             if (NetworkServer.active)
             {
-                base.characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
+                base.characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
                 base.characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
 
             }

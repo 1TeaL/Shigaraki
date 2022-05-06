@@ -73,7 +73,7 @@ namespace ShiggyMod.SkillStates
 
                 ProjectileManager.instance.FireProjectile(
                     FireTarball.projectilePrefab, //prefab
-                    transform.position, //position
+                    FindModelChild(targetMuzzle).position, //position
                     Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
                     base.gameObject, //owner
                     this.damageStat * damageCoefficient, //damage
