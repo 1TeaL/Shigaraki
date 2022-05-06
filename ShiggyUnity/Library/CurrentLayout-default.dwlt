@@ -44,10 +44,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 504, y: 492}
+  m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 1
-  controlID: 62
+  controlID: 332
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -96,10 +96,10 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 947
-  m_MinSize: {x: 504, y: 492}
+  m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 63
+  controlID: 333
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: AssetBundleBrowserMain
+  m_Name: InspectorWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -119,15 +119,15 @@ MonoBehaviour:
     y: 0
     width: 630
     height: 947
-  m_MinSize: {x: 101, y: 121}
+  m_MinSize: {x: 276, y: 71}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 13}
+  m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
   - {fileID: 13}
   - {fileID: 15}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -245,7 +245,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 64
+  controlID: 93
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 65
+  controlID: 66
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -578,20 +578,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Shigaraki/Assets/Particle
+    - Assets/Shigaraki/Assets
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Shigaraki/Assets/Particle
+  - Assets/Shigaraki/Assets
   m_LastFoldersGridSize: 96
   m_LastProjectPath: F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyUnity
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 85}
-    m_SelectedIDs: b8580000
-    m_LastClickedID: 22712
-    m_ExpandedIDs: 00000000c63e0000c83e0000ca3e0000cc3e0000ce3e0000d03e0000d23e0000d43e0000d63e0000d83e0000da3e0000dc3e0000de3e0000e03e0000e23e0000e43e0000e63e0000e83e0000ea3e0000ec3e0000ee3e0000f03e0000f23e0000f43e0000f63e0000f83e0000fa3e0000fc3e0000fe3e0000003f0000023f0000043f0000063f0000083f00000a3f00000c3f00000e3f0000103f0000123f0000143f0000163f0000183f00001a3f00001c3f00001e3f0000203f0000223f0000243f0000263f0000283f0000463f00004a3f0000823f0000843f00008c3f000000ca9a3b
+    scrollPos: {x: 0, y: 2}
+    m_SelectedIDs: 5e3f0000
+    m_LastClickedID: 16222
+    m_ExpandedIDs: 00000000d63e0000d83e0000da3e0000dc3e0000de3e0000e03e0000e23e0000e43e0000e63e0000e83e0000ea3e0000ec3e0000ee3e0000f03e0000f23e0000f43e0000f63e0000f83e0000fa3e0000fc3e0000fe3e0000003f0000023f0000043f0000063f0000083f00000a3f00000c3f00000e3f0000103f0000123f0000143f0000163f0000183f00001a3f00001c3f00001e3f0000203f0000223f0000243f0000263f0000283f00002a3f00002c3f00002e3f0000303f0000323f0000343f0000363f0000383f00003a3f00003c3f00005e3f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -619,7 +619,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000c63e0000c83e0000ca3e0000cc3e0000ce3e0000d03e0000d23e0000d43e0000d63e0000d83e0000da3e0000dc3e0000de3e0000e03e0000e23e0000e43e0000e63e0000e83e0000ea3e0000ec3e0000ee3e0000f03e0000f23e0000f43e0000f63e0000f83e0000fa3e0000fc3e0000fe3e0000003f0000023f0000043f0000063f0000083f00000a3f00000c3f00000e3f0000103f0000123f0000143f0000163f0000183f00001a3f00001c3f00001e3f0000203f0000223f0000243f0000263f0000283f0000
+    m_ExpandedIDs: 00000000d63e0000d83e0000da3e0000dc3e0000de3e0000e03e0000e23e0000e43e0000e63e0000e83e0000ea3e0000ec3e0000ee3e0000f03e0000f23e0000f43e0000f63e0000f83e0000fa3e0000fc3e0000fe3e0000003f0000023f0000043f0000063f0000083f00000a3f00000c3f00000e3f0000103f0000123f0000143f0000163f0000183f00001a3f00001c3f00001e3f0000203f0000223f0000243f0000263f0000283f00002a3f00002c3f00002e3f0000303f0000323f0000343f0000363f0000383f00003a3f00003c3f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -742,23 +742,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: bcab0000
-      m_LastClickedID: 43964
-      m_ExpandedIDs: 0253feff
+      m_SelectedIDs: 90550000
+      m_LastClickedID: 21904
+      m_ExpandedIDs: 88f2ffff9cf2ffffa6f2ffffb4f2ffff0e5300003a5300004053000050530000745300007e53000082530000a6530000ce530000d2530000ec530000f0530000245400003a5400004654000060540000665400007654000086540000a2540000ae540000d6540000165500002e550000525500007255000090550000a0550000ce550000d2550000f8550000225600007056000096560000c2560000f656000002570000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: XiConstructBeam
-        m_OriginalName: XiConstructBeam
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 43794
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 6}
       m_SearchString: 
@@ -804,9 +804,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.27300915, y: 0.08910215, z: -0.21098322}
+    m_Target: {x: 15.175424, y: -2.9955032, z: -4.822816}
     speed: 2
-    m_Value: {x: 0.27300915, y: 0.08910215, z: -0.21098322}
+    m_Value: {x: 15.175424, y: -2.9955032, z: -4.822816}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -852,13 +852,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.30504456, y: -0.27414376, z: 0.09214901, w: -0.9073751}
+    m_Target: {x: -0.069923304, y: -0.7157073, z: 0.0723848, w: -0.69114846}
     speed: 2
-    m_Value: {x: -0.3050403, y: -0.27413994, z: 0.09214772, w: -0.90736246}
+    m_Value: {x: -0.07002999, y: -0.7146513, z: 0.07227796, w: -0.69220334}
   m_Size:
-    m_Target: 1.2000175
+    m_Target: 10.301721
     speed: 2
-    m_Value: 0.90001744
+    m_Value: 9.858106
   m_Ortho:
     m_Target: 0
     speed: 2

@@ -10,11 +10,17 @@ using EntityStates.LunarExploderMonster;
 using RoR2.Projectile;
 using EntityStates.MiniMushroom;
 using UnityEngine.Networking;
+using ExtraSkillSlots;
 
 namespace ShiggyMod.Modules.Survivors
 {
 	public class ShiggyController : MonoBehaviour
 	{
+		string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
+
+		public float strengthMultiplier;
+		public float rangedMultiplier;
+
 		public float overloadingtimer;
 		public float magmawormtimer;
 		public float vagranttimer;
@@ -26,22 +32,25 @@ namespace ShiggyMod.Modules.Survivors
 		private float voidmortarTimer;
 		private float voidjailerTimer;
 
-		public Transform mortarIndicatorInstance;
 		private Ray downRay;
+		public Transform mortarIndicatorInstance;
         public Transform voidmortarIndicatorInstance;
+
         public float maxTrackingDistance = 60f;
 		public float maxTrackingAngle = 60f;
 		public float trackerUpdateFrequency = 10f;
+		private Indicator indicator;
+		private Indicator passiveindicator;
+		private Indicator activeindicator;
 		private HurtBox trackingTarget;
+
 		private CharacterBody characterBody;
 		private InputBankTest inputBank;
 		private float trackerUpdateStopwatch;
         private ChildLocator child;
-        private Indicator indicator;
 		private readonly BullseyeSearch search = new BullseyeSearch();
 		private CharacterMaster characterMaster;
-		private CharacterBody origCharacterBody;
-		private string origName;
+
 		public ShiggyMasterController Shiggymastercon;
 		public ShiggyController Shiggycon;
 
@@ -52,6 +61,7 @@ namespace ShiggyMod.Modules.Survivors
 		public GameObject magmawormWard;
 		public GameObject overloadingWard;
 
+		private ExtraSkillLocator extraskillLocator;
 		public bool alphacontructpassiveDef;
 		public bool beetlepassiveDef;
 		public bool pestpassiveDef;
@@ -65,11 +75,9 @@ namespace ShiggyMod.Modules.Survivors
 		public bool roboballminibpassiveDef;
 		public bool voidbarnaclepassiveDef;
 		public bool voidjailerpassiveDef;
-
 		public bool stonetitanpassiveDef;
 		public bool magmawormpassiveDef;
 		public bool overloadingwormpassiveDef;
-
 
 		public bool alloyvultureflyDef;
 		public bool beetleguardslamDef;
@@ -86,7 +94,6 @@ namespace ShiggyMod.Modules.Survivors
 		public bool parentteleportDef;
 		public bool stonegolemlaserDef;
 		public bool voidreaverportalDef;
-
 		public bool beetlequeenshotgunDef;
 		public bool grovetenderhookDef;
 		public bool claydunestriderballDef;
@@ -95,17 +102,65 @@ namespace ShiggyMod.Modules.Survivors
 		public bool voiddevastatorhomingDef;
 		public bool scavengerthqwibDef;
 
+
 		private void Awake()
 		{
 			child = GetComponentInChildren<ChildLocator>();
 
 			indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
-            //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+			passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
+			activeindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator"));
+			//On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
 			characterBody = gameObject.GetComponent<CharacterBody>();
 			inputBank = gameObject.GetComponent<InputBankTest>();
 
 			larvabuffGiven = false;
 			verminjumpbuffGiven = false;
+			strengthMultiplier = 1f;
+			rangedMultiplier = 1f;
+
+			alphacontructpassiveDef = false;
+			beetlepassiveDef = false;
+			pestpassiveDef = false;
+			verminpassiveDef = false;
+			guppassiveDef = false;
+			hermitcrabpassiveDef = false;
+			larvapassiveDef = false;
+			lesserwisppassiveDef = false;
+			lunarexploderpassiveDef = false;
+			minimushrumpassiveDef = false;
+			roboballminibpassiveDef = false;
+			voidbarnaclepassiveDef = false;
+			voidjailerpassiveDef = false;
+
+			stonetitanpassiveDef = false;
+			magmawormpassiveDef = false;
+			overloadingwormpassiveDef = false;
+
+
+			alloyvultureflyDef = false;
+			beetleguardslamDef = false;
+			bisonchargeDef = false;
+			bronzongballDef = false;
+			clayapothecarymortarDef = false;
+			claytemplarminigunDef = false;
+			greaterwispballDef = false;
+			impblinkDef = false;
+			jellyfishnovaDef = false;
+			lemurianfireballDef = false;
+			lunargolemshotsDef = false;
+			lunarwispminigunDef = false;
+			parentteleportDef = false;
+			stonegolemlaserDef = false;
+			voidreaverportalDef = false;
+
+			beetlequeenshotgunDef = false;
+			grovetenderhookDef = false;
+			claydunestriderballDef = false;
+			soluscontrolunityknockupDef = false;
+			xiconstructbeamDef = false;
+			voiddevastatorhomingDef = false;
+			scavengerthqwibDef = false;
 		}
 
 
@@ -118,6 +173,50 @@ namespace ShiggyMod.Modules.Survivors
 				Shiggymastercon = characterMaster.gameObject.AddComponent<ShiggyMasterController>();
 			}
 
+			extraskillLocator = base.GetComponent<ExtraSkillLocator>();			
+
+			alphacontructpassiveDef = false;
+			beetlepassiveDef = false;
+			pestpassiveDef = false;
+			verminpassiveDef = false;
+			guppassiveDef = false;
+			hermitcrabpassiveDef = false;
+			larvapassiveDef = false;
+			lesserwisppassiveDef = false;
+			lunarexploderpassiveDef = false;
+			minimushrumpassiveDef = false;
+			roboballminibpassiveDef = false;
+			voidbarnaclepassiveDef = false;
+			voidjailerpassiveDef = false;
+
+			stonetitanpassiveDef = false;
+			magmawormpassiveDef = false;
+			overloadingwormpassiveDef = false;
+
+
+			alloyvultureflyDef = false;
+			beetleguardslamDef = false;
+			bisonchargeDef = false;
+			bronzongballDef = false;
+			clayapothecarymortarDef = false;
+			claytemplarminigunDef = false;
+			greaterwispballDef = false;
+			impblinkDef = false;
+			jellyfishnovaDef = false;
+			lemurianfireballDef = false;
+			lunargolemshotsDef = false;
+			lunarwispminigunDef = false;
+			parentteleportDef = false;
+			stonegolemlaserDef = false;
+			voidreaverportalDef = false;
+
+			beetlequeenshotgunDef = false;
+			grovetenderhookDef = false;
+			claydunestriderballDef = false;
+			soluscontrolunityknockupDef = false;
+			xiconstructbeamDef = false;
+			voiddevastatorhomingDef = false;
+			scavengerthqwibDef = false;
 
 		}
 
@@ -129,11 +228,15 @@ namespace ShiggyMod.Modules.Survivors
 		private void OnEnable()
 		{
 			this.indicator.active = true;
+			this.passiveindicator.active = true;
+			this.activeindicator.active = true;
 		}
 
 		private void OnDisable()
 		{
 			this.indicator.active = false;
+			this.passiveindicator.active = false;
+			this.activeindicator.active = false;
 		}
 
 		private void OnDestroy()
@@ -143,18 +246,57 @@ namespace ShiggyMod.Modules.Survivors
 
 		private void FixedUpdate()
 		{
-			
-			this.trackerUpdateStopwatch += Time.fixedDeltaTime;
-			if (this.trackerUpdateStopwatch >= 1f / this.trackerUpdateFrequency)
-			{
-				this.trackerUpdateStopwatch -= 1f / this.trackerUpdateFrequency;
-				HurtBox hurtBox = this.trackingTarget;
-				Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
-				this.SearchForTarget(aimRay);
-				this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
-			}
-			//overloadingworm buff
-			if (characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
+
+            this.trackerUpdateStopwatch += Time.fixedDeltaTime;
+            if (this.trackerUpdateStopwatch >= 1f / this.trackerUpdateFrequency)
+            {
+                this.trackerUpdateStopwatch -= 1f / this.trackerUpdateFrequency;
+                Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
+                this.SearchForTarget(aimRay);
+                HurtBox hurtBox = this.trackingTarget;
+
+                if (hurtBox)
+                {
+                    var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
+                    if (StaticValues.indicatorDict.ContainsKey(name))
+                    {
+                        if (Modules.StaticValues.indicatorDict[name] == StaticValues.IndicatorType.PASSIVE)
+                        {
+                            this.passiveindicator.active = true;
+                            this.passiveindicator.targetTransform = this.trackingTarget.transform;
+
+                        }
+                        if (Modules.StaticValues.indicatorDict[name] == StaticValues.IndicatorType.ACTIVE)
+                        {
+                            this.activeindicator.active = true;
+                            this.activeindicator.targetTransform = this.trackingTarget.transform;
+
+                        }
+
+                    }
+                    else
+                    {
+                        this.activeindicator.active = false;
+                        this.passiveindicator.active = false;
+                        this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
+                    }
+
+                }
+                else
+                {
+                    this.indicator.active = false;
+                    this.activeindicator.active = false;
+                    this.passiveindicator.active = false;
+
+                }
+
+            }
+
+            //check quirks
+            CheckQuirks();
+
+            //overloadingworm buff
+            if (characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
 			{
 				if (!NetworkServer.active)
 				{
@@ -404,8 +546,14 @@ namespace ShiggyMod.Modules.Survivors
 				//voidjailer buff
 				if (characterBody.HasBuff(Modules.Buffs.voidjailerBuff.buffIndex))
 				{
+					float num = characterBody.moveSpeed;
+					bool isSprinting = characterBody.isSprinting;
+					if (isSprinting)
+					{
+						num /= characterBody.sprintingSpeedMultiplier;
+					}
 					voidjailerTimer += Time.fixedDeltaTime;
-					if (voidjailerTimer > StaticValues.voidjailerInterval / (characterBody.moveSpeed / 7))
+					if (voidjailerTimer > StaticValues.voidjailerInterval / (num/characterBody.baseMoveSpeed) )
 					{
 						voidjailerTimer = 0f;
 						VoidJailerPull();
@@ -583,6 +731,558 @@ namespace ShiggyMod.Modules.Survivors
 						DotController.InflictDot(ref info);
 					}
 				}
+			}
+
+		}
+
+		public void CheckQuirks()
+		{
+			//check passive
+			if(extraskillLocator.extraFirst.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "ALPHACONSTRUCT_NAME")
+			{
+                if (!alphacontructpassiveDef)
+                {
+					characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
+					alphacontructpassiveDef = true;
+				}
+			}
+            else 
+            {
+				alphacontructpassiveDef = false;
+            }
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "BEETLE_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "BEETLE_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "BEETLE_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "BEETLE_NAME")
+			{
+				strengthMultiplier = StaticValues.beetlestrengthMultiplier;
+                if (!beetlepassiveDef)
+				{
+					characterBody.AddBuff(Modules.Buffs.beetleBuff);
+					beetlepassiveDef = true;
+
+				}
+			}
+			else
+			{
+				strengthMultiplier = 1f;
+				beetlepassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "GUP_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "GUP_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "GUP_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "GUP_NAME")
+			{
+				if (!guppassiveDef)
+				{
+					characterBody.AddBuff(Modules.Buffs.spikeBuff);
+					guppassiveDef = true;
+
+				}
+			}
+			else
+			{
+				guppassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "LARVA_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "LARVA_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "LARVA_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "LARVA_NAME")
+			{
+                if (!larvapassiveDef)
+                {
+					characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
+					larvapassiveDef = true;
+                }
+			}
+			else
+			{
+				larvapassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "LESSERWISP_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "LESSERWISP_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "LESSERWISP_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "LESSERWISP_NAME")
+			{
+				rangedMultiplier = StaticValues.lesserwisprangedMultiplier;
+				if (!lesserwisppassiveDef)
+				{
+					characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
+					lesserwisppassiveDef = true;
+				}
+			}
+			else
+			{
+				rangedMultiplier = 1f;
+				lesserwisppassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "LUNAREXPLODER_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "LUNAREXPLODER_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "LUNAREXPLODER_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "LUNAREXPLODER_NAME")
+			{
+				if (!lunarexploderpassiveDef)
+				{
+					characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
+					lunarexploderpassiveDef = true;
+				}
+			}
+			else
+			{
+				lunarexploderpassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "HERMITCRAB_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "HERMITCRAB_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "HERMITCRAB_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "HERMITCRAB_NAME")
+			{
+				if (!hermitcrabpassiveDef)
+				{
+					characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
+					hermitcrabpassiveDef = true;
+				}
+			}
+			else
+			{
+				hermitcrabpassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "PEST_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "PEST_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "PEST_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "PEST_NAME")
+			{
+                if (!pestpassiveDef)
+				{
+					characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
+					pestpassiveDef = true;
+				}
+			}
+			else
+			{
+				pestpassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "VERMIN_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "VERMIN_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "VERMIN_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "VERMIN_NAME")
+			{
+                if (!verminpassiveDef)
+				{
+					characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
+					verminpassiveDef = true;
+				}
+			}
+			else
+			{
+				verminpassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "MINIMUSHRUM_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "MINIMUSHRUM_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "MINIMUSHRUM_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "MINIMUSHRUM_NAME")
+			{
+				if (!minimushrumpassiveDef)
+				{
+					characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
+					minimushrumpassiveDef = true;
+				}
+			}
+			else
+			{
+				minimushrumpassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "ROBOBALLMINI_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "ROBOBALLMINI_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "ROBOBALLMINI_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "ROBOBALLMINI_NAME")
+			{
+				if (!roboballminibpassiveDef)
+				{
+					characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
+					roboballminibpassiveDef = true;
+				}
+			}
+			else
+			{
+				alphacontructpassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "VOIDBARNACLE_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "VOIDBARNACLE_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "VOIDBARNACLE_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "VOIDBARNACLE_NAME")
+			{
+				if (!voidbarnaclepassiveDef)
+				{
+					characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
+					voidbarnaclepassiveDef = true;
+				}
+			}
+			else
+			{
+				voidbarnaclepassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "VOIDJAILER_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "VOIDJAILER_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "VOIDJAILER_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "VOIDJAILER_NAME")
+			{
+				if (!voidjailerpassiveDef)
+                {
+					characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
+					voidjailerpassiveDef = true;
+				}
+
+			}
+			else
+			{
+				voidjailerpassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "STONETITAN_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "STONETITAN_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "STONETITAN_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "STONETITAN_NAME")
+			{
+				if (!stonetitanpassiveDef)
+                {
+					characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
+					stonetitanpassiveDef = true;
+				}
+
+			}
+			else
+			{
+				stonetitanpassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "MAGMAWORM_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "MAGMAWORM_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "MAGMAWORM_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "MAGMAWORM_NAME")
+			{
+                if (!magmawormpassiveDef)
+                {
+					characterBody.AddBuff(Modules.Buffs.magmawormBuff);
+					magmawormpassiveDef = true;
+				}
+
+			}
+			else
+			{
+				magmawormpassiveDef = false;
+			}
+			if (extraskillLocator.extraFirst.skillNameToken == prefix + "OVERLOADINGWORM_NAME"
+				| extraskillLocator.extraSecond.skillNameToken == prefix + "OVERLOADINGWORM_NAME"
+				| extraskillLocator.extraThird.skillNameToken == prefix + "OVERLOADINGWORM_NAME"
+				| extraskillLocator.extraFourth.skillNameToken == prefix + "OVERLOADINGWORM_NAME")
+			{
+                if (!overloadingwormpassiveDef)
+                {
+					characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
+					overloadingwormpassiveDef = true;
+				}
+
+			}
+			else
+			{
+				overloadingwormpassiveDef = false;
+			}
+
+			//check active
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "VULTURE_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "VULTURE_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "VULTURE_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "VULTURE_NAME")
+			{
+				if (!alloyvultureflyDef)
+				{
+					alloyvultureflyDef = true;
+				}
+			}
+			else
+			{
+				alloyvultureflyDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "BEETLEGUARD_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "BEETLEGUARD_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "BEETLEGUARD_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "BEETLEGUARD_NAME")
+			{
+				if (!beetleguardslamDef)
+				{
+					beetleguardslamDef = true;
+				}
+			}
+			else
+			{
+				beetleguardslamDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "BRONZONG_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "BRONZONG_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "BRONZONG_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "BRONZONG_NAME")
+			{
+				if (!bronzongballDef)
+				{
+					bronzongballDef = true;
+				}
+			}
+			else
+			{
+				bronzongballDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "APOTHECARY_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "APOTHECARY_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "APOTHECARY_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "APOTHECARY_NAME")
+			{
+				if (!clayapothecarymortarDef)
+				{
+					clayapothecarymortarDef = true;
+				}
+			}
+			else
+			{
+				clayapothecarymortarDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "TEMPLAR_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "TEMPLAR_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "TEMPLAR_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "TEMPLAR_NAME")
+			{
+				if (!claytemplarminigunDef)
+				{
+					claytemplarminigunDef = true;
+				}
+			}
+			else
+			{
+				claytemplarminigunDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "GREATERWISP_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "GREATERWISP_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "GREATERWISP_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "GREATERWISP_NAME")
+			{
+				if (!greaterwispballDef)
+				{
+					greaterwispballDef = true;
+				}
+			}
+			else
+			{
+				greaterwispballDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "IMP_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "IMP_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "IMP_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "IMP_NAME")
+			{
+				if (!impblinkDef)
+				{
+					impblinkDef = true;
+				}
+			}
+			else
+			{
+				impblinkDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "JELLYFISH_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "JELLYFISH_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "JELLYFISH_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "JELLYFISH_NAME")
+			{
+				if (!jellyfishnovaDef)
+				{
+					jellyfishnovaDef = true;
+				}
+			}
+			else
+			{
+				jellyfishnovaDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "LEMURIAN_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "LEMURIAN_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "LEMURIAN_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "LEMURIAN_NAME")
+			{
+				if (!lemurianfireballDef)
+				{
+					lemurianfireballDef = true;
+				}
+			}
+			else
+			{
+				lemurianfireballDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "LUNARGOLEM_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "LUNARGOLEM_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "LUNARGOLEM_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "LUNARGOLEM_NAME")
+			{
+				if (!lunargolemshotsDef)
+				{
+					lunargolemshotsDef = true;
+				}
+			}
+			else
+			{
+				lunargolemshotsDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "LUNARWISP_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "LUNARWISP_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "LUNARWISP_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "LUNARWISP_NAME")
+			{
+				if (!lunarwispminigunDef)
+				{
+					lunarwispminigunDef = true;
+				}
+			}
+			else
+			{
+				lunarwispminigunDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "PARENT_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "PARENT_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "PARENT_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "PARENT_NAME")
+			{
+				if (!parentteleportDef)
+				{
+					parentteleportDef = true;
+				}
+			}
+			else
+			{
+				parentteleportDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "STONEGOLEM_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "STONEGOLEM_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "STONEGOLEM_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "STONEGOLEM_NAME")
+			{
+				if (!stonegolemlaserDef)
+				{
+					stonegolemlaserDef = true;
+				}
+			}
+			else
+			{
+				stonegolemlaserDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "VOIDJAILER_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "VOIDJAILER_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "VOIDJAILER_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "VOIDJAILER_NAME")
+			{
+				if (!voidjailerpassiveDef)
+				{
+					voidjailerpassiveDef = true;
+				}
+			}
+			else
+			{
+				voidjailerpassiveDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "BEETLEQUEEN_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "BEETLEQUEEN_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "BEETLEQUEEN_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "BEETLEQUEEN_NAME")
+			{
+				if (!beetlequeenshotgunDef)
+				{
+					beetlequeenshotgunDef = true;
+				}
+			}
+			else
+			{
+				beetlequeenshotgunDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "GROVETENDER_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "GROVETENDER_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "GROVETENDER_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "GROVETENDER_NAME")
+			{
+				if (!grovetenderhookDef)
+				{
+					grovetenderhookDef = true;
+				}
+			}
+			else
+			{
+				grovetenderhookDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME")
+			{
+				if (!claydunestriderballDef)
+				{
+					claydunestriderballDef = true;
+				}
+			}
+			else
+			{
+				claydunestriderballDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME")
+			{
+				if (!soluscontrolunityknockupDef)
+				{
+					soluscontrolunityknockupDef = true;
+				}
+			}
+			else
+			{
+				soluscontrolunityknockupDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "XICONSTRUCT_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "XICONSTRUCT_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "XICONSTRUCT_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "XICONSTRUCT_NAME")
+			{
+				if (!xiconstructbeamDef)
+				{
+					xiconstructbeamDef = true;
+				}
+			}
+			else
+			{
+				xiconstructbeamDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "VOIDDEVASTATOR_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "VOIDDEVASTATOR_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "VOIDDEVASTATOR_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "VOIDDEVASTATOR_NAME")
+			{
+				if (!voiddevastatorhomingDef)
+				{
+					voiddevastatorhomingDef = true;
+				}
+			}
+			else
+			{
+				voiddevastatorhomingDef = false;
+			}
+			if (characterBody.skillLocator.primary.skillNameToken == prefix + "SCAVENGER_NAME"
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "MINIMUSHRUM_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "MINIMUSHRUM_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "MINIMUSHRUM_NAME")
+			{
+				if (!scavengerthqwibDef)
+				{
+					scavengerthqwibDef = true;
+				}
+			}
+			else
+			{
+				scavengerthqwibDef = false;
 			}
 
 		}

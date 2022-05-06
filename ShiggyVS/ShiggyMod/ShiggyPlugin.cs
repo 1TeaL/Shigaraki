@@ -81,6 +81,7 @@ namespace ShiggyMod
             ShiggyCharacterBody = null;
             ShiggyPlugin.instance = this;
 
+            Modules.StaticValues.LoadDictionary(); // load dictionary to differentiate between passives and actives
             // load assets and read config
             Modules.Assets.Initialize();
             Modules.Config.ReadConfig();
@@ -406,6 +407,7 @@ namespace ShiggyMod
                 if (self.HasBuff(Buffs.verminsprintBuff))
                 {
                     self.sprintingSpeedMultiplier *= Modules.StaticValues.verminsprintMultiplier;
+                    self.moveSpeed *= Modules.StaticValues.verminmovespeedMultiplier;
                 }
                 //multiplier buff
                 if (self.HasBuff(Buffs.multiplierBuff))
@@ -429,12 +431,12 @@ namespace ShiggyMod
                 //beetlebuff
                 if (self.HasBuff(Buffs.beetleBuff))
                 {
-                    self.damage *= 1.3f;
+                    self.damage *= Modules.StaticValues.beetledamageMultiplier;
                 }
                 //lesserwispbuff
                 if (self.HasBuff(Buffs.lesserwispBuff))
                 {
-                    self.damage *= 1.3f;
+                    self.damage *= Modules.StaticValues.lesserwispdamageMultiplier;
                 }
 
             }
@@ -473,7 +475,7 @@ namespace ShiggyMod
             if (self.gameObject.name.Contains("ShiggyDisplay"))
             {
                 AkSoundEngine.PostEvent(3468082827, self.gameObject);
-
+                
             }
 
         }

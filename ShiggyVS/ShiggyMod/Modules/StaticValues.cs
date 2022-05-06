@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ShiggyMod.Modules
 {
@@ -45,11 +46,11 @@ namespace ShiggyMod.Modules
         internal const int larvajumpStacks = 2;
 
         internal const float voidmortarbaseDuration = 2f;
-        internal const float voidmortarRadius = 20f;
+        internal const float voidmortarRadius = 10f;
         internal const float voidmortarattackspeedGain = 0.05f;
 
         internal const float mortarbaseDuration = 2f;
-        internal const float mortarRadius = 20f;
+        internal const float mortarRadius = 10f;
         internal const float mortarDamageCoefficient = 1f;
         internal const float mortararmorGain = 1f;
 
@@ -58,14 +59,21 @@ namespace ShiggyMod.Modules
 
         internal const int maxballCount = 3;
 
-        internal const float verminsprintMultiplier = 2f;
-        
-        internal const int verminjumpStacks = 2;
+        internal const float verminsprintMultiplier = 1.5f;
+        internal const float verminmovespeedMultiplier = 1.5f;
+
+        internal const int verminjumpStacks = 4;
         internal const float verminjumpPower = 10f;
 
         internal const float multiplierCoefficient = 3f;
         
         internal const float flyduration = 10f;
+
+        internal const float beetledamageMultiplier = 1.5f;
+        internal const float beetlestrengthMultiplier = 2f;
+
+        internal const float lesserwispdamageMultiplier = 1.5f;
+        internal const float lesserwisprangedMultiplier = 2f;
 
         internal const float decayDamageCoeffecient = 0.2f;
         internal const float decayDamageStack = 0.2f;
@@ -141,6 +149,64 @@ namespace ShiggyMod.Modules
         internal const float scavengerProcCoefficient = 0.5f;
 
 
+        public enum IndicatorType : uint
+        {
+            PASSIVE = 1,
+            ACTIVE = 2,
+        }
 
+        public static Dictionary<string, IndicatorType> indicatorDict;
+        
+        public static void LoadDictionary()
+        {
+            indicatorDict = new Dictionary<string, IndicatorType>();
+            indicatorDict.Add("MinorConstructBody", IndicatorType.PASSIVE );
+            indicatorDict.Add("MinorConstructOnKillBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("BeetleBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("FlyingVerminBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("VerminBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("GupBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("GipBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("GeepBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("HermitCrabBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("AcidLarvaBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("WispBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("LunarExploderBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("MiniMushroomBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("RoboBallMiniBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("RoboBallGreenBuddyBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("RoboBallRedBuddyBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("VoidBarnacleBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("VoidJailerBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("TitanBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("TitanGoldBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("VagrantBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("MagmaWormBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("ElectricWormBody", IndicatorType.PASSIVE);
+
+            indicatorDict.Add("VultureBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("BeetleGuardBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("BisonBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("BellBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("ClayGrenadierBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("ClayBruiserBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("GreaterWispBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("ImpBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("JellyfishBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("LemurianBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("LunarGolemBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("LunarWispBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("ParentBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("GolemBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("NullifierBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("BeetleQueen2Body", IndicatorType.ACTIVE);
+            indicatorDict.Add("GravekeeperBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("ClayBossBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("RoboBallBossBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("SuperRoboBallBossBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("MegaConstructBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("VoidMegaCrabBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("ScavBody", IndicatorType.ACTIVE);
+        }
     }
 }

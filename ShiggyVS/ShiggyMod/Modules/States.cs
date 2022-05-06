@@ -10,7 +10,7 @@ namespace ShiggyMod.Modules
 
         internal static void RegisterStates()
         {
-            entityStates.Add(typeof(AFOPrimary));
+            entityStates.Add(typeof(AlphaConstruct));
 
             entityStates.Add(typeof(Decay));
             entityStates.Add(typeof(BulletLaser));

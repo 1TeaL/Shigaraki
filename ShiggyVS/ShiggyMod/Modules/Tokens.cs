@@ -18,13 +18,13 @@ namespace ShiggyMod.Modules
 
 
 
-            string outro = "..and so it left, ever evolving.";
-            string outroFailure = "Shiggy has Fainted.";
+            string outro = "..and so he left, continuing to destroy everything";
+            string outroFailure = "They cheated!";
 
-            LanguageAPI.Add(prefix + "NAME", "Shigaraki");
+            LanguageAPI.Add(prefix + "NAME", "Shigaraki Tomura");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
-            LanguageAPI.Add(prefix + "SUBTITLE", "The Transform Pokémon");
-            LanguageAPI.Add(prefix + "LORE", "Pokemon #132. Normal Type. Altering every cell in its body, Shiggy can transform into a perfect copy of many different Pokémon.");
+            LanguageAPI.Add(prefix + "SUBTITLE", "2nd All For One User");
+            LanguageAPI.Add(prefix + "LORE", "Let's clear this level and go home.");
             LanguageAPI.Add(prefix + "OUTRO_FLAVOR", outro);
             LanguageAPI.Add(prefix + "OUTRO_FAILURE", outroFailure);
 
@@ -34,45 +34,123 @@ namespace ShiggyMod.Modules
             #endregion
 
             #region Passive
-            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Ability");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "Shiggy comes with an equipment that transform yourself into a Shiggy.<style=cIsUtility> Shiggy has a double jump. He can sprint in any direction.</style>");
+            LanguageAPI.Add(prefix + "PASSIVE_NAME", "All For One");
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "Shigaraki can grab quirks from anyone he's looking at. Actives replace the respective skill below and passives take up the slot but both can still be replaced. All melee attacks deal Decay.<style=cIsUtility> He can sprint in any direction.</style>");
             #endregion
 
-            #region Primary
-            LanguageAPI.Add(prefix + "PRIMARY_NAME", "Struggle");
-            LanguageAPI.Add(prefix + "PRIMARY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Struggle around, dealing <style=cIsDamage>" + " multiple times.");
+            #region Base Skills
+            LanguageAPI.Add(prefix + "DECAY_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "DECAY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+
+            LanguageAPI.Add(prefix + "BULLETLASER_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "BULLETLASER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+
+            LanguageAPI.Add(prefix + "AIRCANNON_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "AIRCANNON_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+
+            LanguageAPI.Add(prefix + "MULTIPLIER_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "MULTIPLIER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+
+            LanguageAPI.Add(prefix + "AFO_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+
             #endregion
 
-            #region Items
-            LanguageAPI.Add(prefix + "ASSAULTVEST_NAME", "Assault Vest");
-            LanguageAPI.Add(prefix + "ASSAULTVEST_DESCRIPTION", $"Equip an Assault Vest, granting <style=cIsUtility armor</style>" + ".");
-            //LanguageAPI.Add(prefix + "CHOICESCARF_NAME", "Choice Scarf");
-            //LanguageAPI.Add(prefix + "CHOICESCARF_DESCRIPTION", $"Equip a Choice Scarf, granting <style=cIsDamage>{100f * (StaticValues.choicescarfboost - 1f)}% movespeed</style>" + ".");
-            //LanguageAPI.Add(prefix + "CHOICESPECS_NAME", "Choice Specs");
-            //LanguageAPI.Add(prefix + "CHOICESPECS_DESCRIPTION", $"Equip a Choice Specs, granting <style=cIsUtility>{100f * (1-StaticValues.choicespecsboost)}% cooldown reduction</style>" + ".");
-            //LanguageAPI.Add(prefix + "LEFTOVERS_NAME", "Leftovers");
-            //LanguageAPI.Add(prefix + "LEFTOVERS_DESCRIPTION", $"Equip a Leftovers, granting " + Helpers.Passive($"{100f * (StaticValues.leftoversregen)}% of your max health regen") + " per second.");
-            //LanguageAPI.Add(prefix + "LIFEORB_NAME", "Life Orb");
-            //LanguageAPI.Add(prefix + "LIFEORB_DESCRIPTION", $"Equip a Life Orb, granting <style=cIsDamage>{100f * (StaticValues.lifeorbboost - 1f)}% damage</style>" + " </style>.");
-            //LanguageAPI.Add(prefix + "LUCKYEGG_NAME", "Lucky Egg");
-            //LanguageAPI.Add(prefix + "LUCKYEGG_DESCRIPTION", $"Equip a Lucky Egg, granting <style=cIsUtility>1 luck</style>" + " </style>.");
-            //LanguageAPI.Add(prefix + "ROCKYHELMET_NAME", "Rocky Helmet");
-            //LanguageAPI.Add(prefix + "ROCKYHELMET_DESCRIPTION", $"Equip a Rocky Helmet, stunning and dealing <style=cIsDamage>{100f * StaticValues.rockyhelmetreflect}% damage</style>" + " to attackers around you.");
-            //LanguageAPI.Add(prefix + "SCOPELENS_NAME", "Scope Lens");
-            //LanguageAPI.Add(prefix + "SCOPELENS_DESCRIPTION", $"Equip a Scope Lens, granting <style=cIsDamage>{StaticValues.scopelensboost}% critical hit chance</style>" + ".");
-            //LanguageAPI.Add(prefix + "SHELLBELL_NAME", "Shell Bell");
-            //LanguageAPI.Add(prefix + "SHELLBELL_DESCRIPTION", $"Equip a Shell Bell, granting <style=cIsUtility>{100f * (StaticValues.shellbelllifesteal)}% lifesteal</style>" + ".");
+
+
+            #region Passive
+            LanguageAPI.Add(prefix + "ALPHACONSTRUCT_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "ALPHACONSTRUCT_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "BEETLE_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "BEETLE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "GUP_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "GUP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "LARVA_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "LARVA_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "LESSERWISP_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "LESSERWISP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "LUNAREXPLODER_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "LUNAREXPLODER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "HERMITCRAB_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "HERMITCRAB_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "PEST_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "PEST_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "VERMIN_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "VERMIN_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "MINIMUSHRUM_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "MINIMUSHRUM_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "ROBOBALLMINI_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "ROBOBALLMINI_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "VOIDBARNACLE_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "VOIDBARNACLE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "VOIDJAILER_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "VOIDJAILER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "STONETITAN_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "STONETITAN_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "MAGMAWORM_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "MAGMAWORM_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "OVERLOADINGWORM_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "OVERLOADINGWORM_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "VAGRANT_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "VAGRANT_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
             #endregion
 
-            #region Special
-            LanguageAPI.Add(prefix + "SPECIAL_NAME", "Transform");
-            LanguageAPI.Add(prefix + "SPECIAL_DESCRIPTION", $"Transform into the character you're looking at.");
+            #region Active 
+            LanguageAPI.Add(prefix + "VULTURE_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "VULTURE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "BEETLEGUARD_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "BEETLEGUARD_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "BISON_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "BISON_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "BRONZONG_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "BRONZONG_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "APOTHECARY_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "APOTHECARY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "TEMPLAR_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "TEMPLAR_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "GREATERWISP_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "GREATERWISP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "IMP_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "IMP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "JELLYFISH_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "JELLYFISH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "LEMURIAN_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "LEMURIAN_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "LUNARGOLEM_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "LUNARGOLEM_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "LUNARWISP_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "LUNARWISP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "PARENT_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "PARENT_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "STONEGOLEM_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "STONEGOLEM_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "VOIDJAILER_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "VOIDJAILER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "BEETLEQUEEN_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "BEETLEQUEEN_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "GROVETENDER_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "GROVETENDER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "SOLUSCONTROLUNIT_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "SOLUSCONTROLUNIT_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "XICONSTRUCT_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "XICONSTRUCT_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "VOIDDEVASTATOR_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "VOIDDEVASTATOR_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
+            LanguageAPI.Add(prefix + "SCAVENGER_NAME", "Struggle");
+            LanguageAPI.Add(prefix + "SCAVENGER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
             #endregion
 
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_DESCRIPTION", "As Shiggy, beat the game or obliterate on Monsoon.");
             LanguageAPI.Add(prefix + "MASTERYUNLOCKABLE_UNLOCKABLE_NAME", "Shiggy: Mastery");
+            #endregion
+
+
+            #region Achievements
+            LanguageAPI.Add(prefix + "KEYWORD_DECAY", $"<style=cArtifact>[ Decay ]</style> deal <style=cIsDamage>100% of your base damage</style> per second per stack. Each <style=cStack>stack reduces movespeed and attackspeed by 3%</style>. <style=cDeath>Instakills</style> at 100 stacks.");
             #endregion
             #endregion
 

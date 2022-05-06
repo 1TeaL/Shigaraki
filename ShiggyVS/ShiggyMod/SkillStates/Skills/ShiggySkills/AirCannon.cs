@@ -28,6 +28,8 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             damageType = DamageType.Stun1s;
 
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
+            damageCoefficient *= Shiggycon.strengthMultiplier;
             this.duration = this.baseDuration / this.attackSpeedStat;
 
             Ray aimRay = base.GetAimRay();

@@ -32,11 +32,12 @@ namespace ShiggyMod.SkillStates
 
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
-            this.muzzleString = "LFinger";
 
             EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
 
 
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
+            damageCoefficient *= Shiggycon.rangedMultiplier;
 
         }
 
@@ -54,12 +55,13 @@ namespace ShiggyMod.SkillStates
             {
                 hasFired = true;
 
+                this.muzzleString = "LFinger1";
                 Ray aimRay = base.GetAimRay();
                 var bulletAttack = new BulletAttack
                 {
                     bulletCount = (uint)(1U),
                     aimVector = aimRay.direction,
-                    origin = aimRay.origin,
+                    origin = FindModelChild(this.muzzleString).position,
                     damage = this.damageStat * damageCoefficient,
                     damageColorIndex = DamageColorIndex.Default,
                     damageType = damageType,
@@ -87,9 +89,13 @@ namespace ShiggyMod.SkillStates
 
                 };
                 bulletAttack.Fire();
+                this.muzzleString = "LFinger2";
                 bulletAttack.Fire();
+                this.muzzleString = "LFinger3";
                 bulletAttack.Fire();
+                this.muzzleString = "LFinger4";
                 bulletAttack.Fire();
+                this.muzzleString = "LFinger5";
                 bulletAttack.Fire();
             }
 

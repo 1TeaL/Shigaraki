@@ -48,7 +48,8 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = DamageType.Generic;
-
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
+            damageCoefficient *= Shiggycon.strengthMultiplier;
             if (NetworkServer.active)
             {
                 base.characterBody.RemoveBuff(Modules.Buffs.minimushrumBuff);
@@ -160,8 +161,8 @@ namespace ShiggyMod.SkillStates
             {
                 base.ConsumeHitStopCachedState(this.hitStopCachedState, base.characterMotor, this.animator);
                 this.inHitPause = false;
-                base.characterMotor.velocity = Vector3.zero;
-                base.characterMotor.ApplyForce(this.bounceVector, true, false);
+                //base.characterMotor.velocity = Vector3.zero;
+                //base.characterMotor.ApplyForce(this.bounceVector, true, false);
                 //this.attack.Fire(null);
                 this.detector.Fire(null);
             }
@@ -249,9 +250,9 @@ namespace ShiggyMod.SkillStates
                 bool flag3 = base.characterMotor;
                 if (flag3)
                 {
-                    //base.characterMotor.velocity = Vector3.zero;
-                    this.bounceVector = base.GetAimRay().direction * -1f;
-                    this.bounceVector.y = 0.2f;
+                    base.characterMotor.velocity = Vector3.zero;
+                    //this.bounceVector = base.GetAimRay().direction * -1f;
+                    //this.bounceVector.y = 0.2f;
                 }
                 this.hasHopped = true;
             }
@@ -260,7 +261,7 @@ namespace ShiggyMod.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Skill;
+            return InterruptPriority.PrioritySkill;
         }
         
     }
