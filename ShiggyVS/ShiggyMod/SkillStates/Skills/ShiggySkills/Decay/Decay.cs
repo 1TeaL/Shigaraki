@@ -13,8 +13,8 @@ namespace ShiggyMod.SkillStates
 
         public DecayController decaycon;
         public ShiggyController Shiggycon;
-        protected string hitboxName = "SmallHitbox";
-        protected string hitboxName2 = "DetectSmallHitbox";
+        protected string hitboxName = "AroundHitbox";
+        protected string hitboxName2 = "AroundHitbox";
         private Animator animator;
         private CharacterModel characterModel;
         private Transform modelTransform;
@@ -199,7 +199,6 @@ namespace ShiggyMod.SkillStates
 
                         
                         this.OnHitEnemyAuthority();
-
                         //Decay Dot
                         bool flag2 = hurtBox.healthComponent && hurtBox.healthComponent.body;
                         if (flag2)
@@ -212,7 +211,16 @@ namespace ShiggyMod.SkillStates
                             //info.damageMultiplier = Modules.StaticValues.decayDamageCoeffecient + Modules.StaticValues.decayDamageStack * hurtBox.healthComponent.body.GetBuffCount(Modules.Buffs.decayDebuff);
                             info.dotIndex = Modules.Dots.decayDot;
 
-                            DotController.InflictDot(ref info);
+                            if (base.HasBuff(Modules.Buffs.multiplierBuff))
+                            {
+                                DotController.InflictDot(ref info);
+                                DotController.InflictDot(ref info);
+                                DotController.InflictDot(ref info);
+                            }
+                            else
+                            {
+                                DotController.InflictDot(ref info);
+                            }
 
                         }
                     }

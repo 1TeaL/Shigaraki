@@ -3,6 +3,8 @@ using RoR2;
 using UnityEngine;
 using ShiggyMod.Modules.Survivors;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ShiggyMod.SkillStates
 {
@@ -42,6 +44,16 @@ namespace ShiggyMod.SkillStates
                 Vector3 theSpot = aimRay.origin - 8 * aimRay.direction;
                 Vector3 theSpot2 = aimRay.origin - 2 * aimRay.direction;
 
+                if (base.HasBuff(Modules.Buffs.multiplierBuff))
+                {
+                    ApplyDoT();
+                    ApplyDoT();
+                    ApplyDoT();
+                }
+                else
+                {
+                    ApplyDoT();
+                }
                 BlastAttack blastAttack = new BlastAttack();
                 blastAttack.radius = radius;
                 blastAttack.procCoefficient = 1f;
@@ -106,7 +118,44 @@ namespace ShiggyMod.SkillStates
             }
         }
 
+        public void ApplyDoT()
+        {
+            Ray aimRay = base.GetAimRay();
+            BullseyeSearch search = new BullseyeSearch
+            {
 
+                teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
+                filterByLoS = false,
+                searchOrigin = base.characterBody.footPosition,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = radius,
+                maxAngleFilter = 360f
+            };
+
+            search.RefreshCandidates();
+            search.FilterOutGameObject(base.gameObject);
+
+
+
+            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+            foreach (HurtBox singularTarget in target)
+            {
+                if (singularTarget)
+                {
+                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                    {
+                        InflictDotInfo info = new InflictDotInfo();
+                        info.attackerObject = base.gameObject;
+                        info.victimObject = singularTarget.healthComponent.body.gameObject;
+                        info.duration = Modules.StaticValues.decayDamageTimer;
+                        info.dotIndex = Modules.Dots.decayDot;
+
+                        DotController.InflictDot(ref info);
+                    }
+                }
+            }
+        }
 
 
         public override InterruptPriority GetMinimumInterruptPriority()

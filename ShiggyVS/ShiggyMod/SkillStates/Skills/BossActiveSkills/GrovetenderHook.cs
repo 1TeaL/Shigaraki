@@ -12,6 +12,8 @@ namespace ShiggyMod.SkillStates
 {
     public class GrovetenderHook : BaseSkillState
     {
+        public float fireAge;
+        public float fireTimer;
         public float baseDuration = 1f;
         public float duration;
         public ShiggyController Shiggycon;
@@ -43,6 +45,7 @@ namespace ShiggyMod.SkillStates
             {
                 projectileCount = 5;
             }
+            fireTimer = (duration / projectileCount) - 0.05f;
 
             GetMaxWeight();
             this.modelAnimator = base.GetModelAnimator();
@@ -53,16 +56,8 @@ namespace ShiggyMod.SkillStates
             }
             Util.PlayAttackSpeedSound(FireHook.soundString, base.gameObject, this.attackSpeedStat);
             EffectManager.SimpleMuzzleFlash(FireHook.muzzleflashEffectPrefab, base.gameObject, muzzleString, false);
-            if (NetworkServer.active)
-            {
-                this.FireSingleHook(aimRay, 0f, 0f);
-                for (int i = 0; i < projectileCount; i++)
-                {
-                    float bonusPitch = UnityEngine.Random.Range(-spread, spread) / 2f;
-                    float bonusYaw = UnityEngine.Random.Range(-spread, spread) / 2f;
-                    this.FireSingleHook(aimRay, bonusPitch, bonusYaw);
-                }
-            }
+
+            this.FireSingleHook(aimRay, 0f, 0f);
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.rangedMultiplier;
@@ -139,7 +134,25 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
+            if(fireAge >= fireTimer)
+            {
+                if (NetworkServer.active)
+                {
+                    fireTimer = 0f;
+                    Ray aimRay = base.GetAimRay();
+                    //for (int i = 0; i < projectileCount; i++)
+                    //{
+                    float bonusPitch = UnityEngine.Random.Range(-spread, spread) / 2f;
+                    float bonusYaw = UnityEngine.Random.Range(-spread, spread) / 2f;
+                    this.FireSingleHook(aimRay, bonusPitch, bonusYaw);
+                    //}
+                }
 
+            }
+            else
+            {
+                fireAge += Time.fixedDeltaTime;
+            }
 
             if (base.fixedAge >= this.duration && base.isAuthority)
             {

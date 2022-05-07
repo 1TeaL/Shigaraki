@@ -15,7 +15,7 @@ namespace ShiggyMod.Modules
         internal const float magmawormDuration = 5f;
         internal const float magmawormCoefficient = 1.5f;
 
-        internal const float vagrantDamageCoefficient = 20f;
+        internal const float vagrantDamageCoefficient = 21f;
         internal const float vagrantRadius = 12f;
         internal const float vagrantdamageThreshold = 4f;
 
@@ -78,7 +78,7 @@ namespace ShiggyMod.Modules
         internal const float decayDamageCoeffecient = 0.2f;
         internal const float decayDamageStack = 0.2f;
         internal const float decayDamageTimer = 10f;
-        internal const float decayInstaKillThreshold = 100f;
+        internal const float decayInstaKillThreshold = 50f;
 
         internal const float decayattackDamageCoeffecient = 1.5f;
         internal const float decayattackProcCoefficient = 1f;

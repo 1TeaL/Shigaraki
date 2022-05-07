@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1164192289
+CRC: 3292891714
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f7c4eaa85cee76ee11e407487fb7ef68
+    Hash: 3830695fb2cf27083cfd0a902f1c2e69
   TypeTreeHash:
     serializedVersion: 2
     Hash: d2c48ec386e16fb460275d6b3c1b5c81
@@ -78,6 +78,7 @@ Assets:
 - Assets/Shigaraki/Import/WispAssets/Prefabs/FullBeam.prefab
 - Assets/Shigaraki/Import/matHitboxPreview.mat
 - Assets/Shigaraki/Import/WispAssets/Prefabs/BeamStart.prefab
+- Assets/Shigaraki/Assets/MeshHand.mesh
 - Assets/Shigaraki/Animations/animShiggy.controller
 - Assets/Shigaraki/Import/WispAssets/Materials/SolGate.mat
 - Assets/Shigaraki/Import/WispAssets/Materials/MoteTrail.mat

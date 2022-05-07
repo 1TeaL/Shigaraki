@@ -22,6 +22,7 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride =1f;
         private string muzzleString;
+        private int bulletcount;
 
         public override void OnEnter()
         {
@@ -38,7 +39,14 @@ namespace ShiggyMod.SkillStates
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.rangedMultiplier;
-
+            if (base.HasBuff(Modules.Buffs.multiplierBuff))
+            {
+                bulletcount = 5 * (int)Modules.StaticValues.multiplierCoefficient;
+            }
+            else
+            {
+                bulletcount = 5;
+            }
         }
 
         public override void OnExit()
@@ -55,11 +63,11 @@ namespace ShiggyMod.SkillStates
             {
                 hasFired = true;
 
-                this.muzzleString = "LFinger1";
+                this.muzzleString = "LFinger";
                 Ray aimRay = base.GetAimRay();
                 var bulletAttack = new BulletAttack
                 {
-                    bulletCount = (uint)(1U),
+                    bulletCount = (uint)(bulletcount),
                     aimVector = aimRay.direction,
                     origin = FindModelChild(this.muzzleString).position,
                     damage = this.damageStat * damageCoefficient,
@@ -88,14 +96,6 @@ namespace ShiggyMod.SkillStates
                     hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,
 
                 };
-                bulletAttack.Fire();
-                this.muzzleString = "LFinger2";
-                bulletAttack.Fire();
-                this.muzzleString = "LFinger3";
-                bulletAttack.Fire();
-                this.muzzleString = "LFinger4";
-                bulletAttack.Fire();
-                this.muzzleString = "LFinger5";
                 bulletAttack.Fire();
             }
 

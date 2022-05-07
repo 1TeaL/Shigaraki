@@ -206,7 +206,7 @@
 
 //        public override InterruptPriority GetMinimumInterruptPriority()
 //        {
-//            return InterruptPriority.Skill;
+//            return InterruptPriority.PrioritySkill;
 //        }
 
 //        public override void OnSerialize(NetworkWriter writer)

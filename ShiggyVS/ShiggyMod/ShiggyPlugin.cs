@@ -444,8 +444,8 @@ namespace ShiggyMod
             if (self.HasBuff(Buffs.decayDebuff))
             {
                 float decaybuffcount = self.GetBuffCount(Buffs.decayDebuff);
-                self.attackSpeed *= Mathf.Pow(0.97f, decaybuffcount);
-                self.moveSpeed *= Mathf.Pow(0.97f, decaybuffcount);
+                self.attackSpeed *= Mathf.Pow(0.96f, decaybuffcount);
+                self.moveSpeed *= Mathf.Pow(0.96f, decaybuffcount);
                 if(decaybuffcount >= Modules.StaticValues.decayInstaKillThreshold)
                 {
                     if (NetworkServer.active && self.healthComponent)

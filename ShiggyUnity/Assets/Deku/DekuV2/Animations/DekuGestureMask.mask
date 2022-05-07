@@ -1,0 +1,281 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DekuGestureMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 0
+  - m_Path: Armature/Hips
+    m_Weight: 0
+  - m_Path: Armature/Hips/Spine
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Browskin_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Browskin_A/L_Eyebrow_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Browskin_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Browskin_B/L_Eyebrow_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Browskin_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Browskin_C/L_Eyebrow_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Browskin_D
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Browskin_D/L_Eyebrow_D
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Browskin_E
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Browskin_E/L_Eyebrow_E
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_I_Eyelid
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Eyelid_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Eyelid_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Eyelid_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Eyelid_D
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_O_Eyelid
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_U_Eyelid_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_U_Eyelid_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_U_Eyelid_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_U_Eyelid_D
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Eye_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Browskin_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Browskin_A/R_Eyebrow_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Browskin_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Browskin_B/R_Eyebrow_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Browskin_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Browskin_C/R_Eyebrow_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Browskin_D
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Browskin_D/R_Eyebrow_D
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Browskin_E
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Browskin_E/R_Eyebrow_E
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_I_Eyelid
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Eyelid_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Eyelid_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Eyelid_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Eyelid_D
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_O_Eyelid
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_U_Eyelid_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_U_Eyelid_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_U_Eyelid_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_U_Eyelid_D
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Eye_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/T_Lip
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Lip_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Lip_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Lip_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_Lip_D
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Lip_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Lip_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Lip_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_Lip_D
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A/U_Lip
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A/L_U_Lip_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A/R_U_Lip_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A/R_U_Lip_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A/U_Teeth
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A/Tongue_A
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A/Tongue_A/Tongue_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A/L_U_Lip_B
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A/L_U_Lip_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Jaw_A/R_U_Lip_C
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/LeftEye
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/RightEye
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L/L_001
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R/R_001
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_002
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/R_002/R_003
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Bone
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/Bone/004
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/001
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/001/005
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/002
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/002/006
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/003
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/003/007
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_002
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Neck/Head/L_002/L_003
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/Thumb0_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/Thumb0_L/Thumb1_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/Thumb0_L/Thumb1_L/Thumb2_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/IndexFinger1_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/IndexFinger1_L/IndexFinger2_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/IndexFinger1_L/IndexFinger2_L/IndexFinger3_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/MiddleFinger1_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/MiddleFinger1_L/MiddleFinger2_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/MiddleFinger1_L/MiddleFinger2_L/MiddleFinger3_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/RingFinger1_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/RingFinger1_L/RingFinger2_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/RingFinger1_L/RingFinger2_L/RingFinger3_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/LittleFinger1_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/LittleFinger1_L/LittleFinger2_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Left_shoulder/Left_arm/Left_elbow/Left_wrist/LittleFinger1_L/LittleFinger2_L/LittleFinger3_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/Thumb0_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/Thumb0_R/Thumb1_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/Thumb0_R/Thumb1_R/Thumb2_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/IndexFinger1_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/IndexFinger1_R/IndexFinger2_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/IndexFinger1_R/IndexFinger2_R/IndexFinger3_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/MiddleFinger1_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/MiddleFinger1_R/MiddleFinger2_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/MiddleFinger1_R/MiddleFinger2_R/MiddleFinger3_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/RingFinger1_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/RingFinger1_R/RingFinger2_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/RingFinger1_R/RingFinger2_R/RingFinger3_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/LittleFinger1_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/LittleFinger1_R/LittleFinger2_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/Right_shoulder/Right_arm/Right_elbow/Right_wrist/LittleFinger1_R/LittleFinger2_R/LittleFinger3_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine/Chest/AC_Goggles
+    m_Weight: 1
+  - m_Path: Armature/Hips/Left_leg
+    m_Weight: 0
+  - m_Path: Armature/Hips/Left_leg/Left_knee
+    m_Weight: 0
+  - m_Path: Armature/Hips/Left_leg/Left_knee/Left_ankle
+    m_Weight: 0
+  - m_Path: Armature/Hips/Left_leg/Left_knee/Left_ankle/Left_toe
+    m_Weight: 0
+  - m_Path: Armature/Hips/Right_leg
+    m_Weight: 0
+  - m_Path: Armature/Hips/Right_leg/Right_knee
+    m_Weight: 0
+  - m_Path: Armature/Hips/Right_leg/Right_knee/Right_ankle
+    m_Weight: 0
+  - m_Path: Armature/Hips/Right_leg/Right_knee/Right_ankle/Right_toe
+    m_Weight: 0
+  - m_Path: Body
+    m_Weight: 0

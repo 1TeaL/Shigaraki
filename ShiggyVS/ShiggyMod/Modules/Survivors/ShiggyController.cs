@@ -263,12 +263,14 @@ namespace ShiggyMod.Modules.Survivors
                         if (Modules.StaticValues.indicatorDict[name] == StaticValues.IndicatorType.PASSIVE)
                         {
                             this.passiveindicator.active = true;
-                            this.passiveindicator.targetTransform = this.trackingTarget.transform;
+							this.activeindicator.active = false;
+							this.passiveindicator.targetTransform = this.trackingTarget.transform;
 
                         }
-                        if (Modules.StaticValues.indicatorDict[name] == StaticValues.IndicatorType.ACTIVE)
-                        {
-                            this.activeindicator.active = true;
+						else if (Modules.StaticValues.indicatorDict[name] == StaticValues.IndicatorType.ACTIVE)
+						{
+							this.passiveindicator.active = false;
+							this.activeindicator.active = true;
                             this.activeindicator.targetTransform = this.trackingTarget.transform;
 
                         }
@@ -747,12 +749,14 @@ namespace ShiggyMod.Modules.Survivors
                 {
 					characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
 					alphacontructpassiveDef = true;
+					Shiggymastercon.alphacontructpassiveDef = true;
 				}
 			}
             else 
             {
 				alphacontructpassiveDef = false;
-            }
+				Shiggymastercon.alphacontructpassiveDef = false;
+			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "BEETLE_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "BEETLE_NAME"
 				| extraskillLocator.extraThird.skillNameToken == prefix + "BEETLE_NAME"
@@ -763,6 +767,7 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					characterBody.AddBuff(Modules.Buffs.beetleBuff);
 					beetlepassiveDef = true;
+					Shiggymastercon.beetlepassiveDef = true;
 
 				}
 			}
@@ -770,6 +775,7 @@ namespace ShiggyMod.Modules.Survivors
 			{
 				strengthMultiplier = 1f;
 				beetlepassiveDef = false;
+				Shiggymastercon.beetlepassiveDef = true;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "GUP_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "GUP_NAME"
@@ -780,12 +786,14 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					characterBody.AddBuff(Modules.Buffs.spikeBuff);
 					guppassiveDef = true;
+					Shiggymastercon.guppassiveDef = true;
 
 				}
 			}
 			else
 			{
 				guppassiveDef = false;
+				Shiggymastercon.guppassiveDef = true;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "LARVA_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "LARVA_NAME"
@@ -796,11 +804,13 @@ namespace ShiggyMod.Modules.Survivors
                 {
 					characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
 					larvapassiveDef = true;
-                }
+					Shiggymastercon.larvapassiveDef = true;
+				}
 			}
 			else
 			{
 				larvapassiveDef = false;
+				Shiggymastercon.alphacontructpassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "LESSERWISP_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "LESSERWISP_NAME"
@@ -812,12 +822,14 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
 					lesserwisppassiveDef = true;
+					Shiggymastercon.lesserwisppassiveDef = true;
 				}
 			}
 			else
 			{
 				rangedMultiplier = 1f;
 				lesserwisppassiveDef = false;
+				Shiggymastercon.lesserwisppassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "LUNAREXPLODER_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "LUNAREXPLODER_NAME"
@@ -828,11 +840,13 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
 					lunarexploderpassiveDef = true;
+					Shiggymastercon.lunarexploderpassiveDef = true;
 				}
 			}
 			else
 			{
 				lunarexploderpassiveDef = false;
+				Shiggymastercon.lunarexploderpassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "HERMITCRAB_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "HERMITCRAB_NAME"
@@ -843,11 +857,13 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
 					hermitcrabpassiveDef = true;
+					Shiggymastercon.hermitcrabpassiveDef = true;
 				}
 			}
 			else
 			{
 				hermitcrabpassiveDef = false;
+				Shiggymastercon.hermitcrabpassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "PEST_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "PEST_NAME"
@@ -858,11 +874,13 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
 					pestpassiveDef = true;
+					Shiggymastercon.pestpassiveDef = true;
 				}
 			}
 			else
 			{
 				pestpassiveDef = false;
+				Shiggymastercon.pestpassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "VERMIN_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "VERMIN_NAME"
@@ -873,11 +891,13 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
 					verminpassiveDef = true;
+					Shiggymastercon.verminpassiveDef = true;
 				}
 			}
 			else
 			{
 				verminpassiveDef = false;
+				Shiggymastercon.verminpassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "MINIMUSHRUM_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "MINIMUSHRUM_NAME"
@@ -888,11 +908,13 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
 					minimushrumpassiveDef = true;
+					Shiggymastercon.minimushrumpassiveDef = true;
 				}
 			}
 			else
 			{
 				minimushrumpassiveDef = false;
+				Shiggymastercon.minimushrumpassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "ROBOBALLMINI_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "ROBOBALLMINI_NAME"
@@ -903,11 +925,13 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
 					roboballminibpassiveDef = true;
+					Shiggymastercon.roboballminibpassiveDef = true;
 				}
 			}
 			else
 			{
 				alphacontructpassiveDef = false;
+				Shiggymastercon.roboballminibpassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "VOIDBARNACLE_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "VOIDBARNACLE_NAME"
@@ -918,11 +942,13 @@ namespace ShiggyMod.Modules.Survivors
 				{
 					characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
 					voidbarnaclepassiveDef = true;
+					Shiggymastercon.voidbarnaclepassiveDef = true;
 				}
 			}
 			else
 			{
 				voidbarnaclepassiveDef = false;
+				Shiggymastercon.voidbarnaclepassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "VOIDJAILER_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "VOIDJAILER_NAME"
@@ -933,12 +959,14 @@ namespace ShiggyMod.Modules.Survivors
                 {
 					characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
 					voidjailerpassiveDef = true;
+					Shiggymastercon.voidjailerpassiveDef = true;
 				}
 
 			}
 			else
 			{
 				voidjailerpassiveDef = false;
+				Shiggymastercon.voidjailerpassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "STONETITAN_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "STONETITAN_NAME"
@@ -949,12 +977,14 @@ namespace ShiggyMod.Modules.Survivors
                 {
 					characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
 					stonetitanpassiveDef = true;
+					Shiggymastercon.stonetitanpassiveDef = true;
 				}
 
 			}
 			else
 			{
 				stonetitanpassiveDef = false;
+				Shiggymastercon.stonetitanpassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "MAGMAWORM_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "MAGMAWORM_NAME"
@@ -965,12 +995,14 @@ namespace ShiggyMod.Modules.Survivors
                 {
 					characterBody.AddBuff(Modules.Buffs.magmawormBuff);
 					magmawormpassiveDef = true;
+					Shiggymastercon.magmawormpassiveDef = true;
 				}
 
 			}
 			else
 			{
 				magmawormpassiveDef = false;
+				Shiggymastercon.magmawormpassiveDef = false;
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "OVERLOADINGWORM_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "OVERLOADINGWORM_NAME"
@@ -981,12 +1013,14 @@ namespace ShiggyMod.Modules.Survivors
                 {
 					characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
 					overloadingwormpassiveDef = true;
+					Shiggymastercon.overloadingwormpassiveDef = true;
 				}
 
 			}
 			else
 			{
 				overloadingwormpassiveDef = false;
+				Shiggymastercon.overloadingwormpassiveDef = false;
 			}
 
 			//check active
@@ -998,11 +1032,13 @@ namespace ShiggyMod.Modules.Survivors
 				if (!alloyvultureflyDef)
 				{
 					alloyvultureflyDef = true;
+					Shiggymastercon.alloyvultureflyDef = true;
 				}
 			}
 			else
 			{
 				alloyvultureflyDef = false;
+				Shiggymastercon.alloyvultureflyDef = false;
 			}
 			if (characterBody.skillLocator.primary.skillNameToken == prefix + "BEETLEGUARD_NAME"
 				| characterBody.skillLocator.secondary.skillNameToken == prefix + "BEETLEGUARD_NAME"
@@ -1012,11 +1048,13 @@ namespace ShiggyMod.Modules.Survivors
 				if (!beetleguardslamDef)
 				{
 					beetleguardslamDef = true;
+					Shiggymastercon.beetleguardslamDef = true;
 				}
 			}
 			else
 			{
 				beetleguardslamDef = false;
+				Shiggymastercon.beetleguardslamDef = false;
 			}
 			if (characterBody.skillLocator.primary.skillNameToken == prefix + "BRONZONG_NAME"
 				| characterBody.skillLocator.secondary.skillNameToken == prefix + "BRONZONG_NAME"
@@ -1026,11 +1064,13 @@ namespace ShiggyMod.Modules.Survivors
 				if (!bronzongballDef)
 				{
 					bronzongballDef = true;
+					Shiggymastercon.bronzongballDef = true;
 				}
 			}
 			else
 			{
 				bronzongballDef = false;
+				Shiggymastercon.bronzongballDef = false;
 			}
 			if (characterBody.skillLocator.primary.skillNameToken == prefix + "APOTHECARY_NAME"
 				| characterBody.skillLocator.secondary.skillNameToken == prefix + "APOTHECARY_NAME"
@@ -1040,11 +1080,13 @@ namespace ShiggyMod.Modules.Survivors
 				if (!clayapothecarymortarDef)
 				{
 					clayapothecarymortarDef = true;
+					Shiggymastercon.clayapothecarymortarDef = true;
 				}
 			}
 			else
 			{
 				clayapothecarymortarDef = false;
+				Shiggymastercon.clayapothecarymortarDef = false;
 			}
 			if (characterBody.skillLocator.primary.skillNameToken == prefix + "TEMPLAR_NAME"
 				| characterBody.skillLocator.secondary.skillNameToken == prefix + "TEMPLAR_NAME"
@@ -1054,11 +1096,13 @@ namespace ShiggyMod.Modules.Survivors
 				if (!claytemplarminigunDef)
 				{
 					claytemplarminigunDef = true;
+					Shiggymastercon.claytemplarminigunDef = true;
 				}
 			}
 			else
 			{
 				claytemplarminigunDef = false;
+				Shiggymastercon.claytemplarminigunDef = false;
 			}
 			if (characterBody.skillLocator.primary.skillNameToken == prefix + "GREATERWISP_NAME"
 				| characterBody.skillLocator.secondary.skillNameToken == prefix + "GREATERWISP_NAME"
@@ -1068,11 +1112,13 @@ namespace ShiggyMod.Modules.Survivors
 				if (!greaterwispballDef)
 				{
 					greaterwispballDef = true;
+					Shiggymastercon.greaterwispballDef = true;
 				}
 			}
 			else
 			{
 				greaterwispballDef = false;
+				Shiggymastercon.greaterwispballDef = false;
 			}
 			if (characterBody.skillLocator.primary.skillNameToken == prefix + "IMP_NAME"
 				| characterBody.skillLocator.secondary.skillNameToken == prefix + "IMP_NAME"
@@ -1271,9 +1317,9 @@ namespace ShiggyMod.Modules.Survivors
 				voiddevastatorhomingDef = false;
 			}
 			if (characterBody.skillLocator.primary.skillNameToken == prefix + "SCAVENGER_NAME"
-				| characterBody.skillLocator.secondary.skillNameToken == prefix + "MINIMUSHRUM_NAME"
-				| characterBody.skillLocator.utility.skillNameToken == prefix + "MINIMUSHRUM_NAME"
-				| characterBody.skillLocator.special.skillNameToken == prefix + "MINIMUSHRUM_NAME")
+				| characterBody.skillLocator.secondary.skillNameToken == prefix + "SCAVENGER_NAME"
+				| characterBody.skillLocator.utility.skillNameToken == prefix + "SCAVENGER_NAME"
+				| characterBody.skillLocator.special.skillNameToken == prefix + "SCAVENGER_NAME")
 			{
 				if (!scavengerthqwibDef)
 				{

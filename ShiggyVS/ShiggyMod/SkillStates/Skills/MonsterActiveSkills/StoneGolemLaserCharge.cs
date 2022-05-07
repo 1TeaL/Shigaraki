@@ -151,7 +151,7 @@ namespace ShiggyMod.SkillStates
 			if (flag)
 			{
 				this.chargePercent = base.fixedAge / this.maxCharge;
-				this.damageCoefficient = Modules.StaticValues.stonegolemDamageCoeffecient + 2f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoeffecient);
+				this.damageCoefficient = Modules.StaticValues.stonegolemDamageCoeffecient + 1.5f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoeffecient);
 				this.radius = (this.baseRadius * this.damageCoefficient + 20f) / 4f;
 			}
             else

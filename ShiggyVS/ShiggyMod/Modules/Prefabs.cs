@@ -96,8 +96,6 @@ namespace ShiggyMod.Modules
             bodyComponent.bodyFlags |= CharacterBody.BodyFlags.ImmuneToExecutes;
             bodyComponent.bodyFlags |= CharacterBody.BodyFlags.SprintAnyDirection;
 
-            bodyComponent.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
-
             bodyComponent.rootMotionInMainState = false;
 
             bodyComponent.baseMaxHealth = bodyInfo.maxHealth;

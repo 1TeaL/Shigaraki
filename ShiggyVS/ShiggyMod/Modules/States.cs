@@ -41,6 +41,27 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(XiConstructBeam));
             entityStates.Add(typeof(VoidDevastatorHoming));
             entityStates.Add(typeof(ScavengerThqwibs));
+
+
+            entityStates.Add(typeof(AlphaConstruct));
+            entityStates.Add(typeof(Beetle));
+            entityStates.Add(typeof(BlindPest));
+            entityStates.Add(typeof(BlindVermin));
+            entityStates.Add(typeof(Gup));
+            entityStates.Add(typeof(HermitCrab));
+            entityStates.Add(typeof(ScavengerThqwibs));
+            entityStates.Add(typeof(Larva));
+            entityStates.Add(typeof(LesserWisp));
+            entityStates.Add(typeof(LunarExploder));
+            entityStates.Add(typeof(MiniMushrum));
+            entityStates.Add(typeof(RoboBallMini));
+            entityStates.Add(typeof(VoidBarnacle));
+            entityStates.Add(typeof(VoidJailer));
+
+            entityStates.Add(typeof(MagmaWorm));
+            entityStates.Add(typeof(OverloadingWorm));
+            entityStates.Add(typeof(StoneTitan));
+            entityStates.Add(typeof(Vagrant));
         }
     }
 }

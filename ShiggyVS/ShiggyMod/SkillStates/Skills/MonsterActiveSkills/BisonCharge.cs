@@ -163,7 +163,17 @@ namespace ShiggyMod.SkillStates
 					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
                     Util.PlaySound(EntityStates.Bison.Headbutt.attackSoundString, base.gameObject);
-                    ApplyDoT();
+
+					if (base.HasBuff(Modules.Buffs.multiplierBuff))
+					{
+						ApplyDoT();
+						ApplyDoT();
+						ApplyDoT();
+					}
+					else
+					{
+						ApplyDoT();
+					}
 					if (blastAttack.Fire().hitCount > 0)
 					{
 						this.OnHitEnemyAuthority();

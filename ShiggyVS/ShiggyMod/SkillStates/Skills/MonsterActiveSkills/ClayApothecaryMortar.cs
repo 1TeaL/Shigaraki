@@ -152,8 +152,18 @@ namespace ShiggyMod.SkillStates
 					base.healthComponent.TakeDamage(damageInfo);
 				}
 				if (base.isAuthority)
-				{
-					if (this.modelTransform)
+                {
+                    if (base.HasBuff(Modules.Buffs.multiplierBuff))
+                    {
+                        ApplyDoT();
+                        ApplyDoT();
+                        ApplyDoT();
+                    }
+                    else
+                    {
+                        ApplyDoT();
+                    }
+                    if (this.modelTransform)
 					{
 						Transform transform = base.FindModelChild("Chest");
 						if (transform)
@@ -171,7 +181,6 @@ namespace ShiggyMod.SkillStates
 							this.attack.damageType = damageType;
 							this.attack.Fire();
 						}
-                        ApplyDoT();
 					}
 					Vector3 position = footPosition;
 					Vector3 up = Vector3.up;

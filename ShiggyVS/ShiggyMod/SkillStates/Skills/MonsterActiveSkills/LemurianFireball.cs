@@ -19,6 +19,7 @@ namespace ShiggyMod.SkillStates
         private float damageCoefficient = Modules.StaticValues.lemurianfireballDamageCoeffecient;
         private float force = 1f;
         private float speedOverride = -1f;
+        private GameObject chargeVfxInstance;
 
         public override void OnEnter()
         {
@@ -28,6 +29,12 @@ namespace ShiggyMod.SkillStates
 
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "LHand";
+
+            if (transform && ChargeFireball.chargeVfxPrefab)
+            {
+                this.chargeVfxInstance = UnityEngine.Object.Instantiate<GameObject>(ChargeFireball.chargeVfxPrefab, FindModelChild(this.muzzleString).position, Util.QuaternionSafeLookRotation(aimRay.direction));
+                this.chargeVfxInstance.transform.parent = FindModelChild(this.muzzleString).transform;
+            }
 
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
             {
@@ -87,6 +94,10 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            if (this.chargeVfxInstance)
+            {
+                EntityState.Destroy(this.chargeVfxInstance);
+            }
         }
 
 

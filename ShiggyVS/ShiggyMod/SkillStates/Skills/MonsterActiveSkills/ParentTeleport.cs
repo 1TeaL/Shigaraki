@@ -96,8 +96,17 @@ namespace ShiggyMod.SkillStates
                     scale = radius,
                 }, true);
 
+                if (base.HasBuff(Modules.Buffs.multiplierBuff))
+                {
+                    ApplyDoT();
+                    ApplyDoT();
+                    ApplyDoT();
+                }
+                else
+                {
+                    ApplyDoT();
+                }
                 blastAttack.Fire();
-                ApplyDoT();
                 
             }
 

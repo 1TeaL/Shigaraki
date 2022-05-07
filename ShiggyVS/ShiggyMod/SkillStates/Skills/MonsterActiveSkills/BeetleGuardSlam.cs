@@ -192,7 +192,16 @@ namespace ShiggyMod.SkillStates
                 blastAttack.damageType = damageType;
                 blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
-                ApplyDoT();
+                if (base.HasBuff(Modules.Buffs.multiplierBuff))
+                {
+                    ApplyDoT();
+                    ApplyDoT();
+                    ApplyDoT();
+                }
+                else
+                {
+                    ApplyDoT();
+                }
                 if (blastAttack.Fire().hitCount > 0)
                 {
                     this.OnHitEnemyAuthority();

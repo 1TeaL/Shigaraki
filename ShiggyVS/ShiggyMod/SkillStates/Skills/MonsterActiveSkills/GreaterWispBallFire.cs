@@ -77,50 +77,17 @@ namespace ShiggyMod.SkillStates
             if (base.fixedAge >= this.fireTime && base.isAuthority && !hasFired)
             {
                 hasFired = true;
-                Ray aimRay = base.GetAimRay();
-                //base.PlayAnimation("Gesture", "FireCannons", "FireCannons.playbackRate", this.duration);
-                if (base.isAuthority && base.modelLocator && base.modelLocator.modelTransform)
+                if (base.HasBuff(Modules.Buffs.multiplierBuff))
                 {
-                    ChildLocator component = base.modelLocator.modelTransform.GetComponent<ChildLocator>();
-                    if (component)
-                    {
-                        int childIndex = component.FindChildIndex(LHand);
-                        int childIndex2 = component.FindChildIndex(RHand);
-                        Transform transform = component.FindChild(childIndex);
-                        Transform transform2 = component.FindChild(childIndex2);
-                        if (transform)
-                        {
-
-                            ProjectileManager.instance.FireProjectile(
-                                Modules.Assets.greaterwispBall, //prefab
-                                transform.position, //position
-                                Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
-                                base.gameObject, //owner
-                                this.damageStat * damageCoefficient, //damage
-                                force, //force
-                                Util.CheckRoll(this.critStat, base.characterBody.master), //crit
-                                DamageColorIndex.Default, //damage color
-                                null, //target
-                                speedOverride); //speed }}                        
-                        }
-                        if (transform2)
-                        {
-
-                            ProjectileManager.instance.FireProjectile(
-                                Modules.Assets.greaterwispBall, //prefab
-                                transform2.position, //position
-                                Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
-                                base.gameObject, //owner
-                                this.damageStat * damageCoefficient, //damage
-                                force, //force
-                                Util.CheckRoll(this.critStat, base.characterBody.master), //crit
-                                DamageColorIndex.Default, //damage color
-                                null, //target
-                                speedOverride); //speed }}
-                        }
-
-                    }
+                    FireSpiritBall();
+                    FireSpiritBall();
+                    FireSpiritBall();
                 }
+                else
+                {
+                    FireSpiritBall();
+                }
+
             }
 
             if (base.fixedAge >= this.duration && base.isAuthority)
@@ -130,7 +97,53 @@ namespace ShiggyMod.SkillStates
             }
         }
 
+        public void FireSpiritBall()
+        {
+            Ray aimRay = base.GetAimRay();
+            //base.PlayAnimation("Gesture", "FireCannons", "FireCannons.playbackRate", this.duration);
+            if (base.isAuthority && base.modelLocator && base.modelLocator.modelTransform)
+            {
+                ChildLocator component = base.modelLocator.modelTransform.GetComponent<ChildLocator>();
+                if (component)
+                {
+                    int childIndex = component.FindChildIndex(LHand);
+                    int childIndex2 = component.FindChildIndex(RHand);
+                    Transform transform = component.FindChild(childIndex);
+                    Transform transform2 = component.FindChild(childIndex2);
+                    if (transform)
+                    {
 
+                        ProjectileManager.instance.FireProjectile(
+                            Modules.Assets.greaterwispBall, //prefab
+                            transform.position, //position
+                            Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
+                            base.gameObject, //owner
+                            this.damageStat * damageCoefficient, //damage
+                            force, //force
+                            Util.CheckRoll(this.critStat, base.characterBody.master), //crit
+                            DamageColorIndex.Default, //damage color
+                            null, //target
+                            speedOverride); //speed }}                        
+                    }
+                    if (transform2)
+                    {
+
+                        ProjectileManager.instance.FireProjectile(
+                            Modules.Assets.greaterwispBall, //prefab
+                            transform2.position, //position
+                            Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
+                            base.gameObject, //owner
+                            this.damageStat * damageCoefficient, //damage
+                            force, //force
+                            Util.CheckRoll(this.critStat, base.characterBody.master), //crit
+                            DamageColorIndex.Default, //damage color
+                            null, //target
+                            speedOverride); //speed }}
+                    }
+
+                }
+            }
+        }
 
 
         public override InterruptPriority GetMinimumInterruptPriority()
