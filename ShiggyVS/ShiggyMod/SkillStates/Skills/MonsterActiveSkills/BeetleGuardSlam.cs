@@ -226,7 +226,7 @@ namespace ShiggyMod.SkillStates
                 this.slamIndicatorInstance.SetActive(false);
             EntityState.Destroy(this.slamIndicatorInstance);
 
-            base.PlayAnimation("FullBody, Override", "BufferEmpty");
+            //base.PlayAnimation("FullBody, Override", "BufferEmpty");
 
 
             base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;

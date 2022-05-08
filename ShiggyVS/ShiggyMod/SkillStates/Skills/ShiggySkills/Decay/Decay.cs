@@ -71,6 +71,9 @@ namespace ShiggyMod.SkillStates
             this.animator = base.GetModelAnimator();
             this.animator.SetBool("attacking", true);
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", fireTime * 2f, 0.1f);
+
             HitBoxGroup hitBoxGroup = null;
             HitBoxGroup hitBoxGroup2 = null;
             Transform modelTransform = base.GetModelTransform();

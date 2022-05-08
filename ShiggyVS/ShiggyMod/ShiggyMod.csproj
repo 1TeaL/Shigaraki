@@ -20,6 +20,7 @@
     <None Remove="Shiggy.bnk" />
     <None Remove="ShiggyAssetBundle" />
     <None Remove="Modules\Survivors\DekuHenryDeku.cs~RF6221a098.TMP" />
+    <None Remove="SkillStates\Skills\MonsterPassiveSkills\LunarExploder.cs~RF19a1c105.TMP" />
   </ItemGroup>
 
   <ItemGroup>

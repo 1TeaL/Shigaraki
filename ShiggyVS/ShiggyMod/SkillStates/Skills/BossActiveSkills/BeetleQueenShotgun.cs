@@ -45,7 +45,9 @@ namespace ShiggyMod.SkillStates
             string muzzleName = "RHand";
             this.duration = baseDuration / this.attackSpeedStat;
             EffectManager.SimpleMuzzleFlash(FireSpit.effectPrefab, base.gameObject, muzzleName, false);
-            
+
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
             //base.PlayCrossfade("Gesture", "FireSpit", "FireSpit.playbackRate", this.duration, 0.1f);
             float magnitude = projectileHSpeed;
             Ray ray = aimRay;
@@ -100,6 +102,8 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+            PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
         }
 
 

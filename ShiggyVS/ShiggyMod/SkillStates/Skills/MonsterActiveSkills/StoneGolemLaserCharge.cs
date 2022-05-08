@@ -42,6 +42,9 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
+			base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+			PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration, 0.1f);
+
 			float[] source = new float[]
 			{
 				this.attackSpeedStat,

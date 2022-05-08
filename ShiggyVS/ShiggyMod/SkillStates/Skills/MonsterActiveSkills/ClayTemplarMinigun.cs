@@ -42,6 +42,8 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "RHand";
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
 
             this.baseFireRate = 1f / baseFireInterval;
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
@@ -75,6 +77,9 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+
+            PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+            PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             Util.PlaySound(MinigunFire.endSound, base.gameObject);
             //if (this.muzzleVfxTransform)
             //{

@@ -41,6 +41,9 @@ namespace ShiggyMod.SkillStates
             this.duration = this.baseDuration / this.attackSpeedStat;
             base.characterBody.SetAimTimer(this.duration);
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration, 0.1f);
+
             EffectManager.SimpleMuzzleFlash(Modules.Assets.xiconstructbeamEffect, base.gameObject, muzzleString, false);
             if (this.loopSoundDef)
             {
@@ -147,6 +150,8 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
+            PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+            PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             base.OnExit();
             LoopSoundManager.StopSoundLoopLocal(this.loopPtr);
             mainBeam.Stop();

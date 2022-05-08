@@ -38,12 +38,13 @@ namespace ShiggyMod.Modules
         public static GameObject VoidFiendBeamTracer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
 
         //buffs
-        public static BuffDef mendingelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/EliteEarth/bdEliteEarth.asset").WaitForCompletion();
-        public static BuffDef voidelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/EliteVoid/bdEliteVoid.asset").WaitForCompletion();
+        //public static BuffDef mendingelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/EliteEarth/bdEliteEarth.asset").WaitForCompletion();
+        //public static BuffDef voidelitebuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/EliteVoid/bdEliteVoid.asset").WaitForCompletion();
 
 
         //public static Material alphaconstructShieldBuff = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
         public static Material alphaconstructShieldBuff;
+        public static Material multiplierShieldBuff;
 
         public static GameObject bisonEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bison/BisonChargeStep.prefab").WaitForCompletion();
         public static GameObject GupSpikeEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GupExplosion.prefab").WaitForCompletion();
@@ -114,10 +115,15 @@ namespace ShiggyMod.Modules
             alphaconstructShieldBuff = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
             alphaconstructShieldBuff.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
 
+
+
             //xiconstruct beam effect
             beam = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("XiConstructBeam");
             beam.AddComponent<NetworkIdentity>();
             networkObjDefs.Add(beam);
+
+            multiplierShieldBuff = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
+
             PrefabAPI.RegisterNetworkPrefab(beam);
 
             //Shiggy Equipment prefab

@@ -57,6 +57,9 @@ namespace ShiggyMod.SkillStates
             Util.PlayAttackSpeedSound(FireHook.soundString, base.gameObject, this.attackSpeedStat);
             EffectManager.SimpleMuzzleFlash(FireHook.muzzleflashEffectPrefab, base.gameObject, muzzleString, false);
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
+
             this.FireSingleHook(aimRay, 0f, 0f);
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -81,6 +84,8 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+            PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
         }
 
 

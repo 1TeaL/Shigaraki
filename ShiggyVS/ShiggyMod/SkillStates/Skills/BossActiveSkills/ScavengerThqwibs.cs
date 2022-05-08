@@ -51,6 +51,8 @@ namespace ShiggyMod.SkillStates
                 projectileCount = Modules.StaticValues.scavengerProjectileCount;
             }
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
             this.Fire();
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -109,6 +111,8 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+            PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
         }
 
 

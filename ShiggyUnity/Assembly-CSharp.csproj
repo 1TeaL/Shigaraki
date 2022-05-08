@@ -186,6 +186,7 @@
      <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVODownsample2.compute" />
      <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScalableAO.hlsl" />
      <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_twist.props.txt" />
+     <None Include="Assets\Shigaraki\Assets\Material\Panner.shader" />
      <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_000.props.txt" />
      <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flow_000.props.txt" />
      <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_stealth_01.props.txt" />

@@ -43,6 +43,8 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(2f);
             this.muzzleString = "LHand";
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
 
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
             {

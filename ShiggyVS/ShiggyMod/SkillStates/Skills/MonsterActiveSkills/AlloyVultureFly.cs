@@ -47,6 +47,9 @@ namespace ShiggyMod.SkillStates
             base.characterMotor.useGravity = false;
             base.characterMotor.Motor.RebuildCollidableLayers();
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("Body", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
+            PlayCrossfade("Body", "Jump", 0.1f);
 
             bool active = NetworkServer.active;
             if (active)

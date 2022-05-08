@@ -51,6 +51,8 @@ namespace ShiggyMod.SkillStates
             //    EffectManager.SimpleMuzzleFlash(FireVoidMissiles.muzzleEffectPrefab, base.gameObject, MuzzleString, false);
             //}
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.rangedMultiplier;
         }
@@ -95,6 +97,8 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+            PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
         }
 
 

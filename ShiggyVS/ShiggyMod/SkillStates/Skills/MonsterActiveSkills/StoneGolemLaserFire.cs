@@ -38,6 +38,8 @@ namespace ShiggyMod.SkillStates
 			Util.PlaySound(FireLaser.attackSoundString, base.gameObject);
 			string text = "LHand";
 
+			base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+			PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
 			//base.PlayAnimation("Gesture", "FireLaser", "FireLaser.playbackRate", this.duration);
 			if (FireLaser.effectPrefab)
 			{
@@ -93,7 +95,9 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-        }
+			PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+			PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+		}
 
 
         public override void FixedUpdate()

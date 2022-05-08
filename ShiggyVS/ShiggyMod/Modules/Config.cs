@@ -5,15 +5,12 @@ namespace ShiggyMod.Modules
 {
     public static class Config
     {
-        public static ConfigEntry<bool> choiceOnTeammate;
-        public static ConfigEntry<bool> copyLoadout;
-        public static ConfigEntry<bool> copyHealth;
-        public static ConfigEntry<bool> bossTimer;
+        public static ConfigEntry<bool> retainLoadout;
 
         public static void ReadConfig()
         {
             //choiceOnTeammate = ShiggyPlugin.instance.Config.Bind("General", "Get Buffs From Teammates",true, "Whether you should get your Shiggy buffs when transforming into a teammate.");
-            //copyLoadout = ShiggyPlugin.instance.Config.Bind("General", "Copy loadout on transform",true, "Should you copy the loadout of characters you transform into.");
+            retainLoadout = ShiggyPlugin.instance.Config.Bind("General", "Retain loadout across stages", true, "Should you retain your stolen quirks across stages and respawns.");
             //copyHealth = ShiggyPlugin.instance.Config.Bind("General", "Copy fractional health",true, "Should you copy the fractional health of your previous state when transforming.");
             //bossTimer = ShiggyPlugin.instance.Config.Bind("General", "Adds timers to Boss transformations", true, "Should you add a timer to bosses when transforming.");
         }

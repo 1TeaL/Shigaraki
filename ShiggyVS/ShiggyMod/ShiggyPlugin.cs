@@ -488,6 +488,7 @@ namespace ShiggyMod
                 if (self.body)
                 {
                     this.OverlayFunction(Modules.Assets.alphaconstructShieldBuff, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
+                    this.OverlayFunction(Modules.Assets.multiplierShieldBuff, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
                 }
             }
         }

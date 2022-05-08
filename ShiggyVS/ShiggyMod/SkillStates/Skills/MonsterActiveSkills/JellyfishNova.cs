@@ -51,6 +51,8 @@ namespace ShiggyMod.SkillStates
             }
             theSpot = Target.healthComponent.body.corePosition;
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
             Transform modelTransform = base.GetModelTransform();
             //base.PlayCrossfade("Body", "Nova", "Nova.playbackRate", this.duration, 0.1f);
             this.soundID = Util.PlaySound(JellyNova.chargingSoundString, base.gameObject);
@@ -77,6 +79,8 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+            PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             AkSoundEngine.StopPlayingID(this.soundID);
             if (this.chargeEffect)
             {

@@ -30,6 +30,8 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "LHand";
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
             if (transform && ChargeFireball.chargeVfxPrefab)
             {
                 this.chargeVfxInstance = UnityEngine.Object.Instantiate<GameObject>(ChargeFireball.chargeVfxPrefab, FindModelChild(this.muzzleString).position, Util.QuaternionSafeLookRotation(aimRay.direction));
@@ -94,6 +96,8 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+            PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             if (this.chargeVfxInstance)
             {
                 EntityState.Destroy(this.chargeVfxInstance);

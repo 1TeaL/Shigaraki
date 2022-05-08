@@ -22,7 +22,7 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride =1f;
         private string muzzleString;
-        private int bulletcount;
+        private uint bulletcount;
 
         public override void OnEnter()
         {
@@ -33,7 +33,9 @@ namespace ShiggyMod.SkillStates
 
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
-
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("LeftArm, Override", "LeftArmPunch","Attack.playbackRate", fireTime*2f, 0.1f);
+            this.muzzleString = "LFinger";
             EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
 
 
@@ -63,11 +65,10 @@ namespace ShiggyMod.SkillStates
             {
                 hasFired = true;
 
-                this.muzzleString = "LFinger";
                 Ray aimRay = base.GetAimRay();
                 var bulletAttack = new BulletAttack
                 {
-                    bulletCount = (uint)(bulletcount),
+                    bulletCount = bulletcount,
                     aimVector = aimRay.direction,
                     origin = FindModelChild(this.muzzleString).position,
                     damage = this.damageStat * damageCoefficient,
