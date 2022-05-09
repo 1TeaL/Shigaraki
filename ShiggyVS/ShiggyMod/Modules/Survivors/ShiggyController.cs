@@ -104,6 +104,10 @@ namespace ShiggyMod.Modules.Survivors
 		public bool voiddevastatorhomingDef;
 		public bool scavengerthqwibDef;
 
+        public bool hasExtra1;
+        public bool hasExtra2;
+        public bool hasExtra3;
+        public bool hasExtra4;
         public bool hasQuirk;
         public float quirkTimer;
 
@@ -167,6 +171,10 @@ namespace ShiggyMod.Modules.Survivors
 			scavengerthqwibDef = false;
 
             hasQuirk = false;
+            hasExtra1 = false;
+            hasExtra2 = false;
+            hasExtra3 = false;
+            hasExtra4 = false;
 
         }
 
@@ -312,6 +320,11 @@ namespace ShiggyMod.Modules.Survivors
                 if (quirkTimer > 1f)
                 {
                     hasQuirk = false;
+                    hasExtra1 = false;
+                    hasExtra2 = false;
+                    hasExtra3 = false;
+                    hasExtra4 = false;
+
                 }
 
             }
@@ -320,8 +333,6 @@ namespace ShiggyMod.Modules.Survivors
                 StealQuirk(trackingTarget);
             }
 
-            //check quirks
-            CheckQuirks();
 
             //overloadingworm buff
             if (characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
@@ -795,11 +806,11 @@ namespace ShiggyMod.Modules.Survivors
 				| extraskillLocator.extraThird.skillNameToken == prefix + "GUP_NAME"
 				| extraskillLocator.extraFourth.skillNameToken == prefix + "GUP_NAME")
 			{
-				characterBody.AddBuff(Modules.Buffs.spikeBuff);
+				characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
 			}
 			else
 			{
-				characterBody.RemoveBuff(Modules.Buffs.spikeBuff);
+				characterBody.RemoveBuff(Modules.Buffs.gupspikeBuff);
 			}
 			if (extraskillLocator.extraFirst.skillNameToken == prefix + "LARVA_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "LARVA_NAME"
@@ -1367,8 +1378,12 @@ namespace ShiggyMod.Modules.Survivors
 
 		public  void Update()
 		{
+            //update mortar indicator
 			if (this.mortarIndicatorInstance) this.UpdateIndicator();
-		}
+
+            //check quirks
+            CheckQuirks();
+        }
 
 		private void UpdateIndicator()
 		{
@@ -1534,9 +1549,9 @@ namespace ShiggyMod.Modules.Survivors
 
             Shiggymastercon = characterBody.master.gameObject.GetComponent<ShiggyMasterController>();
 
-            if (extrainputBankTest.extraSkill1.down)
+            if (extrainputBankTest.extraSkill1.down && !hasExtra1)
             {
-
+                hasExtra1 = true;
                 if (hurtBox.healthComponent.body.isElite)
                 {
                     if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixBlue))
@@ -1598,6 +1613,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1608,6 +1624,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.beetleBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1638,6 +1655,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1648,6 +1666,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1688,6 +1707,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 0);
+                    characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1708,6 +1728,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1738,6 +1759,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 0);
+                    characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1758,6 +1780,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1768,6 +1791,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1798,6 +1822,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1818,6 +1843,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 0);
+                    characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1838,6 +1864,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1848,6 +1875,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
                     RemovePrimary();
                     characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1880,6 +1908,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1900,6 +1929,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.vagrantBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1910,6 +1940,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.magmawormBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1920,6 +1951,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 4);
+                    characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1982,10 +2014,9 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (extrainputBankTest.extraSkill2.down)
+            if (extrainputBankTest.extraSkill2.down && !hasExtra2)
             {
-
-
+                hasExtra2 = true;
                 if (hurtBox.healthComponent.body.isElite)
                 {
                     if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixBlue))
@@ -2046,6 +2077,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2056,6 +2088,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.beetleBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2086,6 +2119,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2096,6 +2130,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2136,6 +2171,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 1);
+                    characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2156,6 +2192,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2186,6 +2223,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 1);
+                    characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2206,6 +2244,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2216,6 +2255,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2246,6 +2286,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2266,6 +2307,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 1);
+                    characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2286,6 +2328,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2296,6 +2339,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
                     RemoveSecondary();
                     characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2328,6 +2372,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2348,6 +2393,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.vagrantBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2358,6 +2404,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.magmawormBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2368,6 +2415,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 5);
+                    characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2427,11 +2475,11 @@ namespace ShiggyMod.Modules.Survivors
                     //Shiggymastercon.transformed = false;
                     Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
                 }
+
             }
-            if (extrainputBankTest.extraSkill3.down)
+            if (extrainputBankTest.extraSkill3.down && !hasExtra3)
             {
-
-
+                hasExtra3 = true;
                 if (hurtBox.healthComponent.body.isElite)
                 {
                     if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixBlue))
@@ -2492,6 +2540,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2502,6 +2551,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.beetleBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2532,6 +2582,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2542,6 +2593,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2582,6 +2634,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 2);
+                    characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2602,6 +2655,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2632,6 +2686,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 2);
+                    characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2652,6 +2707,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2662,6 +2718,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2692,6 +2749,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2712,6 +2770,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 2);
+                    characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2732,6 +2791,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2742,6 +2802,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
                     RemoveUtility();
                     characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2774,6 +2835,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2794,6 +2856,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.vagrantBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2804,6 +2867,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.magmawormBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2814,6 +2878,7 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 6);
+                    characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2874,10 +2939,9 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
                 }
             }
-            if (extrainputBankTest.extraSkill4.down)
+            if (extrainputBankTest.extraSkill4.down && !hasExtra4)
             {
-
-
+                hasExtra4 = true;
                 if (hurtBox.healthComponent.body.isElite)
                 {
                     if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixBlue))
@@ -2928,8 +2992,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Flight Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.alloyvultureflyDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.alloyvultureflyDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "MinorConstructBody" | newbodyPrefab.name == "MinorConstructOnKillBody")
                 {
@@ -2938,7 +3002,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "BeetleBody")
@@ -2948,7 +3013,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.beetleBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "BeetleGuardBody")
@@ -2958,8 +3024,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Fast Drop Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "BisonBody")
                 {
@@ -2968,8 +3034,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Charging Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.bisonchargeDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "FlyingVerminBody")
                 {
@@ -2978,7 +3044,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "VerminBody")
@@ -2988,7 +3055,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "BellBody")
@@ -2998,8 +3066,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Spiked Ball Control Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "ClayGrenadierBody")
                 {
@@ -3008,8 +3076,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Clay AirStrike Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "ClayBruiserBody")
                 {
@@ -3018,8 +3086,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Clay Minigun Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "GupBody" | newbodyPrefab.name == "GipBody" | newbodyPrefab.name == "GeepBody")
                 {
@@ -3028,7 +3096,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 3);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "GreaterWispBody")
@@ -3038,8 +3107,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Spirit Ball Control Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.greaterwispballDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.greaterwispballDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "HermitCrabBody")
                 {
@@ -3048,7 +3117,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "ImpBody")
@@ -3058,8 +3128,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Blink Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "JellyfishBody")
                 {
@@ -3068,8 +3138,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.jellyfishnovaDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.jellyfishnovaDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "AcidLarvaBody")
                 {
@@ -3078,7 +3148,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 3);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "LemurianBody")
@@ -3088,8 +3159,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Fireball Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "WispBody")
                 {
@@ -3098,7 +3169,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "LunarExploderBody")
@@ -3108,7 +3180,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "LunarGolemBody")
@@ -3118,8 +3191,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Slide Reset Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.lunargolemslideDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.lunargolemslideDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "LunarWispBody")
                 {
@@ -3128,8 +3201,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Lunar Minigun Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "MiniMushroomBody")
                 {
@@ -3138,7 +3211,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "ParentBody")
@@ -3148,8 +3222,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Teleport Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "RoboBallMiniBody" | newbodyPrefab.name == "RoboBallGreenBuddyBody" | newbodyPrefab.name == "RoboBallRedBuddyBody")
                 {
@@ -3158,7 +3232,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 3);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "GolemBody")
@@ -3168,8 +3243,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Laser Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "VoidBarnacleBody")
                 {
@@ -3178,7 +3253,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "VoidJailerBody")
@@ -3188,8 +3264,9 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 7);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "NullifierBody")
                 {
@@ -3198,8 +3275,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Nullifier Artillery Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
 
 
@@ -3210,8 +3287,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Acid Shotgun Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
                 {
@@ -3220,7 +3297,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "GravekeeperBody")
@@ -3230,8 +3308,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Hook Shotgun Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "VagrantBody")
                 {
@@ -3240,7 +3318,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.vagrantBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "MagmaWormBody")
@@ -3250,7 +3329,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.magmawormBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "ElectricWormBody")
@@ -3260,7 +3340,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 7);
-                    RemoveExtra3();
+                    characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
+                    RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "ClayBossBody")
@@ -3270,8 +3351,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Rolling Clay Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "RoboBallBossBody" | newbodyPrefab.name == "SuperRoboBallBossBody")
                 {
@@ -3280,8 +3361,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Anti Gravity Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "MegaConstructBody")
                 {
@@ -3290,8 +3371,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Beam Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "VoidMegaCrabBody")
                 {
@@ -3300,8 +3381,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Void Missiles Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "ScavBody")
                 {
@@ -3310,8 +3391,8 @@ namespace ShiggyMod.Modules.Survivors
                     Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
 
                     Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 3);
-                    RemoveSpecial();
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
 
                 if (hasQuirk = false)

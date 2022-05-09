@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="135">
+	<RootPaths>
+		<ProjectRoot>F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\</ProjectRoot>
+		<SourceFilesRoot>F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="1010675052" Language="SFX" Hash="90751845">
+			<ObjectPath>\SoundBanks\Default Work Unit\Shiggy</ObjectPath>
+			<ShortName>Shiggy</ShortName>
+			<Path>Shiggy.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1201419547" Name="AFO" ObjectPath="\Events\Default Work Unit\AFO">
+					<IncludedMemoryFiles>
+						<File Id="227286841" Language="SFX">
+							<ShortName>0000000000000003.wav</ShortName>
+							<Path>SFX\0000000000000003_3F75BDB9.wem</Path>
+						</File>
+						<File Id="813714145" Language="SFX">
+							<ShortName>0000000000000054 [1].wav</ShortName>
+							<Path>SFX\0000000000000054 [1]_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1005306592" Language="SFX">
+							<ShortName>000000000000003f [1].wav</ShortName>
+							<Path>SFX\000000000000003f [1]_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2381833256" Name="AirCannon" ObjectPath="\Events\Default Work Unit\AirCannon">
+					<IncludedMemoryFiles>
+						<File Id="188799084" Language="SFX">
+							<ShortName>000000000000004e [1].wav</ShortName>
+							<Path>SFX\000000000000004e [1]_3F75BDB9.wem</Path>
+						</File>
+						<File Id="194972262" Language="SFX">
+							<ShortName>aircannon wind.wav</ShortName>
+							<Path>SFX\aircannon wind_3F75BDB9.wem</Path>
+						</File>
+						<File Id="484773553" Language="SFX">
+							<ShortName>jump2.wav</ShortName>
+							<Path>SFX\jump2_3F75BDB9.wem</Path>
+						</File>
+						<File Id="489375794" Language="SFX">
+							<ShortName>000000000000004d [1].wav</ShortName>
+							<Path>SFX\000000000000004d [1]_3F75BDB9.wem</Path>
+						</File>
+						<File Id="644075287" Language="SFX">
+							<ShortName>jump.wav</ShortName>
+							<Path>SFX\jump_3F75BDB9.wem</Path>
+						</File>
+						<File Id="851262434" Language="SFX">
+							<ShortName>0000000000000053 [1].wav</ShortName>
+							<Path>SFX\0000000000000053 [1]_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1005306592" Language="SFX">
+							<ShortName>000000000000003f [1].wav</ShortName>
+							<Path>SFX\000000000000003f [1]_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="180661997" Name="Attack" ObjectPath="\Events\Default Work Unit\Attack">
+					<IncludedMemoryFiles>
+						<File Id="99312034" Language="SFX">
+							<ShortName>0000000000000001 (5).wav</ShortName>
+							<Path>SFX\0000000000000001 (5)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="205555053" Language="SFX">
+							<ShortName>0000000000000000 (2).wav</ShortName>
+							<Path>SFX\0000000000000000 (2)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="367081072" Language="SFX">
+							<ShortName>0000000000000002 (4).wav</ShortName>
+							<Path>SFX\0000000000000002 (4)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="391539909" Language="SFX">
+							<ShortName>butsubusu attack.wav</ShortName>
+							<Path>SFX\butsubusu attack_3F75BDB9.wem</Path>
+						</File>
+						<File Id="416346252" Language="SFX">
+							<ShortName>geh2 attack.wav</ShortName>
+							<Path>SFX\geh2 attack_3F75BDB9.wem</Path>
+						</File>
+						<File Id="565468943" Language="SFX">
+							<ShortName>geh attack.wav</ShortName>
+							<Path>SFX\geh attack_3F75BDB9.wem</Path>
+						</File>
+						<File Id="597136134" Language="SFX">
+							<ShortName>0000000000000000 (7).wav</ShortName>
+							<Path>SFX\0000000000000000 (7)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="621817308" Language="SFX">
+							<ShortName>0000000000000052 [1].wav</ShortName>
+							<Path>SFX\0000000000000052 [1]_3F75BDB9.wem</Path>
+						</File>
+						<File Id="622034393" Language="SFX">
+							<ShortName>geh3 attack.wav</ShortName>
+							<Path>SFX\geh3 attack_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1005306592" Language="SFX">
+							<ShortName>000000000000003f [1].wav</ShortName>
+							<Path>SFX\000000000000003f [1]_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1019073357" Language="SFX">
+							<ShortName>0000000000000002 (5).wav</ShortName>
+							<Path>SFX\0000000000000002 (5)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1024931971" Language="SFX">
+							<ShortName>quick voice attack.wav</ShortName>
+							<Path>SFX\quick voice attack_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="779278001" Name="Death" ObjectPath="\Events\Default Work Unit\Death">
+					<IncludedMemoryFiles>
+						<File Id="51381664" Language="SFX">
+							<ShortName>death guah4.wav</ShortName>
+							<Path>SFX\death guah4_3F75BDB9.wem</Path>
+						</File>
+						<File Id="181664772" Language="SFX">
+							<ShortName>000000000000000e.wav</ShortName>
+							<Path>SFX\000000000000000e_3F75BDB9.wem</Path>
+						</File>
+						<File Id="324721484" Language="SFX">
+							<ShortName>death gameover2.wav</ShortName>
+							<Path>SFX\death gameover2_3F75BDB9.wem</Path>
+						</File>
+						<File Id="367081072" Language="SFX">
+							<ShortName>0000000000000002 (4).wav</ShortName>
+							<Path>SFX\0000000000000002 (4)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="408079690" Language="SFX">
+							<ShortName>000000000000000d.wav</ShortName>
+							<Path>SFX\000000000000000d_3F75BDB9.wem</Path>
+						</File>
+						<File Id="447291166" Language="SFX">
+							<ShortName>death guah2.wav</ShortName>
+							<Path>SFX\death guah2_3F75BDB9.wem</Path>
+						</File>
+						<File Id="478550982" Language="SFX">
+							<ShortName>death cheat.wav</ShortName>
+							<Path>SFX\death cheat_3F75BDB9.wem</Path>
+						</File>
+						<File Id="725948295" Language="SFX">
+							<ShortName>death strong.wav</ShortName>
+							<Path>SFX\death strong_3F75BDB9.wem</Path>
+						</File>
+						<File Id="754321419" Language="SFX">
+							<ShortName>0000000000000001 (3).wav</ShortName>
+							<Path>SFX\0000000000000001 (3)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="812354305" Language="SFX">
+							<ShortName>death guah.wav</ShortName>
+							<Path>SFX\death guah_3F75BDB9.wem</Path>
+						</File>
+						<File Id="848279979" Language="SFX">
+							<ShortName>checkmate death.wav</ShortName>
+							<Path>SFX\checkmate death_3F75BDB9.wem</Path>
+						</File>
+						<File Id="898596964" Language="SFX">
+							<ShortName>0000000000000001.wav</ShortName>
+							<Path>SFX\0000000000000001_3F75BDB9.wem</Path>
+						</File>
+						<File Id="950782130" Language="SFX">
+							<ShortName>death hurt.wav</ShortName>
+							<Path>SFX\death hurt_3F75BDB9.wem</Path>
+						</File>
+						<File Id="993437681" Language="SFX">
+							<ShortName>death guah3.wav</ShortName>
+							<Path>SFX\death guah3_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1001321095" Language="SFX">
+							<ShortName>death pinch.wav</ShortName>
+							<Path>SFX\death pinch_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1039527667" Language="SFX">
+							<ShortName>death ah.wav</ShortName>
+							<Path>SFX\death ah_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1044333995" Language="SFX">
+							<ShortName>0000000000000001 (2).wav</ShortName>
+							<Path>SFX\0000000000000001 (2)_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1899640155" Name="DekuCollab" ObjectPath="\Events\Default Work Unit\DekuCollab">
+					<IncludedMemoryFiles>
+						<File Id="175387214" Language="SFX">
+							<ShortName>0000000000000014.wav</ShortName>
+							<Path>SFX\0000000000000014_3F75BDB9.wem</Path>
+						</File>
+						<File Id="181664772" Language="SFX">
+							<ShortName>000000000000000e.wav</ShortName>
+							<Path>SFX\000000000000000e_3F75BDB9.wem</Path>
+						</File>
+						<File Id="249055106" Language="SFX">
+							<ShortName>0000000000000015.wav</ShortName>
+							<Path>SFX\0000000000000015_3F75BDB9.wem</Path>
+						</File>
+						<File Id="310024786" Language="SFX">
+							<ShortName>000000000000000f.wav</ShortName>
+							<Path>SFX\000000000000000f_3F75BDB9.wem</Path>
+						</File>
+						<File Id="631346903" Language="SFX">
+							<ShortName>0000000000000011.wav</ShortName>
+							<Path>SFX\0000000000000011_3F75BDB9.wem</Path>
+						</File>
+						<File Id="649782710" Language="SFX">
+							<ShortName>0000000000000013.wav</ShortName>
+							<Path>SFX\0000000000000013_3F75BDB9.wem</Path>
+						</File>
+						<File Id="918063896" Language="SFX">
+							<ShortName>000000000000000c.wav</ShortName>
+							<Path>SFX\000000000000000c_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1066610540" Language="SFX">
+							<ShortName>0000000000000012.wav</ShortName>
+							<Path>SFX\0000000000000012_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2656882895" Name="Entrance" ObjectPath="\Events\Default Work Unit\Entrance">
+					<IncludedMemoryFiles>
+						<File Id="21175313" Language="SFX">
+							<ShortName>laugh3 entrance.wav</ShortName>
+							<Path>SFX\laugh3 entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="36562380" Language="SFX">
+							<ShortName>laugh4 entrance.wav</ShortName>
+							<Path>SFX\laugh4 entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="102655079" Language="SFX">
+							<ShortName>0000000000000000 (9).wav</ShortName>
+							<Path>SFX\0000000000000000 (9)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="222536735" Language="SFX">
+							<ShortName>plusultra entrance.wav</ShortName>
+							<Path>SFX\plusultra entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="222656126" Language="SFX">
+							<ShortName>sara ni entrance.wav</ShortName>
+							<Path>SFX\sara ni entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="244246101" Language="SFX">
+							<ShortName>0000000000000002 (2).wav</ShortName>
+							<Path>SFX\0000000000000002 (2)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="263442422" Language="SFX">
+							<ShortName>000000000000000c (1).wav</ShortName>
+							<Path>SFX\000000000000000c (1)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="294031458" Language="SFX">
+							<ShortName>party entrance.wav</ShortName>
+							<Path>SFX\party entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="294541904" Language="SFX">
+							<ShortName>shinitai entrance.wav</ShortName>
+							<Path>SFX\shinitai entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="329282471" Language="SFX">
+							<ShortName>000000000000000a.wav</ShortName>
+							<Path>SFX\000000000000000a_3F75BDB9.wem</Path>
+						</File>
+						<File Id="333068833" Language="SFX">
+							<ShortName>000000000000000a (3).wav</ShortName>
+							<Path>SFX\000000000000000a (3)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="392692930" Language="SFX">
+							<ShortName>game entrance.wav</ShortName>
+							<Path>SFX\game entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="408079690" Language="SFX">
+							<ShortName>000000000000000d.wav</ShortName>
+							<Path>SFX\000000000000000d_3F75BDB9.wem</Path>
+						</File>
+						<File Id="433551788" Language="SFX">
+							<ShortName>0000000000000001 (1).wav</ShortName>
+							<Path>SFX\0000000000000001 (1)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="436394990" Language="SFX">
+							<ShortName>000000000000000b (2).wav</ShortName>
+							<Path>SFX\000000000000000b (2)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="462402601" Language="SFX">
+							<ShortName>0000000000000005 (3).wav</ShortName>
+							<Path>SFX\0000000000000005 (3)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="468977366" Language="SFX">
+							<ShortName>laugh2 entrance.wav</ShortName>
+							<Path>SFX\laugh2 entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="482959145" Language="SFX">
+							<ShortName>0000000000000005 (2).wav</ShortName>
+							<Path>SFX\0000000000000005 (2)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="483549763" Language="SFX">
+							<ShortName>laugh entrance.wav</ShortName>
+							<Path>SFX\laugh entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="496020632" Language="SFX">
+							<ShortName>0000000000000000 (4).wav</ShortName>
+							<Path>SFX\0000000000000000 (4)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="597105250" Language="SFX">
+							<ShortName>000000000000000b (1).wav</ShortName>
+							<Path>SFX\000000000000000b (1)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="622493159" Language="SFX">
+							<ShortName>0000000000000000.wav</ShortName>
+							<Path>SFX\0000000000000000_3F75BDB9.wem</Path>
+						</File>
+						<File Id="622801389" Language="SFX">
+							<ShortName>kurose entrance.wav</ShortName>
+							<Path>SFX\kurose entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="704219332" Language="SFX">
+							<ShortName>0000000000000001 (4).wav</ShortName>
+							<Path>SFX\0000000000000001 (4)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="785388496" Language="SFX">
+							<ShortName>entrance gameover.wav</ShortName>
+							<Path>SFX\entrance gameover_3F75BDB9.wem</Path>
+						</File>
+						<File Id="883631834" Language="SFX">
+							<ShortName>000000000000000a (1).wav</ShortName>
+							<Path>SFX\000000000000000a (1)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="959316541" Language="SFX">
+							<ShortName>000000000000001b.wav</ShortName>
+							<Path>SFX\000000000000001b_3F75BDB9.wem</Path>
+						</File>
+						<File Id="990754506" Language="SFX">
+							<ShortName>0000000000000006 (3).wav</ShortName>
+							<Path>SFX\0000000000000006 (3)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1040287584" Language="SFX">
+							<ShortName>0000000000000000 (5).wav</ShortName>
+							<Path>SFX\0000000000000000 (5)_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="13776098" Name="Explosion" ObjectPath="\Events\Default Work Unit\Explosion">
+					<IncludedMemoryFiles>
+						<File Id="805419587" Language="SFX">
+							<ShortName>Bites the Dust Sound Effects Only.wav</ShortName>
+							<Path>SFX\Bites the Dust Sound Effects Only_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1005306592" Language="SFX">
+							<ShortName>000000000000003f [1].wav</ShortName>
+							<Path>SFX\000000000000003f [1]_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3208241451" Name="Melee" ObjectPath="\Events\Default Work Unit\Melee">
+					<IncludedMemoryFiles>
+						<File Id="34899993" Language="SFX">
+							<ShortName>000000000000004a [1].wav</ShortName>
+							<Path>SFX\000000000000004a [1]_3F75BDB9.wem</Path>
+						</File>
+						<File Id="626653854" Language="SFX">
+							<ShortName>swipe attack.wav</ShortName>
+							<Path>SFX\swipe attack_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1005306592" Language="SFX">
+							<ShortName>000000000000003f [1].wav</ShortName>
+							<Path>SFX\000000000000003f [1]_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3686556480" Name="Slide" ObjectPath="\Events\Default Work Unit\Slide">
+					<IncludedMemoryFiles>
+						<File Id="199160016" Language="SFX">
+							<ShortName>0000000000000041 [1].wav</ShortName>
+							<Path>SFX\0000000000000041 [1]_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1005306592" Language="SFX">
+							<ShortName>000000000000003f [1].wav</ShortName>
+							<Path>SFX\000000000000003f [1]_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+			</IncludedEvents>
+			<GameParameters>
+				<GameParameter Id="3673881719" Name="Volume_SFX" ObjectPath="\Game Parameters\Default Work Unit\Volume_SFX"/>
+				<GameParameter Id="3695994288" Name="Volume_Master" ObjectPath="\Game Parameters\Default Work Unit\Volume_Master"/>
+			</GameParameters>
+		</SoundBank>
+		<SoundBank Id="1355168291" Language="SFX" Hash="3701367528">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>

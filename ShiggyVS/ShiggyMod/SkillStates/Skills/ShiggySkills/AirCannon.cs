@@ -36,6 +36,7 @@ namespace ShiggyMod.SkillStates
 
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
+            AkSoundEngine.PostEvent(2381833256, base.gameObject);
 
             base.characterMotor.disableAirControlUntilCollision = false;
 

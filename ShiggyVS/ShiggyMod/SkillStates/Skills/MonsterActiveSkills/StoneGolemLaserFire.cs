@@ -40,7 +40,7 @@ namespace ShiggyMod.SkillStates
 
 			base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 			PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
-			//base.PlayAnimation("Gesture", "FireLaser", "FireLaser.playbackRate", this.duration);
+			AkSoundEngine.PostEvent(180661997, base.gameObject);
 			if (FireLaser.effectPrefab)
 			{
 				EffectManager.SimpleMuzzleFlash(FireLaser.effectPrefab, base.gameObject, text, false);

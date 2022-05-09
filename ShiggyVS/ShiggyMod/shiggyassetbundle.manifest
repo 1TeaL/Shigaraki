@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3223929702
+CRC: 1999696448
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c752ede948576129170c272b68140fa0
+    Hash: ad7d815a7077339852cffd10bda14f8f
   TypeTreeHash:
     serializedVersion: 2
     Hash: 68094ac81e0dab525274ab74b3733ff2
@@ -63,47 +63,51 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Shigaraki/Animations/Idle.anim
 - Assets/Shigaraki/Assets/Particle/XiConstructBeam.prefab
 - Assets/Shigaraki/Animations/humanoidShigarakiAvatar.asset
 - Assets/Shigaraki/Import/HenryAssets/VFX/Textures/texFire.tga
+- Assets/Shigaraki/Animations/ShigarakifbxAvatar.asset
 - Assets/Shigaraki/Assets/Material/Mask1.png
-- Assets/Shigaraki/Animations/Tomura Shigaraki_arm_Idle.anim
+- Assets/Shigaraki/Animations/Right Arm Pull.anim
 - Assets/Shigaraki/Assets/ShiggyDisplay.prefab
 - Assets/Shigaraki/Animations/animShiggy.controller
 - Assets/Shigaraki/Assets/Material/ShiggyMat.mat
 - Assets/Shigaraki/Import/WispAssets/Prefabs/XiBeam.prefab
-- Assets/Shigaraki/Animations/Armature_RightArmPunch.anim
-- Assets/Shigaraki/Animations/Armature_Landing.anim
-- Assets/Shigaraki/Animations/Armature_Falling.anim
+- Assets/Shigaraki/Animations/LeftArmOut.anim
 - Assets/Shigaraki/Assets/Material/ShiggyMat.png
 - Assets/Shigaraki/Assets/mdlShiggy.prefab
 - Assets/Shigaraki/Import/Hitbox.prefab
 - Assets/Shigaraki/Import/Armature_Running.anim
-- Assets/Shigaraki/Animations/ShigarakifbxAvatar.asset
+- Assets/Shigaraki/Animations/EntranceLoop.anim
 - Assets/Shigaraki/Animations/RightArmMask.mask
 - Assets/Shigaraki/Animations/LeftArmMask.mask
+- Assets/Shigaraki/Animations/Run.anim
 - Assets/Shigaraki/Import/WispAssets/Prefabs/Beam.prefab
 - Assets/Shigaraki/Emotes/humanoidShigaraki.prefab
-- Assets/Shigaraki/Assets/ShigarakifbxAvatar.asset
+- Assets/Shigaraki/Animations/RightArmDetonate.anim
 - Assets/Shigaraki/Import/humanoidDeku.fbx
 - Assets/Shigaraki/Assets/Material/MultiplierMat.mat
 - Assets/Shigaraki/Import/WispAssets/Prefabs/FullBeam.prefab
-- Assets/Shigaraki/Animations/Armature_Running.anim
-- Assets/Shigaraki/Animations/Armature_LeftArmPunch.anim
 - Assets/Shigaraki/Import/matHitboxPreview.mat
-- Assets/Shigaraki/Animations/Armature_RightArmOut.anim
+- Assets/Shigaraki/Animations/Land.anim
+- Assets/Shigaraki/Animations/Slam.anim
 - Assets/Shigaraki/Import/WispAssets/Prefabs/BeamStart.prefab
-- Assets/Shigaraki/Animations/Armature_LeftArmOut.anim
+- Assets/Shigaraki/Animations/LeftArmPunch.anim
 - Assets/Shigaraki/Assets/Material/Panner.shader
-- Assets/Shigaraki/Animations/Armature_RightArmPull.anim
 - Assets/Shigaraki/Assets/MeshHand.mesh
+- Assets/Shigaraki/Animations/Fall.anim
 - Assets/Shigaraki/Import/WispAssets/Materials/SolGate.mat
-- Assets/Shigaraki/Animations/Armature_Idle.anim
+- Assets/Shigaraki/Assets/Particle/Decay.prefab
+- Assets/Shigaraki/Assets/Particle/Decay 1.prefab
 - Assets/Shigaraki/Import/WispAssets/Materials/MoteTrail.mat
+- Assets/Shigaraki/Animations/Entrance.anim
+- Assets/Shigaraki/Animations/Jump.anim
 - Assets/Shigaraki/Animations/animShiggyDiplay.controller
+- Assets/Shigaraki/Animations/RightArmPunch.anim
+- Assets/Shigaraki/Animations/RightArmOut.anim
 - Assets/Shigaraki/Assets/Particle/MainBeam.prefab
 - Assets/Shigaraki/Import/WispAssets/particle/Light.prefab
 - Assets/Shigaraki/Assets/Material/noise3blur.png
 - Assets/Shigaraki/Assets/MeshShiggy.mesh
-- Assets/Shigaraki/Animations/Armature_Jumping.anim
 Dependencies: []

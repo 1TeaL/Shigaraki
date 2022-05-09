@@ -121,10 +121,10 @@ namespace ShiggyMod
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
             //On.RoR2.TeleporterInteraction.FinishedState.OnEnter += TeleporterInteraction_FinishedState;
             //GlobalEventManager.onServerDamageDealt += GlobalEventManager_OnDamageDealt;
-            On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate; ;
+            //On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate;
             //On.RoR2.CharacterBody.Update += CharacterBody_Update;
             On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
-            On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy; ;
+            On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy; 
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
@@ -132,10 +132,10 @@ namespace ShiggyMod
             }
         }
 
-        private void CharacterBody_FixedUpdate(On.RoR2.CharacterBody.orig_FixedUpdate orig, CharacterBody self)
-        {
-            orig.Invoke(self);
-        }
+        //private void CharacterBody_FixedUpdate(On.RoR2.CharacterBody.orig_FixedUpdate orig, CharacterBody self)
+        //{
+        //    orig.Invoke(self);
+        //}
 
         private void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
         {
@@ -200,7 +200,7 @@ namespace ShiggyMod
                 if (Shiggycon.magmawormWard) EntityState.Destroy(Shiggycon.magmawormWard);
                 if (Shiggycon.mortarIndicatorInstance) EntityState.Destroy(Shiggycon.mortarIndicatorInstance.gameObject);
                 if (Shiggycon.voidmortarIndicatorInstance) EntityState.Destroy(Shiggycon.voidmortarIndicatorInstance.gameObject);
-                AkSoundEngine.PostEvent(3468082827, this.gameObject);
+                AkSoundEngine.PostEvent(779278001, this.gameObject);
             }
         }
 
@@ -297,7 +297,7 @@ namespace ShiggyMod
 
                         }
                         //spike buff
-                        if (self.body.HasBuff(Modules.Buffs.spikeBuff.buffIndex))
+                        if (self.body.HasBuff(Modules.Buffs.gupspikeBuff.buffIndex))
                         {
                             //Spike buff
 
@@ -472,11 +472,37 @@ namespace ShiggyMod
         private void CharacterModel_Awake(On.RoR2.CharacterModel.orig_Awake orig, CharacterModel self)
         {
             orig(self);
+            //deku collab
             if (self.gameObject.name.Contains("ShiggyDisplay"))
             {
-                AkSoundEngine.PostEvent(3468082827, self.gameObject);
-                
+                bool dekuFound = false;
+                foreach (Transform child in self.gameObject.transform.parent.parent)
+                {
+                    foreach (Transform child2 in child)
+                    {
+                        if (child2.gameObject.name.Contains("DekuDisplay"))
+                        {
+                            dekuFound = true;
+                        }
+                    }
+                }
+                if (dekuFound)
+                {
+                    AkSoundEngine.PostEvent(1899640155, self.gameObject);
+                }
+                else
+                {
+                    AkSoundEngine.PostEvent(2656882895, self.gameObject);
+                }
             }
+            //if (gameObject.name.Contains("DekuDisplay"))
+            //{
+            //    if (self.gameObject.name.Contains("ShiggyDisplay"))
+            //    {
+            //        AkSoundEngine.PostEvent(1899640155, self.gameObject);
+
+            //    }
+            //}
 
         }
         private void CharacterModel_UpdateOverlays(On.RoR2.CharacterModel.orig_UpdateOverlays orig, CharacterModel self)

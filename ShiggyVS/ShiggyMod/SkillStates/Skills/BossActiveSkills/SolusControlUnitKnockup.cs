@@ -35,7 +35,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
-            //base.PlayCrossfade("Gesture, Additive", "FireDelayKnockup", 0.1f);
+            AkSoundEngine.PostEvent(180661997, base.gameObject);
 
             EffectManager.SimpleMuzzleFlash(FireDelayKnockup.muzzleEffectPrefab, base.gameObject, "Chest", false);
 			

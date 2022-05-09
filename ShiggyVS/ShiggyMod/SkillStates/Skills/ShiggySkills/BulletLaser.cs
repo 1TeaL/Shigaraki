@@ -35,6 +35,7 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmPunch","Attack.playbackRate", fireTime*2f, 0.1f);
+            AkSoundEngine.PostEvent(180661997, base.gameObject);
             this.muzzleString = "LFinger";
             EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
 

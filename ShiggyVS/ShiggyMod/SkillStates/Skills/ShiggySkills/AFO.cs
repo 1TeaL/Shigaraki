@@ -32,6 +32,8 @@ namespace ShiggyMod.SkillStates
 
             PlayCrossfade("RightArm, Override", "RightArmPull", 0.1f);
 
+            AkSoundEngine.PostEvent(1201419547, base.gameObject);
+
             //extraskillLocator = base.GetComponent<ExtraSkillLocator>();
 
             //extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();

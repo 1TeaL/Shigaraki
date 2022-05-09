@@ -164,6 +164,7 @@ namespace ShiggyMod.SkillStates
 
                     Util.PlaySound(EntityStates.Bison.Headbutt.attackSoundString, base.gameObject);
 
+					AkSoundEngine.PostEvent(3208241451, base.gameObject);
 					if (base.HasBuff(Modules.Buffs.multiplierBuff))
 					{
 						ApplyDoT();

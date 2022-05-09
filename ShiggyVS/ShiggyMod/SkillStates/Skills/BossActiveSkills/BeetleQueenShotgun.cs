@@ -48,7 +48,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
-            //base.PlayCrossfade("Gesture", "FireSpit", "FireSpit.playbackRate", this.duration, 0.1f);
+            AkSoundEngine.PostEvent(180661997, base.gameObject);
             float magnitude = projectileHSpeed;
             Ray ray = aimRay;
             ray.origin = aimRay.GetPoint(0f);

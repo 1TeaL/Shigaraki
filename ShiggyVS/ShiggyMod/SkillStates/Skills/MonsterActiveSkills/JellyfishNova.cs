@@ -54,7 +54,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
             Transform modelTransform = base.GetModelTransform();
-            //base.PlayCrossfade("Body", "Nova", "Nova.playbackRate", this.duration, 0.1f);
+            AkSoundEngine.PostEvent(13776098, base.gameObject);
             this.soundID = Util.PlaySound(JellyNova.chargingSoundString, base.gameObject);
             if (JellyNova.chargingEffectPrefab)
             {

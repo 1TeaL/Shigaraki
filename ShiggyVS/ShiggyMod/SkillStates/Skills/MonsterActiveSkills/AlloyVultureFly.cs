@@ -48,8 +48,8 @@ namespace ShiggyMod.SkillStates
             base.characterMotor.Motor.RebuildCollidableLayers();
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("Body", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
             PlayCrossfade("Body", "Jump", 0.1f);
+            AkSoundEngine.PostEvent(2381833256, base.gameObject);
 
             bool active = NetworkServer.active;
             if (active)

@@ -48,7 +48,7 @@ namespace ShiggyMod.SkillStates
             this.duration = baseDuration / this.attackSpeedStat;
             this.durationBeforeBlast = baseDurationBeforeBlast / this.attackSpeedStat;
             Util.PlayAttackSpeedSound(FaceSlam.attackSoundString, base.gameObject, this.attackSpeedStat);
-            //base.PlayAnimation(FaceSlam.animationLayerName, FaceSlam.animationStateName, FaceSlam.playbackRateParam, this.duration);
+            AkSoundEngine.PostEvent(180661997, base.gameObject);
             if (base.characterDirection)
             {
                 base.characterDirection.moveVector = base.characterDirection.forward;

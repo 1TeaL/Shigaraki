@@ -73,6 +73,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", fireTime * 2f, 0.1f);
+            AkSoundEngine.PostEvent(3208241451, base.gameObject);
 
             HitBoxGroup hitBoxGroup = null;
             HitBoxGroup hitBoxGroup2 = null;

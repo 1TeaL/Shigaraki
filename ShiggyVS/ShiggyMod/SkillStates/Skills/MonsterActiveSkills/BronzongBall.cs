@@ -53,6 +53,7 @@ namespace ShiggyMod.SkillStates
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
+            AkSoundEngine.PostEvent(180661997, base.gameObject);
 
             this.prepDuration = basePrepDuration / this.attackSpeedStat;
             this.timeBetweenPreps = (prepDuration/ totalBombs) -0.05f;

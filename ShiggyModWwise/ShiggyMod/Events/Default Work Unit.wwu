@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{93F48A79-6A4B-41F1-8C60-B91835847140}" SchemaVersion="97">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{93F48A79-6A4B-41F1-8C60-B91835847140}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Death" ID="{46C4C418-59C6-4B77-A3A8-F9CAC45A3698}">
+					<ChildrenList>
+						<Action Name="" ID="{5291B9D7-AF3F-476C-ADA3-7F0FE1E59917}" ShortID="601051697">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Death" ID="{B0656D8D-DC77-49FD-BE1C-47BC400A6047}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Entrance" ID="{7106EB36-ADB6-4E70-B7A0-1B15CCD6E81E}">
+					<ChildrenList>
+						<Action Name="" ID="{CB7549AD-93F4-4A50-BD36-08F4D70C8EEF}" ShortID="481192717">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Entrance" ID="{F06958ED-DBD9-4FB3-88CF-E0600E1F9261}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="AFO" ID="{D8C5B628-D964-4EF2-8D9D-26F8E07649C8}">
+					<ChildrenList>
+						<Action Name="" ID="{2DB72878-5349-4CA9-B5E4-01FF94706AF7}" ShortID="354955357">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AFO" ID="{A5601923-29CC-4FAB-8FA9-94E095A07A4A}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Melee" ID="{265A8C71-0255-455D-915F-96F4E053FD15}">
+					<ChildrenList>
+						<Action Name="" ID="{CD7E2BA3-BC2E-4A4A-818D-86B86635D50A}" ShortID="951373648">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Melee" ID="{1F663EEF-374A-4667-B8A6-D07D03BEDF9D}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Explosion" ID="{A2464958-AD92-4597-9900-A02FBD13B56D}">
+					<ChildrenList>
+						<Action Name="" ID="{511ED79C-602B-4BDE-AD87-631B09DB43D6}" ShortID="974248514">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Explosion" ID="{6F55B912-AFE2-4147-A458-C5746D53912E}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="AirCannon" ID="{04044226-4C0C-438A-8069-3FCFA267B6EF}">
+					<ChildrenList>
+						<Action Name="" ID="{42D7BD3A-5777-44BC-874B-0710AF2DD770}" ShortID="925255288">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AirCannon" ID="{F9C3B164-7B70-4F11-8BEB-70E527B07BF8}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Slide" ID="{4E97410B-8640-40F1-939A-2BC125C32CDB}">
+					<ChildrenList>
+						<Action Name="" ID="{719B85E3-98D0-49F3-8E00-2949F4373843}" ShortID="349490132">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Slide" ID="{60E119E2-08B3-4EF9-9F9D-CB47299B72CB}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="DekuCollab" ID="{C7D22022-44E5-4513-B7AD-6BF90713CC4E}">
+					<ChildrenList>
+						<Action Name="" ID="{C1C4CF62-0872-4EC4-A57B-4F12B848D982}" ShortID="886441214">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="DekuCollab" ID="{734AFBF6-4CF6-44D5-961E-D66C1E3736DA}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Attack" ID="{AC370208-0307-47E8-BA44-BF4682AB9A09}">
+					<ChildrenList>
+						<Action Name="" ID="{4C19C03B-6A39-4D2E-870E-C0859DFAA477}" ShortID="393458900">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Attack" ID="{75A9944D-368F-4C85-8053-FB9E326D4182}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

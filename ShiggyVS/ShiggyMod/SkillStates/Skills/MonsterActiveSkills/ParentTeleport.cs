@@ -88,6 +88,7 @@ namespace ShiggyMod.SkillStates
             Vector3 latestposition = base.transform.position;
             if (base.fixedAge > this.fireTime && !hasFired && base.isAuthority)
             {
+                AkSoundEngine.PostEvent(3208241451, base.gameObject);
                 hasFired = true;
                 blastAttack.position = latestposition;
                 EffectManager.SpawnEffect(Modules.Assets.parentslamEffect, new EffectData

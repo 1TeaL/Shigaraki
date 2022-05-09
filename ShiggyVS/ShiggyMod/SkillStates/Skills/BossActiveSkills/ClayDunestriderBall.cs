@@ -46,6 +46,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
+            AkSoundEngine.PostEvent(180661997, base.gameObject);
 
         }
         private void FireSingleTarball(string targetMuzzle)

@@ -45,6 +45,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
+            AkSoundEngine.PostEvent(180661997, base.gameObject);
 
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
             {
