@@ -26,7 +26,7 @@ namespace ShiggyMod.SkillStates
         public float duration;
         public float fireTime;
         private float procCoefficient = 1f;
-        private float pushForce = 100f;
+        private float pushForce = 400f;
         private float damageCoefficient = Modules.StaticValues.decayattackDamageCoeffecient;
         private float hitPauseTimer;
         private float stopwatch;
@@ -43,7 +43,7 @@ namespace ShiggyMod.SkillStates
         private HitStopCachedState hitStopCachedState;
         private Vector3 direction;
         private Vector3 bounceVector;
-        private Vector3 bonusForce = new Vector3(10f, 10f, 0f);
+        private Vector3 bonusForce = new Vector3(20f, 100f, 0f);
 
         public override void OnEnter()
         {
@@ -119,8 +119,8 @@ namespace ShiggyMod.SkillStates
             this.detector.damage = 0f;
             this.detector.procCoefficient = 0f;
             this.detector.hitEffectPrefab = null;
-            this.detector.forceVector = Vector3.zero;
-            this.detector.pushAwayForce = 0f;
+            this.detector.forceVector = this.bonusForce;
+            this.detector.pushAwayForce = pushForce;
             this.detector.hitBoxGroup = hitBoxGroup2;
             this.detector.isCrit = false;
 
@@ -211,12 +211,12 @@ namespace ShiggyMod.SkillStates
                             decaycon = hurtBox.healthComponent.body.gameObject.AddComponent<DecayController>();
                         }
 
-                        
                         this.OnHitEnemyAuthority();
-                        //Decay Dot
+                        //Decay Dot and pain set
                         bool flag2 = hurtBox.healthComponent && hurtBox.healthComponent.body;
                         if (flag2)
                         {
+                            this.ForceFlinch(hurtBox.healthComponent.body);
 
                             InflictDotInfo info = new InflictDotInfo();
                             info.attackerObject = base.gameObject;
@@ -279,6 +279,24 @@ namespace ShiggyMod.SkillStates
                 this.hasHopped = true;
             }
 
+        }
+        protected virtual void ForceFlinch(CharacterBody body)
+        {
+            SetStateOnHurt component = body.healthComponent.GetComponent<SetStateOnHurt>();
+            bool flag = component == null;
+            if (!flag)
+            {
+                bool canBeHitStunned = component.canBeHitStunned;
+                if (canBeHitStunned)
+                {
+                    component.SetPain();
+                    bool flag2 = body.characterMotor;
+                    if (flag2)
+                    {
+                        body.characterMotor.velocity = Vector3.zero;
+                    }
+                }
+            }
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()
