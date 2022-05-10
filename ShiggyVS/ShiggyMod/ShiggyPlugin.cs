@@ -464,6 +464,14 @@ namespace ShiggyMod
                         self.healthComponent.TakeDamage(damageInfo);
                     }
                 }
+
+                DecayEffectController controller = self.gameObject.GetComponent<DecayEffectController>();
+                if (!controller)
+                {
+                    controller = self.gameObject.AddComponent<DecayEffectController>();
+                    controller.charbody = self;
+                }
+
             }
 
         }

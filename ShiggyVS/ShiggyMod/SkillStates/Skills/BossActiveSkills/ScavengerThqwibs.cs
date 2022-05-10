@@ -96,7 +96,7 @@ namespace ShiggyMod.SkillStates
 
                 ProjectileManager.instance.FireProjectile(
                     ThrowSack.projectilePrefab, //prefab
-                    FindModelChild(muzzleName).position, //position
+                    aimRay.origin, //position
                     rotation, //rotation
                     base.gameObject, //owner
                     this.damageStat * damageCoefficient, //damage

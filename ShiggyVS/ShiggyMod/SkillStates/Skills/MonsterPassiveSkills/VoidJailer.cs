@@ -18,7 +18,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
 
-            PlayCrossfade("RightArm, Override", "RightArmPull", 0.1f);
+            PlayAnimation("RightArm, Override", "RightArmPull");
             AkSoundEngine.PostEvent(1201419547, base.gameObject);
 
         }

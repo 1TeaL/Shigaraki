@@ -9,6 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1318834946622274211, guid: b2d22d34b3142b548b10f3d25a2b867f,
         type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 6b46e323ce16bf148b94ed8dc0053884, type: 2}
+    - target: {fileID: 1318834946622274211, guid: b2d22d34b3142b548b10f3d25a2b867f,
+        type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: e18c773ec95b08e40bf58a1fbb2bb4b7, type: 2}
@@ -70,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 5757444330961189475, guid: b2d22d34b3142b548b10f3d25a2b867f,
         type: 3}
       propertyPath: m_Name
-      value: mdlShigaraki Variant
+      value: ShiggyDisplay
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2d22d34b3142b548b10f3d25a2b867f, type: 3}

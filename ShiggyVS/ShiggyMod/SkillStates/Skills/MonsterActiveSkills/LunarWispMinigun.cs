@@ -112,6 +112,7 @@ namespace ShiggyMod.SkillStates
             this.UpdateCrits();
             bool isCrit = !this.critEndTime.hasPassed;
 
+            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
 
             EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
 
@@ -120,7 +121,7 @@ namespace ShiggyMod.SkillStates
             {
                 bulletCount = (uint)baseBulletCount,
                 aimVector = aimRay.direction,
-                origin = aimRay.origin,
+                origin = FindModelChild(this.muzzleString).transform.position,
                 damage = damageCoefficient,
                 damageColorIndex = DamageColorIndex.Default,
                 damageType = damageType,

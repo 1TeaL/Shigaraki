@@ -37,6 +37,7 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             AkSoundEngine.PostEvent(2381833256, base.gameObject);
+            this.PlayAnimation("Body", "Jump");
 
             base.characterMotor.disableAirControlUntilCollision = false;
 
@@ -102,6 +103,7 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
+            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             base.OnExit();
         }
 

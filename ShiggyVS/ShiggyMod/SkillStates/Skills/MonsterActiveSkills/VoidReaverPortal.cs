@@ -42,7 +42,8 @@ namespace ShiggyMod.SkillStates
             damageCoefficient *= Shiggycon.rangedMultiplier;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration, 0.1f);
+            PlayCrossfade("RightArm, Override", "RightArmDetonate", "Attack.playbackRate", duration, 0.1f);
+            AkSoundEngine.PostEvent(13776098, base.gameObject);
         }
 
         public void PortalFire()

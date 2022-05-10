@@ -177,7 +177,8 @@ namespace ShiggyMod.SkillStates
                 fireTimer += Time.fixedDeltaTime;
                 //Fire the laser
                 if (fireTimer > fireInterval)
-                {                    
+                {
+                    PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", fireInterval, 0.1f);
                     base.characterBody.SetAimTimer(2f);
                     attack.muzzleName = muzzleString;
                     attack.aimVector = aimRay.direction;

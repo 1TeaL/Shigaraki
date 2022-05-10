@@ -71,7 +71,7 @@ namespace ShiggyMod.SkillStates
                 {
                     bulletCount = bulletcount,
                     aimVector = aimRay.direction,
-                    origin = FindModelChild(this.muzzleString).position,
+                    origin = aimRay.origin,
                     damage = this.damageStat * damageCoefficient,
                     damageColorIndex = DamageColorIndex.Default,
                     damageType = damageType,

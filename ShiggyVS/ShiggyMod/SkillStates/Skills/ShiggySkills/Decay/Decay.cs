@@ -36,6 +36,7 @@ namespace ShiggyMod.SkillStates
         private float extraDuration;
         private float smallhopvelocity = 10f;
 
+        private bool playEffect;
         private bool inHitPause;
         private bool hasHopped;
 
@@ -47,6 +48,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            playEffect = false;
             damageType = DamageType.Generic;
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.strengthMultiplier;
@@ -72,9 +74,8 @@ namespace ShiggyMod.SkillStates
             this.animator.SetBool("attacking", true);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", fireTime * 2f, 0.1f);
+            PlayAnimation("FullBody, Override", "Slam", "Attack.playbackRate", fireTime *2f);
             AkSoundEngine.PostEvent(3208241451, base.gameObject);
-
             HitBoxGroup hitBoxGroup = null;
             HitBoxGroup hitBoxGroup2 = null;
             Transform modelTransform = base.GetModelTransform();
@@ -139,6 +140,7 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
+            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             Transform modelTransform = base.GetModelTransform();
             bool flag = modelTransform.gameObject.GetComponent<AimAnimator>();
             if (flag)
@@ -154,7 +156,15 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            //this.FireAttack();
+            if(base.fixedAge >= fireTime && base.isAuthority && !playEffect)
+            {
+                playEffect = true;
+                EffectManager.SpawnEffect(Modules.Assets.decayattackEffect, new EffectData
+                {
+                    origin = base.characterBody.footPosition + Vector3.up * 0.5f,
+                    scale = 1f,
+                }, true);
+            }
             if (base.fixedAge >= this.fireTime && base.isAuthority)
             {
                 this.FireAttack();

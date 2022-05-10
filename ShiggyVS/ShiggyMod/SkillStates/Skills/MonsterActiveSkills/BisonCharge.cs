@@ -29,6 +29,7 @@ namespace ShiggyMod.SkillStates
 			Ray aimRay = base.GetAimRay();
 			base.StartAimMode(aimRay, 2f, false);
 			totalDuration = 0f;
+			damageType = DamageType.Stun1s;
 			bool isAuthority = base.isAuthority;
             Util.PlaySound(BaseChargeFist.startChargeLoopSFXString, base.gameObject);
             //Util.PlaySound(EntityStates.Bison.Charge.startSoundString, base.gameObject);

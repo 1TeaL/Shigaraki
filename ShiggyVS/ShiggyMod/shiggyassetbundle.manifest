@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1999696448
+CRC: 1697124457
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ad7d815a7077339852cffd10bda14f8f
+    Hash: 723399b11b58b216485b4d89640f7f4c
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 68094ac81e0dab525274ab74b3733ff2
+    Hash: 92f8c068c360b7e2f221020245f5d65b
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -59,55 +59,126 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 199
   Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
 - Class: 319
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Shigaraki/Animations/Idle.anim
 - Assets/Shigaraki/Assets/Particle/XiConstructBeam.prefab
+- Assets/Shigaraki/GUI/Monsters/Alloy_Vulture.png
+- Assets/Shigaraki/GUI/Monsters/Clay_Templar.png
+- Assets/Shigaraki/Animations/LeftArmOut.anim
+- Assets/Shigaraki/GUI/Monsters/Void_Reaver.png
 - Assets/Shigaraki/Animations/humanoidShigarakiAvatar.asset
+- Assets/Shigaraki/GUI/Monsters/Clay_Apothecary.png
+- Assets/Shigaraki/GUI/Monsters/Imp_Overlord.png
+- Assets/Shigaraki/GUI/Monsters/Clay_Dunestrider.png
 - Assets/Shigaraki/Import/HenryAssets/VFX/Textures/texFire.tga
-- Assets/Shigaraki/Animations/ShigarakifbxAvatar.asset
+- Assets/Shigaraki/GUI/Survivors/Railgunner.png
+- Assets/Shigaraki/GUI/Monsters/Mithrix.png
 - Assets/Shigaraki/Assets/Material/Mask1.png
-- Assets/Shigaraki/Animations/Right Arm Pull.anim
+- Assets/Shigaraki/GUI/Monsters/Solus_Control_Unit.png
+- Assets/Shigaraki/GUI/Monsters/Grandparent.png
+- Assets/Shigaraki/GUI/Monsters/Alpha_Construct.png
 - Assets/Shigaraki/Assets/ShiggyDisplay.prefab
 - Assets/Shigaraki/Animations/animShiggy.controller
 - Assets/Shigaraki/Assets/Material/ShiggyMat.mat
+- Assets/Shigaraki/Assets/Particle/AirCannon.prefab
+- Assets/Shigaraki/Animations/ShigarakifbxAvatar.asset
 - Assets/Shigaraki/Import/WispAssets/Prefabs/XiBeam.prefab
-- Assets/Shigaraki/Animations/LeftArmOut.anim
+- Assets/Shigaraki/GUI/Base/allforone.png
+- Assets/Shigaraki/Animations/RightArmPunch.anim
+- Assets/Shigaraki/GUI/Monsters/Void_Jailer.png
+- Assets/Shigaraki/GUI/Survivors/REX.png
+- Assets/Shigaraki/GUI/Survivors/Artificer.png
+- Assets/Shigaraki/GUI/Survivors/Commando.png
 - Assets/Shigaraki/Assets/Material/ShiggyMat.png
+- Assets/Shigaraki/GUI/Monsters/Jellyfish.png
 - Assets/Shigaraki/Assets/mdlShiggy.prefab
+- Assets/Shigaraki/GUI/Monsters/Overloading_Worm.png
+- Assets/Shigaraki/GUI/Monsters/Lunar_Wisp.png
+- Assets/Shigaraki/GUI/Monsters/Elder_Lemurian.png
+- Assets/Shigaraki/GUI/Monsters/Gup.png
+- Assets/Shigaraki/GUI/Base/aircannon.PNG
+- Assets/Shigaraki/GUI/Monsters/Lunar_Exploder.png
 - Assets/Shigaraki/Import/Hitbox.prefab
+- Assets/Shigaraki/GUI/Monsters/Beetle_Guard.png
+- Assets/Shigaraki/GUI/Monsters/Greater_Wisp.png
+- Assets/Shigaraki/GUI/Monsters/Grovetender.png
+- Assets/Shigaraki/Animations/Walk.anim
 - Assets/Shigaraki/Import/Armature_Running.anim
-- Assets/Shigaraki/Animations/EntranceLoop.anim
-- Assets/Shigaraki/Animations/RightArmMask.mask
-- Assets/Shigaraki/Animations/LeftArmMask.mask
-- Assets/Shigaraki/Animations/Run.anim
+- Assets/Shigaraki/GUI/Monsters/Bighorn_Bison.png
+- Assets/Shigaraki/GUI/Survivors/MUL-T.png
+- Assets/Shigaraki/Animations/Slam.anim
+- Assets/Shigaraki/Animations/ShiggyRightArmMask.mask
+- Assets/Shigaraki/GUI/Monsters/Blind_Vermin.png
+- Assets/Shigaraki/GUI/Monsters/Lesser_Wisp.png
+- Assets/Shigaraki/Animations/ShiggyLeftArmMask.mask
+- Assets/Shigaraki/GUI/Monsters/Voidling.png
 - Assets/Shigaraki/Import/WispAssets/Prefabs/Beam.prefab
+- Assets/Shigaraki/GUI/Survivors/Huntress.png
 - Assets/Shigaraki/Emotes/humanoidShigaraki.prefab
-- Assets/Shigaraki/Animations/RightArmDetonate.anim
 - Assets/Shigaraki/Import/humanoidDeku.fbx
+- Assets/Shigaraki/Animations/Jump.anim
+- Assets/Shigaraki/GUI/Survivors/Engineer.png
 - Assets/Shigaraki/Assets/Material/MultiplierMat.mat
 - Assets/Shigaraki/Import/WispAssets/Prefabs/FullBeam.prefab
-- Assets/Shigaraki/Import/matHitboxPreview.mat
-- Assets/Shigaraki/Animations/Land.anim
-- Assets/Shigaraki/Animations/Slam.anim
-- Assets/Shigaraki/Import/WispAssets/Prefabs/BeamStart.prefab
-- Assets/Shigaraki/Animations/LeftArmPunch.anim
-- Assets/Shigaraki/Assets/Material/Panner.shader
-- Assets/Shigaraki/Assets/MeshHand.mesh
 - Assets/Shigaraki/Animations/Fall.anim
+- Assets/Shigaraki/GUI/Base/multiplier.png
+- Assets/Shigaraki/GUI/Base/texShiggyIcon.png
+- Assets/Shigaraki/GUI/Monsters/Parent.png
+- Assets/Shigaraki/Animations/LeftArmPunch.anim
+- Assets/Shigaraki/GUI/Monsters/Beetle.png
+- Assets/Shigaraki/Import/matHitboxPreview.mat
+- Assets/Shigaraki/GUI/Monsters/Heretic.png
+- Assets/Shigaraki/GUI/Monsters/Stone_Titan.png
+- Assets/Shigaraki/GUI/Monsters/Gip.png
+- Assets/Shigaraki/GUI/Monsters/Void_Fiend.png
+- Assets/Shigaraki/GUI/Base/bulletlaser.png
+- Assets/Shigaraki/GUI/Monsters/Wandering_Vagrant.png
+- Assets/Shigaraki/Animations/Land.anim
+- Assets/Shigaraki/Import/WispAssets/Prefabs/BeamStart.prefab
+- Assets/Shigaraki/GUI/Monsters/Larva.png
+- Assets/Shigaraki/GUI/Survivors/Captain.png
+- Assets/Shigaraki/Animations/Idle.anim
+- Assets/Shigaraki/GUI/Monsters/Magma_Worm.png
+- Assets/Shigaraki/Assets/Material/Panner.shader
+- Assets/Shigaraki/Animations/Run.anim
+- Assets/Shigaraki/Assets/MeshHand.mesh
+- Assets/Shigaraki/Animations/Right Arm Pull.anim
 - Assets/Shigaraki/Import/WispAssets/Materials/SolGate.mat
+- Assets/Shigaraki/GUI/Survivors/Acrid.png
+- Assets/Shigaraki/GUI/Monsters/Solus_Probe.png
 - Assets/Shigaraki/Assets/Particle/Decay.prefab
-- Assets/Shigaraki/Assets/Particle/Decay 1.prefab
+- Assets/Shigaraki/GUI/Monsters/Lemurian.png
+- Assets/Shigaraki/Assets/Particle/DecayBuff.prefab
+- Assets/Shigaraki/GUI/Monsters/Void_Barnacle.png
+- Assets/Shigaraki/GUI/Monsters/Hermit_Crab.png
+- Assets/Shigaraki/GUI/Monsters/Beetle_Queen.png
+- Assets/Shigaraki/GUI/Monsters/Brass_Contraption.png
 - Assets/Shigaraki/Import/WispAssets/Materials/MoteTrail.mat
+- Assets/Shigaraki/GUI/Monsters/Blind_Pest.png
+- Assets/Shigaraki/GUI/Monsters/Void_Devastator.png
 - Assets/Shigaraki/Animations/Entrance.anim
-- Assets/Shigaraki/Animations/Jump.anim
+- Assets/Shigaraki/GUI/Monsters/Stone_Golem.png
+- Assets/Shigaraki/Assets/Particle/DecayAttack.prefab
 - Assets/Shigaraki/Animations/animShiggyDiplay.controller
-- Assets/Shigaraki/Animations/RightArmPunch.anim
-- Assets/Shigaraki/Animations/RightArmOut.anim
+- Assets/Shigaraki/Animations/RightArmDetonate.anim
+- Assets/Shigaraki/GUI/Base/decay.png
+- Assets/Shigaraki/GUI/Survivors/Mercenary.png
+- Assets/Shigaraki/GUI/Monsters/Geep.png
 - Assets/Shigaraki/Assets/Particle/MainBeam.prefab
 - Assets/Shigaraki/Import/WispAssets/particle/Light.prefab
+- Assets/Shigaraki/GUI/Monsters/Imp.png
 - Assets/Shigaraki/Assets/Material/noise3blur.png
 - Assets/Shigaraki/Assets/MeshShiggy.mesh
+- Assets/Shigaraki/Animations/RightArmOut.anim
+- Assets/Shigaraki/Animations/EntranceLoop.anim
+- Assets/Shigaraki/GUI/Monsters/Mini_Mushrum.png
+- Assets/Shigaraki/GUI/Monsters/Xi_Construct.png
+- Assets/Shigaraki/GUI/Survivors/Bandit.png
+- Assets/Shigaraki/GUI/Monsters/Lunar_Golem.png
+- Assets/Shigaraki/GUI/Monsters/Scavenger.png
+- Assets/Shigaraki/GUI/Survivors/Loader.png
 Dependencies: []

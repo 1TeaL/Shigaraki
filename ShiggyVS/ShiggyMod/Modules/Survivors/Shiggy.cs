@@ -160,7 +160,7 @@ namespace ShiggyMod.Modules.Survivors
             skillloc.passiveSkill.enabled = true;
             skillloc.passiveSkill.skillNameToken = prefix + "PASSIVE_NAME";
             skillloc.passiveSkill.skillDescriptionToken = prefix + "PASSIVE_DESCRIPTION";
-            skillloc.passiveSkill.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Ability");
+            skillloc.passiveSkill.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("allforone");
             skillloc.passiveSkill.keywordToken = prefix + "KEYWORD_DECAY";
             #endregion
 
@@ -172,7 +172,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "DECAY_NAME",
                 skillNameToken = prefix + "DECAY_NAME",
                 skillDescriptionToken = prefix + "DECAY_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Struggle"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("decay"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Decay)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -205,7 +205,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "BULLETLASER_NAME",
                 skillNameToken = prefix + "BULLETLASER_NAME",
                 skillDescriptionToken = prefix + "BULLETLASER_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BulletLaser)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -238,7 +238,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "AIRCANNON_NAME",
                 skillNameToken = prefix + "AIRCANNON_NAME",
                 skillDescriptionToken = prefix + "AIRCANNON_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("AssaultVest"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("aircannon"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.AirCannon)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -271,7 +271,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "MULTIPLIER_NAME",
                 skillNameToken = prefix + "MULTIPLIER_NAME",
                 skillDescriptionToken = prefix + "MULTIPLIER_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Transform"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("multiplier"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Multiplier)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -305,7 +305,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "AFO_NAME",
                 skillNameToken = prefix + "AFO_NAME",
                 skillDescriptionToken = prefix + "AFO_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Transform"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("allforone"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.AFO)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -336,7 +336,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "ALPHACONSTRUCT_NAME",
                 skillNameToken = prefix + "ALPHACONSTRUCT_NAME",
                 skillDescriptionToken = prefix + "ALPHACONSTRUCT_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Alpha_Construct"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.AlphaConstruct)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -361,7 +361,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "BEETLE_NAME",
                 skillNameToken = prefix + "BEETLE_NAME",
                 skillDescriptionToken = prefix + "BEETLE_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Beetle"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Beetle)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -386,7 +386,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "GUP_NAME",
                 skillNameToken = prefix + "GUP_NAME",
                 skillDescriptionToken = prefix + "GUP_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Gup"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Gup)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -411,7 +411,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "LARVA_NAME",
                 skillNameToken = prefix + "LARVA_NAME",
                 skillDescriptionToken = prefix + "LARVA_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Larva"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Larva)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -436,7 +436,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "LESSERWISP_NAME",
                 skillNameToken = prefix + "LESSERWISP_NAME",
                 skillDescriptionToken = prefix + "LESSERWISP_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Lesser_Wisp"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LesserWisp)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -461,7 +461,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "LUNAREXPLODER_NAME",
                 skillNameToken = prefix + "LUNAREXPLODER_NAME",
                 skillDescriptionToken = prefix + "LUNAREXPLODER_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Lunar_Exploder"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LunarExploder)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -486,7 +486,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "HERMITCRAB_NAME",
                 skillNameToken = prefix + "HERMITCRAB_NAME",
                 skillDescriptionToken = prefix + "HERMITCRAB_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Hermit_Crab"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.HermitCrab)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -511,7 +511,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "PEST_NAME",
                 skillNameToken = prefix + "PEST_NAME",
                 skillDescriptionToken = prefix + "PEST_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Blind_Pest"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BlindPest)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -536,7 +536,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "VERMIN_NAME",
                 skillNameToken = prefix + "VERMIN_NAME",
                 skillDescriptionToken = prefix + "VERMIN_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Blind_Vermin"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BlindVermin)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -561,7 +561,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "MINIMUSHRUM_NAME",
                 skillNameToken = prefix + "MINIMUSHRUM_NAME",
                 skillDescriptionToken = prefix + "MINIMUSHRUM_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Mini_Mushrum"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MiniMushrum)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -586,7 +586,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "ROBOBALLMINI_NAME",
                 skillNameToken = prefix + "ROBOBALLMINI_NAME",
                 skillDescriptionToken = prefix + "ROBOBALLMINI_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Solus_Probe"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.RoboBallMini)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -611,7 +611,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "VOIDBARNACLE_NAME",
                 skillNameToken = prefix + "VOIDBARNACLE_NAME",
                 skillDescriptionToken = prefix + "VOIDBARNACLE_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Void_Barnacle"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidBarnacle)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -636,7 +636,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "VOIDJAILER_NAME",
                 skillNameToken = prefix + "VOIDJAILER_NAME",
                 skillDescriptionToken = prefix + "VOIDJAILER_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Void_Jailer"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidJailer)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -661,7 +661,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "STONETITAN_NAME",
                 skillNameToken = prefix + "STONETITAN_NAME",
                 skillDescriptionToken = prefix + "STONETITAN_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Stone_Titan"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.StoneTitan)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -686,7 +686,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "MAGMAWORM_NAME",
                 skillNameToken = prefix + "MAGMAWORM_NAME",
                 skillDescriptionToken = prefix + "MAGMAWORM_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Magma_Worm"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MagmaWorm)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -711,7 +711,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "OVERLOADINGWORM_NAME",
                 skillNameToken = prefix + "OVERLOADINGWORM_NAME",
                 skillDescriptionToken = prefix + "OVERLOADINGWORM_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Overloading_Worm"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.OverloadingWorm)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -736,7 +736,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "VAGRANT_NAME",
                 skillNameToken = prefix + "VAGRANT_NAME",
                 skillDescriptionToken = prefix + "VAGRANT_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Wandering_Vagrant"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Vagrant)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -765,7 +765,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "VULTURE_NAME",
                 skillNameToken = prefix + "VULTURE_NAME",
                 skillDescriptionToken = prefix + "VULTURE_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Alloy_Vulture"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.AlloyVultureFly)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -790,7 +790,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "BEETLEGUARD_NAME",
                 skillNameToken = prefix + "BEETLEGUARD_NAME",
                 skillDescriptionToken = prefix + "BEETLEGUARD_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Beetle_Guard"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BeetleGuardSlam)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -807,7 +807,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY" }
+                keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
 
             });
             Shiggy.bisonchargeDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -815,7 +815,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "BISON_NAME",
                 skillNameToken = prefix + "BISON_NAME",
                 skillDescriptionToken = prefix + "BISON_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Bison"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BisonCharge)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -832,7 +832,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY" }
+                keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
 
             });
             Shiggy.bronzongballDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -840,7 +840,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "BRONZONG_NAME",
                 skillNameToken = prefix + "BRONZONG_NAME",
                 skillDescriptionToken = prefix + "BRONZONG_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Brass_Contraption"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BronzongBall)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -865,7 +865,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "APOTHECARY_NAME",
                 skillNameToken = prefix + "APOTHECARY_NAME",
                 skillDescriptionToken = prefix + "APOTHECARY_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Clay_Apothecary"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ClayApothecaryMortar)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -882,7 +882,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE" }
+                keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_TAR" }
 
             });
             Shiggy.claytemplarminigunDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -890,7 +890,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "TEMPLAR_NAME",
                 skillNameToken = prefix + "TEMPLAR_NAME",
                 skillDescriptionToken = prefix + "TEMPLAR_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Clay_Templar"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ClayTemplarMinigun)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -907,7 +907,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE" }
+                keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_TAR" }
 
             });
             Shiggy.greaterwispballDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -915,7 +915,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "GREATERWISP_NAME",
                 skillNameToken = prefix + "GREATERWISP_NAME",
                 skillDescriptionToken = prefix + "GREATERWISP_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Greater_Wisp"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.GreaterWispBallFire)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -940,7 +940,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "IMP_NAME",
                 skillNameToken = prefix + "IMP_NAME",
                 skillDescriptionToken = prefix + "IMP_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Imp"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ImpBlink)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 3,
@@ -965,11 +965,11 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "JELLYFISH_NAME",
                 skillNameToken = prefix + "JELLYFISH_NAME",
                 skillDescriptionToken = prefix + "JELLYFISH_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Jellyfish"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.JellyfishNova)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 5f,
+                baseRechargeInterval = 6f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -982,7 +982,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE" }
+                keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_STUNNING" }
 
             });
             Shiggy.lemurianfireballDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -990,7 +990,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "LEMURIAN_NAME",
                 skillNameToken = prefix + "LEMURIAN_NAME",
                 skillDescriptionToken = prefix + "LEMURIAN_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Lemurian"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LemurianFireball)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1007,7 +1007,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE" }
+                keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_BURNING" }
 
             });
             Shiggy.lunargolemslideDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -1015,7 +1015,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "LUNARGOLEM_NAME",
                 skillNameToken = prefix + "LUNARGOLEM_NAME",
                 skillDescriptionToken = prefix + "LUNARGOLEM_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Lunar_Golem"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LunarGolemSlide)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1040,7 +1040,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "LUNARWISP_NAME",
                 skillNameToken = prefix + "LUNARWISP_NAME",
                 skillDescriptionToken = prefix + "LUNARWISP_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Lunar_Wisp"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LunarWispMinigun)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1057,7 +1057,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE" }
+                keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_CRIPPLE" }
 
             });
             Shiggy.parentteleportDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -1065,7 +1065,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "PARENT_NAME",
                 skillNameToken = prefix + "PARENT_NAME",
                 skillDescriptionToken = prefix + "PARENT_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Parent"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ParentTeleport)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
@@ -1082,7 +1082,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY" }
+                keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
 
             });
             Shiggy.stonegolemlaserDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -1090,7 +1090,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "STONEGOLEM_NAME",
                 skillNameToken = prefix + "STONEGOLEM_NAME",
                 skillDescriptionToken = prefix + "STONEGOLEM_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Stone_Golem"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.StoneGolemLaserCharge)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1107,7 +1107,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE" }
+                keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_STUNNING" }
 
             });
             Shiggy.voidreaverportalDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -1115,7 +1115,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "VOIDREAVER_NAME",
                 skillNameToken = prefix + "VOIDREAVER_NAME",
                 skillDescriptionToken = prefix + "VOIDREAVER_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Void_Reaver"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidReaverPortal)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1142,7 +1142,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "BEETLEQUEEN_NAME",
                 skillNameToken = prefix + "BEETLEQUEEN_NAME",
                 skillDescriptionToken = prefix + "BEETLEQUEEN_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Beetle_Queen"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BeetleQueenShotgun)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1167,7 +1167,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "GROVETENDER_NAME",
                 skillNameToken = prefix + "GROVETENDER_NAME",
                 skillDescriptionToken = prefix + "GROVETENDER_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Grovetender"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.GrovetenderHook)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1192,7 +1192,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "CLAYDUNESTRIDER_NAME",
                 skillNameToken = prefix + "CLAYDUNESTRIDER_NAME",
                 skillDescriptionToken = prefix + "CLAYDUNESTRIDER_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Clay_Dunestrider"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ClayDunestriderBall)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1217,7 +1217,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "SOLUSCONTROLUNIT_NAME",
                 skillNameToken = prefix + "SOLUSCONTROLUNIT_NAME",
                 skillDescriptionToken = prefix + "SOLUSCONTROLUNIT_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Solus_Control_Unit"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.SolusControlUnitKnockup)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -1242,7 +1242,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "XICONSTRUCT_NAME",
                 skillNameToken = prefix + "XICONSTRUCT_NAME",
                 skillDescriptionToken = prefix + "XICONSTRUCT_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Xi_Construct"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.XiConstructBeam)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1267,7 +1267,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "VOIDDEVASTATOR_NAME",
                 skillNameToken = prefix + "VOIDDEVASTATOR_NAME",
                 skillDescriptionToken = prefix + "VOIDDEVASTATOR_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Void_Devastator"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidDevastatorHoming)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1292,7 +1292,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "SCAVENGER_NAME",
                 skillNameToken = prefix + "SCAVENGER_NAME",
                 skillDescriptionToken = prefix + "SCAVENGER_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("stlouis"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Scavenger"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ScavengerThqwibs)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,

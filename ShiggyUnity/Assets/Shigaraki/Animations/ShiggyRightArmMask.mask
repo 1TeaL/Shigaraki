@@ -1,0 +1,427 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ShiggyRightArmMask
+  m_Mask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: hand
+    m_Weight: 0
+  - m_Path: ShiggyModel
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Left knee.001
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Left leg.001
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Right knee.001
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Right leg.001
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_B_Bred_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_B_Bred_A/AC_B_Bred_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_B_Bred_A/AC_B_Bred_B/AC_B_Bred_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_B_Bred_A/AC_B_Bred_B/AC_B_Bred_C/AC_B_Bred_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_L_Bred_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_L_Bred_A/AC_L_Bred_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_L_Bred_A/AC_L_Bred_B/AC_L_Bred_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_L_Bred_A/AC_L_Bred_B/AC_L_Bred_C/AC_L_Bred_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_L_Himo
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_LB_Bred_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_LB_Bred_A/AC_LB_Bred_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_LB_Bred_A/AC_LB_Bred_B/AC_LB_Bred_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_LB_Bred_A/AC_LB_Bred_B/AC_LB_Bred_C/AC_LB_Bred_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_LF_Bred_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_LF_Bred_A/AC_LF_Bred_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_LF_Bred_A/AC_LF_Bred_B/AC_LF_Bred_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_LF_Bred_A/AC_LF_Bred_B/AC_LF_Bred_C/AC_LF_Bred_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_R_Bred_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_R_Bred_A/AC_R_Bred_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_R_Bred_A/AC_R_Bred_B/AC_R_Bred_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_R_Bred_A/AC_R_Bred_B/AC_R_Bred_C/AC_R_Bred_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_R_Himo
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_RB_Bred_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_RB_Bred_A/AC_RB_Bred_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_RB_Bred_A/AC_RB_Bred_B/AC_RB_Bred_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_RB_Bred_A/AC_RB_Bred_B/AC_RB_Bred_C/AC_RB_Bred_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_RF_Bred_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_RF_Bred_A/AC_RF_Bred_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_RF_Bred_A/AC_RF_Bred_B/AC_RF_Bred_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/AC_RF_Bred_A/AC_RF_Bred_B/AC_RF_Bred_C/AC_RF_Bred_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Left leg
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Left leg/Left knee
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Left leg/Left knee/Left ankle
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Left leg/Left knee/Left ankle/Left toe
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Left leg/Left knee/leg left ankle adj
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Left leg/Left knee/leg left knee adj
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Right leg
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Right leg/leg right thigh adj
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Right leg/leg right thigh adj/(Unused)
+      U teeth
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Right leg/Right knee
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Right leg/Right knee/leg right ankle adj
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Right leg/Right knee/leg right knee adj
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Right leg/Right knee/Right ankle
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Right leg/Right knee/Right ankle/Right
+      toe
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/AC_Scarf_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/AC_Scarf_A/AC_Scarf_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/AC_Scarf_A/AC_Scarf_B/AC_Scarf_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/IndexFinger1_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/IndexFinger1_L/IndexFinger2_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/IndexFinger1_L/IndexFinger2_L/IndexFinger3_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/LittleFinger1_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/LittleFinger1_L/LittleFinger2_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/LittleFinger1_L/LittleFinger2_L/LittleFinger3_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/MiddleFinger1_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/MiddleFinger1_L/MiddleFinger2_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/MiddleFinger1_L/MiddleFinger2_L/MiddleFinger3_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/RingFinger1_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/RingFinger1_L/RingFinger2_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/RingFinger1_L/RingFinger2_L/RingFinger3_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/Thumb0_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/Thumb0_L/Thumb1_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Left shoulder/Left arm/Left
+      elbow/Left wrist/Thumb0_L/Thumb1_L/Thumb2_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Eye_L
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Eye_R
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Forehead
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/head neck face root
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.002
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.002/Head.003
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.002/Head.003/Head.006
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.004
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.004/Head.005
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.004/Head.005/Head.007
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.008
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.008/Head.009
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.008/Head.009/Head.012
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.010
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.010/Head.011
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.010/Head.011/Head.013
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.014
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.014/Head.015
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.014/Head.015/Head.016
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.018
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Head.018/Head.019
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A/LU_Lip_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A/LU_Lip_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A/LU_Lip_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A/RU_Lip_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A/RU_Lip_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A/RU_Lip_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A/Tongue_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A/Tongue_A/Tongue_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A/U_Lip
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Jaw_A/U_Teeth
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Browskin_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Browskin_A/L_Eyebrow_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Browskin_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Browskin_B/L_Eyebrow_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Browskin_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Browskin_C/L_Eyebrow_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Browskin_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Browskin_D/L_Eyebrow_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Browskin_E
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Browskin_E/L_Eyebrow_E
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Cheek_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Cheek_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Cheek_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/L_Cheek_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LI_Eyelid
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LO_Eyelid
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LT_Eyelid_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LT_Eyelid_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LT_Eyelid_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LT_Eyelid_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LT_Lip_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LT_Lip_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LT_Lip_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LT_Lip_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LU_Eyelid_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LU_Eyelid_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LU_Eyelid_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/LU_Eyelid_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/Nose_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Browskin_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Browskin_A/R_Eyebrow_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Browskin_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Browskin_B/R_Eyebrow_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Browskin_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Browskin_C/R_Eyebrow_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Browskin_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Browskin_D/R_Eyebrow_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Browskin_E
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Browskin_E/R_Eyebrow_E
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Cheek_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Cheek_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Cheek_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/R_Cheek_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RI_Eyelid
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RO_Eyelid
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RT_Eyelid_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RT_Eyelid_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RT_Eyelid_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RT_Eyelid_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RT_Lip_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RT_Lip_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RT_Lip_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RT_Lip_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RU_Eyelid_A
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RU_Eyelid_B
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RU_Eyelid_C
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/RU_Eyelid_D
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/T_Lip
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Neck/Head/T_Teeth
+    m_Weight: 0
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/IndexFinger1_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/IndexFinger1_R/IndexFinger2_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/IndexFinger1_R/IndexFinger2_R/IndexFinger3_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/LittleFinger1_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/LittleFinger1_R/LittleFinger2_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/LittleFinger1_R/LittleFinger2_R/LittleFinger3_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/MiddleFinger1_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/MiddleFinger1_R/MiddleFinger2_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/MiddleFinger1_R/MiddleFinger2_R/MiddleFinger3_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/RingFinger1_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/RingFinger1_R/RingFinger2_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/RingFinger1_R/RingFinger2_R/RingFinger3_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/Thumb0_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/Thumb0_R/Thumb1_R
+    m_Weight: 1
+  - m_Path: Tomura Shigaraki_arm/Root/Hips/Spine/Chest/Right shoulder/Right arm/Right
+      elbow/Right wrist/Thumb0_R/Thumb1_R/Thumb2_R
+    m_Weight: 1

@@ -46,6 +46,9 @@ namespace ShiggyMod.Modules
         public static Material alphaconstructShieldBuff;
         public static Material multiplierShieldBuff;
 
+        public static GameObject decayattackEffect;
+        public static GameObject decaybuffEffect;
+
         public static GameObject bisonEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bison/BisonChargeStep.prefab").WaitForCompletion();
         public static GameObject GupSpikeEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GupExplosion.prefab").WaitForCompletion();
         public static GameObject lemfireBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/Fireball.prefab").WaitForCompletion();
@@ -111,11 +114,13 @@ namespace ShiggyMod.Modules
                 Debug.LogError("There is no AssetBundle to load assets from.");
                 return;
             }
+            //decay particle
+            decayattackEffect = LoadEffect("DecayAttack");
+            decaybuffEffect = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DecayBuff");
+
             //alpha shield effect
             alphaconstructShieldBuff = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
             alphaconstructShieldBuff.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
-
-
 
             //xiconstruct beam effect
             beam = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("XiConstructBeam");

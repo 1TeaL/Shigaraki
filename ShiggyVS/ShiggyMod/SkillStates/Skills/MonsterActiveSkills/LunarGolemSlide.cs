@@ -90,6 +90,7 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
+            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             base.OnExit();
             this.PlayImpactAnimation();
             if (this.slideEffectInstance)

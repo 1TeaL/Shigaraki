@@ -43,9 +43,9 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.strengthMultiplier;
 
-            //base.PlayAnimation("FullBody, Override", "ManchesterBegin", "Attack.playbackRate", Manchester.jumpDuration);
-            //AkSoundEngine.PostEvent(687990298, this.gameObject);
-            //AkSoundEngine.PostEvent(1918362945, this.gameObject);
+
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("Fullbody, Override", "Slam", "Attack.playbackRate", 0.2f, 0.1f);
 
 
             base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
@@ -223,11 +223,11 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
 
+            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             if (this.slamIndicatorInstance)
                 this.slamIndicatorInstance.SetActive(false);
             EntityState.Destroy(this.slamIndicatorInstance);
 
-            //base.PlayAnimation("FullBody, Override", "BufferEmpty");
 
 
             base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;

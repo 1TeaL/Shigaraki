@@ -36,7 +36,7 @@ namespace ShiggyMod.Modules
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "All For One");
             LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "Shigaraki can grab quirks from anyone he's looking at. " +
-                "Actives(Circle) replace the main skill and Passives(Triangle) replace the skill. Both can be replaced. <style=cSub>Melee</style> skills deal <style=cWorldEvent>[Decay].</style>" + Environment.NewLine +
+                "Actives<style=cWorldEvent>(Circle)</style> replace main skills and Passives<style=cWorldEvent>(Triangle)</style> replace extra skills. <style=cSub>[Melee]</style> skills deal <style=cWorldEvent>[Decay].</style>" + Environment.NewLine +
                 "<style=cWorldEvent>RightHanded</style> and <style=cWorldEvent>LeftHanded</style> skills can be used together. " +
                 "<style=cIsUtility>He can sprint in any direction.</style>");
             #endregion
@@ -45,20 +45,20 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "DECAY_NAME", "Decay");
             LanguageAPI.Add(prefix + "DECAY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> " +
                 $"Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Melee</style>");
+                $"<style=cSub>[Melee]</style>");
             LanguageAPI.Add(prefix + "BULLETLASER_NAME", "Bullet Laser");
             LanguageAPI.Add(prefix + "BULLETLASER_DESCRIPTION", $"<style=cIsDamage>Agile." +
                 $"</style> Shoot 5 Lasers for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Ranged</style>");
+                $"<style=cSub>[Ranged]</style>");
             LanguageAPI.Add(prefix + "AIRCANNON_NAME", "Air Cannon");
             LanguageAPI.Add(prefix + "AIRCANNON_DESCRIPTION", $"<style=cIsDamage>Agile.</style> " +
                 $"Blasts an air shockwave behind you, dealing <style=cIsDamage>{100f * StaticValues.aircannonDamageCoeffecient}% damage</style> and propelling you forward." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Melee</style>");
+                $"<style=cSub>[Melee]</style>");
             LanguageAPI.Add(prefix + "MULTIPLIER_NAME", "Multiplier");
             LanguageAPI.Add(prefix + "MULTIPLIER_DESCRIPTION", $"<style=cIsDamage>Agile." +
                 $"</style> Boosts your next attack to deal <style=cIsDamage>{100f * StaticValues.multiplierCoefficient}% damage</style>. " +
                 $"</style> Triples the number of projectiles, shots and decay stacks as well." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Ranged</style>");
+                $"<style=cSub>[Ranged] [Melee]</style>");
             LanguageAPI.Add(prefix + "AFO_NAME", "All For One");
             LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hit enemies in front of you for <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>.");
 
