@@ -48,6 +48,8 @@ namespace ShiggyMod.SkillStates
             this.duration = baseDuration / this.attackSpeedStat;
             this.durationBeforeBlast = baseDurationBeforeBlast / this.attackSpeedStat;
             Util.PlayAttackSpeedSound(FaceSlam.attackSoundString, base.gameObject, this.attackSpeedStat);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
             AkSoundEngine.PostEvent(180661997, base.gameObject);
             if (base.characterDirection)
             {
@@ -66,7 +68,6 @@ namespace ShiggyMod.SkillStates
             }
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.rangedMultiplier;
         }
 
 
@@ -172,7 +173,7 @@ namespace ShiggyMod.SkillStates
 							this.attack.attacker = base.gameObject;
 							this.attack.inflictor = base.gameObject;
 							this.attack.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
-							this.attack.baseDamage = this.damageStat * damageCoefficient;
+							this.attack.baseDamage = this.damageStat * damageCoefficient * Shiggycon.strengthMultiplier;
 							this.attack.baseForce = force;
 							this.attack.position = transform.position;
 							this.attack.radius = radius;
@@ -216,7 +217,7 @@ namespace ShiggyMod.SkillStates
 									singularTarget.healthComponent.body.footPosition, //position
 									Quaternion.identity, //rotation
 									base.gameObject, //owner
-									this.damageStat * damageCoefficient, //damage
+									this.damageStat * damageCoefficient * Shiggycon.rangedMultiplier, //damage
 									force, //force
 									Util.CheckRoll(this.critStat, base.characterBody.master), //crit
 									DamageColorIndex.Default, //damage color

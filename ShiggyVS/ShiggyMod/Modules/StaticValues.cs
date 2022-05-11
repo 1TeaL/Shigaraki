@@ -6,6 +6,10 @@ namespace ShiggyMod.Modules
     internal static class StaticValues
     {
 
+        internal const int vagrantCooldown = 10;
+
+        internal const int alphaconstructCooldown = 10;
+
         internal const float overloadingInterval = 1f;
         internal const float overloadingRadius = 6.5f;
         internal const float overloadingCoefficient = 5f;
@@ -67,7 +71,7 @@ namespace ShiggyMod.Modules
 
         internal const float multiplierCoefficient = 3f;
         
-        internal const float flyduration = 10f;
+        internal const float alloyvultureflyduration = 10f;
 
         internal const float beetledamageMultiplier = 1.5f;
         internal const float beetlestrengthMultiplier = 2f;
@@ -107,7 +111,7 @@ namespace ShiggyMod.Modules
         internal const float greaterwispballDamageCoeffecient = 10f;
         internal const float greaterwispballProcCoefficient = 1f;
 
-        internal const float jellyfishnovaDamageCoeffecient = 30f;
+        internal const float jellyfishnovaDamageCoeffecient = 20f;
         internal const float jellyfishnovaProcCoefficient = 2f;
 
         internal const float lemurianfireballDamageCoeffecient = 2f;
@@ -134,10 +138,10 @@ namespace ShiggyMod.Modules
         internal const float claydunestriderDamageCoeffecient = 8f;
         internal const float claydunestriderProcCoefficient = 1f;
 
-        internal const float soluscontrolunitDamageCoeffecient = 1f;
+        internal const float soluscontrolunitDamageCoeffecient = 4f;
         internal const float soluscontrolunitProcCoefficient = 1f;
 
-        internal const float xiconstructDamageCoeffecient = 1f;
+        internal const float xiconstructDamageCoeffecient = 2f;
         internal const float xiconstructProcCoefficient = 0.2f;
 
         internal const int voiddevastatorTotalMissiles = 8;

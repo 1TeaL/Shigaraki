@@ -37,6 +37,8 @@ namespace ShiggyMod.SkillStates
             hasTeleported = false;
             damageType = DamageType.Stun1s;
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayAnimation("FullBody, Override", "Slam", "Attack.playbackRate", fireTime * 2f);
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             if (Shiggycon && base.isAuthority)
@@ -72,6 +74,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
         }
 
         public override void FixedUpdate()

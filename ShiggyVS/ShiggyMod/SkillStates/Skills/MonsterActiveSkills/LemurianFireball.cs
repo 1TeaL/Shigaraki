@@ -109,9 +109,11 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-
-
-            if (base.fixedAge >= this.duration && base.isAuthority)
+            if (base.fixedAge >= this.duration && base.isAuthority && base.IsKeyDownAuthority())
+            {
+                this.outer.SetNextState(new LemurianFireball());
+            }
+            else if (base.fixedAge >= this.duration && base.isAuthority)
             {
                 this.outer.SetNextStateToMain();
                 return;

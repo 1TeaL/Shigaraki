@@ -53,6 +53,8 @@ namespace ShiggyMod.SkillStates
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
             AkSoundEngine.PostEvent(180661997, base.gameObject);
 
             this.prepDuration = basePrepDuration / this.attackSpeedStat;

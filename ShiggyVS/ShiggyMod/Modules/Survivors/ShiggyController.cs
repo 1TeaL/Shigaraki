@@ -622,7 +622,7 @@ namespace ShiggyMod.Modules.Survivors
 					blastAttack.position = characterBody.footPosition;
 					blastAttack.attacker = base.gameObject;
 					blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
-					blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5);
+					blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5) * strengthMultiplier;
 					blastAttack.falloffModel = BlastAttack.FalloffModel.None;
 					blastAttack.baseForce = Modules.StaticValues.larvaForce;
 					blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
@@ -630,7 +630,16 @@ namespace ShiggyMod.Modules.Survivors
 					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
 					blastAttack.Fire();
-					ApplyDoT();
+                    if (characterBody.HasBuff(Buffs.multiplierBuff.buffIndex))
+                    {
+                        ApplyDoT();
+                        ApplyDoT();
+                        ApplyDoT();
+                    }
+                    else
+                    {
+                        ApplyDoT();
+                    }
 				}
 
                 if (!characterBody.characterMotor.isGrounded)
@@ -1353,7 +1362,7 @@ namespace ShiggyMod.Modules.Survivors
 		}
 
 		public  void Update()
-		{
+		{            
             //update mortar indicator
 			if (this.mortarIndicatorInstance) this.UpdateIndicator();
 
@@ -1363,7 +1372,7 @@ namespace ShiggyMod.Modules.Survivors
 
             //steal quirks
 
-            quirkTimer += Time.fixedDeltaTime;
+            quirkTimer += Time.deltaTime;
             if (quirkTimer > 1f)
             {
                 quirkTimer = 0f;

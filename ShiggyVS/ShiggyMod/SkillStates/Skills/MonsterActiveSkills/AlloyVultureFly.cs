@@ -54,7 +54,7 @@ namespace ShiggyMod.SkillStates
             bool active = NetworkServer.active;
             if (active)
             {
-                base.characterBody.AddTimedBuffAuthority(Modules.Buffs.flyBuff.buffIndex, Modules.StaticValues.flyduration);
+                base.characterBody.AddTimedBuffAuthority(Modules.Buffs.flyBuff.buffIndex, Modules.StaticValues.alloyvultureflyduration);
             }
 
             RecalculateRollSpeed();

@@ -153,8 +153,8 @@ namespace ShiggyMod
                         if (damageInfo.damage / body.damage >= StaticValues.vagrantdamageThreshold)
                         {
                             body.RemoveBuff(Modules.Buffs.vagrantBuff.buffIndex);
-                            body.SetBuffCount(Buffs.vagrantdisableBuff.buffIndex, 10);
-                            victimBody.AddTimedBuffAuthority(Buffs.vagrantDebuff.buffIndex, 10f);
+                            body.SetBuffCount(Buffs.vagrantdisableBuff.buffIndex, StaticValues.vagrantCooldown);
+                            victimBody.AddTimedBuffAuthority(Buffs.vagrantDebuff.buffIndex, StaticValues.vagrantCooldown);
                             Util.PlaySound(JellyNova.novaSoundString, base.gameObject);
                             
                             if (JellyNova.novaEffectPrefab)
@@ -292,7 +292,7 @@ namespace ShiggyMod
                                 EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
                                 damageInfo.rejected = true;
                                 self.body.RemoveBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
-                                self.body.SetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex, 10);
+                                self.body.SetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex, StaticValues.alphaconstructCooldown);
                             }
 
                         }

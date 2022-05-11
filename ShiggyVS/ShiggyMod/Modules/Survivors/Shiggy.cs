@@ -77,10 +77,10 @@ namespace ShiggyMod.Modules.Survivors
             characterPortrait = Modules.Assets.LoadCharacterIcon("Shiggy"),
             crosshair = Modules.Assets.LoadCrosshair("Standard"),
             damage = 5f,
-            healthGrowth = 20f,
+            healthGrowth = 41f,
             healthRegen = 1f,
             jumpCount = 2,
-            maxHealth = 100f,
+            maxHealth = 141f,
             moveSpeed = 7f,
             subtitleNameToken = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SUBTITLE",
             podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod")
@@ -173,7 +173,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "DECAY_NAME",
                 skillDescriptionToken = prefix + "DECAY_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("decay"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.Decay)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.GrovetenderHook)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -239,8 +239,8 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "AIRCANNON_NAME",
                 skillDescriptionToken = prefix + "AIRCANNON_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("aircannon"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.AirCannon)),
-                activationStateMachineName = "Body",
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BisonCharge)),
+                activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 5f,
                 beginSkillCooldownOnSkillEnd = true,
@@ -250,12 +250,12 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY" }
+                keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
 
             });
 
