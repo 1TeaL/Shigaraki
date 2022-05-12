@@ -30,12 +30,16 @@ namespace ShiggyMod.SkillStates
             this.duration = this.baseDuration / this.attackSpeedStat;
             this.fireTime = 0.2f * this.duration;
             hasFired = false;
-
+            damageType = DamageType.Generic;
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType = DamageType.BleedOnHit;
+            }
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmPunch","Attack.playbackRate", fireTime*2f, 0.1f);
-            AkSoundEngine.PostEvent(180661997, base.gameObject);
+            PlayCrossfade("LeftArm, Override", "LeftArmPunch","Attack.playbackRate", fireTime, 0.1f);
+            AkSoundEngine.PostEvent(3660048432, base.gameObject);
             this.muzzleString = "LFinger";
             EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
 
@@ -64,6 +68,7 @@ namespace ShiggyMod.SkillStates
 
             if (base.fixedAge >= this.fireTime && !hasFired)
             {
+                PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", fireTime, 0.1f);
                 hasFired = true;
 
                 Ray aimRay = base.GetAimRay();
@@ -71,7 +76,7 @@ namespace ShiggyMod.SkillStates
                 {
                     bulletCount = bulletcount,
                     aimVector = aimRay.direction,
-                    origin = aimRay.origin,
+                    origin = FindModelChild(this.muzzleString).position,
                     damage = this.damageStat * damageCoefficient,
                     damageColorIndex = DamageColorIndex.Default,
                     damageType = damageType,

@@ -1,12 +1,17 @@
-## Ditto
-Adds Ditto, the transform Pokémon.
+## Shigaraki
+Adds Shigaraki from My Hero Academia, an initially weaker survivor which can steal 'quirks' from enemies, gaining their abilites/skills.
 #### Multiplayer works (hopefully). 
-#### Dropinmultiplayer mod lets you turn back to ditto with the /join_as ditto command. If you ever get stuck try to use it and let me know what monster/character had you stuck.
-#### Message me on the Risk of Rain 2 Modding Discord if there are any issues- TeaL#5571. 
+#### Message me on the Risk of Rain 2 Modding Discord if there are any issues- TeaL#5571.
 #### <a href="https://ko-fi.com/tealpopcorn"><img src="https://user-images.githubusercontent.com/93917577/160220529-efed5020-90ac-467e-98f2-27b5c162d744.png"> </a>
 If you enjoy my work, support me on Ko-fi!
 ## Popcorn Factory
 <b>Check out other mods from the Popcorn Factory team!</b>
+<div>
+    <a href="https://thunderstore.io/package/PopcornFactory/DittoMod/">
+        <img src="https://user-images.githubusercontent.com/93917577/168004690-23b6d040-5f89-4b62-916b-c40d774bff02.png"><br>
+        <p>DittoMod (My other Mod!)</p>
+    </a>
+</div>
 <div>
     <a href="https://thunderstore.io/package/TeaL/DekuMod/">
         <img src="https://cdn.discordapp.com/attachments/399901440023330816/960043614036168784/TeaL-DekuMod-3.1.1.png.128x128_q95.png"><br>
@@ -34,150 +39,353 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
-- 1.1.4 
-    - Fixed contentpack identifier
-- 1.1.3 
-    - Forgot to add scavenger to be included in the timers list.
-- 1.1.2 
-    - *DELETE CONFIGS FOR THIS*: Added Config so you can disable timers for bosses. This still adds a timer to specific transformations that can cause a softlock such as the void final boss and other void enemies.
-    - Fixed transformation timers so it doesn't decrease at multiple stacks at a time during the run.
-    - Fixed TM- Transform from being accessed by bottled chaos. 
-    - Fixed some grammar issues in the character menu. 
-- 1.1.1 
-    - Hotfix so buffs don't carry over runs.
-- 1.1.0 
-    - Changed the method in which Ditto transforms, doesn't respawn as the character anymore- should cause less issues. (Credits to Bubbet).
-    - Checks if player owns the dlc before allowing them to transform into railgunner or void fiend as people without it would die. (Credits to Bubbet).
-    - Added configs to the above additions as well as whether buffs should be carried over to the transformations (Credits to Bubbet).
-    - Buffs now carry over when respawned/entering a new stage.
-    - Changed TM00 - Transform? Equipment to the lunar pool. This will prevent it from being called by bottled chaos.
-    - New Secondary and Utility 'Items' and changes
-        - *CHANGED* - Rocky Helmet now does a blast attack that stuns around you. A second stack doubles the radius and proc chance.
-        - *CHANGED* - Choice Specs now reduces cooldowns by 25% per stack.
-        - *NEW*- Assault Vest grants 100 armor per stack.
-        - *NEW*- Life Orb grants the damage boost of old choice specs per stack.
-        - *NEW*- Lucky Egg grants 1 luck per stack (acts as a Clover).
-    - Disabled transformations for Xi construct attachable constructs, Siren's Call Vulture eggs, Sky Meadows rock transforms, Mending Elite's healing orb, Clay Grenadier.
-    - Adjusted sound balance so that struggle sfx is only played 10% of the time, fixed Ditto playing Deku's voice in the character select menu (fixed on Deku's end).     
-    - Transforming into bosses and specific monsters will set a 30 second timer to the transformation, this should nerf how overpowered becoming a strong boss is such as an overloading worm, or abusing scavenger item gain.  
-        - Due to the above change, more transformations are now available, including ones that don't have equipment slots. 
-        - If player revives/goes to the next stage with transformations that have the timer will reset to 30 seconds.
-
+- 1.0.0
+    - Release. 
 - Next update(s)
     - Bug fixes. 
-    - Adding pokemon abilities to replace one of the item skill slots instead?
+    - Adding survivor quirks.
+    - Adding quirk synergies/combos.
+    - More particle effects/visuals.
 
-<img src="https://user-images.githubusercontent.com/93917577/161882257-dd41f57e-fa05-4fa9-841c-e8ee1623c64a.PNG">
+<img src="https://user-images.githubusercontent.com/93917577/168006996-bed1b1b2-bcbf-4baf-9010-13bc22b19332.png">
 
 ## Known Issues
 
-
-Non-host dittos may have multiple buffs, but they are not active.
-
-Some Transformations aren't able to use equipment. 
-
-No Ragdoll yet
-
-
-
 ## Overview
-    Ditto can transform into any character/monster
-    Ditto copies every stat besides HP, regen, armor and movespeed
-    Use Ditto's equipment to transform back to ditto. It can also drop naturally
-    Ditto's secondary and utility skills are items that when activated give buffs that are carried over when transformed as well. They stack as well by having both equipped.
-    Aim to increase your HP as it has low base HP
+    He is initially weak with low base damage, aim to get passive quirks to increase his power.
+    [LeftHanded] and [RightHanded] skills can be used simultaneously. 
 
 ## Skills
 ### Passive
-Ditto comes with an equipment that transform yourself into a ditto. It has a double jump. It can sprint in any direction. It takes no fall damage.
+Shigaraki can grab the target's quirk with All For One. 
+
+Actives(Circle Indicator) replace main skills and Passives(Square indicator) replace extra skills.
+
+Both can be replaced at any time. Passive skills still have All for One functionality.
+
+All [Melee] attacks Decay, which decreases the enemies' movespeed and attackspeed as well as instakilling them at 50 stacks (except for Teleporter Bosses).
+
+Shigaraki can sprint in any direction and has a double jump.
+
+### Base Skills
 <table>
 <thead>
   <tr>
-    <th>Item</th>
+    <th>Skill</th>
     <th>                         </th>
+    <th>Description</th>
+    <th>Stats</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Decay<br>Primary</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007105-3c8323d0-d97e-42d1-a6a1-06964fc9ac6e.png" width="100" height="100"></td>
+    <td>Slam and Decay the ground/air around you, dealing 300% damage.<br><br><br><br><br>[Melee] [Decay]</td>
+    <td>Proc: 1.</td>
+  </tr>
+  <tr>
+    <td>Bullet Laser<br>Secondary</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007101-1ede4aa9-e2d2-4526-bd68-1132e88b102a.png" width="100" height="100"></td>
+    <td>Shoot piercing lasers for 5x300% damage.<br><br><br><br><br>[Ranged]</td>
+    <td>Proc: 0.3.<br>CD: 3s.</td>
+  </tr>
+  <tr>
+    <td>Air Cannon<br>Utility</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007077-1351268d-a77e-4dfa-b8a9-9b1c9c125f2a.PNG" width="100" height="100"></td>
+    <td>Blasts an air shockwave behind you.<br>Does 400% damage and propels you forward.<br><br><br><br>[Melee] [Decay]</td>
+    <td>Proc: 1.<br>CD: 5s.</td>
+  </tr>
+  <tr>
+    <td>Multiplier<br>Special<br></td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007691-5d396602-a1f8-40d9-aaee-fc4fc9381e7c.png" width="100" height="100"></td>
+    <td>Boosts your next attack to deal 3x damage.<br>Triples the number of projectiles, shots and decay stacks as well.<br><br><br><br>[Melee] [Ranged]</td>
+    <td>CD: 8s.<br></td>
+  </tr>
+  <tr>
+    <td>All For One</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007092-48902939-7905-4630-9348-e14b25b98ddf.png" width="100" height="100"></td>
+    <td>Steal the Target's quirk.</td>
+    <td>CD: 1s.<br></td>
+  </tr>
+</tbody>
+</table>
+
+
+### Active Skills
+<table>
+<thead>
+  <tr>
+    <th>Active</th>
+    <th>Quirk User</th>
+    <th>Description</th>
+    <th>Stats</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Flight</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007147-086e88f1-7db8-4999-8aa5-bee1282bf141.png" width="100" height="100"></td>
+    <td>Jump and float in the air, disabling gravity for 10 seconds.</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Fast<br>Drop</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007155-25889635-31b3-4b4e-ab37-5c3a2cfe7bfb.png" width="100" height="100"></td>
+    <td>Drop and slam down, stunning and dealing 400% damage,<br>gaining 5% of your max health as barrier.<br>Damage, radius and barrier gain scales with drop time and movespeed.<br><br><br>[Melee] [Decay] [Movespeed]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Charging</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007161-0ee72842-8b6c-4d1c-9557-ea234823e512.png" width="100" height="100"></td>
+    <td>Charge forward at super speed, and if you slam into a solid object,<br>generates a shockwave that stuns enemies for 600% damage.<br>Hold the button down to keep charging.<br>Damage and radius scales with charge duration.<br><br>[Melee] [Decay] [Movespeed]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Spiked<br>Ball<br>Control</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007170-e2ebc59c-17f5-4de1-8d02-30e318c3d6c5.png" width="100" height="100"></td>
+    <td>Summon 3 spiked balls, then release them, dealing 400% damage per ball.<br><br><br><br><br>[Ranged] [LeftHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Clay<br>Airstrike</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007172-6552e61f-ceda-4f04-bcac-815dead09b12.png" width="100" height="100"></td>
+    <td>Release a tar shockwave, and send a mortar into the sky, <br>which rains down on enemies around you, both dealing 200% damage.<br><br><br><br>[Melee] [Ranged] [LeftHanded] [Decay]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Clay<br>Minigun</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007176-fd02e021-3715-4b70-bd53-6afffaca45f1.png" width="100" height="100"></td>
+    <td>Shoot a rapid hail of tar bullets, tarring and dealing 30% damage per bullet.<br><br><br><br><br>[Ranged] [RightHanded] </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Spirit<br>Ball<br>Control</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007185-5550654a-c3e5-492c-bf07-d6dd3fb96a66.png" alt="Image" width="100" height="100"></td>
+    <td>Shoot 2 spirit balls, dealing 1000% damage each.<br><br><br><br><br>[Ranged] [RightHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Blink</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007217-47dd6d9d-1520-4669-9686-3710368a094b.png" width="100" height="100"></td>
+    <td>Shoot 2 spirit balls, dealing 1000% damage each.<br><br><br><br><br>[Ranged] [RightHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Nova<br>Explosion</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007207-38b54a28-a06b-4f8f-b7b7-6696d5b1f132.png" alt="Image" width="100" height="100"></td>
+    <td>Shoot 2 spirit balls, dealing 1000% damage each.<br><br><br><br><br>[Ranged] [RightHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Fireball</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007211-38ef12c8-4100-4b3e-9a95-796cc7caf119.png" alt="Image" width="100" height="100"></td>
+    <td>Shoot 2 spirit balls, dealing 1000% damage each.<br><br><br><br><br>[Ranged] [RightHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Slide<br>Reset</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007218-c1c599b1-1e95-4c0d-941a-e0c0c125a3ed.png" alt="Image" width="100" height="100"></td>
+    <td>Slide, resetting cooldowns for all other skills.<br><br><br><br><br>[LeftHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Lunar<br>Minigun</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007219-b22e2574-2199-42b9-b214-524a3d41a865.png" alt="Image" width="100" height="100"></td>
+    <td>Shoot a rapid hail of lunar bullets, crippling and dealing 300% damage per bullet.<br><br><br><br><br>[Ranged] [LeftHanded] </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Teleport</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007230-0a790525-76f8-4f92-8a8c-e1988d0432f7.png" alt="Image" width="100" height="100"></td>
+    <td>Teleport to the target and generate a shockwave on arrival that stuns enemies,<br>dealing 600% damage in a radius.<br><br><br><br><br>[Melee] [Decay]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Laser</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007243-0ba456af-680c-499c-b633-2d427137cc55.png" alt="Image" width="100" height="100"></td>
+    <td>Hold the button to charge a laser which, when released, deals 600% damage.<br>Damage and radius scales with charge duration.<br><br><br><br>[Ranged] [LeftHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Nullifier<br>Artillery</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007263-d9c400f5-9b56-4c26-bdde-5776b2ca92a4.png" alt="Image" width="100" height="100"></td>
+    <td>Hold the button down to constantly summon nullifier bombs on the target,<br>dealing 200% damage per bomb.<br><br><br><br>[Ranged] [RightHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Acid<br>Shotgun</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007156-fa51d78c-823c-438d-94ff-18b83f681ebc.png" alt="Image" width="100" height="100"></td>
+    <td>Shoot an acid shotgun infront of you for 5x400% damage, <br>leaving an acid puddle on the ground.<br><br><br><br>[Melee] [RightHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Solar<br>Flare</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007184-f5cc4f46-1f08-40ad-9ee2-1c3cef4fe3e9.png" alt="Image" width="100" height="100"></td>
+    <td>Hold the button to summon a miniature sun. <br>Sprinting or letting go of the button cancels the skill.<br><br><br><br> [RightHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Hook <br>Shotgun</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007189-4081a4b0-7160-4586-bb7e-8256a5bc51d2.png" alt="Image" width="100" height="100"></td>
+    <td>Shoot 5 hooks sequentially, pulling enemies and dealing 300% per hook.<br><br><br><br><br>[Ranged] [LeftHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Rolling<br>Clay</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007174-7eac7d7d-d6d0-44ab-894f-d3f9c33b36d0.png" alt="Image" width="100" height="100"></td>
+    <td>Roll a tar ball along the ground, exploding on contact, <br>tarring and dealing 800% damage.<br><br><br><br>[Ranged] [RightHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Anti<br>Gravity</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007235-eaab23a7-72fa-4c68-9a16-8dc711c18412.png" alt="Image" width="100" height="100"></td>
+    <td>Summon a large anti-gravity array. After a delay, it explodes, <br>launching enemies and dealing 400% damage.<br><br><br><br><br>[Ranged]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Beam</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007271-e7f251c0-c430-4347-8a07-f8b494e42ba6.png" alt="Image" width="100" height="100"></td>
+    <td>Shoot a devastating beam, piercing and dealing 200% damage per tick.<br>The beam explodes on hit, dealing 200% damage to nearby enemies.<br><br><br><br>[Ranged] [RightHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Void<br>Missiles</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007256-47fc7a47-14ce-4826-b4fb-65fa5f7407af.png" alt="Image" width="100" height="100"></td>
+    <td>Shoot 2x8 homing missiles, dealing 100% damage per missile.<br><br><br><br><br>[Ranged] [RightHanded]</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Throw<br>Thqwibs</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007232-7b7f5ec5-77cc-4d91-98db-18783125e8fc.png" alt="Image" width="100" height="100"></td>
+    <td>Throw 3 thqwibs that activate On-Kill effects and deal 400% damage each.<br><br><br><br><br>[Ranged] [RightHanded]</td>
+    <td></td>
+  </tr>
+</tbody>
+</table>
+
+### Passive Skills
+<table>
+<thead>
+  <tr>
+    <th>Passive</th>
+    <th>Quirk User</th>
     <th>Description</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td>Assault<br>Vest</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/163767048-4d73f1cb-4f29-4e50-82c2-fc926fc2acc5.png" width="100" height="100"></td>
-    <td>Grant 100 armor.</td>
+    <td>Barrier</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007151-233450f3-4975-4ab8-bd0c-cdfb5b0684d8.png" width="100" height="100"></td>
+    <td>Gain a barrier that blocks the next attack.<br>Recharges after 10 seconds.</td>
   </tr>
   <tr>
-    <td>Choice<br>Band</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/161869491-f2ba655d-59db-4204-b640-c078d1e7cfdc.png" alt="Image" width="100" height="100"></td>
-    <td>Grant 50% attackspeed.</td>
+    <td>Strength <br>Boost</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007152-1aa4ec94-ce67-4cc9-a032-cbdf986f06e9.png" width="100" height="100"></td>
+    <td>Gain 1.5x Damage.<br>All [Melee] attacks deal 2x damage.<br><br><br><br>[Melee]</td>
   </tr>
   <tr>
-    <td>Choice<br>Scarf</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/161869503-f9077a03-27bc-4fee-aa73-4ec62205264f.png" alt="Image" width="100" height="100"></td>
-    <td>Grant 50% movespeed.</td>
+    <td>Jump<br>Boost</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007165-196f4f43-7059-4bf1-87fb-caefa25b807b.png" width="100" height="100"></td>
+    <td>Gain 4 extra jumps and jump power.<br><br><br><br><br>[Jump]</td>
   </tr>
   <tr>
-    <td>Choice<br>Specs</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/161869509-01b7bd3c-336f-4b94-a982-c9427c89ec86.png" alt="Image" width="100" height="100"><br></td>
-    <td>Grant 25% cooldown reduction.</td>
+    <td>Super<br>Speed</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007167-b658b0a1-e18d-406a-97f0-e31ccb2e36f2.png" width="100" height="100"></td>
+    <td>Gain 1.5x movespeed.<br>Gain 1.5x sprint speed.<br><br><br><br>[Movespeed]</td>
   </tr>
   <tr>
-    <td>Leftovers</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/163766994-4c80ebc6-bf44-4428-bbee-e49e3d9a8299.png" alt="Image" width="100" height="100"></td>
-    <td>Grant 3.125% of your max health as regen.</td>
+    <td>Spiky<br>Body</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007193-20146e74-3579-4282-b029-f56dc9c745bc.png" width="100" height="100"></td>
+    <td>Gain spikes that deal 150% damage to those around you when you're hit.<br><br><br><br><br>[Melee] [Decay]</td>
   </tr>
   <tr>
-    <td>Life Orb</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/163767074-e993ab78-7273-4a0f-ac03-a29ef086a810.png" alt="Image" width="100" height="100"></td>
-    <td>Grant 50% damage.</td>
+    <td>Acid<br>Jump</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007208-d1ed63ea-8965-4e6d-aae8-47593180f635.png" width="100" height="100"></td>
+    <td>Release an Acidic blast when jumping or landing.<br>Scales based off jump power.<br><br><br><br>[Melee] [Jump] [Decay] </td>
   </tr>
   <tr>
-    <td>Lucky Egg</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/163767076-fd6a5f42-ac6d-474b-8ea0-4097729f1977.png" alt="Image" width="100" height="100"></td>
-    <td>Grant 1 luck.</td>
+    <td>Ranged<br>Boost</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007216-4788f02b-2f6b-48e6-9f46-f180e49d717c.png" width="100" height="100"></td>
+    <td>Gain 1.5x Damage.<br>All [Ranged] attacks deal 2x damage.<br><br><br><br>[Ranged]</td>
   </tr>
   <tr>
-    <td>Rocky Helmet</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/163767009-c4d9d7ec-c458-423b-b66e-b00d3f68601d.png" alt="Image" width="100" height="100"></td>
-    <td>When hit, stun and deal damage around you. <br>A second stack doubles the range.<br>Proc chance for 1st stack = 1.<br>Proc chance for 2nd stack = 2.</td>
+    <td>Lunar<br>Aura</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007217-47dd6d9d-1520-4669-9686-3710368a094b.png" width="100" height="100"></td>
+    <td>At &lt;50% health, periodically release a lunar blaze.<br>The lunar blaze does 100% damage per tick to enemies on the ground.<br><br><br></td>
   </tr>
   <tr>
-    <td>Scope Lens</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/163767024-2c717c79-c1f0-4e99-a6ba-b6c597f02a73.png" alt="Image" width="100" height="100"></td>
-    <td>Grant 30% critical hit chance.</td>
+    <td>Mortar</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007196-40a60e2f-fe02-4d2a-ba25-24cdc91f22e6.png" width="100" height="100"></td>
+    <td>While standing still, attack nearby enemies for 100% damage and<br>gain 1 armor every 1/(Attackspeed) second(s).<br>Radius and Damage scales with armor and attackspeed.<br><br><br>[Mortar]</td>
   </tr>
   <tr>
-    <td>Shell Bell</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/163767034-81e18fff-63a2-421f-b1b0-f39fd1475f11.png" alt="Image" width="100" height="100"></td>
-    <td>Grant 5% lifesteal.</td>
+    <td>Healing<br>Aura</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007224-a670a153-4bfd-4e67-a26e-3ba191625087.png" width="100" height="100"></td>
+    <td>Heal yourself and nearby allies 5% health every second.<br><br><br><br>[Healing] </td>
+  </tr>
+  <tr>
+    <td>Glide</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007241-9f3b61cf-b4bd-4fb7-aa65-c1df00a67b43.png" width="100" height="100"></td>
+    <td>While holding the jump button, glide across the sky without losing height.</td>
+  </tr>
+  <tr>
+    <td>Void<br>Mortar</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007253-c325d404-8b25-4a8c-9fa4-199c89996d0c.png" width="100" height="100"></td>
+    <td>While standing still, attack nearby enemies for 100% damage and<br>gain 0.05 attackspeed every 1/(CurrentArmor/BaseArmor) second(s).<br>Radius and Damage scales with armor and attackspeed.<br><br><br>[Mortar]</td>
+  </tr>
+  <tr>
+    <td>Gravity</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007260-c17830ca-89ea-465f-be43-83b26f839adf.png" width="100" height="100"></td>
+    <td>While moving, Pull nearby enemies and deal 100% damage.<br>The gap between attacks scales with movespeed.<br><br><br>[Movespeed]</td>
+  </tr>
+  <tr>
+    <td>Bleed</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007202-63b83ac8-e236-4faf-9493-b4bc80f34fea.png" width="100" height="100"></td>
+    <td>'Physical' attacks such as melee, blast, or shot type attacks apply bleed.<br><br><br><br><br>[Bleeding]</td>
+  </tr>    
+  <tr>
+    <td>Stone<br>Skin</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007249-7b3f655a-63df-4d92-8ee2-5994704b1dec.png" width="100" height="100"></td>
+    <td>Gain 10 armor and flat damage reduction equal to your armor.<br>Take no knockback from attacks.<br>At &lt;50% health, damage can be reduced below zero and heal you.<br><br><br>[Healing]</td>
+  </tr>
+  <tr>
+    <td>Blazing<br>Aura</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007222-ea28b2fd-f179-4e85-837e-da0f376a19dc.png" width="100" height="100"></td>
+    <td>Burn nearby enemies for 150% damage every 1/Attackspeed seconds.</td>
+  </tr>
+  <tr>
+    <td>Lightning<br>Aura</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007228-61bc7ae7-53af-43f5-9a42-b08d08a592a6.png" width="100" height="100"></td>
+    <td>Summon lightning bolts on nearby enemies for <br>500% damage every 1/Attackspeed seconds.</td>
+  </tr>
+  <tr>
+    <td>Vagrant's<br>Orb</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007268-355cbb10-596a-46e7-b5b7-0ddfc1cbc1e7.png" width="100" height="100"></td>
+    <td>When striking an enemy for &gt;= 400% damage,<br>Create a Nova explosion that stuns and deals 700% damage. <br> </td>
   </tr>
 </tbody>
 </table>
 
+
 ## Numbers
 ##### Armor = 10 + 0.5 per level
-##### Damage = 15 + 3 per level
-##### Regen = 1 + 0.2 per level (note: increases the lower his health is)
-##### Health = 100 + 20 per level
+##### Damage = 5 + 1 per level
+##### Regen = 1 + 0.2 per level 
+##### Health = 141 + 41 per level
 ##### Movespeed = 7
 
 These stats are prone to change.
 
 ## Changelog
 
-- 1.0.1 
-    - Fixed shopkeeper and void jailer transforms.
-    - noted that the FallenFriends mod can't be used in conjuction with ditto.
-- 1.0.0 
-    - Release Ditto!(?)
 - rest of changelog on github
 
 
 ## Future plans
-##### More items
-##### A Ditto Item that turns enemies into Dittos?
-##### Item display for equipment
+##### More quirks
+##### Skins?
 
 
 ## Credits
 ##### HenryMod for the template.
-##### Bubbet for copy loadout code, fractional health copy code, checking dlc requirement code, configs.
-##### MonsterMash (CherryDye) for code that lets characters who don't have an equipment slot use equipment.

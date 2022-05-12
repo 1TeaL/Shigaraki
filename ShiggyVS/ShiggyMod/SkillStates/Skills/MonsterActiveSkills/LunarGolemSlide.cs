@@ -51,7 +51,7 @@ namespace ShiggyMod.SkillStates
                 base.characterMotor.velocity = velocity;
                 return;
             }
-            AkSoundEngine.PostEvent(3686556480, base.gameObject);
+            AkSoundEngine.PostEvent(2422625683, base.gameObject);
             if (SlideState.slideEffectPrefab)
             {
                 Transform parent = base.FindModelChild("Spine");

@@ -11,12 +11,12 @@
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="1010675052" Language="SFX" Hash="90751845">
+		<SoundBank Id="1010675052" Language="SFX" Hash="4160562437">
 			<ObjectPath>\SoundBanks\Default Work Unit\Shiggy</ObjectPath>
 			<ShortName>Shiggy</ShortName>
 			<Path>Shiggy.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1201419547" Name="AFO" ObjectPath="\Events\Default Work Unit\AFO">
+				<Event Id="3192656820" Name="ShiggyAFO" ObjectPath="\Events\Default Work Unit\ShiggyAFO">
 					<IncludedMemoryFiles>
 						<File Id="227286841" Language="SFX">
 							<ShortName>0000000000000003.wav</ShortName>
@@ -32,7 +32,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2381833256" Name="AirCannon" ObjectPath="\Events\Default Work Unit\AirCannon">
+				<Event Id="356992735" Name="ShiggyAirCannon" ObjectPath="\Events\Default Work Unit\ShiggyAirCannon">
 					<IncludedMemoryFiles>
 						<File Id="188799084" Language="SFX">
 							<ShortName>000000000000004e [1].wav</ShortName>
@@ -64,7 +64,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="180661997" Name="Attack" ObjectPath="\Events\Default Work Unit\Attack">
+				<Event Id="3660048432" Name="ShiggyAttack" ObjectPath="\Events\Default Work Unit\ShiggyAttack">
 					<IncludedMemoryFiles>
 						<File Id="99312034" Language="SFX">
 							<ShortName>0000000000000001 (5).wav</ShortName>
@@ -116,7 +116,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="779278001" Name="Death" ObjectPath="\Events\Default Work Unit\Death">
+				<Event Id="2108803202" Name="ShiggyDeath" ObjectPath="\Events\Default Work Unit\ShiggyDeath">
 					<IncludedMemoryFiles>
 						<File Id="51381664" Language="SFX">
 							<ShortName>death guah4.wav</ShortName>
@@ -188,7 +188,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="1899640155" Name="DekuCollab" ObjectPath="\Events\Default Work Unit\DekuCollab">
+				<Event Id="2848575038" Name="ShiggyDekuCollab" ObjectPath="\Events\Default Work Unit\ShiggyDekuCollab">
 					<IncludedMemoryFiles>
 						<File Id="175387214" Language="SFX">
 							<ShortName>0000000000000014.wav</ShortName>
@@ -224,7 +224,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2656882895" Name="Entrance" ObjectPath="\Events\Default Work Unit\Entrance">
+				<Event Id="1896314350" Name="ShiggyEntrance" ObjectPath="\Events\Default Work Unit\ShiggyEntrance">
 					<IncludedMemoryFiles>
 						<File Id="21175313" Language="SFX">
 							<ShortName>laugh3 entrance.wav</ShortName>
@@ -344,7 +344,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="13776098" Name="Explosion" ObjectPath="\Events\Default Work Unit\Explosion">
+				<Event Id="2085946697" Name="ShiggyExplosion" ObjectPath="\Events\Default Work Unit\ShiggyExplosion">
 					<IncludedMemoryFiles>
 						<File Id="805419587" Language="SFX">
 							<ShortName>Bites the Dust Sound Effects Only.wav</ShortName>
@@ -356,7 +356,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3208241451" Name="Melee" ObjectPath="\Events\Default Work Unit\Melee">
+				<Event Id="4108468048" Name="ShiggyMelee" ObjectPath="\Events\Default Work Unit\ShiggyMelee">
 					<IncludedMemoryFiles>
 						<File Id="34899993" Language="SFX">
 							<ShortName>000000000000004a [1].wav</ShortName>
@@ -372,7 +372,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3686556480" Name="Slide" ObjectPath="\Events\Default Work Unit\Slide">
+				<Event Id="2422625683" Name="ShiggySlide" ObjectPath="\Events\Default Work Unit\ShiggySlide">
 					<IncludedMemoryFiles>
 						<File Id="199160016" Language="SFX">
 							<ShortName>0000000000000041 [1].wav</ShortName>

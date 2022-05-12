@@ -30,6 +30,10 @@ namespace ShiggyMod.SkillStates
 			base.StartAimMode(aimRay, 2f, false);
 			totalDuration = 0f;
 			damageType = DamageType.Stun1s;
+			if (base.HasBuff(Modules.Buffs.impbossBuff))
+			{
+				damageType = DamageType.BleedOnHit | DamageType.Stun1s;
+			}
 			bool isAuthority = base.isAuthority;
             Util.PlaySound(BaseChargeFist.startChargeLoopSFXString, base.gameObject);
             //Util.PlaySound(EntityStates.Bison.Charge.startSoundString, base.gameObject);
@@ -165,7 +169,7 @@ namespace ShiggyMod.SkillStates
 
                     Util.PlaySound(EntityStates.Bison.Headbutt.attackSoundString, base.gameObject);
 
-					AkSoundEngine.PostEvent(3208241451, base.gameObject);
+					AkSoundEngine.PostEvent(4108468048, base.gameObject);
 					if (base.HasBuff(Modules.Buffs.multiplierBuff))
 					{
 						ApplyDoT();

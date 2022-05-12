@@ -29,6 +29,10 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 			damageType = DamageType.Stun1s;
+			if (base.HasBuff(Modules.Buffs.impbossBuff))
+			{
+				damageType = DamageType.BleedOnHit | DamageType.Stun1s;
+			}
 
 			this.modifiedAimRay = base.GetAimRay();
 			this.modifiedAimRay.direction = this.laserDirection;
@@ -40,7 +44,7 @@ namespace ShiggyMod.SkillStates
 
 			base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 			PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
-			AkSoundEngine.PostEvent(180661997, base.gameObject);
+			AkSoundEngine.PostEvent(3660048432, base.gameObject);
 			if (FireLaser.effectPrefab)
 			{
 				EffectManager.SimpleMuzzleFlash(FireLaser.effectPrefab, base.gameObject, text, false);

@@ -13,7 +13,7 @@ namespace ShiggyMod.SkillStates
         public float baseDuration = 0.3f;
         public float duration;
         public ShiggyController Shiggycon;
-        private DamageType damageType = DamageType.Generic;
+        private DamageType damageType;
         private Ray aimRay;
 
 
@@ -40,10 +40,16 @@ namespace ShiggyMod.SkillStates
             updateAimRay();
             this.duration = this.baseDuration / this.attackSpeedStat;
             base.characterBody.SetAimTimer(this.duration);
+            damageType = DamageType.Generic;
+
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType = DamageType.BleedOnHit;
+            }
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration, 0.1f);
-            AkSoundEngine.PostEvent(180661997, base.gameObject);
+            AkSoundEngine.PostEvent(3660048432, base.gameObject);
 
             EffectManager.SimpleMuzzleFlash(Modules.Assets.xiconstructbeamEffect, base.gameObject, muzzleString, false);
             if (this.loopSoundDef)
@@ -70,7 +76,7 @@ namespace ShiggyMod.SkillStates
                 origin = FindModelChild(this.muzzleString).transform.position,
                 damage = damageStat * damageCoefficient,
                 damageColorIndex = DamageColorIndex.Default,
-                damageType = DamageType.Generic,
+                damageType = damageType,
                 falloffModel = BulletAttack.FalloffModel.None,
                 maxDistance = range,
                 force = 0f,

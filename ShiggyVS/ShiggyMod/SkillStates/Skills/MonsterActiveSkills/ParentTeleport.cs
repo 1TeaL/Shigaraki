@@ -37,6 +37,11 @@ namespace ShiggyMod.SkillStates
             hasTeleported = false;
             damageType = DamageType.Stun1s;
 
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType = DamageType.BleedOnHit | DamageType.Stun1s;
+            }
+
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayAnimation("FullBody, Override", "Slam", "Attack.playbackRate", fireTime * 2f);
 
@@ -91,7 +96,7 @@ namespace ShiggyMod.SkillStates
             Vector3 latestposition = base.transform.position;
             if (base.fixedAge > this.fireTime && !hasFired && base.isAuthority)
             {
-                AkSoundEngine.PostEvent(3208241451, base.gameObject);
+                AkSoundEngine.PostEvent(4108468048, base.gameObject);
                 hasFired = true;
                 blastAttack.position = latestposition;
                 EffectManager.SpawnEffect(Modules.Assets.parentslamEffect, new EffectData

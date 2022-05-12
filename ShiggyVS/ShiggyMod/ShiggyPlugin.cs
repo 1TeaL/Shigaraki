@@ -57,7 +57,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "0.0.1";
+        public const string MODVERSION = "1.0.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -171,7 +171,7 @@ namespace ShiggyMod
                                 teamIndex = TeamComponent.GetObjectTeam(base.gameObject),
                                 falloffModel = BlastAttack.FalloffModel.SweetSpot,
                                 baseDamage = body.damage * StaticValues.vagrantDamageCoefficient * body.attackSpeed / 3,
-                                damageType = DamageType.Stun1s,
+                                damageType = DamageType.Stun1s | DamageType.BleedOnHit,
                                 damageColorIndex = DamageColorIndex.Fragile,
                                 baseForce = 0,
                                 position = victimBody.transform.position,
@@ -200,7 +200,7 @@ namespace ShiggyMod
                 if (Shiggycon.magmawormWard) EntityState.Destroy(Shiggycon.magmawormWard);
                 if (Shiggycon.mortarIndicatorInstance) EntityState.Destroy(Shiggycon.mortarIndicatorInstance.gameObject);
                 if (Shiggycon.voidmortarIndicatorInstance) EntityState.Destroy(Shiggycon.voidmortarIndicatorInstance.gameObject);
-                AkSoundEngine.PostEvent(779278001, this.gameObject);
+                AkSoundEngine.PostEvent(2108803202, this.gameObject);
             }
         }
 
@@ -273,7 +273,8 @@ namespace ShiggyMod
 
                             }
                             else
-                            {   
+                            {
+                                damageInfo.force = Vector3.zero;
                                 damageInfo.damage = Mathf.Max(1f, damageInfo.damage - self.body.armor);
                             }
                         }
@@ -313,7 +314,7 @@ namespace ShiggyMod
                             blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                             blastAttack.baseForce = 100f;
                             blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
-                            blastAttack.damageType = DamageType.Generic;
+                            blastAttack.damageType = DamageType.Generic | DamageType.BleedOnHit;
                             blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
                             if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
@@ -496,11 +497,11 @@ namespace ShiggyMod
                 }
                 if (dekuFound)
                 {
-                    AkSoundEngine.PostEvent(1899640155, self.gameObject);
+                    AkSoundEngine.PostEvent(2848575038, self.gameObject);
                 }
                 else
                 {
-                    AkSoundEngine.PostEvent(2656882895, self.gameObject);
+                    AkSoundEngine.PostEvent(1896314350, self.gameObject);
                 }
             }
             //if (gameObject.name.Contains("DekuDisplay"))

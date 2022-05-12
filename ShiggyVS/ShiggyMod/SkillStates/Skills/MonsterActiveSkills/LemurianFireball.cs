@@ -67,7 +67,7 @@ namespace ShiggyMod.SkillStates
             {
                 ProjectileManager.instance.FireProjectile(
                     Modules.Projectiles.lemurianFireBall, //prefab
-                    aimRay.origin, //position
+                    FindModelChild(this.muzzleString).position, //position
                     Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
                     base.gameObject, //owner
                     this.damageStat * damageCoefficient, //damage

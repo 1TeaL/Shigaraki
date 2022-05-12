@@ -448,6 +448,10 @@ namespace ShiggyMod.Modules.Survivors
             {
                 Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 4);
             }
+            if (extraskillLocator.extraFirst.skillNameToken == prefix + "IMPBOSS_NAME")
+            {
+                Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 4);
+            }
             if (extraskillLocator.extraFirst.skillNameToken == prefix + "STONETITAN_NAME")
             {
                 Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 4);
@@ -472,83 +476,87 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "BEETLEGUARD_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "BRONZONG_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "APOTHECARY_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "TEMPLAR_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "GREATERWISP_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "IMP_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "JELLYFISH_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "LEMURIAN_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "LUNARGOLEM_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "LUNARWISP_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "PARENT_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "STONEGOLEM_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "VOIDREAVER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "BEETLEQUEEN_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 0);
+            }
+            if (characterBody.skillLocator.primary.skillNameToken == prefix + "GRANDPARENT_NAME")
+            {
+                Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "GROVETENDER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "XICONSTRUCT_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "VOIDDEVASTATOR_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 0);
             }
             if (characterBody.skillLocator.primary.skillNameToken == prefix + "SCAVENGER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 4);
+                Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
             }
 
             //check passive 2
@@ -604,6 +612,10 @@ namespace ShiggyMod.Modules.Survivors
             {
                 Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 5);
             }
+            if (extraskillLocator.extraFirst.skillNameToken == prefix + "IMPBOSS_NAME")
+            {
+                Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 5);
+            }
             if (extraskillLocator.extraSecond.skillNameToken == prefix + "STONETITAN_NAME")
             {
                 Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 5);
@@ -624,87 +636,91 @@ namespace ShiggyMod.Modules.Survivors
             //check active 2
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "VULTURE_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "BEETLEGUARD_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "BRONZONG_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "APOTHECARY_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "TEMPLAR_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "GREATERWISP_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "IMP_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "JELLYFISH_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "LEMURIAN_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "LUNARGOLEM_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "LUNARWISP_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "PARENT_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "STONEGOLEM_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "VOIDREAVER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "BEETLEQUEEN_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 1);
+            }
+            if (characterBody.skillLocator.secondary.skillNameToken == prefix + "GRANDPARENT_NAME")
+            {
+                Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "GROVETENDER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "XICONSTRUCT_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "VOIDDEVASTATOR_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 1);
             }
             if (characterBody.skillLocator.secondary.skillNameToken == prefix + "SCAVENGER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 2);
+                Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 1);
             }
 
             //check passive 3
@@ -760,6 +776,10 @@ namespace ShiggyMod.Modules.Survivors
             {
                 Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 6);
             }
+            if (extraskillLocator.extraFirst.skillNameToken == prefix + "IMPBOSS_NAME")
+            {
+                Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 6);
+            }
             if (extraskillLocator.extraThird.skillNameToken == prefix + "STONETITAN_NAME")
             {
                 Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 6);
@@ -780,87 +800,91 @@ namespace ShiggyMod.Modules.Survivors
             //check active 3
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "VULTURE_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "BEETLEGUARD_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "BRONZONG_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "APOTHECARY_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "TEMPLAR_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "GREATERWISP_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "IMP_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "JELLYFISH_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "LEMURIAN_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "LUNARGOLEM_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "LUNARWISP_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "PARENT_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "STONEGOLEM_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "VOIDREAVER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "BEETLEQUEEN_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 2);
+            }
+            if (characterBody.skillLocator.utility.skillNameToken == prefix + "GRANDPARENT_NAME")
+            {
+                Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "GROVETENDER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "XICONSTRUCT_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "VOIDDEVASTATOR_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 2);
             }
             if (characterBody.skillLocator.utility.skillNameToken == prefix + "SCAVENGER_NAME")
             {
-                Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 3);
+                Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 2);
             }
             //check passive 4
             if (extraskillLocator.extraFourth.skillNameToken == prefix + "ALPHACONSTRUCT_NAME")
@@ -914,6 +938,10 @@ namespace ShiggyMod.Modules.Survivors
             if (extraskillLocator.extraFourth.skillNameToken == prefix + "VOIDJAILER_NAME")
             {
                 Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 7);
+            }
+            if (extraskillLocator.extraFirst.skillNameToken == prefix + "IMPBOSS_NAME")
+            {
+                Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 7);
             }
             if (extraskillLocator.extraFourth.skillNameToken == prefix + "STONETITAN_NAME")
             {
@@ -992,6 +1020,10 @@ namespace ShiggyMod.Modules.Survivors
             if (characterBody.skillLocator.special.skillNameToken == prefix + "BEETLEQUEEN_NAME")
             {
                 Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 3);
+            }
+            if (characterBody.skillLocator.special.skillNameToken == prefix + "GRANDPARENT_NAME")
+            {
+                Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 3);
             }
             if (characterBody.skillLocator.special.skillNameToken == prefix + "GROVETENDER_NAME")
             {

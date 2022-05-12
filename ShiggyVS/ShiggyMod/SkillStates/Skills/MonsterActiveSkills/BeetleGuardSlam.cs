@@ -37,6 +37,10 @@ namespace ShiggyMod.SkillStates
             this.modelTransform = base.GetModelTransform();
             this.flyVector = Vector3.up;
             damageType = DamageType.Stun1s;
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType = DamageType.BleedOnHit | DamageType.Stun1s;
+            }
             dropTimer = 1f;
 
 
@@ -175,7 +179,7 @@ namespace ShiggyMod.SkillStates
 
             if (base.isAuthority)
             {
-                AkSoundEngine.PostEvent(3208241451, base.gameObject);
+                AkSoundEngine.PostEvent(4108468048, base.gameObject);
                 Ray aimRay = base.GetAimRay();
                 
                 base.characterMotor.velocity *= 0.1f;

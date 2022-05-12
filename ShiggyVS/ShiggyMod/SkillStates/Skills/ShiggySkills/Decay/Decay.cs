@@ -50,12 +50,12 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             playEffect = false;
             damageType = DamageType.Generic;
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType = DamageType.BleedOnHit;
+            }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.strengthMultiplier;
-            if (NetworkServer.active)
-            {
-                base.characterBody.RemoveBuff(Modules.Buffs.minimushrumBuff);
-            }
 
             duration = baseduration / attackSpeedStat;
             if(duration <= 0.2f)
@@ -75,7 +75,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayAnimation("FullBody, Override", "Slam", "Attack.playbackRate", fireTime *2f);
-            AkSoundEngine.PostEvent(3208241451, base.gameObject);
+            AkSoundEngine.PostEvent(4108468048, base.gameObject);
             HitBoxGroup hitBoxGroup = null;
             HitBoxGroup hitBoxGroup2 = null;
             Transform modelTransform = base.GetModelTransform();

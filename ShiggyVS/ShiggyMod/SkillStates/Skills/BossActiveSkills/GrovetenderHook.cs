@@ -45,7 +45,7 @@ namespace ShiggyMod.SkillStates
             {
                 projectileCount = 5;
             }
-            fireTimer = (duration / projectileCount) - 0.05f;
+            fireTimer = (duration / projectileCount);
 
             GetMaxWeight();
             this.modelAnimator = base.GetModelAnimator();
@@ -59,7 +59,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
-            AkSoundEngine.PostEvent(180661997, base.gameObject);
+            AkSoundEngine.PostEvent(3660048432, base.gameObject);
 
             this.FireSingleHook(aimRay, 0f, 0f);
 
@@ -144,7 +144,7 @@ namespace ShiggyMod.SkillStates
             {
                 if (NetworkServer.active)
                 {
-                    fireTimer = 0f;
+                    fireAge = 0f;
                     Ray aimRay = base.GetAimRay();
                     //for (int i = 0; i < projectileCount; i++)
                     //{

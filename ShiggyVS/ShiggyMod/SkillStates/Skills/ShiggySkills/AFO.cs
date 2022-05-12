@@ -28,11 +28,11 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            hasQuirk = false;
 
-            PlayAnimation("RightArm, Override", "RightArmPull");
 
-            AkSoundEngine.PostEvent(1201419547, base.gameObject);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("RightArm, Override", "RightArmPull","Attack.playbackRate", duration, 0.1f);
+
 
             //extraskillLocator = base.GetComponent<ExtraSkillLocator>();
 
@@ -83,11 +83,11 @@ namespace ShiggyMod.SkillStates
             //}
 
             //{
-                if (base.fixedAge >= this.duration && base.isAuthority)
-                {
-                    this.outer.SetNextStateToMain();
-                    return;
-                }
+            if (base.fixedAge >= this.duration && base.isAuthority)
+            {
+                this.outer.SetNextStateToMain();
+                return;
+            }
             //}
 
         }

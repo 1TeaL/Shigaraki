@@ -36,6 +36,10 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = DamageType.ClayGoo;
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType = DamageType.BleedOnHit | DamageType.ClayGoo;
+            }
 
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
@@ -44,7 +48,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
-            AkSoundEngine.PostEvent(180661997, base.gameObject);
+            AkSoundEngine.PostEvent(3660048432, base.gameObject);
 
             this.baseFireRate = 1f / baseFireInterval;
             if (base.HasBuff(Modules.Buffs.multiplierBuff))

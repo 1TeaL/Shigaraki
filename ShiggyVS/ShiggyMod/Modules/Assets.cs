@@ -61,6 +61,8 @@ namespace ShiggyMod.Modules
         public static GameObject xiconstructbeamEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructInitialMuzzleFlash.prefab").WaitForCompletion();
         public static GameObject xiconstructexplosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructSecondMuzzleFlash.prefab").WaitForCompletion();
         public static RoR2.Audio.LoopSoundDef xiconstructsound = Addressables.LoadAssetAsync<RoR2.Audio.LoopSoundDef>("RoR2/DLC1/MajorAndMinorConstruct/lsdMajorConstructLaser.asset").WaitForCompletion();
+        public static GameObject grandparentSunPrefab;
+        public static GameObject grandparentSunSpawnPrefab;
 
 
 
@@ -127,7 +129,11 @@ namespace ShiggyMod.Modules
             beam.AddComponent<NetworkIdentity>();
             networkObjDefs.Add(beam);
 
+            //multiplier effect
             multiplierShieldBuff = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
+
+
+            PopulateEffects();
 
             PrefabAPI.RegisterNetworkPrefab(beam);
 
@@ -135,6 +141,27 @@ namespace ShiggyMod.Modules
             //ShiggyEquipmentPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyEquipmentModel");
             ////Shiggy Item prefab
             //ShiggyItemPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyItemModel");
+        }
+
+        private static void PopulateEffects()
+        {
+            //grandparent Sun 
+            grandparentSunPrefab = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Grandparent/GrandParentSun.prefab").WaitForCompletion(), "ShiggySun", true);
+
+            //grandparentSunPrefab.transform.localScale = new Vector3(0.375f, 0.375f, 0.375f);
+            //grandparentSunPrefab.transform.Find("VfxRoot/LightSpinner/LightSpinner/Point Light").GetComponent<Light>().intensity *= 0.375f;
+            //grandparentSunPrefab.transform.Find("VfxRoot/LightSpinner/LightSpinner/Point Light").GetComponent<Light>().range = 200 * 0.375f;
+            //grandparentSunPrefab.transform.Find("VfxRoot/Mesh/SunMesh").transform.localScale = new Vector3(10, 10, 10);
+            //grandparentSunPrefab.transform.Find("VfxRoot/Mesh/AreaIndicator").transform.localScale = new Vector3(105, 105, 105);
+
+            //grandparent Sun spawn explosion effect
+            //grandparentSunSpawnPrefab = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Grandparent/GrandParentSunSpawn.prefab").WaitForCompletion(), "ShiggySunSpawn", false);
+            //grandparentSunSpawnPrefab.transform.localScale = new Vector3(0.375f, 0.375f, 0.375f);
+            //grandparentSunSpawnPrefab.transform.Find("Point Light").GetComponent<Light>().intensity *= 0.375f;
+            //grandparentSunSpawnPrefab.transform.Find("Point Light").GetComponent<Light>().range = 200 * 0.375f;
+            //grandparentSunSpawnPrefab.GetComponent<DestroyOnTimer>().duration = 1.5f;
+            //AddNewEffectDef(grandparentSunPrefab);
+
         }
 
         private static GameObject CreateTracer(string originalTracerName, string newTracerName)

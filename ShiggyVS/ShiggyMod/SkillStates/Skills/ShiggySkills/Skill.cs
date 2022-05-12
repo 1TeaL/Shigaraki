@@ -13,6 +13,7 @@ namespace ShiggyMod.SkillStates
         public float duration;
         public ShiggyController Shiggycon;
         private DamageType damageType;
+        public HurtBox Target;
 
 
         private float radius = 15f;
@@ -27,7 +28,7 @@ namespace ShiggyMod.SkillStates
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
-
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 
 
 

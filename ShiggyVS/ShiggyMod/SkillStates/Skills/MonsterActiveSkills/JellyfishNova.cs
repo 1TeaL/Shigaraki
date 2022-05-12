@@ -36,6 +36,10 @@ namespace ShiggyMod.SkillStates
             hasFired = false;
             radius = 30 * (attackSpeedStat/3);
             damageType = DamageType.Stun1s;
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType = DamageType.BleedOnHit | DamageType.Stun1s;
+            }
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
@@ -52,9 +56,9 @@ namespace ShiggyMod.SkillStates
             theSpot = Target.healthComponent.body.corePosition;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
+            PlayCrossfade("RightArm, Override", "RightArmDetonate", "Attack.playbackRate", duration, 0.1f);
             Transform modelTransform = base.GetModelTransform();
-            AkSoundEngine.PostEvent(13776098, base.gameObject);
+            AkSoundEngine.PostEvent(2085946697, base.gameObject);
             this.soundID = Util.PlaySound(JellyNova.chargingSoundString, base.gameObject);
             if (JellyNova.chargingEffectPrefab)
             {

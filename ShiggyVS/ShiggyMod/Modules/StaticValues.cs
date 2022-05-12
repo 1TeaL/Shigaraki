@@ -84,14 +84,14 @@ namespace ShiggyMod.Modules
         internal const float decayDamageTimer = 10f;
         internal const float decayInstaKillThreshold = 50f;
 
-        internal const float decayattackDamageCoeffecient = 1.5f;
+        internal const float decayattackDamageCoeffecient = 3f;
         internal const float decayattackProcCoefficient = 1f;
 
         internal const float aircannonDamageCoeffecient = 4f;
         internal const float aircannonProcCoefficient = 1f;
 
-        internal const float bulletlaserDamageCoeffecient = 1f;
-        internal const float bulletlaserProcCoefficient = 0.2f;
+        internal const float bulletlaserDamageCoeffecient = 3f;
+        internal const float bulletlaserProcCoefficient = 0.4f;
 
         internal const float beetleguardslamDamageCoeffecient = 4f;
         internal const float beetleguardslamProcCoefficient = 1f;
@@ -99,8 +99,8 @@ namespace ShiggyMod.Modules
         internal const float bisonchargeDamageCoeffecient = 6f;
         internal const float bisonchargeProcCoefficient = 1f;
 
-        internal const float bronzongballDamageCoeffecient = 3f;
-        internal const float bronzongballProcCoefficient = 0.3f;
+        internal const float bronzongballDamageCoeffecient = 4f;
+        internal const float bronzongballProcCoefficient = 1f;
 
         internal const float clayapothecarymortarDamageCoeffecient = 2f;
         internal const float clayapothecarymortarProcCoefficient = 0.5f;
@@ -120,7 +120,7 @@ namespace ShiggyMod.Modules
         internal const float lunarwispminigunDamageCoeffecient = 3f;
         internal const float lunarwispminigunProcCoefficient = 0.1f;
 
-        internal const float parentDamageCoeffecient = 8f;
+        internal const float parentDamageCoeffecient = 6f;
         internal const float parentProcCoefficient = 1f;
 
         internal const float stonegolemDamageCoeffecient = 6f;

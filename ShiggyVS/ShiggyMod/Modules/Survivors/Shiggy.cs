@@ -30,6 +30,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef voidbarnaclepassiveDef;
         internal static SkillDef voidjailerpassiveDef;
 
+        internal static SkillDef impbosspassiveDef;
         internal static SkillDef stonetitanpassiveDef;
         internal static SkillDef magmawormpassiveDef;
         internal static SkillDef overloadingwormpassiveDef;
@@ -53,6 +54,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef voidreaverportalDef;
 
         internal static SkillDef beetlequeenshotgunDef;
+        internal static SkillDef grandparentsunDef;
         internal static SkillDef grovetenderhookDef;
         internal static SkillDef claydunestriderballDef;
         internal static SkillDef soluscontrolunityknockupDef;
@@ -164,7 +166,7 @@ namespace ShiggyMod.Modules.Survivors
             skillloc.passiveSkill.keywordToken = prefix + "KEYWORD_DECAY";
             #endregion
 
-                #region Primary
+            #region Primary
 
             SkillDef decaySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
@@ -173,7 +175,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "DECAY_NAME",
                 skillDescriptionToken = prefix + "DECAY_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("decay"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.GrovetenderHook)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Decay)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -239,7 +241,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "AIRCANNON_NAME",
                 skillDescriptionToken = prefix + "AIRCANNON_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("aircannon"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.BisonCharge)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.AirCannon)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 5f,
@@ -250,7 +252,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = true,
+                mustKeyPress = false,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -275,7 +277,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Multiplier)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 6f,
+                baseRechargeInterval = 8f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -283,7 +285,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = true,
+                mustKeyPress = false,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -656,6 +658,32 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+
+            Shiggy.impbosspassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "IMPBOSS_NAME",
+                skillNameToken = prefix + "IMPBOSS_NAME",
+                skillDescriptionToken = prefix + "IMPBOSS_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Imp_Overlord"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ImpBoss)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             Shiggy.stonetitanpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "STONETITAN_NAME",
@@ -827,7 +855,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -894,7 +922,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ClayTemplarMinigun)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -902,7 +930,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -952,7 +980,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -1027,7 +1055,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -1052,7 +1080,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -1127,7 +1155,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -1160,6 +1188,31 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.grandparentsunDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "GRANDPARENT_NAME",
+                skillNameToken = prefix + "GRANDPARENT_NAME",
+                skillDescriptionToken = prefix + "GRANDPARENT_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Grandparent"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.GrandparentSun)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 12f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "" }
 
             });
             Shiggy.grovetenderhookDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -1254,7 +1307,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,

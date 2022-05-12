@@ -36,6 +36,7 @@ namespace ShiggyMod.Modules
 
             entityStates.Add(typeof(BeetleQueenShotgun));
             entityStates.Add(typeof(ClayDunestriderBall));
+            entityStates.Add(typeof(GrandparentSun));
             entityStates.Add(typeof(GrovetenderHook));
             entityStates.Add(typeof(SolusControlUnitKnockup));
             entityStates.Add(typeof(XiConstructBeam));

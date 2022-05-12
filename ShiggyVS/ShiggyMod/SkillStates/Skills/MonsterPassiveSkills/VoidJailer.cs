@@ -13,19 +13,20 @@ namespace ShiggyMod.SkillStates
         public ShiggyMasterController Shiggymastercon;
         public HurtBox Target;
 
-
         public override void OnEnter()
         {
             base.OnEnter();
 
-            PlayAnimation("RightArm, Override", "RightArmPull");
-            AkSoundEngine.PostEvent(1201419547, base.gameObject);
-
+            PlayCrossfade("RightArm, Override", "RightArmPull", "Attack.playbackRate", duration, 0.1f);
         }
 
         public override void OnExit()
         {
             base.OnExit();
+            if (Shiggycon.hasQuirk = true)
+            {
+                AkSoundEngine.PostEvent(3192656820, base.gameObject);
+            }
         }
 
 

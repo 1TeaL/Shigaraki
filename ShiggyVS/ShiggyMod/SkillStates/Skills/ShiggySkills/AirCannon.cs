@@ -30,14 +30,19 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             damageType = DamageType.Stun1s;
 
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType = DamageType.BleedOnHit | DamageType.Stun1s;
+            }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.strengthMultiplier;
             this.duration = this.baseDuration / this.attackSpeedStat;
 
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
-            AkSoundEngine.PostEvent(2381833256, base.gameObject);
-            this.PlayAnimation("Body", "Jump");
+            AkSoundEngine.PostEvent(356992735, base.gameObject);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayAnimation("Body", "Jump", "Attack.playbackRate", duration);
 
             base.characterMotor.disableAirControlUntilCollision = false;
 

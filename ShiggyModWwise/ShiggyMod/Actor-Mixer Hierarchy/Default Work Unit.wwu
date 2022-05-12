@@ -85,7 +85,7 @@
 							<ChildrenList>
 								<Folder Name="Skills" ID="{02ED7635-4F44-4EAC-A4B2-4275406619EB}" ShortID="976584116">
 									<ChildrenList>
-										<RandomSequenceContainer Name="AFO" ID="{A5601923-29CC-4FAB-8FA9-94E095A07A4A}" ShortID="755033238">
+										<RandomSequenceContainer Name="ShiggyAFO" ID="{A5601923-29CC-4FAB-8FA9-94E095A07A4A}" ShortID="755033238">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="1"/>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
@@ -203,7 +203,7 @@
 												</Sound>
 											</ChildrenList>
 										</RandomSequenceContainer>
-										<RandomSequenceContainer Name="AirCannon" ID="{F9C3B164-7B70-4F11-8BEB-70E527B07BF8}" ShortID="816863697">
+										<RandomSequenceContainer Name="ShiggyAirCannon" ID="{F9C3B164-7B70-4F11-8BEB-70E527B07BF8}" ShortID="816863697">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="1"/>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
@@ -442,7 +442,7 @@
 												</Sound>
 											</ChildrenList>
 										</RandomSequenceContainer>
-										<RandomSequenceContainer Name="Melee" ID="{1F663EEF-374A-4667-B8A6-D07D03BEDF9D}" ShortID="772205233">
+										<RandomSequenceContainer Name="ShiggyMelee" ID="{1F663EEF-374A-4667-B8A6-D07D03BEDF9D}" ShortID="772205233">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="1"/>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
@@ -575,7 +575,7 @@
 												</Sound>
 											</ChildrenList>
 										</RandomSequenceContainer>
-										<RandomSequenceContainer Name="Attack" ID="{75A9944D-368F-4C85-8053-FB9E326D4182}" ShortID="560181698">
+										<RandomSequenceContainer Name="ShiggyAttack" ID="{75A9944D-368F-4C85-8053-FB9E326D4182}" ShortID="560181698">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="1"/>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
@@ -912,7 +912,7 @@
 												</Sound>
 											</ChildrenList>
 										</RandomSequenceContainer>
-										<RandomSequenceContainer Name="Explosion" ID="{6F55B912-AFE2-4147-A458-C5746D53912E}" ShortID="441067743">
+										<RandomSequenceContainer Name="ShiggyExplosion" ID="{6F55B912-AFE2-4147-A458-C5746D53912E}" ShortID="441067743">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="1"/>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
@@ -996,7 +996,7 @@
 												</Sound>
 											</ChildrenList>
 										</RandomSequenceContainer>
-										<RandomSequenceContainer Name="Slide" ID="{60E119E2-08B3-4EF9-9F9D-CB47299B72CB}" ShortID="621093419">
+										<RandomSequenceContainer Name="ShiggySlide" ID="{60E119E2-08B3-4EF9-9F9D-CB47299B72CB}" ShortID="621093419">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="1"/>
 												<Property Name="OverridePositioning" Type="bool" Value="True"/>
@@ -1080,7 +1080,7 @@
 								</Folder>
 								<Folder Name="Entrance" ID="{8B9DC4DA-176F-4F1F-B421-E60849D2ED4F}" ShortID="218115194">
 									<ChildrenList>
-										<RandomSequenceContainer Name="Entrance" ID="{F06958ED-DBD9-4FB3-88CF-E0600E1F9261}" ShortID="309528402">
+										<RandomSequenceContainer Name="ShiggyEntrance" ID="{F06958ED-DBD9-4FB3-88CF-E0600E1F9261}" ShortID="309528402">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="1"/>
 												<Property Name="OverridePositioning" Type="bool" Value="True"/>
@@ -1753,7 +1753,7 @@
 								</Folder>
 								<Folder Name="Death" ID="{1255616B-3567-4389-B617-1BAD32D2E302}" ShortID="984365396">
 									<ChildrenList>
-										<RandomSequenceContainer Name="Death" ID="{B0656D8D-DC77-49FD-BE1C-47BC400A6047}" ShortID="199055371">
+										<RandomSequenceContainer Name="ShiggyDeath" ID="{B0656D8D-DC77-49FD-BE1C-47BC400A6047}" ShortID="199055371">
 											<PropertyList>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 												<Property Name="Volume" Type="Real64">
@@ -2158,7 +2158,7 @@
 								</Folder>
 								<Folder Name="DekuCollab" ID="{79540250-7DF3-424D-85ED-3FF37A88337F}" ShortID="1007157697">
 									<ChildrenList>
-										<RandomSequenceContainer Name="DekuCollab" ID="{734AFBF6-4CF6-44D5-961E-D66C1E3736DA}" ShortID="879120166">
+										<RandomSequenceContainer Name="ShiggyDekuCollab" ID="{734AFBF6-4CF6-44D5-961E-D66C1E3736DA}" ShortID="879120166">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="1"/>
 												<Property Name="OverridePositioning" Type="bool" Value="True"/>

@@ -97,7 +97,8 @@ namespace ShiggyMod.Modules.Survivors
 		public bool stonegolemlaserDef;
 		public bool voidreaverportalDef;
 		public bool beetlequeenshotgunDef;
-		public bool grovetenderhookDef;
+        public bool grandparentsunDef;
+        public bool grovetenderhookDef;
 		public bool claydunestriderballDef;
 		public bool soluscontrolunityknockupDef;
 		public bool xiconstructbeamDef;
@@ -164,7 +165,8 @@ namespace ShiggyMod.Modules.Survivors
 
 			beetlequeenshotgunDef = false;
 			grovetenderhookDef = false;
-			claydunestriderballDef = false;
+            grandparentsunDef = false;
+            claydunestriderballDef = false;
 			soluscontrolunityknockupDef = false;
 			xiconstructbeamDef = false;
 			voiddevastatorhomingDef = false;
@@ -228,7 +230,8 @@ namespace ShiggyMod.Modules.Survivors
 
 			beetlequeenshotgunDef = false;
 			grovetenderhookDef = false;
-			claydunestriderballDef = false;
+            grandparentsunDef = false;
+            claydunestriderballDef = false;
 			soluscontrolunityknockupDef = false;
 			xiconstructbeamDef = false;
 			voiddevastatorhomingDef = false;
@@ -626,7 +629,7 @@ namespace ShiggyMod.Modules.Survivors
 					blastAttack.falloffModel = BlastAttack.FalloffModel.None;
 					blastAttack.baseForce = Modules.StaticValues.larvaForce;
 					blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-					blastAttack.damageType = DamageType.Generic;
+					blastAttack.damageType = DamageType.Generic | DamageType.BleedOnHit;
 					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
 					blastAttack.Fire();
@@ -666,7 +669,7 @@ namespace ShiggyMod.Modules.Survivors
 					blastAttack.falloffModel = BlastAttack.FalloffModel.None;
 					blastAttack.baseForce = Modules.StaticValues.larvaForce;
 					blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-					blastAttack.damageType = DamageType.Generic;
+					blastAttack.damageType = DamageType.Generic | DamageType.BleedOnHit;
 					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 					blastAttack.Fire();
 					ApplyDoT();
@@ -908,8 +911,19 @@ namespace ShiggyMod.Modules.Survivors
 			else
 			{
 				characterBody.RemoveBuff(Modules.Buffs.voidjailerBuff);
-			}
-			if (extraskillLocator.extraFirst.skillNameToken == prefix + "STONETITAN_NAME"
+            }
+            if (extraskillLocator.extraFirst.skillNameToken == prefix + "IMPBOSS_NAME"
+                | extraskillLocator.extraSecond.skillNameToken == prefix + "IMPBOSS_NAME"
+                | extraskillLocator.extraThird.skillNameToken == prefix + "IMPBOSS_NAME"
+                | extraskillLocator.extraFourth.skillNameToken == prefix + "IMPBOSS_NAME")
+            {
+                characterBody.AddBuff(Modules.Buffs.impbossBuff);
+            }
+            else
+            {
+                characterBody.RemoveBuff(Modules.Buffs.impbossBuff);
+            }
+            if (extraskillLocator.extraFirst.skillNameToken == prefix + "STONETITAN_NAME"
 				| extraskillLocator.extraSecond.skillNameToken == prefix + "STONETITAN_NAME"
 				| extraskillLocator.extraThird.skillNameToken == prefix + "STONETITAN_NAME"
 				| extraskillLocator.extraFourth.skillNameToken == prefix + "STONETITAN_NAME")
@@ -1153,8 +1167,22 @@ namespace ShiggyMod.Modules.Survivors
 			else
 			{
 				beetlequeenshotgunDef = false;
-			}
-			if (characterBody.skillLocator.primary.skillNameToken == prefix + "GROVETENDER_NAME"
+            }
+            if (characterBody.skillLocator.primary.skillNameToken == prefix + "GRANDPARENT_NAME"
+                | characterBody.skillLocator.secondary.skillNameToken == prefix + "GRANDPARENT_NAME"
+                | characterBody.skillLocator.utility.skillNameToken == prefix + "GRANDPARENT_NAME"
+                | characterBody.skillLocator.special.skillNameToken == prefix + "GRANDPARENT_NAME")
+            {
+                if (!grandparentsunDef)
+                {
+                    grandparentsunDef = true;
+                }
+            }
+            else
+            {
+                grandparentsunDef = false;
+            }
+            if (characterBody.skillLocator.primary.skillNameToken == prefix + "GROVETENDER_NAME"
 				| characterBody.skillLocator.secondary.skillNameToken == prefix + "GROVETENDER_NAME"
 				| characterBody.skillLocator.utility.skillNameToken == prefix + "GROVETENDER_NAME"
 				| characterBody.skillLocator.special.skillNameToken == prefix + "GROVETENDER_NAME")
@@ -1289,7 +1317,7 @@ namespace ShiggyMod.Modules.Survivors
 							damage = characterBody.damage * Modules.StaticValues.voidjailerDamageCoeffecient,
 							position = singularTarget.transform.position,
 							procCoefficient = 0.5f,
-							damageType = DamageType.SlowOnHit,
+							damageType = DamageType.SlowOnHit | DamageType.BleedOnHit,
 
 						};
 						singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);
@@ -1556,6 +1584,7 @@ namespace ShiggyMod.Modules.Survivors
 
             if (extrainputBankTest.extraSkill1.down && !hasExtra1)
             {
+                AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
                 hasExtra1 = true;
                 if (hurtBox.healthComponent.body.isElite)
                 {
@@ -1753,7 +1782,7 @@ namespace ShiggyMod.Modules.Survivors
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 0);
+                    Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 0);
                     RemovePrimary();
                     characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.jellyfishnovaDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -1906,6 +1935,17 @@ namespace ShiggyMod.Modules.Survivors
                     RemovePrimary();
                     characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
+                if (newbodyPrefab.name == "ImpBossBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
+
+                    characterBody.AddBuff(Modules.Buffs.impbossBuff);
+                    Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 4);
+                    RemoveExtra1();
+                    extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
                 if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
                 {
 
@@ -1916,6 +1956,16 @@ namespace ShiggyMod.Modules.Survivors
                     characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "GrandParentBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "GravekeeperBody")
                 {
@@ -2021,6 +2071,7 @@ namespace ShiggyMod.Modules.Survivors
 
             if (extrainputBankTest.extraSkill2.down && !hasExtra2)
             {
+                AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
                 hasExtra2 = true;
                 if (hurtBox.healthComponent.body.isElite)
                 {
@@ -2217,7 +2268,7 @@ namespace ShiggyMod.Modules.Survivors
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 1);
+                    Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 1);
                     RemoveSecondary();
                     characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.jellyfishnovaDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2370,6 +2421,17 @@ namespace ShiggyMod.Modules.Survivors
                     RemoveSecondary();
                     characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
+                if (newbodyPrefab.name == "ImpBossBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
+
+                    characterBody.AddBuff(Modules.Buffs.impbossBuff);
+                    Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 5);
+                    RemoveExtra2();
+                    extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
                 if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
                 {
 
@@ -2380,6 +2442,16 @@ namespace ShiggyMod.Modules.Survivors
                     characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "GrandparentBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 1);
+                    RemoveSecondary();
+                    characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "GravekeeperBody")
                 {
@@ -2484,6 +2556,7 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (extrainputBankTest.extraSkill3.down && !hasExtra3)
             {
+                AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
                 hasExtra3 = true;
                 if (hurtBox.healthComponent.body.isElite)
                 {
@@ -2680,7 +2753,7 @@ namespace ShiggyMod.Modules.Survivors
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 2);
+                    Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 2);
                     RemoveUtility();
                     characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.jellyfishnovaDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -2833,6 +2906,17 @@ namespace ShiggyMod.Modules.Survivors
                     RemoveUtility();
                     characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
+                if (newbodyPrefab.name == "ImpBossBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
+
+                    characterBody.AddBuff(Modules.Buffs.impbossBuff);
+                    Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 6);
+                    RemoveExtra3();
+                    extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
                 if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
                 {
 
@@ -2843,6 +2927,16 @@ namespace ShiggyMod.Modules.Survivors
                     characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "GrandparentBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 0);
+                    RemoveUtility();
+                    characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "GravekeeperBody")
                 {
@@ -2946,6 +3040,7 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (extrainputBankTest.extraSkill4.down && !hasExtra4)
             {
+                AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
                 hasExtra4 = true;
                 if (hurtBox.healthComponent.body.isElite)
                 {
@@ -3142,7 +3237,7 @@ namespace ShiggyMod.Modules.Survivors
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 3);
+                    Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 3);
                     RemoveSpecial();
                     characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.jellyfishnovaDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
@@ -3295,6 +3390,17 @@ namespace ShiggyMod.Modules.Survivors
                     RemoveSpecial();
                     characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
+                if (newbodyPrefab.name == "ImpBossBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
+
+                    characterBody.AddBuff(Modules.Buffs.impbossBuff);
+                    Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 7);
+                    RemoveExtra4();
+                    extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
                 if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
                 {
 
@@ -3305,6 +3411,16 @@ namespace ShiggyMod.Modules.Survivors
                     characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
                     RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "GrandparentBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 0);
+                    RemoveSpecial();
+                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
                 if (newbodyPrefab.name == "GravekeeperBody")
                 {
@@ -3516,6 +3632,7 @@ namespace ShiggyMod.Modules.Survivors
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -3542,6 +3659,7 @@ namespace ShiggyMod.Modules.Survivors
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -3569,6 +3687,7 @@ namespace ShiggyMod.Modules.Survivors
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -3596,6 +3715,7 @@ namespace ShiggyMod.Modules.Survivors
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);

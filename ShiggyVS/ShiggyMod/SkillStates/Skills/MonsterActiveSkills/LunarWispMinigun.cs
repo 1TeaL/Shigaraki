@@ -38,6 +38,10 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = DamageType.CrippleOnHit;
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType = DamageType.BleedOnHit | DamageType.CrippleOnHit;
+            }
 
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(2f);
@@ -45,7 +49,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
-            AkSoundEngine.PostEvent(180661997, base.gameObject);
+            AkSoundEngine.PostEvent(3660048432, base.gameObject);
 
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
             {

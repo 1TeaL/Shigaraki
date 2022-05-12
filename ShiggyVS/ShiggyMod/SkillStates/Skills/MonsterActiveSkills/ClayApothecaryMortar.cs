@@ -39,6 +39,10 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = DamageType.ClayGoo;
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType = DamageType.BleedOnHit | DamageType.ClayGoo;
+            }
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
@@ -50,7 +54,7 @@ namespace ShiggyMod.SkillStates
             Util.PlayAttackSpeedSound(FaceSlam.attackSoundString, base.gameObject, this.attackSpeedStat);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
-            AkSoundEngine.PostEvent(180661997, base.gameObject);
+            AkSoundEngine.PostEvent(3660048432, base.gameObject);
             if (base.characterDirection)
             {
                 base.characterDirection.moveVector = base.characterDirection.forward;
