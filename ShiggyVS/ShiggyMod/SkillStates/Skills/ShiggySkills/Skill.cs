@@ -14,6 +14,7 @@ namespace ShiggyMod.SkillStates
         public ShiggyController Shiggycon;
         private DamageType damageType;
         public HurtBox Target;
+        private Animator animator;
 
 
         private float radius = 15f;

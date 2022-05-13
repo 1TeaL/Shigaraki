@@ -28,6 +28,8 @@ namespace ShiggyMod.SkillStates
         private BlastAttack blastAttack;
 
         public HurtBox Target;
+        private int decayCount;
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -42,6 +44,14 @@ namespace ShiggyMod.SkillStates
                 damageType = DamageType.BleedOnHit | DamageType.Stun1s;
             }
 
+            if (base.HasBuff(Modules.Buffs.multiplierBuff))
+            {
+                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+            }
+            else
+            {
+                decayCount = 1;
+            }
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayAnimation("FullBody, Override", "Slam", "Attack.playbackRate", fireTime * 2f);
 
@@ -105,16 +115,9 @@ namespace ShiggyMod.SkillStates
                     scale = radius,
                 }, true);
 
-                if (base.HasBuff(Modules.Buffs.multiplierBuff))
-                {
-                    ApplyDoT();
-                    ApplyDoT();
-                    ApplyDoT();
-                }
-                else
-                {
-                    ApplyDoT();
-                }
+
+                ApplyDoT();
+                
                 blastAttack.Fire();
                 
             }
@@ -159,7 +162,11 @@ namespace ShiggyMod.SkillStates
                         info.duration = Modules.StaticValues.decayDamageTimer;
                         info.dotIndex = Modules.Dots.decayDot;
 
-                        DotController.InflictDot(ref info);
+                        for (int i = 0; i < decayCount; i++)
+                        {
+                            DotController.InflictDot(ref info);
+
+                        }
                     }
                 }
             }

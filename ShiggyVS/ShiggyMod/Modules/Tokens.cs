@@ -60,7 +60,7 @@ namespace ShiggyMod.Modules
                 $"</style> Triples the number of projectiles, shots and decay stacks as well." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [Melee] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "AFO_NAME", "All For One");
-            LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"Steal the Target's quirk. " +
+            LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"Steal the Target's quirk. Steal the elite aspect as well. " +
                 "Actives<style=cWorldEvent>[Circle]</style> replace main skills and Passives<style=cWorldEvent>[Triangle]</style> replace extra skills." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO]</style>");
 

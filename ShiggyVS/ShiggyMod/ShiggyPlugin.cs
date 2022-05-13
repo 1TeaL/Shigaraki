@@ -33,7 +33,7 @@ namespace ShiggyMod
 {
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.KingEnderBrine.ExtraSkillSlots", BepInDependency.DependencyFlags.HardDependency)]
-    [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("com.Temporary_Team_Name_Please_Ignore.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
     [R2APISubmoduleDependency(new string[]
@@ -57,7 +57,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "1.0.0";
+        public const string MODVERSION = "1.0.4";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -74,6 +74,7 @@ namespace ShiggyMod
         //public static Dictionary<ItemBase, bool> ItemStatusDictionary = new Dictionary<ItemBase, bool>();
         //public static Dictionary<EquipmentBase, bool> EquipmentStatusDictionary = new Dictionary<EquipmentBase, bool>();
         private BlastAttack blastAttack;
+        private int decayCount;
 
         private void Awake()
         {
@@ -124,7 +125,7 @@ namespace ShiggyMod
             //On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate;
             //On.RoR2.CharacterBody.Update += CharacterBody_Update;
             On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
-            On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy; 
+            On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
@@ -208,10 +209,10 @@ namespace ShiggyMod
         private void SurvivorCatalog_Init(On.RoR2.SurvivorCatalog.orig_Init orig)
         {
             orig();
-            foreach(var item in SurvivorCatalog.allSurvivorDefs)
+            foreach (var item in SurvivorCatalog.allSurvivorDefs)
             {
                 //Debug.Log(item.bodyPrefab.name);
-                if(item.bodyPrefab.name == "ShiggyBody")
+                if (item.bodyPrefab.name == "ShiggyBody")
                 {
                     CustomEmotesAPI.ImportArmature(item.bodyPrefab, Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("humanoidShigaraki"));
                 }
@@ -250,7 +251,10 @@ namespace ShiggyMod
                 //multiplier remove
                 if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
                 {
-                    damageInfo.attacker.GetComponent<CharacterBody>().RemoveBuff(Buffs.multiplierBuff);
+                    if((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        damageInfo.attacker.GetComponent<CharacterBody>().RemoveBuff(Buffs.multiplierBuff);
+                    }
                 }
                 if (self.body.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
                 {
@@ -301,6 +305,15 @@ namespace ShiggyMod
                         if (self.body.HasBuff(Modules.Buffs.gupspikeBuff.buffIndex))
                         {
                             //Spike buff
+
+                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.multiplierBuff))
+                            {
+                                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+                            }
+                            else
+                            {
+                                decayCount = 1;
+                            }
 
                             var damageInfo2 = new DamageInfo();
 
@@ -361,7 +374,11 @@ namespace ShiggyMod
                                         info.duration = Modules.StaticValues.decayDamageTimer;
                                         info.dotIndex = Modules.Dots.decayDot;
 
-                                        DotController.InflictDot(ref info);
+                                        for (int i = 0; i < decayCount; i++)
+                                        {
+                                            DotController.InflictDot(ref info);
+
+                                        }
                                     }
                                 }
                             }

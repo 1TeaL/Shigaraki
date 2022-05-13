@@ -42,7 +42,6 @@ namespace ShiggyMod.Modules
         {
             Sprite warcryBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/WarCryOnMultiKill/bdWarCryBuff.asset").WaitForCompletion().iconSprite;
             Sprite shieldBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdArmorBoost.asset").WaitForCompletion().iconSprite;
-            Sprite bleedBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdBleeding.asset").WaitForCompletion().iconSprite;
             Sprite tarBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdClayGoo.asset").WaitForCompletion().iconSprite;
             Sprite crippleBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdCripple.asset").WaitForCompletion().iconSprite;
             Sprite speedBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Bandit2/bdCloakSpeed.asset").WaitForCompletion().iconSprite;
@@ -58,19 +57,20 @@ namespace ShiggyMod.Modules
             Sprite healBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Croco/bdCrocoRegen.asset").WaitForCompletion().iconSprite;
             Sprite attackspeedBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/EnergizedOnEquipmentUse/bdEnergized.asset").WaitForCompletion().iconSprite;
             Sprite gravityBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/KillEliteFrenzy/bdNoCooldowns.asset").WaitForCompletion().iconSprite;
-            Sprite skinBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/ImmuneToDebuff/ImmuneToDebuff.asset").WaitForCompletion().iconSprite;
+            Sprite bleedBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdBleeding.asset").WaitForCompletion().iconSprite;
+            Sprite skinBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/OutOfCombatArmor/bdOutOfCombatArmorBuff.asset").WaitForCompletion().iconSprite;
             Sprite orbreadyBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/ElementalRings/bdElementalRingsReady.asset").WaitForCompletion().iconSprite;
             Sprite orbdisableBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/ElementalRings/bdElementalRingsCooldown.asset").WaitForCompletion().iconSprite;
             Sprite blazingBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdOnFire.asset").WaitForCompletion().iconSprite;
             Sprite lightningBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/ShockNearby/bdTeslaField.asset").WaitForCompletion().iconSprite;
 
-            flyBuff = Buffs.AddNewBuff("FlyBuff", speedBuffIcon, Color.magenta, false, false);
+            flyBuff = Buffs.AddNewBuff("FlyBuff", jumpBuffIcon, Color.magenta, false, false);
             beetleBuff = Buffs.AddNewBuff("StrengthBuff", boostBuffIcon, Color.grey, false, false);
             alphashieldonBuff = Buffs.AddNewBuff("ShieldOnBuff", alphashieldonBuffIcon, Color.magenta, false, false);
             alphashieldoffBuff = Buffs.AddNewBuff("ShieldOffBuff", alphashieldoffBuffIcon, Color.black, true, true);
-            decayDebuff = Buffs.AddNewBuff("decayDebuff", decayBuffIcon, Color.black, true, true);
+            decayDebuff = Buffs.AddNewBuff("decayDebuff", decayBuffIcon, Color.magenta, true, true);
             multiplierBuff = Buffs.AddNewBuff("multiplierBuff", multiplierBuffIcon, Color.magenta, false, false);
-            pestjumpBuff = Buffs.AddNewBuff("jumpBuff", jumpBuffIcon, Color.green, false, false);
+            pestjumpBuff = Buffs.AddNewBuff("jumpBuff", jumpBuffIcon, Color.cyan, false, false);
             verminsprintBuff = Buffs.AddNewBuff("sprintBuff", sprintBuffIcon, Color.green, false, false);
             gupspikeBuff = Buffs.AddNewBuff("spikybodyBuff", spikeBuffIcon, Color.red, false, false);
             hermitcrabmortarBuff = Buffs.AddNewBuff("mortarBuff", mortarBuffIcon, Color.magenta, false, false);
@@ -79,7 +79,7 @@ namespace ShiggyMod.Modules
             lesserwispBuff = Buffs.AddNewBuff("RangedBuff", boostBuffIcon, Color.red, false, false);
             lunarexploderBuff = Buffs.AddNewBuff("lunarauraBuff", crippleBuffIcon, Color.blue, false, false);
             minimushrumBuff = Buffs.AddNewBuff("healingauraBuff", healBuffIcon, Color.green, false, false);
-            roboballminiBuff = Buffs.AddNewBuff("glideBuff", speedBuffIcon, Color.cyan, false, false);
+            roboballminiBuff = Buffs.AddNewBuff("glideBuff", jumpBuffIcon, Color.grey, false, false);
             voidbarnaclemortarBuff = Buffs.AddNewBuff("voidmortarBuff", mortarBuffIcon, Color.magenta, false, false);
             voidbarnaclemortarattackspeedBuff = Buffs.AddNewBuff("voidbarnaclemortarattackspeedBuff", attackspeedBuffIcon, Color.blue, true, false);
             voidjailerBuff = Buffs.AddNewBuff("gravitypullBuff", gravityBuffIcon, Color.magenta, false, false);
@@ -87,7 +87,7 @@ namespace ShiggyMod.Modules
             stonetitanBuff = Buffs.AddNewBuff("stoneskinBuff", skinBuffIcon, Color.magenta, false, false);
             vagrantBuff = Buffs.AddNewBuff("vagrant'sorbBuff", orbreadyBuffIcon, Color.magenta, false, false);
             vagrantdisableBuff = Buffs.AddNewBuff("vagrantdisableBuff ", orbdisableBuffIcon, Color.black, true, false); ;
-            vagrantDebuff = Buffs.AddNewBuff("vagrantDebuff", orbdisableBuffIcon, Color.black, true, true);
+            vagrantDebuff = Buffs.AddNewBuff("vagrantDebuff", orbdisableBuffIcon, Color.white, true, true);
             magmawormBuff = Buffs.AddNewBuff("blazingauraBuff", blazingBuffIcon, Color.magenta, false, false);
             overloadingwormBuff = Buffs.AddNewBuff("lightningauraBuff", lightningBuffIcon, Color.magenta, false, false);
 

@@ -16,6 +16,7 @@ namespace ShiggyMod.SkillStates
         public static GameObject effectPrefab;
 
         private string muzzleString;
+        private Animator animator;
         private float damageCoefficient = Modules.StaticValues.lemurianfireballDamageCoeffecient;
         private float force = 1f;
         private float speedOverride = -1f;
@@ -30,8 +31,11 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "LHand";
 
+            this.animator = base.GetModelAnimator();
+            //this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
+            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration / 2, 0.1f);
+            //PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration/2, 0.1f);
             if (transform && ChargeFireball.chargeVfxPrefab)
             {
                 this.chargeVfxInstance = UnityEngine.Object.Instantiate<GameObject>(ChargeFireball.chargeVfxPrefab, FindModelChild(this.muzzleString).position, Util.QuaternionSafeLookRotation(aimRay.direction));
@@ -96,6 +100,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            this.animator.SetBool("false", true);
             PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             if (this.chargeVfxInstance)

@@ -39,6 +39,20 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.0.4 
+    - Fixed errors when entering a new stage
+    - Added back different buff icons
+    - Multiplier now doesn't get taken away on DoT damage such as decay
+         - Melee attacks are now easier to trigger the triple decay effect due to this 
+    - Bullet Laser now works
+    - Improved AFO passive logic, should be quicker to receive the buff now
+    - Mentioned that AFO can grab elite equipment
+    - Smoother animations
+    - Added new config so you have to hold the button for 1 second before stealing a quirk.
+- 1.0.3 
+    - buff icons not loading so for now everthing is warcry buff icon 
+- 1.0.1 
+    - hotfix dependency 
 - 1.0.0
     - Release. 
 - Next update(s)
@@ -54,6 +68,7 @@ If you enjoy my work, support me on Ko-fi!
 ## Overview
     He is initially weak with low base damage, aim to get passive quirks to increase his power.
     [LeftHanded] and [RightHanded] skills can be used simultaneously. 
+    All For One can grab elite equipment from elites. 
 
 ## Skills
 ### Passive
@@ -105,7 +120,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>All For One</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007092-48902939-7905-4630-9348-e14b25b98ddf.png" width="100" height="100"></td>
-    <td>Steal the Target's quirk.</td>
+    <td>Steal the Target's quirk. Steal the elite aspect as well.</td>
     <td>CD: 1s.<br></td>
   </tr>
 </tbody>

@@ -23,6 +23,7 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride = -1f;
         private string muzzleString;
+        private Animator animator;
         private float baseFireInterval = 0.1f;
         private float baseBulletCount;
         private float baseFireRate;
@@ -46,7 +47,9 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "RHand";
 
+            this.animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+
             PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
 
@@ -83,6 +86,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnExit();
 
+            this.animator.SetBool("attacking", false);
             PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             Util.PlaySound(MinigunFire.endSound, base.gameObject);

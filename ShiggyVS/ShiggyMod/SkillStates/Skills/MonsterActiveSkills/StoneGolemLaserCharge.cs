@@ -153,6 +153,7 @@ namespace ShiggyMod.SkillStates
 			bool flag = base.IsKeyDownAuthority();
 			if (flag)
 			{
+				PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
 				this.chargePercent = base.fixedAge / this.maxCharge;
 				this.damageCoefficient = (Modules.StaticValues.stonegolemDamageCoeffecient + 1f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoeffecient)) * Shiggycon.rangedMultiplier;
 				this.radius = (this.baseRadius * this.damageCoefficient + 20f) / 4f;

@@ -33,6 +33,7 @@ namespace ShiggyMod.SkillStates
         private BulletAttack attack;
         private BlastAttack blastAttack;
         private float fireInterval = 0.1f;
+        private Animator animator;
 
         public override void OnEnter()
         {
@@ -47,6 +48,7 @@ namespace ShiggyMod.SkillStates
                 damageType = DamageType.BleedOnHit;
             }
 
+            this.animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
@@ -157,6 +159,7 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
+            this.animator.SetBool("attacking", false);
             PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             base.OnExit();

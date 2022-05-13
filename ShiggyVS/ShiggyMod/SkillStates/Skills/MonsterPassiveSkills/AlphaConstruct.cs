@@ -18,7 +18,10 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
 
+            base.characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmPull", "Attack.playbackRate", duration, 0.1f);
+
         }
 
         public override void OnExit()

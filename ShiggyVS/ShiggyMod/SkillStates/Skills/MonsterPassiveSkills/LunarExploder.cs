@@ -18,6 +18,8 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
 
+            base.characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmPull", "Attack.playbackRate", duration, 0.1f);
         }
 

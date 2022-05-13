@@ -28,6 +28,7 @@ namespace ShiggyMod.SkillStates
         protected DamageType damageType;
         public ShiggyController shiggycon;
         private Vector3 theSpot;
+        private int decayCount;
 
         //private NemforcerGrabController grabController;
 
@@ -43,6 +44,14 @@ namespace ShiggyMod.SkillStates
             }
             dropTimer = 1f;
 
+            if (base.HasBuff(Modules.Buffs.multiplierBuff))
+            {
+                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+            }
+            else
+            {
+                decayCount = 1;
+            }
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.strengthMultiplier;
@@ -107,7 +116,11 @@ namespace ShiggyMod.SkillStates
                         info.duration = Modules.StaticValues.decayDamageTimer;
                         info.dotIndex = Modules.Dots.decayDot;
 
-                        DotController.InflictDot(ref info);
+                        for (int i = 0; i < decayCount; i++)
+                        {
+                            DotController.InflictDot(ref info);
+
+                        }
                     }
                 }
             }
@@ -197,16 +210,8 @@ namespace ShiggyMod.SkillStates
                 blastAttack.damageType = damageType;
                 blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
-                if (base.HasBuff(Modules.Buffs.multiplierBuff))
-                {
-                    ApplyDoT();
-                    ApplyDoT();
-                    ApplyDoT();
-                }
-                else
-                {
-                    ApplyDoT();
-                }
+                ApplyDoT();
+                
                 if (blastAttack.Fire().hitCount > 0)
                 {
                     this.OnHitEnemyAuthority();

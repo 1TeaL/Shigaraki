@@ -23,6 +23,7 @@ namespace ShiggyMod.SkillStates
 
         private DamageType damageType;
         public static float baseduration = 0.8f;
+        public int decayCount;
         public float duration;
         public float fireTime;
         private float procCoefficient = 1f;
@@ -44,6 +45,7 @@ namespace ShiggyMod.SkillStates
         private Vector3 direction;
         private Vector3 bounceVector;
         private Vector3 bonusForce = new Vector3(20f, 100f, 0f);
+        private GameObject decayInstance;
 
         public override void OnEnter()
         {
@@ -67,6 +69,14 @@ namespace ShiggyMod.SkillStates
             {
                 duration = 0.05f;
             }
+            if (base.HasBuff(Modules.Buffs.multiplierBuff))
+            {
+                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+            }
+            else
+            {
+                decayCount = 1;
+            }
             base.characterBody.SetAimTimer(this.duration);
 
             Ray aimRay = base.GetAimRay();
@@ -74,7 +84,8 @@ namespace ShiggyMod.SkillStates
             this.animator.SetBool("attacking", true);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayAnimation("FullBody, Override", "Slam", "Attack.playbackRate", fireTime *2f);
+            //PlayAnimation("FullBody, Override", "Slam", "Attack.playbackRate", fireTime);
+            PlayCrossfade("FullBody, Override", "Slam", "Attack.playbackRate", fireTime, 0.1f);
             AkSoundEngine.PostEvent(4108468048, base.gameObject);
             HitBoxGroup hitBoxGroup = null;
             HitBoxGroup hitBoxGroup2 = null;
@@ -140,6 +151,10 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
+            if (this.decayInstance)
+            {
+                EntityState.Destroy(this.decayInstance);
+            }
             this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             Transform modelTransform = base.GetModelTransform();
             bool flag = modelTransform.gameObject.GetComponent<AimAnimator>();
@@ -159,11 +174,19 @@ namespace ShiggyMod.SkillStates
             if(base.fixedAge >= fireTime && base.isAuthority && !playEffect)
             {
                 playEffect = true;
-                EffectManager.SpawnEffect(Modules.Assets.decayattackEffect, new EffectData
+                //EffectManager.SpawnEffect(Modules.Assets.decayattackEffect, new EffectData
+                //{
+                //    origin = base.characterBody.footPosition + Vector3.up * 0.5f,
+                //    scale = 1f,
+                //    parent = base.characterBody,
+                //}, true);
+
+                if (transform && Modules.Assets.decayattackEffect)
                 {
-                    origin = base.characterBody.footPosition + Vector3.up * 0.5f,
-                    scale = 1f,
-                }, true);
+                    this.decayInstance = UnityEngine.Object.Instantiate<GameObject>(Modules.Assets.decayattackEffect, base.characterBody.footPosition + Vector3.up * 0.5f, Quaternion.identity);
+                    this.decayInstance.transform.parent = base.characterBody.transform;
+                }
+
             }
             if (base.fixedAge >= this.fireTime && base.isAuthority)
             {
@@ -225,15 +248,10 @@ namespace ShiggyMod.SkillStates
                             //info.damageMultiplier = Modules.StaticValues.decayDamageCoeffecient + Modules.StaticValues.decayDamageStack * hurtBox.healthComponent.body.GetBuffCount(Modules.Buffs.decayDebuff);
                             info.dotIndex = Modules.Dots.decayDot;
 
-                            if (base.HasBuff(Modules.Buffs.multiplierBuff))
+                            for (int i = 0; i < decayCount; i++)
                             {
                                 DotController.InflictDot(ref info);
-                                DotController.InflictDot(ref info);
-                                DotController.InflictDot(ref info);
-                            }
-                            else
-                            {
-                                DotController.InflictDot(ref info);
+
                             }
 
                         }

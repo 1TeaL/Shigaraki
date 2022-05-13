@@ -1,9 +1,10 @@
 {
     "name": "ShigarakiMod",
-    "version_number": "1.0.0",
+    "version_number": "1.0.4",
     "website_url": "https://github.com/1TeaL/Shigaraki",
-    "description": "Go Beyond... ",
+    "description": "Go Beyond... 1.0.4- big fixes",
     "dependencies": [
-         "tristanmcpherson-R2API-4.3.5"
+         "tristanmcpherson-R2API-4.3.5",
+         "KingEnderBrine-ExtraSkillSlots-1.5.1"
     ]
 }

@@ -22,6 +22,7 @@ namespace ShiggyMod.SkillStates
 		private float force = 1f;
         private Vector3 direction;
         private ShiggyController Shiggycon;
+        private int decayCount;
 
         public override void OnEnter()
 		{
@@ -54,6 +55,14 @@ namespace ShiggyMod.SkillStates
 				}
 			}
 
+			if (base.HasBuff(Modules.Buffs.multiplierBuff))
+			{
+				decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+			}
+			else
+			{
+				decayCount = 1;
+			}
 			Shiggycon = gameObject.GetComponent<ShiggyController>();
 			damageCoefficient *= Shiggycon.strengthMultiplier;
 		}
@@ -170,16 +179,9 @@ namespace ShiggyMod.SkillStates
                     Util.PlaySound(EntityStates.Bison.Headbutt.attackSoundString, base.gameObject);
 
 					AkSoundEngine.PostEvent(4108468048, base.gameObject);
-					if (base.HasBuff(Modules.Buffs.multiplierBuff))
-					{
-						ApplyDoT();
-						ApplyDoT();
-						ApplyDoT();
-					}
-					else
-					{
-						ApplyDoT();
-					}
+					
+					ApplyDoT();
+					
 					if (blastAttack.Fire().hitCount > 0)
 					{
 						this.OnHitEnemyAuthority();
@@ -231,7 +233,11 @@ namespace ShiggyMod.SkillStates
 						info.duration = Modules.StaticValues.decayDamageTimer;
 						info.dotIndex = Modules.Dots.decayDot;
 
-						DotController.InflictDot(ref info);
+						for (int i = 0; i < decayCount; i++)
+						{
+							DotController.InflictDot(ref info);
+
+						}
 					}
 				}
 			}

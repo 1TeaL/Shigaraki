@@ -21,6 +21,7 @@ namespace ShiggyMod.SkillStates
         private float procCoefficient = 0.2f;
         private float force = 60f;
         private string muzzleString;
+        private Animator animator;
         private float baseFireInterval = 0.2f;
         private float baseBulletCount;
 
@@ -47,7 +48,9 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(2f);
             this.muzzleString = "LHand";
 
+            this.animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+
             PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
 
@@ -90,6 +93,9 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            this.animator.SetBool("attacking", false);
+            PlayCrossfade("RightArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
+            PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
             Util.PlaySound(FireLunarGuns.windDownSound, base.gameObject);
             if (this.muzzleVFXInstanceOne)
             {

@@ -24,6 +24,7 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride =1f;
         private DamageType damageType;
+        private int decayCount;
 
         public override void OnEnter()
         {
@@ -33,6 +34,15 @@ namespace ShiggyMod.SkillStates
             if (base.HasBuff(Modules.Buffs.impbossBuff))
             {
                 damageType = DamageType.BleedOnHit | DamageType.Stun1s;
+            }
+
+            if (base.HasBuff(Modules.Buffs.multiplierBuff))
+            {
+                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+            }
+            else
+            {
+                decayCount = 1;
             }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.strengthMultiplier;
@@ -51,16 +61,7 @@ namespace ShiggyMod.SkillStates
                 Vector3 theSpot = aimRay.origin - 8 * aimRay.direction;
                 Vector3 theSpot2 = aimRay.origin - 2 * aimRay.direction;
 
-                if (base.HasBuff(Modules.Buffs.multiplierBuff))
-                {
-                    ApplyDoT();
-                    ApplyDoT();
-                    ApplyDoT();
-                }
-                else
-                {
-                    ApplyDoT();
-                }
+                ApplyDoT();
                 BlastAttack blastAttack = new BlastAttack();
                 blastAttack.radius = radius;
                 blastAttack.procCoefficient = 1f;
@@ -159,7 +160,11 @@ namespace ShiggyMod.SkillStates
                         info.duration = Modules.StaticValues.decayDamageTimer;
                         info.dotIndex = Modules.Dots.decayDot;
 
-                        DotController.InflictDot(ref info);
+                        for (int i = 0; i < decayCount; i++)
+                        {
+                            DotController.InflictDot(ref info);
+
+                        }
                     }
                 }
             }
