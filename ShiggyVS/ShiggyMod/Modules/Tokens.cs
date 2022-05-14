@@ -31,6 +31,7 @@ namespace ShiggyMod.Modules
             #region Skins
             LanguageAPI.Add(prefix + "DEFAULT_SKIN_NAME", "Default");
             LanguageAPI.Add(prefix + "MASTERY_SKIN_NAME", "Shiny");
+            LanguageAPI.Add(prefix + "HANDLESS_SKIN_NAME", "Handless");
             #endregion
 
             #region Passive
@@ -77,9 +78,9 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[AFO]</style>");
             LanguageAPI.Add(prefix + "PEST_NAME", "Jump Boost");
             LanguageAPI.Add(prefix + "PEST_DESCRIPTION", $"<style=cIsUtility>Gain 4 extra jumps and jump power</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[AFO] Ga[Jump]</style>");
+                $"<style=cSub>[AFO] [Jump]</style>");
             LanguageAPI.Add(prefix + "VERMIN_NAME", "Super Speed");
-            LanguageAPI.Add(prefix + "VERMIN_DESCRIPTION", $"<style=cIsUtility>Gain {StaticValues.verminmovespeedMultiplier}x movespeed and {StaticValues.verminsprintMultiplier}x sprint speed</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "VERMIN_DESCRIPTION", $"<style=cIsUtility>Gain {StaticValues.verminmovespeedMultiplier}x movespeed and change sprint speed to {StaticValues.verminsprintMultiplier}x</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO] [Movespeed]</style>");
             LanguageAPI.Add(prefix + "GUP_NAME", "Spiky Body");
             LanguageAPI.Add(prefix + "GUP_DESCRIPTION", $"<style=cIsDamage>Gain spikes that deal <style=cIsDamage>{StaticValues.spikedamageCoefficient}% damage</style> to those around you when you're hit</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
@@ -115,7 +116,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VOIDJAILER_DESCRIPTION", $"<style=cIsDamage>Slowing.</style><style=cIsUtility> While moving</style>, Pull nearby enemies and deal <style=cIsDamage>{100 * StaticValues.voidjailerDamageCoeffecient}% damage</style> ." +
                 $"The gap between attacks scales with movespeed. " +
                 $" Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[AFO] [Ranged]</style>");
+                $"<style=cSub>[AFO] [Ranged] [Movespeed]</style>");
             LanguageAPI.Add(prefix + "IMPBOSS_NAME", "Bleed");
             LanguageAPI.Add(prefix + "IMPBOSS_DESCRIPTION", $"<style=cIsDamage> Bleeding.</style> 'Physical' attacks such as melee, blast, or shot type attacks apply <style=cIsHealth>Bleed</style>. " +
                 $"Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
@@ -149,7 +150,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BISON_NAME", "Charging");
             LanguageAPI.Add(prefix + "BISON_DESCRIPTION", $"<style=cIsDamage> Stunning. Agile.</style> Charge forward at super speed, and if you slam into a solid object, generates a shockwave that stuns enemies for <style=cIsDamage>{100f * StaticValues.bisonchargeDamageCoeffecient}% damage</style> in a radius. Hold the button to keep charging. " +
                 $"Damage and radius scales with charge duration and movespeed. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee]</style> <style=cWorldEvent>[Decay]</style>");
+                $"<style=cSub>[Melee] [LeftHanded] [Movespeed]</style> <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "BRONZONG_NAME", "Spiked Ball Control");
             LanguageAPI.Add(prefix + "BRONZONG_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Summon 3 spiked balls, then release them, dealing <style=cIsDamage>{100f * StaticValues.bronzongballDamageCoeffecient}% damage</style> per ball. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [LeftHanded]</style>");

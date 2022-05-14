@@ -33,9 +33,13 @@ namespace ShiggyMod.SkillStates
 
             if (base.HasBuff(Modules.Buffs.impbossBuff))
             {
-                damageType = DamageType.BleedOnHit | DamageType.Stun1s;
+                damageType |= DamageType.BleedOnHit | DamageType.Stun1s;
             }
 
+            if (base.HasBuff(Modules.Buffs.acridBuff))
+            {
+                damageType |= DamageType.PoisonOnHit | DamageType.Stun1s;
+            }
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
             {
                 decayCount = (int)Modules.StaticValues.multiplierCoefficient;

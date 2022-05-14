@@ -29,6 +29,23 @@ namespace ShiggyMod.SkillStates
             if (NetworkServer.active)
             {
                 base.characterBody.AddBuff(Modules.Buffs.multiplierBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.beetleBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.vagrantBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.magmawormBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.impbossBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
             }
 
 

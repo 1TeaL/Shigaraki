@@ -33,7 +33,7 @@ namespace ShiggyMod
 {
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.KingEnderBrine.ExtraSkillSlots", BepInDependency.DependencyFlags.HardDependency)]
-    [BepInDependency("com.Temporary_Team_Name_Please_Ignore.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
     [R2APISubmoduleDependency(new string[]
@@ -57,7 +57,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "1.0.4";
+        public const string MODVERSION = "1.0.";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -147,9 +147,43 @@ namespace ShiggyMod
             {
                 var body = attacker.GetComponent<CharacterBody>();
                 var victimBody = victim.GetComponent<CharacterBody>();
+                DamageType damageType;
+                DamageType damageType2;
+                if (body.HasBuff(Buffs.impbossBuff))
+                {
+                    damageType = DamageType.BleedOnHit;
+                    damageType2 = DamageType.BleedOnHit | DamageType.Stun1s;
+                }
+                else
+                {
+                    damageType = DamageType.Generic;
+                    damageType2 = DamageType.Stun1s;
+                }
                 if (body && victimBody)
                 {
-                    if (body.HasBuff(Modules.Buffs.vagrantBuff) && !victimBody.HasBuff(Modules.Buffs.vagrantDebuff))
+                    //commando buff
+                    if (body.HasBuff(Modules.Buffs.commandoBuff))
+                    {
+                        if(damageInfo.damage > 0)
+                        {
+                            DamageInfo damageInfo2 = new DamageInfo();
+                            damageInfo2.damage = damageInfo.damage/StaticValues.commandoDamageMultiplier;
+                            damageInfo2.position = victimBody.corePosition;
+                            damageInfo2.force = Vector3.zero;
+                            damageInfo2.procCoefficient = StaticValues.commandoProcCoefficient;
+                            damageInfo2.damageColorIndex = DamageColorIndex.WeakPoint;
+                            damageInfo2.crit = false;
+                            damageInfo2.attacker = body.gameObject;
+                            damageInfo2.inflictor = victimBody.gameObject;
+                            damageInfo2.damageType = damageType;
+                            damageInfo2.procCoefficient = 0f;
+                            damageInfo2.procChainMask = default(ProcChainMask);
+                            victimBody.healthComponent.TakeDamage(damageInfo2);
+                        }
+                    }
+
+                    //vagrant buff
+                    if (body.HasBuff(Modules.Buffs.vagrantBuff) && !victimBody.HasBuff(Modules.Buffs.vagrantdisableBuff))
                     {
                         if (damageInfo.damage / body.damage >= StaticValues.vagrantdamageThreshold)
                         {
@@ -168,11 +202,11 @@ namespace ShiggyMod
                             }
                             new BlastAttack
                             {
-                                attacker = base.gameObject,
-                                teamIndex = TeamComponent.GetObjectTeam(base.gameObject),
-                                falloffModel = BlastAttack.FalloffModel.SweetSpot,
+                                attacker = damageInfo.attacker.gameObject,
+                                teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
+                                falloffModel = BlastAttack.FalloffModel.None,
                                 baseDamage = body.damage * StaticValues.vagrantDamageCoefficient * body.attackSpeed / 3,
-                                damageType = DamageType.Stun1s | DamageType.BleedOnHit,
+                                damageType = damageType2,
                                 damageColorIndex = DamageColorIndex.Fragile,
                                 baseForce = 0,
                                 position = victimBody.transform.position,
@@ -424,7 +458,7 @@ namespace ShiggyMod
                 //verminsprint buff
                 if (self.HasBuff(Buffs.verminsprintBuff))
                 {
-                    self.sprintingSpeedMultiplier *= Modules.StaticValues.verminsprintMultiplier;
+                    self.sprintingSpeedMultiplier = Modules.StaticValues.verminsprintMultiplier;
                     self.moveSpeed *= Modules.StaticValues.verminmovespeedMultiplier;
                 }
                 //multiplier buff

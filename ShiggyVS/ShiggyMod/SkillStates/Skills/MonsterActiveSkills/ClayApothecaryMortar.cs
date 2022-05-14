@@ -41,7 +41,11 @@ namespace ShiggyMod.SkillStates
             damageType = DamageType.ClayGoo;
             if (base.HasBuff(Modules.Buffs.impbossBuff))
             {
-                damageType = DamageType.BleedOnHit | DamageType.ClayGoo;
+                damageType |= DamageType.BleedOnHit | DamageType.ClayGoo;
+            }
+            if (base.HasBuff(Modules.Buffs.acridBuff))
+            {
+                damageType |= DamageType.PoisonOnHit | DamageType.ClayGoo;
             }
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();

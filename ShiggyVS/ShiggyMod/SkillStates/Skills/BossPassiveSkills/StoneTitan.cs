@@ -1,49 +1,25 @@
 ﻿using ShiggyMod.Modules.Survivors;
 using EntityStates;
 using RoR2;
+using UnityEngine;
+using System.Collections.Generic;
+using ShiggyMod.Modules;
+using UnityEngine.Networking;
+using RoR2.ExpansionManagement;
+using ExtraSkillSlots;
 
 namespace ShiggyMod.SkillStates
 {
-    public class StoneTitan : BaseSkillState
+    public class StoneTitan : AFO
     {
-        string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-
-        private float duration = 1f;
-        public ShiggyController Shiggycon;
-        public ShiggyMasterController Shiggymastercon;
-        public HurtBox Target;
-
-
         public override void OnEnter()
         {
             base.OnEnter();
-
-            base.characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmPull", "Attack.playbackRate", duration, 0.1f);
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-            if (Shiggycon.hasQuirk = true)
+            if (NetworkServer.active)
             {
-                AkSoundEngine.PostEvent(3192656820, base.gameObject);
+                characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
             }
         }
 
-
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-
-            if (base.fixedAge >= this.duration && base.isAuthority)
-            {
-                this.outer.SetNextStateToMain();
-                return;
-            }
-
-
-        }
     }
 }

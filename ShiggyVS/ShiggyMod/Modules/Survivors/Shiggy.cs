@@ -89,14 +89,21 @@ namespace ShiggyMod.Modules.Survivors
         };
 
         internal static Material ShiggyMat = Modules.Assets.CreateMaterial("ShiggyMat");
-        internal override int mainRendererIndex { get; set; } = 0;
+        internal override int mainRendererIndex { get; set; } = 1;
 
         internal override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[] {
+
+                new CustomRendererInfo
+                {
+                    childName = "Hand",
+                    material = ShiggyMat
+                },
                 new CustomRendererInfo
                 {
                     childName = "Model",
                     material = ShiggyMat
-                }};
+                },
+        };
 
 
 
@@ -107,7 +114,7 @@ namespace ShiggyMod.Modules.Survivors
         internal override List<ItemDisplayRuleSet.KeyAssetRuleGroup> itemDisplayRules { get; set; }
 
         internal override UnlockableDef characterUnlockableDef { get; set; }
-        //private static UnlockableDef masterySkinUnlockableDef;
+        private static UnlockableDef masterySkinUnlockableDef;
 
         internal override void InitializeCharacter()
         {
@@ -115,10 +122,10 @@ namespace ShiggyMod.Modules.Survivors
             bodyPrefab.AddComponent<ShiggyController>();
         }
 
-        //internal override void InitializeUnlockables()
-        //{
-        //    masterySkinUnlockableDef = Modules.Unlockables.AddUnlockable<Achievements.MasteryAchievement>(true);
-        //}
+        internal override void InitializeUnlockables()
+        {
+            masterySkinUnlockableDef = Modules.Unlockables.AddUnlockable<Achievements.MasteryAchievement>(true);
+        }
 
         internal override void InitializeDoppelganger()
         {
@@ -311,7 +318,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.AFO)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = false,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -342,7 +349,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.AlphaConstruct)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -367,7 +374,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Beetle)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -392,7 +399,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Gup)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -417,7 +424,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Larva)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -442,7 +449,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LesserWisp)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -467,7 +474,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LunarExploder)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -492,7 +499,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.HermitCrab)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -517,7 +524,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BlindPest)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -542,7 +549,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BlindVermin)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -567,7 +574,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MiniMushrum)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -592,7 +599,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.RoboBallMini)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -617,7 +624,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidBarnacle)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -642,7 +649,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidJailer)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -668,7 +675,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ImpBoss)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -693,7 +700,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.StoneTitan)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -718,7 +725,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MagmaWorm)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -743,7 +750,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.OverloadingWorm)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -768,7 +775,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Vagrant)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -843,9 +850,9 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "BISON_NAME",
                 skillNameToken = prefix + "BISON_NAME",
                 skillDescriptionToken = prefix + "BISON_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Bison"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Bighorn_Bison"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BisonCharge)),
-                activationStateMachineName = "Body",
+                activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 4f,
                 beginSkillCooldownOnSkillEnd = true,
@@ -1384,9 +1391,14 @@ namespace ShiggyMod.Modules.Survivors
             List<SkinDef> skins = new List<SkinDef>();
 
             #region DefaultSkin
+            Material defaultMat = Modules.Assets.CreateMaterial("ShiggyMat", 0f, Color.white, 0f);
+            CharacterModel.RendererInfo[] defaultRendererInfo = SkinRendererInfos(defaultRenderers, new Material[] {
+                defaultMat,
+                defaultMat,
+            });
             SkinDef defaultSkin = Modules.Skins.CreateSkinDef(ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_DEFAULT_SKIN_NAME",
                 Assets.mainAssetBundle.LoadAsset<Sprite>("ShiggyBaseSkin"),
-                defaultRenderers,
+                defaultRendererInfo,
                 mainRenderer,
                 model);
 
@@ -1395,19 +1407,49 @@ namespace ShiggyMod.Modules.Survivors
                 new SkinDef.MeshReplacement
                 {
                     mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("MeshHand"),
-                    renderer = defaultRenderers[0].renderer
+                    renderer = defaultRendererInfo[0].renderer
                 },
                 new SkinDef.MeshReplacement
                 {
                     mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("MeshShiggy"),
-                    renderer = defaultRenderers[instance.mainRendererIndex].renderer
+                    renderer = defaultRendererInfo[instance.mainRendererIndex].renderer
                 }
             };
 
             skins.Add(defaultSkin);
             #endregion
 
-            #region masteryskin
+            //handless skin
+            #region handlessSkin
+            Material emptyMat = Modules.Assets.mainAssetBundle.LoadAsset<Material>("EmptyMat");
+            CharacterModel.RendererInfo[] handlessrendererInfos = SkinRendererInfos(defaultRenderers, new Material[] {
+                emptyMat,
+                defaultMat,
+            });
+            SkinDef handlessSkin = Modules.Skins.CreateSkinDef(ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_HANDLESS_SKIN_NAME",
+                Assets.mainAssetBundle.LoadAsset<Sprite>("ShiggyBaseSkin"),
+                handlessrendererInfos,
+                mainRenderer,
+                model);
+
+            handlessSkin.meshReplacements = new SkinDef.MeshReplacement[]
+            {
+                new SkinDef.MeshReplacement
+                {
+                    mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("MeshHand"),
+                    renderer = handlessrendererInfos[0].renderer
+                },
+                new SkinDef.MeshReplacement
+                {
+                    mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("MeshShiggy"),
+                    renderer = handlessrendererInfos[1].renderer
+                }
+            };
+
+            skins.Add(handlessSkin);
+            #endregion
+
+            //#region masteryskin
             //Material masteryMat = Modules.Assets.CreateMaterial("ShinyShiggyMat", 0f, Color.white, 1.0f);
             //CharacterModel.RendererInfo[] masteryRendererInfos = SkinRendererInfos(defaultRenderers, new Material[] {
             //    masteryMat,
@@ -1430,7 +1472,7 @@ namespace ShiggyMod.Modules.Survivors
             //    },
             //};
             //skins.Add(masterySkin);
-            #endregion
+            //#endregion
 
             skinController.skins = skins.ToArray();
         }

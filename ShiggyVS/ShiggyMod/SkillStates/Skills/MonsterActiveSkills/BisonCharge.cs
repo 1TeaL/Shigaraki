@@ -23,6 +23,7 @@ namespace ShiggyMod.SkillStates
         private Vector3 direction;
         private ShiggyController Shiggycon;
         private int decayCount;
+        private Animator animator;
 
         public override void OnEnter()
 		{
@@ -33,11 +34,18 @@ namespace ShiggyMod.SkillStates
 			damageType = DamageType.Stun1s;
 			if (base.HasBuff(Modules.Buffs.impbossBuff))
 			{
-				damageType = DamageType.BleedOnHit | DamageType.Stun1s;
+				damageType |= DamageType.BleedOnHit | DamageType.Stun1s;
+			}
+			if (base.HasBuff(Modules.Buffs.acridBuff))
+			{
+				damageType |= DamageType.PoisonOnHit | DamageType.Stun1s;
 			}
 			bool isAuthority = base.isAuthority;
             Util.PlaySound(BaseChargeFist.startChargeLoopSFXString, base.gameObject);
-            //Util.PlaySound(EntityStates.Bison.Charge.startSoundString, base.gameObject);
+			this.animator = base.GetModelAnimator();
+			this.animator.SetBool("isSprinting", true);
+			PlayAnimation("Body", "Sprint");
+			//Util.PlaySound(EntityStates.Bison.Charge.startSoundString, base.gameObject);
 			bool flag = isAuthority;
 			if (flag)
 			{
@@ -109,7 +117,8 @@ namespace ShiggyMod.SkillStates
 			totalDuration += Time.fixedDeltaTime / 2;
 
 			if (base.IsKeyDownAuthority())
-            {
+			{
+				PlayAnimation("Body", "Sprint");
 				Loop();
             }
             else
@@ -140,7 +149,7 @@ namespace ShiggyMod.SkillStates
 				base.characterDirection.moveVector = this.idealDirection;
 				base.characterMotor.rootMotion += this.GetIdealVelocity() * Time.fixedDeltaTime;
 				Vector3 position = base.transform.position + base.characterDirection.forward.normalized * 0.5f;
-				float radius = 0.2f;
+				float radius = 0.15f;
 				LayerIndex layerIndex = LayerIndex.world;
 				int num = layerIndex.mask;
 				layerIndex = LayerIndex.entityPrecise;

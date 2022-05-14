@@ -12,7 +12,7 @@ namespace ShiggyMod.Modules
         {
             //choiceOnTeammate = ShiggyPlugin.instance.Config.Bind("General", "Get Buffs From Teammates",true, "Whether you should get your Shiggy buffs when transforming into a teammate.");
             retainLoadout = ShiggyPlugin.instance.Config.Bind("General", "Retain loadout across stages", true, "Should you retain your stolen quirks across stages and respawns.");
-            holdButtonAFO = ShiggyPlugin.instance.Config.Bind("General", "Hold the button for 1 second to steal", false, "Should you need to hold the button before stealing quirks with AFO.");
+            holdButtonAFO = ShiggyPlugin.instance.Config.Bind("General", "Steal quirks instantly", true, "Set to false to hold the button for 1 second to steal.");
             //copyHealth = ShiggyPlugin.instance.Config.Bind("General", "Copy fractional health",true, "Should you copy the fractional health of your previous state when transforming.");
             //bossTimer = ShiggyPlugin.instance.Config.Bind("General", "Adds timers to Boss transformations", true, "Should you add a timer to bosses when transforming.");
         }

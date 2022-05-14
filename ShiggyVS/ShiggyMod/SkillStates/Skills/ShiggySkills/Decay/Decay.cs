@@ -54,7 +54,11 @@ namespace ShiggyMod.SkillStates
             damageType = DamageType.Generic;
             if (base.HasBuff(Modules.Buffs.impbossBuff))
             {
-                damageType = DamageType.BleedOnHit;
+                damageType |= DamageType.BleedOnHit;
+            }
+            if (base.HasBuff(Modules.Buffs.acridBuff))
+            {
+                damageType |= DamageType.PoisonOnHit;
             }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.strengthMultiplier;
@@ -174,18 +178,12 @@ namespace ShiggyMod.SkillStates
             if(base.fixedAge >= fireTime && base.isAuthority && !playEffect)
             {
                 playEffect = true;
-                //EffectManager.SpawnEffect(Modules.Assets.decayattackEffect, new EffectData
-                //{
-                //    origin = base.characterBody.footPosition + Vector3.up * 0.5f,
-                //    scale = 1f,
-                //    parent = base.characterBody,
-                //}, true);
-
-                if (transform && Modules.Assets.decayattackEffect)
+                EffectManager.SpawnEffect(Modules.Assets.decayattackEffect, new EffectData
                 {
-                    this.decayInstance = UnityEngine.Object.Instantiate<GameObject>(Modules.Assets.decayattackEffect, base.characterBody.footPosition + Vector3.up * 0.5f, Quaternion.identity);
-                    this.decayInstance.transform.parent = base.characterBody.transform;
-                }
+                    origin = base.characterBody.footPosition + Vector3.up * 0.5f,
+                    scale = 1f,
+                }, true);
+
 
             }
             if (base.fixedAge >= this.fireTime && base.isAuthority)

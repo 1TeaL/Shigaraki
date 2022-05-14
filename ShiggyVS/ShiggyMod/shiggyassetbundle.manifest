@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2215994351
+CRC: 840955118
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6ad06ac30e8e3c9d2ee7b54de57b2348
+    Hash: 4322563a9a9db5addbb0a4dd59b5f8d7
   TypeTreeHash:
     serializedVersion: 2
     Hash: 92f8c068c360b7e2f221020245f5d65b
@@ -109,6 +109,8 @@ Assets:
 - Assets/Shigaraki/Animations/Walk.anim
 - Assets/Shigaraki/Import/Armature_Running.anim
 - Assets/Shigaraki/GUI/Monsters/Bighorn_Bison.png
+- Assets/Shigaraki/GUI/Base/Shiggybaseskin.png
+- Assets/Shigaraki/Assets/Material/EmptyMat.mat
 - Assets/Shigaraki/GUI/Survivors/MUL-T.png
 - Assets/Shigaraki/Animations/Slam.anim
 - Assets/Shigaraki/Animations/ShiggyRightArmMask.mask
@@ -158,6 +160,7 @@ Assets:
 - Assets/Shigaraki/GUI/Monsters/Beetle_Queen.png
 - Assets/Shigaraki/GUI/Monsters/Brass_Contraption.png
 - Assets/Shigaraki/Import/WispAssets/Materials/MoteTrail.mat
+- Assets/Shigaraki/Assets/Material/EmptyMaterial.mat
 - Assets/Shigaraki/GUI/Monsters/Blind_Pest.png
 - Assets/Shigaraki/GUI/Monsters/Void_Devastator.png
 - Assets/Shigaraki/Animations/Entrance.anim

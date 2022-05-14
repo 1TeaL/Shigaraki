@@ -58,7 +58,8 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(RoboBallMini));
             entityStates.Add(typeof(VoidBarnacle));
             entityStates.Add(typeof(VoidJailer));
-
+            
+            entityStates.Add(typeof(ImpBoss));
             entityStates.Add(typeof(MagmaWorm));
             entityStates.Add(typeof(OverloadingWorm));
             entityStates.Add(typeof(StoneTitan));

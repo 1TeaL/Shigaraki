@@ -1,46 +1,25 @@
 ﻿using ShiggyMod.Modules.Survivors;
 using EntityStates;
 using RoR2;
+using UnityEngine;
+using System.Collections.Generic;
+using ShiggyMod.Modules;
+using UnityEngine.Networking;
+using RoR2.ExpansionManagement;
+using ExtraSkillSlots;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BlindPest : BaseSkillState
+    public class BlindPest : AFO
     {
-        string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-
-        private float duration = 1f;
-        public ShiggyController Shiggycon;
-        public ShiggyMasterController Shiggymastercon;
-        public HurtBox Target;
-
-
         public override void OnEnter()
         {
             base.OnEnter();
-
-            base.characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmPull", "Attack.playbackRate", duration, 0.1f);
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
-
-
-
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-
-            if (base.fixedAge >= this.duration && base.isAuthority)
+            if (NetworkServer.active)
             {
-                this.outer.SetNextStateToMain();
-                return;
+                characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
             }
-
-
         }
+
     }
 }

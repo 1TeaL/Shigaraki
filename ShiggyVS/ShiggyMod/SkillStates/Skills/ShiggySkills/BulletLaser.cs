@@ -30,7 +30,14 @@ namespace ShiggyMod.SkillStates
             this.duration = this.baseDuration / this.attackSpeedStat;
             this.fireTime = 0.2f * this.duration;
             hasFired = false;
-            damageType = DamageType.Generic;
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType |= DamageType.BleedOnHit;
+            }
+            if (base.HasBuff(Modules.Buffs.acridBuff))
+            {
+                damageType |= DamageType.PoisonOnHit;
+            }
             if (base.HasBuff(Modules.Buffs.impbossBuff))
             {
                 damageType = DamageType.BleedOnHit;

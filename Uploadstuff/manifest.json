@@ -1,8 +1,8 @@
 {
     "name": "ShigarakiMod",
-    "version_number": "1.0.4",
+    "version_number": "1.0.7",
     "website_url": "https://github.com/1TeaL/Shigaraki",
-    "description": "Go Beyond... 1.0.4- big fixes",
+    "description": "Go Beyond... 1.0.5- AFO and passive buff acquisition optimised and a lot faster. customemotesAPI ",
     "dependencies": [
          "tristanmcpherson-R2API-4.3.5",
          "KingEnderBrine-ExtraSkillSlots-1.5.1"

@@ -41,7 +41,11 @@ namespace ShiggyMod.SkillStates
             damageType = DamageType.CrippleOnHit;
             if (base.HasBuff(Modules.Buffs.impbossBuff))
             {
-                damageType = DamageType.BleedOnHit | DamageType.CrippleOnHit;
+                damageType |= DamageType.BleedOnHit | DamageType.CrippleOnHit;
+            }
+            if (base.HasBuff(Modules.Buffs.acridBuff))
+            {
+                damageType |= DamageType.PoisonOnHit | DamageType.CrippleOnHit;
             }
 
             Ray aimRay = base.GetAimRay();

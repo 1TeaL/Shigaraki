@@ -38,58 +38,42 @@ namespace ShiggyMod.Modules
         internal static BuffDef magmawormBuff;
         internal static BuffDef overloadingwormBuff;
 
+
+        internal static BuffDef acridBuff;
+        internal static BuffDef commandoBuff;
+
         internal static void RegisterBuffs()
         {
-            Sprite warcryBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/WarCryOnMultiKill/bdWarCryBuff.asset").WaitForCompletion().iconSprite;
-            Sprite shieldBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdArmorBoost.asset").WaitForCompletion().iconSprite;
-            Sprite tarBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdClayGoo.asset").WaitForCompletion().iconSprite;
-            Sprite crippleBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdCripple.asset").WaitForCompletion().iconSprite;
-            Sprite speedBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Bandit2/bdCloakSpeed.asset").WaitForCompletion().iconSprite;
-            Sprite boostBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/RandomDamageZone/bdPowerBuff.asset").WaitForCompletion().iconSprite;
-            Sprite alphashieldonBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/BearVoid/bdBearVoidReady.asset").WaitForCompletion().iconSprite;
-            Sprite alphashieldoffBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/BearVoid/bdBearVoidCooldown.asset").WaitForCompletion().iconSprite;
-            Sprite decayBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdVoidFogStrong.asset").WaitForCompletion().iconSprite;
-            Sprite multiplierBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/PrimarySkillShuriken/bdPrimarySkillShurikenBuff.asset").WaitForCompletion().iconSprite;
-            Sprite jumpBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/MoveSpeedOnKill/bdKillMoveSpeed.asset").WaitForCompletion().iconSprite;
-            Sprite sprintBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/SprintOutOfCombat/bdWhipBoost.asset").WaitForCompletion().iconSprite;
-            Sprite spikeBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Grandparent/bdOverheat.asset").WaitForCompletion().iconSprite;
-            Sprite mortarBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/GainArmor/bdElephantArmorBoost.asset").WaitForCompletion().iconSprite;
-            Sprite healBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Croco/bdCrocoRegen.asset").WaitForCompletion().iconSprite;
-            Sprite attackspeedBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/EnergizedOnEquipmentUse/bdEnergized.asset").WaitForCompletion().iconSprite;
-            Sprite gravityBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/KillEliteFrenzy/bdNoCooldowns.asset").WaitForCompletion().iconSprite;
-            Sprite bleedBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdBleeding.asset").WaitForCompletion().iconSprite;
-            Sprite skinBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/OutOfCombatArmor/bdOutOfCombatArmorBuff.asset").WaitForCompletion().iconSprite;
-            Sprite orbreadyBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/ElementalRings/bdElementalRingsReady.asset").WaitForCompletion().iconSprite;
-            Sprite orbdisableBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/ElementalRings/bdElementalRingsCooldown.asset").WaitForCompletion().iconSprite;
-            Sprite blazingBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdOnFire.asset").WaitForCompletion().iconSprite;
-            Sprite lightningBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/ShockNearby/bdTeslaField.asset").WaitForCompletion().iconSprite;
 
-            flyBuff = Buffs.AddNewBuff("FlyBuff", jumpBuffIcon, Color.magenta, false, false);
-            beetleBuff = Buffs.AddNewBuff("StrengthBuff", boostBuffIcon, Color.grey, false, false);
-            alphashieldonBuff = Buffs.AddNewBuff("ShieldOnBuff", alphashieldonBuffIcon, Color.magenta, false, false);
-            alphashieldoffBuff = Buffs.AddNewBuff("ShieldOffBuff", alphashieldoffBuffIcon, Color.black, true, true);
-            decayDebuff = Buffs.AddNewBuff("decayDebuff", decayBuffIcon, Color.magenta, true, true);
-            multiplierBuff = Buffs.AddNewBuff("multiplierBuff", multiplierBuffIcon, Color.magenta, false, false);
-            pestjumpBuff = Buffs.AddNewBuff("jumpBuff", jumpBuffIcon, Color.cyan, false, false);
-            verminsprintBuff = Buffs.AddNewBuff("sprintBuff", sprintBuffIcon, Color.green, false, false);
-            gupspikeBuff = Buffs.AddNewBuff("spikybodyBuff", spikeBuffIcon, Color.red, false, false);
-            hermitcrabmortarBuff = Buffs.AddNewBuff("mortarBuff", mortarBuffIcon, Color.magenta, false, false);
-            hermitcrabmortararmorBuff = Buffs.AddNewBuff("mortararmorBuff", shieldBuffIcon, Color.blue, true, false);
-            larvajumpBuff = Buffs.AddNewBuff("larvajumpBuff", jumpBuffIcon, Color.green, false, false);
-            lesserwispBuff = Buffs.AddNewBuff("RangedBuff", boostBuffIcon, Color.red, false, false);
-            lunarexploderBuff = Buffs.AddNewBuff("lunarauraBuff", crippleBuffIcon, Color.blue, false, false);
-            minimushrumBuff = Buffs.AddNewBuff("healingauraBuff", healBuffIcon, Color.green, false, false);
-            roboballminiBuff = Buffs.AddNewBuff("glideBuff", jumpBuffIcon, Color.grey, false, false);
-            voidbarnaclemortarBuff = Buffs.AddNewBuff("voidmortarBuff", mortarBuffIcon, Color.magenta, false, false);
-            voidbarnaclemortarattackspeedBuff = Buffs.AddNewBuff("voidbarnaclemortarattackspeedBuff", attackspeedBuffIcon, Color.blue, true, false);
-            voidjailerBuff = Buffs.AddNewBuff("gravitypullBuff", gravityBuffIcon, Color.magenta, false, false);
-            impbossBuff = Buffs.AddNewBuff("bleedBuff", bleedBuffIcon, Color.black, false, false);
-            stonetitanBuff = Buffs.AddNewBuff("stoneskinBuff", skinBuffIcon, Color.magenta, false, false);
-            vagrantBuff = Buffs.AddNewBuff("vagrant'sorbBuff", orbreadyBuffIcon, Color.magenta, false, false);
-            vagrantdisableBuff = Buffs.AddNewBuff("vagrantdisableBuff ", orbdisableBuffIcon, Color.black, true, false); ;
-            vagrantDebuff = Buffs.AddNewBuff("vagrantDebuff", orbdisableBuffIcon, Color.white, true, true);
-            magmawormBuff = Buffs.AddNewBuff("blazingauraBuff", blazingBuffIcon, Color.magenta, false, false);
-            overloadingwormBuff = Buffs.AddNewBuff("lightningauraBuff", lightningBuffIcon, Color.magenta, false, false);
+            flyBuff = Buffs.AddNewBuff("FlyBuff", Assets.jumpBuffIcon, Color.magenta, false, false);
+            beetleBuff = Buffs.AddNewBuff("StrengthBuff", Assets.boostBuffIcon, Color.grey, false, false);
+            alphashieldonBuff = Buffs.AddNewBuff("ShieldOnBuff", Assets.alphashieldonBuffIcon, Color.magenta, false, false);
+            alphashieldoffBuff = Buffs.AddNewBuff("ShieldOffBuff", Assets.alphashieldoffBuffIcon, Color.black, true, true);
+            decayDebuff = Buffs.AddNewBuff("decayDebuff", Assets.decayBuffIcon, Color.magenta, true, true);
+            multiplierBuff = Buffs.AddNewBuff("multiplierBuff", Assets.multiplierBuffIcon, Color.magenta, false, false);
+            pestjumpBuff = Buffs.AddNewBuff("jumpBuff", Assets.jumpBuffIcon, Color.cyan, false, false);
+            verminsprintBuff = Buffs.AddNewBuff("sprintBuff", Assets.sprintBuffIcon, Color.green, false, false);
+            gupspikeBuff = Buffs.AddNewBuff("spikybodyBuff", Assets.spikeBuffIcon, Color.red, false, false);
+            hermitcrabmortarBuff = Buffs.AddNewBuff("mortarBuff", Assets.mortarBuffIcon, Color.magenta, false, false);
+            hermitcrabmortararmorBuff = Buffs.AddNewBuff("mortararmorBuff", Assets.shieldBuffIcon, Color.blue, true, false);
+            larvajumpBuff = Buffs.AddNewBuff("larvajumpBuff", Assets.jumpBuffIcon, Color.green, false, false);
+            lesserwispBuff = Buffs.AddNewBuff("RangedBuff", Assets.boostBuffIcon, Color.red, false, false);
+            lunarexploderBuff = Buffs.AddNewBuff("lunarauraBuff", Assets.crippleBuffIcon, Color.blue, false, false);
+            minimushrumBuff = Buffs.AddNewBuff("healingauraBuff", Assets.healBuffIcon, Color.green, false, false);
+            roboballminiBuff = Buffs.AddNewBuff("glideBuff", Assets.jumpBuffIcon, Color.grey, false, false);
+            voidbarnaclemortarBuff = Buffs.AddNewBuff("voidmortarBuff", Assets.mortarBuffIcon, Color.magenta, false, false);
+            voidbarnaclemortarattackspeedBuff = Buffs.AddNewBuff("voidbarnaclemortarattackspeedBuff", Assets.attackspeedBuffIcon, Color.blue, true, false);
+            voidjailerBuff = Buffs.AddNewBuff("gravitypullBuff", Assets.gravityBuffIcon, Color.magenta, false, false);
+            impbossBuff = Buffs.AddNewBuff("bleedBuff", Assets.bleedBuffIcon, Color.black, false, false);
+            stonetitanBuff = Buffs.AddNewBuff("stoneskinBuff", Assets.skinBuffIcon, Color.magenta, false, false);
+            vagrantBuff = Buffs.AddNewBuff("vagrant'sorbBuff", Assets.orbreadyBuffIcon, Color.magenta, false, false);
+            vagrantdisableBuff = Buffs.AddNewBuff("vagrantdisableBuff ", Assets.orbdisableBuffIcon, Color.black, true, false); ;
+            vagrantDebuff = Buffs.AddNewBuff("vagrantDebuff", Assets.orbdisableBuffIcon, Color.white, true, true);
+            magmawormBuff = Buffs.AddNewBuff("blazingauraBuff", Assets.blazingBuffIcon, Color.magenta, false, false);
+            overloadingwormBuff = Buffs.AddNewBuff("lightningauraBuff", Assets.lightningBuffIcon, Color.magenta, false, false);
+
+            commandoBuff = Buffs.AddNewBuff("doubletapBuff", Assets.lightningBuffIcon, Color.magenta, false, false);
+            acridBuff = Buffs.AddNewBuff("poisonBuff", Assets.lightningBuffIcon, Color.magenta, false, false);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

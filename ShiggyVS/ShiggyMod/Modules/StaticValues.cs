@@ -6,6 +6,9 @@ namespace ShiggyMod.Modules
     internal static class StaticValues
     {
 
+        internal const float commandoProcCoefficient = 1f;
+        internal const float commandoDamageMultiplier = 0.1f;
+
         internal const int vagrantCooldown = 10;
 
         internal const int alphaconstructCooldown = 10;
@@ -63,7 +66,7 @@ namespace ShiggyMod.Modules
 
         internal const int maxballCount = 3;
 
-        internal const float verminsprintMultiplier = 1.5f;
+        internal const float verminsprintMultiplier = 2f;
         internal const float verminmovespeedMultiplier = 1.5f;
 
         internal const int verminjumpStacks = 4;
