@@ -42,6 +42,8 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.0.6 
+    - Forgot to mention fix for blind vermin passive breaking.
 - 1.0.5 
     - CustomEmotesAPI compatibility added
     - Added an icon for the default skin
