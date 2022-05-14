@@ -3,7 +3,7 @@ Shigaraki Tomura mod for Ror2
 Go Beyond, Plus Chaos!
 ## Shigaraki
 Adds Shigaraki from My Hero Academia, an initially weaker survivor which can steal 'quirks' from enemies, gaining their abilites/skills.
-#### Multiplayer works (hopefully). 
+#### Multiplayer works (hopefully). CustomEmotesAPI compatibility.
 #### Message me on the Risk of Rain 2 Modding Discord if there are any issues- TeaL#5571.
 #### <a href="https://ko-fi.com/tealpopcorn"><img src="https://user-images.githubusercontent.com/93917577/160220529-efed5020-90ac-467e-98f2-27b5c162d744.png"> </a>
 If you enjoy my work, support me on Ko-fi!
@@ -42,6 +42,12 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.0.5 
+    - CustomEmotesAPI compatibility added
+    - Added an icon for the default skin
+    - Optimised AFO code
+    - Buff acquisition optimised and a lot faster now
+    - Fixed gup being set as an active skill rather than extra skill
 - 1.0.4 
     - Fixed errors when entering a new stage
     - Added back different buff icons
@@ -156,7 +162,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Charging</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007161-0ee72842-8b6c-4d1c-9557-ea234823e512.png" width="100" height="100"></td>
-    <td>Charge forward at super speed, and if you slam into a solid object,<br>generates a shockwave that stuns enemies for 600% damage.<br>Hold the button down to keep charging.<br>Damage and radius scales with charge duration.<br><br>[Melee] [Decay] [Movespeed]</td>
+    <td>Charge forward at super speed, and if you slam into a solid object,<br>generates a shockwave that stuns enemies for 600% damage.<br>Hold the button down to keep charging.<br>Damage and radius scales with charge duration.<br><br>[Melee] [LeftHanded] [Decay] [Movespeed]</td>
     <td></td>
   </tr>
   <tr>
