@@ -42,6 +42,11 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.0.8 
+    - Added separate handless skin.
+    - Fixed bug on not carrying over passives through levels.
+- 1.0.7 
+    - Oops multiplier applied all buffs.
 - 1.0.6 
     - Forgot to mention fix for blind vermin passive breaking.
 - 1.0.5 
