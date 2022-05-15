@@ -77,10 +77,10 @@ namespace ShiggyMod.Modules
         internal const float alloyvultureflyduration = 10f;
 
         internal const float beetledamageMultiplier = 1.5f;
-        internal const float beetlestrengthMultiplier = 2f;
+        internal const float beetlestrengthMultiplier = 1.5f;
 
         internal const float lesserwispdamageMultiplier = 1.5f;
-        internal const float lesserwisprangedMultiplier = 2f;
+        internal const float lesserwisprangedMultiplier = 1.5f;
 
         internal const float decayDamageCoeffecient = 0.2f;
         internal const float decayDamageStack = 0.2f;
@@ -126,7 +126,7 @@ namespace ShiggyMod.Modules
         internal const float parentDamageCoeffecient = 6f;
         internal const float parentProcCoefficient = 1f;
 
-        internal const float stonegolemDamageCoeffecient = 6f;
+        internal const float stonegolemDamageCoeffecient = 4f;
         internal const float stonegolemProcCoefficient = 2f;
 
         internal const float voidreaverDamageCoeffecient = 2f;
@@ -154,6 +154,17 @@ namespace ShiggyMod.Modules
         internal const int scavengerProjectileCount = 3;
         internal const float scavengerDamageCoeffecient = 4f;
         internal const float scavengerProcCoefficient = 0.5f;
+
+        internal const float artificerflamethrowerDamageCoefficient = 15f;
+        internal const float artificerflamethrowerProcCoefficient = 1f;
+
+        internal const float artificericewallDamageCoefficient = 1f;
+
+        internal const float artificerlightningorbMinDamageCoefficient = 4f;
+        internal const float artificerlightningorbMaxDamageCoefficient = 12f;
+
+        internal const float banditDamageCoefficient = 3f;
+        internal const float banditcloakDuration = 3f;
 
 
         public enum IndicatorType : uint

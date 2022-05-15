@@ -369,7 +369,7 @@ namespace ShiggyMod.SkillStates
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 0);
+                    Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 4);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                     characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
@@ -627,7 +627,7 @@ namespace ShiggyMod.SkillStates
                     RemovePrimary();
                     characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
-                if (newbodyPrefab.name == "ScavBody")
+                if (newbodyPrefab.name == "Bandit2Body")
                 {
 
                     hasQuirk = true;
@@ -638,6 +638,136 @@ namespace ShiggyMod.SkillStates
                     characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
                 }
 
+                if (newbodyPrefab.name == "CaptainBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "CommandoBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "CrocoBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "EngiBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "HereticBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "HuntressBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "LoaderBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "MageBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "MercBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "ToolbotBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "TreebotBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "RailgunnerBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (newbodyPrefab.name == "VoidSurvivorBody")
+                {
+
+                    hasQuirk = true;
+                    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                    Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
+                    RemovePrimary();
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
                 if (hasQuirk = false)
                 {
                     //Shiggymastercon.transformed = false;
@@ -854,7 +984,7 @@ namespace ShiggyMod.SkillStates
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 1);
+                    Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 5);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                     characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
@@ -1339,7 +1469,7 @@ namespace ShiggyMod.SkillStates
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 2);
+                    Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 6);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                     characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
@@ -1822,7 +1952,7 @@ namespace ShiggyMod.SkillStates
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 3);
+                    Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 7);
                     RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                     characterBody.AddBuff(Modules.Buffs.larvajumpBuff);

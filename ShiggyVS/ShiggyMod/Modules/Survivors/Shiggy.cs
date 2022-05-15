@@ -1,12 +1,10 @@
 ﻿using BepInEx.Configuration;
+using EntityStates;
 using RoR2;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using EntityStates;
-using System.Runtime.CompilerServices;
-using ExtraSkillSlots;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -36,6 +34,9 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef overloadingwormpassiveDef;
         internal static SkillDef vagrantpassiveDef;
 
+        internal static SkillDef acridpassiveDef;
+        internal static SkillDef commandopassiveDef;
+
 
         internal static SkillDef alloyvultureflyDef;
         internal static SkillDef beetleguardslamDef;
@@ -61,6 +62,11 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef xiconstructbeamDef;
         internal static SkillDef voiddevastatorhomingDef;
         internal static SkillDef scavengerthqwibDef;
+
+        internal static SkillDef artificerflamethrowerDef;
+        internal static SkillDef artificericewallDef;
+        internal static SkillDef artificerlightningorbDef;
+        internal static SkillDef banditlightsoutDef;
 
         internal override GameObject bodyPrefab { get; set; }
         internal override GameObject displayPrefab { get; set; }
@@ -267,6 +273,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
 
             });
+            //SkillDef ARTIFICER = Skills.CreateSkillDef(new SkillDefInfo
+            //{
+            //    skillName = prefix + "ARTIFICERFLAMETHROWER_NAME",
+            //    skillNameToken = prefix + "ARTIFICERFLAMETHROWER_NAME",
+            //    skillDescriptionToken = prefix + "ARTIFICERFLAMETHROWER_DESCRIPTION",
+            //    skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("ArtificerFire"),
+            //    activationState = new SerializableEntityStateType(typeof(SkillStates.ArtificerFlamethrower)),
+            //    activationStateMachineName = "Slide",
+            //    baseMaxStock = 1,
+            //    baseRechargeInterval = 5f,
+            //    beginSkillCooldownOnSkillEnd = true,
+            //    canceledFromSprinting = false,
+            //    forceSprintDuringState = false,
+            //    fullRestockOnAssign = false,
+            //    interruptPriority = InterruptPriority.Skill,
+            //    resetCooldownTimerOnUse = false,
+            //    isCombatSkill = true,
+            //    mustKeyPress = true,
+            //    cancelSprintingOnActivation = false,
+            //    rechargeStock = 1,
+            //    requiredStock = 1,
+            //    stockToConsume = 1,
+            //    keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
+
+            //});
 
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
@@ -339,7 +370,7 @@ namespace ShiggyMod.Modules.Survivors
             #endregion
 
             #region Passive Skills
-
+            //passives
             Shiggy.alphacontructpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ALPHACONSTRUCT_NAME",
@@ -357,7 +388,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -382,7 +413,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -407,7 +438,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -432,7 +463,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -457,7 +488,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -482,7 +513,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -507,7 +538,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -532,7 +563,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -557,7 +588,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -582,7 +613,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -607,7 +638,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -632,7 +663,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -657,7 +688,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -683,7 +714,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -708,7 +739,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -733,7 +764,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -758,7 +789,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -783,7 +814,59 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+
+            Shiggy.acridpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "ACRID_NAME",
+                skillNameToken = prefix + "ACRID_NAME",
+                skillDescriptionToken = prefix + "ACRID_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Acrid"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Acrid)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+
+            Shiggy.commandopassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "COMMANDO_NAME",
+                skillNameToken = prefix + "COMMANDO_NAME",
+                skillDescriptionToken = prefix + "COMMANDO_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Commando"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Commando)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -794,7 +877,7 @@ namespace ShiggyMod.Modules.Survivors
             #endregion
 
             #region Override Skills
-
+            //active skills
             Shiggy.alloyvultureflyDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VULTURE_NAME",
@@ -1370,6 +1453,107 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+
+            Shiggy.artificerflamethrowerDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "ARTIFICERFLAMETHROWER_NAME",
+                skillNameToken = prefix + "ARTIFICERFLAMETHROWER_NAME",
+                skillDescriptionToken = prefix + "ARTIFICERFLAMETHROWER_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("ArtificerFire"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ArtificerFlamethrower)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 4f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = true,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.artificericewallDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "ARTIFICERICEWALL_NAME",
+                skillNameToken = prefix + "ARTIFICERICEWALL_NAME",
+                skillDescriptionToken = prefix + "ARTIFICERICEWALL_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("ArtificerIce"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ArtificerIceWall)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 6f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = true,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.artificerlightningorbDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "ARTIFICERLIGHTNINGORB_NAME",
+                skillNameToken = prefix + "ARTIFICERLIGHTNINGORB_NAME",
+                skillDescriptionToken = prefix + "ARTIFICERLIGHTNINGORB_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("ArtificerLightning"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ArtificerChargeLightningOrb)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 4f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            Shiggy.banditlightsoutDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "BANDIT_NAME",
+                skillNameToken = prefix + "BANDIT_NAME",
+                skillDescriptionToken = prefix + "BANDIT_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Bandit"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BanditPrepLightsOut)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 4f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_SLAYER" }
 
             });
             #endregion

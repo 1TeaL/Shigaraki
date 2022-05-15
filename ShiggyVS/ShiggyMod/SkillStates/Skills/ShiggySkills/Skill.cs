@@ -9,6 +9,7 @@ namespace ShiggyMod.SkillStates
 {
     public class Skill : BaseSkillState
     {
+        string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
         public float baseDuration = 1f;
         public float duration;
         public ShiggyController Shiggycon;
@@ -30,8 +31,18 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 
+            damageType = DamageType.Generic;
+            if (base.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType |= DamageType.BleedOnHit;
+            }
+            if (base.HasBuff(Modules.Buffs.acridBuff))
+            {
+                damageType |= DamageType.PoisonOnHit;
+            }
 
         }
 

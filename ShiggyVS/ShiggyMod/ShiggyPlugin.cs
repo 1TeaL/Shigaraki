@@ -57,7 +57,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "1.0.";
+        public const string MODVERSION = "1.0.9";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -245,7 +245,7 @@ namespace ShiggyMod
             orig();
             foreach (var item in SurvivorCatalog.allSurvivorDefs)
             {
-                //Debug.Log(item.bodyPrefab.name);
+                Debug.Log(item.bodyPrefab.name);
                 if (item.bodyPrefab.name == "ShiggyBody")
                 {
                     CustomEmotesAPI.ImportArmature(item.bodyPrefab, Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("humanoidShigaraki"));

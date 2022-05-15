@@ -115,6 +115,8 @@ namespace ShiggyMod.Modules.Survivors
         public float quirkTimer;
 
         public int decayCount;
+        private DamageType damageType;
+        private DamageType damageType2;
 
         public void Awake()
 		{
@@ -318,6 +320,26 @@ namespace ShiggyMod.Modules.Survivors
                 }
 
             }
+            //check acrid and impboss buff
+            damageType = DamageType.Generic;
+            if (characterBody.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType |= DamageType.BleedOnHit;
+            }
+            if (characterBody.HasBuff(Modules.Buffs.acridBuff))
+            {
+                damageType |= DamageType.PoisonOnHit;
+            }
+            damageType2 = DamageType.SlowOnHit;
+            if (characterBody.HasBuff(Modules.Buffs.impbossBuff))
+            {
+                damageType2 |= DamageType.BleedOnHit | DamageType.SlowOnHit;
+            }
+            if (characterBody.HasBuff(Modules.Buffs.acridBuff))
+            {
+                damageType2 |= DamageType.PoisonOnHit | DamageType.SlowOnHit;
+            }
+
             //check multiplier buff
 
             if (characterBody.HasBuff(Modules.Buffs.multiplierBuff))
@@ -460,15 +482,9 @@ namespace ShiggyMod.Modules.Survivors
                     else if (!characterBody.inputBank.jump.down)
                     {
                         characterBody.RemoveBuff(Buffs.flyBuff.buffIndex);
-                        this.characterBody.characterMotor.disableAirControlUntilCollision = true;
                     }
 
                 }
-            }
-            else if (characterBody.characterMotor.isGrounded && !characterBody.inputBank.jump.down)
-            {
-                characterBody.RemoveBuff(Buffs.flyBuff.buffIndex);
-                this.characterBody.characterMotor.disableAirControlUntilCollision = true;
             }
 
 
@@ -663,7 +679,7 @@ namespace ShiggyMod.Modules.Survivors
 					blastAttack.falloffModel = BlastAttack.FalloffModel.None;
 					blastAttack.baseForce = Modules.StaticValues.larvaForce;
 					blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-					blastAttack.damageType = DamageType.Generic | DamageType.BleedOnHit;
+					blastAttack.damageType = damageType;
 					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
 					blastAttack.Fire();
@@ -696,7 +712,7 @@ namespace ShiggyMod.Modules.Survivors
 					blastAttack.falloffModel = BlastAttack.FalloffModel.None;
 					blastAttack.baseForce = Modules.StaticValues.larvaForce;
 					blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-					blastAttack.damageType = DamageType.Generic | DamageType.BleedOnHit;
+					blastAttack.damageType = damageType;
 					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 					blastAttack.Fire();
 					ApplyDoT();
@@ -1459,7 +1475,7 @@ namespace ShiggyMod.Modules.Survivors
 							damage = characterBody.damage * Modules.StaticValues.voidjailerDamageCoeffecient,
 							position = singularTarget.transform.position,
 							procCoefficient = 0.5f,
-							damageType = DamageType.SlowOnHit | DamageType.BleedOnHit,
+							damageType = damageType2,
 
 						};
 						singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);

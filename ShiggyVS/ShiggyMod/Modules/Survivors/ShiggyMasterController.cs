@@ -211,92 +211,174 @@ namespace ShiggyMod.Modules.Survivors
 		}
 
 
-        public void CharacterBody_Start(On.RoR2.CharacterBody.orig_Start orig, CharacterBody self)
-        {
-            orig.Invoke(self);
+		public void CharacterBody_Start(On.RoR2.CharacterBody.orig_Start orig, CharacterBody self)
+		{
+			orig.Invoke(self);
 
-
-            primarygiven = false;
-            secondarygiven = false;
-            utilitygiven = false;
-            specialgiven = false;
-            extra1given = false;
-            extra2given = false;
-            extra3given = false;
-            extra4given = false;
 
 			if (self.master.gameObject.GetComponent<ShiggyMasterController>())
 			{
-				characterMaster = self.gameObject.GetComponent<CharacterMaster>();
-				characterBody = characterMaster.GetBody();
-				Shiggycon = self.gameObject.GetComponent<ShiggyController>();
+
+				primarygiven = false;
+				secondarygiven = false;
+				utilitygiven = false;
+				specialgiven = false;
+				extra1given = false;
+				extra2given = false;
+				extra3given = false;
+				extra4given = false;
+
+				if (!gameObject.GetComponent<ShiggyController>())
+				{
+					Shiggycon = self.gameObject.AddComponent<ShiggyController>();
+				}
+				else
+				{
+					Shiggycon = self.gameObject.GetComponent<ShiggyController>();
+				}
 				if (self.master.bodyPrefab == BodyCatalog.FindBodyPrefab("ShiggyBody"))
 				{
 					extraskillLocator = self.gameObject.GetComponent<ExtraSkillLocator>();
 				}
+
+				if (Config.retainLoadout.Value)
+				{
+					if (skillListToOverrideOnRespawn[0] != null && !primarygiven)
+					{
+						primarygiven = true;
+						self.skillLocator.primary.SetSkillOverride(self.skillLocator.primary, skillListToOverrideOnRespawn[0], GenericSkill.SkillOverridePriority.Contextual);
+					}
+					else if (skillListToOverrideOnRespawn[0] == null && !primarygiven)
+					{
+						primarygiven = true;
+					}
+					if (skillListToOverrideOnRespawn[1] != null && !secondarygiven)
+					{
+						secondarygiven = true;
+						self.skillLocator.secondary.SetSkillOverride(self.skillLocator.secondary, skillListToOverrideOnRespawn[1], GenericSkill.SkillOverridePriority.Contextual);
+					}
+					else if (skillListToOverrideOnRespawn[1] == null && !secondarygiven)
+					{
+						secondarygiven = true;
+					}
+					if (skillListToOverrideOnRespawn[2] != null && !utilitygiven)
+					{
+						utilitygiven = true;
+						self.skillLocator.utility.SetSkillOverride(self.skillLocator.utility, skillListToOverrideOnRespawn[2], GenericSkill.SkillOverridePriority.Contextual);
+					}
+					else if (skillListToOverrideOnRespawn[2] == null && !utilitygiven)
+					{
+						utilitygiven = true;
+					}
+					if (skillListToOverrideOnRespawn[3] != null && !specialgiven)
+					{
+						specialgiven = true;
+						self.skillLocator.special.SetSkillOverride(self.skillLocator.special, skillListToOverrideOnRespawn[3], GenericSkill.SkillOverridePriority.Contextual);
+					}
+					else if (skillListToOverrideOnRespawn[3] == null && !specialgiven)
+					{
+						specialgiven = true;
+					}
+					if (skillListToOverrideOnRespawn[4] != null && !extra1given)
+					{
+						extra1given = true;
+						extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, skillListToOverrideOnRespawn[4], GenericSkill.SkillOverridePriority.Contextual);
+					}
+					else if (skillListToOverrideOnRespawn[4] == null && !extra1given)
+					{
+						extra1given = true;
+					}
+					if (skillListToOverrideOnRespawn[5] != null && !extra2given)
+					{
+						extra2given = true;
+						extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, skillListToOverrideOnRespawn[5], GenericSkill.SkillOverridePriority.Contextual);
+					}
+					else if (skillListToOverrideOnRespawn[5] == null && !extra2given)
+					{
+						extra2given = true;
+					}
+					if (skillListToOverrideOnRespawn[6] != null && !extra3given)
+					{
+						extra3given = true;
+						extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, skillListToOverrideOnRespawn[6], GenericSkill.SkillOverridePriority.Contextual);
+					}
+					else if (skillListToOverrideOnRespawn[6] == null && !extra3given)
+					{
+						extra3given = true;
+					}
+					if (skillListToOverrideOnRespawn[7] != null && !extra4given)
+					{
+						extra4given = true;
+						extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, skillListToOverrideOnRespawn[7], GenericSkill.SkillOverridePriority.Contextual);
+					}
+					else if (skillListToOverrideOnRespawn[7] == null && !extra4given)
+					{
+						extra4given = true;
+					}
+				}
+				//CheckQuirks();
+				////Shiggycon.alphacontructpassiveDef = false;
+				////Shiggycon.beetlepassiveDef = false;
+				////Shiggycon.pestpassiveDef = false;
+				////Shiggycon.verminpassiveDef = false;
+				////Shiggycon.guppassiveDef = false;
+				////Shiggycon.hermitcrabpassiveDef = false;
+				////Shiggycon.larvapassiveDef = false;
+				////Shiggycon.lesserwisppassiveDef = false;
+				////Shiggycon.lunarexploderpassiveDef = false;
+				////Shiggycon.minimushrumpassiveDef = false;
+				////Shiggycon.roboballminibpassiveDef = false;
+				////Shiggycon.voidbarnaclepassiveDef = false;
+				////Shiggycon.voidjailerpassiveDef = false;
+
+				////               Shiggycon.impbosspassiveDef = false;
+				////               Shiggycon.stonetitanpassiveDef = false;
+				////Shiggycon.magmawormpassiveDef = false;
+				////Shiggycon.overloadingwormpassiveDef = false;
+
+
+				////Shiggycon.alloyvultureflyDef = false;
+				////Shiggycon.beetleguardslamDef = false;
+				////Shiggycon.bisonchargeDef = false;
+				////Shiggycon.bronzongballDef = false;
+				////Shiggycon.clayapothecarymortarDef = false;
+				////Shiggycon.claytemplarminigunDef = false;
+				////Shiggycon.greaterwispballDef = false;
+				////Shiggycon.impblinkDef = false;
+				////Shiggycon.jellyfishnovaDef = false;
+				////Shiggycon.lemurianfireballDef = false;
+				////Shiggycon.lunargolemshotsDef = false;
+				////Shiggycon.lunarwispminigunDef = false;
+				////Shiggycon.parentteleportDef = false;
+				////Shiggycon.stonegolemlaserDef = false;
+				////Shiggycon.voidreaverportalDef = false;
+
+				////Shiggycon.beetlequeenshotgunDef = false;
+				////Shiggycon.grovetenderhookDef = false;
+				////Shiggycon.claydunestriderballDef = false;
+				//               //Shiggycon.grandparentsunDef = false;
+				////Shiggycon.soluscontrolunityknockupDef = false;
+				////Shiggycon.xiconstructbeamDef = false;
+				////Shiggycon.voiddevastatorhomingDef = false;
+				////Shiggycon.scavengerthqwibDef = false;
+
+
+				//primarygiven = false;
+				//secondarygiven = false;
+				//utilitygiven = false;
+				//specialgiven = false;
+				//extra1given = false;
+				//extra2given = false;
+				//extra3given = false;
+				//extra4given = false;
+
+
+				//           }
+
+
+				//       }
+
 			}
-			//CheckQuirks();
-			////Shiggycon.alphacontructpassiveDef = false;
-			////Shiggycon.beetlepassiveDef = false;
-			////Shiggycon.pestpassiveDef = false;
-			////Shiggycon.verminpassiveDef = false;
-			////Shiggycon.guppassiveDef = false;
-			////Shiggycon.hermitcrabpassiveDef = false;
-			////Shiggycon.larvapassiveDef = false;
-			////Shiggycon.lesserwisppassiveDef = false;
-			////Shiggycon.lunarexploderpassiveDef = false;
-			////Shiggycon.minimushrumpassiveDef = false;
-			////Shiggycon.roboballminibpassiveDef = false;
-			////Shiggycon.voidbarnaclepassiveDef = false;
-			////Shiggycon.voidjailerpassiveDef = false;
-
-			////               Shiggycon.impbosspassiveDef = false;
-			////               Shiggycon.stonetitanpassiveDef = false;
-			////Shiggycon.magmawormpassiveDef = false;
-			////Shiggycon.overloadingwormpassiveDef = false;
-
-
-			////Shiggycon.alloyvultureflyDef = false;
-			////Shiggycon.beetleguardslamDef = false;
-			////Shiggycon.bisonchargeDef = false;
-			////Shiggycon.bronzongballDef = false;
-			////Shiggycon.clayapothecarymortarDef = false;
-			////Shiggycon.claytemplarminigunDef = false;
-			////Shiggycon.greaterwispballDef = false;
-			////Shiggycon.impblinkDef = false;
-			////Shiggycon.jellyfishnovaDef = false;
-			////Shiggycon.lemurianfireballDef = false;
-			////Shiggycon.lunargolemshotsDef = false;
-			////Shiggycon.lunarwispminigunDef = false;
-			////Shiggycon.parentteleportDef = false;
-			////Shiggycon.stonegolemlaserDef = false;
-			////Shiggycon.voidreaverportalDef = false;
-
-			////Shiggycon.beetlequeenshotgunDef = false;
-			////Shiggycon.grovetenderhookDef = false;
-			////Shiggycon.claydunestriderballDef = false;
-			//               //Shiggycon.grandparentsunDef = false;
-			////Shiggycon.soluscontrolunityknockupDef = false;
-			////Shiggycon.xiconstructbeamDef = false;
-			////Shiggycon.voiddevastatorhomingDef = false;
-			////Shiggycon.scavengerthqwibDef = false;
-
-
-			//primarygiven = false;
-			//secondarygiven = false;
-			//utilitygiven = false;
-			//specialgiven = false;
-			//extra1given = false;
-			//extra2given = false;
-			//extra3given = false;
-			//extra4given = false;
-
-
-			//           }
-
-
-			//       }
-
 		}
 
 
@@ -307,92 +389,90 @@ namespace ShiggyMod.Modules.Survivors
             characterMaster = gameObject.GetComponent<CharacterMaster>();
             CharacterBody self = characterMaster.GetBody();
 
-			//checkquirks
-			//if (NetworkServer.active)
-			//{
-			//	CheckQuirks();
-			//}
+            if (!self.gameObject.GetComponent<ExtraSkillLocator>())
+            {
+				extraskillLocator = self.gameObject.GetComponent<ExtraSkillLocator>();
+			}
 			//add skills next stage/respawn
-			if (Config.retainLoadout.Value)
-			{
-				if (skillListToOverrideOnRespawn[0] != null && !primarygiven)
-				{
-					primarygiven = true; 
-					self.skillLocator.primary.SetSkillOverride(self.skillLocator.primary, skillListToOverrideOnRespawn[0], GenericSkill.SkillOverridePriority.Contextual);
-				}
-                else if(skillListToOverrideOnRespawn[0] == null && !primarygiven)
-                {
-                    primarygiven = true;
-                }
-				if (skillListToOverrideOnRespawn[1] != null && !secondarygiven)
-				{
-					secondarygiven = true;
-					self.skillLocator.secondary.SetSkillOverride(self.skillLocator.secondary, skillListToOverrideOnRespawn[1], GenericSkill.SkillOverridePriority.Contextual);
-                }
-                else if (skillListToOverrideOnRespawn[1] == null && !secondarygiven)
-                {
-                    secondarygiven = true;
-                }
-                if (skillListToOverrideOnRespawn[2] != null && !utilitygiven)
-				{
-					utilitygiven = true;
-					self.skillLocator.utility.SetSkillOverride(self.skillLocator.utility, skillListToOverrideOnRespawn[2], GenericSkill.SkillOverridePriority.Contextual);
-                }
-                else if (skillListToOverrideOnRespawn[2] == null && !utilitygiven)
-                {
-                    utilitygiven = true;
-                }
-                if (skillListToOverrideOnRespawn[3] != null && !specialgiven)
-				{
-					specialgiven = true;
-					self.skillLocator.special.SetSkillOverride(self.skillLocator.special, skillListToOverrideOnRespawn[3], GenericSkill.SkillOverridePriority.Contextual);
-                }
-                else if (skillListToOverrideOnRespawn[3] == null && !specialgiven)
-                {
-                    specialgiven = true;
-                }
-                if (skillListToOverrideOnRespawn[4] != null && !extra1given)
-				{
-					extra1given = true;
-					extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, skillListToOverrideOnRespawn[4], GenericSkill.SkillOverridePriority.Contextual);
-				}
-                else if (skillListToOverrideOnRespawn[4] == null && !extra1given)
-                {
-                    extra1given = true;
-                }
-                if (skillListToOverrideOnRespawn[5] != null && !extra2given)
-				{
-					extra2given = true;
-					extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, skillListToOverrideOnRespawn[5], GenericSkill.SkillOverridePriority.Contextual);
-                }
-                else if (skillListToOverrideOnRespawn[5] == null && !extra2given)
-                {
-                    extra2given = true;
-                }
-                if (skillListToOverrideOnRespawn[6] != null && !extra3given)
-				{
-					extra3given = true;
-					extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, skillListToOverrideOnRespawn[6], GenericSkill.SkillOverridePriority.Contextual);
-                }
-                else if (skillListToOverrideOnRespawn[6] == null && !extra3given)
-                {
-                    extra3given = true;
-                }
-                if (skillListToOverrideOnRespawn[7] != null && !extra4given)
-				{
-					extra4given = true;
-					extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, skillListToOverrideOnRespawn[7], GenericSkill.SkillOverridePriority.Contextual);
-                }
-                else if (skillListToOverrideOnRespawn[7] == null && !extra4given)
-                {
-                    extra4given = true;
-                }
+			//if (Config.retainLoadout.Value)
+			//{
+			//	if (skillListToOverrideOnRespawn[0] != null && !primarygiven)
+			//	{
+			//		primarygiven = true; 
+			//		self.skillLocator.primary.SetSkillOverride(self.skillLocator.primary, skillListToOverrideOnRespawn[0], GenericSkill.SkillOverridePriority.Contextual);
+			//	}
+   //             else if(skillListToOverrideOnRespawn[0] == null && !primarygiven)
+   //             {
+   //                 primarygiven = true;
+   //             }
+			//	if (skillListToOverrideOnRespawn[1] != null && !secondarygiven)
+			//	{
+			//		secondarygiven = true;
+			//		self.skillLocator.secondary.SetSkillOverride(self.skillLocator.secondary, skillListToOverrideOnRespawn[1], GenericSkill.SkillOverridePriority.Contextual);
+   //             }
+   //             else if (skillListToOverrideOnRespawn[1] == null && !secondarygiven)
+   //             {
+   //                 secondarygiven = true;
+   //             }
+   //             if (skillListToOverrideOnRespawn[2] != null && !utilitygiven)
+			//	{
+			//		utilitygiven = true;
+			//		self.skillLocator.utility.SetSkillOverride(self.skillLocator.utility, skillListToOverrideOnRespawn[2], GenericSkill.SkillOverridePriority.Contextual);
+   //             }
+   //             else if (skillListToOverrideOnRespawn[2] == null && !utilitygiven)
+   //             {
+   //                 utilitygiven = true;
+   //             }
+   //             if (skillListToOverrideOnRespawn[3] != null && !specialgiven)
+			//	{
+			//		specialgiven = true;
+			//		self.skillLocator.special.SetSkillOverride(self.skillLocator.special, skillListToOverrideOnRespawn[3], GenericSkill.SkillOverridePriority.Contextual);
+   //             }
+   //             else if (skillListToOverrideOnRespawn[3] == null && !specialgiven)
+   //             {
+   //                 specialgiven = true;
+   //             }
+   //             if (skillListToOverrideOnRespawn[4] != null && !extra1given)
+			//	{
+			//		extra1given = true;
+			//		extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, skillListToOverrideOnRespawn[4], GenericSkill.SkillOverridePriority.Contextual);
+			//	}
+   //             else if (skillListToOverrideOnRespawn[4] == null && !extra1given)
+   //             {
+   //                 extra1given = true;
+   //             }
+   //             if (skillListToOverrideOnRespawn[5] != null && !extra2given)
+			//	{
+			//		extra2given = true;
+			//		extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, skillListToOverrideOnRespawn[5], GenericSkill.SkillOverridePriority.Contextual);
+   //             }
+   //             else if (skillListToOverrideOnRespawn[5] == null && !extra2given)
+   //             {
+   //                 extra2given = true;
+   //             }
+   //             if (skillListToOverrideOnRespawn[6] != null && !extra3given)
+			//	{
+			//		extra3given = true;
+			//		extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, skillListToOverrideOnRespawn[6], GenericSkill.SkillOverridePriority.Contextual);
+   //             }
+   //             else if (skillListToOverrideOnRespawn[6] == null && !extra3given)
+   //             {
+   //                 extra3given = true;
+   //             }
+   //             if (skillListToOverrideOnRespawn[7] != null && !extra4given)
+			//	{
+			//		extra4given = true;
+			//		extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, skillListToOverrideOnRespawn[7], GenericSkill.SkillOverridePriority.Contextual);
+   //             }
+   //             else if (skillListToOverrideOnRespawn[7] == null && !extra4given)
+   //             {
+   //                 extra4given = true;
+   //             }
 
-            }
-
-
+            //}
 
 		}
+
 		public void CheckQuirks()
 		{
 			extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();

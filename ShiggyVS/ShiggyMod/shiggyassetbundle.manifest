@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 840955118
+CRC: 1825429765
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 4322563a9a9db5addbb0a4dd59b5f8d7
+    Hash: 7aa6acd18715f0178044159bcb5c931f
   TypeTreeHash:
     serializedVersion: 2
     Hash: 92f8c068c360b7e2f221020245f5d65b
@@ -91,7 +91,7 @@ Assets:
 - Assets/Shigaraki/Animations/RightArmPunch.anim
 - Assets/Shigaraki/GUI/Monsters/Void_Jailer.png
 - Assets/Shigaraki/GUI/Survivors/REX.png
-- Assets/Shigaraki/GUI/Survivors/Artificer.png
+- Assets/Shigaraki/GUI/Survivors/ArtificerFire.png
 - Assets/Shigaraki/GUI/Survivors/Commando.png
 - Assets/Shigaraki/Assets/Material/ShiggyMat.png
 - Assets/Shigaraki/GUI/Monsters/Jellyfish.png
@@ -100,6 +100,7 @@ Assets:
 - Assets/Shigaraki/GUI/Monsters/Lunar_Wisp.png
 - Assets/Shigaraki/GUI/Monsters/Elder_Lemurian.png
 - Assets/Shigaraki/GUI/Monsters/Gup.png
+- Assets/Shigaraki/GUI/Survivors/ArtificerIce.png
 - Assets/Shigaraki/GUI/Base/aircannon.PNG
 - Assets/Shigaraki/GUI/Monsters/Lunar_Exploder.png
 - Assets/Shigaraki/Import/Hitbox.prefab
@@ -129,6 +130,7 @@ Assets:
 - Assets/Shigaraki/Animations/Fall.anim
 - Assets/Shigaraki/GUI/Base/multiplier.png
 - Assets/Shigaraki/GUI/Base/texShiggyIcon.png
+- Assets/Shigaraki/Animations/BothArmsPunch.anim
 - Assets/Shigaraki/GUI/Monsters/Parent.png
 - Assets/Shigaraki/Animations/LeftArmPunch.anim
 - Assets/Shigaraki/GUI/Monsters/Beetle.png
@@ -169,6 +171,8 @@ Assets:
 - Assets/Shigaraki/Animations/animShiggyDiplay.controller
 - Assets/Shigaraki/Animations/RightArmDetonate.anim
 - Assets/Shigaraki/GUI/Base/decay.png
+- Assets/Shigaraki/Animations/BothArmsOut.anim
+- Assets/Shigaraki/GUI/Survivors/ArtificerLightning.png
 - Assets/Shigaraki/GUI/Survivors/Mercenary.png
 - Assets/Shigaraki/GUI/Monsters/Geep.png
 - Assets/Shigaraki/Assets/Particle/MainBeam.prefab

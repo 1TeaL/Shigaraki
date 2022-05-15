@@ -43,6 +43,12 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(VoidDevastatorHoming));
             entityStates.Add(typeof(ScavengerThqwibs));
 
+            entityStates.Add(typeof(ArtificerFlamethrower));
+            entityStates.Add(typeof(ArtificerIceWall));
+            entityStates.Add(typeof(ArtificerChargeLightningOrb));
+            entityStates.Add(typeof(ArtificerThrowLightningOrb));
+            entityStates.Add(typeof(BanditPrepLightsOut));
+            entityStates.Add(typeof(BanditFireLightsOut));
 
             entityStates.Add(typeof(AlphaConstruct));
             entityStates.Add(typeof(Beetle));
