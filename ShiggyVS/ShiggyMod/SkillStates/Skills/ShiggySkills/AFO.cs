@@ -644,6 +644,9 @@ namespace ShiggyMod.SkillStates
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
 
+                    //characterBody.master.inventory.RemoveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
+                    //characterBody.master.inventory.GiveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
+                    int itemcount = characterBody.master.inventory.GetItemCount(RoR2Content.Items.CaptainDefenseMatrix);
                     Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
                     RemovePrimary();
                     characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);

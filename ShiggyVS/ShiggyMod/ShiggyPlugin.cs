@@ -147,16 +147,13 @@ namespace ShiggyMod
             {
                 var body = attacker.GetComponent<CharacterBody>();
                 var victimBody = victim.GetComponent<CharacterBody>();
-                DamageType damageType;
                 DamageType damageType2;
                 if (body.HasBuff(Buffs.impbossBuff))
                 {
-                    damageType = DamageType.BleedOnHit;
                     damageType2 = DamageType.BleedOnHit | DamageType.Stun1s;
                 }
                 else
                 {
-                    damageType = DamageType.Generic;
                     damageType2 = DamageType.Stun1s;
                 }
                 if (body && victimBody)
@@ -164,10 +161,10 @@ namespace ShiggyMod
                     //commando buff
                     if (body.HasBuff(Modules.Buffs.commandoBuff))
                     {
-                        if(damageInfo.damage > 0)
+                        if(damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                         {
                             DamageInfo damageInfo2 = new DamageInfo();
-                            damageInfo2.damage = damageInfo.damage/StaticValues.commandoDamageMultiplier;
+                            damageInfo2.damage = damageInfo.damage * StaticValues.commandoDamageMultiplier;
                             damageInfo2.position = victimBody.corePosition;
                             damageInfo2.force = Vector3.zero;
                             damageInfo2.procCoefficient = StaticValues.commandoProcCoefficient;
@@ -175,7 +172,7 @@ namespace ShiggyMod
                             damageInfo2.crit = false;
                             damageInfo2.attacker = body.gameObject;
                             damageInfo2.inflictor = victimBody.gameObject;
-                            damageInfo2.damageType = damageType;
+                            damageInfo2.damageType = damageInfo.damageType;
                             damageInfo2.procCoefficient = 0f;
                             damageInfo2.procChainMask = default(ProcChainMask);
                             victimBody.healthComponent.TakeDamage(damageInfo2);

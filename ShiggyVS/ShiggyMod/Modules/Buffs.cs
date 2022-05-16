@@ -41,6 +41,7 @@ namespace ShiggyMod.Modules
 
         internal static BuffDef acridBuff;
         internal static BuffDef commandoBuff;
+        internal static BuffDef captainBuff;
 
         internal static void RegisterBuffs()
         {
@@ -74,6 +75,7 @@ namespace ShiggyMod.Modules
 
             commandoBuff = Buffs.AddNewBuff("doubletapBuff", Assets.lightningBuffIcon, Color.magenta, false, false);
             acridBuff = Buffs.AddNewBuff("poisonBuff", Assets.lightningBuffIcon, Color.magenta, false, false);
+            captainBuff = Buffs.AddNewBuff("microbotBuff", Assets.lightningBuffIcon, Color.magenta, false, false);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

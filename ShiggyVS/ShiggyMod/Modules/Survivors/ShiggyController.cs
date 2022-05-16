@@ -115,6 +115,7 @@ namespace ShiggyMod.Modules.Survivors
         public float quirkTimer;
 
         public int decayCount;
+        public int captainitemcount;
         private DamageType damageType;
         private DamageType damageType2;
 
@@ -320,6 +321,21 @@ namespace ShiggyMod.Modules.Survivors
                 }
 
             }
+            //captain buff items
+            captainitemcount = characterBody.master.inventory.GetItemCount(RoR2Content.Items.CaptainDefenseMatrix);
+            if (characterBody.HasBuff(Buffs.captainBuff))
+            {
+                if(captainitemcount < 1)
+                {
+                    characterBody.master.inventory.GiveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
+                }
+                
+            }
+            else if(!characterBody.HasBuff(Buffs.captainBuff) && captainitemcount > 0)
+            {
+                characterBody.master.inventory.RemoveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
+            }
+
             //check acrid and impboss buff
             damageType = DamageType.Generic;
             if (characterBody.HasBuff(Modules.Buffs.impbossBuff))
