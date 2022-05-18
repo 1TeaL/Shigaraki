@@ -30,18 +30,6 @@ namespace ShiggyMod.SkillStates
             this.duration = this.baseDuration / this.attackSpeedStat;
             this.fireTime = 0.2f * this.duration;
             hasFired = false;
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit;
-            }
-            if (base.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit;
-            }
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType = DamageType.BleedOnHit;
-            }
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
@@ -53,14 +41,8 @@ namespace ShiggyMod.SkillStates
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.rangedMultiplier;
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                bulletcount = 5 * (int)Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                bulletcount = 5;
-            }
+
+            bulletcount = 5 * (uint)Shiggycon.projectileCount;
         }
 
         public override void OnExit()

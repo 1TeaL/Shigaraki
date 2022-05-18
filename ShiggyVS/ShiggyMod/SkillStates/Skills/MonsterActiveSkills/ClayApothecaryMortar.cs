@@ -189,6 +189,10 @@ namespace ShiggyMod.SkillStates
 							this.attack.bonusForce = new Vector3(0f, blastUpwardForce, 0f);
 							this.attack.damageType = damageType;
 							this.attack.Fire();
+                            if(this.attack.Fire().hitCount > 0)
+                            {
+                                this.OnHitEnemyAuthority();
+                            }
 						}
 					}
 					Vector3 position = footPosition;
@@ -245,7 +249,14 @@ namespace ShiggyMod.SkillStates
             }
         }
 
+        protected virtual void OnHitEnemyAuthority()
+        {
+            if (characterBody.HasBuff(Modules.Buffs.loaderBuff))
+            {
+                base.healthComponent.AddBarrierAuthority(healthComponent.fullCombinedHealth / 20);
+            }
 
+        }
 
 
         public override InterruptPriority GetMinimumInterruptPriority()

@@ -37,14 +37,6 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = DamageType.ClayGoo;
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit | DamageType.ClayGoo;
-            }
-            if (base.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit | DamageType.ClayGoo;
-            }
 
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
@@ -58,14 +50,7 @@ namespace ShiggyMod.SkillStates
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
 
             this.baseFireRate = 1f / baseFireInterval;
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                baseBulletCount = 3f * Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                baseBulletCount = 3f;
-            }
+            baseBulletCount = 3 * (uint)Shiggycon.projectileCount;
             this.critEndTime = Run.FixedTimeStamp.negativeInfinity;
             this.lastCritCheck = Run.FixedTimeStamp.negativeInfinity;
             Util.PlaySound(MinigunFire.startSound, base.gameObject);

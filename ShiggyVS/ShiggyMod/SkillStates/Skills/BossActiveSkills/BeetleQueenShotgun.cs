@@ -33,15 +33,9 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                projectileCount = 5 * Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                projectileCount = 5;
-            }
-            
+
+            projectileCount = 5 * (uint)Shiggycon.projectileCount;
+
             string muzzleName = "RHand";
             this.duration = baseDuration / this.attackSpeedStat;
             EffectManager.SimpleMuzzleFlash(FireSpit.effectPrefab, base.gameObject, muzzleName, false);

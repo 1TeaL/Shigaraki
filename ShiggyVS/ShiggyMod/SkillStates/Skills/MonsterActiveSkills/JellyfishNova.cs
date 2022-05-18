@@ -36,14 +36,6 @@ namespace ShiggyMod.SkillStates
             hasFired = false;
             radius = 30 * (attackSpeedStat/3);
             damageType = DamageType.Stun1s;
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit | DamageType.Stun1s;
-            }
-            if (base.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit | DamageType.Stun1s;
-            }
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 

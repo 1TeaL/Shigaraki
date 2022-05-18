@@ -215,6 +215,40 @@ namespace ShiggyMod
 
                         }
                     }
+                    //acrid buff
+                    if (body.HasBuff(Modules.Buffs.acridBuff))
+                    {
+                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            if (victimBody.healthComponent)
+                            {
+                                InflictDotInfo info = new InflictDotInfo();
+                                info.attackerObject = body.gameObject;
+                                info.victimObject = victimBody.healthComponent.body.gameObject;
+                                info.duration = Modules.StaticValues.decayDamageTimer;
+                                info.dotIndex = DotController.DotIndex.Poison;
+
+                                DotController.InflictDot(ref info);
+                            }
+                        }
+                    }
+                    //impboss buff
+                    if (body.HasBuff(Modules.Buffs.impbossBuff))
+                    {
+                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            if (victimBody.healthComponent)
+                            {
+                                InflictDotInfo info = new InflictDotInfo();
+                                info.attackerObject = body.gameObject;
+                                info.victimObject = victimBody.healthComponent.body.gameObject;
+                                info.duration = Modules.StaticValues.decayDamageTimer/2;
+                                info.dotIndex = DotController.DotIndex.Bleed;
+
+                                DotController.InflictDot(ref info);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -433,6 +467,14 @@ namespace ShiggyMod
 
             if(self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
             {
+                //mult buff
+                if (self.HasBuff(Buffs.multBuff))
+                {
+                    self.armor += StaticValues.multArmor;
+                    self.attackSpeed *= StaticValues.multAttackspeed;
+                    self.moveSpeed *= StaticValues.multMovespeed;
+
+                }
                 //stonetitanarmor buff
                 if (self.HasBuff(Buffs.stonetitanBuff))
                 {

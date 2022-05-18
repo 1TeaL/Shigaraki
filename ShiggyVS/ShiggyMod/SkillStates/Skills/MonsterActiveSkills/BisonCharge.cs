@@ -22,7 +22,6 @@ namespace ShiggyMod.SkillStates
 		private float force = 1f;
         private Vector3 direction;
         private ShiggyController Shiggycon;
-        private int decayCount;
         private Animator animator;
 
         public override void OnEnter()
@@ -32,14 +31,6 @@ namespace ShiggyMod.SkillStates
 			base.StartAimMode(aimRay, 2f, false);
 			totalDuration = 0f;
 			damageType = DamageType.Stun1s;
-			if (base.HasBuff(Modules.Buffs.impbossBuff))
-			{
-				damageType |= DamageType.BleedOnHit | DamageType.Stun1s;
-			}
-			if (base.HasBuff(Modules.Buffs.acridBuff))
-			{
-				damageType |= DamageType.PoisonOnHit | DamageType.Stun1s;
-			}
 			bool isAuthority = base.isAuthority;
             Util.PlaySound(BaseChargeFist.startChargeLoopSFXString, base.gameObject);
 			this.animator = base.GetModelAnimator();
@@ -63,14 +54,6 @@ namespace ShiggyMod.SkillStates
 				}
 			}
 
-			if (base.HasBuff(Modules.Buffs.multiplierBuff))
-			{
-				decayCount = (int)Modules.StaticValues.multiplierCoefficient;
-			}
-			else
-			{
-				decayCount = 1;
-			}
 			Shiggycon = gameObject.GetComponent<ShiggyController>();
 			damageCoefficient *= Shiggycon.strengthMultiplier;
 		}
@@ -242,7 +225,7 @@ namespace ShiggyMod.SkillStates
 						info.duration = Modules.StaticValues.decayDamageTimer;
 						info.dotIndex = Modules.Dots.decayDot;
 
-						for (int i = 0; i < decayCount; i++)
+						for (int i = 0; i < Shiggycon.decayCount; i++)
 						{
 							DotController.InflictDot(ref info);
 
@@ -253,7 +236,10 @@ namespace ShiggyMod.SkillStates
 		}
 		protected virtual void OnHitEnemyAuthority()
 		{
-			base.healthComponent.AddBarrierAuthority((healthComponent.fullCombinedHealth / 10) * (this.moveSpeedStat / 7));
+			if (characterBody.HasBuff(Modules.Buffs.loaderBuff))
+			{
+				base.healthComponent.AddBarrierAuthority(healthComponent.fullCombinedHealth / 20);
+			}
 
 		}
 		public override InterruptPriority GetMinimumInterruptPriority()

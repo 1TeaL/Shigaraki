@@ -114,6 +114,7 @@ namespace ShiggyMod.Modules.Survivors
         public bool hasQuirk;
         public float quirkTimer;
 
+        public int projectileCount;
         public int decayCount;
         public int captainitemcount;
         private DamageType damageType;
@@ -308,7 +309,8 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         this.activeindicator.active = false;
                         this.passiveindicator.active = false;
-                        this.indicator.targetTransform = (this.trackingTarget ? this.trackingTarget.transform : null);
+                        this.indicator.active = true;
+                        this.indicator.targetTransform = this.trackingTarget.transform;
                     }
 
                 }
@@ -361,25 +363,36 @@ namespace ShiggyMod.Modules.Survivors
             if (characterBody.HasBuff(Modules.Buffs.multiplierBuff))
             {
                 decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+                projectileCount = (int)Modules.StaticValues.multiplierCoefficient;
             }
             else
             {
                 decayCount = 1;
+                projectileCount = 1;
             }
 
+            rangedMultiplier = 1f;
             //ranged boost buff
             if (characterBody.HasBuff(Modules.Buffs.lesserwispBuff.buffIndex))
             {
-                rangedMultiplier = StaticValues.lesserwisprangedMultiplier;
+                rangedMultiplier *= StaticValues.lesserwisprangedMultiplier;
             }
-            else
+            if (!characterBody.HasBuff(Modules.Buffs.lesserwispBuff.buffIndex))
             {
                 rangedMultiplier = 1f;
             }
             //strength boost buff
-            if (characterBody.HasBuff(Modules.Buffs.lesserwispBuff.buffIndex))
+            if (characterBody.HasBuff(Modules.Buffs.loaderBuff.buffIndex) | characterBody.HasBuff(Modules.Buffs.beetleBuff.buffIndex))
             {
-                strengthMultiplier = StaticValues.beetlestrengthMultiplier;
+
+                if (characterBody.HasBuff(Modules.Buffs.loaderBuff.buffIndex) && characterBody.HasBuff(Modules.Buffs.beetleBuff.buffIndex))
+                {
+                    strengthMultiplier = StaticValues.beetlestrengthMultiplier * StaticValues.loaderDamageMultiplier;
+                }
+                else
+                {
+                    strengthMultiplier = StaticValues.beetlestrengthMultiplier;
+                }
             }
             else
             {

@@ -35,14 +35,6 @@ namespace ShiggyMod.SkillStates
 
 
             damageType = DamageType.Generic;
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit;
-            }
-            if (base.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit;
-            }
 
         }
 

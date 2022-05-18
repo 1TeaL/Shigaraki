@@ -31,9 +31,8 @@ namespace ShiggyMod.SkillStates
         private Vector3 blinkVector = Vector3.zero;
         private bool beginBlink;
         public float blinkDuration = 0.3f;
-        public float jumpCoefficient = 25f;
         private float stopwatch;
-        private float speedCoefficient = 25f;
+        private float speedCoefficient = 15f;
 
         public override void OnEnter()
         {

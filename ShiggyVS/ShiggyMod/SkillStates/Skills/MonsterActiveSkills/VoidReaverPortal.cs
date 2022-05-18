@@ -94,7 +94,11 @@ namespace ShiggyMod.SkillStates
                     if (this.fireTimer >= fireInterval)
                     {
                         fireTimer = 0f;
-                        this.PortalFire();
+
+                        for (int i = 0; i < Shiggycon.projectileCount; i++)
+                        {
+                            this.PortalFire();
+                        }
 
                     }
                 }

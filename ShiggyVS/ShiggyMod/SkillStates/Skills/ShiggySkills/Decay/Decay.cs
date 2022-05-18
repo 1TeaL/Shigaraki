@@ -11,7 +11,6 @@ namespace ShiggyMod.SkillStates
     public class Decay : BaseSkillState
     {
 
-        public DecayController decaycon;
         public ShiggyController Shiggycon;
         protected string hitboxName = "AroundHitbox";
         protected string hitboxName2 = "AroundHitbox";
@@ -23,7 +22,6 @@ namespace ShiggyMod.SkillStates
 
         private DamageType damageType;
         public static float baseduration = 0.8f;
-        public int decayCount;
         public float duration;
         public float fireTime;
         private float procCoefficient = 1f;
@@ -52,14 +50,6 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             playEffect = false;
             damageType = DamageType.Generic;
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit;
-            }
-            if (base.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit;
-            }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.strengthMultiplier;
 
@@ -72,14 +62,6 @@ namespace ShiggyMod.SkillStates
             if (fireTime <= 0.05f)
             {
                 duration = 0.05f;
-            }
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                decayCount = 1;
             }
             base.characterBody.SetAimTimer(this.duration);
 
@@ -226,12 +208,6 @@ namespace ShiggyMod.SkillStates
                 {
                     foreach (HurtBox hurtBox in list)
                     {
-                        //Decay Controller
-                        if (!hurtBox.healthComponent.body.gameObject.GetComponent<DecayController>())
-                        {
-                            decaycon = hurtBox.healthComponent.body.gameObject.AddComponent<DecayController>();
-                        }
-
                         this.OnHitEnemyAuthority();
                         //Decay Dot and pain set
                         bool flag2 = hurtBox.healthComponent && hurtBox.healthComponent.body;
@@ -246,7 +222,7 @@ namespace ShiggyMod.SkillStates
                             //info.damageMultiplier = Modules.StaticValues.decayDamageCoeffecient + Modules.StaticValues.decayDamageStack * hurtBox.healthComponent.body.GetBuffCount(Modules.Buffs.decayDebuff);
                             info.dotIndex = Modules.Dots.decayDot;
 
-                            for (int i = 0; i < decayCount; i++)
+                            for (int i = 0; i < Shiggycon.decayCount; i++)
                             {
                                 DotController.InflictDot(ref info);
 
@@ -260,6 +236,10 @@ namespace ShiggyMod.SkillStates
 
         protected virtual void OnHitEnemyAuthority()
         {
+            if (characterBody.HasBuff(Modules.Buffs.loaderBuff))
+            {
+                base.healthComponent.AddBarrierAuthority(healthComponent.fullCombinedHealth / 20);
+            }
             if (!isGrounded)
             {
                 base.SmallHop(base.characterMotor, this.smallhopvelocity/this.attackSpeedStat);

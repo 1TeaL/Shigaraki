@@ -28,7 +28,6 @@ namespace ShiggyMod.SkillStates
         protected DamageType damageType;
         public ShiggyController shiggycon;
         private Vector3 theSpot;
-        private int decayCount;
 
         //private NemforcerGrabController grabController;
 
@@ -39,24 +38,8 @@ namespace ShiggyMod.SkillStates
             this.flyVector = Vector3.up;
             damageType = DamageType.Stun1s;
 
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit | DamageType.Stun1s;
-            }
-            if (base.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit | DamageType.Stun1s;
-            }
             dropTimer = 1f;
 
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                decayCount = 1;
-            }
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.strengthMultiplier;
@@ -84,6 +67,10 @@ namespace ShiggyMod.SkillStates
         protected virtual void OnHitEnemyAuthority()
         {
             base.healthComponent.AddBarrierAuthority((healthComponent.fullCombinedHealth / 20) * (this.moveSpeedStat / 7) * dropTimer);
+            if (characterBody.HasBuff(Modules.Buffs.loaderBuff))
+            {
+                base.healthComponent.AddBarrierAuthority(healthComponent.fullCombinedHealth / 20);
+            }
 
         }
 
@@ -121,7 +108,7 @@ namespace ShiggyMod.SkillStates
                         info.duration = Modules.StaticValues.decayDamageTimer;
                         info.dotIndex = Modules.Dots.decayDot;
 
-                        for (int i = 0; i < decayCount; i++)
+                        for (int i = 0; i < Shiggycon.decayCount; i++)
                         {
                             DotController.InflictDot(ref info);
 

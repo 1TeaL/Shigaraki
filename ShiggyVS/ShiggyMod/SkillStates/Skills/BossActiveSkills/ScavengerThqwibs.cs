@@ -42,14 +42,7 @@ namespace ShiggyMod.SkillStates
             {
                 EffectManager.SimpleMuzzleFlash(ThrowSack.effectPrefab, base.gameObject, muzzleName, false);
             }
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                projectileCount = Modules.StaticValues.scavengerProjectileCount * (int)Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                projectileCount = Modules.StaticValues.scavengerProjectileCount;
-            }
+            projectileCount = Modules.StaticValues.scavengerProjectileCount * (int)Shiggycon.projectileCount;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);

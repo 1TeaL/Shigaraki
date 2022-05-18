@@ -5,6 +5,11 @@ namespace ShiggyMod.Modules
 {
     internal static class StaticValues
     {
+        internal const float multAttackspeed = 2f;
+        internal const float multMovespeed = 0.4f;
+        internal const float multArmor = 100f;
+
+        internal const float loaderDamageMultiplier = 1.5f;
 
         internal const float commandoProcCoefficient = 1f;
         internal const float commandoDamageMultiplier = 0.1f;
@@ -82,8 +87,10 @@ namespace ShiggyMod.Modules
         internal const float lesserwispdamageMultiplier = 1.5f;
         internal const float lesserwisprangedMultiplier = 1.5f;
 
-        internal const float decayDamageCoeffecient = 0.2f;
-        internal const float decayDamageStack = 0.2f;
+        internal const float decayspreadRadius = 10f;
+        internal const float decayadditionalTimer = 5f;
+        internal const float decayDamageCoeffecient = 1f;
+        internal const float decayDamageStack = 1f;
         internal const float decayDamageTimer = 10f;
         internal const float decayInstaKillThreshold = 50f;
 
@@ -166,7 +173,12 @@ namespace ShiggyMod.Modules
         internal const float banditDamageCoefficient = 3f;
         internal const float banditcloakDuration = 3f;
 
+        internal const float huntressDamageCoefficient = 1f;
+        internal const float huntressProcCoefficient = 0.7f;
+        internal const int huntressmaxArrowCount = 6;
 
+        internal const float mercDamageCoefficient = 2f;
+        internal const float mercProcCoefficient = 1f;
         public enum IndicatorType : uint
         {
             PASSIVE = 1,
@@ -178,7 +190,7 @@ namespace ShiggyMod.Modules
         public static void LoadDictionary()
         {
             indicatorDict = new Dictionary<string, IndicatorType>();
-            indicatorDict.Add("MinorConstructBody", IndicatorType.PASSIVE );
+            indicatorDict.Add("MinorConstructBody", IndicatorType.PASSIVE);
             indicatorDict.Add("MinorConstructOnKillBody", IndicatorType.PASSIVE);
             indicatorDict.Add("BeetleBody", IndicatorType.PASSIVE);
             indicatorDict.Add("FlyingVerminBody", IndicatorType.PASSIVE);

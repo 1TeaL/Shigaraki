@@ -43,10 +43,6 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             damageType = DamageType.Generic;
 
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType = DamageType.BleedOnHit;
-            }
 
             this.animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);

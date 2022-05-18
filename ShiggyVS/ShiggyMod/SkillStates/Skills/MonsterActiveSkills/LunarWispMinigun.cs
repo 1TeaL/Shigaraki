@@ -39,14 +39,6 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = DamageType.CrippleOnHit;
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit | DamageType.CrippleOnHit;
-            }
-            if (base.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit | DamageType.CrippleOnHit;
-            }
 
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(2f);
@@ -58,14 +50,7 @@ namespace ShiggyMod.SkillStates
             PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
 
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                baseBulletCount = 3f * Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                baseBulletCount = 3f;
-            }
+            baseBulletCount = 3 * (uint)Shiggycon.projectileCount;
 
             this.muzzleTransformOne = base.FindModelChild(this.muzzleString);
             if (this.muzzleTransformOne && FireLunarGuns.muzzleVfxPrefab)

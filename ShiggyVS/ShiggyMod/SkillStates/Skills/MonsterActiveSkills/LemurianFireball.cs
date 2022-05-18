@@ -42,13 +42,7 @@ namespace ShiggyMod.SkillStates
                 this.chargeVfxInstance.transform.parent = FindModelChild(this.muzzleString).transform;
             }
 
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                FireBall();
-                FireBall();
-                FireBall();
-            }
-            else
+            for (int i = 0; i < Shiggycon.projectileCount; i++)
             {
                 FireBall();
             }

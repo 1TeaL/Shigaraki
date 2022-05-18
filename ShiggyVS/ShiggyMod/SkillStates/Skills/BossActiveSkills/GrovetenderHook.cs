@@ -37,14 +37,7 @@ namespace ShiggyMod.SkillStates
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                projectileCount = 5 * Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                projectileCount = 5;
-            }
+            projectileCount = 5 * (uint)Shiggycon.projectileCount;
             fireTimer = (duration / projectileCount);
 
             GetMaxWeight();
