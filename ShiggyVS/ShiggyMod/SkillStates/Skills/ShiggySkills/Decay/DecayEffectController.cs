@@ -13,7 +13,7 @@ namespace ShiggyMod.SkillStates
         public CharacterBody charbody;
         private GameObject effectObj;
         public float timer;
-        public TeamMask sameTeam;
+        public TeamMask sameTeam = new TeamMask();
 
         public void Start()
         {
