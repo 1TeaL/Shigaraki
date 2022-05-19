@@ -23,6 +23,8 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(BeetleGuardSlam));
             entityStates.Add(typeof(ClayApothecaryMortar));
             entityStates.Add(typeof(ClayTemplarMinigun));
+            entityStates.Add(typeof(ElderLemurianFireBlastCharge));
+            entityStates.Add(typeof(ElderLemurianFireBlastFire));
             entityStates.Add(typeof(GreaterWispBallFire));
             entityStates.Add(typeof(ImpBlink));
             entityStates.Add(typeof(JellyfishNova));
@@ -51,6 +53,9 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(BanditFireLightsOut));
             entityStates.Add(typeof(EngiTurret));
             entityStates.Add(typeof(HuntressBlink));
+            entityStates.Add(typeof(HuntressAttack));
+            entityStates.Add(typeof(MercDash));
+            entityStates.Add(typeof(MercDashAttack));
 
             entityStates.Add(typeof(AlphaConstruct));
             entityStates.Add(typeof(Beetle));
@@ -72,6 +77,12 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(OverloadingWorm));
             entityStates.Add(typeof(StoneTitan));
             entityStates.Add(typeof(Vagrant));
+
+            entityStates.Add(typeof(Acrid));
+            entityStates.Add(typeof(Captain));
+            entityStates.Add(typeof(Commando));
+            entityStates.Add(typeof(Loader));
+            entityStates.Add(typeof(Mult));
         }
     }
 }

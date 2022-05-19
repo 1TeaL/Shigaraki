@@ -114,6 +114,7 @@ namespace ShiggyMod.Modules.Survivors
         public bool hasQuirk;
         public float quirkTimer;
 
+        public float shiggyDamage;
         public int projectileCount;
         public int decayCount;
         public int captainitemcount;
@@ -323,6 +324,9 @@ namespace ShiggyMod.Modules.Survivors
                 }
 
             }
+            //shiggy current damage
+            shiggyDamage = characterBody.damage;
+
             //captain buff items
             captainitemcount = characterBody.master.inventory.GetItemCount(RoR2Content.Items.CaptainDefenseMatrix);
             if (characterBody.HasBuff(Buffs.captainBuff))
@@ -340,23 +344,7 @@ namespace ShiggyMod.Modules.Survivors
 
             //check acrid and impboss buff
             damageType = DamageType.Generic;
-            if (characterBody.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit;
-            }
-            if (characterBody.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit;
-            }
             damageType2 = DamageType.SlowOnHit;
-            if (characterBody.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType2 |= DamageType.BleedOnHit | DamageType.SlowOnHit;
-            }
-            if (characterBody.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType2 |= DamageType.PoisonOnHit | DamageType.SlowOnHit;
-            }
 
             //check multiplier buff
 

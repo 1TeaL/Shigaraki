@@ -14,7 +14,7 @@ namespace ShiggyMod.SkillStates
         private float stopwatch;
         public static float smallHopVelocity = 0.5f;
         public static float dashPrepDuration = 0.1f;
-        public static float dashDuration = 0.1f;
+        public static float dashDuration = 0.2f;
         public static float speedCoefficient = 20f;
         public ShiggyController Shiggycon;
         private DamageType damageType;

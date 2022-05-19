@@ -31,12 +31,13 @@ namespace ShiggyMod.SkillStates
                 effectObj.transform.position = this.transform.position;
             }
         }
+       
         public void ApplyDoT()
         {
-            Debug.Log("ApplyingDoTtoothers");
             BullseyeSearch search = new BullseyeSearch
             {
-                teamMaskFilter = sameTeam,
+
+                teamMaskFilter = TeamMask.AllExcept(TeamIndex.Player),
                 filterByLoS = false,
                 searchOrigin = charbody.corePosition,
                 searchDirection = UnityEngine.Random.onUnitSphere,
@@ -46,26 +47,28 @@ namespace ShiggyMod.SkillStates
             };
 
             search.RefreshCandidates();
-            search.FilterOutGameObject(charbody.gameObject);
+            //search.FilterOutGameObject(charbody.gameObject);
 
-            HurtBox target = search.GetResults().FirstOrDefault();
 
-            if (target)
+
+            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+            foreach (HurtBox singularTarget in target)
             {
-                if (target.healthComponent && target.healthComponent.body)
+                if (singularTarget)
                 {
-                    InflictDotInfo info = new InflictDotInfo();
-                    info.attackerObject = null;
-                    info.victimObject = target.healthComponent.body.gameObject;
-                    info.duration = Modules.StaticValues.decayDamageTimer;
-                    info.dotIndex = Modules.Dots.decayDot;
+                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                    {
+                        InflictDotInfo info = new InflictDotInfo();
+                        info.attackerObject = charbody.gameObject;
+                        info.victimObject = singularTarget.healthComponent.body.gameObject;
+                        info.duration = Modules.StaticValues.decayDamageTimer;
+                        info.dotIndex = Modules.Dots.decayDot;
 
-                    DotController.InflictDot(ref info);
+                        DotController.InflictDot(ref info);
+                    }
                 }
             }
-            
         }
-
         public void ApplyDotToSelf()
         {
             Debug.Log("ApplyingDoTtoself");

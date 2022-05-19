@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using R2API;
 using System;
+using ShiggyMod.Modules.Survivors;
 
 namespace ShiggyMod.Modules
 {
@@ -9,6 +10,7 @@ namespace ShiggyMod.Modules
     {
         public static DotController.DotDef decaydef;
         public static DotController.DotIndex decayDot;
+        public static ShiggyController Shiggycon;
         
 
         public static DotController.DotDef CreateDot(float interval, float damageCoefficient, DamageColorIndex damageColorIndex, BuffDef associatedBuff)
@@ -25,19 +27,26 @@ namespace ShiggyMod.Modules
 
         public static void DecayDotEffect(DotController self, DotController.DotStack dotStack)
         {
+
             CharacterBody attackerBody = dotStack.attackerObject.GetComponent<CharacterBody>();
             CharacterBody victimBody = self.victimObject.GetComponent<CharacterBody>();
             if (attackerBody && victimBody)
             {
+
                 //float damageMultiplier = Modules.StaticValues.decayDamageCoeffecient + Modules.StaticValues.decayDamageStack * victimBody.GetBuffCount(Buffs.decayDebuff);
                 float damageMultiplier = Modules.StaticValues.decayDamageStack;
                 float decaydamage = 0f;
-                if (self.victimBody) decaydamage += attackerBody.damage;
-                dotStack.damage = decaydamage * damageMultiplier;
+                if (self.victimBody) decaydamage += victimBody.damage;
+                dotStack.damage = GetMax(victimBody.healthComponent.fullCombinedHealth * Modules.StaticValues.decayDamagePercentage, decaydamage * damageMultiplier);
+
 
             }
         }
 
+        public static float GetMax(float first, float second)
+        {
+            return first > second ? first : second; 
+        }
 
     }
 }

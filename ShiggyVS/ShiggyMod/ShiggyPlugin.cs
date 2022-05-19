@@ -465,7 +465,7 @@ namespace ShiggyMod
             //buffs 
             orig.Invoke(self);
 
-            if(self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+            if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
             {
                 //mult buff
                 if (self.HasBuff(Buffs.multBuff))

@@ -106,6 +106,7 @@ namespace ShiggyMod.SkillStates
             base.characterMotor.useGravity = false;
             this.previousMass = base.characterMotor.mass;
             base.characterMotor.mass = 0f;
+            base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
 
 
             this.RecalculateRollSpeed();
@@ -135,6 +136,7 @@ namespace ShiggyMod.SkillStates
             if (base.cameraTargetParams) base.cameraTargetParams.fovOverride = -1f;
             base.characterMotor.disableAirControlUntilCollision = false;
             base.characterMotor.velocity.y = 0;
+            base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
         }
 
 

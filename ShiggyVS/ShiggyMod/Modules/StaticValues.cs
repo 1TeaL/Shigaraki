@@ -88,9 +88,10 @@ namespace ShiggyMod.Modules
         internal const float lesserwisprangedMultiplier = 1.5f;
 
         internal const float decayspreadRadius = 10f;
-        internal const float decayadditionalTimer = 5f;
+        internal const float decayadditionalTimer = 8f;
         internal const float decayDamageCoeffecient = 1f;
-        internal const float decayDamageStack = 1f;
+        internal const float decayDamageStack = 0.5f;
+        internal const float decayDamagePercentage = 0.005f;
         internal const float decayDamageTimer = 10f;
         internal const float decayInstaKillThreshold = 50f;
 
@@ -126,6 +127,9 @@ namespace ShiggyMod.Modules
 
         internal const float lemurianfireballDamageCoeffecient = 2f;
         internal const float lemurianfireballProcCoefficient = 1f;
+
+        internal const float elderlemurianfireblastProcCoefficient = 0.5f;
+        internal const float elderlemurianfireblastDamageCoefficient = 2f;
 
         internal const float lunarwispminigunDamageCoeffecient = 3f;
         internal const float lunarwispminigunProcCoefficient = 0.1f;
@@ -177,7 +181,7 @@ namespace ShiggyMod.Modules
         internal const float huntressProcCoefficient = 0.7f;
         internal const int huntressmaxArrowCount = 6;
 
-        internal const float mercDamageCoefficient = 2f;
+        internal const float mercDamageCoefficient = 1f;
         internal const float mercProcCoefficient = 1f;
         public enum IndicatorType : uint
         {
