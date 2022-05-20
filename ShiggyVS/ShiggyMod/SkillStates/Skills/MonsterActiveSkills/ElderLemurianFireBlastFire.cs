@@ -55,49 +55,52 @@ namespace ShiggyMod.SkillStates
                 4f
             };
             this.maxCharge = (float)this.baseMaxCharge / source.Min();
+
+
+
         }
         public override void OnExit()
         {
             base.OnExit();
-            for (int i = 0; i <= hitCount; i++)
+            if (base.isAuthority)
             {
                 float num = 60f;
                 Quaternion rotation = Util.QuaternionSafeLookRotation(base.characterDirection.forward.normalized);
                 float num2 = 0.01f;
                 rotation.x += UnityEngine.Random.Range(-num2, num2) * num;
                 rotation.y += UnityEngine.Random.Range(-num2, num2) * num;
-                EffectManager.SpawnEffect(this.blastEffectPrefab, new EffectData
+
+                BlastAttack blastAttack = new BlastAttack();
+
+                blastAttack.position = moveVec;
+                blastAttack.baseDamage = this.damageStat * damageCoefficient;
+                blastAttack.baseForce = this.force;
+                blastAttack.radius = this.radius;
+                blastAttack.attacker = base.gameObject;
+                blastAttack.inflictor = base.gameObject;
+                blastAttack.teamIndex = base.teamComponent.teamIndex;
+                blastAttack.crit = base.RollCrit();
+                blastAttack.procChainMask = default(ProcChainMask);
+                blastAttack.procCoefficient = procCoefficient;
+                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                blastAttack.damageColorIndex = DamageColorIndex.Default;
+                blastAttack.damageType = (Util.CheckRoll(Flamethrower.ignitePercentChance, base.characterBody.master) ? DamageType.IgniteOnHit : damageType);
+                blastAttack.attackerFiltering = AttackerFiltering.Default;
+
+                Debug.Log(hitCount + "hitcount");
+                for (int i = 0; i < hitCount; i++)
                 {
-                    origin = base.characterBody.corePosition,
-                    scale = this.radius,
-                    rotation = rotation
-                }, false);
-
-                bool isAuthority = base.isAuthority;
-                if (isAuthority)
-                {
-                    BlastAttack blastAttack = new BlastAttack();
-
-                    blastAttack.position = moveVec;
-                    blastAttack.baseDamage = this.damageStat * damageCoefficient;
-                    blastAttack.baseForce = this.force;
-                    blastAttack.radius = this.radius;
-                    blastAttack.attacker = base.gameObject;
-                    blastAttack.inflictor = base.gameObject;
-                    blastAttack.teamIndex = base.teamComponent.teamIndex;
-                    blastAttack.crit = base.RollCrit();
-                    blastAttack.procChainMask = default(ProcChainMask);
-                    blastAttack.procCoefficient = procCoefficient;
-                    blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                    blastAttack.damageColorIndex = DamageColorIndex.Default;
-                    blastAttack.damageType = (Util.CheckRoll(Flamethrower.ignitePercentChance, base.characterBody.master) ? DamageType.IgniteOnHit : damageType);
-                    blastAttack.attackerFiltering = AttackerFiltering.Default;
-
-                    //if (blastAttack.Fire().hitCount > 0)
-                    //{
-                    //    this.OnHitEnemyAuthority();
-                    //}
+                    blastAttack.Fire();
+                    EffectManager.SpawnEffect(this.blastEffectPrefab, new EffectData
+                    {
+                        origin = moveVec,
+                        scale = this.radius,
+                        rotation = rotation
+                    }, false);
                 }
+                    
+                
+
             }
 
 

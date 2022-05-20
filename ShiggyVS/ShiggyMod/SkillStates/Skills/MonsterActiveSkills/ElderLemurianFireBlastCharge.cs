@@ -72,10 +72,10 @@ namespace ShiggyMod.SkillStates
                 ChildLocator component = modelTransform.GetComponent<ChildLocator>();
                 if (component)
                 {
-                    Transform transform = component.FindChild("RHand");
+                    Transform transform = base.FindModelChild("RHand");
                     if (transform && ChargeMegaFireball.chargeEffectPrefab)
                     {
-                        this.chargeInstance = UnityEngine.Object.Instantiate<GameObject>(ChargeMegaFireball.chargeEffectPrefab, transform.position, transform.rotation);
+                        this.chargeInstance = UnityEngine.Object.Instantiate<GameObject>(ChargeMegaFireball.chargeEffectPrefab, transform.position + characterDirection.forward * 2f, transform.rotation);
                         this.chargeInstance.transform.parent = transform;
                         ScaleParticleSystemDuration component2 = this.chargeInstance.GetComponent<ScaleParticleSystemDuration>();
                         if (component2)
@@ -92,7 +92,7 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             Vector3 direction = aimRay.direction;
             aimRay.origin = base.characterBody.corePosition;
-            this.maxDistance = (1f + 4f * this.chargePercent) * this.baseDistance * (this.moveSpeedStat / 7f);
+            this.maxDistance = (1f + 4f * this.chargePercent) * this.baseDistance;
             Physics.Raycast(aimRay.origin, aimRay.direction, out this.raycastHit, this.maxDistance);
             this.hitDis = this.raycastHit.distance;
             bool flag = this.hitDis < this.maxDistance && this.hitDis > 0f;
@@ -100,7 +100,7 @@ namespace ShiggyMod.SkillStates
             {
                 this.maxDistance = this.hitDis;
             }
-            this.damageMult = damageCoefficient + 2 * this.chargePercent * damageCoefficient;
+            this.damageMult = damageCoefficient + 6 * this.chargePercent * damageCoefficient;
             this.radius = (this.baseRadius * this.damageMult + 10f) / 4f;
             this.maxMoveVec = this.maxDistance * direction;
             this.areaIndicator.transform.localScale = Vector3.one * this.radius;
@@ -128,32 +128,11 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
             //bool flag = base.fixedAge < this.maxCharge && base.IsKeyDownAuthority();
-            bool flag = base.IsKeyDownAuthority() && base.fixedAge < this.maxCharge;
+            bool flag = base.IsKeyDownAuthority();
             if (flag)
             {
                 PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
                 this.chargePercent = base.fixedAge / this.maxCharge;
-                //this.randRelPos = new Vector3((float)Random.Range(-12, 12) / 4f, (float)Random.Range(-12, 12) / 4f, (float)Random.Range(-12, 12) / 4f);
-                //this.randFreq = Random.Range(baseMaxCharge * 50, this.baseMaxCharge * 100) / 100;
-                //bool flag2 = this.reducerFlipFlop;
-                //if (flag2)
-                //{
-                //    bool flag3 = (float)this.randFreq <= this.chargePercent;
-                //    if (flag3)
-                //    {
-                //        EffectData effectData = new EffectData
-                //        {
-                //            scale = 1f,
-                //            origin = base.characterBody.corePosition + this.randRelPos
-                //        };
-                //        EffectManager.SpawnEffect(this.effectPrefab, effectData, true);
-                //    }
-                //    this.reducerFlipFlop = false;
-                //}
-                //else
-                //{
-                //    this.reducerFlipFlop = true;
-                //}
                 this.IndicatorUpdator();
             }
 
@@ -169,7 +148,7 @@ namespace ShiggyMod.SkillStates
                     fireblast.radius = this.radius;
                     fireblast.chargePercent = this.chargePercent;
                     fireblast.hitCount = hitcount;
-                    fireblast.moveVec = this.maxMoveVec;
+                    fireblast.moveVec = this.areaIndicator.transform.localPosition;
                     this.outer.SetNextState(fireblast);
                 }
             }
