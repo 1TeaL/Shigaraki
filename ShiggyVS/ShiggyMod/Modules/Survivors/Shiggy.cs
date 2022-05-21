@@ -221,7 +221,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "BULLETLASER_NAME",
                 skillDescriptionToken = prefix + "BULLETLASER_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.ElderLemurianFireBlastCharge)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.VoidFiendCleanse)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 3f,

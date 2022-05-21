@@ -1,13 +1,17 @@
-﻿using EntityStates;
+﻿using ShiggyMod.Modules.Survivors;
+using EntityStates;
 using RoR2;
 using UnityEngine;
-using ShiggyMod.Modules.Survivors;
+using System.Collections.Generic;
+using ShiggyMod.Modules;
 using UnityEngine.Networking;
-using RoR2.Projectile;
+using RoR2.ExpansionManagement;
+using ExtraSkillSlots;
+using EntityStates.Toolbot;
 
 namespace ShiggyMod.SkillStates
 {
-    public class EngiTurret : BaseSkillState
+    public class MultBuff : BaseSkillState
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
         public float baseDuration = 1f;
@@ -23,7 +27,7 @@ namespace ShiggyMod.SkillStates
         private float procCoefficient = 1f;
         private float force = 1f;
         private float speedOverride = -1f;
-        private GameObject turretMasterPrefab = Modules.Assets.engiTurret;
+        private uint loopSoundID;
 
         public override void OnEnter()
         {
@@ -32,16 +36,26 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 
-            base.characterBody.SendConstructTurret(base.characterBody, characterBody.footPosition, Quaternion.LookRotation(aimRay.direction), MasterCatalog.FindMasterIndex(this.turretMasterPrefab));
+            damageType = DamageType.Generic;
+            base.OnEnter();
+            if (NetworkServer.active)
+            {
+                characterBody.AddBuff(Modules.Buffs.multBuff);
+            }
+
+            this.loopSoundID = Util.PlaySound(ToolbotDualWield.startLoopSoundString, base.gameObject);
+
         }
 
         public override void OnExit()
         {
             base.OnExit();
+
+            Util.PlaySound(ToolbotDualWield.exitSoundString, base.gameObject);
+            Util.PlaySound(ToolbotDualWield.stopLoopSoundString, base.gameObject);
         }
 
 

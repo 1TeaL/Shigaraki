@@ -56,6 +56,9 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(HuntressAttack));
             entityStates.Add(typeof(MercDash));
             entityStates.Add(typeof(MercDashAttack));
+            entityStates.Add(typeof(MultBuff));
+            entityStates.Add(typeof(RexMortar));
+            entityStates.Add(typeof(VoidFiendCleanse));
 
             entityStates.Add(typeof(AlphaConstruct));
             entityStates.Add(typeof(Beetle));
@@ -82,7 +85,6 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(Captain));
             entityStates.Add(typeof(Commando));
             entityStates.Add(typeof(Loader));
-            entityStates.Add(typeof(Mult));
         }
     }
 }

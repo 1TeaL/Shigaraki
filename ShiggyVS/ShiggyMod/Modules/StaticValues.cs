@@ -183,6 +183,9 @@ namespace ShiggyMod.Modules
 
         internal const float mercDamageCoefficient = 1f;
         internal const float mercProcCoefficient = 1f;
+
+        internal const float rexDamageCoefficient = 5f;
+        internal const float rexProcCoefficient = 1f;
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

@@ -136,7 +136,7 @@ namespace ShiggyMod.SkillStates
 
                         ProjectileManager.instance.FireProjectile(
                             Modules.Assets.greaterwispBall, //prefab
-                            transform2.position, //position
+                            aimRay.origin, //position
                             Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
                             base.gameObject, //owner
                             this.damageStat * damageCoefficient, //damage
