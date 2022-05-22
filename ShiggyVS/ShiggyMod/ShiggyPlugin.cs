@@ -249,6 +249,32 @@ namespace ShiggyMod
                             }
                         }
                     }
+                    //impboss buff
+                    if (body.HasBuff(Modules.Buffs.greaterwispBuff))
+                    {
+                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                            {
+                                origin = victimBody.transform.position,
+                                scale = 6f
+                            }, true);
+                            new BlastAttack
+                            {
+                                attacker = damageInfo.attacker.gameObject,
+                                teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
+                                falloffModel = BlastAttack.FalloffModel.None,
+                                baseDamage = body.damage * StaticValues.greaterwispballDamageCoeffecient,
+                                damageType = damageInfo.damageType,
+                                damageColorIndex = DamageColorIndex.Count,
+                                baseForce = 0,
+                                position = victimBody.transform.position,
+                                radius = 6f,
+                                procCoefficient = 0.5f,
+                                attackerFiltering = AttackerFiltering.NeverHitSelf,
+                            }.Fire();
+                        }
+                    }
                 }
             }
         }

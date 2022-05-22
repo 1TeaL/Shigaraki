@@ -5,13 +5,14 @@ using ShiggyMod.Modules.Survivors;
 using UnityEngine.Networking;
 using RoR2.Projectile;
 using RoR2.UI;
+using RoR2.Audio;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BanditPrepLightsOut : BaseSkillState
+    public class RailgunnerCryoCharge : BaseSkillState
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 0.5f;
+        public float baseDuration = 1f;
         public float duration;
         public ShiggyController Shiggycon;
         private DamageType damageType;
@@ -25,7 +26,9 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride = -1f;
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
-        public GameObject crosshairOverridePrefab = Modules.Assets.banditCrosshair;
+        public GameObject crosshairOverridePrefab = Modules.Assets.railgunnercryoCrosshair;
+        public LoopSoundDef loopSoundDef = Modules.Assets.railgunnercryochargingSound;
+        private LoopSoundManager.SoundLoopPtr loopPtr;
 
         public override void OnEnter()
         {
@@ -36,12 +39,10 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            base.characterBody.AddTimedBuffAuthority(RoR2Content.Buffs.Cloak.buffIndex, Modules.StaticValues.banditcloakDuration);
-            base.characterBody.AddTimedBuffAuthority(RoR2Content.Buffs.CloakSpeed.buffIndex, Modules.StaticValues.banditcloakDuration);
             PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", 1f);
-            if (this.crosshairOverridePrefab)
+            if (this.loopSoundDef)
             {
-                this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, this.crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
+                this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
             }
         }
 
@@ -52,6 +53,7 @@ namespace ShiggyMod.SkillStates
             {
                 overrideRequest.Dispose();
             }
+            LoopSoundManager.StopSoundLoopLocal(this.loopPtr);
             base.OnExit();
         }
 
@@ -67,9 +69,22 @@ namespace ShiggyMod.SkillStates
             {
                 base.characterBody.SetAimTimer(this.duration);
             }
+            if(base.fixedAge >= this.duration)
+            {
+                if (this.crosshairOverridePrefab)
+                {
+                    this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, this.crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
+                }
+
+            }
             if (base.fixedAge >= this.duration && base.isAuthority && !base.IsKeyDownAuthority())
             {
-                this.outer.SetNextState(new BanditFireLightsOut());
+                CrosshairUtils.OverrideRequest overrideRequest = this.crosshairOverrideRequest;
+                if (overrideRequest != null)
+                {
+                    overrideRequest.Dispose();
+                }
+                this.outer.SetNextState(new RailgunnerCryoFire());
                 return;
             }
         }

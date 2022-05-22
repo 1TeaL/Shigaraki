@@ -4,13 +4,15 @@ using UnityEngine;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine.Networking;
 using RoR2.Projectile;
+using RoR2.Audio;
+using RoR2.UI;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BanditFireLightsOut : BaseSkillState
+    public class RailgunnerCryoFire : BaseSkillState
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 0.5f;
+        public float baseDuration = 2f;
         public float duration;
         public ShiggyController Shiggycon;
         private DamageType damageType;
@@ -19,14 +21,18 @@ namespace ShiggyMod.SkillStates
 
 
         private float radius = 15f;
-        private float damageCoefficient = Modules.StaticValues.banditDamageCoefficient;
-        private float procCoefficient = 1f;
+        private float damageCoefficient = Modules.StaticValues.railgunnerDamageCoefficient;
+        private float procCoefficient = Modules.StaticValues.railgunnerProcCoefficient;
         private float force = 1f;
         private float speedOverride = -1f;
         private float recoilAmplitude = 4f;
         private GameObject effectPrefab = Modules.Assets.banditmuzzleEffect;
         private string muzzleName = "RHand";
         private float bulletCount;
+        public LoopSoundDef loopSoundDef = Modules.Assets.railgunnercryoofflineSound;
+        private LoopSoundManager.SoundLoopPtr loopPtr;
+        public GameObject reloadcrosshairOverridePrefab = Modules.Assets.railgunnercryoreloadCrosshair;
+        private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
 
         public override void OnEnter()
         {
@@ -40,7 +46,7 @@ namespace ShiggyMod.SkillStates
 
             PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
-            damageType = DamageType.BonusToLowHealth | DamageType.ResetCooldownsOnKill;
+            damageType = DamageType.Freeze2s;
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
             {
                 bulletCount = 1 * Modules.StaticValues.multiplierCoefficient;
@@ -52,6 +58,10 @@ namespace ShiggyMod.SkillStates
             if (effectPrefab)
             {
                 EffectManager.SimpleMuzzleFlash(effectPrefab, base.gameObject, muzzleName, false);
+            }
+            if (this.loopSoundDef)
+            {
+                this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
             }
             if (base.isAuthority)
             {
@@ -65,15 +75,16 @@ namespace ShiggyMod.SkillStates
                     minSpread = 0f,
                     maxSpread = 0f,
                     force = force,
+                    stopperMask = LayerIndex.noCollision.mask,
                     falloffModel = BulletAttack.FalloffModel.None,
-                    tracerEffectPrefab = Modules.Assets.bandittracerEffectPrefab,
+                    tracerEffectPrefab = Modules.Assets.railgunnercryoTracer,
                     muzzleName = muzzleName,
-                    hitEffectPrefab = Modules.Assets.banditimpactEffect,
+                    //hitEffectPrefab = Modules.Assets.banditimpactEffect,
                     isCrit = base.RollCrit(),
                     HitEffectNormal = true,
-                    radius = 0.5f,
+                    radius = 2f,
                     maxDistance = 2000f,
-                    procCoefficient = 1f,
+                    procCoefficient = procCoefficient,
                     damage = damageCoefficient * this.damageStat,
                     damageType = damageType,
                     smartCollision = true
@@ -84,6 +95,12 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            LoopSoundManager.StopSoundLoopLocal(this.loopPtr);
+            CrosshairUtils.OverrideRequest overrideRequest = this.crosshairOverrideRequest;
+            if (overrideRequest != null)
+            {
+                overrideRequest.Dispose();
+            }
         }
 
 
@@ -102,7 +119,7 @@ namespace ShiggyMod.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.PrioritySkill;
+            return InterruptPriority.Frozen;
         }
 
     }

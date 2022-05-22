@@ -119,7 +119,7 @@ namespace ShiggyMod.Modules
         internal const float claytemplarminigunDamageCoeffecient = 0.3f;
         internal const float claytemplarminigunProcCoefficient = 0.05f;
 
-        internal const float greaterwispballDamageCoeffecient = 10f;
+        internal const float greaterwispballDamageCoeffecient = 4f;
         internal const float greaterwispballProcCoefficient = 1f;
 
         internal const float jellyfishnovaDamageCoeffecient = 20f;
@@ -186,6 +186,9 @@ namespace ShiggyMod.Modules
 
         internal const float rexDamageCoefficient = 5f;
         internal const float rexProcCoefficient = 1f;
+
+        internal const float railgunnerDamageCoefficient = 15f;
+        internal const float railgunnerProcCoefficient = 2f;
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

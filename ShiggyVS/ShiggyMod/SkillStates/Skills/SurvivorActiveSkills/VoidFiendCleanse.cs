@@ -31,7 +31,7 @@ namespace ShiggyMod.SkillStates
         private GameObject blinkVfxInstance;
         public AnimationCurve forwardSpeed;
         public AnimationCurve upSpeed;
-        public float speedCoefficient = 10f;
+        public float speedCoefficient = 20f;
         private float overlayDuration = 1f;
         private Vector3 blinkVector;
 
@@ -94,7 +94,7 @@ namespace ShiggyMod.SkillStates
             if (!this.outer.destroying)
             {
                 //Util.PlaySound(this.endSoundString, base.gameObject);
-                this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
+                //this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
             }
             if (this.blinkVfxInstance)
             {

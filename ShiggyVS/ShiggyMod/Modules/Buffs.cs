@@ -20,6 +20,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef pestjumpBuff;
         internal static BuffDef verminsprintBuff;
         internal static BuffDef gupspikeBuff;
+        internal static BuffDef greaterwispBuff;
         internal static BuffDef hermitcrabmortarBuff;
         internal static BuffDef hermitcrabmortararmorBuff;
         internal static BuffDef larvajumpBuff;
@@ -57,6 +58,9 @@ namespace ShiggyMod.Modules
             pestjumpBuff = Buffs.AddNewBuff("jumpBuff", Assets.jumpBuffIcon, Color.cyan, false, false);
             verminsprintBuff = Buffs.AddNewBuff("sprintBuff", Assets.sprintBuffIcon, Color.green, false, false);
             gupspikeBuff = Buffs.AddNewBuff("spikybodyBuff", Assets.spikeBuffIcon, Color.red, false, false);
+
+            greaterwispBuff = Buffs.AddNewBuff("greaterwispBuff", Assets.spikeBuffIcon, Color.red, false, false);
+
             hermitcrabmortarBuff = Buffs.AddNewBuff("mortarBuff", Assets.mortarBuffIcon, Color.magenta, false, false);
             hermitcrabmortararmorBuff = Buffs.AddNewBuff("mortararmorBuff", Assets.shieldBuffIcon, Color.blue, true, false);
             larvajumpBuff = Buffs.AddNewBuff("larvajumpBuff", Assets.jumpBuffIcon, Color.green, false, false);

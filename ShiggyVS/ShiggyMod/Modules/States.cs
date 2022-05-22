@@ -25,7 +25,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(ClayTemplarMinigun));
             entityStates.Add(typeof(ElderLemurianFireBlastCharge));
             entityStates.Add(typeof(ElderLemurianFireBlastFire));
-            entityStates.Add(typeof(GreaterWispBallFire));
+            entityStates.Add(typeof(GreaterWispBuff));
             entityStates.Add(typeof(ImpBlink));
             entityStates.Add(typeof(JellyfishNova));
             entityStates.Add(typeof(LemurianFireball));
