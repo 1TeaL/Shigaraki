@@ -9,7 +9,7 @@ namespace ShiggyMod.SkillStates
 {
     public class GreaterWispBuff : BaseSkillState
     {
-        public float baseDuration = 1f;
+        public float baseDuration = 0.1f;
         public float duration;
         public float fireTime;
         public ShiggyController Shiggycon;
@@ -35,14 +35,17 @@ namespace ShiggyMod.SkillStates
             this.fireTime = duration / 3;
             hasFired = false;
             Ray aimRay = base.GetAimRay();
-            base.characterBody.SetAimTimer(this.duration);
+            //base.characterBody.SetAimTimer(this.duration);
             //AkSoundEngine.PostEvent(3660048432, base.gameObject);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            //PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
-            //PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
 
             this.duration = baseDuration / this.attackSpeedStat;
 
+            if (NetworkServer.active)
+            {
+                int buffcount = characterBody.GetBuffCount(Modules.Buffs.greaterwispBuff);
+                characterBody.SetBuffCount(Modules.Buffs.greaterwispBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration + buffcount);
+            }
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageCoefficient *= Shiggycon.rangedMultiplier;

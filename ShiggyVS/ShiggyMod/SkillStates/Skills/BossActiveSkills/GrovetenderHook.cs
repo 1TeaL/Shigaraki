@@ -37,6 +37,7 @@ namespace ShiggyMod.SkillStates
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
             projectileCount = 5 * (uint)Shiggycon.projectileCount;
             fireTimer = (duration / projectileCount);
 

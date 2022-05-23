@@ -29,8 +29,13 @@ namespace ShiggyMod.SkillStates
             if (NetworkServer.active)
             {
                 base.characterBody.AddBuff(Modules.Buffs.multiplierBuff);
-                base.characterBody.AddBuff(Modules.Buffs.acridBuff);
-                base.characterBody.AddBuff(Modules.Buffs.impbossBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.acridBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.impbossBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.commandoBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.captainBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.loaderBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.greaterwispBuff);
+                //base.characterBody.AddBuff(Modules.Buffs.claydunestriderBuff);
                 //base.characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
                 //base.characterBody.AddBuff(Modules.Buffs.beetleBuff);
                 //base.characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
@@ -43,7 +48,7 @@ namespace ShiggyMod.SkillStates
                 //base.characterBody.AddBuff(Modules.Buffs.impbossBuff);
                 //base.characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
                 //base.characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
+                base.characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
                 //base.characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
                 //base.characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
                 //base.characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);

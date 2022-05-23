@@ -31,6 +31,11 @@ namespace ShiggyMod.Modules
         internal const float vagrantRadius = 12f;
         internal const float vagrantdamageThreshold = 4f;
 
+        internal const float claydunestriderHealCoefficient = 0.1f;
+        internal const int claydunestriderbuffDuration = 4;
+        internal const float claydunestriderAttackSpeed = 1.5f;
+        //internal const float clayduneArmor = 100f;
+
         internal const float stonetitanarmorGain = 10f;
 
         internal const float voidjailerInterval = 1f;
@@ -39,7 +44,7 @@ namespace ShiggyMod.Modules
         internal const float voidjailermaxpullDistance = 50f;
         internal const float voidjailerpullLiftVelocity = -10f;
 
-        internal const float roboballboostMultiplier = 3f;
+        internal const float roboballattackspeedMultiplier = 0.02f;
 
         internal const float minimushrumInterval = 1f;
         internal const float minimushrumhealFraction = 0.05f;
@@ -88,7 +93,7 @@ namespace ShiggyMod.Modules
         internal const float lesserwisprangedMultiplier = 1.5f;
 
         internal const float decayspreadRadius = 10f;
-        internal const float decayadditionalTimer = 8f;
+        internal const float decayadditionalTimer = 6f;
         internal const float decayDamageCoeffecient = 1f;
         internal const float decayDamageStack = 0.5f;
         internal const float decayDamagePercentage = 0.005f;
@@ -119,8 +124,9 @@ namespace ShiggyMod.Modules
         internal const float claytemplarminigunDamageCoeffecient = 0.3f;
         internal const float claytemplarminigunProcCoefficient = 0.05f;
 
-        internal const float greaterwispballDamageCoeffecient = 4f;
-        internal const float greaterwispballProcCoefficient = 1f;
+        internal const float greaterwispballDamageCoeffecient = 0.5f;
+        internal const int greaterwispballbuffDuration = 4;
+        internal const float greaterwispballProcCoefficient = 0f;
 
         internal const float jellyfishnovaDamageCoeffecient = 20f;
         internal const float jellyfishnovaProcCoefficient = 2f;
@@ -184,8 +190,9 @@ namespace ShiggyMod.Modules
         internal const float mercDamageCoefficient = 1f;
         internal const float mercProcCoefficient = 1f;
 
-        internal const float rexDamageCoefficient = 5f;
+        internal const float rexDamageCoefficient = 4f;
         internal const float rexProcCoefficient = 1f;
+        internal const float rexHealthCost = 0.1f;
 
         internal const float railgunnerDamageCoefficient = 15f;
         internal const float railgunnerProcCoefficient = 2f;
@@ -223,6 +230,10 @@ namespace ShiggyMod.Modules
             indicatorDict.Add("VagrantBody", IndicatorType.PASSIVE);
             indicatorDict.Add("MagmaWormBody", IndicatorType.PASSIVE);
             indicatorDict.Add("ElectricWormBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("CaptainBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("CommandoBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("CrocoBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("LoaderBody", IndicatorType.PASSIVE);
 
             indicatorDict.Add("VultureBody", IndicatorType.ACTIVE);
             indicatorDict.Add("BeetleGuardBody", IndicatorType.ACTIVE);
@@ -230,6 +241,7 @@ namespace ShiggyMod.Modules
             indicatorDict.Add("BellBody", IndicatorType.ACTIVE);
             indicatorDict.Add("ClayGrenadierBody", IndicatorType.ACTIVE);
             indicatorDict.Add("ClayBruiserBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("LemurianBruiserBody", IndicatorType.ACTIVE);
             indicatorDict.Add("GreaterWispBody", IndicatorType.ACTIVE);
             indicatorDict.Add("ImpBody", IndicatorType.ACTIVE);
             indicatorDict.Add("JellyfishBody", IndicatorType.ACTIVE);
@@ -246,7 +258,15 @@ namespace ShiggyMod.Modules
             indicatorDict.Add("SuperRoboBallBossBody", IndicatorType.ACTIVE);
             indicatorDict.Add("MegaConstructBody", IndicatorType.ACTIVE);
             indicatorDict.Add("VoidMegaCrabBody", IndicatorType.ACTIVE);
-            indicatorDict.Add("ScavBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("Bandit2Body", IndicatorType.ACTIVE);
+            indicatorDict.Add("EngiBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("HuntressBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("MageBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("MercBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("ToolbotBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("TreebotBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("RailgunnerBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("VoidSurvivorBody", IndicatorType.ACTIVE);
         }
     }
 }

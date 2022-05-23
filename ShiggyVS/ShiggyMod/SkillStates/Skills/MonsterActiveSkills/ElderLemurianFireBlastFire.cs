@@ -8,6 +8,7 @@ using System.Linq;
 using EntityStates.Huntress;
 using EntityStates.LemurianBruiserMonster;
 using EntityStates.Mage.Weapon;
+using System.Collections.Generic;
 
 namespace ShiggyMod.SkillStates
 {
@@ -43,6 +44,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayAnimation("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
+            damageCoefficient *= Shiggycon.strengthMultiplier;
             Util.PlaySound(FireMegaFireball.attackString, base.gameObject);
             if (FireMegaFireball.muzzleflashEffectPrefab)
             {
@@ -90,7 +92,11 @@ namespace ShiggyMod.SkillStates
                 Debug.Log(hitCount + "hitcount");
                 for (int i = 0; i < hitCount; i++)
                 {
-                    blastAttack.Fire();
+                    if(blastAttack.Fire().hitCount > 0)
+                    {
+                        OnHitEnemyAuthority();
+                    }
+                    ApplyDoT();
                     EffectManager.SpawnEffect(this.blastEffectPrefab, new EffectData
                     {
                         origin = moveVec,
@@ -106,6 +112,56 @@ namespace ShiggyMod.SkillStates
 
         }
 
+        protected virtual void OnHitEnemyAuthority()
+        {
+            if (characterBody.HasBuff(Modules.Buffs.loaderBuff))
+            {
+                base.healthComponent.AddBarrierAuthority(healthComponent.fullCombinedHealth / 20);
+            }
+
+        }
+        public void ApplyDoT()
+        {
+            Ray aimRay = base.GetAimRay();
+            BullseyeSearch search = new BullseyeSearch
+            {
+
+                teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
+                filterByLoS = false,
+                searchOrigin = moveVec,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = radius,
+                maxAngleFilter = 360f
+            };
+
+            search.RefreshCandidates();
+            search.FilterOutGameObject(base.gameObject);
+
+
+
+            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+            foreach (HurtBox singularTarget in target)
+            {
+                if (singularTarget)
+                {
+                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                    {
+                        InflictDotInfo info = new InflictDotInfo();
+                        info.attackerObject = base.gameObject;
+                        info.victimObject = singularTarget.healthComponent.body.gameObject;
+                        info.duration = Modules.StaticValues.decayDamageTimer;
+                        info.dotIndex = Modules.Dots.decayDot;
+
+                        for (int i = 0; i < Shiggycon.decayCount; i++)
+                        {
+                            DotController.InflictDot(ref info);
+
+                        }
+                    }
+                }
+            }
+        }
 
         public override void FixedUpdate()
         {

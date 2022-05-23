@@ -36,6 +36,7 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
             Util.PlayAttackSpeedSound(ThrowSack.sound, base.gameObject, this.attackSpeedStat);
             //base.PlayAnimation("Body", "ThrowSack", "ThrowSack.playbackRate", this.duration);
             if (ThrowSack.effectPrefab)

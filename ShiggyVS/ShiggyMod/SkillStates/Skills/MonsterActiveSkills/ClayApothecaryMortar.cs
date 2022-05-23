@@ -39,6 +39,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = DamageType.ClayGoo;
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
             if (base.HasBuff(Modules.Buffs.impbossBuff))
             {
                 damageType |= DamageType.BleedOnHit | DamageType.ClayGoo;

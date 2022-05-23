@@ -36,7 +36,6 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-
             this.modelTransform = base.GetModelTransform();
             if (base.cameraTargetParams)
             {

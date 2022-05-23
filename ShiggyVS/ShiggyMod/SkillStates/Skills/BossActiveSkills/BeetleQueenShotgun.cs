@@ -34,6 +34,7 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
             projectileCount = 5 * (uint)Shiggycon.projectileCount;
 
             string muzzleName = "RHand";

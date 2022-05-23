@@ -42,6 +42,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
             {
                 totalBombs = Modules.StaticValues.maxballCount * (int)Modules.StaticValues.multiplierCoefficient;

@@ -42,6 +42,7 @@ namespace ShiggyMod.SkillStates
             this.duration = this.baseDuration / this.attackSpeedStat;
             base.characterBody.SetAimTimer(this.duration);
             damageType = DamageType.Generic;
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 
             this.animator = base.GetModelAnimator();

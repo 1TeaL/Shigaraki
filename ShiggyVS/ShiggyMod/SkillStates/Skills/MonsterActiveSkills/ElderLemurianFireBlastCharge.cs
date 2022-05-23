@@ -100,7 +100,7 @@ namespace ShiggyMod.SkillStates
             {
                 this.maxDistance = this.hitDis;
             }
-            this.damageMult = damageCoefficient + 4 * this.chargePercent * damageCoefficient;
+            this.damageMult = damageCoefficient + 2 * this.chargePercent * damageCoefficient;
             this.radius = (this.baseRadius * this.damageMult + 10f) / 4f;
             this.maxMoveVec = this.maxDistance * direction;
             this.areaIndicator.transform.localScale = Vector3.one * this.radius;

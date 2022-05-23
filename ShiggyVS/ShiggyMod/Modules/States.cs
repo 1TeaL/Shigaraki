@@ -37,7 +37,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(VoidReaverPortal));
 
             entityStates.Add(typeof(BeetleQueenShotgun));
-            entityStates.Add(typeof(ClayDunestriderBall));
+            entityStates.Add(typeof(ClayDunestriderBuff));
             entityStates.Add(typeof(GrandparentSun));
             entityStates.Add(typeof(GrovetenderHook));
             entityStates.Add(typeof(SolusControlUnitKnockup));
@@ -57,6 +57,8 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(MercDash));
             entityStates.Add(typeof(MercDashAttack));
             entityStates.Add(typeof(MultBuff));
+            entityStates.Add(typeof(RailgunnerCryoCharge));
+            entityStates.Add(typeof(RailgunnerCryoFire));
             entityStates.Add(typeof(RexMortar));
             entityStates.Add(typeof(VoidFiendCleanse));
 

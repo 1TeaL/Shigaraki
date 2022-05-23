@@ -30,6 +30,7 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
 			damageType = DamageType.Stun1s;
 
+			Shiggycon = gameObject.GetComponent<ShiggyController>();
 			this.modifiedAimRay = base.GetAimRay();
 			this.modifiedAimRay.direction = this.laserDirection;
 

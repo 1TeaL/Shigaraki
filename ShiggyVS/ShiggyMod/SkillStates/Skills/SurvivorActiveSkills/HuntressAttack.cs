@@ -47,18 +47,11 @@ namespace ShiggyMod.SkillStates
                 base.characterBody.SetAimTimer(this.duration + 1f);
             }
             damageType = DamageType.Generic;
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit;
-            }
-            if (base.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit;
-            }
+            
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration, 0.1f);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-
+            damageCoefficient *= Shiggycon.rangedMultiplier;
             Transform modelTransform = base.GetModelTransform();
             if (modelTransform)
             {

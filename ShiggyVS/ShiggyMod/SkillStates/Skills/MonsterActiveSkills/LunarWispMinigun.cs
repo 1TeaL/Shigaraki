@@ -49,6 +49,7 @@ namespace ShiggyMod.SkillStates
 
             PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             baseBulletCount = 3 * (uint)Shiggycon.projectileCount;
 

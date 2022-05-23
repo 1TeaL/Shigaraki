@@ -38,6 +38,7 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             damageType = DamageType.ClayGoo;
 
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);

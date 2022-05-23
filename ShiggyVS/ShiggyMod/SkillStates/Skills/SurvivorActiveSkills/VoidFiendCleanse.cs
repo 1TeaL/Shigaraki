@@ -85,7 +85,7 @@ namespace ShiggyMod.SkillStates
             EffectData effectData = new EffectData();
             effectData.rotation = Util.QuaternionSafeLookRotation(base.characterDirection.forward);
             effectData.origin = origin;
-            EffectManager.SpawnEffect(Modules.Assets.voidfiendblinktrailEffect, effectData, false);
+            EffectManager.SpawnEffect(Modules.Assets.voidfiendblinkmuzzleEffect, effectData, false);
         }
         public override void OnExit()
         {
@@ -94,7 +94,7 @@ namespace ShiggyMod.SkillStates
             if (!this.outer.destroying)
             {
                 //Util.PlaySound(this.endSoundString, base.gameObject);
-                //this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
+                this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
             }
             if (this.blinkVfxInstance)
             {

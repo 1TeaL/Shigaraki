@@ -57,7 +57,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "1.0.9";
+        public const string MODVERSION = "1.1.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -121,7 +121,7 @@ namespace ShiggyMod
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
             //On.RoR2.TeleporterInteraction.FinishedState.OnEnter += TeleporterInteraction_FinishedState;
-            //GlobalEventManager.onServerDamageDealt += GlobalEventManager_OnDamageDealt;
+            GlobalEventManager.onServerDamageDealt += GlobalEventManager_OnDamageDealt;
             //On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate;
             //On.RoR2.CharacterBody.Update += CharacterBody_Update;
             On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
@@ -216,6 +216,14 @@ namespace ShiggyMod
                         }
                     }
                     //acrid buff
+                    if (body.HasBuff(Modules.Buffs.claydunestriderBuff))
+                    {
+                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            damageInfo.damageType |= DamageType.ClayGoo;
+                        }
+                    }
+                    //acrid buff
                     if (body.HasBuff(Modules.Buffs.acridBuff))
                     {
                         if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
@@ -249,30 +257,33 @@ namespace ShiggyMod
                             }
                         }
                     }
-                    //impboss buff
+                    //greaterwisp buff
                     if (body.HasBuff(Modules.Buffs.greaterwispBuff))
                     {
-                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient != 0f)
                         {
                             EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
                             {
                                 origin = victimBody.transform.position,
-                                scale = 6f
+                                scale = 6f,
+                                rotation = Util.QuaternionSafeLookRotation(damageInfo.force)
                             }, true);
                             new BlastAttack
                             {
                                 attacker = damageInfo.attacker.gameObject,
                                 teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
                                 falloffModel = BlastAttack.FalloffModel.None,
-                                baseDamage = body.damage * StaticValues.greaterwispballDamageCoeffecient,
+                                baseDamage = damageInfo.damage * StaticValues.greaterwispballDamageCoeffecient,
                                 damageType = damageInfo.damageType,
                                 damageColorIndex = DamageColorIndex.Count,
                                 baseForce = 0,
+                                procChainMask = damageInfo.procChainMask,
                                 position = victimBody.transform.position,
                                 radius = 6f,
-                                procCoefficient = 0.5f,
+                                procCoefficient = 0f,
                                 attackerFiltering = AttackerFiltering.NeverHitSelf,
                             }.Fire();
+                            
                         }
                     }
                 }
@@ -310,30 +321,18 @@ namespace ShiggyMod
             }
         }
 
-        //private void GlobalEventManager_OnDamageDealt(DamageReport report)
-        //{
+        private void GlobalEventManager_OnDamageDealt(DamageReport report)
+        {
 
-        //    bool flag = !report.attacker || !report.attackerBody;
+            bool flag = !report.attacker || !report.attackerBody;
 
-        //    if (!flag && report.attackerBody.HasBuff(Modules.Buffs.shellbellBuff))
-        //    {
-        //        int buffnumber = report.attackerBody.GetBuffCount(Modules.Buffs.shellbellBuff);
-        //        if (buffnumber > 0)
-        //        {
-        //            if (buffnumber >= 1 && buffnumber < 2)
-        //            {
-        //                CharacterBody attackerBody = report.attackerBody;
-        //                attackerBody.healthComponent.Heal(report.damageDealt * Modules.StaticValues.shellbelllifesteal, default(ProcChainMask), true);
-        //            }
-        //            if (buffnumber >= 2)
-        //            {
-        //                CharacterBody attackerBody = report.attackerBody;
-        //                attackerBody.healthComponent.Heal(report.damageDealt * Modules.StaticValues.shellbelllifesteal2, default(ProcChainMask), true);
-        //            }
-        //        }
+            if (!flag && report.attackerBody.HasBuff(Modules.Buffs.claydunestriderBuff))
+            {
+                CharacterBody attackerBody = report.attackerBody;
+                attackerBody.healthComponent.Heal(report.damageDealt * Modules.StaticValues.claydunestriderHealCoefficient, default(ProcChainMask), true);
 
-        //    }
-        //}
+            }
+        }
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
@@ -493,6 +492,18 @@ namespace ShiggyMod
 
             if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
             {
+                //roboballmini attackspeed buff
+                if (self.HasBuff(Buffs.roboballminiattackspeedBuff))
+                {
+                    self.attackSpeed += (Modules.StaticValues.roboballattackspeedMultiplier * self.GetBuffCount(Buffs.roboballminiattackspeedBuff));
+
+                }
+                //claydunestrider buff
+                if (self.HasBuff(Buffs.claydunestriderBuff))
+                {
+                    self.attackSpeed *= StaticValues.claydunestriderAttackSpeed;
+
+                }
                 //mult buff
                 if (self.HasBuff(Buffs.multBuff))
                 {
@@ -517,8 +528,8 @@ namespace ShiggyMod
                 //hermitcrabmortararmor buff
                 if (self.HasBuff(Buffs.hermitcrabmortararmorBuff))
                 {
-                    int buffcount = self.GetBuffCount(Buffs.hermitcrabmortararmorBuff);
-                    self.armor += buffcount * Modules.StaticValues.mortararmorGain;
+                    int mortararmorbuffcount = self.GetBuffCount(Buffs.hermitcrabmortararmorBuff);
+                    self.armor += mortararmorbuffcount * Modules.StaticValues.mortararmorGain;
                 }
                 //verminsprint buff
                 if (self.HasBuff(Buffs.verminsprintBuff))

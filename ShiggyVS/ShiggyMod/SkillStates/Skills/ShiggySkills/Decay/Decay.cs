@@ -137,6 +137,34 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
+            //if (NetworkServer.active)
+            //{
+            //    base.characterBody.RemoveBuff(Modules.Buffs.acridBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.impbossBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.commandoBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.captainBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.loaderBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.greaterwispBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.claydunestriderBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.alphashieldonBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.beetleBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.minimushrumBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.larvajumpBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.pestjumpBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.vagrantBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.magmawormBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.gupspikeBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.hermitcrabmortarBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.impbossBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.lesserwispBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.lunarexploderBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.roboballminiBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.stonetitanBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.verminsprintBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.voidbarnaclemortarBuff);
+            //    base.characterBody.RemoveBuff(Modules.Buffs.voidjailerBuff);
+            //}
+
             if (this.decayInstance)
             {
                 EntityState.Destroy(this.decayInstance);

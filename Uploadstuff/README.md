@@ -39,43 +39,24 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
-- 1.0.9 
-    - Fixed bug where jumping disabled air control until collision.
-    - Balance changes: 
-         - Nerfed stone golem damage 600% -> 400%. 
-         - Nerfed Strength and Ranged specific boosts 2x -> 1.5x.
-- 1.0.8 
-    - Added separate handless skin.
-    - Fixed bug on not carrying over passives through levels.
-- 1.0.7 
-    - Oops multiplier applied all buffs.
-- 1.0.6 
-    - Forgot to mention fix for blind vermin passive breaking.
-- 1.0.5 
-    - CustomEmotesAPI compatibility added
-    - Added an icon for the default skin
-    - Optimised AFO code
-    - Buff acquisition optimised and a lot faster now
-    - Fixed gup being set as an active skill rather than extra skill
-- 1.0.4 
-    - Fixed errors when entering a new stage
-    - Added back different buff icons
-    - Multiplier now doesn't get taken away on DoT damage such as decay
-         - Melee attacks are now easier to trigger the triple decay effect due to this 
-    - Bullet Laser now works
-    - Improved AFO passive logic, should be quicker to receive the buff now
-    - Mentioned that AFO can grab elite equipment
-    - Smoother animations
-    - Added new config so you have to hold the button for 1 second before stealing a quirk.
-- 1.0.3 
-    - buff icons not loading so for now everthing is warcry buff icon 
-- 1.0.1 
-    - hotfix dependency 
-- 1.0.0
-    - Release. 
+- 1.1.0 
+    - Added All Survivor Quirks! (except heretic)
+    - Added Elder lemurian's skill (forgot about it oops)- Fire blast.
+    - Fixed right handed animations not playing.
+    - Fixed beetle buff not increasing melee attack damage.
+    - Fixed readme missing stats info for actives.
+    - Balance changes/Reworks: 
+         - You can now hold AFO for 3 seconds and it will remove your current passive and quirk that matches the button pressed for.
+         - Improved Aircannon speed and movement.
+         - Buffed decay to now add one stack and also spread every 6 seconds. The damage is also done in 1 second intervals instead, the damage now deals either the greater of 50% of the ENEMY'S damage or 0.5% of their maximum HP per stack.
+         - Impboss bleed buff now affects every attack, Acrid's poison buff works like this as well.
+         - Reworked a few quirks as they were not that exciting, and served not too much purpose currently, simply different projectiles which didn't have many unique effects.
+             - Greater wisp now grants a buff that makes attacks explode for 50% of the damage. 
+             - Clay dunestrider now grants a buff that gives 10% lifesteal and 1.5x attackspeed. 
+             - Solus probe quirk changed as glide felt a bit unintuitive to use, now it grants attackspeed as you hold down any button every second.
+ 
 - Next update(s)
     - Bug fixes. 
-    - Adding survivor quirks.
     - Adding quirk synergies/combos.
     - More particle effects/visuals.
 
@@ -138,7 +119,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>All For One</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007092-48902939-7905-4630-9348-e14b25b98ddf.png" width="100" height="100"></td>
-    <td>Steal the Target's quirk. Steal the elite aspect as well.</td>
+    <td>Steal the Target's quirk. Steal the elite aspect as well. <br>Hold the button for 3 seconds to remove quirks.</td>
     <td>CD: 1s.<br></td>
   </tr>
 </tbody>
@@ -160,139 +141,217 @@ Shigaraki can sprint in any direction and has a double jump.
     <td>Flight</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007147-086e88f1-7db8-4999-8aa5-bee1282bf141.png" width="100" height="100"></td>
     <td>Jump and float in the air, disabling gravity for 10 seconds.</td>
-    <td></td>
+    <td>CD: 6s.</td>
   </tr>
   <tr>
     <td>Fast<br>Drop</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007155-25889635-31b3-4b4e-ab37-5c3a2cfe7bfb.png" width="100" height="100"></td>
     <td>Drop and slam down, stunning and dealing 400% damage,<br>gaining 5% of your max health as barrier.<br>Damage, radius and barrier gain scales with drop time and movespeed.<br><br><br>[Melee] [Decay] [Movespeed]</td>
-    <td></td>
+    <td>Proc: 1.<br>CD: 4s.</td>
   </tr>
   <tr>
     <td>Charging</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007161-0ee72842-8b6c-4d1c-9557-ea234823e512.png" width="100" height="100"></td>
     <td>Charge forward at super speed, and if you slam into a solid object,<br>generates a shockwave that stuns enemies for 600% damage.<br>Hold the button down to keep charging.<br>Damage and radius scales with charge duration.<br><br>[Melee] [LeftHanded] [Decay] [Movespeed]</td>
-    <td></td>
+    <td>Proc: 1.<br>CD: 4s.</td>
   </tr>
   <tr>
     <td>Spiked<br>Ball<br>Control</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007170-e2ebc59c-17f5-4de1-8d02-30e318c3d6c5.png" width="100" height="100"></td>
     <td>Summon 3 spiked balls, then release them, dealing 400% damage per ball.<br><br><br><br><br>[Ranged] [LeftHanded]</td>
-    <td></td>
+    <td>Proc: 1.<br>CD: 6s.</td>
   </tr>
   <tr>
     <td>Clay<br>Airstrike</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007172-6552e61f-ceda-4f04-bcac-815dead09b12.png" width="100" height="100"></td>
     <td>Release a tar shockwave, and send a mortar into the sky, <br>which rains down on enemies around you, both dealing 200% damage.<br><br><br><br>[Melee] [Ranged] [LeftHanded] [Decay]</td>
-    <td></td>
+    <td>Proc: 1.<br>CD: 7s.</td>
   </tr>
   <tr>
     <td>Clay<br>Minigun</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007176-fd02e021-3715-4b70-bd53-6afffaca45f1.png" width="100" height="100"></td>
     <td>Shoot a rapid hail of tar bullets, tarring and dealing 30% damage per bullet.<br><br><br><br><br>[Ranged] [RightHanded] </td>
-    <td></td>
+    <td>Proc: 0.05.<br>CD: 1s.</td>
   </tr>
   <tr>
-    <td>Spirit<br>Ball<br>Control</td>
+    <td>Fire<br>Blast</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007178-25d002de-e8c7-4c24-851e-d3d66e1d8de2.png" alt="Image" width="100" height="100"></td>
+    <td>Hold the button down to charge a fire blast,<br>When released, deals 200% damage per hit.<br>Number of hits and radius scales with charge duration.<br><br><br>[Melee] [RightHanded] </td>
+    <td>Proc: 0.5.<br>CD: 1s.</td>
+  </tr>
+  <tr>
+    <td>Spirit<br>Boost</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007185-5550654a-c3e5-492c-bf07-d6dd3fb96a66.png" alt="Image" width="100" height="100"></td>
-    <td>Shoot 2 spirit balls, dealing 1000% damage each.<br><br><br><br><br>[Ranged] [RightHanded]</td>
-    <td></td>
+    <td>For 4 seconds, your attacks explode, dealing 50% of the attack's damage.<br>Additional uses adds to the current duration.<br><br><br><br>[RightHanded]</td>
+    <td>CD: 8s.<br></td>
   </tr>
   <tr>
     <td>Blink</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/168007217-47dd6d9d-1520-4669-9686-3710368a094b.png" width="100" height="100"></td>
-    <td>Shoot 2 spirit balls, dealing 1000% damage each.<br><br><br><br><br>[Ranged] [RightHanded]</td>
-    <td></td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007200-8c9dc669-4a8f-4bb7-aa1e-0ead343532ac.png" alt="Image" width="100" height="100"></td>
+    <td>Blink a short distance away, scaling with movespeed.<br><br><br><br><br>[LeftHanded]</td>
+    <td>Stocks: 3.<br>CD: 4s.</td>
   </tr>
   <tr>
     <td>Nova<br>Explosion</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007207-38b54a28-a06b-4f8f-b7b7-6696d5b1f132.png" alt="Image" width="100" height="100"></td>
-    <td>Shoot 2 spirit balls, dealing 1000% damage each.<br><br><br><br><br>[Ranged] [RightHanded]</td>
-    <td></td>
+    <td>Detonate an explosion on the target, stunning and dealing 2000% damage.<br>This explosion can hurt the user as well.<br>Radius scales with attackspeed.<br><br><br>[Ranged] [RightHanded]</td>
+    <td>Proc: 2.<br>CD: 6s.</td>
   </tr>
   <tr>
     <td>Fireball</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007211-38ef12c8-4100-4b3e-9a95-796cc7caf119.png" alt="Image" width="100" height="100"></td>
-    <td>Shoot 2 spirit balls, dealing 1000% damage each.<br><br><br><br><br>[Ranged] [RightHanded]</td>
-    <td></td>
+    <td>Shoot a fireball, burning and dealing 200% damage.<br><br><br><br><br>[Ranged] [LeftHanded]</td>
+    <td>Proc: 1.<br>CD: 0.</td>
   </tr>
   <tr>
     <td>Slide<br>Reset</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007218-c1c599b1-1e95-4c0d-941a-e0c0c125a3ed.png" alt="Image" width="100" height="100"></td>
     <td>Slide, resetting cooldowns for all other skills.<br><br><br><br><br>[LeftHanded]</td>
-    <td></td>
+    <td>Proc: 1.<br>CD: 8s.</td>
   </tr>
   <tr>
     <td>Lunar<br>Minigun</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007219-b22e2574-2199-42b9-b214-524a3d41a865.png" alt="Image" width="100" height="100"></td>
     <td>Shoot a rapid hail of lunar bullets, crippling and dealing 300% damage per bullet.<br><br><br><br><br>[Ranged] [LeftHanded] </td>
-    <td></td>
+    <td>Proc: 0.2.<br>CD: 1s.</td>
   </tr>
   <tr>
     <td>Teleport</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007230-0a790525-76f8-4f92-8a8c-e1988d0432f7.png" alt="Image" width="100" height="100"></td>
     <td>Teleport to the target and generate a shockwave on arrival that stuns enemies,<br>dealing 600% damage in a radius.<br><br><br><br><br>[Melee] [Decay]</td>
-    <td></td>
+    <td>Stocks: 2.<br>Proc: 1.<br>CD: 5s.</td>
   </tr>
   <tr>
     <td>Laser</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007243-0ba456af-680c-499c-b633-2d427137cc55.png" alt="Image" width="100" height="100"></td>
-    <td>Hold the button to charge a laser which, when released, deals 600% damage.<br>Damage and radius scales with charge duration.<br><br><br><br>[Ranged] [LeftHanded]</td>
-    <td></td>
+    <td>Hold the button to charge a laser which, when released, deals 400% damage.<br>Damage and radius scales with charge duration.<br><br><br><br>[Ranged] [LeftHanded]</td>
+    <td>Proc: 1.<br>CD: 5s.</td>
   </tr>
   <tr>
     <td>Nullifier<br>Artillery</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007263-d9c400f5-9b56-4c26-bdde-5776b2ca92a4.png" alt="Image" width="100" height="100"></td>
     <td>Hold the button down to constantly summon nullifier bombs on the target,<br>dealing 200% damage per bomb.<br><br><br><br>[Ranged] [RightHanded]</td>
-    <td></td>
+    <td>Proc: 1.<br>CD: 1s.</td>
   </tr>
   <tr>
     <td>Acid<br>Shotgun</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007156-fa51d78c-823c-438d-94ff-18b83f681ebc.png" alt="Image" width="100" height="100"></td>
     <td>Shoot an acid shotgun infront of you for 5x400% damage, <br>leaving an acid puddle on the ground.<br><br><br><br>[Melee] [RightHanded]</td>
-    <td></td>
+    <td>Proc: 1.<br>CD: 4s.</td>
   </tr>
   <tr>
     <td>Solar<br>Flare</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007184-f5cc4f46-1f08-40ad-9ee2-1c3cef4fe3e9.png" alt="Image" width="100" height="100"></td>
     <td>Hold the button to summon a miniature sun. <br>Sprinting or letting go of the button cancels the skill.<br><br><br><br> [RightHanded]</td>
-    <td></td>
+    <td>CD: 12s.<br></td>
   </tr>
   <tr>
     <td>Hook <br>Shotgun</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007189-4081a4b0-7160-4586-bb7e-8256a5bc51d2.png" alt="Image" width="100" height="100"></td>
     <td>Shoot 5 hooks sequentially, pulling enemies and dealing 300% per hook.<br><br><br><br><br>[Ranged] [LeftHanded]</td>
-    <td></td>
+    <td>Proc: 1.<br>CD: 4s.</td>
   </tr>
   <tr>
-    <td>Rolling<br>Clay</td>
+    <td>Tar<br>Boost</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007174-7eac7d7d-d6d0-44ab-894f-d3f9c33b36d0.png" alt="Image" width="100" height="100"></td>
-    <td>Roll a tar ball along the ground, exploding on contact, <br>tarring and dealing 800% damage.<br><br><br><br>[Ranged] [RightHanded]</td>
-    <td></td>
+    <td>For 4 seconds, your attacks tar, gain 10% lifesteal and 50% attackspeed.<br>Additional uses adds to the current duration.<br><br><br><br>[RightHanded]</td>
+    <td>CD: 8s.<br></td>
   </tr>
   <tr>
     <td>Anti<br>Gravity</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007235-eaab23a7-72fa-4c68-9a16-8dc711c18412.png" alt="Image" width="100" height="100"></td>
     <td>Summon a large anti-gravity array. After a delay, it explodes, <br>launching enemies and dealing 400% damage.<br><br><br><br><br>[Ranged]</td>
-    <td></td>
+    <td>Proc: 1.<br>CD: 10s.</td>
   </tr>
   <tr>
     <td>Beam</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007271-e7f251c0-c430-4347-8a07-f8b494e42ba6.png" alt="Image" width="100" height="100"></td>
-    <td>Shoot a devastating beam, piercing and dealing 200% damage per tick.<br>The beam explodes on hit, dealing 200% damage to nearby enemies.<br><br><br><br>[Ranged] [RightHanded]</td>
-    <td></td>
+    <td>Hold the button to shoot a devastating beam,<br>piercing and dealing 200% damage per tick.<br>The beam explodes on hit, dealing 200% damage to nearby enemies.<br><br><br><br>[Ranged] [RightHanded]</td>
+    <td>Proc: 1.<br>CD: 1s.</td>
   </tr>
   <tr>
     <td>Void<br>Missiles</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007256-47fc7a47-14ce-4826-b4fb-65fa5f7407af.png" alt="Image" width="100" height="100"></td>
     <td>Shoot 2x8 homing missiles, dealing 100% damage per missile.<br><br><br><br><br>[Ranged] [RightHanded]</td>
-    <td></td>
+    <td>Proc: 1.<br>CD: 6s.</td>
   </tr>
   <tr>
     <td>Throw<br>Thqwibs</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007232-7b7f5ec5-77cc-4d91-98db-18783125e8fc.png" alt="Image" width="100" height="100"></td>
     <td>Throw 3 thqwibs that activate On-Kill effects and deal 400% damage each.<br><br><br><br><br>[Ranged] [RightHanded]</td>
+    <td>Proc: 1.<br>CD: 7s.</td>
+  </tr>
+  <tr>
+    <td>Elementality</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007279-d5ac275f-7ce7-4933-a59f-bee18d68f928.png" alt="Image" width="100" height="100"></td>
+    <td>Stealing Artificer's quirk grants Elementality- granting 3 elemental attacks.<br>After using the skill, cycle to the next element. <br>Fire -&gt; Ice -&gt; Lightning.</td>
     <td></td>
+  </tr>
+  <tr>
+    <td>Elementality:<br>Fire</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/169811293-57902aad-80f4-4167-a7b2-77550d2be036.png" alt="Image" width="100" height="100"></td>
+    <td>Burn all enemies in front of you for 1500% damage.<br>Cycle to Elementality: Ice.<br><br><br><br>[Ranged] [LeftHanded]</td>
+    <td>Proc: 1.<br>CD : 6s</td>
+  </tr>
+  <tr>
+    <td>Elementality:<br>Ice</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/169811301-32a5f0f1-1e41-4ae9-9e0a-a9dd58897b18.png" alt="Image" width="100" height="100"></td>
+    <td>Create a barrier that freezes enemies for 100% damage.<br>Cycle to Elementality: Lightning.<br><br><br><br>[Ranged] [LeftHanded]</td>
+    <td>Proc: 1.<br>CD : 4s</td>
+  </tr>
+  <tr>
+    <td>Elementality:<br>Lightning</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/169811307-4133d198-a166-4191-a3d6-580f82ceab4b.png" alt="Image" width="100" height="100"></td>
+    <td>Charge up an exploding nano-bomb that deals 400%-1200% damage.<br>Cycle to Elementality: Fire.<br><br><br><br>[Ranged] [LeftHanded]</td>
+    <td>Proc: 1.<br>CD : 4s</td>
+  </tr>
+  <tr>
+    <td>Lights Out</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007280-1da02e37-e4ea-400f-b5f0-8ca2ef17bf71.png" alt="Image" width="100" height="100"></td>
+    <td>Cloak yourself for 3 seconds and ready a shot while holding the button.<br>Release to fire the shot for 300% damage.<br>Kills reset all your cooldowns.<br><br><br>[Ranged] [RightHanded]</td>
+    <td>Proc: 1.<br>CD : 4s</td>
+  </tr>
+  <tr>
+    <td>Turret</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007287-0872fa07-e8be-4d26-8090-dd04b510ed32.png" alt="Image" width="100" height="100"></td>
+    <td>Place a turret that inherits all your items. Fires a cannon for 100% damage.<br>Can place up to 2.<br><br><br><br>[RightHanded]</td>
+    <td>CD : 45s<br></td>
+  </tr>
+  <tr>
+    <td>Flurry</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007290-2e4bab8b-1399-4064-af1e-dd5a0927dca1.png" alt="Image" width="100" height="100"></td>
+    <td>Fire 3 seeking arrows at the target for 3x100% damage.<br>Critical strikes fire 6 arrows.<br><br><br><br>[Ranged] [RightHanded]</td>
+    <td>Proc: 0.7.<br>CD : 0s</td>
+  </tr>
+  <tr>
+    <td>Eviscerate</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007295-35847b7c-5bb8-44ef-afae-61645f8a63ae.png" alt="Image" width="100" height="100"></td>
+    <td>Target the nearest enemy, attacking them for 100% damage repeatedly.<br>You cannot be hit for the duration.<br><br><br><br>[Melee] [LeftHanded]</td>
+    <td>Proc: 1.<br>CD : 6s</td>
+  </tr>
+  <tr>
+    <td>Power<br>Stance</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007297-807b2ce3-03cf-4b31-994c-9f8dab8c77d0.png" alt="Image" width="100" height="100"></td>
+    <td>Adopt a stance and gain 100 armor, 2x attackspeed but have 0.4x movespeed.<br><br><br><br><br>[RightHanded]</td>
+    <td>Proc: 1.<br>CD : 1s</td>
+  </tr>
+  <tr>
+    <td>Cryocharged<br>Railgun</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007298-f584a2b2-630e-42e1-ab88-bced6c6564af.png" alt="Image" width="100" height="100"></td>
+    <td>Hold to ready a freezing, piercing round.<br>Release to fire the round for 1500% damage.<br><br><br><br>[Ranged] [LeftHanded]</td>
+    <td>Proc: 1.<br>CD : 10s</td>
+  </tr>
+  <tr>
+    <td>Seed <br>Barrage</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007300-e0bd5434-546b-4634-be80-27bd20d6510a.png" alt="Image" width="100" height="100"></td>
+    <td>Costs 10% health.<br>Launch a mortar into the sky for 400% damage.<br><br><br><br>[Ranged] [LeftHanded]</td>
+    <td>Proc: 1.<br>CD : 0.5s</td>
+  </tr>
+  <tr>
+    <td>Cleanse</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/169811343-adca3a08-930e-4256-88a8-47af74237651.png" alt="Image" width="100" height="100"></td>
+    <td>Disappear into the Void, cleansing all debuffs.<br><br><br><br>[LeftHanded]</td>
+    <td>CD : 5s<br></td>
   </tr>
 </tbody>
 </table>
@@ -315,7 +374,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Strength <br>Boost</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007152-1aa4ec94-ce67-4cc9-a032-cbdf986f06e9.png" width="100" height="100"></td>
-    <td>Gain 1.5x Damage.<br>All [Melee] attacks deal 2x damage.<br><br><br><br>[Melee]</td>
+    <td>Gain 1.5x Damage.<br>All [Melee] attacks deal 1.5x damage.<br><br><br><br>[Melee]</td>
   </tr>
   <tr>
     <td>Jump<br>Boost</td>
@@ -340,7 +399,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Ranged<br>Boost</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007216-4788f02b-2f6b-48e6-9f46-f180e49d717c.png" width="100" height="100"></td>
-    <td>Gain 1.5x Damage.<br>All [Ranged] attacks deal 2x damage.<br><br><br><br>[Ranged]</td>
+    <td>Gain 1.5x Damage.<br>All [Ranged] attacks deal 1.5x damage.<br><br><br><br>[Ranged]</td>
   </tr>
   <tr>
     <td>Lunar<br>Aura</td>
@@ -355,12 +414,12 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Healing<br>Aura</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007224-a670a153-4bfd-4e67-a26e-3ba191625087.png" width="100" height="100"></td>
-    <td>Heal yourself and nearby allies 5% health every second.<br><br><br><br>[Healing] </td>
+    <td>Heal yourself and nearby allies 5% health every second.<br><br><br><br><br>[Healing] </td>
   </tr>
   <tr>
-    <td>Glide</td>
+    <td>Solus<br>Boost</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007241-9f3b61cf-b4bd-4fb7-aa65-c1df00a67b43.png" width="100" height="100"></td>
-    <td>While holding the jump button, glide across the sky without losing height.</td>
+    <td>While holding any skill button, gain 2% attack speed per second.</td>
   </tr>
   <tr>
     <td>Void<br>Mortar</td>
@@ -370,13 +429,13 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Gravity</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007260-c17830ca-89ea-465f-be43-83b26f839adf.png" width="100" height="100"></td>
-    <td>While moving, Pull nearby enemies and deal 100% damage.<br>The gap between attacks scales with movespeed.<br><br><br>[Movespeed]</td>
+    <td>While moving, Pull nearby enemies and deal 100% damage.<br>The gap between attacks scales with movespeed.<br><br><br><br>[Movespeed]</td>
   </tr>
   <tr>
     <td>Bleed</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007202-63b83ac8-e236-4faf-9493-b4bc80f34fea.png" width="100" height="100"></td>
-    <td>'Physical' attacks such as melee, blast, or shot type attacks apply bleed.<br><br><br><br><br>[Bleeding]</td>
-  </tr>    
+    <td>Attacks apply Bleed.<br><br><br><br><br>[Bleeding]</td>
+  </tr>
   <tr>
     <td>Stone<br>Skin</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/168007249-7b3f655a-63df-4d92-8ee2-5994704b1dec.png" width="100" height="100"></td>
@@ -397,6 +456,26 @@ Shigaraki can sprint in any direction and has a double jump.
     <td><img src="https://user-images.githubusercontent.com/93917577/168007268-355cbb10-596a-46e7-b5b7-0ddfc1cbc1e7.png" width="100" height="100"></td>
     <td>When striking an enemy for &gt;= 400% damage,<br>Create a Nova explosion that stuns and deals 700% damage. <br> </td>
   </tr>
+  <tr>
+    <td>Poison</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007278-6916e4b3-0177-4fc3-b5f0-6fd4c3518cbf.png" alt="Image" width="100" height="100"></td>
+    <td>Attacks apply Poison.<br><br><br><br><br>[Poison]</td>
+  </tr>
+  <tr>
+    <td>Double<br>Tap</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007285-f812da3b-c6a4-41ed-a258-08d2afe33ec8.png" alt="Image" width="100" height="100"></td>
+    <td>All attacks hit twice, dealing 10% damage of the attack,<br>with a proc coefficient of 1.</td>
+  </tr>
+  <tr>
+    <td>Defensive<br>Microbots</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007282-dab70704-0cd4-4935-bbfe-818e5c537970.png" alt="Image" width="100" height="100"></td>
+    <td>Passively gain Microbots that shoot down nearby enemy projectiles.<br>Drones are also given Microbots.</td>
+  </tr>
+  <tr>
+    <td>Scrap<br>Barrier</td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/168007292-79a3d5b1-537f-463a-8d30-fff04f879c6a.png" alt="Image" width="100" height="100"></td>
+    <td>Gain 5% of your max health as barrier <br>and 1.5x damage on all [Melee] attacks.<br><br><br>[Melee]</td>
+  </tr>
 </tbody>
 </table>
 
@@ -411,7 +490,40 @@ Shigaraki can sprint in any direction and has a double jump.
 These stats are prone to change.
 
 ## Changelog
-
+- 1.0.9 
+    - Fixed bug where jumping disabled air control until collision.
+    - Balance changes: 
+         - Nerfed stone golem damage 600% -> 400%. 
+         - Nerfed Strength and Ranged specific boosts 2x -> 1.5x.
+- 1.0.8 
+    - Added separate handless skin.
+    - Fixed bug on not carrying over passives through levels.
+- 1.0.7 
+    - Oops multiplier applied all buffs.
+- 1.0.6 
+    - Forgot to mention fix for blind vermin passive breaking.
+- 1.0.5 
+    - CustomEmotesAPI compatibility added
+    - Added an icon for the default skin
+    - Optimised AFO code
+    - Buff acquisition optimised and a lot faster now
+    - Fixed gup being set as an active skill rather than extra skill
+- 1.0.4 
+    - Fixed errors when entering a new stage
+    - Added back different buff icons
+    - Multiplier now doesn't get taken away on DoT damage such as decay
+         - Melee attacks are now easier to trigger the triple decay effect due to this 
+    - Bullet Laser now works
+    - Improved AFO passive logic, should be quicker to receive the buff now
+    - Mentioned that AFO can grab elite equipment
+    - Smoother animations
+    - Added new config so you have to hold the button for 1 second before stealing a quirk.
+- 1.0.3 
+    - buff icons not loading so for now everything is warcry buff icon 
+- 1.0.1 
+    - hotfix dependency 
+- 1.0.0
+    - Release.
 - rest of changelog on github
 
 

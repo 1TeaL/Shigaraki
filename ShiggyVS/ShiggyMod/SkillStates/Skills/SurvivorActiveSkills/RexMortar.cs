@@ -24,7 +24,8 @@ namespace ShiggyMod.SkillStates
         private float procCoefficient = Modules.StaticValues.rexProcCoefficient;
         private float force = 400f;
         private float speedOverride = -1f;
-        private float healthCostFraction = 0.1f;
+        private float healthCostFraction = Modules.StaticValues.rexHealthCost;
+        private string muzzleName = "LHand";
 
         public override void OnEnter()
         {
@@ -34,12 +35,13 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
+            damageCoefficient *= Shiggycon.rangedMultiplier;
 
 
             damageType = DamageType.Generic;
-            EffectManager.SimpleMuzzleFlash(FireMortar2.muzzleEffect, base.gameObject, FireMortar2.muzzleName, false);
+            EffectManager.SimpleMuzzleFlash(FireMortar2.muzzleEffect, base.gameObject, muzzleName, false);
             Util.PlaySound(FireMortar2.fireSound, base.gameObject);
-            PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
+            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
             if (base.isAuthority)
             {
                 this.Fire();

@@ -30,6 +30,7 @@ namespace ShiggyMod.SkillStates
 
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "LHand";
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             this.animator = base.GetModelAnimator();
             //this.animator.SetBool("attacking", true);
@@ -42,7 +43,7 @@ namespace ShiggyMod.SkillStates
                 this.chargeVfxInstance.transform.parent = FindModelChild(this.muzzleString).transform;
             }
 
-            for (int i = 0; i < Shiggycon.projectileCount; i++)
+            for (int i = 0; i < 1 * Shiggycon.projectileCount; i++)
             {
                 FireBall();
             }

@@ -35,6 +35,7 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             //base.PlayAnimation(FireVoidMissiles.animationLayerName, FireVoidMissiles.animationStateName, FireVoidMissiles.animationPlaybackRateParam, this.duration);
             Util.PlaySound(FireVoidMissiles.enterSoundString, base.gameObject);
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
             {

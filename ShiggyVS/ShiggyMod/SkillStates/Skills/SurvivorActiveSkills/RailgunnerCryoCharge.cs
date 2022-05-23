@@ -39,10 +39,14 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", 1f);
+            PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", 1f);
             if (this.loopSoundDef)
             {
                 this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
+            }
+            if (this.crosshairOverridePrefab)
+            {
+                this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, this.crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
             }
         }
 
@@ -68,14 +72,6 @@ namespace ShiggyMod.SkillStates
             if (base.characterBody)
             {
                 base.characterBody.SetAimTimer(this.duration);
-            }
-            if(base.fixedAge >= this.duration)
-            {
-                if (this.crosshairOverridePrefab)
-                {
-                    this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, this.crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
-                }
-
             }
             if (base.fixedAge >= this.duration && base.isAuthority && !base.IsKeyDownAuthority())
             {

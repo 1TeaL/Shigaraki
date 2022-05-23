@@ -32,8 +32,9 @@ namespace ShiggyMod.Modules.Survivors
         public float mortarTimer;
 		private float voidmortarTimer;
 		private float voidjailerTimer;
+        private float roboballTimer;
 
-		private Ray downRay;
+        private Ray downRay;
 		public Transform mortarIndicatorInstance;
         public Transform voidmortarIndicatorInstance;
 
@@ -120,6 +121,9 @@ namespace ShiggyMod.Modules.Survivors
         public int captainitemcount;
         private DamageType damageType;
         private DamageType damageType2;
+        private float effecttimer1;
+        private float effecttimer2;
+        private float effecttimer3;
 
         public void Awake()
 		{
@@ -327,6 +331,88 @@ namespace ShiggyMod.Modules.Survivors
             //shiggy current damage
             shiggyDamage = characterBody.damage;
 
+            //Buff effects
+            //multbuff buff
+            if (characterBody.HasBuff(Modules.Buffs.multBuff))
+            {
+                if (effecttimer1 > 1f)
+                {
+                    effecttimer1 = 0f;
+                    EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
+                    {
+                        origin = child.FindChild("LHand").position,
+                        scale = 1f,
+                        rotation = Quaternion.LookRotation(characterBody.transform.position)
+
+                    }, false);
+
+                    EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
+                    {
+                        origin = child.FindChild("RHand").position,
+                        scale = 1f,
+                        rotation = Quaternion.LookRotation(characterBody.transform.position)
+
+                    }, false);
+                }
+                else
+                {
+                    effecttimer1 += Time.fixedDeltaTime;
+
+                }
+            }
+            //claydunestrider buff
+            if (characterBody.HasBuff(Modules.Buffs.claydunestriderBuff))
+            {
+                int claybuffcount = characterBody.GetBuffCount(Modules.Buffs.claydunestriderBuff);
+                if (effecttimer2 > 1f)
+                {
+                    characterBody.SetBuffCount(Modules.Buffs.claydunestriderBuff.buffIndex, claybuffcount-1);
+                    effecttimer2 = 0f;
+                    EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData
+                    {
+                        origin = characterBody.corePosition,
+                        scale = 1f,
+                        rotation = Quaternion.LookRotation(-characterBody.characterDirection.forward)
+
+                    }, false);
+                }
+                else
+                {
+                    effecttimer2 += Time.fixedDeltaTime;
+
+                }
+            }
+            //Greaterwisp buff
+            if (characterBody.HasBuff(Modules.Buffs.greaterwispBuff))
+            {
+                int greaterwispbuffcount = characterBody.GetBuffCount(Modules.Buffs.greaterwispBuff);
+                if (effecttimer3 > 1f)
+                {
+                    characterBody.SetBuffCount(Modules.Buffs.claydunestriderBuff.buffIndex, greaterwispbuffcount-1);
+                    effecttimer3 = 0f;
+                    EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                    {
+                        origin = child.FindChild("LHand").position,
+                        scale = 1f,
+                        rotation = Quaternion.LookRotation(characterBody.transform.position)
+
+                    }, false);
+
+                    EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                    {
+                        origin = child.FindChild("RHand").position,
+                        scale = 1f,
+                        rotation = Quaternion.LookRotation(characterBody.transform.position)
+
+                    }, false);
+                }
+                else
+                {
+                    effecttimer3 += Time.fixedDeltaTime;
+
+                }
+            }
+
             //captain buff items
             captainitemcount = characterBody.master.inventory.GetItemCount(RoR2Content.Items.CaptainDefenseMatrix);
             if (characterBody.HasBuff(Buffs.captainBuff))
@@ -342,16 +428,15 @@ namespace ShiggyMod.Modules.Survivors
                 characterBody.master.inventory.RemoveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
             }
 
-            //check acrid and impboss buff
+            //damagetypes for moves
             damageType = DamageType.Generic;
             damageType2 = DamageType.SlowOnHit;
 
             //check multiplier buff
-
             if (characterBody.HasBuff(Modules.Buffs.multiplierBuff))
             {
                 decayCount = (int)Modules.StaticValues.multiplierCoefficient;
-                projectileCount = (int)Modules.StaticValues.multiplierCoefficient;
+                projectileCount = 1 *(int)Modules.StaticValues.multiplierCoefficient;
             }
             else
             {
@@ -476,32 +561,50 @@ namespace ShiggyMod.Modules.Survivors
 				}
 				else vagranttimer += Time.fixedDeltaTime;
 			}
-
-
-            if (!characterBody.characterMotor.isGrounded)
+            //roboballmini buff
+            if (characterBody.HasBuff(Modules.Buffs.roboballminiBuff.buffIndex))
             {
-                //roboballmini buff
-                if (characterBody.HasBuff(Modules.Buffs.roboballminiBuff.buffIndex))
+                if(characterBody.inputBank.skill1.down 
+                    | characterBody.inputBank.skill2.down 
+                    | characterBody.inputBank.skill3.down 
+                    | characterBody.inputBank.skill1.down)
                 {
-                    if (characterBody.inputBank.jump.down)
+                    if(roboballTimer > 1f)
                     {
-                        characterBody.AddBuff(Buffs.flyBuff.buffIndex);
-                        base.transform.position = characterBody.transform.position;
-                        if (characterBody.hasEffectiveAuthority && characterBody.characterMotor)
-                        {
-                            if (characterBody.inputBank.moveVector != Vector3.zero)
-                            {
-                                characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed * Modules.StaticValues.roboballboostMultiplier);
-                                characterBody.characterMotor.disableAirControlUntilCollision = false;
-                            }
-                        }
+                        roboballTimer = 0f;
+                        characterBody.AddBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex);
                     }
-                    else if (!characterBody.inputBank.jump.down)
+                    else
                     {
-                        characterBody.RemoveBuff(Buffs.flyBuff.buffIndex);
-                    }
+                        roboballTimer += Time.fixedDeltaTime;
 
+                    }
                 }
+                else if (!characterBody.inputBank.skill1.down 
+                    && !characterBody.inputBank.skill2.down 
+                    && !characterBody.inputBank.skill3.down 
+                    && !characterBody.inputBank.skill1.down)
+                {
+                    characterBody.SetBuffCount(Modules.Buffs.roboballminiattackspeedBuff.buffIndex, 0);
+                }
+                //if (characterBody.inputBank.jump.down)
+                //{
+                //    characterBody.AddBuff(Buffs.flyBuff.buffIndex);
+                //    base.transform.position = characterBody.transform.position;
+                //    if (characterBody.hasEffectiveAuthority && characterBody.characterMotor)
+                //    {
+                //        if (characterBody.inputBank.moveVector != Vector3.zero)
+                //        {
+                //            characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed * Modules.StaticValues.roboballboostMultiplier);
+                //            characterBody.characterMotor.disableAirControlUntilCollision = false;
+                //        }
+                //    }
+                //}
+                //else if (!characterBody.inputBank.jump.down)
+                //{
+                //    characterBody.RemoveBuff(Buffs.flyBuff.buffIndex);
+                //}
+
             }
 
 
@@ -660,8 +763,17 @@ namespace ShiggyMod.Modules.Survivors
 			{
 				if (!characterBody.HasBuff(Buffs.pestjumpBuff))
 				{
-					verminjumpbuffGiven = false;
-				}
+                    if (verminjumpbuffGiven)
+                    {
+                        verminjumpbuffGiven = false;
+                        characterBody.characterMotor.jumpCount -= Modules.StaticValues.verminjumpStacks;
+                        characterBody.maxJumpCount -= Modules.StaticValues.verminjumpStacks;
+                        characterBody.baseJumpCount -= Modules.StaticValues.verminjumpStacks;
+                        characterBody.jumpPower -= Modules.StaticValues.verminjumpPower;
+                        characterBody.baseJumpPower -= Modules.StaticValues.verminjumpPower;
+                    }
+
+                }
 			}
 			//larvajump buff
 			if (characterBody.HasBuff(Buffs.larvajumpBuff))
@@ -739,8 +851,17 @@ namespace ShiggyMod.Modules.Survivors
             {
 				if (!characterBody.HasBuff(Buffs.larvajumpBuff))
                 {
-					larvabuffGiven = false;
-				}
+                    if (larvabuffGiven)
+                    {
+                        larvabuffGiven = false;
+                        characterBody.characterMotor.jumpCount -= Modules.StaticValues.larvajumpStacks;
+                        characterBody.maxJumpCount -= Modules.StaticValues.larvajumpStacks;
+                        characterBody.baseJumpCount -= Modules.StaticValues.larvajumpStacks;
+                        characterBody.jumpPower -= Modules.StaticValues.larvajumpPower;
+                        characterBody.baseJumpPower -= Modules.StaticValues.larvajumpPower;
+                        characterBody.maxJumpHeight = Trajectory.CalculateApex(characterBody.jumpPower);
+                    }
+                }
 			}
 			//lunar exploder buff
             if (characterBody.HasBuff(Buffs.lunarexploderBuff))

@@ -62,7 +62,8 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[Ranged] [Melee] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "AFO_NAME", "All For One");
             LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"Steal the Target's quirk. Steal the elite aspect as well. " +
-                "Actives<style=cWorldEvent>[Circle]</style> replace main skills and Passives<style=cWorldEvent>[Triangle]</style> replace extra skills." + Environment.NewLine + Environment.NewLine +
+                "Actives<style=cWorldEvent>[Circle]</style> replace main skills and Passives<style=cWorldEvent>[Triangle]</style> replace extra skills. " + Environment.NewLine +
+                "Hold the button for 3 seconds to remove quirks. " + Environment.NewLine + 
                 $"<style=cSub>[AFO]</style>");
 
             #endregion
@@ -75,7 +76,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[AFO]</style>");
             LanguageAPI.Add(prefix + "BEETLE_NAME", "Strength Boost");
             LanguageAPI.Add(prefix + "BEETLE_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.beetledamageMultiplier}x damage</style>. All <style=cSub>[Melee]</style> attacks deal <style=cIsDamage>{StaticValues.beetlestrengthMultiplier}x damage</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[AFO]</style>");
+                $"<style=cSub>[AFO] [Melee]</style>");
             LanguageAPI.Add(prefix + "PEST_NAME", "Jump Boost");
             LanguageAPI.Add(prefix + "PEST_DESCRIPTION", $"<style=cIsUtility>Gain 4 extra jumps and jump power</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO] [Jump]</style>");
@@ -103,9 +104,13 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "MINIMUSHRUM_NAME", "Healing Aura");
             LanguageAPI.Add(prefix + "MINIMUSHRUM_DESCRIPTION", $"<style=cIsHealing> Heal yourself and nearby allies {100f * StaticValues.minimushrumhealFraction}% health every second</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO] [Healing]</style>");
-            LanguageAPI.Add(prefix + "ROBOBALLMINI_NAME", "Glide");
-            LanguageAPI.Add(prefix + "ROBOBALLMINI_DESCRIPTION", $"<style=cIsUtility> While holding the jump button, glide across the sky without losing height</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "ROBOBALLMINI_NAME", "Solus Boost");
+            LanguageAPI.Add(prefix + "ROBOBALLMINI_DESCRIPTION", $"<style=cIsUtility> While holding any skill button, gain {100f * StaticValues.roboballattackspeedMultiplier}% attack speed </style>every second. " +
+                $"Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO]</style>");
+            //LanguageAPI.Add(prefix + "ROBOBALLMINI_NAME", "Glide");
+            //LanguageAPI.Add(prefix + "ROBOBALLMINI_DESCRIPTION", $"<style=cIsUtility> While holding the jump button, glide across the sky without losing height</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
+            //    $"<style=cSub>[AFO]</style>");
             LanguageAPI.Add(prefix + "VOIDBARNACLE_NAME", "Void Mortar");
             LanguageAPI.Add(prefix + "VOIDBARNACLE_DESCRIPTION", $"While standing still, attack nearby enemies for <style=cIsDamage>{100 * StaticValues.mortarDamageCoefficient}% damage</style>, " +
                 $"gain <style=cIsUtility>{StaticValues.voidmortarattackspeedGain} attackspeed </style> every ({StaticValues.voidmortarbaseDuration}/(CurrentArmor/BaseArmor)) second(s). " +
@@ -118,7 +123,7 @@ namespace ShiggyMod.Modules
                 $" Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO] [Ranged] [Movespeed]</style>");
             LanguageAPI.Add(prefix + "IMPBOSS_NAME", "Bleed");
-            LanguageAPI.Add(prefix + "IMPBOSS_DESCRIPTION", $"<style=cIsDamage> Bleeding.</style> 'Physical' attacks such as melee, blast, or shot type attacks apply <style=cIsHealth>Bleed</style>. " +
+            LanguageAPI.Add(prefix + "IMPBOSS_DESCRIPTION", $"<style=cIsDamage> Bleeding.</style> Attacks apply <style=cIsHealth>Bleed</style>. " +
                 $"Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO] [Bleeding]</style>");
             LanguageAPI.Add(prefix + "STONETITAN_NAME", "Stone Skin");
@@ -134,10 +139,26 @@ namespace ShiggyMod.Modules
                 $"Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO]</style>");
             LanguageAPI.Add(prefix + "VAGRANT_NAME", "Vagrant's Orb");
-            LanguageAPI.Add(prefix + "VAGRANT_DESCRIPTION", $"When striking an enemy for <style=cIsDamage>{100 * StaticValues.vagrantdamageThreshold}% or more damage</style>, Create a nova Explosionon that stuns and deals <style=cIsDamage>{100 * StaticValues.vagrantDamageCoefficient/3}% damage</style>. " +
+            LanguageAPI.Add(prefix + "VAGRANT_DESCRIPTION", $"When striking an enemy for <style=cIsDamage>{100 * StaticValues.vagrantdamageThreshold}% or more damage</style>, Create a nova Explosion that stuns and deals <style=cIsDamage>{100 * StaticValues.vagrantDamageCoefficient/3}% damage</style>. " +
                 $"This bonus attack has a cooldown of {StaticValues.vagrantCooldown} seconds." +
                 $"Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO]</style>");
+            LanguageAPI.Add(prefix + "ACRID_NAME", "Poison");
+            LanguageAPI.Add(prefix + "ACRID_DESCRIPTION", $"<style=cIsDamage> Poison.</style> Attacks apply <style=cIsHealth>Poison</style>. " +
+                $"Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[AFO] [Poison]</style>");
+            LanguageAPI.Add(prefix + "COMMANDO_NAME", "Double Tap");
+            LanguageAPI.Add(prefix + "COMMANDO_DESCRIPTION", $"All attacks hit twice, dealing <style=cIsDamage>{100 * StaticValues.commandoDamageMultiplier}% damage</style> of the attack, with a proc coefficient of {StaticValues.commandoProcCoefficient}. " +
+                $"Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[AFO]</style>");
+            LanguageAPI.Add(prefix + "CAPTAIN_NAME", "Defensive Microbots");
+            LanguageAPI.Add(prefix + "CAPTAIN_DESCRIPTION", $"Passively gain Microbots that shoot down nearby enemy projectiles. Drones are also given Microbots. " +
+                $"Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[AFO]</style>");
+            LanguageAPI.Add(prefix + "LOADER_NAME", "Scrap Barrier");
+            LanguageAPI.Add(prefix + "LOADER_DESCRIPTION", $"Gain <style=cIsUtility> Gain 5% of your max health as barrier</style> and <style=cIsDamage>{100 * StaticValues.loaderDamageMultiplier}% damage</style> on all <style=cSub>[Melee]</style> attacks. " +
+                $"Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[AFO] [Melee]</style>");
             #endregion
 
             #region Active 
@@ -160,14 +181,19 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "TEMPLAR_NAME", "Clay Minigun");
             LanguageAPI.Add(prefix + "TEMPLAR_DESCRIPTION", $"<style=cIsDamage> Tar. Agile.</style> Shoot a rapid hail of tar bullets, tarring and dealing <style=cIsDamage>{100f * StaticValues.claytemplarminigunDamageCoeffecient}% damage per bullet</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
-            LanguageAPI.Add(prefix + "GREATERWISP_NAME", "Spirit Ball Control");
-            LanguageAPI.Add(prefix + "GREATERWISP_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Shoot 2 spirit balls, dealing <style=cIsDamage>{100f * StaticValues.greaterwispballDamageCoeffecient}% damage each</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Ranged] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "ELDERLEMURIAN_NAME", "Fire Blast");
+            LanguageAPI.Add(prefix + "ELDERLEMURIAN_DESCRIPTION", $"<style=cIsDamage> Burning. Agile.</style> Hold the button down to charge a fire blast which, when released, deals <style=cIsDamage>{100f * StaticValues.elderlemurianfireblastDamageCoefficient}% damage</style> per hit. " +
+                $"Number of hits and radius scales with charge duration." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Melee] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "GREATERWISP_NAME", "Spirit Boost");
+            LanguageAPI.Add(prefix + "GREATERWISP_DESCRIPTION", $"<style=cIsDamage> Agile.</style> For {StaticValues.greaterwispballbuffDuration} seconds, your attacks explode, dealing <style=cIsDamage>{100f * StaticValues.greaterwispballDamageCoeffecient}% damage</style> of the attack. " +
+                $"Additional uses adds to the current duration. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[RightHanded]</style>");
             LanguageAPI.Add(prefix + "IMP_NAME", "Blink");
             LanguageAPI.Add(prefix + "IMP_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Blink a short distance away, scaling with movespeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[LeftHanded]</style>");
             LanguageAPI.Add(prefix + "JELLYFISH_NAME", "Nova Explosion");
-            LanguageAPI.Add(prefix + "JELLYFISH_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Detonate an explosion on the target, dealing <style=cIsDamage>{100f * StaticValues.jellyfishnovaDamageCoeffecient}% damage</style>. " +
+            LanguageAPI.Add(prefix + "JELLYFISH_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Detonate an explosion on the target, stunning and dealing <style=cIsDamage>{100f * StaticValues.jellyfishnovaDamageCoeffecient}% damage</style>. " +
                 $"This explosion can hurt the user as well. " +
                 $"Radius scales with attackspeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
@@ -200,14 +226,15 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "GROVETENDER_NAME", "Hook Shotgun");
             LanguageAPI.Add(prefix + "GROVETENDER_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Shoot 5 hooks sequentially, pulling enemies and dealing <style=cIsDamage>{100f * StaticValues.grovetenderDamageCoeffecient}% damage per hook</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [LeftHanded]</style>");
-            LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_NAME", "Rolling Clay");
-            LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_DESCRIPTION", $"<style=cIsDamage> Tar. Agile.</style> Roll a tar ball along the ground, exploding on contact, tarring and dealing <style=cIsDamage>{100f * StaticValues.claydunestriderDamageCoeffecient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Ranged] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_NAME", "Tar boost");
+            LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_DESCRIPTION", $"<style=cIsDamage> Agile.</style> For the next {StaticValues.claydunestriderbuffDuration} seconds, your attacks <style=cIsDamage>Tar</style>, gain <style=cIsHealing>{100f * StaticValues.claydunestriderHealCoefficient} Lifesteal</style> and <style=cIsUtility>{100f * StaticValues.claydunestriderAttackSpeed}% attackspeed</style>. " +
+                $"Additional uses adds to the current duration. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[RightHanded]</style>");
             LanguageAPI.Add(prefix + "SOLUSCONTROLUNIT_NAME", "Anti Gravity");
             LanguageAPI.Add(prefix + "SOLUSCONTROLUNIT_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Summon a large anti-gravity array. After a delay, it explodes, launching enemies and dealing <style=cIsDamage>{100f * StaticValues.soluscontrolunitDamageCoeffecient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged]</style>");
             LanguageAPI.Add(prefix + "XICONSTRUCT_NAME", "Beam");
-            LanguageAPI.Add(prefix + "XICONSTRUCT_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Shoot a devastating beam, piercing and dealing <style=cIsDamage>{100f * StaticValues.xiconstructDamageCoeffecient}% damage per tick</style>. " +
+            LanguageAPI.Add(prefix + "XICONSTRUCT_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Hold the button to shoot a devastating beam, piercing and dealing <style=cIsDamage>{100f * StaticValues.xiconstructDamageCoeffecient}% damage per tick</style>. " +
                 $"The beam also explodes on hit, dealing <style=cIsDamage>{100f * StaticValues.xiconstructDamageCoeffecient}% damage</style> to nearby enemies. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "VOIDDEVASTATOR_NAME", "Void Missiles");
@@ -216,6 +243,52 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "SCAVENGER_NAME", "Throw Thqwibs");
             LanguageAPI.Add(prefix + "SCAVENGER_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Throw {StaticValues.scavengerProjectileCount} thqwibs that activate <style=cDeath>On-Kill effects</style> and deal <style=cIsDamage>{100f * StaticValues.scavengerDamageCoeffecient}% damage</style> each. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "ARTIFICERFLAMETHROWER_NAME", "Elementality: Fire");
+            LanguageAPI.Add(prefix + "ARTIFICERFLAMETHROWER_DESCRIPTION", $"<style=cIsDamage> Burning. Agile.</style> Burn all enemies in front of you for <style=cIsDamage>{100f * StaticValues.artificerflamethrowerDamageCoefficient}% damage</style>. " + Environment.NewLine +
+                $"Cycle to Elementality: Ice." + Environment.NewLine +
+                $"<style=cSub>[Ranged] [LeftHanded]</style>");
+            LanguageAPI.Add(prefix + "ARTIFICERICEWALL_NAME", "Elementality: Ice");
+            LanguageAPI.Add(prefix + "ARTIFICERICEWALL_DESCRIPTION", $"<style=cIsDamage> Freezing. Agile.</style> Create a barrier that freezes enemies for <style=cIsDamage>{100f * StaticValues.artificericewallDamageCoefficient}% damage</style>. " + Environment.NewLine +
+                $"Cycle to Elementality: Lightning." + Environment.NewLine +
+                $"<style=cSub>[Ranged] [LeftHanded]</style>");
+            LanguageAPI.Add(prefix + "ARTIFICERLIGHTNINGORB_NAME", "Elementality: Lightning");
+            LanguageAPI.Add(prefix + "ARTIFICERLIGHTNINGORB_DESCRIPTION", $"<style=cIsDamage> Stunning. Agile.</style> Charge up an exploding nano-bomb that deals <style=cIsDamage>{100f * StaticValues.artificerlightningorbMinDamageCoefficient}%-{100f * StaticValues.artificerlightningorbMaxDamageCoefficient}% damage</style>. " + Environment.NewLine +
+                $"Cycle to Elementality: Fire." + Environment.NewLine +
+                $"<style=cSub>[Ranged] [LeftHanded]</style>");
+            LanguageAPI.Add(prefix + "BANDIT_NAME", "Lights Out");
+            LanguageAPI.Add(prefix + "BANDIT_DESCRIPTION", $"<style=cIsDamage> Slayer. Agile.</style> <style=cIsUtility>Cloak yourself for {StaticValues.banditcloakDuration} seconds</style> and ready a shot while holding the button. " +
+                $"Release to fire the shot for <style=cIsDamage>{100f * StaticValues.banditDamageCoefficient}% damage</style>. " +
+                $"Kills reset all your cooldowns." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Ranged] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "ENGI_NAME", "Turret");
+            LanguageAPI.Add(prefix + "ENGI_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Place a turret that inherits all your items. Fires a cannon for <style=cIsDamage>100% damage</style>. Can place up to 2. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[RightHanded]</style>");
+            LanguageAPI.Add(prefix + "HUNTRESS_NAME", "Flurry");
+            LanguageAPI.Add(prefix + "HUNTRESS_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Fire {StaticValues.huntressmaxArrowCount/2} seeking arrows at the target for <style=cIsDamage>{100f * StaticValues.huntressDamageCoefficient}% damage</style> each. " +
+                $"<style=cIsUtility>Critical Strikes fire {StaticValues.huntressmaxArrowCount} arrows</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Ranged] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "MERC_NAME", "Eviscerate");
+            LanguageAPI.Add(prefix + "MERC_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Target the nearest enemy, attacking them for <style=cIsDamage>{100f * StaticValues.mercDamageCoefficient}% damage</style> repeatedly. " +
+                $"<style=cIsUtility>You cannot be hit for the duration</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Melee] [LeftHanded]</style>");
+            LanguageAPI.Add(prefix + "MULTBUFF_NAME", "Power Stance");
+            LanguageAPI.Add(prefix + "MULTBUFF_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Gain <style=cIsUtility>{StaticValues.multArmor} armor, {StaticValues.multAttackspeed}x attackspeed and {StaticValues.multMovespeed}x </style>. " +
+                $"Reactivate to cancel the stance. This skill cannot be replaced by AFO until you cancel your stance." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[RightHanded]</style>");
+            LanguageAPI.Add(prefix + "MULTBUFFCANCEL_NAME", "Power Stance: Cancel");
+            LanguageAPI.Add(prefix + "MULTBUFFCANCEL_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Cancel the stance. " +
+                $"This skill cannot be replaced by AFO until you cancel your stance." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[RightHanded]</style>");
+            LanguageAPI.Add(prefix + "RAILGUNNNER_NAME", "Cryocharged Railgun");
+            LanguageAPI.Add(prefix + "RAILGUNNNER_DESCRIPTION", $"<style=cIsDamage> Freezing. Agile.</style> Ready a freezing, piercing round. " +
+                $"Release to fire the round for <style=cIsDamage>{100f * StaticValues.railgunnerDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Ranged] [LeftHanded]</style>");
+            LanguageAPI.Add(prefix + "REX_NAME", "Seed Barrage");
+            LanguageAPI.Add(prefix + "REX_DESCRIPTION", $"<style=cIsDamage> Agile.</style> <style=cIsHealth>Costs {100f * StaticValues.rexHealthCost}% health</style>. Launch a mortar into the sky for <style=cIsDamage>{100f * StaticValues.rexDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Ranged] [LeftHanded]</style>");
+            LanguageAPI.Add(prefix + "VOIDFIEND_NAME", "Cleanse");
+            LanguageAPI.Add(prefix + "VOIDFIEND_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Disappear into the Void, <style=cIsUtility>cleansing all debuffs</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[LeftHanded]</style>");
             #endregion
 
             #region Achievements
@@ -225,7 +298,7 @@ namespace ShiggyMod.Modules
             #endregion
 
 
-            #region Achievements
+            #region Keywords
             LanguageAPI.Add(prefix + "KEYWORD_DECAY", $"<style=cKeywordName>Decay</style> Deal <style=cIsDamage>100% of your base damage</style> per second for 10 seconds. " +
                 $"Each <style=cStack>stack reduces movespeed and attackspeed by 4%</style>. " +
                 $"<style=cDeath>Instakills</style> at 50 stacks.");

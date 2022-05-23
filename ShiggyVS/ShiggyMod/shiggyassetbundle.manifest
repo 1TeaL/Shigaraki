@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1825429765
+CRC: 1676814340
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7aa6acd18715f0178044159bcb5c931f
+    Hash: 5df5fcd8e31ac0c31bfb705660a253c1
   TypeTreeHash:
     serializedVersion: 2
     Hash: 92f8c068c360b7e2f221020245f5d65b
@@ -82,6 +82,7 @@ Assets:
 - Assets/Shigaraki/GUI/Monsters/Grandparent.png
 - Assets/Shigaraki/GUI/Monsters/Alpha_Construct.png
 - Assets/Shigaraki/Assets/ShiggyDisplay.prefab
+- Assets/Shigaraki/GUI/Survivors/Void_Fiend.png
 - Assets/Shigaraki/Animations/animShiggy.controller
 - Assets/Shigaraki/Assets/Material/ShiggyMat.mat
 - Assets/Shigaraki/Assets/Particle/AirCannon.prefab
@@ -151,6 +152,7 @@ Assets:
 - Assets/Shigaraki/Animations/Run.anim
 - Assets/Shigaraki/Assets/MeshHand.mesh
 - Assets/Shigaraki/Animations/Right Arm Pull.anim
+- Assets/Shigaraki/GUI/Survivors/MUL-TCANCEL.png
 - Assets/Shigaraki/Import/WispAssets/Materials/SolGate.mat
 - Assets/Shigaraki/GUI/Survivors/Acrid.png
 - Assets/Shigaraki/GUI/Monsters/Solus_Probe.png
