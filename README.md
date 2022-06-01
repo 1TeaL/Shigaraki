@@ -42,6 +42,9 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.1.1 
+    - Hopefully fixed decay buff spreading causing freezing/lag.
+    - Added an impact effect for Decay primary as well as when the buff spreads.
 - 1.1.0 
     - Added All Survivor Quirks! (except heretic)
     - Added Elder lemurian's skill (forgot about it oops)- Fire blast.
