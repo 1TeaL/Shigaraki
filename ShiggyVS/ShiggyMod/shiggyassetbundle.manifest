@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1676814340
+CRC: 1166692134
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 5df5fcd8e31ac0c31bfb705660a253c1
+    Hash: 12a406a05e007f6b29638d6e4de8b9f2
   TypeTreeHash:
     serializedVersion: 2
     Hash: 92f8c068c360b7e2f221020245f5d65b
@@ -182,6 +182,7 @@ Assets:
 - Assets/Shigaraki/GUI/Monsters/Imp.png
 - Assets/Shigaraki/Assets/Material/noise3blur.png
 - Assets/Shigaraki/Assets/MeshShiggy.mesh
+- Assets/Shigaraki/Assets/Particle/DecaySpread.prefab
 - Assets/Shigaraki/Animations/RightArmOut.anim
 - Assets/Shigaraki/Animations/EntranceLoop.anim
 - Assets/Shigaraki/GUI/Monsters/Mini_Mushrum.png

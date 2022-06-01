@@ -178,7 +178,7 @@ namespace ShiggyMod.SkillStates
                 if (!beamPlay)
                 {
                     mainBeam.Play();
-                    beamPlay = false;
+                    beamPlay = true;
                 }
                 fireTimer += Time.fixedDeltaTime;
                 //Fire the laser

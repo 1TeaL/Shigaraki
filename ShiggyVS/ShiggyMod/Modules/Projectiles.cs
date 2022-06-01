@@ -94,6 +94,9 @@ namespace ShiggyMod.Modules
                 lemurianFireBallexplosion.destroyOnWorld = true;
 
                 lemurianFireBallexplosion.GetComponent<ProjectileDamage>().damageType = DamageType.IgniteOnHit;
+                lemurianFireBallexplosion.GetComponent<ProjectileInflictTimedBuff>().buffDef = Modules.Buffs.acridBuff;
+                lemurianFireBallexplosion.GetComponent<ProjectileInflictTimedBuff>().duration = 10;
+
 
             }
 

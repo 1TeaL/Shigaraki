@@ -73,6 +73,7 @@ namespace ShiggyMod.Modules
 
         public static GameObject decayattackEffect;
         public static GameObject decaybuffEffect;
+        public static GameObject decayspreadEffect;
 
         public static GameObject bisonEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bison/BisonChargeStep.prefab").WaitForCompletion();
         public static GameObject GupSpikeEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GupExplosion.prefab").WaitForCompletion();
@@ -167,6 +168,7 @@ namespace ShiggyMod.Modules
             //decay particle
             decayattackEffect = LoadEffect("DecayAttack");
             decaybuffEffect = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DecayBuff");
+            decayspreadEffect = LoadEffect("DecaySpread");
 
             //alpha shield effect
             alphaconstructShieldBuff = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));

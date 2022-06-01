@@ -37,7 +37,7 @@ namespace ShiggyMod.SkillStates
             BullseyeSearch search = new BullseyeSearch
             {
 
-                teamMaskFilter = TeamMask.AllExcept(TeamIndex.Player),
+                teamMaskFilter = TeamMask.GetEnemyTeams(TeamIndex.Player),
                 filterByLoS = false,
                 searchOrigin = charbody.corePosition,
                 searchDirection = UnityEngine.Random.onUnitSphere,
@@ -66,19 +66,31 @@ namespace ShiggyMod.SkillStates
 
                         DotController.InflictDot(ref info);
                     }
+                    EffectManager.SpawnEffect(Modules.Assets.decayspreadEffect, new EffectData
+                    {
+                        origin = singularTarget.healthComponent.body.corePosition,
+                        scale = 1f,
+
+                    }, true);
                 }
             }
         }
         public void ApplyDotToSelf()
         {
-            Debug.Log("ApplyingDoTtoself");
+            //Debug.Log("ApplyingDoTtoself");
             InflictDotInfo info = new InflictDotInfo();
             info.attackerObject = null;
-            info.victimObject = charbody.healthComponent.body.gameObject;
+            info.victimObject = charbody.gameObject;
             info.duration = Modules.StaticValues.decayDamageTimer;
             info.dotIndex = Modules.Dots.decayDot;
 
             DotController.InflictDot(ref info);
+            EffectManager.SpawnEffect(Modules.Assets.decayspreadEffect, new EffectData
+            {
+                origin = charbody.corePosition,
+                scale = 1f,
+
+            }, true);
         }
 
         public void FixedUpdate()
@@ -86,7 +98,7 @@ namespace ShiggyMod.SkillStates
             timer += Time.fixedDeltaTime;
             if (timer > Modules.StaticValues.decayadditionalTimer)
             {
-                Debug.Log("ApplyingDoTfromController");
+                //Debug.Log("ApplyingDoTfromController");
                 timer = 0;
                 ApplyDoT();
                 ApplyDotToSelf();

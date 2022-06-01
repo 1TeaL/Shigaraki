@@ -107,6 +107,7 @@ namespace ShiggyMod.SkillStates
             this.attack.pushAwayForce = this.pushForce;
             this.attack.hitBoxGroup = hitBoxGroup;
             this.attack.isCrit = base.RollCrit();
+            this.attack.hitEffectPrefab = Modules.Assets.decayspreadEffect;
 
             this.detector = new OverlapAttack();
             this.detector.damageType = this.damageType;

@@ -264,7 +264,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "ENGI_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Place a turret that inherits all your items. Fires a cannon for <style=cIsDamage>100% damage</style>. Can place up to 2. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[RightHanded]</style>");
             LanguageAPI.Add(prefix + "HUNTRESS_NAME", "Flurry");
-            LanguageAPI.Add(prefix + "HUNTRESS_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Fire {StaticValues.huntressmaxArrowCount/2} seeking arrows at the target for <style=cIsDamage>{100f * StaticValues.huntressDamageCoefficient}% damage</style> each. " +
+            LanguageAPI.Add(prefix + "HUNTRESS_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Fire {StaticValues.huntressmaxArrowCount/2} seeking arrows at the target for <style=cIsDamage>3x{100f * StaticValues.huntressDamageCoefficient}% damage</style>. " +
                 $"<style=cIsUtility>Critical Strikes fire {StaticValues.huntressmaxArrowCount} arrows</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "MERC_NAME", "Eviscerate");
@@ -272,7 +272,7 @@ namespace ShiggyMod.Modules
                 $"<style=cIsUtility>You cannot be hit for the duration</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Melee] [LeftHanded]</style>");
             LanguageAPI.Add(prefix + "MULTBUFF_NAME", "Power Stance");
-            LanguageAPI.Add(prefix + "MULTBUFF_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Gain <style=cIsUtility>{StaticValues.multArmor} armor, {StaticValues.multAttackspeed}x attackspeed and {StaticValues.multMovespeed}x </style>. " +
+            LanguageAPI.Add(prefix + "MULTBUFF_DESCRIPTION", $"<style=cIsDamage> Agile.</style>Adopt a stance and gain <style=cIsUtility>{StaticValues.multArmor} armor, {StaticValues.multAttackspeed}x attackspeed but have {StaticValues.multMovespeed}x </style>. " +
                 $"Reactivate to cancel the stance. This skill cannot be replaced by AFO until you cancel your stance." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[RightHanded]</style>");
             LanguageAPI.Add(prefix + "MULTBUFFCANCEL_NAME", "Power Stance: Cancel");
@@ -280,7 +280,7 @@ namespace ShiggyMod.Modules
                 $"This skill cannot be replaced by AFO until you cancel your stance." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[RightHanded]</style>");
             LanguageAPI.Add(prefix + "RAILGUNNNER_NAME", "Cryocharged Railgun");
-            LanguageAPI.Add(prefix + "RAILGUNNNER_DESCRIPTION", $"<style=cIsDamage> Freezing. Agile.</style> Ready a freezing, piercing round. " +
+            LanguageAPI.Add(prefix + "RAILGUNNNER_DESCRIPTION", $"<style=cIsDamage> Freezing. Agile.</style> Hold to ready a freezing, piercing round. " +
                 $"Release to fire the round for <style=cIsDamage>{100f * StaticValues.railgunnerDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [LeftHanded]</style>");
             LanguageAPI.Add(prefix + "REX_NAME", "Seed Barrage");
