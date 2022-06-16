@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using ExtraSkillSlots;
+using R2API.Networking;
 using RoR2;
 using RoR2.Skills;
 using System;
@@ -291,6 +292,7 @@ namespace ShiggyMod.Modules.Survivors
 								}
 								if (skillListToOverrideOnRespawn[4] != null && !extra1given)
 								{
+									CheckQuirks(4, self);
 									extra1given = true;
 									extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, skillListToOverrideOnRespawn[4], GenericSkill.SkillOverridePriority.Contextual);
 								}
@@ -300,6 +302,7 @@ namespace ShiggyMod.Modules.Survivors
 								}
 								if (skillListToOverrideOnRespawn[5] != null && !extra2given)
 								{
+									CheckQuirks(5, self);
 									extra2given = true;
 									extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, skillListToOverrideOnRespawn[5], GenericSkill.SkillOverridePriority.Contextual);
 								}
@@ -309,6 +312,7 @@ namespace ShiggyMod.Modules.Survivors
 								}
 								if (skillListToOverrideOnRespawn[6] != null && !extra3given)
 								{
+									CheckQuirks(6, self);
 									extra3given = true;
 									extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, skillListToOverrideOnRespawn[6], GenericSkill.SkillOverridePriority.Contextual);
 								}
@@ -318,6 +322,7 @@ namespace ShiggyMod.Modules.Survivors
 								}
 								if (skillListToOverrideOnRespawn[7] != null && !extra4given)
 								{
+									CheckQuirks(7, self);
 									extra4given = true;
 									extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, skillListToOverrideOnRespawn[7], GenericSkill.SkillOverridePriority.Contextual);
 								}
@@ -325,6 +330,8 @@ namespace ShiggyMod.Modules.Survivors
 								{
 									extra4given = true;
 								}
+																
+
 							}
 
 						}
@@ -362,6 +369,97 @@ namespace ShiggyMod.Modules.Survivors
 			}
 		}
 				
+		public void CheckQuirks(int num, CharacterBody body)
+        {
+			if (skillListToOverrideOnRespawn[num] == Shiggy.alphacontructpassiveDef)
+			{
+				body.ApplyBuff(Buffs.alphashieldonBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.beetlepassiveDef)
+			{
+				body.ApplyBuff(Buffs.beetleBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.pestpassiveDef)
+			{
+				body.ApplyBuff(Buffs.pestjumpBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.verminpassiveDef)
+			{
+				body.ApplyBuff(Buffs.verminsprintBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.guppassiveDef)
+			{
+				body.ApplyBuff(Buffs.gupspikeBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.hermitcrabpassiveDef)
+			{
+				body.ApplyBuff(Buffs.hermitcrabmortarBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.larvapassiveDef)
+			{
+				body.ApplyBuff(Buffs.larvajumpBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.lesserwisppassiveDef)
+			{
+				body.ApplyBuff(Buffs.lesserwispBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.lunarexploderpassiveDef)
+			{
+				body.ApplyBuff(Buffs.lunarexploderBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.minimushrumpassiveDef)
+			{
+				body.ApplyBuff(Buffs.minimushrumBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.roboballminibpassiveDef)
+			{
+				body.ApplyBuff(Buffs.roboballminiBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.voidbarnaclepassiveDef)
+			{
+				body.ApplyBuff(Buffs.voidbarnaclemortarBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.voidjailerpassiveDef)
+			{
+				body.ApplyBuff(Buffs.voidjailerBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.impbosspassiveDef)
+			{
+				body.ApplyBuff(Buffs.impbossBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.stonetitanpassiveDef)
+			{
+				body.ApplyBuff(Buffs.stonetitanBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.magmawormpassiveDef)
+			{
+				body.ApplyBuff(Buffs.magmawormBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.overloadingwormpassiveDef)
+			{
+				body.ApplyBuff(Buffs.overloadingwormBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.vagrantpassiveDef)
+			{
+				body.ApplyBuff(Buffs.vagrantBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.acridpassiveDef)
+			{
+				body.ApplyBuff(Buffs.acridBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.commandopassiveDef)
+			{
+				body.ApplyBuff(Buffs.commandoBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.captainpassiveDef)
+			{
+				body.ApplyBuff(Buffs.captainBuff.buffIndex, 1, -1);
+			}
+			if (skillListToOverrideOnRespawn[num] == Shiggy.loaderpassiveDef)
+			{
+				body.ApplyBuff(Buffs.loaderBuff.buffIndex, 1, -1);
+			}
+		}
 
 	}
 }

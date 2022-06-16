@@ -41,7 +41,8 @@ namespace ShiggyMod
         "PrefabAPI",
         "LanguageAPI",
         "SoundAPI",
-        "DotAPI"
+        "DotAPI",
+        "RecalculateStatsAPI",
     })]
 
     public class ShiggyPlugin : BaseUnityPlugin
@@ -57,7 +58,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "1.1.1";
+        public const string MODVERSION = "1.1.2";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -126,12 +127,14 @@ namespace ShiggyMod
             //On.RoR2.CharacterBody.Update += CharacterBody_Update;
             On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
+            R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
                 On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
             }
         }
+
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
@@ -179,7 +182,7 @@ namespace ShiggyMod
                     //verminsprint buff
                     if (sender.HasBuff(Buffs.verminsprintBuff))
                     {
-                        args.moveSpeedReductionMultAdd += (StaticValues.verminmovespeedMultiplier - 1);
+                        args.moveSpeedMultAdd += (StaticValues.verminmovespeedMultiplier - 1);
                         sender.sprintingSpeedMultiplier = Modules.StaticValues.verminsprintMultiplier;
                     }
                     //multiplier buff
@@ -190,7 +193,7 @@ namespace ShiggyMod
                     //fly buff
                     if (sender.HasBuff(Buffs.flyBuff))
                     {
-                        args.moveSpeedReductionMultAdd += (0.5f);
+                        args.moveSpeedMultAdd += (0.5f);
                         sender.acceleration *= 2f;
                         sender.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
                         sender.characterMotor.useGravity = false;

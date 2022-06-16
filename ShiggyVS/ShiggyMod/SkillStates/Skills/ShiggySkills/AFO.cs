@@ -3244,10 +3244,10 @@ namespace ShiggyMod.SkillStates
                     characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
                 }
             }
-            if (extraskillLocator.extraFirst.skillNameToken == prefix + "ROBOBALLMINI_NAME"
-                && extraskillLocator.extraSecond.skillNameToken == prefix + "ROBOBALLMINI_NAME"
-                && extraskillLocator.extraThird.skillNameToken == prefix + "ROBOBALLMINI_NAME"
-                && extraskillLocator.extraFourth.skillNameToken == prefix + "ROBOBALLMINI_NAME")
+            if (extraskillLocator.extraFirst.skillNameToken != prefix + "ROBOBALLMINI_NAME"
+                && extraskillLocator.extraSecond.skillNameToken != prefix + "ROBOBALLMINI_NAME"
+                && extraskillLocator.extraThird.skillNameToken != prefix + "ROBOBALLMINI_NAME"
+                && extraskillLocator.extraFourth.skillNameToken != prefix + "ROBOBALLMINI_NAME")    
             {
                 if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.roboballminiBuff))
                 {
@@ -3382,6 +3382,26 @@ namespace ShiggyMod.SkillStates
                 if (NetworkServer.active)
                 {
                     characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
+                }
+            }
+            if (extraskillLocator.extraFirst.skillNameToken != prefix + "VAGRANT_NAME"
+                && extraskillLocator.extraSecond.skillNameToken != prefix + "VAGRANT_NAME"
+                && extraskillLocator.extraThird.skillNameToken != prefix + "VAGRANT_NAME"
+                && extraskillLocator.extraFourth.skillNameToken != prefix + "VAGRANT_NAME")
+            {
+                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.vagrantBuff))
+                {
+                    characterBody.RemoveBuff(Modules.Buffs.vagrantBuff);
+                }
+            }
+            else if (extraskillLocator.extraFirst.skillNameToken == prefix + "VAGRANT_NAME"
+                || extraskillLocator.extraSecond.skillNameToken == prefix + "VAGRANT_NAME"
+                || extraskillLocator.extraThird.skillNameToken == prefix + "VAGRANT_NAME"
+                || extraskillLocator.extraFourth.skillNameToken == prefix + "VAGRANT_NAME")
+            {
+                if (NetworkServer.active)
+                {
+                    characterBody.AddBuff(Modules.Buffs.vagrantBuff);
                 }
             }
 

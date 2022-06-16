@@ -39,6 +39,9 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.1.2 
+    - Fixed fps lag from future runs and current runs(Hopefully).
+    - Buffs carry over on respawn/next stage instead of needing to reactivate the skill.
 - 1.1.1 
     - Hopefully fixed decay buff spreading causing freezing/lag.
     - Added an impact effect for Decay primary as well as when the buff spreads.
