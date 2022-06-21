@@ -39,6 +39,9 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.1.3 
+    - Fixed multiplier giving every buff(again).
+    - Possibly fixed multiplayer non-hosts having AFO work with them.
 - 1.1.2 
     - Fixed fps lag from future runs and current runs(Hopefully).
     - Buffs carry over on respawn/next stage instead of needing to reactivate the skill.

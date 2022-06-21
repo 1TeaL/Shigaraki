@@ -224,7 +224,7 @@ namespace ShiggyMod.SkillStates
             Shiggymastercon = characterBody.master.gameObject.GetComponent<ShiggyMasterController>();
 
 
-            if (extrainputBankTest.extraSkill1.down && NetworkServer.active)
+            if (extrainputBankTest.extraSkill1.down)
             {
                 AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
                 
@@ -863,7 +863,7 @@ namespace ShiggyMod.SkillStates
 
             }
 
-            if (extrainputBankTest.extraSkill2.down && NetworkServer.active)
+            if (extrainputBankTest.extraSkill2.down)
             {
                 AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
                 if (hurtBox.healthComponent.body.isElite)
@@ -1499,7 +1499,7 @@ namespace ShiggyMod.SkillStates
                 }
 
             }
-            if (extrainputBankTest.extraSkill3.down && NetworkServer.active)
+            if (extrainputBankTest.extraSkill3.down)
             {
                 AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
                 if (hurtBox.healthComponent.body.isElite)
@@ -2133,7 +2133,7 @@ namespace ShiggyMod.SkillStates
                     Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
                 }
             }
-            if (extrainputBankTest.extraSkill4.down && NetworkServer.active)
+            if (extrainputBankTest.extraSkill4.down)
             {
                 AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
                 if (hurtBox.healthComponent.body.isElite)
