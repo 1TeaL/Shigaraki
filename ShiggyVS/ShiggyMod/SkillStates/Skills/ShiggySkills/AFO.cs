@@ -172,24 +172,32 @@ namespace ShiggyMod.SkillStates
                             Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
                             RemovePrimary();
                             RemoveExtra1();
+                            Shiggymastercon.writeToSkillList(null, 0);
+                            Shiggymastercon.writeToSkillList(null, 4);
                         }
                         if (extrainputBankTest.extraSkill2.down)
                         {
                             Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
                             RemoveSecondary();
                             RemoveExtra2();
+                            Shiggymastercon.writeToSkillList(null, 1);
+                            Shiggymastercon.writeToSkillList(null, 5);
                         }
                         if (extrainputBankTest.extraSkill3.down)
                         {
                             Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
                             RemoveUtility();
                             RemoveExtra3();
+                            Shiggymastercon.writeToSkillList(null, 2);
+                            Shiggymastercon.writeToSkillList(null, 6);
                         }
                         if (extrainputBankTest.extraSkill4.down)
                         {
                             Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
                             RemoveSpecial();
                             RemoveExtra4();
+                            Shiggymastercon.writeToSkillList(null, 3);
+                            Shiggymastercon.writeToSkillList(null, 7);
                         }
                         CheckQuirks();
                         this.outer.SetNextStateToMain();
@@ -213,7 +221,6 @@ namespace ShiggyMod.SkillStates
         public void dropEquipment(EquipmentDef def)
         {
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(def.equipmentIndex), base.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + base.transform.forward * 2f);
-
         }
 
         private void StealQuirk(HurtBox hurtBox)

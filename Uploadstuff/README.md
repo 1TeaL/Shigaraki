@@ -39,6 +39,9 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.1.4 
+    - Fixed quirk resetting to properly reset the quirk next stage.
+    - Known issue, non-hosts can spawn the elite aspect but not pick them up.
 - 1.1.3 
     - Fixed multiplier giving every buff(again).
     - Possibly fixed multiplayer non-hosts having AFO work with them.
@@ -72,6 +75,7 @@ If you enjoy my work, support me on Ko-fi!
 <img src="https://user-images.githubusercontent.com/93917577/168006996-bed1b1b2-bcbf-4baf-9010-13bc22b19332.png">
 
 ## Known Issues
+    Non-hosts can spawn the elite aspect but not pick them up.
 
 ## Overview
     He is initially weak with low base damage, aim to get passive quirks to increase his power.
