@@ -42,41 +42,16 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.2.0 
+    - New Icons! (Courtersy of Mr.Bones) 
+    - Model setup for skin by Mr.Bones
 
-- 1.1.4 
-    - Fixed quirk resetting to properly reset the quirk next stage.
-    - Known issue, non-hosts can spawn the elite aspect but not pick them up.
-- 1.1.3 
-    - Fixed multiplier giving every buff(again).
-    - Possibly fixed multiplayer non-hosts having AFO work with them.
-- 1.1.2 
-    - Fixed fps lag from future runs and current runs(Hopefully).
-    - Buffs carry over on respawn/next stage instead of needing to reactivate the skill.
-- 1.1.1 
-    - Hopefully fixed decay buff spreading causing freezing/lag.
-    - Added an impact effect for Decay primary as well as when the buff spreads.
-- 1.1.0 
-    - Added All Survivor Quirks! (except heretic)
-    - Added Elder lemurian's skill (forgot about it oops)- Fire blast.
-    - Fixed right handed animations not playing.
-    - Fixed beetle buff not increasing melee attack damage.
-    - Fixed readme missing stats info for actives.
-    - Balance changes/Reworks: 
-         - You can now hold AFO for 3 seconds and it will remove your current passive and quirk that matches the button pressed for.
-         - Improved Aircannon speed and movement.
-         - Buffed decay to now add one stack and also spread every 6 seconds. The damage is also done in 1 second intervals instead, the damage now deals either the greater of 50% of the ENEMY'S damage or 0.5% of their maximum HP per stack.
-         - Impboss bleed buff now affects every attack, Acrid's poison buff works like this as well.
-         - Reworked a few quirks as they were not that exciting, and served not too much purpose currently, simply different projectiles which didn't have many unique effects.
-             - Greater wisp now grants a buff that makes attacks explode for 50% of the damage. 
-             - Clay dunestrider now grants a buff that gives 10% lifesteal and 1.5x attackspeed. 
-             - Solus probe quirk changed as glide felt a bit unintuitive to use, now it grants attackspeed as you hold down any button every second.
- 
 - Next update(s)
     - Bug fixes. 
     - Adding quirk synergies/combos.
     - More particle effects/visuals.
 
-<img src="https://user-images.githubusercontent.com/93917577/168006996-bed1b1b2-bcbf-4baf-9010-13bc22b19332.png">
+<img src= "https://user-images.githubusercontent.com/93917577/179202355-c5eb5011-4295-4093-9c96-d84132bcbb05.PNG">
 
 ## Known Issues
     Non-hosts can spawn the elite aspect but not pick them up.
@@ -111,31 +86,31 @@ Shigaraki can sprint in any direction and has a double jump.
 <tbody>
   <tr>
     <td>Decay<br>Primary</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/168007105-3c8323d0-d97e-42d1-a6a1-06964fc9ac6e.png" width="100" height="100"></td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/179195239-9d1f2ecd-360f-4e35-86e5-20d173b44f16.png" width="100" height="100"></td>
     <td>Slam and Decay the ground/air around you, dealing 300% damage.<br><br><br><br><br>[Melee] [Decay]</td>
     <td>Proc: 1.</td>
   </tr>
   <tr>
     <td>Bullet Laser<br>Secondary</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/168007101-1ede4aa9-e2d2-4526-bd68-1132e88b102a.png" width="100" height="100"></td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/179195235-c3128f52-9292-4560-b194-8a6f24e1da5b.png" width="100" height="100"></td>
     <td>Shoot piercing lasers for 5x300% damage.<br><br><br><br><br>[Ranged]</td>
     <td>Proc: 0.3.<br>CD: 3s.</td>
   </tr>
   <tr>
     <td>Air Cannon<br>Utility</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/168007077-1351268d-a77e-4dfa-b8a9-9b1c9c125f2a.PNG" width="100" height="100"></td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/179195228-7a5b2f0e-4e45-4e50-96e3-e4281c319a97.PNG" width="100" height="100"></td>
     <td>Blasts an air shockwave behind you.<br>Does 400% damage and propels you forward.<br><br><br><br>[Melee] [Decay]</td>
     <td>Proc: 1.<br>CD: 5s.</td>
   </tr>
   <tr>
     <td>Multiplier<br>Special<br></td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/168007691-5d396602-a1f8-40d9-aaee-fc4fc9381e7c.png" width="100" height="100"></td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/179195241-4e40f8ea-9df2-4d28-b372-409ced57dd85.png" width="100" height="100"></td>
     <td>Boosts your next attack to deal 3x damage.<br>Triples the number of projectiles, shots and decay stacks as well.<br><br><br><br>[Melee] [Ranged]</td>
     <td>CD: 8s.<br></td>
   </tr>
   <tr>
     <td>All For One</td>
-    <td><img src="https://user-images.githubusercontent.com/93917577/168007092-48902939-7905-4630-9348-e14b25b98ddf.png" width="100" height="100"></td>
+    <td><img src="https://user-images.githubusercontent.com/93917577/179195232-afa5af2b-de69-40bb-996f-f12c430dfe08.png" width="100" height="100"></td>
     <td>Steal the Target's quirk. Steal the elite aspect as well. <br>Hold the button for 3 seconds to remove quirks.</td>
     <td>CD: 1s.<br></td>
   </tr>
@@ -507,6 +482,33 @@ Shigaraki can sprint in any direction and has a double jump.
 These stats are prone to change.
 
 ## Changelog
+- 1.1.4 
+    - Fixed quirk resetting to properly reset the quirk next stage.
+    - Known issue, non-hosts can spawn the elite aspect but not pick them up.
+- 1.1.3 
+    - Fixed multiplier giving every buff(again).
+    - Possibly fixed multiplayer non-hosts having AFO work with them.
+- 1.1.2 
+    - Fixed fps lag from future runs and current runs(Hopefully).
+    - Buffs carry over on respawn/next stage instead of needing to reactivate the skill.
+- 1.1.1 
+    - Hopefully fixed decay buff spreading causing freezing/lag.
+    - Added an impact effect for Decay primary as well as when the buff spreads.
+- 1.1.0 
+    - Added All Survivor Quirks! (except heretic)
+    - Added Elder lemurian's skill (forgot about it oops)- Fire blast.
+    - Fixed right handed animations not playing.
+    - Fixed beetle buff not increasing melee attack damage.
+    - Fixed readme missing stats info for actives.
+    - Balance changes/Reworks: 
+         - You can now hold AFO for 3 seconds and it will remove your current passive and quirk that matches the button pressed for.
+         - Improved Aircannon speed and movement.
+         - Buffed decay to now add one stack and also spread every 6 seconds. The damage is also done in 1 second intervals instead, the damage now deals either the greater of 50% of the ENEMY'S damage or 0.5% of their maximum HP per stack.
+         - Impboss bleed buff now affects every attack, Acrid's poison buff works like this as well.
+         - Reworked a few quirks as they were not that exciting, and served not too much purpose currently, simply different projectiles which didn't have many unique effects.
+             - Greater wisp now grants a buff that makes attacks explode for 50% of the damage. 
+             - Clay dunestrider now grants a buff that gives 10% lifesteal and 1.5x attackspeed. 
+             - Solus probe quirk changed as glide felt a bit unintuitive to use, now it grants attackspeed as you hold down any button every second.
 - 1.0.9 
     - Fixed bug where jumping disabled air control until collision.
     - Balance changes: 
@@ -554,13 +556,14 @@ These stats are prone to change.
   
 ## OG Pictures
 ![128x128Icon](https://user-images.githubusercontent.com/93917577/168004591-39480a52-c7fe-4962-997f-cd9460bb4d4a.png)
-![image](https://user-images.githubusercontent.com/93917577/168006996-bed1b1b2-bcbf-4baf-9010-13bc22b19332.png)
+![characterselect](https://user-images.githubusercontent.com/93917577/179202355-c5eb5011-4295-4093-9c96-d84132bcbb05.PNG)
 
-![decay](https://user-images.githubusercontent.com/93917577/168007105-3c8323d0-d97e-42d1-a6a1-06964fc9ac6e.png)
-![bulletlaser](https://user-images.githubusercontent.com/93917577/168007101-1ede4aa9-e2d2-4526-bd68-1132e88b102a.png)
-![aircannon](https://user-images.githubusercontent.com/93917577/168007077-1351268d-a77e-4dfa-b8a9-9b1c9c125f2a.PNG)
-![multiplier](https://user-images.githubusercontent.com/93917577/168007691-5d396602-a1f8-40d9-aaee-fc4fc9381e7c.png)
-![allforone](https://user-images.githubusercontent.com/93917577/168007092-48902939-7905-4630-9348-e14b25b98ddf.png)
+
+![aircannon](https://user-images.githubusercontent.com/93917577/179195228-7a5b2f0e-4e45-4e50-96e3-e4281c319a97.PNG)
+![allforone](https://user-images.githubusercontent.com/93917577/179195232-afa5af2b-de69-40bb-996f-f12c430dfe08.png)
+![bulletlaser](https://user-images.githubusercontent.com/93917577/179195235-c3128f52-9292-4560-b194-8a6f24e1da5b.png)
+![decay](https://user-images.githubusercontent.com/93917577/179195239-9d1f2ecd-360f-4e35-86e5-20d173b44f16.png)
+![multiplier](https://user-images.githubusercontent.com/93917577/179195241-4e40f8ea-9df2-4d28-b372-409ced57dd85.png)
 
 ![Alloy_Vulture](https://user-images.githubusercontent.com/93917577/168007147-086e88f1-7db8-4999-8aa5-bee1282bf141.png)
 ![Alpha_Construct](https://user-images.githubusercontent.com/93917577/168007151-233450f3-4975-4ab8-bd0c-cdfb5b0684d8.png)
