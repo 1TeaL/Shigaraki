@@ -1,8 +1,8 @@
 {
     "name": "ShigarakiMod",
-    "version_number": "1.1.4",
+    "version_number": "1.2.0",
     "website_url": "https://github.com/1TeaL/Shigaraki",
-    "description": "Go Beyond... 1.1.0 - Survivor Quirks! New Quirks/Quirk reworks! Decay buff, Balance changes, 1.1.4- reset quirk fix, known issue added",
+    "description": "Go Beyond... 1.2.0 - New icons!",
     "dependencies": [
          "tristanmcpherson-R2API-4.3.5",
          "KingEnderBrine-ExtraSkillSlots-1.5.1"

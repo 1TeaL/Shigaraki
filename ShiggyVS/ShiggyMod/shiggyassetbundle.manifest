@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1166692134
+CRC: 477631864
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 12a406a05e007f6b29638d6e4de8b9f2
+    Hash: 20be1637c07f423a1be30292eee0294b
   TypeTreeHash:
     serializedVersion: 2
     Hash: 92f8c068c360b7e2f221020245f5d65b
@@ -82,13 +82,13 @@ Assets:
 - Assets/Shigaraki/GUI/Monsters/Grandparent.png
 - Assets/Shigaraki/GUI/Monsters/Alpha_Construct.png
 - Assets/Shigaraki/Assets/ShiggyDisplay.prefab
+- Assets/Shigaraki/GUI/Base/multiplier.png
 - Assets/Shigaraki/GUI/Survivors/Void_Fiend.png
 - Assets/Shigaraki/Animations/animShiggy.controller
 - Assets/Shigaraki/Assets/Material/ShiggyMat.mat
 - Assets/Shigaraki/Assets/Particle/AirCannon.prefab
 - Assets/Shigaraki/Animations/ShigarakifbxAvatar.asset
 - Assets/Shigaraki/Import/WispAssets/Prefabs/XiBeam.prefab
-- Assets/Shigaraki/GUI/Base/allforone.png
 - Assets/Shigaraki/Animations/RightArmPunch.anim
 - Assets/Shigaraki/GUI/Monsters/Void_Jailer.png
 - Assets/Shigaraki/GUI/Survivors/REX.png
@@ -117,9 +117,11 @@ Assets:
 - Assets/Shigaraki/Animations/Slam.anim
 - Assets/Shigaraki/Animations/ShiggyRightArmMask.mask
 - Assets/Shigaraki/GUI/Monsters/Blind_Vermin.png
+- Assets/Shigaraki/GUI/Base/bulletlaser.png
 - Assets/Shigaraki/GUI/Monsters/Lesser_Wisp.png
 - Assets/Shigaraki/Animations/ShiggyLeftArmMask.mask
 - Assets/Shigaraki/GUI/Monsters/Voidling.png
+- Assets/Shigaraki/GUI/Base/allforone.png
 - Assets/Shigaraki/Import/WispAssets/Prefabs/Beam.prefab
 - Assets/Shigaraki/GUI/Survivors/Huntress.png
 - Assets/Shigaraki/Emotes/humanoidShigaraki.prefab
@@ -129,7 +131,6 @@ Assets:
 - Assets/Shigaraki/Assets/Material/MultiplierMat.mat
 - Assets/Shigaraki/Import/WispAssets/Prefabs/FullBeam.prefab
 - Assets/Shigaraki/Animations/Fall.anim
-- Assets/Shigaraki/GUI/Base/multiplier.png
 - Assets/Shigaraki/GUI/Base/texShiggyIcon.png
 - Assets/Shigaraki/Animations/BothArmsPunch.anim
 - Assets/Shigaraki/GUI/Monsters/Parent.png
@@ -140,7 +141,6 @@ Assets:
 - Assets/Shigaraki/GUI/Monsters/Stone_Titan.png
 - Assets/Shigaraki/GUI/Monsters/Gip.png
 - Assets/Shigaraki/GUI/Monsters/Void_Fiend.png
-- Assets/Shigaraki/GUI/Base/bulletlaser.png
 - Assets/Shigaraki/GUI/Monsters/Wandering_Vagrant.png
 - Assets/Shigaraki/Animations/Land.anim
 - Assets/Shigaraki/Import/WispAssets/Prefabs/BeamStart.prefab
