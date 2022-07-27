@@ -42,6 +42,8 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.2.1 
+    - Added Imp Boss to the passive indicator list (missed it).
 - 1.2.0 
     - New Icons! (Courtersy of Mr.Bones) 
     - Model setup for skin by Mr.Bones
