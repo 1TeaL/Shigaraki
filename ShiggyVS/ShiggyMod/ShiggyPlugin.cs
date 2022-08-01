@@ -372,16 +372,20 @@ namespace ShiggyMod
         {
             orig.Invoke(self);
 
-            if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+            if (self)
             {
-                Shiggycon = self.GetComponent<ShiggyController>();
+                if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                {
+                    Shiggycon = self.GetComponent<ShiggyController>();
 
-                if (Shiggycon.overloadingWard) EntityState.Destroy(Shiggycon.overloadingWard);
-                if (Shiggycon.mushroomWard) EntityState.Destroy(Shiggycon.mushroomWard);
-                if (Shiggycon.magmawormWard) EntityState.Destroy(Shiggycon.magmawormWard);
-                if (Shiggycon.mortarIndicatorInstance) EntityState.Destroy(Shiggycon.mortarIndicatorInstance.gameObject);
-                if (Shiggycon.voidmortarIndicatorInstance) EntityState.Destroy(Shiggycon.voidmortarIndicatorInstance.gameObject);
-                AkSoundEngine.PostEvent(2108803202, this.gameObject);
+                    if (Shiggycon.overloadingWard) EntityState.Destroy(Shiggycon.overloadingWard);
+                    if (Shiggycon.mushroomWard) EntityState.Destroy(Shiggycon.mushroomWard);
+                    if (Shiggycon.magmawormWard) EntityState.Destroy(Shiggycon.magmawormWard);
+                    if (Shiggycon.mortarIndicatorInstance) EntityState.Destroy(Shiggycon.mortarIndicatorInstance.gameObject);
+                    if (Shiggycon.voidmortarIndicatorInstance) EntityState.Destroy(Shiggycon.voidmortarIndicatorInstance.gameObject);
+                    AkSoundEngine.PostEvent(2108803202, this.gameObject);
+                }
+
             }
         }
 
@@ -414,149 +418,154 @@ namespace ShiggyMod
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
-            if (damageInfo != null && damageInfo.attacker && damageInfo.attacker.GetComponent<CharacterBody>())
+            if (self)
             {
-                //multiplier remove
-                if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
+                if (damageInfo != null && damageInfo.attacker && damageInfo.attacker.GetComponent<CharacterBody>())
                 {
-                    if((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    //multiplier remove
+                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
                     {
-                        damageInfo.attacker.GetComponent<CharacterBody>().RemoveBuff(Buffs.multiplierBuff);
-                    }
-                }
-                if (self.body.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-                {
-                    bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
-                    if (!flag && damageInfo.damage > 0f)
-                    {
-                        //stone titan buff
-                        if (self.body.HasBuff(Buffs.stonetitanBuff.buffIndex) )
+                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                         {
-                            if (self.combinedHealthFraction < 0.5f && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                            damageInfo.attacker.GetComponent<CharacterBody>().RemoveBuff(Buffs.multiplierBuff);
+                        }
+                    }
+                    if (self.body.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                    {
+                        bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
+                        if (!flag && damageInfo.damage > 0f)
+                        {
+                            //stone titan buff
+                            if (self.body.HasBuff(Buffs.stonetitanBuff.buffIndex))
                             {
-                                damageInfo.force = Vector3.zero;
-                                damageInfo.damage -= self.body.armor;
-                                if (damageInfo.damage < 0f)
+                                if (self.combinedHealthFraction < 0.5f && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                                 {
-                                    self.Heal(Mathf.Abs(damageInfo.damage), default(RoR2.ProcChainMask), true);
-                                    damageInfo.damage = 0f;
+                                    damageInfo.force = Vector3.zero;
+                                    damageInfo.damage -= self.body.armor;
+                                    if (damageInfo.damage < 0f)
+                                    {
+                                        self.Heal(Mathf.Abs(damageInfo.damage), default(RoR2.ProcChainMask), true);
+                                        damageInfo.damage = 0f;
 
+                                    }
+
+                                }
+                                else
+                                {
+                                    damageInfo.force = Vector3.zero;
+                                    damageInfo.damage = Mathf.Max(1f, damageInfo.damage - self.body.armor);
+                                }
+                            }
+
+                            //alpha construct shield
+                            if (self.body.HasBuff(Modules.Buffs.alphashieldonBuff.buffIndex))
+                            {
+                                if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
+                                    != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                                {
+                                    EffectData effectData2 = new EffectData
+                                    {
+                                        origin = damageInfo.position,
+                                        rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
+                                    };
+                                    EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
+                                    damageInfo.rejected = true;
+                                    self.body.RemoveBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
+                                    self.body.SetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex, StaticValues.alphaconstructCooldown);
                                 }
 
                             }
-                            else
+                            //spike buff
+                            if (self.body.HasBuff(Modules.Buffs.gupspikeBuff.buffIndex))
                             {
-                                damageInfo.force = Vector3.zero;
-                                damageInfo.damage = Mathf.Max(1f, damageInfo.damage - self.body.armor);
-                            }
-                        }
+                                //Spike buff
 
-                        //alpha construct shield
-                        if (self.body.HasBuff(Modules.Buffs.alphashieldonBuff.buffIndex))
-                        {
-                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                                != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-                            {
-                                EffectData effectData2 = new EffectData
+                                if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.multiplierBuff))
                                 {
-                                    origin = damageInfo.position,
-                                    rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
+                                    decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+                                }
+                                else
+                                {
+                                    decayCount = 1;
+                                }
+
+                                var damageInfo2 = new DamageInfo();
+
+                                blastAttack = new BlastAttack();
+                                blastAttack.radius = Modules.StaticValues.spikedamageRadius;
+                                blastAttack.procCoefficient = 0.5f;
+                                blastAttack.position = self.transform.position;
+                                blastAttack.attacker = self.gameObject;
+                                blastAttack.crit = Util.CheckRoll(self.body.crit, self.body.master);
+                                blastAttack.baseDamage = self.body.damage * Modules.StaticValues.spikedamageCoefficient;
+                                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                                blastAttack.baseForce = 100f;
+                                blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
+                                blastAttack.damageType = DamageType.Generic | DamageType.BleedOnHit;
+                                blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+
+                                if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
+                                    != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                                {
+                                    blastAttack.Fire();
+                                }
+
+                                EffectManager.SpawnEffect(Modules.Assets.GupSpikeEffect, new EffectData
+                                {
+                                    origin = self.transform.position,
+                                    scale = Modules.StaticValues.spikedamageRadius / 3,
+                                    rotation = Quaternion.LookRotation(self.transform.position)
+
+                                }, true);
+
+                                BullseyeSearch search = new BullseyeSearch
+                                {
+
+                                    teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex),
+                                    filterByLoS = false,
+                                    searchOrigin = self.transform.position,
+                                    searchDirection = UnityEngine.Random.onUnitSphere,
+                                    sortMode = BullseyeSearch.SortMode.Distance,
+                                    maxDistanceFilter = Modules.StaticValues.spikedamageRadius,
+                                    maxAngleFilter = 360f
                                 };
-                                EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
-                                damageInfo.rejected = true;
-                                self.body.RemoveBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
-                                self.body.SetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex, StaticValues.alphaconstructCooldown);
-                            }
 
-                        }
-                        //spike buff
-                        if (self.body.HasBuff(Modules.Buffs.gupspikeBuff.buffIndex))
-                        {
-                            //Spike buff
-
-                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.multiplierBuff))
-                            {
-                                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
-                            }
-                            else
-                            {
-                                decayCount = 1;
-                            }
-
-                            var damageInfo2 = new DamageInfo();
-
-                            blastAttack = new BlastAttack();
-                            blastAttack.radius = Modules.StaticValues.spikedamageRadius;
-                            blastAttack.procCoefficient = 0.5f;
-                            blastAttack.position = self.transform.position;
-                            blastAttack.attacker = self.gameObject;
-                            blastAttack.crit = Util.CheckRoll(self.body.crit, self.body.master);
-                            blastAttack.baseDamage = self.body.damage * Modules.StaticValues.spikedamageCoefficient;
-                            blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                            blastAttack.baseForce = 100f;
-                            blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
-                            blastAttack.damageType = DamageType.Generic | DamageType.BleedOnHit;
-                            blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-
-                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                                != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-                            {
-                                blastAttack.Fire();
-                            }
-
-                            EffectManager.SpawnEffect(Modules.Assets.GupSpikeEffect, new EffectData
-                            {
-                                origin = self.transform.position,
-                                scale = Modules.StaticValues.spikedamageRadius / 3,
-                                rotation = Quaternion.LookRotation(self.transform.position)
-
-                            }, true);
-
-                            BullseyeSearch search = new BullseyeSearch
-                            {
-
-                                teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex),
-                                filterByLoS = false,
-                                searchOrigin = self.transform.position,
-                                searchDirection = UnityEngine.Random.onUnitSphere,
-                                sortMode = BullseyeSearch.SortMode.Distance,
-                                maxDistanceFilter = Modules.StaticValues.spikedamageRadius,
-                                maxAngleFilter = 360f
-                            };
-
-                            search.RefreshCandidates();
-                            search.FilterOutGameObject(self.gameObject);
+                                search.RefreshCandidates();
+                                search.FilterOutGameObject(self.gameObject);
 
 
 
-                            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-                            foreach (HurtBox singularTarget in target)
-                            {
-                                if (singularTarget)
+                                List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                                foreach (HurtBox singularTarget in target)
                                 {
-                                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                                    if (singularTarget)
                                     {
-                                        InflictDotInfo info = new InflictDotInfo();
-                                        info.attackerObject = self.gameObject;
-                                        info.victimObject = singularTarget.healthComponent.body.gameObject;
-                                        info.duration = Modules.StaticValues.decayDamageTimer;
-                                        info.dotIndex = Modules.Dots.decayDot;
-
-                                        for (int i = 0; i < decayCount; i++)
+                                        if (singularTarget.healthComponent && singularTarget.healthComponent.body)
                                         {
-                                            DotController.InflictDot(ref info);
+                                            InflictDotInfo info = new InflictDotInfo();
+                                            info.attackerObject = self.gameObject;
+                                            info.victimObject = singularTarget.healthComponent.body.gameObject;
+                                            info.duration = Modules.StaticValues.decayDamageTimer;
+                                            info.dotIndex = Modules.Dots.decayDot;
 
+                                            for (int i = 0; i < decayCount; i++)
+                                            {
+                                                DotController.InflictDot(ref info);
+
+                                            }
                                         }
                                     }
                                 }
+
                             }
-
                         }
+
+
                     }
-
-
                 }
+
             }
+            
 
 
 
@@ -567,87 +576,87 @@ namespace ShiggyMod
         {
             //buffs 
             orig.Invoke(self);
-
-            if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-            {
-                //    //roboballmini attackspeed buff
-                //    if (self.HasBuff(Buffs.roboballminiattackspeedBuff))
-                //    {
-                //        self.attackSpeed += (Modules.StaticValues.roboballattackspeedMultiplier * self.GetBuffCount(Buffs.roboballminiattackspeedBuff));
-
-                //    }
-                //    //claydunestrider buff
-                //    if (self.HasBuff(Buffs.claydunestriderBuff))
-                //    {
-                //        self.attackSpeed *= StaticValues.claydunestriderAttackSpeed;
-
-                //    }
-                //    //mult buff
-                //    if (self.HasBuff(Buffs.multBuff))
-                //    {
-                //        self.armor += StaticValues.multArmor;
-                //        self.attackSpeed *= StaticValues.multAttackspeed;
-                //        self.moveSpeed *= StaticValues.multMovespeed;
-
-                //    }
-                //    //stonetitanarmor buff
-                //    if (self.HasBuff(Buffs.stonetitanBuff))
-                //    {
-                //        self.armor += StaticValues.stonetitanarmorGain;
-
-                //    }
-                //    //voidbarnaclemortarattackspeed buff
-                //    if (self.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
-                //    {
-                //        Shiggycon = base.GetComponent<ShiggyController>();
-                //        self.attackSpeed += Modules.StaticValues.voidmortarattackspeedGain* self.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff);
-
-                //    }
-                //    //hermitcrabmortararmor buff
-                //    if (self.HasBuff(Buffs.hermitcrabmortararmorBuff))
-                //    {
-                //        int mortararmorbuffcount = self.GetBuffCount(Buffs.hermitcrabmortararmorBuff);
-                //        self.armor += mortararmorbuffcount * Modules.StaticValues.mortararmorGain;
-                //    }
-                //    //verminsprint buff
-                //    if (self.HasBuff(Buffs.verminsprintBuff))
-                //    {
-                //        self.sprintingSpeedMultiplier = Modules.StaticValues.verminsprintMultiplier;
-                //        self.moveSpeed *= Modules.StaticValues.verminmovespeedMultiplier;
-                //    }
-                //    //multiplier buff
-                if (self.HasBuff(Buffs.multiplierBuff))
-                {
-                    self.damage *= Modules.StaticValues.multiplierCoefficient;
-                }
-                //    //fly buff
-                //    if (self.HasBuff(Buffs.flyBuff))
-                //    {
-                //        self.moveSpeed *= 1.5f;
-                //        self.acceleration *= 2f;
-                //        self.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
-                //        self.characterMotor.useGravity = false;
-                //    }
-                //    else
-                //    {
-                //        self.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
-                //        self.characterMotor.useGravity = true;
-
-                //    }
-                //    //beetlebuff
-                //    if (self.HasBuff(Buffs.beetleBuff))
-                //    {
-                //        self.damage *= Modules.StaticValues.beetledamageMultiplier;
-                //    }
-                //    //lesserwispbuff
-                //    if (self.HasBuff(Buffs.lesserwispBuff))
-                //    {
-                //        self.damage *= Modules.StaticValues.lesserwispdamageMultiplier;
-                //    }
-
-            }
             if (self)
             {
+                if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                {
+                    //    //roboballmini attackspeed buff
+                    //    if (self.HasBuff(Buffs.roboballminiattackspeedBuff))
+                    //    {
+                    //        self.attackSpeed += (Modules.StaticValues.roboballattackspeedMultiplier * self.GetBuffCount(Buffs.roboballminiattackspeedBuff));
+
+                    //    }
+                    //    //claydunestrider buff
+                    //    if (self.HasBuff(Buffs.claydunestriderBuff))
+                    //    {
+                    //        self.attackSpeed *= StaticValues.claydunestriderAttackSpeed;
+
+                    //    }
+                    //    //mult buff
+                    //    if (self.HasBuff(Buffs.multBuff))
+                    //    {
+                    //        self.armor += StaticValues.multArmor;
+                    //        self.attackSpeed *= StaticValues.multAttackspeed;
+                    //        self.moveSpeed *= StaticValues.multMovespeed;
+
+                    //    }
+                    //    //stonetitanarmor buff
+                    //    if (self.HasBuff(Buffs.stonetitanBuff))
+                    //    {
+                    //        self.armor += StaticValues.stonetitanarmorGain;
+
+                    //    }
+                    //    //voidbarnaclemortarattackspeed buff
+                    //    if (self.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
+                    //    {
+                    //        Shiggycon = base.GetComponent<ShiggyController>();
+                    //        self.attackSpeed += Modules.StaticValues.voidmortarattackspeedGain* self.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff);
+
+                    //    }
+                    //    //hermitcrabmortararmor buff
+                    //    if (self.HasBuff(Buffs.hermitcrabmortararmorBuff))
+                    //    {
+                    //        int mortararmorbuffcount = self.GetBuffCount(Buffs.hermitcrabmortararmorBuff);
+                    //        self.armor += mortararmorbuffcount * Modules.StaticValues.mortararmorGain;
+                    //    }
+                    //    //verminsprint buff
+                    //    if (self.HasBuff(Buffs.verminsprintBuff))
+                    //    {
+                    //        self.sprintingSpeedMultiplier = Modules.StaticValues.verminsprintMultiplier;
+                    //        self.moveSpeed *= Modules.StaticValues.verminmovespeedMultiplier;
+                    //    }
+                    //    //multiplier buff
+                    if (self.HasBuff(Buffs.multiplierBuff))
+                    {
+                        self.damage *= Modules.StaticValues.multiplierCoefficient;
+                    }
+                    //    //fly buff
+                    //    if (self.HasBuff(Buffs.flyBuff))
+                    //    {
+                    //        self.moveSpeed *= 1.5f;
+                    //        self.acceleration *= 2f;
+                    //        self.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                    //        self.characterMotor.useGravity = false;
+                    //    }
+                    //    else
+                    //    {
+                    //        self.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
+                    //        self.characterMotor.useGravity = true;
+
+                    //    }
+                    //    //beetlebuff
+                    //    if (self.HasBuff(Buffs.beetleBuff))
+                    //    {
+                    //        self.damage *= Modules.StaticValues.beetledamageMultiplier;
+                    //    }
+                    //    //lesserwispbuff
+                    //    if (self.HasBuff(Buffs.lesserwispBuff))
+                    //    {
+                    //        self.damage *= Modules.StaticValues.lesserwispdamageMultiplier;
+                    //    }
+
+                }
+
                 if (self.HasBuff(Buffs.decayDebuff))
                 {
                     float decaybuffcount = self.GetBuffCount(Buffs.decayDebuff);
@@ -681,7 +690,7 @@ namespace ShiggyMod
 
                 }
             }
-
+            
 
         }
 

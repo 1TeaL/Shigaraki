@@ -225,6 +225,7 @@ namespace ShiggyMod.Modules
             indicatorDict.Add("RoboBallRedBuddyBody", IndicatorType.PASSIVE);
             indicatorDict.Add("VoidBarnacleBody", IndicatorType.PASSIVE);
             indicatorDict.Add("VoidJailerBody", IndicatorType.PASSIVE);
+            indicatorDict.Add("ImpBossBody", IndicatorType.PASSIVE);
             indicatorDict.Add("TitanBody", IndicatorType.PASSIVE);
             indicatorDict.Add("TitanGoldBody", IndicatorType.PASSIVE);
             indicatorDict.Add("VagrantBody", IndicatorType.PASSIVE);
