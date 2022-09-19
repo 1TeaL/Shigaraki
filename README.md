@@ -44,6 +44,7 @@ If you enjoy my work, support me on Ko-fi!
 
 - 1.2.1 
     - Added Imp Boss to the passive indicator list (missed it).
+    - Non-hosts can now get elite aspects as well.
 - 1.2.0 
     - New Icons! (Courtersy of Mr.Bones) 
     - Model setup for skin by Mr.Bones
@@ -484,6 +485,10 @@ Shigaraki can sprint in any direction and has a double jump.
 These stats are prone to change.
 
 ## Changelog
+
+<details>
+<summary>Click to expand previous patch notes:</summary>
+    
 - 1.1.4 
     - Fixed quirk resetting to properly reset the quirk next stage.
     - Known issue, non-hosts can spawn the elite aspect but not pick them up.
@@ -547,6 +552,7 @@ These stats are prone to change.
     - Release.
 - rest of changelog on github
 
+</details>
 
 ## Future plans
 ##### More quirks
