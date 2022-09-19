@@ -485,6 +485,10 @@ Shigaraki can sprint in any direction and has a double jump.
 These stats are prone to change.
 
 ## Changelog
+
+<details>
+<summary>Click to expand previous patch notes:</summary>
+    
 - 1.1.4 
     - Fixed quirk resetting to properly reset the quirk next stage.
     - Known issue, non-hosts can spawn the elite aspect but not pick them up.
@@ -548,6 +552,7 @@ These stats are prone to change.
     - Release.
 - rest of changelog on github
 
+</details>
 
 ## Future plans
 ##### More quirks
