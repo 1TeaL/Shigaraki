@@ -44,6 +44,7 @@ If you enjoy my work, support me on Ko-fi!
 
 - 1.2.1 
     - Added Imp Boss to the passive indicator list (missed it).
+    - Non-hosts can now get elite aspects as well.
 - 1.2.0 
     - New Icons! (Courtersy of Mr.Bones) 
     - Model setup for skin by Mr.Bones
