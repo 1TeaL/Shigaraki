@@ -7,6 +7,9 @@ using ShiggyMod.Modules;
 using UnityEngine.Networking;
 using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
+using ShiggyMod.Modules.Networking;
+using R2API.Networking;
+using R2API.Networking.Interfaces;
 
 namespace ShiggyMod.SkillStates
 {
@@ -220,7 +223,13 @@ namespace ShiggyMod.SkillStates
 
         public void dropEquipment(EquipmentDef def)
         {
-            PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(def.equipmentIndex), base.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + base.transform.forward * 2f);
+            if (base.isAuthority)
+            {
+                new EquipmentDropNetworked(PickupCatalog.FindPickupIndex(def.equipmentIndex),
+                    base.transform.position + Vector3.up * 1.5f,
+                    Vector3.up * 20f + base.transform.forward * 2f).Send(NetworkDestination.Clients);
+            }
+            //PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(def.equipmentIndex), base.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + base.transform.forward * 2f);
         }
 
         private void StealQuirk(HurtBox hurtBox)

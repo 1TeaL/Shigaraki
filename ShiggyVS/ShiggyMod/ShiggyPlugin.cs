@@ -23,6 +23,7 @@ using UnityEngine.Networking;
 using RoR2.Orbs;
 using EmotesAPI;
 using EntityStates.JellyfishMonster;
+using ShiggyMod.Modules.Networking;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -58,7 +59,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "1.2.0";
+        public const string MODVERSION = "1.2.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -97,6 +98,8 @@ namespace ShiggyMod
             // survivor initialization
             new Shiggy().Initialize();
 
+            //networking
+            NetworkingAPI.RegisterMessageType<EquipmentDropNetworked>();
 
 
             // now make a content pack and add it- this part will change with the next update
