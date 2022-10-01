@@ -1,8 +1,8 @@
 {
     "name": "ShigarakiMod",
-    "version_number": "1.2.1",
+    "version_number": "1.2.2",
     "website_url": "https://github.com/1TeaL/Shigaraki",
-    "description": "Go Beyond... 1.2.1 - Elite aspects drops work for non-hosts, Imp boss added", 
+    "description": "Go Beyond... 1.2.2 - Fixed networking API requirement", 
     "dependencies": [
          "tristanmcpherson-R2API-4.3.5",
          "KingEnderBrine-ExtraSkillSlots-1.5.1"
