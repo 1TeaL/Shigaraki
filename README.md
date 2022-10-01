@@ -42,6 +42,8 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.2.2 
+    - Fixed missing networking API.
 - 1.2.1 
     - Added Imp Boss to the passive indicator list (missed it).
     - Non-hosts can now get elite aspects as well.
