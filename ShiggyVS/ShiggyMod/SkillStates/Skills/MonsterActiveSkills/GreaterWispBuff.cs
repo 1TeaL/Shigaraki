@@ -4,6 +4,7 @@ using UnityEngine;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine.Networking;
 using RoR2.Projectile;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -44,7 +45,7 @@ namespace ShiggyMod.SkillStates
             if (NetworkServer.active)
             {
                 int buffcount = characterBody.GetBuffCount(Modules.Buffs.greaterwispBuff);
-                characterBody.SetBuffCount(Modules.Buffs.greaterwispBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration + buffcount);
+                characterBody.ApplyBuff(Modules.Buffs.greaterwispBuff.buffIndex, 1,  Modules.StaticValues.greaterwispballbuffDuration + buffcount);
             }
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();

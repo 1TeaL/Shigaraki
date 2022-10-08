@@ -11,6 +11,7 @@ using RoR2.Projectile;
 using EntityStates.MiniMushroom;
 using UnityEngine.Networking;
 using ExtraSkillSlots;
+using R2API.Networking;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -363,10 +364,8 @@ namespace ShiggyMod.Modules.Survivors
             //claydunestrider buff
             if (characterBody.HasBuff(Modules.Buffs.claydunestriderBuff))
             {
-                int claybuffcount = characterBody.GetBuffCount(Modules.Buffs.claydunestriderBuff);
                 if (effecttimer2 > 1f)
                 {
-                    characterBody.SetBuffCount(Modules.Buffs.claydunestriderBuff.buffIndex, claybuffcount-1);
                     effecttimer2 = 0f;
                     EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData
                     {
@@ -385,10 +384,8 @@ namespace ShiggyMod.Modules.Survivors
             //Greaterwisp buff
             if (characterBody.HasBuff(Modules.Buffs.greaterwispBuff))
             {
-                int greaterwispbuffcount = characterBody.GetBuffCount(Modules.Buffs.greaterwispBuff);
                 if (effecttimer3 > 1f)
                 {
-                    characterBody.SetBuffCount(Modules.Buffs.claydunestriderBuff.buffIndex, greaterwispbuffcount-1);
                     effecttimer3 = 0f;
                     EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
                     {
@@ -538,29 +535,33 @@ namespace ShiggyMod.Modules.Survivors
 				}
 			}
 
-			//vagrant disablebuff
-			if (characterBody.HasBuff(Modules.Buffs.vagrantdisableBuff.buffIndex))
-			{
-				if (vagranttimer > 1f)
-				{
-					int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.vagrantdisableBuff.buffIndex);
-					if (buffCountToApply > 1)
-					{
-						if (buffCountToApply >= 2)
-						{
-							characterBody.RemoveBuff(Modules.Buffs.vagrantdisableBuff.buffIndex);
-							vagranttimer = 0f;
-						}
-					}
-					else
-					{
-						characterBody.RemoveBuff(Modules.Buffs.vagrantdisableBuff.buffIndex);
-						characterBody.AddBuff(Modules.Buffs.vagrantBuff);
+            //vagrant disablebuff
+            if (characterBody.hasEffectiveAuthority)
+            {
+                if (characterBody.HasBuff(Modules.Buffs.vagrantdisableBuff.buffIndex))
+                {
+                    if (vagranttimer > 1f)
+                    {
+                        int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.vagrantdisableBuff.buffIndex);
+                        if (buffCountToApply > 1)
+                        {
+                            if (buffCountToApply >= 2)
+                            {
+                                characterBody.RemoveBuff(Modules.Buffs.vagrantdisableBuff.buffIndex);
+                                vagranttimer = 0f;
+                            }
+                        }
+                        else
+                        {
+                            characterBody.RemoveBuff(Modules.Buffs.vagrantdisableBuff.buffIndex);
+                            characterBody.AddBuff(Modules.Buffs.vagrantBuff);
 
-					}
-				}
-				else vagranttimer += Time.fixedDeltaTime;
-			}
+                        }
+                    }
+                    else vagranttimer += Time.fixedDeltaTime;
+                }
+
+            }
             //roboballmini buff
             if (characterBody.HasBuff(Modules.Buffs.roboballminiBuff.buffIndex))
             {
@@ -585,7 +586,7 @@ namespace ShiggyMod.Modules.Survivors
                     && !characterBody.inputBank.skill3.down 
                     && !characterBody.inputBank.skill1.down)
                 {
-                    characterBody.SetBuffCount(Modules.Buffs.roboballminiattackspeedBuff.buffIndex, 0);
+                    characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex, 0);
                 }
                 //if (characterBody.inputBank.jump.down)
                 //{
@@ -697,7 +698,7 @@ namespace ShiggyMod.Modules.Survivors
                 else
 				{
 					if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
-					characterBody.SetBuffCount(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
+					characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
 
 				}
 
@@ -720,16 +721,16 @@ namespace ShiggyMod.Modules.Survivors
 				else
 				{
 					if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
-					characterBody.SetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
+					characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
 				}
 			}
 
 			else if (!characterBody.GetNotMoving())
 			{
 				if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
-				characterBody.SetBuffCount(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
+				characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
 				if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
-				characterBody.SetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
+				characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
 
 				//voidjailer buff
 				if (characterBody.HasBuff(Modules.Buffs.voidjailerBuff.buffIndex))

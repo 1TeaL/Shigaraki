@@ -84,7 +84,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VERMIN_DESCRIPTION", $"<style=cIsUtility>Gain {StaticValues.verminmovespeedMultiplier}x movespeed and change sprint speed to {StaticValues.verminsprintMultiplier}x</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO] [Movespeed]</style>");
             LanguageAPI.Add(prefix + "GUP_NAME", "Spiky Body");
-            LanguageAPI.Add(prefix + "GUP_DESCRIPTION", $"<style=cIsDamage>Gain spikes that deal <style=cIsDamage>{StaticValues.spikedamageCoefficient}% damage</style> to those around you when you're hit</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "GUP_DESCRIPTION", $"<style=cIsDamage>Gain spikes that deal <style=cIsDamage>{StaticValues.spikedamageCoefficient * 100}% damage</style> to those around you when you're hit</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[AFO]</style>");
             LanguageAPI.Add(prefix + "LARVA_NAME", "Acid Jump");
             LanguageAPI.Add(prefix + "LARVA_DESCRIPTION", $"<style=cIsDamage>Release an Acidic blast</style> when <style=cIsUtility>jumping and landing</style>. Has AFO Functionality." + Environment.NewLine + Environment.NewLine +

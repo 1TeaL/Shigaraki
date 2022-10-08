@@ -1,8 +1,8 @@
 {
     "name": "ShigarakiMod",
-    "version_number": "1.2.2",
+    "version_number": "1.2.3",
     "website_url": "https://github.com/1TeaL/Shigaraki",
-    "description": "Go Beyond... 1.2.2 - Fixed networking API requirement", 
+    "description": "Go Beyond... 1.2.3 - Bug fixes", 
     "dependencies": [
          "tristanmcpherson-R2API-4.3.5",
          "KingEnderBrine-ExtraSkillSlots-1.5.1"

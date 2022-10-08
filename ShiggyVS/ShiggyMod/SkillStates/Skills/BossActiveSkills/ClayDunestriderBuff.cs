@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using EntityStates.ClayBoss;
 using RoR2.Projectile;
 using EntityStates.ClayBoss.ClayBossWeapon;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -34,7 +35,7 @@ namespace ShiggyMod.SkillStates
             if (NetworkServer.active)
             {
                 int buffcount = characterBody.GetBuffCount(Modules.Buffs.claydunestriderBuff);
-                characterBody.SetBuffCount(Modules.Buffs.claydunestriderBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration + buffcount);
+                characterBody.ApplyBuff(Modules.Buffs.claydunestriderBuff.buffIndex, 1, Modules.StaticValues.claydunestriderbuffDuration + buffcount);
                 //characterBody.AddBuff(Modules.Buffs.claydunestriderBuff);
             }
 

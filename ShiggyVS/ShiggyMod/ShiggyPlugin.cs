@@ -60,7 +60,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "1.2.2";
+        public const string MODVERSION = "1.2.3";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -267,7 +267,7 @@ namespace ShiggyMod
                         if (damageInfo.damage / body.damage >= StaticValues.vagrantdamageThreshold)
                         {
                             body.RemoveBuff(Modules.Buffs.vagrantBuff.buffIndex);
-                            body.SetBuffCount(Buffs.vagrantdisableBuff.buffIndex, StaticValues.vagrantCooldown);
+                            body.ApplyBuff(Buffs.vagrantdisableBuff.buffIndex, StaticValues.vagrantCooldown);
                             victimBody.AddTimedBuffAuthority(Buffs.vagrantDebuff.buffIndex, StaticValues.vagrantCooldown);
                             Util.PlaySound(JellyNova.novaSoundString, base.gameObject);
                             
@@ -475,7 +475,7 @@ namespace ShiggyMod
                                     EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
                                     damageInfo.rejected = true;
                                     self.body.RemoveBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
-                                    self.body.SetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex, StaticValues.alphaconstructCooldown);
+                                    self.body.ApplyBuff(Modules.Buffs.alphashieldoffBuff.buffIndex, StaticValues.alphaconstructCooldown);
                                 }
 
                             }

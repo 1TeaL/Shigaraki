@@ -543,9 +543,9 @@ namespace ShiggyMod.SkillStates
                 {
 
                     hasQuirk = true;
-                    Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
+                    Chat.AddMessage("<style=cIsUtility>Solus Boost Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 0);
+                    Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 4);
                     RemoveExtra1();
                     extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                     characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
@@ -1179,9 +1179,9 @@ namespace ShiggyMod.SkillStates
                 {
 
                     hasQuirk = true;
-                    Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
+                    Chat.AddMessage("<style=cIsUtility>Solus Boost Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 1);
+                    Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 5);
                     RemoveExtra2();
                     extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                     characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
@@ -1815,9 +1815,9 @@ namespace ShiggyMod.SkillStates
                 {
 
                     hasQuirk = true;
-                    Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
+                    Chat.AddMessage("<style=cIsUtility>Solus Boost Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 2);
+                    Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 6);
                     RemoveExtra3();
                     extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                     characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
@@ -2449,9 +2449,9 @@ namespace ShiggyMod.SkillStates
                 {
 
                     hasQuirk = true;
-                    Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
+                    Chat.AddMessage("<style=cIsUtility>Solus Quirk</style> Get!");
 
-                    Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 3);
+                    Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 7);
                     RemoveExtra4();
                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
                     characterBody.AddBuff(Modules.Buffs.roboballminiBuff);

@@ -255,6 +255,7 @@ namespace ShiggyMod.Modules
             indicatorDict.Add("BeetleQueen2Body", IndicatorType.ACTIVE);
             indicatorDict.Add("GravekeeperBody", IndicatorType.ACTIVE);
             indicatorDict.Add("ClayBossBody", IndicatorType.ACTIVE);
+            indicatorDict.Add("GrandParentBody", IndicatorType.ACTIVE);
             indicatorDict.Add("RoboBallBossBody", IndicatorType.ACTIVE);
             indicatorDict.Add("SuperRoboBallBossBody", IndicatorType.ACTIVE);
             indicatorDict.Add("MegaConstructBody", IndicatorType.ACTIVE);

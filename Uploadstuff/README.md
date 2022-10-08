@@ -42,6 +42,11 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.2.3 
+    - Bug fixes:
+    	- Fixed grandparent not having the right indicator
+        - Fixed solus mini passive, when going to a new stage/reviving being put onto a skill slot rather than an extra skill slot.
+        - Fixed greater wisp buff giving clay dunestrider buff and fixed issues with durations for both of them.
 - 1.2.2 
     - Fixed missing networking API.
 - 1.2.1 
