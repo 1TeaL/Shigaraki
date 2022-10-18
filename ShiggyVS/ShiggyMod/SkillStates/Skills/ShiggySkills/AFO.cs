@@ -97,8 +97,8 @@ namespace ShiggyMod.SkillStates
                     if (Target)
                     {
 
-                        Debug.Log("Target");
-                        Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
+                        //Debug.Log("Target");
+                        //Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
                         //AkSoundEngine.PostEvent(1719197672, this.gameObject);
                         StealQuirk(Target);
 

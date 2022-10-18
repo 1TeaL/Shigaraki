@@ -45,7 +45,7 @@ namespace ShiggyMod.SkillStates
             if (NetworkServer.active)
             {
                 int buffcount = characterBody.GetBuffCount(Modules.Buffs.greaterwispBuff);
-                characterBody.ApplyBuff(Modules.Buffs.greaterwispBuff.buffIndex, 1,  Modules.StaticValues.greaterwispballbuffDuration + buffcount);
+                characterBody.ApplyBuff(Modules.Buffs.greaterwispBuff.buffIndex, Modules.StaticValues.greaterwispballbuffDuration + buffcount,  Modules.StaticValues.greaterwispballbuffDuration + buffcount);
             }
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
