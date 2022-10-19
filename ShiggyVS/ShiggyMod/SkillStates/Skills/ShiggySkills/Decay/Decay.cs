@@ -54,15 +54,7 @@ namespace ShiggyMod.SkillStates
             damageCoefficient *= Shiggycon.strengthMultiplier;
 
             duration = baseduration / attackSpeedStat;
-            if(duration <= 0.2f)
-            {
-                duration = 0.2f;
-            }
             fireTime = duration / 4;
-            if (fireTime <= 0.05f)
-            {
-                duration = 0.05f;
-            }
             base.characterBody.SetAimTimer(this.duration);
 
             Ray aimRay = base.GetAimRay();
@@ -71,7 +63,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             //PlayAnimation("FullBody, Override", "Slam", "Attack.playbackRate", fireTime);
-            PlayCrossfade("FullBody, Override", "Slam", "Attack.playbackRate", fireTime, 0.01f);
+            PlayCrossfade("FullBody, Override", "Slam", "Attack.playbackRate", duration, 0.01f);
             AkSoundEngine.PostEvent(4108468048, base.gameObject);
             HitBoxGroup hitBoxGroup = null;
             HitBoxGroup hitBoxGroup2 = null;

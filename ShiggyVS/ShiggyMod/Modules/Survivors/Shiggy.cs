@@ -14,6 +14,7 @@ namespace ShiggyMod.Modules.Survivors
     {
         internal override string bodyName { get; set; } = "Shiggy";
 
+        //monster passives
         internal static SkillDef alphacontructpassiveDef;
         internal static SkillDef beetlepassiveDef;
         internal static SkillDef pestpassiveDef;
@@ -28,18 +29,20 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef voidbarnaclepassiveDef;
         internal static SkillDef voidjailerpassiveDef;
 
+        //boss monster passives
         internal static SkillDef impbosspassiveDef;
         internal static SkillDef stonetitanpassiveDef;
         internal static SkillDef magmawormpassiveDef;
         internal static SkillDef overloadingwormpassiveDef;
         internal static SkillDef vagrantpassiveDef;
 
+        //survivor passives
         internal static SkillDef acridpassiveDef;
         internal static SkillDef commandopassiveDef;
         internal static SkillDef captainpassiveDef;
         internal static SkillDef loaderpassiveDef;
 
-
+        //monster actives
         internal static SkillDef alloyvultureflyDef;
         internal static SkillDef beetleguardslamDef;
         internal static SkillDef bisonchargeDef;
@@ -57,15 +60,17 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef stonegolemlaserDef;
         internal static SkillDef voidreaverportalDef;
 
+        //boss monster actives
         internal static SkillDef beetlequeenshotgunDef;
         internal static SkillDef grandparentsunDef;
         internal static SkillDef grovetenderhookDef;
-        internal static SkillDef claydunestriderballDef;
+        internal static SkillDef claydunestriderbuffDef;
         internal static SkillDef soluscontrolunityknockupDef;
         internal static SkillDef xiconstructbeamDef;
         internal static SkillDef voiddevastatorhomingDef;
         internal static SkillDef scavengerthqwibDef;
 
+        //survivor actives
         internal static SkillDef artificerflamethrowerDef;
         internal static SkillDef artificericewallDef;
         internal static SkillDef artificerlightningorbDef;
@@ -78,6 +83,15 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef railgunnercryoDef;
         internal static SkillDef rexmortarDef;
         internal static SkillDef voidfiendcleanseDef;
+
+        //shiggy skills
+        internal static SkillDef decayDef;
+        internal static SkillDef aircannonDef;
+        internal static SkillDef bulletlaserDef;
+        internal static SkillDef multiplierDef;
+        internal static SkillDef chooseDef;
+        internal static SkillDef removeDef;
+        internal static SkillDef emptySkillDef;
 
         internal override GameObject bodyPrefab { get; set; }
         internal override GameObject displayPrefab { get; set; }
@@ -192,7 +206,7 @@ namespace ShiggyMod.Modules.Survivors
 
             #region Primary
 
-            SkillDef decaySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            decayDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
 
                 skillName = prefix + "DECAY_NAME",
@@ -218,7 +232,7 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY" }
             });
 
-            Modules.Skills.AddPrimarySkill(bodyPrefab, decaySkillDef);
+            Modules.Skills.AddPrimarySkill(bodyPrefab, decayDef);
 
             #endregion
 
@@ -226,7 +240,7 @@ namespace ShiggyMod.Modules.Survivors
 
             #region Secondary
 
-            SkillDef BulletLaser = Skills.CreateSkillDef(new SkillDefInfo
+            bulletlaserDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BULLETLASER_NAME",
                 skillNameToken = prefix + "BULLETLASER_NAME",
@@ -253,13 +267,13 @@ namespace ShiggyMod.Modules.Survivors
             });
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
-                BulletLaser,
+                bulletlaserDef,
 
             });
             #endregion
 
             #region Utility
-            SkillDef AirCannon = Skills.CreateSkillDef(new SkillDefInfo
+            aircannonDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "AIRCANNON_NAME",
                 skillNameToken = prefix + "AIRCANNON_NAME",
@@ -312,13 +326,13 @@ namespace ShiggyMod.Modules.Survivors
 
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
-                AirCannon,
+                aircannonDef,
                 //ARTIFICER,
             });
             #endregion
 
             #region Special
-            SkillDef Multiplier = Skills.CreateSkillDef(new SkillDefInfo
+            multiplierDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "MULTIPLIER_NAME",
                 skillNameToken = prefix + "MULTIPLIER_NAME",
@@ -346,19 +360,19 @@ namespace ShiggyMod.Modules.Survivors
 
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
-                Multiplier,
+                multiplierDef,
             });
             #endregion
 
             #region Extra Skills
 
-            SkillDef AFO = Skills.CreateSkillDef(new SkillDefInfo
+            emptySkillDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "AFO_NAME",
                 skillNameToken = prefix + "AFO_NAME",
                 skillDescriptionToken = prefix + "AFO_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("allforone"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.AFO)),
+                skillIcon = Modules.Assets.skinBuffIcon,
+                activationState = new SerializableEntityStateType(typeof(SkillStates.EmptySkill)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -375,10 +389,57 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1
             });
-            Modules.Skills.AddFirstExtraSkill(bodyPrefab, AFO);
-            Modules.Skills.AddSecondExtraSkill(bodyPrefab, AFO);
-            Modules.Skills.AddThirdExtraSkill(bodyPrefab, AFO);
-            Modules.Skills.AddFourthExtraSkill(bodyPrefab, AFO);
+            Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
+            Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);
+            Modules.Skills.AddThirdExtraSkill(bodyPrefab, emptySkillDef);
+            Modules.Skills.AddFourthExtraSkill(bodyPrefab, emptySkillDef);
+
+            chooseDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "CHOOSESKILL_NAME",
+                skillNameToken = prefix + "CHOOSESKILL_NAME",
+                skillDescriptionToken = prefix + "CHOOSESKILL_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("allforone"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ChooseSkill)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
+            removeDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "REMOVESKILL_NAME",
+                skillNameToken = prefix + "REMOVESKILL_NAME",
+                skillDescriptionToken = prefix + "REMOVESKILL_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("allforone"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.RemoveSkill)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1
+            });
             #endregion
 
             #region Passive Skills
@@ -1416,7 +1477,7 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
-            Shiggy.claydunestriderballDef    = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.claydunestriderbuffDef    = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "CLAYDUNESTRIDER_NAME",
                 skillNameToken = prefix + "CLAYDUNESTRIDER_NAME",

@@ -7,17 +7,18 @@ using ShiggyMod.Modules;
 using UnityEngine.Networking;
 using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class LesserWisp : AFO
+    public class LesserWisp : BaseSkillState
     {
         public override void OnEnter()
         {
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
+                characterBody.ApplyBuff(Modules.Buffs.lesserwispBuff.buffIndex, 1);
             }
         }
 

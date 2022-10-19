@@ -61,7 +61,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool beetlequeenshotgunDef;
 		public bool grandparentsunDef;
 		public bool grovetenderhookDef;
-		public bool claydunestriderballDef;
+		public bool claydunestriderbuffDef;
 		public bool soluscontrolunityknockupDef;
 		public bool xiconstructbeamDef;
 		public bool voiddevastatorhomingDef;
@@ -77,6 +77,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool extra4given;
 
 		public SkillDef[] skillListToOverrideOnRespawn;
+		public SkillDef[] storedAFOSkill;
 
         public void Awake()
         {
@@ -85,7 +86,8 @@ namespace ShiggyMod.Modules.Survivors
             On.RoR2.Run.Start += Run_Start;
 
 			skillListToOverrideOnRespawn = new SkillDef[8];
-			alphacontructpassiveDef = false;
+            storedAFOSkill = new SkillDef[1];
+            alphacontructpassiveDef = false;
 			beetlepassiveDef = false;
 			pestpassiveDef = false;
 			verminpassiveDef = false;
@@ -123,7 +125,7 @@ namespace ShiggyMod.Modules.Survivors
 
 			beetlequeenshotgunDef = false;
 			grovetenderhookDef = false;
-			claydunestriderballDef = false;
+			claydunestriderbuffDef = false;
 			soluscontrolunityknockupDef = false;
 			xiconstructbeamDef = false;
 			voiddevastatorhomingDef = false;
@@ -162,7 +164,11 @@ namespace ShiggyMod.Modules.Survivors
         public void writeToSkillList(SkillDef skillDef, int index)
 		{
 			skillListToOverrideOnRespawn[index] = skillDef;
-		}
+        }
+        public void writeToAFOSkillList(SkillDef skillDef, int index)
+        {
+            storedAFOSkill[index] = skillDef;
+        }
 
         public void Start()
         {
@@ -211,7 +217,7 @@ namespace ShiggyMod.Modules.Survivors
 
 			beetlequeenshotgunDef = false;            
 			grovetenderhookDef = false;
-			claydunestriderballDef = false;
+			claydunestriderbuffDef = false;
 			soluscontrolunityknockupDef = false;
 			xiconstructbeamDef = false;
 			voiddevastatorhomingDef = false;
@@ -262,7 +268,8 @@ namespace ShiggyMod.Modules.Survivors
 								else if (skillListToOverrideOnRespawn[0] == null && !primarygiven)
 								{
 									primarygiven = true;
-								}
+                                    self.skillLocator.primary.SetSkillOverride(self.skillLocator.primary, Shiggy.decayDef, GenericSkill.SkillOverridePriority.Contextual);
+                                }
 								if (skillListToOverrideOnRespawn[1] != null && !secondarygiven)
 								{
 									secondarygiven = true;
@@ -271,7 +278,8 @@ namespace ShiggyMod.Modules.Survivors
 								else if (skillListToOverrideOnRespawn[1] == null && !secondarygiven)
 								{
 									secondarygiven = true;
-								}
+                                    self.skillLocator.secondary.SetSkillOverride(self.skillLocator.secondary, Shiggy.bulletlaserDef, GenericSkill.SkillOverridePriority.Contextual);
+                                }
 								if (skillListToOverrideOnRespawn[2] != null && !utilitygiven)
 								{
 									utilitygiven = true;
@@ -280,7 +288,8 @@ namespace ShiggyMod.Modules.Survivors
 								else if (skillListToOverrideOnRespawn[2] == null && !utilitygiven)
 								{
 									utilitygiven = true;
-								}
+                                    self.skillLocator.utility.SetSkillOverride(self.skillLocator.utility, Shiggy.aircannonDef, GenericSkill.SkillOverridePriority.Contextual);
+                                }
 								if (skillListToOverrideOnRespawn[3] != null && !specialgiven)
 								{
 									specialgiven = true;
@@ -289,7 +298,8 @@ namespace ShiggyMod.Modules.Survivors
 								else if (skillListToOverrideOnRespawn[3] == null && !specialgiven)
 								{
 									specialgiven = true;
-								}
+                                    self.skillLocator.special.SetSkillOverride(self.skillLocator.special, Shiggy.multiplierDef, GenericSkill.SkillOverridePriority.Contextual);
+                                }
 								if (skillListToOverrideOnRespawn[4] != null && !extra1given)
 								{
 									CheckQuirks(4, self);
@@ -299,7 +309,8 @@ namespace ShiggyMod.Modules.Survivors
 								else if (skillListToOverrideOnRespawn[4] == null && !extra1given)
 								{
 									extra1given = true;
-								}
+                                    extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                                }
 								if (skillListToOverrideOnRespawn[5] != null && !extra2given)
 								{
 									CheckQuirks(5, self);
@@ -309,7 +320,8 @@ namespace ShiggyMod.Modules.Survivors
 								else if (skillListToOverrideOnRespawn[5] == null && !extra2given)
 								{
 									extra2given = true;
-								}
+                                    extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                                }
 								if (skillListToOverrideOnRespawn[6] != null && !extra3given)
 								{
 									CheckQuirks(6, self);
@@ -319,7 +331,8 @@ namespace ShiggyMod.Modules.Survivors
 								else if (skillListToOverrideOnRespawn[6] == null && !extra3given)
 								{
 									extra3given = true;
-								}
+                                    extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                                }
 								if (skillListToOverrideOnRespawn[7] != null && !extra4given)
 								{
 									CheckQuirks(7, self);
@@ -329,7 +342,8 @@ namespace ShiggyMod.Modules.Survivors
 								else if (skillListToOverrideOnRespawn[7] == null && !extra4given)
 								{
 									extra4given = true;
-								}
+                                    extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                                }
 																
 
 							}
@@ -371,7 +385,97 @@ namespace ShiggyMod.Modules.Survivors
 				
 		public void CheckQuirks(int num, CharacterBody body)
         {
-			if (skillListToOverrideOnRespawn[num] == Shiggy.alphacontructpassiveDef)
+			//remove
+            if (skillListToOverrideOnRespawn[num] != Shiggy.alphacontructpassiveDef)
+            {
+                body.ApplyBuff(Buffs.alphashieldonBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.beetlepassiveDef)
+            {
+                body.ApplyBuff(Buffs.beetleBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.pestpassiveDef)
+            {
+                body.ApplyBuff(Buffs.pestjumpBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.verminpassiveDef)
+            {
+                body.ApplyBuff(Buffs.verminsprintBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.guppassiveDef)
+            {
+                body.ApplyBuff(Buffs.gupspikeBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.hermitcrabpassiveDef)
+            {
+                body.ApplyBuff(Buffs.hermitcrabmortarBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.larvapassiveDef)
+            {
+                body.ApplyBuff(Buffs.larvajumpBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.lesserwisppassiveDef)
+            {
+                body.ApplyBuff(Buffs.lesserwispBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.lunarexploderpassiveDef)
+            {
+                body.ApplyBuff(Buffs.lunarexploderBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.minimushrumpassiveDef)
+            {
+                body.ApplyBuff(Buffs.minimushrumBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.roboballminibpassiveDef)
+            {
+                body.ApplyBuff(Buffs.roboballminiBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.voidbarnaclepassiveDef)
+            {
+                body.ApplyBuff(Buffs.voidbarnaclemortarBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.voidjailerpassiveDef)
+            {
+                body.ApplyBuff(Buffs.voidjailerBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.impbosspassiveDef)
+            {
+                body.ApplyBuff(Buffs.impbossBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.stonetitanpassiveDef)
+            {
+                body.ApplyBuff(Buffs.stonetitanBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.magmawormpassiveDef)
+            {
+                body.ApplyBuff(Buffs.magmawormBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.overloadingwormpassiveDef)
+            {
+                body.ApplyBuff(Buffs.overloadingwormBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.vagrantpassiveDef)
+            {
+                body.ApplyBuff(Buffs.vagrantBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.acridpassiveDef)
+            {
+                body.ApplyBuff(Buffs.acridBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.commandopassiveDef)
+            {
+                body.ApplyBuff(Buffs.commandoBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.captainpassiveDef)
+            {
+                body.ApplyBuff(Buffs.captainBuff.buffIndex, 0, -1);
+            }
+            if (skillListToOverrideOnRespawn[num] != Shiggy.loaderpassiveDef)
+            {
+                body.ApplyBuff(Buffs.loaderBuff.buffIndex, 0, -1);
+            }
+			//add buff
+            if (skillListToOverrideOnRespawn[num] == Shiggy.alphacontructpassiveDef)
 			{
 				body.ApplyBuff(Buffs.alphashieldonBuff.buffIndex, 1, -1);
 			}

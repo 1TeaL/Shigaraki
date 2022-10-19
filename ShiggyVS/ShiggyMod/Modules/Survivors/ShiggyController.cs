@@ -12,6 +12,9 @@ using EntityStates.MiniMushroom;
 using UnityEngine.Networking;
 using ExtraSkillSlots;
 using R2API.Networking;
+using ShiggyMod.Modules.Networking;
+using R2API.Networking.Interfaces;
+using UnityEngine.UIElements;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -103,7 +106,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool beetlequeenshotgunDef;
         public bool grandparentsunDef;
         public bool grovetenderhookDef;
-		public bool claydunestriderballDef;
+		public bool claydunestriderbuffDef;
 		public bool soluscontrolunityknockupDef;
 		public bool xiconstructbeamDef;
 		public bool voiddevastatorhomingDef;
@@ -126,6 +129,13 @@ namespace ShiggyMod.Modules.Survivors
         private float effecttimer2;
         private float effecttimer3;
 
+        //AFO
+        private bool informAFOToPlayers;
+        private bool hasStolen;
+        private float stopwatch;
+        private bool hasRemoved;
+        private float stopwatch2;
+
         public void Awake()
 		{
 			child = GetComponentInChildren<ChildLocator>();
@@ -134,7 +144,6 @@ namespace ShiggyMod.Modules.Survivors
 			passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
 			activeindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
 			//On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
-			characterBody = gameObject.GetComponent<CharacterBody>();
 			inputBank = gameObject.GetComponent<InputBankTest>();
 
 			larvabuffGiven = false;
@@ -182,7 +191,7 @@ namespace ShiggyMod.Modules.Survivors
 			beetlequeenshotgunDef = false;
 			grovetenderhookDef = false;
             grandparentsunDef = false;
-            claydunestriderballDef = false;
+            claydunestriderbuffDef = false;
 			soluscontrolunityknockupDef = false;
 			xiconstructbeamDef = false;
 			voiddevastatorhomingDef = false;
@@ -194,20 +203,22 @@ namespace ShiggyMod.Modules.Survivors
             hasExtra3 = false;
             hasExtra4 = false;
 
+            informAFOToPlayers = false;
+
         }
 
 
         public void Start()
-		{
-
-			characterMaster = characterBody.master;
+        {
+            characterBody = gameObject.GetComponent<CharacterBody>();
+            characterMaster = characterBody.master;
 			if (!characterMaster.gameObject.GetComponent<ShiggyMasterController>())
 			{
 				Shiggymastercon = characterMaster.gameObject.AddComponent<ShiggyMasterController>();
 			}
 
-			extraskillLocator = gameObject.GetComponent<ExtraSkillLocator>();
-            extrainputBankTest = gameObject.GetComponent<ExtraInputBankTest>();
+			extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
 
             alphacontructpassiveDef = false;
 			beetlepassiveDef = false;
@@ -248,7 +259,7 @@ namespace ShiggyMod.Modules.Survivors
 			beetlequeenshotgunDef = false;
 			grovetenderhookDef = false;
             grandparentsunDef = false;
-            claydunestriderballDef = false;
+            claydunestriderbuffDef = false;
 			soluscontrolunityknockupDef = false;
 			xiconstructbeamDef = false;
 			voiddevastatorhomingDef = false;
@@ -329,574 +340,580 @@ namespace ShiggyMod.Modules.Survivors
                 }
 
             }
-            //shiggy current damage
-            shiggyDamage = characterBody.damage;
+			if (characterBody.hasEffectiveAuthority)
+            {//shiggy current damage
+                shiggyDamage = characterBody.damage;
 
-            //Buff effects
-            //multbuff buff
-            if (characterBody.HasBuff(Modules.Buffs.multBuff))
-            {
-                if (effecttimer1 > 1f)
+                //Buff effects
+                //multbuff buff
+                if (characterBody.HasBuff(Modules.Buffs.multBuff))
                 {
-                    effecttimer1 = 0f;
-                    EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
+                    if (effecttimer1 > 1f)
                     {
-                        origin = child.FindChild("LHand").position,
-                        scale = 1f,
-                        rotation = Quaternion.LookRotation(characterBody.transform.position)
-
-                    }, false);
-
-                    EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
-                    {
-                        origin = child.FindChild("RHand").position,
-                        scale = 1f,
-                        rotation = Quaternion.LookRotation(characterBody.transform.position)
-
-                    }, false);
-                }
-                else
-                {
-                    effecttimer1 += Time.fixedDeltaTime;
-
-                }
-            }
-            //claydunestrider buff
-            if (characterBody.HasBuff(Modules.Buffs.claydunestriderBuff))
-            {
-                if (effecttimer2 > 1f)
-                {
-                    effecttimer2 = 0f;
-                    EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData
-                    {
-                        origin = characterBody.corePosition,
-                        scale = 1f,
-                        rotation = Quaternion.LookRotation(-characterBody.characterDirection.forward)
-
-                    }, false);
-                }
-                else
-                {
-                    effecttimer2 += Time.fixedDeltaTime;
-
-                }
-            }
-            //Greaterwisp buff
-            if (characterBody.HasBuff(Modules.Buffs.greaterwispBuff))
-            {
-                if (effecttimer3 > 1f)
-                {
-                    effecttimer3 = 0f;
-                    EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
-                    {
-                        origin = child.FindChild("LHand").position,
-                        scale = 1f,
-                        rotation = Quaternion.LookRotation(characterBody.transform.position)
-
-                    }, false);
-
-                    EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
-                    {
-                        origin = child.FindChild("RHand").position,
-                        scale = 1f,
-                        rotation = Quaternion.LookRotation(characterBody.transform.position)
-
-                    }, false);
-                }
-                else
-                {
-                    effecttimer3 += Time.fixedDeltaTime;
-
-                }
-            }
-
-            //captain buff items
-            captainitemcount = characterBody.master.inventory.GetItemCount(RoR2Content.Items.CaptainDefenseMatrix);
-            if (characterBody.HasBuff(Buffs.captainBuff))
-            {
-                if(captainitemcount < 1)
-                {
-                    characterBody.master.inventory.GiveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
-                }
-                
-            }
-            else if(!characterBody.HasBuff(Buffs.captainBuff) && captainitemcount > 0)
-            {
-                characterBody.master.inventory.RemoveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
-            }
-
-            //damagetypes for moves
-            damageType = DamageType.Generic;
-            damageType2 = DamageType.SlowOnHit;
-
-            //check multiplier buff
-            if (characterBody.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
-                projectileCount = 1 *(int)Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                decayCount = 1;
-                projectileCount = 1;
-            }
-
-            rangedMultiplier = 1f;
-            //ranged boost buff
-            if (characterBody.HasBuff(Modules.Buffs.lesserwispBuff.buffIndex))
-            {
-                rangedMultiplier *= StaticValues.lesserwisprangedMultiplier;
-            }
-            if (!characterBody.HasBuff(Modules.Buffs.lesserwispBuff.buffIndex))
-            {
-                rangedMultiplier = 1f;
-            }
-            //strength boost buff
-            if (characterBody.HasBuff(Modules.Buffs.loaderBuff.buffIndex) | characterBody.HasBuff(Modules.Buffs.beetleBuff.buffIndex))
-            {
-
-                if (characterBody.HasBuff(Modules.Buffs.loaderBuff.buffIndex) && characterBody.HasBuff(Modules.Buffs.beetleBuff.buffIndex))
-                {
-                    strengthMultiplier = StaticValues.beetlestrengthMultiplier * StaticValues.loaderDamageMultiplier;
-                }
-                else
-                {
-                    strengthMultiplier = StaticValues.beetlestrengthMultiplier;
-                }
-            }
-            else
-            {
-                strengthMultiplier = 1f;
-            }
-
-            //overloadingworm buff
-            if (characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
-			{
-				if (!NetworkServer.active)
-				{
-					return;
-				}
-				if (overloadingWard == null)
-				{
-					this.overloadingWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/NearbyDamageBonusIndicator"), characterBody.footPosition, Quaternion.identity);
-					this.overloadingWard.transform.parent = characterBody.transform;
-					//this.magmawormWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
-
-					if (overloadingtimer > StaticValues.overloadingInterval / characterBody.attackSpeed)
-					{
-						overloadingtimer = 0f;
-						OverloadingFire();
-
-					}
-					else
-					{
-						overloadingtimer += Time.fixedDeltaTime;
-					}
-				}
-			}
-			else if (!characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
-			{
-				if (this.overloadingWard)
-				{
-					EntityState.Destroy(this.overloadingWard);
-				}
-			}
-
-			//magmaworm buff
-			if (characterBody.HasBuff(Modules.Buffs.magmawormBuff.buffIndex))
-			{
-				if (!NetworkServer.active)
-				{
-					return;
-				}
-				if (magmawormWard == null)
-				{
-					this.magmawormWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/NearbyDamageBonusIndicator"), characterBody.footPosition, Quaternion.identity);
-					this.magmawormWard.transform.parent = characterBody.transform;
-					//this.magmawormWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
-
-					if (magmawormtimer > StaticValues.magmawormInterval/characterBody.attackSpeed)
-					{
-						magmawormtimer = 0f;
-						MagmawormFire();
-
-					}
-					else
-					{
-						magmawormtimer += Time.fixedDeltaTime;
-					}
-				}
-			}
-			else if (!characterBody.HasBuff(Modules.Buffs.magmawormBuff.buffIndex))
-			{
-				if (this.magmawormWard)
-				{
-					EntityState.Destroy(this.magmawormWard);
-				}
-			}
-
-            //vagrant disablebuff
-            if (characterBody.hasEffectiveAuthority)
-            {
-                if (characterBody.HasBuff(Modules.Buffs.vagrantdisableBuff.buffIndex))
-                {
-                    if (vagranttimer > 1f)
-                    {
-                        int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.vagrantdisableBuff.buffIndex);
-                        if (buffCountToApply > 1)
+                        effecttimer1 = 0f;
+                        EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
                         {
-                            if (buffCountToApply >= 2)
-                            {
-                                characterBody.RemoveBuff(Modules.Buffs.vagrantdisableBuff.buffIndex);
-                                vagranttimer = 0f;
-                            }
-                        }
-                        else
+                            origin = child.FindChild("LHand").position,
+                            scale = 1f,
+                            rotation = Quaternion.LookRotation(characterBody.transform.position)
+
+                        }, false);
+
+                        EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
                         {
-                            characterBody.RemoveBuff(Modules.Buffs.vagrantdisableBuff.buffIndex);
-                            characterBody.AddBuff(Modules.Buffs.vagrantBuff);
+                            origin = child.FindChild("RHand").position,
+                            scale = 1f,
+                            rotation = Quaternion.LookRotation(characterBody.transform.position)
 
-                        }
-                    }
-                    else vagranttimer += Time.fixedDeltaTime;
-                }
-
-            }
-            //roboballmini buff
-            if (characterBody.HasBuff(Modules.Buffs.roboballminiBuff.buffIndex))
-            {
-                if(characterBody.inputBank.skill1.down 
-                    | characterBody.inputBank.skill2.down 
-                    | characterBody.inputBank.skill3.down 
-                    | characterBody.inputBank.skill1.down)
-                {
-                    if(roboballTimer > 1f)
-                    {
-                        roboballTimer = 0f;
-                        characterBody.AddBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex);
+                        }, false);
                     }
                     else
                     {
-                        roboballTimer += Time.fixedDeltaTime;
+                        effecttimer1 += Time.fixedDeltaTime;
 
                     }
                 }
-                else if (!characterBody.inputBank.skill1.down 
-                    && !characterBody.inputBank.skill2.down 
-                    && !characterBody.inputBank.skill3.down 
-                    && !characterBody.inputBank.skill1.down)
+                //claydunestrider buff
+                if (characterBody.HasBuff(Modules.Buffs.claydunestriderBuff))
                 {
-                    characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex, 0);
+                    if (effecttimer2 > 1f)
+                    {
+                        effecttimer2 = 0f;
+                        EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData
+                        {
+                            origin = characterBody.corePosition,
+                            scale = 1f,
+                            rotation = Quaternion.LookRotation(-characterBody.characterDirection.forward)
+
+                        }, false);
+                    }
+                    else
+                    {
+                        effecttimer2 += Time.fixedDeltaTime;
+
+                    }
                 }
-                //if (characterBody.inputBank.jump.down)
-                //{
-                //    characterBody.AddBuff(Buffs.flyBuff.buffIndex);
-                //    base.transform.position = characterBody.transform.position;
-                //    if (characterBody.hasEffectiveAuthority && characterBody.characterMotor)
-                //    {
-                //        if (characterBody.inputBank.moveVector != Vector3.zero)
-                //        {
-                //            characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed * Modules.StaticValues.roboballboostMultiplier);
-                //            characterBody.characterMotor.disableAirControlUntilCollision = false;
-                //        }
-                //    }
-                //}
-                //else if (!characterBody.inputBank.jump.down)
-                //{
-                //    characterBody.RemoveBuff(Buffs.flyBuff.buffIndex);
-                //}
+                //Greaterwisp buff
+                if (characterBody.HasBuff(Modules.Buffs.greaterwispBuff))
+                {
+                    if (effecttimer3 > 1f)
+                    {
+                        effecttimer3 = 0f;
+                        EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                        {
+                            origin = child.FindChild("LHand").position,
+                            scale = 1f,
+                            rotation = Quaternion.LookRotation(characterBody.transform.position)
 
-            }
+                        }, false);
 
+                        EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                        {
+                            origin = child.FindChild("RHand").position,
+                            scale = 1f,
+                            rotation = Quaternion.LookRotation(characterBody.transform.position)
 
+                        }, false);
+                    }
+                    else
+                    {
+                        effecttimer3 += Time.fixedDeltaTime;
 
+                    }
+                }
 
-            //mini mushrum buff
-            if (characterBody.HasBuff(Modules.Buffs.minimushrumBuff.buffIndex))
-			{
-				if (!NetworkServer.active)
-				{
-					return;
-				}
-				if (this.mushroomWard == null)
-				{
-					this.minimushrumsoundID = Util.PlaySound(Plant.healSoundLoop, characterBody.modelLocator.modelTransform.gameObject);
-					this.mushroomWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/MiniMushroomWard"), characterBody.footPosition, Quaternion.identity);
-					this.mushroomWard.transform.parent = characterBody.transform;
-					this.mushroomWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
-					if (this.mushroomWard)
-					{
-						HealingWard component = this.mushroomWard.GetComponent<HealingWard>();
-						component.healFraction = Modules.StaticValues.minimushrumhealFraction;
-						component.healPoints = 0f;
-						component.Networkradius = Modules.StaticValues.minimushrumRadius;
-                        component.interval = Modules.StaticValues.minimushrumInterval;
-                        //component.healTimer = Modules.StaticValues.minimushrumhealFraction;
-					}
-					NetworkServer.Spawn(this.mushroomWard);
-				}
-			}
-			else if (!characterBody.HasBuff(Modules.Buffs.minimushrumBuff.buffIndex))
-            {
-				if (this.mushroomWard)
-				{
-					AkSoundEngine.StopPlayingID(this.minimushrumsoundID);
-					Util.PlaySound(Plant.healSoundStop, base.gameObject);
-					EntityState.Destroy(this.mushroomWard);
-				}
-			}
+                //captain buff items
+                captainitemcount = characterBody.master.inventory.GetItemCount(RoR2Content.Items.CaptainDefenseMatrix);
+                if (characterBody.HasBuff(Buffs.captainBuff))
+                {
+                    if (captainitemcount < 1)
+                    {
+                        characterBody.master.inventory.GiveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
+                    }
 
-			//alpha shield buff
-			if (characterBody.hasEffectiveAuthority)
-			{
-				if (characterBody.HasBuff(Modules.Buffs.alphashieldoffBuff.buffIndex))
-				{
+                }
+                else if (!characterBody.HasBuff(Buffs.captainBuff) && captainitemcount > 0)
+                {
+                    characterBody.master.inventory.RemoveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
+                }
 
-					if (alphaconstructshieldtimer > 1f)
-					{
-						int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex);
-						if (buffCountToApply > 1)
-						{
-							if (buffCountToApply >= 2)
-							{
-								characterBody.RemoveBuff(Modules.Buffs.alphashieldoffBuff.buffIndex);
-								alphaconstructshieldtimer = 0f;
-							}
-						}
-						else
-						{
-							characterBody.RemoveBuff(Modules.Buffs.alphashieldoffBuff.buffIndex);
-							characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
+                //damagetypes for moves
+                damageType = DamageType.Generic;
+                damageType2 = DamageType.SlowOnHit;
 
-						}
-					}
-					else alphaconstructshieldtimer += Time.fixedDeltaTime;
-				}
-
-			}
-			
-
-			//Standing still/not moving buffs
-			if (characterBody.GetNotMoving())
-			{
-
-				//hermitcrab mortarbuff
-				if (characterBody.HasBuff(Modules.Buffs.hermitcrabmortarBuff))
-				{
-					if (!this.mortarIndicatorInstance)
-					{
-						CreateMortarIndicator();
-					}
-					mortarTimer += Time.fixedDeltaTime;
-					if (mortarTimer >= Modules.StaticValues.mortarbaseDuration/ (characterBody.attackSpeed))
-					{
-						characterBody.AddBuff(Modules.Buffs.hermitcrabmortararmorBuff);
-						mortarTimer = 0f;
-						FireMortar();
-					}
-				}
+                //check multiplier buff
+                if (characterBody.HasBuff(Modules.Buffs.multiplierBuff))
+                {
+                    decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+                    projectileCount = 1 * (int)Modules.StaticValues.multiplierCoefficient;
+                }
                 else
-				{
-					if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
-					characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
+                {
+                    decayCount = 1;
+                    projectileCount = 1;
+                }
 
-				}
+                rangedMultiplier = 1f;
+                //ranged boost buff
+                if (characterBody.HasBuff(Modules.Buffs.lesserwispBuff.buffIndex))
+                {
+                    rangedMultiplier *= StaticValues.lesserwisprangedMultiplier;
+                }
+                if (!characterBody.HasBuff(Modules.Buffs.lesserwispBuff.buffIndex))
+                {
+                    rangedMultiplier = 1f;
+                }
+                //strength boost buff
+                if (characterBody.HasBuff(Modules.Buffs.loaderBuff.buffIndex) | characterBody.HasBuff(Modules.Buffs.beetleBuff.buffIndex))
+                {
 
-				//voidbarnacle mortarbuff
-				if (characterBody.HasBuff(Modules.Buffs.voidbarnaclemortarBuff))
-				{
-					if (!this.voidmortarIndicatorInstance)
-					{
-						CreateVoidMortarIndicator();
-					}
-					voidmortarTimer += Time.fixedDeltaTime;
-					if (voidmortarTimer >= Modules.StaticValues.voidmortarbaseDuration/ (characterBody.armor/characterBody.baseArmor))
-					{
-						characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff);
-						attackSpeedGain = Modules.StaticValues.voidmortarattackspeedGain * characterBody.GetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff);
-						voidmortarTimer = 0f;
-						FireMortar();
-					}
-				}
-				else
-				{
-					if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
-					characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
-				}
-			}
-
-			else if (!characterBody.GetNotMoving())
-			{
-				if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
-				characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
-				if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
-				characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
-
-				//voidjailer buff
-				if (characterBody.HasBuff(Modules.Buffs.voidjailerBuff.buffIndex))
-				{
-					float num = characterBody.moveSpeed;
-					bool isSprinting = characterBody.isSprinting;
-					if (isSprinting)
-					{
-						num /= characterBody.sprintingSpeedMultiplier;
-					}
-					voidjailerTimer += Time.fixedDeltaTime;
-					if (voidjailerTimer > StaticValues.voidjailerInterval / (num/characterBody.baseMoveSpeed) )
-					{
-						voidjailerTimer = 0f;
-						VoidJailerPull();
-					}
-				}
-			}
-
-			//verminjump buff
-			if (characterBody.HasBuff(Buffs.pestjumpBuff) && !verminjumpbuffGiven)
-			{
-				verminjumpbuffGiven = true;
-				characterBody.characterMotor.jumpCount += Modules.StaticValues.verminjumpStacks;
-				characterBody.maxJumpCount += Modules.StaticValues.verminjumpStacks;
-				characterBody.baseJumpCount += Modules.StaticValues.verminjumpStacks;
-				characterBody.jumpPower += Modules.StaticValues.verminjumpPower;
-                characterBody.baseJumpPower += Modules.StaticValues.verminjumpPower;
-            }
-			else
-			{
-				if (!characterBody.HasBuff(Buffs.pestjumpBuff))
-				{
-                    if (verminjumpbuffGiven)
+                    if (characterBody.HasBuff(Modules.Buffs.loaderBuff.buffIndex) && characterBody.HasBuff(Modules.Buffs.beetleBuff.buffIndex))
                     {
-                        verminjumpbuffGiven = false;
-                        characterBody.characterMotor.jumpCount -= Modules.StaticValues.verminjumpStacks;
-                        characterBody.maxJumpCount -= Modules.StaticValues.verminjumpStacks;
-                        characterBody.baseJumpCount -= Modules.StaticValues.verminjumpStacks;
-                        characterBody.jumpPower -= Modules.StaticValues.verminjumpPower;
-                        characterBody.baseJumpPower -= Modules.StaticValues.verminjumpPower;
+                        strengthMultiplier = StaticValues.beetlestrengthMultiplier * StaticValues.loaderDamageMultiplier;
+                    }
+                    else
+                    {
+                        strengthMultiplier = StaticValues.beetlestrengthMultiplier;
+                    }
+                }
+                else
+                {
+                    strengthMultiplier = 1f;
+                }
+
+                //overloadingworm buff
+                if (characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
+                {
+                    if (!NetworkServer.active)
+                    {
+                        return;
+                    }
+                    if (overloadingWard == null)
+                    {
+                        this.overloadingWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/NearbyDamageBonusIndicator"), characterBody.footPosition, Quaternion.identity);
+                        this.overloadingWard.transform.parent = characterBody.transform;
+                        //this.magmawormWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
+
+                        if (overloadingtimer > StaticValues.overloadingInterval / characterBody.attackSpeed)
+                        {
+                            overloadingtimer = 0f;
+                            OverloadingFire();
+
+                        }
+                        else
+                        {
+                            overloadingtimer += Time.fixedDeltaTime;
+                        }
+                    }
+                }
+                else if (!characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
+                {
+                    if (this.overloadingWard)
+                    {
+                        EntityState.Destroy(this.overloadingWard);
+                    }
+                }
+
+                //magmaworm buff
+                if (characterBody.HasBuff(Modules.Buffs.magmawormBuff.buffIndex))
+                {
+                    if (!NetworkServer.active)
+                    {
+                        return;
+                    }
+                    if (magmawormWard == null)
+                    {
+                        this.magmawormWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/NearbyDamageBonusIndicator"), characterBody.footPosition, Quaternion.identity);
+                        this.magmawormWard.transform.parent = characterBody.transform;
+                        //this.magmawormWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
+
+                        if (magmawormtimer > StaticValues.magmawormInterval / characterBody.attackSpeed)
+                        {
+                            magmawormtimer = 0f;
+                            MagmawormFire();
+
+                        }
+                        else
+                        {
+                            magmawormtimer += Time.fixedDeltaTime;
+                        }
+                    }
+                }
+                else if (!characterBody.HasBuff(Modules.Buffs.magmawormBuff.buffIndex))
+                {
+                    if (this.magmawormWard)
+                    {
+                        EntityState.Destroy(this.magmawormWard);
+                    }
+                }
+
+                //vagrant disablebuff
+                if (characterBody.hasEffectiveAuthority)
+                {
+                    if (characterBody.HasBuff(Modules.Buffs.vagrantdisableBuff.buffIndex))
+                    {
+                        if (vagranttimer > 1f)
+                        {
+                            int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.vagrantdisableBuff.buffIndex);
+                            if (buffCountToApply > 1)
+                            {
+                                if (buffCountToApply >= 2)
+                                {
+                                    characterBody.ApplyBuff(Modules.Buffs.vagrantdisableBuff.buffIndex, buffCountToApply - 1);
+                                    vagranttimer = 0f;
+                                }
+                            }
+                            else
+                            {
+                                characterBody.ApplyBuff(Modules.Buffs.vagrantdisableBuff.buffIndex, 0);
+                                characterBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex, 1);
+
+                            }
+                        }
+                        else vagranttimer += Time.fixedDeltaTime;
                     }
 
                 }
-			}
-			//larvajump buff
-			if (characterBody.HasBuff(Buffs.larvajumpBuff))
-			{
-                if (!larvabuffGiven)
+                //roboballmini buff
+                if (characterBody.HasBuff(Modules.Buffs.roboballminiBuff.buffIndex))
                 {
-					larvabuffGiven = true;
-					characterBody.characterMotor.jumpCount += Modules.StaticValues.larvajumpStacks;
-					characterBody.maxJumpCount += Modules.StaticValues.larvajumpStacks;
-					characterBody.baseJumpCount += Modules.StaticValues.larvajumpStacks;
-					characterBody.jumpPower += Modules.StaticValues.larvajumpPower;
-					characterBody.baseJumpPower += Modules.StaticValues.larvajumpPower;
-					characterBody.maxJumpHeight = Trajectory.CalculateApex(characterBody.jumpPower);
-                }
-
-				if (characterBody.inputBank.jump.justPressed && characterBody && characterBody.characterMotor.jumpCount < characterBody.maxJumpCount)
-				{					
-					Vector3 footPosition = characterBody.footPosition;
-					EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
-					{
-						origin = footPosition,
-						scale = Modules.StaticValues.larvaRadius
-					}, true);
-
-					BlastAttack blastAttack = new BlastAttack();
-					blastAttack.radius = Modules.StaticValues.larvaRadius;
-					blastAttack.procCoefficient = Modules.StaticValues.larvaProcCoefficient;
-					blastAttack.position = characterBody.footPosition;
-					blastAttack.attacker = base.gameObject;
-					blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
-					blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5) * strengthMultiplier;
-					blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-					blastAttack.baseForce = Modules.StaticValues.larvaForce;
-					blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-					blastAttack.damageType = damageType;
-					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-
-					blastAttack.Fire();
-
-                    ApplyDoT();
-                    
-				}
-
-                if (!characterBody.characterMotor.isGrounded)
-                {
-					larvaTimer += Time.fixedDeltaTime;
-                }
-				if(characterBody.characterMotor.isGrounded && larvaTimer > 1f)
-                {
-					larvaTimer = 0f;
-					Vector3 footPosition = characterBody.footPosition;
-					EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
-					{
-						origin = footPosition,
-						scale = Modules.StaticValues.larvaRadius
-					}, true);
-
-					BlastAttack blastAttack = new BlastAttack();
-					blastAttack.radius = Modules.StaticValues.larvaRadius;
-					blastAttack.procCoefficient = Modules.StaticValues.larvaProcCoefficient;
-					blastAttack.position = characterBody.footPosition;
-					blastAttack.attacker = base.gameObject;
-					blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
-					blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5);
-					blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-					blastAttack.baseForce = Modules.StaticValues.larvaForce;
-					blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-					blastAttack.damageType = damageType;
-					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-					blastAttack.Fire();
-					ApplyDoT();
-				}
-			}
-			else
-            {
-				if (!characterBody.HasBuff(Buffs.larvajumpBuff))
-                {
-                    if (larvabuffGiven)
+                    if (characterBody.inputBank.skill1.down
+                        | characterBody.inputBank.skill2.down
+                        | characterBody.inputBank.skill3.down
+                        | characterBody.inputBank.skill1.down)
                     {
-                        larvabuffGiven = false;
-                        characterBody.characterMotor.jumpCount -= Modules.StaticValues.larvajumpStacks;
-                        characterBody.maxJumpCount -= Modules.StaticValues.larvajumpStacks;
-                        characterBody.baseJumpCount -= Modules.StaticValues.larvajumpStacks;
-                        characterBody.jumpPower -= Modules.StaticValues.larvajumpPower;
-                        characterBody.baseJumpPower -= Modules.StaticValues.larvajumpPower;
+                        if (roboballTimer > 1f)
+                        {
+                            roboballTimer = 0f;
+                            characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex);
+                        }
+                        else
+                        {
+                            roboballTimer += Time.fixedDeltaTime;
+
+                        }
+                    }
+                    else if (!characterBody.inputBank.skill1.down
+                        && !characterBody.inputBank.skill2.down
+                        && !characterBody.inputBank.skill3.down
+                        && !characterBody.inputBank.skill1.down)
+                    {
+                        characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex, 0);
+                    }
+                    //if (characterBody.inputBank.jump.down)
+                    //{
+                    //    characterBody.ApplyBuff(Buffs.flyBuff.buffIndex);
+                    //    base.transform.position = characterBody.transform.position;
+                    //    if (characterBody.hasEffectiveAuthority && characterBody.characterMotor)
+                    //    {
+                    //        if (characterBody.inputBank.moveVector != Vector3.zero)
+                    //        {
+                    //            characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed * Modules.StaticValues.roboballboostMultiplier);
+                    //            characterBody.characterMotor.disableAirControlUntilCollision = false;
+                    //        }
+                    //    }
+                    //}
+                    //else if (!characterBody.inputBank.jump.down)
+                    //{
+                    //    characterBody.RemoveBuff(Buffs.flyBuff.buffIndex);
+                    //}
+
+                }
+
+
+
+
+                //mini mushrum buff
+                if (characterBody.HasBuff(Modules.Buffs.minimushrumBuff.buffIndex))
+                {
+                    if (!NetworkServer.active)
+                    {
+                        return;
+                    }
+                    if (this.mushroomWard == null)
+                    {
+                        this.minimushrumsoundID = Util.PlaySound(Plant.healSoundLoop, characterBody.modelLocator.modelTransform.gameObject);
+                        this.mushroomWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/MiniMushroomWard"), characterBody.footPosition, Quaternion.identity);
+                        this.mushroomWard.transform.parent = characterBody.transform;
+                        this.mushroomWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
+                        if (this.mushroomWard)
+                        {
+                            HealingWard component = this.mushroomWard.GetComponent<HealingWard>();
+                            component.healFraction = Modules.StaticValues.minimushrumhealFraction;
+                            component.healPoints = 0f;
+                            component.Networkradius = Modules.StaticValues.minimushrumRadius;
+                            component.interval = Modules.StaticValues.minimushrumInterval;
+                            //component.healTimer = Modules.StaticValues.minimushrumhealFraction;
+                        }
+                        NetworkServer.Spawn(this.mushroomWard);
+                    }
+                }
+                else if (!characterBody.HasBuff(Modules.Buffs.minimushrumBuff.buffIndex))
+                {
+                    if (this.mushroomWard)
+                    {
+                        AkSoundEngine.StopPlayingID(this.minimushrumsoundID);
+                        Util.PlaySound(Plant.healSoundStop, base.gameObject);
+                        EntityState.Destroy(this.mushroomWard);
+                    }
+                }
+
+                //alpha shield buff
+                if (characterBody.hasEffectiveAuthority)
+                {
+                    if (characterBody.HasBuff(Modules.Buffs.alphashieldoffBuff.buffIndex))
+                    {
+
+                        if (alphaconstructshieldtimer > 1f)
+                        {
+                            int buffCountToApply2 = characterBody.GetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex);
+                            if (buffCountToApply2 > 1)
+                            {
+                                if (buffCountToApply2 >= 2)
+                                {
+                                    characterBody.ApplyBuff(Modules.Buffs.alphashieldoffBuff.buffIndex, buffCountToApply2 - 1);
+                                    alphaconstructshieldtimer = 0f;
+                                }
+                            }
+                            else
+                            {
+                                characterBody.ApplyBuff(Modules.Buffs.alphashieldoffBuff.buffIndex, 0);
+                                characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 1);
+
+                            }
+                        }
+                        else alphaconstructshieldtimer += Time.fixedDeltaTime;
+                    }
+
+                }
+
+
+                //Standing still/not moving buffs
+                if (characterBody.GetNotMoving())
+                {
+
+                    //hermitcrab mortarbuff
+                    if (characterBody.HasBuff(Modules.Buffs.hermitcrabmortarBuff))
+                    {
+                        if (!this.mortarIndicatorInstance)
+                        {
+                            CreateMortarIndicator();
+                        }
+                        mortarTimer += Time.fixedDeltaTime;
+                        if (mortarTimer >= Modules.StaticValues.mortarbaseDuration / (characterBody.attackSpeed))
+                        {
+                            int hermitbuffcount = characterBody.GetBuffCount(Buffs.hermitcrabmortararmorBuff.buffIndex);
+                            characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, hermitbuffcount + 1);
+                            mortarTimer = 0f;
+                            FireMortar();
+                        }
+                    }
+                    else
+                    {
+                        if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
+                        characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
+
+                    }
+
+                    //voidbarnacle mortarbuff
+                    if (characterBody.HasBuff(Modules.Buffs.voidbarnaclemortarBuff))
+                    {
+                        if (!this.voidmortarIndicatorInstance)
+                        {
+                            CreateVoidMortarIndicator();
+                        }
+                        voidmortarTimer += Time.fixedDeltaTime;
+                        if (voidmortarTimer >= Modules.StaticValues.voidmortarbaseDuration / (characterBody.armor / characterBody.baseArmor))
+                        {
+                            int voidbarnaclebuffcount = characterBody.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff.buffIndex);
+                            characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, voidbarnaclebuffcount + 1);
+                            attackSpeedGain = Modules.StaticValues.voidmortarattackspeedGain * characterBody.GetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff);
+                            voidmortarTimer = 0f;
+                            FireMortar();
+                        }
+                    }
+                    else
+                    {
+                        if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
+                        characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
+                    }
+                }
+
+                else if (!characterBody.GetNotMoving())
+                {
+                    if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
+                    characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
+                    if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
+                    characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
+
+                    //voidjailer buff
+                    if (characterBody.HasBuff(Modules.Buffs.voidjailerBuff.buffIndex))
+                    {
+                        float num = characterBody.moveSpeed;
+                        bool isSprinting = characterBody.isSprinting;
+                        if (isSprinting)
+                        {
+                            num /= characterBody.sprintingSpeedMultiplier;
+                        }
+                        voidjailerTimer += Time.fixedDeltaTime;
+                        if (voidjailerTimer > StaticValues.voidjailerInterval / (num / characterBody.baseMoveSpeed))
+                        {
+                            voidjailerTimer = 0f;
+                            VoidJailerPull();
+                        }
+                    }
+                }
+
+                //verminjump buff
+                if (characterBody.HasBuff(Buffs.pestjumpBuff) && !verminjumpbuffGiven)
+                {
+                    verminjumpbuffGiven = true;
+                    characterBody.characterMotor.jumpCount += Modules.StaticValues.verminjumpStacks;
+                    characterBody.maxJumpCount += Modules.StaticValues.verminjumpStacks;
+                    characterBody.baseJumpCount += Modules.StaticValues.verminjumpStacks;
+                    characterBody.jumpPower += Modules.StaticValues.verminjumpPower;
+                    characterBody.baseJumpPower += Modules.StaticValues.verminjumpPower;
+                }
+                else
+                {
+                    if (!characterBody.HasBuff(Buffs.pestjumpBuff))
+                    {
+                        if (verminjumpbuffGiven)
+                        {
+                            verminjumpbuffGiven = false;
+                            characterBody.characterMotor.jumpCount -= Modules.StaticValues.verminjumpStacks;
+                            characterBody.maxJumpCount -= Modules.StaticValues.verminjumpStacks;
+                            characterBody.baseJumpCount -= Modules.StaticValues.verminjumpStacks;
+                            characterBody.jumpPower -= Modules.StaticValues.verminjumpPower;
+                            characterBody.baseJumpPower -= Modules.StaticValues.verminjumpPower;
+                        }
+
+                    }
+                }
+                //larvajump buff
+                if (characterBody.HasBuff(Buffs.larvajumpBuff))
+                {
+                    if (!larvabuffGiven)
+                    {
+                        larvabuffGiven = true;
+                        characterBody.characterMotor.jumpCount += Modules.StaticValues.larvajumpStacks;
+                        characterBody.maxJumpCount += Modules.StaticValues.larvajumpStacks;
+                        characterBody.baseJumpCount += Modules.StaticValues.larvajumpStacks;
+                        characterBody.jumpPower += Modules.StaticValues.larvajumpPower;
+                        characterBody.baseJumpPower += Modules.StaticValues.larvajumpPower;
                         characterBody.maxJumpHeight = Trajectory.CalculateApex(characterBody.jumpPower);
                     }
+
+                    if (characterBody.inputBank.jump.justPressed && characterBody && characterBody.characterMotor.jumpCount < characterBody.maxJumpCount)
+                    {
+                        Vector3 footPosition = characterBody.footPosition;
+                        EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
+                        {
+                            origin = footPosition,
+                            scale = Modules.StaticValues.larvaRadius
+                        }, true);
+
+                        BlastAttack blastAttack = new BlastAttack();
+                        blastAttack.radius = Modules.StaticValues.larvaRadius;
+                        blastAttack.procCoefficient = Modules.StaticValues.larvaProcCoefficient;
+                        blastAttack.position = characterBody.footPosition;
+                        blastAttack.attacker = base.gameObject;
+                        blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
+                        blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5) * strengthMultiplier;
+                        blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                        blastAttack.baseForce = Modules.StaticValues.larvaForce;
+                        blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
+                        blastAttack.damageType = damageType;
+                        blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+
+                        blastAttack.Fire();
+
+                        ApplyDoT();
+
+                    }
+
+                    if (!characterBody.characterMotor.isGrounded)
+                    {
+                        larvaTimer += Time.fixedDeltaTime;
+                    }
+                    if (characterBody.characterMotor.isGrounded && larvaTimer > 1f)
+                    {
+                        larvaTimer = 0f;
+                        Vector3 footPosition = characterBody.footPosition;
+                        EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
+                        {
+                            origin = footPosition,
+                            scale = Modules.StaticValues.larvaRadius
+                        }, true);
+
+                        BlastAttack blastAttack = new BlastAttack();
+                        blastAttack.radius = Modules.StaticValues.larvaRadius;
+                        blastAttack.procCoefficient = Modules.StaticValues.larvaProcCoefficient;
+                        blastAttack.position = characterBody.footPosition;
+                        blastAttack.attacker = base.gameObject;
+                        blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
+                        blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5);
+                        blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                        blastAttack.baseForce = Modules.StaticValues.larvaForce;
+                        blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
+                        blastAttack.damageType = damageType;
+                        blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+                        blastAttack.Fire();
+                        ApplyDoT();
+                    }
                 }
-			}
-			//lunar exploder buff
-            if (characterBody.HasBuff(Buffs.lunarexploderBuff))
-            {
-				if(characterBody.healthComponent.combinedHealth < characterBody.healthComponent.fullCombinedHealth / 2)
+                else
                 {
-					lunarTimer += Time.fixedDeltaTime;
-					if (characterBody.hasEffectiveAuthority && lunarTimer >= Modules.StaticValues.lunarexploderbaseDuration)
-					{
-						lunarTimer = 0f;
-						for (int i = 0; i < Modules.StaticValues.lunarexploderprojectileCount; i++)
-						{
-							float num = 360f / Modules.StaticValues.lunarexploderprojectileCount;
-							Vector3 forward = Util.QuaternionSafeLookRotation(characterBody.transform.forward, characterBody.transform.up) * Util.ApplySpread(Vector3.forward, 0f, 0f, 1f, 1f, num * (float)i, 0f);
-							FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
-							fireProjectileInfo.projectilePrefab = DeathState.projectilePrefab;
-							fireProjectileInfo.position = characterBody.corePosition + Vector3.up * DeathState.projectileVerticalSpawnOffset;
-							fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(forward);
-							fireProjectileInfo.owner = characterBody.gameObject;
-							fireProjectileInfo.damage = characterBody.damage * Modules.StaticValues.lunarexploderDamageCoefficient;
-							fireProjectileInfo.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
-							ProjectileManager.instance.FireProjectile(fireProjectileInfo);
-						}
-						if (DeathState.deathExplosionEffect)
-						{
-							EffectManager.SpawnEffect(DeathState.deathExplosionEffect, new EffectData
-							{
-								origin = characterBody.corePosition,
-								scale = Modules.StaticValues.lunarexploderRadius
-							}, true);
-						}
-					}
-				}
+                    if (!characterBody.HasBuff(Buffs.larvajumpBuff))
+                    {
+                        if (larvabuffGiven)
+                        {
+                            larvabuffGiven = false;
+                            characterBody.characterMotor.jumpCount -= Modules.StaticValues.larvajumpStacks;
+                            characterBody.maxJumpCount -= Modules.StaticValues.larvajumpStacks;
+                            characterBody.baseJumpCount -= Modules.StaticValues.larvajumpStacks;
+                            characterBody.jumpPower -= Modules.StaticValues.larvajumpPower;
+                            characterBody.baseJumpPower -= Modules.StaticValues.larvajumpPower;
+                            characterBody.maxJumpHeight = Trajectory.CalculateApex(characterBody.jumpPower);
+                        }
+                    }
+                }
+                //lunar exploder buff
+                if (characterBody.HasBuff(Buffs.lunarexploderBuff))
+                {
+                    if (characterBody.healthComponent.combinedHealth < characterBody.healthComponent.fullCombinedHealth / 2)
+                    {
+                        lunarTimer += Time.fixedDeltaTime;
+                        if (characterBody.hasEffectiveAuthority && lunarTimer >= Modules.StaticValues.lunarexploderbaseDuration)
+                        {
+                            lunarTimer = 0f;
+                            for (int i = 0; i < Modules.StaticValues.lunarexploderprojectileCount; i++)
+                            {
+                                float num = 360f / Modules.StaticValues.lunarexploderprojectileCount;
+                                Vector3 forward = Util.QuaternionSafeLookRotation(characterBody.transform.forward, characterBody.transform.up) * Util.ApplySpread(Vector3.forward, 0f, 0f, 1f, 1f, num * (float)i, 0f);
+                                FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
+                                fireProjectileInfo.projectilePrefab = DeathState.projectilePrefab;
+                                fireProjectileInfo.position = characterBody.corePosition + Vector3.up * DeathState.projectileVerticalSpawnOffset;
+                                fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(forward);
+                                fireProjectileInfo.owner = characterBody.gameObject;
+                                fireProjectileInfo.damage = characterBody.damage * Modules.StaticValues.lunarexploderDamageCoefficient;
+                                fireProjectileInfo.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
+                                ProjectileManager.instance.FireProjectile(fireProjectileInfo);
+                            }
+                            if (DeathState.deathExplosionEffect)
+                            {
+                                EffectManager.SpawnEffect(DeathState.deathExplosionEffect, new EffectData
+                                {
+                                    origin = characterBody.corePosition,
+                                    scale = Modules.StaticValues.lunarexploderRadius
+                                }, true);
+                            }
+                        }
+                    }
+                }
+
             }
+            
 
 
 		}
@@ -953,7 +970,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "ALPHACONSTRUCT_NAME")
 		//	{               
-		//		characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff);
 		//	}
   //          else if(extraskillLocator.extraFirst.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
@@ -967,7 +984,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "BEETLE_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "BEETLE_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.beetleBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.beetleBuff);
 		//	}
   //          else if(extraskillLocator.extraFirst.skillNameToken != prefix + "BEETLE_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "BEETLE_NAME"
@@ -982,7 +999,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "GUP_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "GUP_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.gupspikeBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "GUP_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "GUP_NAME"
@@ -996,7 +1013,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "LARVA_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "LARVA_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.larvajumpBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "LARVA_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "LARVA_NAME"
@@ -1010,7 +1027,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "LESSERWISP_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "LESSERWISP_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.lesserwispBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "LESSERWISP_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "LESSERWISP_NAME"
@@ -1024,7 +1041,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "LUNAREXPLODER_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "LUNAREXPLODER_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.lunarexploderBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "LUNAREXPLODER_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "LUNAREXPLODER_NAME"
@@ -1038,7 +1055,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "HERMITCRAB_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "HERMITCRAB_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortarBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "HERMITCRAB_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "HERMITCRAB_NAME"
@@ -1052,7 +1069,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "PEST_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "PEST_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.pestjumpBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "PEST_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "PEST_NAME"
@@ -1066,7 +1083,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "VERMIN_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "VERMIN_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.verminsprintBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "VERMIN_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "VERMIN_NAME"
@@ -1080,7 +1097,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "MINIMUSHRUM_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "MINIMUSHRUM_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.minimushrumBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "MINIMUSHRUM_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "MINIMUSHRUM_NAME"
@@ -1094,7 +1111,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "ROBOBALLMINI_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "ROBOBALLMINI_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.roboballminiBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken == prefix + "ROBOBALLMINI_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken == prefix + "ROBOBALLMINI_NAME"
@@ -1108,7 +1125,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "VOIDBARNACLE_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "VOIDBARNACLE_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "VOIDBARNACLE_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "VOIDBARNACLE_NAME"
@@ -1122,7 +1139,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "VOIDJAILER_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "VOIDJAILER_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.voidjailerBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "VOIDJAILER_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "VOIDJAILER_NAME"
@@ -1136,7 +1153,7 @@ namespace ShiggyMod.Modules.Survivors
   //              || extraskillLocator.extraThird.skillNameToken == prefix + "IMPBOSS_NAME"
   //              || extraskillLocator.extraFourth.skillNameToken == prefix + "IMPBOSS_NAME")
   //          {
-  //              characterBody.AddBuff(Modules.Buffs.impbossBuff);
+  //              characterBody.ApplyBuff(Modules.Buffs.impbossBuff);
   //          }
   //          else if (extraskillLocator.extraFirst.skillNameToken != prefix + "IMPBOSS_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "IMPBOSS_NAME"
@@ -1150,7 +1167,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "STONETITAN_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "STONETITAN_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.stonetitanBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "STONETITAN_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "STONETITAN_NAME"
@@ -1164,7 +1181,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "MAGMAWORM_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "MAGMAWORM_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.magmawormBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.magmawormBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "MAGMAWORM_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "MAGMAWORM_NAME"
@@ -1178,7 +1195,7 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| extraskillLocator.extraThird.skillNameToken == prefix + "OVERLOADINGWORM_NAME"
 		//		|| extraskillLocator.extraFourth.skillNameToken == prefix + "OVERLOADINGWORM_NAME")
 		//	{
-		//		characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
+		//		characterBody.ApplyBuff(Modules.Buffs.overloadingwormBuff);
 		//	}
 		//	else if (extraskillLocator.extraFirst.skillNameToken != prefix + "OVERLOADINGWORM_NAME"
   //              && extraskillLocator.extraSecond.skillNameToken != prefix + "OVERLOADINGWORM_NAME"
@@ -1483,9 +1500,9 @@ namespace ShiggyMod.Modules.Survivors
 		//		|| characterBody.skillLocator.utility.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME"
 		//		|| characterBody.skillLocator.special.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME")
 		//	{
-		//		if (!claydunestriderballDef)
+		//		if (!claydunestriderbuffDef)
 		//		{
-		//			claydunestriderballDef = true;
+		//			claydunestriderbuffDef = true;
 		//		}
 		//	}
 		//	else if (characterBody.skillLocator.primary.skillNameToken != prefix + "CLAYDUNESTRIDER_NAME"
@@ -1493,7 +1510,7 @@ namespace ShiggyMod.Modules.Survivors
   //              && characterBody.skillLocator.utility.skillNameToken != prefix + "CLAYDUNESTRIDER_NAME"
   //              && characterBody.skillLocator.special.skillNameToken != prefix + "CLAYDUNESTRIDER_NAME")
   //          {
-		//		claydunestriderballDef = false;
+		//		claydunestriderbuffDef = false;
 		//	}
 		//	if (characterBody.skillLocator.primary.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME"
 		//		|| characterBody.skillLocator.secondary.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME"
@@ -1690,11 +1707,202 @@ namespace ShiggyMod.Modules.Survivors
 			}
 		}
 
-		public  void Update()
-		{            
+		public void Update()
+        {
+            Target = GetTrackingTarget();
             //update mortar indicator
-			if (this.mortarIndicatorInstance) this.UpdateIndicator();
-                        
+            if (this.mortarIndicatorInstance) this.UpdateIndicator();
+
+            if (!informAFOToPlayers)
+            {
+                informAFOToPlayers = true;
+                Chat.AddMessage($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
+                + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.");
+            }
+
+            //instant
+            if (Config.holdButtonAFO.Value)
+			{
+                //steal quirk
+				if (Config.AFOHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
+                {
+                    Debug.Log("hold button AFO");
+                    stopwatch += Time.deltaTime;
+					if (!this.hasStolen)
+					{                        
+						hasStolen = true;
+						if (Target)
+						{
+
+							Debug.Log("Target");
+							Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
+							AkSoundEngine.PostEvent(1719197672, this.gameObject);
+							StealQuirk(Target);
+						}
+					}
+					if (stopwatch >= 3f)
+					{
+						//choose what quirk to remove
+						Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
+						//unset skills but not to unwrite the skilllist
+						RemovePrimary();
+						RemoveSecondary();
+						RemoveUtility();
+						RemoveSpecial();
+						RemoveExtra1();
+						RemoveExtra2();
+						RemoveExtra3();
+						RemoveExtra4();
+
+						//override skills to choosdef
+						characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+					}
+
+
+				}
+				else if (Config.AFOHotkey.Value.IsUp())
+				{
+					hasStolen = false;
+					stopwatch = 0f;
+				}
+                //remove quirk
+                if (Config.RemoveHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
+                {
+                    Debug.Log("hold button AFO");
+                    stopwatch2 += Time.deltaTime;
+                    if (!this.hasRemoved)
+                    {
+                        hasRemoved = true;
+
+                        //choose what quirk to remove
+                        Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
+                        //unset skills but not to unwrite the skilllist
+                        RemovePrimary();
+                        RemoveSecondary();
+                        RemoveUtility();
+                        RemoveSpecial();
+                        RemoveExtra1();
+                        RemoveExtra2();
+                        RemoveExtra3();
+                        RemoveExtra4();
+
+                        //override skills to choosdef
+                        characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                    }
+
+
+                }
+                else if (Config.RemoveHotkey.Value.IsUp())
+                {
+                    hasRemoved = false;
+                    stopwatch2 = 0f;
+                }
+            }
+            // 1 second wait
+			else if (!Config.holdButtonAFO.Value)
+            {
+                //steal quirk
+				if (Config.AFOHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
+				{
+					stopwatch += Time.deltaTime;
+
+					if (stopwatch >= 1f && !this.hasStolen)
+					{
+						hasStolen = true;
+						if (Target)
+						{
+
+							Debug.Log("Target");
+							Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
+							AkSoundEngine.PostEvent(1719197672, this.gameObject);
+							StealQuirk(Target);
+						}
+					}
+					if (stopwatch >= 3f)
+					{
+						Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
+						//unset skills but not to unwrite the skilllist
+						RemovePrimary();
+						RemoveSecondary();
+						RemoveUtility();
+						RemoveSpecial();
+						RemoveExtra1();
+						RemoveExtra2();
+						RemoveExtra3();
+						RemoveExtra4();
+
+						//override skills to choosdef
+						characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+						extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+
+					}
+                }
+                else if (Config.AFOHotkey.Value.IsUp())
+                {
+                    hasStolen = false;
+                    stopwatch = 0f;
+                }
+                //remove quirk
+                if (Config.RemoveHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
+                {
+                    Debug.Log("hold button AFO");
+                    stopwatch2 += Time.deltaTime;
+                    if (!this.hasRemoved && stopwatch2 >=1f)
+                    {
+                        hasRemoved = true;
+
+                        //choose what quirk to remove
+                        Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
+                        //unset skills but not to unwrite the skilllist
+                        RemovePrimary();
+                        RemoveSecondary();
+                        RemoveUtility();
+                        RemoveSpecial();
+                        RemoveExtra1();
+                        RemoveExtra2();
+                        RemoveExtra3();
+                        RemoveExtra4();
+
+                        //override skills to choosdef
+                        characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                    }
+
+
+                }
+                else if (Config.RemoveHotkey.Value.IsUp())
+                {
+                    hasRemoved = false;
+                    stopwatch2 = 0f;
+                }
+            }
+            
         }
 
         private void UpdateIndicator()
@@ -1845,2620 +2053,592 @@ namespace ShiggyMod.Modules.Survivors
 
 		}
 
-        ////drop equipment elite
-        //public void dropEquipment(EquipmentDef def)
-        //{
-        //    PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(def.equipmentIndex), characterBody.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + characterBody.transform.forward * 2f);
-
-        //}
-
-        ////steal quirk code
-        //private void StealQuirk(HurtBox hurtBox)
-        //{
-        //    var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
-        //    GameObject newbodyPrefab = BodyCatalog.FindBodyPrefab(name);
-
-        //    Shiggymastercon = characterBody.master.gameObject.GetComponent<ShiggyMasterController>();
-
-
-        //    if (extrainputBankTest.extraSkill1.down && !hasExtra1 && NetworkServer.active)
-        //    {
-        //        AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
-        //        hasExtra1 = true;
-        //        if (hurtBox.healthComponent.body.isElite)
-        //        {
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixBlue))
-        //            {
-        //                Chat.AddMessage("Stole Overloading <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Lightning.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixHaunted))
-        //            {
-        //                Chat.AddMessage("Stole Celestine <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Haunted.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixLunar))
-        //            {
-        //                Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Lunar.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixPoison))
-        //            {
-        //                Chat.AddMessage("Stole Malachite <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Poison.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixRed))
-        //            {
-        //                Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Fire.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixWhite))
-        //            {
-        //                Chat.AddMessage("Stole Glacial <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Ice.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteEarth))
-        //            {
-        //                Chat.AddMessage("Stole Mending <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(DLC1Content.Elites.Earth.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteVoid))
-        //            {
-        //                Chat.AddMessage("Stole Void <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(DLC1Content.Elites.Void.eliteEquipmentDef);
-        //            }
-        //        }
-
-        //        if (newbodyPrefab.name == "VultureBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Flight Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.alloyvultureflyDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MinorConstructBody" | newbodyPrefab.name == "MinorConstructOnKillBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-
-        //            characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BeetleBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.beetleBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BeetleGuardBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Fast Drop Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "BisonBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Charging Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.bisonchargeDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "FlyingVerminBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
-        //        }
-        //        if (newbodyPrefab.name == "VerminBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BellBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spiked Ball Control Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ClayGrenadierBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Clay AirStrike Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ClayBruiserBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Clay Minigun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "GupBody" | newbodyPrefab.name == "GipBody" | newbodyPrefab.name == "GeepBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 0);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GreaterWispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spirit Ball Control Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.greaterwispballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "HermitCrabBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ImpBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Blink Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "JellyfishBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.jellyfishnovaDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "AcidLarvaBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 0);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LemurianBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Fireball Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "WispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LunarExploderBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LunarGolemBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Slide Reset Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.lunargolemslideDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "LunarWispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lunar Minigun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MiniMushroomBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ParentBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Teleport Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "RoboBallMiniBody" | newbodyPrefab.name == "RoboBallGreenBuddyBody" | newbodyPrefab.name == "RoboBallRedBuddyBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 0);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GolemBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Laser Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VoidBarnacleBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
-        //        }
-        //        if (newbodyPrefab.name == "VoidJailerBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 4);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
-        //        }
-        //        if (newbodyPrefab.name == "NullifierBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Nullifier Artillery Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-
-
-        //        if (newbodyPrefab.name == "BeetleQueen2Body")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Acid Shotgun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ImpBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
-
-        //            characterBody.AddBuff(Modules.Buffs.impbossBuff);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 4);
-        //        }
-        //        if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GrandParentBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "GravekeeperBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Hook Shotgun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VagrantBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.vagrantBuff);
-        //        }
-        //        if (newbodyPrefab.name == "MagmaWormBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.magmawormBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ElectricWormBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 4);
-        //            RemoveExtra1();
-        //            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ClayBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Rolling Clay Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "RoboBallBossBody" | newbodyPrefab.name == "SuperRoboBallBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Anti Gravity Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MegaConstructBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Beam Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VoidMegaCrabBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Void Missiles Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ScavBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
-        //            RemovePrimary();
-        //            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-
-        //        if (hasQuirk = false)
-        //        {
-        //            //Shiggymastercon.transformed = false;
-        //            Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
-        //        }
-
-        //    }
-
-        //    if (extrainputBankTest.extraSkill2.down && !hasExtra2 && NetworkServer.active)
-        //    {
-        //        AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
-        //        hasExtra2 = true;
-        //        if (hurtBox.healthComponent.body.isElite)
-        //        {
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixBlue))
-        //            {
-        //                Chat.AddMessage("Stole Overloading <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Lightning.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixHaunted))
-        //            {
-        //                Chat.AddMessage("Stole Celestine <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Haunted.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixLunar))
-        //            {
-        //                Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Lunar.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixPoison))
-        //            {
-        //                Chat.AddMessage("Stole Malachite <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Poison.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixRed))
-        //            {
-        //                Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Fire.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixWhite))
-        //            {
-        //                Chat.AddMessage("Stole Glacial <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Ice.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteEarth))
-        //            {
-        //                Chat.AddMessage("Stole Mending <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(DLC1Content.Elites.Earth.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteVoid))
-        //            {
-        //                Chat.AddMessage("Stole Void <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(DLC1Content.Elites.Void.eliteEquipmentDef);
-        //            }
-        //        }
-        //        if (newbodyPrefab.name == "VultureBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Flight Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.alloyvultureflyDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MinorConstructBody" | newbodyPrefab.name == "MinorConstructOnKillBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BeetleBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.beetleBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BeetleGuardBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Fast Drop Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "BisonBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Charging Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.bisonchargeDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "FlyingVerminBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
-        //        }
-        //        if (newbodyPrefab.name == "VerminBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BellBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spiked Ball Control Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ClayGrenadierBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Clay AirStrike Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ClayBruiserBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Clay Minigun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "GupBody" | newbodyPrefab.name == "GipBody" | newbodyPrefab.name == "GeepBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 1);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GreaterWispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spirit Ball Control Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.greaterwispballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "HermitCrabBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ImpBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Blink Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "JellyfishBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.jellyfishnovaDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "AcidLarvaBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 1);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LemurianBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Fireball Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "WispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LunarExploderBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LunarGolemBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Slide Reset Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.lunargolemslideDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "LunarWispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lunar Minigun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MiniMushroomBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ParentBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Teleport Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "RoboBallMiniBody" | newbodyPrefab.name == "RoboBallGreenBuddyBody" | newbodyPrefab.name == "RoboBallRedBuddyBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 1);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GolemBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Laser Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VoidBarnacleBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
-        //        }
-        //        if (newbodyPrefab.name == "VoidJailerBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 5);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
-        //        }
-        //        if (newbodyPrefab.name == "NullifierBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Nullifier Artillery Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-
-
-        //        if (newbodyPrefab.name == "BeetleQueen2Body")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Acid Shotgun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ImpBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
-
-        //            characterBody.AddBuff(Modules.Buffs.impbossBuff);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 5);
-        //        }
-        //        if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GrandParentBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "GravekeeperBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Hook Shotgun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VagrantBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.vagrantBuff);
-        //        }
-        //        if (newbodyPrefab.name == "MagmaWormBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.magmawormBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ElectricWormBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 5);
-        //            RemoveExtra2();
-        //            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ClayBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Rolling Clay Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "RoboBallBossBody" | newbodyPrefab.name == "SuperRoboBallBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Anti Gravity Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MegaConstructBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Beam Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VoidMegaCrabBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Void Missiles Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ScavBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 1);
-        //            RemoveSecondary();
-        //            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-
-        //        if (hasQuirk = false)
-        //        {
-        //            //Shiggymastercon.transformed = false;
-        //            Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
-        //        }
-
-        //    }
-        //    if (extrainputBankTest.extraSkill3.down && !hasExtra3 && NetworkServer.active)
-        //    {
-        //        AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
-        //        hasExtra3 = true;
-        //        if (hurtBox.healthComponent.body.isElite)
-        //        {
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixBlue))
-        //            {
-        //                Chat.AddMessage("Stole Overloading <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Lightning.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixHaunted))
-        //            {
-        //                Chat.AddMessage("Stole Celestine <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Haunted.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixLunar))
-        //            {
-        //                Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Lunar.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixPoison))
-        //            {
-        //                Chat.AddMessage("Stole Malachite <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Poison.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixRed))
-        //            {
-        //                Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Fire.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixWhite))
-        //            {
-        //                Chat.AddMessage("Stole Glacial <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Ice.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteEarth))
-        //            {
-        //                Chat.AddMessage("Stole Mending <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(DLC1Content.Elites.Earth.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteVoid))
-        //            {
-        //                Chat.AddMessage("Stole Void <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(DLC1Content.Elites.Void.eliteEquipmentDef);
-        //            }
-        //        }
-        //        if (newbodyPrefab.name == "VultureBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Flight Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.alloyvultureflyDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MinorConstructBody" | newbodyPrefab.name == "MinorConstructOnKillBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BeetleBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.beetleBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BeetleGuardBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Fast Drop Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "BisonBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Charging Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.bisonchargeDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "FlyingVerminBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
-        //        }
-        //        if (newbodyPrefab.name == "VerminBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BellBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spiked Ball Control Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ClayGrenadierBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Clay AirStrike Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ClayBruiserBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Clay Minigun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "GupBody" | newbodyPrefab.name == "GipBody" | newbodyPrefab.name == "GeepBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 2);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GreaterWispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spirit Ball Control Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.greaterwispballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "HermitCrabBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ImpBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Blink Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "JellyfishBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.jellyfishnovaDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "AcidLarvaBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 2);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LemurianBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Fireball Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "WispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LunarExploderBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LunarGolemBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Slide Reset Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.lunargolemslideDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "LunarWispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lunar Minigun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MiniMushroomBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ParentBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Teleport Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "RoboBallMiniBody" | newbodyPrefab.name == "RoboBallGreenBuddyBody" | newbodyPrefab.name == "RoboBallRedBuddyBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 2);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GolemBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Laser Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VoidBarnacleBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
-        //        }
-        //        if (newbodyPrefab.name == "VoidJailerBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 6);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
-        //        }
-        //        if (newbodyPrefab.name == "NullifierBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Nullifier Artillery Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-
-
-        //        if (newbodyPrefab.name == "BeetleQueen2Body")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Acid Shotgun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ImpBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
-
-        //            characterBody.AddBuff(Modules.Buffs.impbossBuff);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 6);
-        //        }
-        //        if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GrandParentBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "GravekeeperBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Hook Shotgun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VagrantBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.vagrantBuff);
-        //        }
-        //        if (newbodyPrefab.name == "MagmaWormBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.magmawormBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ElectricWormBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 6);
-        //            RemoveExtra3();
-        //            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ClayBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Rolling Clay Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "RoboBallBossBody" | newbodyPrefab.name == "SuperRoboBallBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Anti Gravity Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MegaConstructBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Beam Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VoidMegaCrabBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Void Missiles Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ScavBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 2);
-        //            RemoveUtility();
-        //            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-
-        //        if (hasQuirk = false)
-        //        {
-        //            //Shiggymastercon.transformed = false;
-        //            Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
-        //        }
-        //    }
-        //    if (extrainputBankTest.extraSkill4.down && !hasExtra4 && NetworkServer.active)
-        //    {
-        //        AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
-        //        hasExtra4 = true;
-        //        if (hurtBox.healthComponent.body.isElite)
-        //        {
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixBlue))
-        //            {
-        //                Chat.AddMessage("Stole Overloading <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Lightning.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixHaunted))
-        //            {
-        //                Chat.AddMessage("Stole Celestine <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Haunted.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixLunar))
-        //            {
-        //                Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Lunar.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixPoison))
-        //            {
-        //                Chat.AddMessage("Stole Malachite <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Poison.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixRed))
-        //            {
-        //                Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Fire.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixWhite))
-        //            {
-        //                Chat.AddMessage("Stole Glacial <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(RoR2Content.Elites.Ice.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteEarth))
-        //            {
-        //                Chat.AddMessage("Stole Mending <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(DLC1Content.Elites.Earth.eliteEquipmentDef);
-        //            }
-        //            if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteVoid))
-        //            {
-        //                Chat.AddMessage("Stole Void <style=cIsUtility>Quirk!</style>");
-        //                dropEquipment(DLC1Content.Elites.Void.eliteEquipmentDef);
-        //            }
-        //        }
-        //        if (newbodyPrefab.name == "VultureBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Flight Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.alloyvultureflyDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MinorConstructBody" | newbodyPrefab.name == "MinorConstructOnKillBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BeetleBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.beetleBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BeetleGuardBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Fast Drop Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "BisonBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Charging Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.bisonchargeDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "FlyingVerminBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
-        //        }
-        //        if (newbodyPrefab.name == "VerminBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
-        //        }
-        //        if (newbodyPrefab.name == "BellBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spiked Ball Control Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ClayGrenadierBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Clay AirStrike Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ClayBruiserBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Clay Minigun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "GupBody" | newbodyPrefab.name == "GipBody" | newbodyPrefab.name == "GeepBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 3);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GreaterWispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Spirit Ball Control Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.greaterwispballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "HermitCrabBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ImpBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Blink Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "JellyfishBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.jellyfishnovaDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "AcidLarvaBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 3);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LemurianBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Fireball Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "WispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LunarExploderBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
-        //        }
-        //        if (newbodyPrefab.name == "LunarGolemBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Slide Reset Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.lunargolemslideDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "LunarWispBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lunar Minigun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MiniMushroomBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ParentBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Teleport Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "RoboBallMiniBody" | newbodyPrefab.name == "RoboBallGreenBuddyBody" | newbodyPrefab.name == "RoboBallRedBuddyBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Glide Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 3);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GolemBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Laser Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VoidBarnacleBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
-        //        }
-        //        if (newbodyPrefab.name == "VoidJailerBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 7);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
-        //        }
-        //        if (newbodyPrefab.name == "NullifierBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Nullifier Artillery Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-
-
-        //        if (newbodyPrefab.name == "BeetleQueen2Body")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Acid Shotgun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ImpBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
-
-        //            characterBody.AddBuff(Modules.Buffs.impbossBuff);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 7);
-        //        }
-        //        if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
-        //        }
-        //        if (newbodyPrefab.name == "GrandParentBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "GravekeeperBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Hook Shotgun Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VagrantBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.vagrantBuff);
-        //        }
-        //        if (newbodyPrefab.name == "MagmaWormBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.magmawormBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ElectricWormBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 7);
-        //            RemoveExtra4();
-        //            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //            characterBody.AddBuff(Modules.Buffs.overloadingwormBuff);
-        //        }
-        //        if (newbodyPrefab.name == "ClayBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Rolling Clay Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "RoboBallBossBody" | newbodyPrefab.name == "SuperRoboBallBossBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Anti Gravity Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "MegaConstructBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Beam Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "VoidMegaCrabBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Void Missiles Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-        //        if (newbodyPrefab.name == "ScavBody")
-        //        {
-
-        //            hasQuirk = true;
-        //            Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
-
-        //            Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 3);
-        //            RemoveSpecial();
-        //            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
-        //        }
-
-        //        if (hasQuirk = false)
-        //        {
-        //            //Shiggymastercon.transformed = false;
-        //            Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
-        //        }
-        //    }
-
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "ALPHACONSTRUCT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "BEETLE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "GUP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "LARVA_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "LESSERWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "LUNAREXPLODER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "HERMITCRAB_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "PEST_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "VERMIN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "MINIMUSHRUM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "ROBOBALLMINI_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "VOIDBARNACLE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "VOIDJAILER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "IMPBOSS_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "STONETITAN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "MAGMAWORM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "OVERLOADINGWORM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 4);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "VAGRANT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 4);
-        //    }
-
-        //    //check active 1
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "VULTURE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "BEETLEGUARD_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "BRONZONG_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "APOTHECARY_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "TEMPLAR_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "GREATERWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "IMP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "JELLYFISH_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "LEMURIAN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "LUNARGOLEM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "LUNARWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "PARENT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "STONEGOLEM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "VOIDREAVER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "BEETLEQUEEN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "GRANDPARENT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "GROVETENDER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "XICONSTRUCT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "VOIDDEVASTATOR_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 0);
-        //    }
-        //    if (characterBody.skillLocator.primary.skillNameToken == prefix + "SCAVENGER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 0);
-        //    }
-
-        //    //check passive 2
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "ALPHACONSTRUCT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "BEETLE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "GUP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "LARVA_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "LESSERWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "LUNAREXPLODER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "HERMITCRAB_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "PEST_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "VERMIN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "MINIMUSHRUM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "ROBOBALLMINI_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "VOIDBARNACLE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "VOIDJAILER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "IMPBOSS_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "STONETITAN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "MAGMAWORM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "OVERLOADINGWORM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 5);
-        //    }
-        //    if (extraskillLocator.extraSecond.skillNameToken == prefix + "VAGRANT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 5);
-        //    }
-
-        //    //check active 2
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "VULTURE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "BEETLEGUARD_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "BRONZONG_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "APOTHECARY_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "TEMPLAR_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "GREATERWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "IMP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "JELLYFISH_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "LEMURIAN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "LUNARGOLEM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "LUNARWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "PARENT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "STONEGOLEM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "VOIDREAVER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "BEETLEQUEEN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "GRANDPARENT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "GROVETENDER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "XICONSTRUCT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "VOIDDEVASTATOR_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 1);
-        //    }
-        //    if (characterBody.skillLocator.secondary.skillNameToken == prefix + "SCAVENGER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 1);
-        //    }
-
-        //    //check passive 3
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "ALPHACONSTRUCT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "BEETLE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "GUP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "LARVA_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "LESSERWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "LUNAREXPLODER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "HERMITCRAB_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "PEST_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "VERMIN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "MINIMUSHRUM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "ROBOBALLMINI_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "VOIDBARNACLE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "VOIDJAILER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "IMPBOSS_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "STONETITAN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "MAGMAWORM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "OVERLOADINGWORM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 6);
-        //    }
-        //    if (extraskillLocator.extraThird.skillNameToken == prefix + "VAGRANT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 6);
-        //    }
-
-        //    //check active 3
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "VULTURE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "BEETLEGUARD_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "BRONZONG_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "APOTHECARY_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "TEMPLAR_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "GREATERWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "IMP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "JELLYFISH_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "LEMURIAN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "LUNARGOLEM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "LUNARWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "PARENT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "STONEGOLEM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "VOIDREAVER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "BEETLEQUEEN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "GRANDPARENT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "GROVETENDER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "XICONSTRUCT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "VOIDDEVASTATOR_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 2);
-        //    }
-        //    if (characterBody.skillLocator.utility.skillNameToken == prefix + "SCAVENGER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 2);
-        //    }
-        //    //check passive 4
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "ALPHACONSTRUCT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.alphacontructpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "BEETLE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetlepassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "GUP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.guppassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "LARVA_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.larvapassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "LESSERWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lesserwisppassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "LUNAREXPLODER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunarexploderpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "HERMITCRAB_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.hermitcrabpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "PEST_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.pestpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "VERMIN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.verminpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "MINIMUSHRUM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.minimushrumpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "ROBOBALLMINI_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.roboballminibpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "VOIDBARNACLE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidbarnaclepassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "VOIDJAILER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidjailerpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFirst.skillNameToken == prefix + "IMPBOSS_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.impbosspassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "STONETITAN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.stonetitanpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "MAGMAWORM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.magmawormpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "OVERLOADINGWORM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.overloadingwormpassiveDef, 7);
-        //    }
-        //    if (extraskillLocator.extraFourth.skillNameToken == prefix + "VAGRANT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.vagrantpassiveDef, 7);
-        //    }
-
-        //    //check active 4
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "VULTURE_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.alloyvultureflyDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "BEETLEGUARD_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetleguardslamDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "BRONZONG_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.bronzongballDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "APOTHECARY_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.clayapothecarymortarDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "TEMPLAR_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.claytemplarminigunDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "GREATERWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.greaterwispballDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "IMP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.impblinkDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "JELLYFISH_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.jellyfishnovaDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "LEMURIAN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lemurianfireballDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "LUNARGOLEM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunargolemslideDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "LUNARWISP_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.lunarwispminigunDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "PARENT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.parentteleportDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "STONEGOLEM_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.stonegolemlaserDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "VOIDREAVER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voidreaverportalDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "BEETLEQUEEN_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.beetlequeenshotgunDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "GRANDPARENT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.grandparentsunDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "GROVETENDER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.grovetenderhookDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "CLAYDUNESTRIDER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.claydunestriderballDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "SOLUSCONTROLUNIT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.soluscontrolunityknockupDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "XICONSTRUCT_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.xiconstructbeamDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "VOIDDEVASTATOR_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.voiddevastatorhomingDef, 3);
-        //    }
-        //    if (characterBody.skillLocator.special.skillNameToken == prefix + "SCAVENGER_NAME")
-        //    {
-        //        Shiggymastercon.writeToSkillList(Shiggy.scavengerthqwibDef, 3);
-        //    }
-
-
-        //}
+        //drop equipment elite
+        public void dropEquipment(EquipmentDef def)
+        {
+            if (characterBody.hasEffectiveAuthority)
+            {
+                new EquipmentDropNetworked(PickupCatalog.FindPickupIndex(def.equipmentIndex),
+                    base.transform.position + Vector3.up * 1.5f,
+                    Vector3.up * 20f + base.transform.forward * 2f).Send(NetworkDestination.Clients);
+            }
+        }
+
+        //steal quirk code
+        private void StealQuirk(HurtBox hurtBox)
+        {
+            var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
+            GameObject newbodyPrefab = BodyCatalog.FindBodyPrefab(name);
+
+            AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
+
+            //unset skills but not to unwrite the skilllist
+            //override skills to choosdef
+            RemovePrimary();
+			RemoveSecondary();
+			RemoveUtility();
+			RemoveSpecial();
+			RemoveExtra1();
+			RemoveExtra2();
+			RemoveExtra3();
+			RemoveExtra4();
+
+            characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
+
+            extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
+
+            //elite aspects
+            if (hurtBox.healthComponent.body.isElite)
+			{
+				if (!hurtBox.healthComponent.body.HasBuff(Buffs.eliteDebuff.buffIndex))
+				{
+					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixBlue))
+					{
+						Chat.AddMessage("Stole Overloading <style=cIsUtility>Quirk!</style>");
+						dropEquipment(RoR2Content.Elites.Lightning.eliteEquipmentDef);
+						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
+					}
+					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixHaunted))
+					{
+						Chat.AddMessage("Stole Celestine <style=cIsUtility>Quirk!</style>");
+						dropEquipment(RoR2Content.Elites.Haunted.eliteEquipmentDef);
+						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
+					}
+					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixLunar))
+					{
+						Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
+						dropEquipment(RoR2Content.Elites.Lunar.eliteEquipmentDef);
+						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
+					}
+					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixPoison))
+					{
+						Chat.AddMessage("Stole Malachite <style=cIsUtility>Quirk!</style>");
+						dropEquipment(RoR2Content.Elites.Poison.eliteEquipmentDef);
+						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
+					}
+					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixRed))
+					{
+						Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
+						dropEquipment(RoR2Content.Elites.Fire.eliteEquipmentDef);
+						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
+					}
+					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixWhite))
+					{
+						Chat.AddMessage("Stole Glacial <style=cIsUtility>Quirk!</style>");
+						dropEquipment(RoR2Content.Elites.Ice.eliteEquipmentDef);
+						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
+					}
+					if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteEarth))
+					{
+						Chat.AddMessage("Stole Mending <style=cIsUtility>Quirk!</style>");
+						dropEquipment(DLC1Content.Elites.Earth.eliteEquipmentDef);
+						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
+					}
+					if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteVoid))
+					{
+						Chat.AddMessage("Stole Void <style=cIsUtility>Quirk!</style>");
+						dropEquipment(DLC1Content.Elites.Void.eliteEquipmentDef);
+						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
+					}
+
+				}
+				else if (hurtBox.healthComponent.body.HasBuff(Buffs.eliteDebuff.buffIndex))
+				{
+					Chat.AddMessage("Can't steal <style=cIsUtility>Elite Quirk until debuff is gone</style>.");
+				}
+			}
+
+            if (newbodyPrefab.name == "VultureBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Flight Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.alloyvultureflyDef, 0);
+            }
+            if (newbodyPrefab.name == "MinorConstructBody" | newbodyPrefab.name == "MinorConstructOnKillBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.alphacontructpassiveDef, 0);
+
+                characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "BeetleBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.beetlepassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.beetleBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "BeetleGuardBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Fast Drop Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.beetleguardslamDef, 0);
+            }
+            if (newbodyPrefab.name == "BisonBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Charging Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.bisonchargeDef, 0);
+            }
+            if (newbodyPrefab.name == "FlyingVerminBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.pestpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.pestjumpBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "VerminBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.verminpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.verminsprintBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "BellBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Spiked Ball Control Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.bronzongballDef, 0);
+            }
+            if (newbodyPrefab.name == "ClayGrenadierBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Clay AirStrike Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.clayapothecarymortarDef, 0);
+            }
+            if (newbodyPrefab.name == "ClayBruiserBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Clay Minigun Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.claytemplarminigunDef, 0);
+            }
+            if (newbodyPrefab.name == "LemurianBruiserBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Fire Blast Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.elderlemurianfireblastDef, 0);
+            }
+            if (newbodyPrefab.name == "GupBody" | newbodyPrefab.name == "GipBody" | newbodyPrefab.name == "GeepBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.guppassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.gupspikeBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "GreaterWispBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Spirit Boost Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.greaterwispballDef, 0);
+            }
+            if (newbodyPrefab.name == "HermitCrabBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.hermitcrabpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortarBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "ImpBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Blink Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.impblinkDef, 0);
+            }
+            if (newbodyPrefab.name == "JellyfishBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.jellyfishnovaDef, 0);
+            }
+            if (newbodyPrefab.name == "AcidLarvaBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.larvapassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.larvajumpBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "LemurianBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Fireball Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.lemurianfireballDef, 0);
+            }
+            if (newbodyPrefab.name == "WispBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.lesserwisppassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.lesserwispBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "LunarExploderBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.lunarexploderpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.lunarexploderBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "LunarGolemBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Slide Reset Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.lunargolemslideDef, 0);
+            }
+            if (newbodyPrefab.name == "LunarWispBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Lunar Minigun Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.lunarwispminigunDef, 0);
+            }
+            if (newbodyPrefab.name == "MiniMushroomBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.minimushrumpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.minimushrumBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "ParentBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Teleport Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.parentteleportDef, 0);
+            }
+            if (newbodyPrefab.name == "RoboBallMiniBody" | newbodyPrefab.name == "RoboBallGreenBuddyBody" | newbodyPrefab.name == "RoboBallRedBuddyBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Solus Boost Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.roboballminibpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.roboballminiBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "GolemBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Laser Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.stonegolemlaserDef, 0);
+            }
+            if (newbodyPrefab.name == "VoidBarnacleBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.voidbarnaclepassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "VoidJailerBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.voidjailerpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.voidjailerBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "NullifierBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Nullifier Artillery Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.voidreaverportalDef, 0);
+            }
+
+
+            if (newbodyPrefab.name == "BeetleQueen2Body")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Acid Shotgun Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.beetlequeenshotgunDef, 0);
+            }
+            if (newbodyPrefab.name == "ImpBossBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.impbosspassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.impbossBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.stonetitanpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.stonetitanBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "GrandParentBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.grandparentsunDef, 0);
+            }
+            if (newbodyPrefab.name == "GravekeeperBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Hook Shotgun Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.grovetenderhookDef, 0);
+            }
+            if (newbodyPrefab.name == "VagrantBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.vagrantpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "MagmaWormBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.magmawormpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.magmawormBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "ElectricWormBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.overloadingwormpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.overloadingwormBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "ClayBossBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Tar Boost Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.claydunestriderbuffDef, 0);
+            }
+            if (newbodyPrefab.name == "RoboBallBossBody" | newbodyPrefab.name == "SuperRoboBallBossBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Anti Gravity Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.soluscontrolunityknockupDef, 0);
+            }
+            if (newbodyPrefab.name == "MegaConstructBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Beam Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.xiconstructbeamDef, 0);
+            }
+            if (newbodyPrefab.name == "VoidMegaCrabBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Void Missiles Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.voiddevastatorhomingDef, 0);
+            }
+            if (newbodyPrefab.name == "ScavBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.scavengerthqwibDef, 0);
+            }
+
+            if (newbodyPrefab.name == "Bandit2Body")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Lights Out Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.banditlightsoutDef, 0);
+            }
+
+            if (newbodyPrefab.name == "CaptainBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Defensive Microbots Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.captainpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.captainBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "CommandoBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Double Tap Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.commandopassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.commandoBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "CrocoBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Poison Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.acridpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.acridBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "EngiBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Turret Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.engiturretDef, 0);
+            }
+            //if (newbodyPrefab.name == "HereticBody")
+            //{
+
+            //    hasQuirk = true;
+            //    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
+
+            //    Shiggymastercon.writeToAFOSkillList(Shiggy.scavengerthqwibDef, 0);
+            //    RemovePrimary();
+            //    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+            //}
+            if (newbodyPrefab.name == "HuntressBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Flurry Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.huntressattackDef, 0);
+            }
+            if (newbodyPrefab.name == "LoaderBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Scrap Barrier Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.loaderpassiveDef, 0);
+                characterBody.ApplyBuff(Modules.Buffs.loaderBuff.buffIndex);
+            }
+            if (newbodyPrefab.name == "MageBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Elementality Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.artificerflamethrowerDef, 0);
+            }
+            if (newbodyPrefab.name == "MercBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Eviscerate Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.mercdashDef, 0);
+            }
+            if (newbodyPrefab.name == "ToolbotBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Power Stance Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.multbuffDef, 0);
+            }
+            if (newbodyPrefab.name == "TreebotBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Seed Barrage Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.rexmortarDef, 0);
+            }
+            if (newbodyPrefab.name == "RailgunnerBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Cryocharged Railgun Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.railgunnercryoDef, 0);
+            }
+            if (newbodyPrefab.name == "VoidSurvivorBody")
+            {
+
+                hasQuirk = true;
+                Chat.AddMessage("<style=cIsUtility>Cleanse Quirk</style> Get!");
+
+                Shiggymastercon.writeToAFOSkillList(Shiggy.voidfiendcleanseDef, 0);
+            }
+            if (hasQuirk = false)
+            {
+                //Shiggymastercon.transformed = false;
+                Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
+            }
+            
+        }
+
 
         public void RemoveExtra1()
         {
@@ -4480,6 +2660,10 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.acridpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.commandopassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.captainpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.loaderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
 
         }
 
@@ -4498,11 +2682,15 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-            extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.acridpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.commandopassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.captainpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.loaderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
 
         }
 
@@ -4521,11 +2709,15 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-            extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.acridpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.commandopassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.captainpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.loaderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
 
         }
 
@@ -4544,11 +2736,15 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-            extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
             extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.acridpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.commandopassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.captainpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
+            extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.loaderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
 
         }
 
@@ -4572,11 +2768,23 @@ namespace ShiggyMod.Modules.Survivors
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.claydunestriderbuffDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.elderlemurianfireblastDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.banditlightsoutDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.engiturretDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.huntressattackDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.mercdashDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.railgunnercryoDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.rexmortarDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidfiendcleanseDef, GenericSkill.SkillOverridePriority.Contextual);
 
         }
         public void RemoveSecondary()
@@ -4599,11 +2807,23 @@ namespace ShiggyMod.Modules.Survivors
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.claydunestriderbuffDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.elderlemurianfireblastDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.banditlightsoutDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.engiturretDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.huntressattackDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.mercdashDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.railgunnercryoDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.rexmortarDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voidfiendcleanseDef, GenericSkill.SkillOverridePriority.Contextual);
 
         }
 
@@ -4627,11 +2847,23 @@ namespace ShiggyMod.Modules.Survivors
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.claydunestriderbuffDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.elderlemurianfireblastDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.banditlightsoutDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.engiturretDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.huntressattackDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.mercdashDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.railgunnercryoDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.rexmortarDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.voidfiendcleanseDef, GenericSkill.SkillOverridePriority.Contextual);
 
         }
 
@@ -4655,13 +2887,26 @@ namespace ShiggyMod.Modules.Survivors
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.beetlequeenshotgunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.grovetenderhookDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.claydunestriderballDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.claydunestriderbuffDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.elderlemurianfireblastDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.banditlightsoutDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.engiturretDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.huntressattackDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.mercdashDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.railgunnercryoDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.rexmortarDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.voidfiendcleanseDef, GenericSkill.SkillOverridePriority.Contextual);
 
         }
+
 
 
     }

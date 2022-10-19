@@ -36,7 +36,7 @@ namespace ShiggyMod.SkillStates
             {
                 int buffcount = characterBody.GetBuffCount(Modules.Buffs.claydunestriderBuff);
                 characterBody.ApplyBuff(Modules.Buffs.claydunestriderBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration + buffcount, Modules.StaticValues.claydunestriderbuffDuration + buffcount);
-                //characterBody.AddBuff(Modules.Buffs.claydunestriderBuff);
+                //characterBody.ApplyBuff(Modules.Buffs.claydunestriderBuff);
             }
 
             EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData

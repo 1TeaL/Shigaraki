@@ -7,17 +7,18 @@ using ShiggyMod.Modules;
 using UnityEngine.Networking;
 using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class RoboBallMini : AFO
+    public class RoboBallMini : BaseSkillState
     {
         public override void OnEnter()
         {
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
+                characterBody.ApplyBuff(Modules.Buffs.roboballminiBuff.buffIndex, 1);
             }
         }
 

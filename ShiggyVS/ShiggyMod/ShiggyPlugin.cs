@@ -34,6 +34,7 @@ namespace ShiggyMod
 {
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.KingEnderBrine.ExtraSkillSlots", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
@@ -60,7 +61,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "1.2.3";
+        public const string MODVERSION = "1.3.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -89,6 +90,10 @@ namespace ShiggyMod
             // load assets and read config
             Modules.Assets.Initialize();
             Modules.Config.ReadConfig();
+            if (Chainloader.PluginInfos.ContainsKey("com.rune580.riskofoptions")) //risk of options support
+            {
+                Modules.Config.SetupRiskOfOptions();
+            }
             Modules.States.RegisterStates(); // register states for networking
             Modules.Buffs.RegisterBuffs(); // add and register custom buffs/debuffs
             Modules.Dots.RegisterDots(); // add and register custom dots
@@ -266,7 +271,7 @@ namespace ShiggyMod
                     {
                         if (damageInfo.damage / body.damage >= StaticValues.vagrantdamageThreshold)
                         {
-                            body.RemoveBuff(Modules.Buffs.vagrantBuff.buffIndex);
+                            body.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex, 0);
                             body.ApplyBuff(Buffs.vagrantdisableBuff.buffIndex, StaticValues.vagrantCooldown);
                             victimBody.AddTimedBuffAuthority(Buffs.vagrantDebuff.buffIndex, StaticValues.vagrantCooldown);
                             Util.PlaySound(JellyNova.novaSoundString, base.gameObject);
@@ -431,7 +436,7 @@ namespace ShiggyMod
                     {
                         if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                         {
-                            damageInfo.attacker.GetComponent<CharacterBody>().RemoveBuff(Buffs.multiplierBuff);
+                            damageInfo.attacker.GetComponent<CharacterBody>().ApplyBuff(Buffs.multiplierBuff.buffIndex, 0);
                         }
                     }
                     if (self.body.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
@@ -474,7 +479,7 @@ namespace ShiggyMod
                                     };
                                     EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
                                     damageInfo.rejected = true;
-                                    self.body.RemoveBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
+                                    self.body.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 0);
                                     self.body.ApplyBuff(Modules.Buffs.alphashieldoffBuff.buffIndex, StaticValues.alphaconstructCooldown);
                                 }
 
@@ -579,9 +584,9 @@ namespace ShiggyMod
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
         {
             //buffs 
-            orig.Invoke(self);
-            if (self)
+            if (self?.healthComponent)
             {
+                orig.Invoke(self);
                 if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
                 {
                     //    //roboballmini attackspeed buff

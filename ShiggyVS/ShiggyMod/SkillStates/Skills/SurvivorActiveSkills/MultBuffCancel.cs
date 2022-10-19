@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
 using EntityStates.Toolbot;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -45,7 +46,7 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.RemoveBuff(Modules.Buffs.multBuff);
+                characterBody.ApplyBuff(Modules.Buffs.multBuff.buffIndex, 0);
             }
 
             //this.loopSoundID = Util.PlaySound(ToolbotDualWield.startLoopSoundString, base.gameObject);

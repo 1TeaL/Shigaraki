@@ -16,6 +16,9 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(BulletLaser));
             entityStates.Add(typeof(AirCannon));
             entityStates.Add(typeof(Multiplier));
+            entityStates.Add(typeof(ChooseSkill));
+            entityStates.Add(typeof(RemoveSkill));
+            entityStates.Add(typeof(EmptySkill));
 
             entityStates.Add(typeof(AlloyVultureFly));
             entityStates.Add(typeof(BisonCharge));

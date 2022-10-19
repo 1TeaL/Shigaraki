@@ -7,17 +7,18 @@ using ShiggyMod.Modules;
 using UnityEngine.Networking;
 using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class AlphaConstruct : AFO
+    public class AlphaConstruct : BaseSkillState
     {
         public override void OnEnter()
         {
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
+                characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 1);
             }
         }
 

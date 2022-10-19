@@ -11,12 +11,11 @@ namespace ShiggyMod.Modules
     {
         internal static List<BuffDef> buffDefs = new List<BuffDef>();
 
+        //monster buffs
         internal static BuffDef flyBuff;
         internal static BuffDef beetleBuff;
         internal static BuffDef alphashieldonBuff;
         internal static BuffDef alphashieldoffBuff;
-        internal static BuffDef decayDebuff;
-        internal static BuffDef multiplierBuff;
         internal static BuffDef pestjumpBuff;
         internal static BuffDef verminsprintBuff;
         internal static BuffDef gupspikeBuff;
@@ -41,12 +40,19 @@ namespace ShiggyMod.Modules
         internal static BuffDef magmawormBuff;
         internal static BuffDef overloadingwormBuff;
 
-
+        //survivor buffs
         internal static BuffDef acridBuff;
         internal static BuffDef commandoBuff;
         internal static BuffDef captainBuff;
         internal static BuffDef loaderBuff;
         internal static BuffDef multBuff;
+
+        //shiggy skill decay and multiplier
+        internal static BuffDef decayDebuff;
+        internal static BuffDef multiplierBuff;
+
+        //elite 60 second debuff timer
+        internal static BuffDef eliteDebuff;
 
         internal static void RegisterBuffs()
         {
@@ -87,6 +93,7 @@ namespace ShiggyMod.Modules
             loaderBuff = Buffs.AddNewBuff("loaderBuff", Assets.shieldBuffIcon, Color.yellow, false, false);
             multBuff = Buffs.AddNewBuff("multBuff", Assets.predatorBuffIcon, Color.yellow, false, false);
 
+            eliteDebuff = Buffs.AddNewBuff("eliteDebuff", Assets.critBuffIcon, Color.black, false, true);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

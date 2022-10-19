@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using RoR2.Projectile;
 using EntityStates.Merc;
 using System.Linq;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -72,7 +73,7 @@ namespace ShiggyMod.SkillStates
             }
             if (NetworkServer.active)
             {
-                base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
+                base.characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
             }
 
             damageFrequency = 1 / (basedamageFrequency * this.attackSpeedStat);

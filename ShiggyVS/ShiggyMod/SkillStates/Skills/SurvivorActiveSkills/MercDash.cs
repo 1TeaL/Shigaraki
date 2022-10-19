@@ -5,6 +5,7 @@ using ShiggyMod.Modules.Survivors;
 using UnityEngine.Networking;
 using RoR2.Projectile;
 using EntityStates.Merc;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -52,7 +53,7 @@ namespace ShiggyMod.SkillStates
             }
             if (NetworkServer.active)
             {
-                base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
+                base.characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
             }
             PlayCrossfade("FullBody, Override", "Slam", "Attack.playbackRate", dashPrepDuration, 0.1f);
             this.dashVector = base.inputBank.aimDirection;

@@ -3,6 +3,7 @@ using RoR2;
 using UnityEngine;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine.Networking;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -28,31 +29,31 @@ namespace ShiggyMod.SkillStates
 
             if (NetworkServer.active)
             {
-                base.characterBody.AddBuff(Modules.Buffs.multiplierBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.acridBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.impbossBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.commandoBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.captainBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.loaderBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.greaterwispBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.claydunestriderBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.alphashieldonBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.beetleBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.minimushrumBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.larvajumpBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.pestjumpBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.vagrantBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.magmawormBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.gupspikeBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.hermitcrabmortarBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.impbossBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.lesserwispBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.lunarexploderBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.roboballminiBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.stonetitanBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.verminsprintBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.voidbarnaclemortarBuff);
-                //base.characterBody.AddBuff(Modules.Buffs.voidjailerBuff);
+                base.characterBody.ApplyBuff(Modules.Buffs.multiplierBuff.buffIndex, 1);
+                //base.characterBody.ApplyBuff(Modules.Buffs.acridBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.impbossBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.commandoBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.captainBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.loaderBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.greaterwispBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.claydunestriderBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.beetleBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.minimushrumBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.larvajumpBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.pestjumpBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.vagrantBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.magmawormBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.gupspikeBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortarBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.impbossBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.lesserwispBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.lunarexploderBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.roboballminiBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.stonetitanBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.verminsprintBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarBuff);
+                //base.characterBody.ApplyBuff(Modules.Buffs.voidjailerBuff);
             }
 
 

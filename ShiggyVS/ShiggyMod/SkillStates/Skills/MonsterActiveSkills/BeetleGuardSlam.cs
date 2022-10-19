@@ -6,6 +6,7 @@ using EntityStates;
 using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
 using EntityStates.Huntress;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -157,7 +158,7 @@ namespace ShiggyMod.SkillStates
             bool active = NetworkServer.active;
             if (active)
             {
-                base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
+                base.characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
             }
 
         }
