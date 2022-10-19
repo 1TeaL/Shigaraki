@@ -109,26 +109,6 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            if (base.skillLocator.primary.skillNameToken == prefix + "ARTIFICERLIGHTNINGORB_NAME")
-            {
-                characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
-            }
-            if (base.skillLocator.secondary.skillNameToken == prefix + "ARTIFICERLIGHTNINGORB_NAME")
-            {
-                characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
-            }
-            if (base.skillLocator.utility.skillNameToken == prefix + "ARTIFICERLIGHTNINGORB_NAME")
-            {
-                characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
-            }
-            if (base.skillLocator.special.skillNameToken == prefix + "ARTIFICERLIGHTNINGORB_NAME")
-            {
-                characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
-            }
             PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", duration, 0.1f);
 
         }

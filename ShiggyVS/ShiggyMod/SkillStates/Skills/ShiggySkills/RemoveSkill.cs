@@ -105,48 +105,41 @@ namespace ShiggyMod.SkillStates
                 extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
             }
 
+            Shiggymastercon.CheckQuirks(characterBody);
         }
 
         protected virtual void RemoveSkill1()
         {
             Shiggymastercon.writeToSkillList(null, 0);
-            Shiggymastercon.CheckQuirks(0, characterBody);
 
         }
         protected virtual void RemoveSkill2()
         {
             Shiggymastercon.writeToSkillList(null, 1);
-            Shiggymastercon.CheckQuirks(1, characterBody);
         }
         protected virtual void RemoveSkill3()
         {
             Shiggymastercon.writeToSkillList(null, 2);
-            Shiggymastercon.CheckQuirks(2, characterBody);
         }
         protected virtual void RemoveSkill4()
         {
             Shiggymastercon.writeToSkillList(null, 3);
-            Shiggymastercon.CheckQuirks(3, characterBody);
         }
         protected virtual void RemoveExtraSkill1()
         {
             Shiggymastercon.writeToSkillList(null, 4);
-            Shiggymastercon.CheckQuirks(4, characterBody);
         }
         protected virtual void RemoveExtraSkill2()
         {
             Shiggymastercon.writeToSkillList(null, 5);
-            Shiggymastercon.CheckQuirks(5, characterBody);
         }
         protected virtual void RemoveExtraSkill3()
         {
             Shiggymastercon.writeToSkillList(null, 6);
-            Shiggymastercon.CheckQuirks(6, characterBody);
         }
         protected virtual void RemoveExtraSkill4()
         {
             Shiggymastercon.writeToSkillList(null, 7);
-            Shiggymastercon.CheckQuirks(7, characterBody);
         }
 
         public override void FixedUpdate()

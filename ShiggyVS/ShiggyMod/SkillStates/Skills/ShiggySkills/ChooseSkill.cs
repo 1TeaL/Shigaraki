@@ -5,6 +5,7 @@ using ShiggyMod.Modules.Survivors;
 using UnityEngine.Networking;
 using RoR2.Projectile;
 using ExtraSkillSlots;
+using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -105,47 +106,41 @@ namespace ShiggyMod.SkillStates
                 extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
             }
 
+            Shiggymastercon.CheckQuirks(characterBody);
+
         }
 
         protected virtual void AddSkill1()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 0);
-            Shiggymastercon.CheckQuirks(0, characterBody);
         }
         protected virtual void AddSkill2()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 1);
-            Shiggymastercon.CheckQuirks(1, characterBody);
         }
         protected virtual void AddSkill3()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 2);
-            Shiggymastercon.CheckQuirks(2, characterBody);
         }
         protected virtual void AddSkill4()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 3);
-            Shiggymastercon.CheckQuirks(3, characterBody);
         }
         protected virtual void AddExtraSkill1()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 4);
-            Shiggymastercon.CheckQuirks(4, characterBody);
         }
         protected virtual void AddExtraSkill2()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 5);
-            Shiggymastercon.CheckQuirks(5, characterBody);
         }
         protected virtual void AddExtraSkill3()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 6);
-            Shiggymastercon.CheckQuirks(6, characterBody);
         }
         protected virtual void AddExtraSkill4()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 7);
-            Shiggymastercon.CheckQuirks(7, characterBody);
         }
 
         public override void FixedUpdate()

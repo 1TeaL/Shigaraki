@@ -7,11 +7,15 @@ using RoR2.Projectile;
 using EntityStates.Mage.Weapon;
 using RoR2.UI;
 using RoR2.Audio;
+using ExtraSkillSlots;
 
 namespace ShiggyMod.SkillStates
 {
     public class ArtificerChargeLightningOrb : BaseSkillState
     {
+        private ExtraInputBankTest extrainputBankTest;
+        private ExtraSkillLocator extraskillLocator;
+        private bool skillSwapped;
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
         public float baseDuration = 1.5f;
         public float duration;
@@ -40,6 +44,9 @@ namespace ShiggyMod.SkillStates
             //PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration, 0.1f);
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
+            extraskillLocator = base.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
+            skillSwapped = false;
             damageCoefficient *= Shiggycon.rangedMultiplier;
 
             this.animator = base.GetModelAnimator();
@@ -103,6 +110,53 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+
+            if (base.IsKeyDownAuthority() && !skillSwapped)
+            {
+                skillSwapped = true;
+                if (base.inputBank.skill1.down)
+                {
+                    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (base.inputBank.skill2.down)
+                {
+                    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (base.inputBank.skill3.down)
+                {
+                    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (base.inputBank.skill4.down)
+                {
+                    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (extrainputBankTest.extraSkill1.down)
+                {
+                    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (extrainputBankTest.extraSkill2.down)
+                {
+                    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (extrainputBankTest.extraSkill3.down)
+                {
+                    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (extrainputBankTest.extraSkill4.down)
+                {
+                    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+            }
+
             float charge = this.CalcCharge();
             if (base.isAuthority && ((!base.IsKeyDownAuthority() && base.fixedAge >= this.minChargeDuration)))
             {

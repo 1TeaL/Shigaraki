@@ -6,11 +6,15 @@ using UnityEngine.Networking;
 using RoR2.Projectile;
 using EntityStates.Mage.Weapon;
 using RoR2.UI;
+using ExtraSkillSlots;
 
 namespace ShiggyMod.SkillStates
 {
     public class ArtificerIceWall : BaseSkillState
     {
+        private ExtraInputBankTest extrainputBankTest;
+        private ExtraSkillLocator extraskillLocator;
+        private bool skillSwapped;
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
         public float baseDuration = 1f;
         public float duration;
@@ -35,6 +39,9 @@ namespace ShiggyMod.SkillStates
 
             AkSoundEngine.PostEvent(356992735, base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
+            extraskillLocator = base.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
+            skillSwapped = false;
             damageCoefficient *= Shiggycon.rangedMultiplier;
 
             Util.PlaySound(PrepWall.prepWallSoundString, base.gameObject);
@@ -151,6 +158,22 @@ namespace ShiggyMod.SkillStates
                     {
                         base.skillLocator.special.AddOneStock();
                     }
+                    if (extraskillLocator.extraFirst.skillNameToken == prefix + "ARTIFICERICEWALL_NAME")
+                    {
+                        extraskillLocator.extraFirst.AddOneStock();
+                    }
+                    if (extraskillLocator.extraSecond.skillNameToken == prefix + "ARTIFICERICEWALL_NAME")
+                    {
+                        extraskillLocator.extraSecond.AddOneStock();
+                    }
+                    if (extraskillLocator.extraThird.skillNameToken == prefix + "ARTIFICERICEWALL_NAME")
+                    {
+                        extraskillLocator.extraThird.AddOneStock();
+                    }
+                    if (extraskillLocator.extraFourth.skillNameToken == prefix + "ARTIFICERICEWALL_NAME")
+                    {
+                        extraskillLocator.extraFourth.AddOneStock();
+                    }
                     PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
                 }
             }
@@ -173,6 +196,50 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
+            if (base.IsKeyDownAuthority() && !skillSwapped)
+            {
+                skillSwapped = true;
+                if (base.inputBank.skill1.down)
+                {
+                    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (base.inputBank.skill2.down)
+                {
+                    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (base.inputBank.skill3.down)
+                {
+                    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (base.inputBank.skill4.down)
+                {
+                    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (extrainputBankTest.extraSkill1.down)
+                {
+                    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (extrainputBankTest.extraSkill2.down)
+                {
+                    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (extrainputBankTest.extraSkill3.down)
+                {
+                    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+                if (extrainputBankTest.extraSkill4.down)
+                {
+                    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+            }
             PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration, 0.1f);
             this.stopwatch += Time.fixedDeltaTime;
             if (this.stopwatch >= this.duration && !base.IsKeyDownAuthority() && base.isAuthority)
