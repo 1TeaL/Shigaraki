@@ -3,7 +3,7 @@ Shigaraki Tomura mod for Ror2
 Go Beyond, Plus Chaos!
 ## Shigaraki
 Adds Shigaraki from My Hero Academia, an initially weaker survivor which can steal 'quirks' from enemies, gaining their abilites/skills.
-#### Multiplayer works (hopefully). CustomEmotesAPI compatibility.
+#### Multiplayer works (hopefully). CustomEmotesAPI compatibility. Risk of Options support.
 #### Message me on the Risk of Rain 2 Modding Discord if there are any issues- TeaL#5571.
 #### <a href="https://ko-fi.com/tealpopcorn"><img src="https://user-images.githubusercontent.com/93917577/160220529-efed5020-90ac-467e-98f2-27b5c162d744.png"> </a>
 If you enjoy my work, support me on Ko-fi!
@@ -42,6 +42,14 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.3.0
+    - All for one Rework!
+        - Added dedicated button (default: F) to steal quirks! Press it then press another skill slot to put the skill into that slot!
+        - Added dedicated button (default: V) to remove quirks! Press it then press another skill slot to clear that skill slot!
+        - Any skill can go to any slot now! Have 8 passives if you're feeling crazy! Have 8 actives if you want to crank that APM!
+    - Risk of Options mod support!
+        - Changed config for instant AFO, now you can type how long you want to hold the button for (default: 0 seconds).
+    - Changed artificer elementality quirk to work properly if you had multiple of it, so instead of using one skill and it changing all, it now changes individually. Also works with extra skill slots now as well.
 - 1.2.3 
     - Bug fixes:
     	- Fixed grandparent not having the right indicator
