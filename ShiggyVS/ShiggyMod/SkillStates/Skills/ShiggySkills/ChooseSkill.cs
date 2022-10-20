@@ -108,6 +108,7 @@ namespace ShiggyMod.SkillStates
 
             Shiggymastercon.CheckQuirks(characterBody);
 
+            Shiggymastercon.writeToAFOSkillList(null, 0);
         }
 
         protected virtual void AddSkill1()

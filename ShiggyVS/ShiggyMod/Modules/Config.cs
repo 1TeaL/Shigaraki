@@ -17,7 +17,7 @@ namespace ShiggyMod.Modules
             retainLoadout = ShiggyPlugin.instance.Config.Bind("General", "Retain loadout across stages", true, "Should you retain your stolen quirks across stages and respawns.");
             holdButtonAFO = ShiggyPlugin.instance.Config.Bind("General", "Steal and Remove quirk timer", 0f, "Set how long you want to hold the button.");
 
-            AFOHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "AFO Key", new KeyboardShortcut(UnityEngine.KeyCode.K), "Keybinding for AFO");
+            AFOHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "AFO Key", new KeyboardShortcut(UnityEngine.KeyCode.F), "Keybinding for AFO");
             RemoveHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Remove Quirk Key", new KeyboardShortcut(UnityEngine.KeyCode.V), "Keybinding for Remove Quirk");
         }
 
@@ -39,7 +39,7 @@ namespace ShiggyMod.Modules
                 AFOHotkey));
             ModSettingsManager.AddOption(new KeyBindOption(
                 RemoveHotkey));
-            ModSettingsManager.AddOption(new ChoiceOption(
+            ModSettingsManager.AddOption(new CheckBoxOption(
                 retainLoadout));
             ModSettingsManager.AddOption(new SliderOption(
                 holdButtonAFO));

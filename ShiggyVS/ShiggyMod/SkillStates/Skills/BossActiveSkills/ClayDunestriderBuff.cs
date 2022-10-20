@@ -35,8 +35,8 @@ namespace ShiggyMod.SkillStates
             if (NetworkServer.active)
             {
                 int buffcount = characterBody.GetBuffCount(Modules.Buffs.claydunestriderBuff);
-                characterBody.ApplyBuff(Modules.Buffs.claydunestriderBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration + buffcount, Modules.StaticValues.claydunestriderbuffDuration + buffcount);
-                //characterBody.ApplyBuff(Modules.Buffs.claydunestriderBuff);
+                //characterBody.ApplyBuff(Modules.Buffs.claydunestriderBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration + buffcount, Modules.StaticValues.claydunestriderbuffDuration + buffcount);
+                characterBody.AddTimedBuffAuthority(Modules.Buffs.claydunestriderBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration);
             }
 
             EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData
