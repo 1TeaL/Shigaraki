@@ -1707,7 +1707,7 @@ namespace ShiggyMod.Modules.Survivors
 			}
 		}
 
-		public void Update()
+        public void Update()
         {
             Target = GetTrackingTarget();
             //update mortar indicator
@@ -1720,72 +1720,72 @@ namespace ShiggyMod.Modules.Survivors
                 + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.");
             }
 
-            
-                //steal quirk
+
+            //steal quirk
             if (Config.AFOHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
+            {
+                Debug.Log("hold button AFO");
+                stopwatch += Time.deltaTime;
+                if (!this.hasStolen && stopwatch >= Config.holdButtonAFO.Value)
                 {
-                    Debug.Log("hold button AFO");
-                    stopwatch += Time.deltaTime;
-					if (!this.hasStolen && stopwatch >= Config.holdButtonAFO.Value)
-					{                        
-						hasStolen = true;
-						if (Target)
-						{
-
-							Debug.Log("Target");
-							Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
-							AkSoundEngine.PostEvent(1719197672, this.gameObject);
-							StealQuirk(Target);
-						}
-					}
-						
-				}
-				else if (Config.AFOHotkey.Value.IsUp())
-				{
-					hasStolen = false;
-					stopwatch = 0f;
-				}
-                //remove quirk
-                if (Config.RemoveHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
-                {
-                    
-                    stopwatch2 += Time.deltaTime;
-                    if (!this.hasRemoved && stopwatch2 >= Config.holdButtonAFO.Value)
+                    hasStolen = true;
+                    if (Target)
                     {
-                        hasRemoved = true;
 
-                        //choose what quirk to remove
-                        Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
-                        //unset skills but not to unwrite the skilllist
-                        RemovePrimary();
-                        RemoveSecondary();
-                        RemoveUtility();
-                        RemoveSpecial();
-                        RemoveExtra1();
-                        RemoveExtra2();
-                        RemoveExtra3();
-                        RemoveExtra4();
-
-                        //override skills to choosdef
-                        characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                        characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                        characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                        characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                        extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                        extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                        extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                        extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                        Debug.Log("Target");
+                        Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
+                        AkSoundEngine.PostEvent(1719197672, this.gameObject);
+                        StealQuirk(Target);
                     }
-
-
-                }
-                else if (Config.RemoveHotkey.Value.IsUp())
-                {
-                    hasRemoved = false;
-                    stopwatch2 = 0f;
                 }
             }
-     }
+            else if (Config.AFOHotkey.Value.IsUp())
+            {
+                hasStolen = false;
+                stopwatch = 0f;
+            }
+            //remove quirk
+            if (Config.RemoveHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
+            {
+
+                stopwatch2 += Time.deltaTime;
+                if (!this.hasRemoved && stopwatch2 >= Config.holdButtonAFO.Value)
+                {
+                    hasRemoved = true;
+
+                    //choose what quirk to remove
+                    Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
+                    //unset skills but not to unwrite the skilllist
+                    RemovePrimary();
+                    RemoveSecondary();
+                    RemoveUtility();
+                    RemoveSpecial();
+                    RemoveExtra1();
+                    RemoveExtra2();
+                    RemoveExtra3();
+                    RemoveExtra4();
+
+                    //override skills to choosdef
+                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                    extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+                }
+
+
+            }
+            else if (Config.RemoveHotkey.Value.IsUp())
+            {
+                hasRemoved = false;
+                stopwatch2 = 0f;
+            } 
+        }
+        
+     
 
         private void UpdateIndicator()
 		{

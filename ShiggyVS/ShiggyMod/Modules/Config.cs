@@ -39,10 +39,10 @@ namespace ShiggyMod.Modules
                 AFOHotkey));
             ModSettingsManager.AddOption(new KeyBindOption(
                 RemoveHotkey));
-            ModSettingsManager.AddOption(new BoolOption(
+            ModSettingsManager.AddOption(new ChoiceOption(
                 retainLoadout));
-            ModSettingsManager.AddOption(new FloatOption(
-                holdButtonAFO);
+            ModSettingsManager.AddOption(new SliderOption(
+                holdButtonAFO));
             
         }
     }

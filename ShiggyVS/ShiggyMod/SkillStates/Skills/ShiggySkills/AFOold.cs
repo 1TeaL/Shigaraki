@@ -89,105 +89,105 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (Config.holdButtonAFO.Value)
-            {
-                if (base.fixedAge >= this.fireTime && !this.hasFired)
-                {
-                    hasFired = true;
-                    if (Target)
-                    {
+            //if (Config.holdButtonAFO.Value)
+            //{
+            //    if (base.fixedAge >= this.fireTime && !this.hasFired)
+            //    {
+            //        hasFired = true;
+            //        if (Target)
+            //        {
 
-                        //Debug.Log("Target");
-                        //Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
-                        //AkSoundEngine.PostEvent(1719197672, this.gameObject);
-                        StealQuirk(Target);
-
-
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                }
-                if (base.IsKeyDownAuthority())
-                {
-                    if (base.fixedAge >= 3f)
-                    {
-                        if (extrainputBankTest.extraSkill1.down)
-                        {
-                            Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
-                            RemovePrimary();
-                            RemoveExtra1();
-                        }
-                        if (extrainputBankTest.extraSkill2.down)
-                        {
-                            Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
-                            RemoveSecondary();
-                            RemoveExtra2();
-                        }
-                        if (extrainputBankTest.extraSkill3.down)
-                        {
-                            Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
-                            RemoveUtility();
-                            RemoveExtra3();
-                        }
-                        if (extrainputBankTest.extraSkill4.down)
-                        {
-                            Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
-                            RemoveSpecial();
-                            RemoveExtra4();
-                        }
-                        //CheckQuirks();
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-
-                }
-                else if (base.fixedAge >= duration && base.isAuthority)
-                {
-                    this.outer.SetNextStateToMain();
-                    return;
-                }
-
-            }
-            else if (!Config.holdButtonAFO.Value)
-            {
-                if (base.IsKeyDownAuthority() && base.isAuthority)
-                {
-                    if (base.fixedAge >= 1f && !this.hasFired)
-                    {
-                        hasFired = true;
-                        if (Target)
-                        {
-
-                            Debug.Log("Target");
-                            Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
-                            //AkSoundEngine.PostEvent(1719197672, this.gameObject);
-                            StealQuirk(Target);
+            //            //Debug.Log("Target");
+            //            //Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
+            //            //AkSoundEngine.PostEvent(1719197672, this.gameObject);
+            //            StealQuirk(Target);
 
 
-                            this.outer.SetNextStateToMain();
-                            return;
-                        }
-                    }
-                    if(base.fixedAge >= 3f)
-                    {
+            //            this.outer.SetNextStateToMain();
+            //            return;
+            //        }
+            //    }
+            //    if (base.IsKeyDownAuthority())
+            //    {
+            //        if (base.fixedAge >= 3f)
+            //        {
+            //            if (extrainputBankTest.extraSkill1.down)
+            //            {
+            //                Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
+            //                RemovePrimary();
+            //                RemoveExtra1();
+            //            }
+            //            if (extrainputBankTest.extraSkill2.down)
+            //            {
+            //                Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
+            //                RemoveSecondary();
+            //                RemoveExtra2();
+            //            }
+            //            if (extrainputBankTest.extraSkill3.down)
+            //            {
+            //                Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
+            //                RemoveUtility();
+            //                RemoveExtra3();
+            //            }
+            //            if (extrainputBankTest.extraSkill4.down)
+            //            {
+            //                Chat.AddMessage("<style=cIsUtility>Quirks</style> Removed");
+            //                RemoveSpecial();
+            //                RemoveExtra4();
+            //            }
+            //            //CheckQuirks();
+            //            this.outer.SetNextStateToMain();
+            //            return;
+            //        }
+
+            //    }
+            //    else if (base.fixedAge >= duration && base.isAuthority)
+            //    {
+            //        this.outer.SetNextStateToMain();
+            //        return;
+            //    }
+
+            //}
+            //else if (!Config.holdButtonAFO.Value)
+            //{
+            //    if (base.IsKeyDownAuthority() && base.isAuthority)
+            //    {
+            //        if (base.fixedAge >= 1f && !this.hasFired)
+            //        {
+            //            hasFired = true;
+            //            if (Target)
+            //            {
+
+            //                Debug.Log("Target");
+            //                Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
+            //                //AkSoundEngine.PostEvent(1719197672, this.gameObject);
+            //                StealQuirk(Target);
+
+
+            //                this.outer.SetNextStateToMain();
+            //                return;
+            //            }
+            //        }
+            //        if(base.fixedAge >= 3f)
+            //        {
                         
-                        Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
+            //            Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
                         
-                        //CheckQuirks();
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                }
-                else
-                {
-                    if (base.fixedAge >= this.duration && base.isAuthority)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                }
+            //            //CheckQuirks();
+            //            this.outer.SetNextStateToMain();
+            //            return;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (base.fixedAge >= this.duration && base.isAuthority)
+            //        {
+            //            this.outer.SetNextStateToMain();
+            //            return;
+            //        }
+            //    }
 
-            }
+            //}
 
 
         }
