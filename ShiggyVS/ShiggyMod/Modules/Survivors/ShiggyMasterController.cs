@@ -159,7 +159,10 @@ namespace ShiggyMod.Modules.Survivors
 			writeToSkillList(null, 5);
 			writeToSkillList(null, 6);
 			writeToSkillList(null, 7);
-		}
+
+            writeToAFOSkillList(null, 0);
+
+        }
 
         public void writeToSkillList(SkillDef skillDef, int index)
 		{

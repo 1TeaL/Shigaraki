@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class VoidJailer : BaseSkillState
+    public class VoidJailer : Skill
     {
         public override void OnEnter()
         {

@@ -127,7 +127,8 @@ namespace ShiggyMod.Modules.Survivors
                 new CustomRendererInfo
                 {
                     childName = "Hand",
-                    material = ShiggyMat
+                    material = ShiggyMat,
+                    ignoreOverlays = true
                 },
                 new CustomRendererInfo
                 {
@@ -1968,7 +1969,7 @@ namespace ShiggyMod.Modules.Survivors
                 new SkinDef.MeshReplacement
                 {
                     mesh = Modules.Assets.mainAssetBundle.LoadAsset<Mesh>("MeshHand"),
-                    renderer = handlessrendererInfos[0].renderer
+                    renderer = handlessrendererInfos[0].renderer,
                 },
                 new SkinDef.MeshReplacement
                 {

@@ -204,6 +204,7 @@ namespace ShiggyMod.Modules.Survivors
             hasExtra4 = false;
 
             informAFOToPlayers = false;
+            hasStolen = false;
 
         }
 
@@ -212,7 +213,8 @@ namespace ShiggyMod.Modules.Survivors
         {
             characterBody = gameObject.GetComponent<CharacterBody>();
             characterMaster = characterBody.master;
-			if (!characterMaster.gameObject.GetComponent<ShiggyMasterController>())
+            Shiggymastercon = characterMaster.gameObject.GetComponent<ShiggyMasterController>();
+            if (!Shiggymastercon)
 			{
 				Shiggymastercon = characterMaster.gameObject.AddComponent<ShiggyMasterController>();
 			}
@@ -265,7 +267,14 @@ namespace ShiggyMod.Modules.Survivors
 			voiddevastatorhomingDef = false;
 			scavengerthqwibDef = false;
 
-		}
+            informAFOToPlayers = false;
+            hasStolen = false;
+            hasQuirk = false;
+            hasExtra1 = false;
+            hasExtra2 = false;
+            hasExtra3 = false;
+            hasExtra4 = false;
+        }
 
 		public HurtBox GetTrackingTarget()
 		{
@@ -1087,7 +1096,6 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Update()
         {
-            Target = GetTrackingTarget();
             //update mortar indicator
             if (this.mortarIndicatorInstance) this.UpdateIndicator();
 
@@ -1100,33 +1108,39 @@ namespace ShiggyMod.Modules.Survivors
 
 
             //steal quirk
-            if (Config.AFOHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
+
+            if (trackingTarget)
             {
-                Debug.Log("hold button AFO");
-                stopwatch += Time.deltaTime;
-                if (!this.hasStolen && stopwatch >= Config.holdButtonAFO.Value)
+                if (Config.AFOHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
                 {
-                    hasStolen = true;
-                    if (Target)
+                    stopwatch += Time.deltaTime;
+                    if (!this.hasStolen && stopwatch > Config.holdButtonAFO.Value)
                     {
+                        hasStolen = true;
                         Debug.Log("Target");
-                        Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(Target.healthComponent.body.bodyIndex)));
+                        Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
                         AkSoundEngine.PostEvent(1719197672, this.gameObject);
-                        StealQuirk(Target);
+                        StealQuirk(trackingTarget);
+
                     }
+
+                    Debug.Log(hasStolen + "hasstolen");
+
+                }
+                else if (Config.AFOHotkey.Value.IsUp() && characterBody.hasEffectiveAuthority)
+                {
+                    hasStolen = false;
+                    hasQuirk = false;
+                    stopwatch = 0f;
                 }
             }
-            else if (Config.AFOHotkey.Value.IsUp() && characterBody.hasEffectiveAuthority)
-            {
-                hasStolen = false;
-                stopwatch = 0f;
-            }
+            
             //remove quirk
             if (Config.RemoveHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
             {
 
                 stopwatch2 += Time.deltaTime;
-                if (!this.hasRemoved && stopwatch2 >= Config.holdButtonAFO.Value)
+                if (!this.hasRemoved && stopwatch2 > Config.holdButtonAFO.Value)
                 {
                     hasRemoved = true;
 
@@ -1329,10 +1343,10 @@ namespace ShiggyMod.Modules.Survivors
             var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
             GameObject newbodyPrefab = BodyCatalog.FindBodyPrefab(name);
 
-            AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
+            Debug.Log(name + "name");
+            Debug.Log(newbodyPrefab + "newbodyprefab");
+            //AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
 
-            //unset skills but not to unwrite the skilllist
-            
 
             //elite aspects
             if (hurtBox.healthComponent.body.isElite)
@@ -1398,7 +1412,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "VultureBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Flight Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.alloyvultureflyDef, 0);
@@ -1406,7 +1420,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "MinorConstructBody" | newbodyPrefab.name == "MinorConstructOnKillBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.alphacontructpassiveDef, 0);
@@ -1416,7 +1430,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "BeetleBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.beetlepassiveDef, 0);
@@ -1425,7 +1439,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "BeetleGuardBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Fast Drop Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.beetleguardslamDef, 0);
@@ -1433,7 +1447,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "BisonBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Charging Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.bisonchargeDef, 0);
@@ -1441,7 +1455,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "FlyingVerminBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.pestpassiveDef, 0);
@@ -1450,7 +1464,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "VerminBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.verminpassiveDef, 0);
@@ -1459,7 +1473,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "BellBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Spiked Ball Control Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.bronzongballDef, 0);
@@ -1467,7 +1481,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "ClayGrenadierBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Clay AirStrike Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.clayapothecarymortarDef, 0);
@@ -1475,7 +1489,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "ClayBruiserBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Clay Minigun Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.claytemplarminigunDef, 0);
@@ -1483,7 +1497,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "LemurianBruiserBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Fire Blast Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.elderlemurianfireblastDef, 0);
@@ -1491,7 +1505,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "GupBody" | newbodyPrefab.name == "GipBody" | newbodyPrefab.name == "GeepBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.guppassiveDef, 0);
@@ -1500,7 +1514,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "GreaterWispBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Spirit Boost Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.greaterwispballDef, 0);
@@ -1508,7 +1522,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "HermitCrabBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.hermitcrabpassiveDef, 0);
@@ -1517,7 +1531,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "ImpBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Blink Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.impblinkDef, 0);
@@ -1525,7 +1539,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "JellyfishBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.jellyfishnovaDef, 0);
@@ -1533,7 +1547,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "AcidLarvaBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.larvapassiveDef, 0);
@@ -1542,7 +1556,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "LemurianBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Fireball Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.lemurianfireballDef, 0);
@@ -1550,7 +1564,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "WispBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.lesserwisppassiveDef, 0);
@@ -1559,7 +1573,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "LunarExploderBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.lunarexploderpassiveDef, 0);
@@ -1568,7 +1582,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "LunarGolemBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Slide Reset Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.lunargolemslideDef, 0);
@@ -1576,7 +1590,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "LunarWispBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Lunar Minigun Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.lunarwispminigunDef, 0);
@@ -1584,7 +1598,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "MiniMushroomBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.minimushrumpassiveDef, 0);
@@ -1593,7 +1607,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "ParentBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Teleport Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.parentteleportDef, 0);
@@ -1601,7 +1615,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "RoboBallMiniBody" | newbodyPrefab.name == "RoboBallGreenBuddyBody" | newbodyPrefab.name == "RoboBallRedBuddyBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Solus Boost Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.roboballminibpassiveDef, 0);
@@ -1610,7 +1624,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "GolemBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Laser Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.stonegolemlaserDef, 0);
@@ -1618,7 +1632,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "VoidBarnacleBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.voidbarnaclepassiveDef, 0);
@@ -1627,7 +1641,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "VoidJailerBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.voidjailerpassiveDef, 0);
@@ -1636,17 +1650,15 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "NullifierBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Nullifier Artillery Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.voidreaverportalDef, 0);
             }
-
-
             if (newbodyPrefab.name == "BeetleQueen2Body")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Acid Shotgun Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.beetlequeenshotgunDef, 0);
@@ -1654,7 +1666,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "ImpBossBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.impbosspassiveDef, 0);
@@ -1663,7 +1675,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.stonetitanpassiveDef, 0);
@@ -1672,7 +1684,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "GrandParentBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.grandparentsunDef, 0);
@@ -1680,7 +1692,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "GravekeeperBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Hook Shotgun Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.grovetenderhookDef, 0);
@@ -1688,7 +1700,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "VagrantBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.vagrantpassiveDef, 0);
@@ -1697,7 +1709,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "MagmaWormBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.magmawormpassiveDef, 0);
@@ -1706,7 +1718,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "ElectricWormBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.overloadingwormpassiveDef, 0);
@@ -1715,7 +1727,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "ClayBossBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Tar Boost Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.claydunestriderbuffDef, 0);
@@ -1723,7 +1735,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "RoboBallBossBody" | newbodyPrefab.name == "SuperRoboBallBossBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Anti Gravity Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.soluscontrolunityknockupDef, 0);
@@ -1731,7 +1743,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "MegaConstructBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Beam Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.xiconstructbeamDef, 0);
@@ -1739,7 +1751,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "VoidMegaCrabBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Void Missiles Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.voiddevastatorhomingDef, 0);
@@ -1747,7 +1759,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "ScavBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.scavengerthqwibDef, 0);
@@ -1756,7 +1768,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "Bandit2Body")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Lights Out Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.banditlightsoutDef, 0);
@@ -1765,7 +1777,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "CaptainBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Defensive Microbots Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.captainpassiveDef, 0);
@@ -1774,7 +1786,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "CommandoBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Double Tap Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.commandopassiveDef, 0);
@@ -1783,7 +1795,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "CrocoBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Poison Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.acridpassiveDef, 0);
@@ -1792,7 +1804,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "EngiBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Turret Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.engiturretDef, 0);
@@ -1800,7 +1812,7 @@ namespace ShiggyMod.Modules.Survivors
             //if (newbodyPrefab.name == "HereticBody")
             //{
 
-            //    hasQuirk = true;
+            //    
             //    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
 
             //    Shiggymastercon.writeToAFOSkillList(Shiggy.scavengerthqwibDef, 0);
@@ -1810,7 +1822,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "HuntressBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Flurry Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.huntressattackDef, 0);
@@ -1818,7 +1830,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "LoaderBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Scrap Barrier Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.loaderpassiveDef, 0);
@@ -1827,7 +1839,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "MageBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Elementality Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.artificerflamethrowerDef, 0);
@@ -1835,7 +1847,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "MercBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Eviscerate Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.mercdashDef, 0);
@@ -1843,7 +1855,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "ToolbotBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Power Stance Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.multbuffDef, 0);
@@ -1851,7 +1863,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "TreebotBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Seed Barrage Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.rexmortarDef, 0);
@@ -1859,7 +1871,7 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "RailgunnerBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Cryocharged Railgun Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.railgunnercryoDef, 0);
@@ -1867,12 +1879,12 @@ namespace ShiggyMod.Modules.Survivors
             if (newbodyPrefab.name == "VoidSurvivorBody")
             {
 
-                hasQuirk = true;
+                
                 Chat.AddMessage("<style=cIsUtility>Cleanse Quirk</style> Get!");
 
                 Shiggymastercon.writeToAFOSkillList(Shiggy.voidfiendcleanseDef, 0);
             }
-            if(hasQuirk = true)
+            if (Shiggymastercon.storedAFOSkill[0] != null)
             {
                 //override skills to choosdef
                 RemovePrimary();
@@ -1894,7 +1906,7 @@ namespace ShiggyMod.Modules.Survivors
                 extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
                 extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
             }
-            else if (!hasQuirk)
+            else if (Shiggymastercon.storedAFOSkill[0] == null)
             {
                 Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
             }

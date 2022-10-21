@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class Acrid : BaseSkillState
+    public class Acrid : Skill
     {
         public override void OnEnter()
         {

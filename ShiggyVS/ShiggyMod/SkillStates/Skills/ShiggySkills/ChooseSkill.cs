@@ -25,6 +25,8 @@ namespace ShiggyMod.SkillStates
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            PlayCrossfade("RightArm, Override", "RightArmPull", "Attack.playbackRate", 0.5f, 0.1f);
 
 
         }
@@ -99,7 +101,7 @@ namespace ShiggyMod.SkillStates
             }
             if (Shiggymastercon.skillListToOverrideOnRespawn[7] != null)
             {
-                extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggymastercon.skillListToOverrideOnRespawn[6], GenericSkill.SkillOverridePriority.Contextual);
+                extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggymastercon.skillListToOverrideOnRespawn[7], GenericSkill.SkillOverridePriority.Contextual);
             }
             else
             {

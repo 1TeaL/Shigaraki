@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class MiniMushrum : BaseSkillState
+    public class MiniMushrum : Skill
     {
         public override void OnEnter()
         {

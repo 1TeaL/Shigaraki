@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class LunarExploder : BaseSkillState
+    public class LunarExploder : Skill
     {
         public override void OnEnter()
         {

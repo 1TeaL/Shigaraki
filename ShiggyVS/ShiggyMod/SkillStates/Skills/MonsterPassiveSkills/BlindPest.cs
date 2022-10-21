@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BlindPest : BaseSkillState
+    public class BlindPest : Skill
     {
         public override void OnEnter()
         {

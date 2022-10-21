@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class MagmaWorm : BaseSkillState
+    public class MagmaWorm : Skill
     {
         public override void OnEnter()
         {

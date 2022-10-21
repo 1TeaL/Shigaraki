@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class RoboBallMini : BaseSkillState
+    public class RoboBallMini : Skill
     {
         public override void OnEnter()
         {

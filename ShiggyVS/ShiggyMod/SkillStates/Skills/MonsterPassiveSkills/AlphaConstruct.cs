@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class AlphaConstruct : BaseSkillState
+    public class AlphaConstruct : Skill
     {
         public override void OnEnter()
         {

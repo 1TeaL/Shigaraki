@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class Captain : BaseSkillState
+    public class Captain : Skill
     {
         public override void OnEnter()
         {

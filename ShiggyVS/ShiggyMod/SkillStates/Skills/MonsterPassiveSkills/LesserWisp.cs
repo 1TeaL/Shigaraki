@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class LesserWisp : BaseSkillState
+    public class LesserWisp : Skill
     {
         public override void OnEnter()
         {

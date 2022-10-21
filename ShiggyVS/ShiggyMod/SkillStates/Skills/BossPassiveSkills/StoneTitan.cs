@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class StoneTitan : BaseSkillState
+    public class StoneTitan : Skill
     {
         public override void OnEnter()
         {

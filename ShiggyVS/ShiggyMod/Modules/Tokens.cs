@@ -65,6 +65,10 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>." 
                 + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
                 " Actives<style=cWorldEvent>[Circle]</style> and Passives<style=cWorldEvent>[Triangle]</style> have different indicators." );
+            LanguageAPI.Add(prefix + "CHOOSESKILL_NAME", "Choose Skill Slot");
+            LanguageAPI.Add(prefix + "CHOOSESKILL_DESCRIPTION", $"Press this to <style=cIsUtility>slot in the stolen quirk</style>.");
+            LanguageAPI.Add(prefix + "REMOVESKILL_NAME", "Remove Skill Slot");
+            LanguageAPI.Add(prefix + "REMOVESKILL_DESCRIPTION", $"Press this to <style=cIsUtility>remove the quirk from this slot</style>.");
 
             #endregion
 

@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class Larva : BaseSkillState
+    public class Larva : Skill
     {
         public override void OnEnter()
         {

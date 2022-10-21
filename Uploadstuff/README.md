@@ -3,12 +3,25 @@ Shigaraki Tomura mod for Ror2
 Go Beyond, Plus Chaos!
 ## Shigaraki
 Adds Shigaraki from My Hero Academia, an initially weaker survivor which can steal 'quirks' from enemies, gaining their abilites/skills.
-#### Multiplayer works (hopefully). CustomEmotesAPI compatibility.
+#### Multiplayer works (hopefully). CustomEmotesAPI compatibility. Risk of Options support.
 #### Message me on the Risk of Rain 2 Modding Discord if there are any issues- TeaL#5571.
 #### <a href="https://ko-fi.com/tealpopcorn"><img src="https://user-images.githubusercontent.com/93917577/160220529-efed5020-90ac-467e-98f2-27b5c162d744.png"> </a>
 If you enjoy my work, support me on Ko-fi!
 ## Popcorn Factory
-<b>Check out other mods from the Popcorn Factory team!</b>
+<details>
+<summary>Check out other mods from the Popcorn Factory team!</summary>	
+<div>
+    <a href="https://thunderstore.io/package/PopcornFactory/Rimuru_Tempest_Mod/">
+      <img width="130" src="https://cdn.discordapp.com/attachments/399901440023330816/1033003173759164467/unknown.png"/>
+      <p>Rimuru Tempest Mod (Popcorn Factory Team)</p>
+    </a>
+</div>
+<div>
+    <a href="https://thunderstore.io/package/PopcornFactory/DarthVaderMod/">
+      <img width="130" src="https://user-images.githubusercontent.com/93917577/180753359-4906ca0b-6ce5-4ff7-9962-bdec3329682c.png"/>
+      <p>Darth Vader Mod (Popcorn Factory Team)</p>
+    </a>
+</div>
 <div>
     <a href="https://thunderstore.io/package/PopcornFactory/DittoMod/">
         <img src="https://user-images.githubusercontent.com/93917577/168004690-23b6d040-5f89-4b62-916b-c40d774bff02.png"><br>
@@ -39,22 +52,25 @@ If you enjoy my work, support me on Ko-fi!
         <p>Wisp Mod (Popcorn Factory Team)</p>
     </a>
 </div>
+</details>
 
 ## Latest Changelog, Next update(s)
 
-- 1.2.3 
+- 1.3.0
+    - All for one Rework! Set up for the 2.0 synergy update.
+        - Added dedicated button (default: F) to steal quirks! Press it then press another skill slot to put the skill into that slot!
+        - Added dedicated button (default: V) to remove quirks! Press it then press another skill slot to clear that skill slot!
+        - Any skill can go to any slot now! Have 8 passives if you need to AFK! Have 8 actives if you want to crank that APM!
+        - Stock increasing items such as back-up magazine increase the stocks for the associated extra skill slots above the skills.
+        - Passives no longer have AFO functionality. They simply provide the buff incase they didn't when pressed, nothing big.
+    - Risk of Options mod support!
+        - Changed config for instant AFO, now you can type how long you want to hold the button for (default: 0 seconds).
+    - Changed artificer elementality quirk to work properly if you had multiple of it, so instead of using one skill and it changing all, it now changes individually. Also works with extra skill slots now as well.
+    - Added 60 second timer for elite aspects to limit aspect copying.
     - Bug fixes:
-    	- Fixed grandparent not having the right indicator
-        - Fixed solus mini passive, when going to a new stage/reviving being put onto a skill slot rather than an extra skill slot.
-        - Fixed greater wisp buff giving clay dunestrider buff and fixed issues with durations for both of them.
-- 1.2.2 
-    - Fixed missing networking API.
-- 1.2.1 
-    - Added Imp Boss to the passive indicator list (missed it).
-    - Non-hosts can now get elite aspects as well.
-- 1.2.0 
-    - New Icons! (Courtersy of Mr.Bones) 
-    - Model setup for skin by Mr.Bones
+        - Fixed some skills not giving buffs, fixed buffs being provided to non-hosts in general, all for one should be multiplayer friendly now.
+        - buff skills like Clay dunestrider and Greater wisp should now properly add more seconds to their buffs if you're able to.
+    	- Disabled overlays for the Hand so that there isn't a weird effect with personal shield generator or similar effects, it does mean it won't go invisible with the body.
 
 - Next update(s)
     - Bug fixes. 
@@ -64,7 +80,7 @@ If you enjoy my work, support me on Ko-fi!
 <img src= "https://user-images.githubusercontent.com/93917577/179202355-c5eb5011-4295-4093-9c96-d84132bcbb05.PNG">
 
 ## Known Issues
-    Non-hosts can spawn the elite aspect but not pick them up.
+    
 
 ## Overview
     He is initially weak with low base damage, aim to get passive quirks to increase his power.
@@ -73,11 +89,11 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Skills
 ### Passive
-Shigaraki can grab the target's quirk with All For One. 
+Shigaraki can grab the target's quirk with All For One by pressing the F key by default, then pressing a skill slot. Remove quirks by pressing the V key by default and pressing the skill slot as well.
 
 Actives(Circle Indicator) replace main skills and Passives(Square indicator) replace extra skills.
 
-Both can be replaced at any time. Passive skills still have All for One functionality.
+Both can be replaced at any time. 
 
 All [Melee] attacks Decay, which decreases the enemies' movespeed and attackspeed as well as instakilling them at 50 stacks (except for Teleporter Bosses).
 
@@ -121,7 +137,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>All For One</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/179195232-afa5af2b-de69-40bb-996f-f12c430dfe08.png" width="100" height="100"></td>
-    <td>Steal the Target's quirk. Steal the elite aspect as well. <br>Hold the button for 3 seconds to remove quirks.</td>
+    <td>Steal the Target's quirk by pressing the F key by default, then pressing a skill slot.<br>Remove quirks by pressing the V key by default and pressing the skill slot as well.<br>Steal the elite aspect as well.</td>
     <td>CD: 1s.<br></td>
   </tr>
 </tbody>
@@ -491,80 +507,4 @@ Shigaraki can sprint in any direction and has a double jump.
 
 These stats are prone to change.
 
-## Changelog
-
-<details>
-<summary>Click to expand previous patch notes:</summary>
-    
-- 1.1.4 
-    - Fixed quirk resetting to properly reset the quirk next stage.
-    - Known issue, non-hosts can spawn the elite aspect but not pick them up.
-- 1.1.3 
-    - Fixed multiplier giving every buff(again).
-    - Possibly fixed multiplayer non-hosts having AFO work with them.
-- 1.1.2 
-    - Fixed fps lag from future runs and current runs(Hopefully).
-    - Buffs carry over on respawn/next stage instead of needing to reactivate the skill.
-- 1.1.1 
-    - Hopefully fixed decay buff spreading causing freezing/lag.
-    - Added an impact effect for Decay primary as well as when the buff spreads.
-- 1.1.0 
-    - Added All Survivor Quirks! (except heretic)
-    - Added Elder lemurian's skill (forgot about it oops)- Fire blast.
-    - Fixed right handed animations not playing.
-    - Fixed beetle buff not increasing melee attack damage.
-    - Fixed readme missing stats info for actives.
-    - Balance changes/Reworks: 
-         - You can now hold AFO for 3 seconds and it will remove your current passive and quirk that matches the button pressed for.
-         - Improved Aircannon speed and movement.
-         - Buffed decay to now add one stack and also spread every 6 seconds. The damage is also done in 1 second intervals instead, the damage now deals either the greater of 50% of the ENEMY'S damage or 0.5% of their maximum HP per stack.
-         - Impboss bleed buff now affects every attack, Acrid's poison buff works like this as well.
-         - Reworked a few quirks as they were not that exciting, and served not too much purpose currently, simply different projectiles which didn't have many unique effects.
-             - Greater wisp now grants a buff that makes attacks explode for 50% of the damage. 
-             - Clay dunestrider now grants a buff that gives 10% lifesteal and 1.5x attackspeed. 
-             - Solus probe quirk changed as glide felt a bit unintuitive to use, now it grants attackspeed as you hold down any button every second.
-- 1.0.9 
-    - Fixed bug where jumping disabled air control until collision.
-    - Balance changes: 
-         - Nerfed stone golem damage 600% -> 400%. 
-         - Nerfed Strength and Ranged specific boosts 2x -> 1.5x.
-- 1.0.8 
-    - Added separate handless skin.
-    - Fixed bug on not carrying over passives through levels.
-- 1.0.7 
-    - Oops multiplier applied all buffs.
-- 1.0.6 
-    - Forgot to mention fix for blind vermin passive breaking.
-- 1.0.5 
-    - CustomEmotesAPI compatibility added
-    - Added an icon for the default skin
-    - Optimised AFO code
-    - Buff acquisition optimised and a lot faster now
-    - Fixed gup being set as an active skill rather than extra skill
-- 1.0.4 
-    - Fixed errors when entering a new stage
-    - Added back different buff icons
-    - Multiplier now doesn't get taken away on DoT damage such as decay
-         - Melee attacks are now easier to trigger the triple decay effect due to this 
-    - Bullet Laser now works
-    - Improved AFO passive logic, should be quicker to receive the buff now
-    - Mentioned that AFO can grab elite equipment
-    - Smoother animations
-    - Added new config so you have to hold the button for 1 second before stealing a quirk.
-- 1.0.3 
-    - buff icons not loading so for now everything is warcry buff icon 
-- 1.0.1 
-    - hotfix dependency 
-- 1.0.0
-    - Release.
-- rest of changelog on github
-
-</details>
-
-## Future plans
-##### More quirks
-##### Skins?
-
-
-## Credits
-##### HenryMod for the template.
+rest of changelog on github.
