@@ -8,7 +8,20 @@ Adds Shigaraki from My Hero Academia, an initially weaker survivor which can ste
 #### <a href="https://ko-fi.com/tealpopcorn"><img src="https://user-images.githubusercontent.com/93917577/160220529-efed5020-90ac-467e-98f2-27b5c162d744.png"> </a>
 If you enjoy my work, support me on Ko-fi!
 ## Popcorn Factory
-<b>Check out other mods from the Popcorn Factory team!</b>
+<details>
+<summary>Check out other mods from the Popcorn Factory team!</summary>	
+<div>
+    <a href="https://thunderstore.io/package/PopcornFactory/Rimuru_Tempest_Mod/">
+      <img width="130" src="https://cdn.discordapp.com/attachments/399901440023330816/1033003173759164467/unknown.png"/>
+      <p>Rimuru Tempest Mod (Popcorn Factory Team)</p>
+    </a>
+</div>
+<div>
+    <a href="https://thunderstore.io/package/PopcornFactory/DarthVaderMod/">
+      <img width="130" src="https://user-images.githubusercontent.com/93917577/180753359-4906ca0b-6ce5-4ff7-9962-bdec3329682c.png"/>
+      <p>Darth Vader Mod (Popcorn Factory Team)</p>
+    </a>
+</div>
 <div>
     <a href="https://thunderstore.io/package/PopcornFactory/DittoMod/">
         <img src="https://user-images.githubusercontent.com/93917577/168004690-23b6d040-5f89-4b62-916b-c40d774bff02.png"><br>
@@ -39,6 +52,7 @@ If you enjoy my work, support me on Ko-fi!
         <p>Wisp Mod (Popcorn Factory Team)</p>
     </a>
 </div>
+</details>
 
 ## Latest Changelog, Next update(s)
 
@@ -57,19 +71,6 @@ If you enjoy my work, support me on Ko-fi!
         - Fixed some skills not giving buffs, fixed buffs being provided to non-hosts in general, all for one should be multiplayer friendly now.
         - buff skills like Clay dunestrider and Greater wisp should now properly add more seconds to their buffs if you're able to.
     	- Disabled overlays for the Hand so that there isn't a weird effect with personal shield generator or similar effects, it does mean it won't go invisible with the body.
-- 1.2.3 
-    - Bug fixes:
-    	- Fixed grandparent not having the right indicator
-	    - Fixed solus mini passive, when going to a new stage/reviving being put onto a skill slot rather than an extra skill slot.
-	    - Fixed greater wisp buff giving clay dunestrider buff and fixed issues with durations for both of them.
-- 1.2.2 
-    - Fixed missing networking API.
-- 1.2.1 
-    - Added Imp Boss to the passive indicator list (missed it).
-    - Non-hosts can now get elite aspects as well.
-- 1.2.0 
-    - New Icons! (Courtersy of Mr.Bones) 
-    - Model setup for skin by Mr.Bones
 
 - Next update(s)
     - Bug fixes. 
@@ -136,7 +137,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>All For One</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/179195232-afa5af2b-de69-40bb-996f-f12c430dfe08.png" width="100" height="100"></td>
-    <td>Steal the Target's quirk. Steal the elite aspect as well. <br>Hold the button for 3 seconds to remove quirks.</td>
+    <td>Steal the Target's quirk by pressing the F key by default, then pressing a skill slot.<br>Remove quirks by pressing the V key by default and pressing the skill slot as well.<br>Steal the elite aspect as well.</td>
     <td>CD: 1s.<br></td>
   </tr>
 </tbody>
@@ -506,11 +507,26 @@ Shigaraki can sprint in any direction and has a double jump.
 
 These stats are prone to change.
 
+rest of changelog on github.
 ## Changelog
 
 <details>
 <summary>Click to expand previous patch notes:</summary>
-    
+
+	
+- 1.2.3 
+    - Bug fixes:
+    	- Fixed grandparent not having the right indicator
+	    - Fixed solus mini passive, when going to a new stage/reviving being put onto a skill slot rather than an extra skill slot.
+	    - Fixed greater wisp buff giving clay dunestrider buff and fixed issues with durations for both of them.
+- 1.2.2 
+    - Fixed missing networking API.
+- 1.2.1 
+    - Added Imp Boss to the passive indicator list (missed it).
+    - Non-hosts can now get elite aspects as well.
+- 1.2.0 
+    - New Icons! (Courtersy of Mr.Bones) 
+    - Model setup for skin by Mr.Bones
 - 1.1.4 
     - Fixed quirk resetting to properly reset the quirk next stage.
     - Known issue, non-hosts can spawn the elite aspect but not pick them up.
