@@ -56,6 +56,7 @@ If you enjoy my work, support me on Ko-fi!
     - Bug fixes:
         - Fixed some skills not giving buffs, fixed buffs being provided to non-hosts in general, all for one should be multiplayer friendly now.
         - buff skills like Clay dunestrider and Greater wisp should now properly add more seconds to their buffs if you're able to.
+    	- Disabled overlays for the Hand so that there isn't a weird effect with personal shield generator or similar effects, it does mean it won't go invisible with the body.
 - 1.2.3 
     - Bug fixes:
     	- Fixed grandparent not having the right indicator
