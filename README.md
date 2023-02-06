@@ -56,6 +56,8 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.3.1
+    - updated risk of option config for holdbuttonAFO, now it's a slider that goes from 0-10 instead of a % slider like for volume. DELETE YOUR CONFIGS!
 - 1.3.0
     - All for one Rework! Set up for the 2.0 synergy update.
         - Added dedicated button (default: F) to steal quirks! Press it then press another skill slot to put the skill into that slot!
