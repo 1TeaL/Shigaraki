@@ -280,7 +280,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "AIRCANNON_NAME",
                 skillDescriptionToken = prefix + "AIRCANNON_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("aircannon"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.AirCannon)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.RailgunnerCryoCharge)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 5f,

@@ -41,9 +41,9 @@ namespace ShiggyMod.Modules
                 RemoveHotkey));
             ModSettingsManager.AddOption(new CheckBoxOption(
                 retainLoadout));
-            ModSettingsManager.AddOption(new SliderOption(
-                holdButtonAFO));
-            
+            ModSettingsManager.AddOption(new StepSliderOption(
+                holdButtonAFO, new StepSliderConfig() { min = 0, max = 10, increment = 1f }));
+
         }
     }
 }

@@ -388,28 +388,8 @@ namespace ShiggyMod.Modules.Survivors
         {
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             //check passive
-            if (extraskillLocator.extraFirst.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
-                && extraskillLocator.extraSecond.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
-                && extraskillLocator.extraThird.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
-                && extraskillLocator.extraFourth.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
-                && characterBody.skillLocator.primary.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
-                && characterBody.skillLocator.secondary.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
-                && characterBody.skillLocator.utility.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
-                && characterBody.skillLocator.special.skillNameToken != prefix + "ALPHACONSTRUCT_NAME")
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.alphashieldonBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 0);
-                }
-            }
-            else if (extraskillLocator.extraFirst.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
-                || extraskillLocator.extraSecond.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
-                || extraskillLocator.extraThird.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
-                || extraskillLocator.extraFourth.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
-                || characterBody.skillLocator.primary.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
-                || characterBody.skillLocator.secondary.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
-                || characterBody.skillLocator.utility.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
-                || characterBody.skillLocator.special.skillNameToken == prefix + "ALPHACONSTRUCT_NAME")
+
+            if (IsQuirkHave("ALPHACONSTRUCT_NAME", characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -417,6 +397,44 @@ namespace ShiggyMod.Modules.Survivors
 
                 }
             }
+            else
+            {
+                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.alphashieldonBuff))
+                {
+                    characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 0);
+                }
+
+            }
+
+            //if (extraskillLocator.extraFirst.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
+            //    && extraskillLocator.extraSecond.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
+            //    && extraskillLocator.extraThird.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
+            //    && extraskillLocator.extraFourth.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
+            //    && characterBody.skillLocator.primary.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
+            //    && characterBody.skillLocator.secondary.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
+            //    && characterBody.skillLocator.utility.skillNameToken != prefix + "ALPHACONSTRUCT_NAME"
+            //    && characterBody.skillLocator.special.skillNameToken != prefix + "ALPHACONSTRUCT_NAME")
+            //{
+            //    if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.alphashieldonBuff))
+            //    {
+            //        characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 0);
+            //    }
+            //}
+            //else if (extraskillLocator.extraFirst.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
+            //    || extraskillLocator.extraSecond.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
+            //    || extraskillLocator.extraThird.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
+            //    || extraskillLocator.extraFourth.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
+            //    || characterBody.skillLocator.primary.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
+            //    || characterBody.skillLocator.secondary.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
+            //    || characterBody.skillLocator.utility.skillNameToken == prefix + "ALPHACONSTRUCT_NAME"
+            //    || characterBody.skillLocator.special.skillNameToken == prefix + "ALPHACONSTRUCT_NAME")
+            //{
+            //    if (NetworkServer.active)
+            //    {
+            //        characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
+
+            //    }
+            //}
             if (extraskillLocator.extraFirst.skillNameToken != prefix + "BEETLE_NAME"
                 && extraskillLocator.extraSecond.skillNameToken != prefix + "BEETLE_NAME"
                 && extraskillLocator.extraThird.skillNameToken != prefix + "BEETLE_NAME"
@@ -1010,6 +1028,19 @@ namespace ShiggyMod.Modules.Survivors
                 }
             }
 
+        }
+        public bool IsQuirkHave(string skillName, CharacterBody characterBody)
+        {
+            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+
+            return !(extraskillLocator.extraFirst.skillNameToken != prefix + skillName
+                && extraskillLocator.extraSecond.skillNameToken != prefix + skillName
+                && extraskillLocator.extraThird.skillNameToken != prefix + skillName
+                && extraskillLocator.extraFourth.skillNameToken != prefix + skillName
+                && characterBody.skillLocator.primary.skillNameToken != prefix + skillName
+                && characterBody.skillLocator.secondary.skillNameToken != prefix + skillName
+                && characterBody.skillLocator.utility.skillNameToken != prefix + skillName
+                && characterBody.skillLocator.special.skillNameToken != prefix + skillName);
         }
 
 

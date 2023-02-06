@@ -61,7 +61,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "1.3.0";
+        public const string MODVERSION = "1.3.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -302,7 +302,7 @@ namespace ShiggyMod
 
                         }
                     }
-                    //acrid buff
+                    //tar buff
                     if (body.HasBuff(Modules.Buffs.claydunestriderBuff))
                     {
                         if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
@@ -320,7 +320,7 @@ namespace ShiggyMod
                                 InflictDotInfo info = new InflictDotInfo();
                                 info.attackerObject = body.gameObject;
                                 info.victimObject = victimBody.healthComponent.body.gameObject;
-                                info.duration = Modules.StaticValues.decayDamageTimer;
+                                info.duration = Modules.StaticValues.decayDamageTimer/2;
                                 info.dotIndex = DotController.DotIndex.Poison;
 
                                 DotController.InflictDot(ref info);
