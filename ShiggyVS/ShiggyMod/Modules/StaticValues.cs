@@ -5,6 +5,16 @@ namespace ShiggyMod.Modules
 {
     internal static class StaticValues
     {
+        //Energy
+        internal static float basePlusChaos = 100f;
+        internal static float levelPlusChaos = 10f;
+        internal static float regenPlusChaosRate = 8f;
+        internal static float basePlusChaosGain = 1f;
+        internal static float skillPlusChaosGain = 2f;
+        internal static float modePlusChaosSpend = 5f;
+        internal static float regenPlusChaosFraction = 0.05f;
+
+
         internal const float multAttackspeed = 2f;
         internal const float multMovespeed = 0.4f;
         internal const float multArmor = 100f;
