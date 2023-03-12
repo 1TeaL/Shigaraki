@@ -50,14 +50,6 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Start()
         {
-            //characterBody = gameObject.GetComponent<CharacterBody>();
-            //characterMaster = characterBody.master;
-            //if (!characterMaster.gameObject.GetComponent<NidusMasterController>())
-            //{
-            //    Nidusmastercon = characterMaster.gameObject.AddComponent<NidusMasterController>();
-            //}
-
-
             //Energy
             maxPlusChaos = StaticValues.basePlusChaos + ((characterBody.level - 1) * StaticValues.levelPlusChaos);
             currentplusChaos = maxPlusChaos;
@@ -118,8 +110,10 @@ namespace ShiggyMod.Modules.Survivors
             if (characterBody)
             {
                 maxPlusChaos = StaticValues.basePlusChaos + ((characterBody.level - 1) * StaticValues.levelPlusChaos)
-                    + (10f * characterBody.master.inventory.GetItemCount(RoR2Content.Items.SecondarySkillMagazine))
-                    + (30f * characterBody.master.inventory.GetItemCount(RoR2Content.Items.UtilitySkillMagazine));
+                    + (StaticValues.backupGain * characterBody.master.inventory.GetItemCount(RoR2Content.Items.SecondarySkillMagazine))
+                    + (StaticValues.afterburnerGain * characterBody.master.inventory.GetItemCount(RoR2Content.Items.UtilitySkillMagazine))
+                    + (StaticValues.lysateGain * characterBody.master.inventory.GetItemCount(DLC1Content.Items.EquipmentMagazineVoid));
+
                 regenPlusChaos = maxPlusChaos * StaticValues.regenPlusChaosFraction;
 
                 costmultiplierplusChaos = (float)Math.Pow(0.75f, characterBody.master.inventory.GetItemCount(RoR2Content.Items.AlienHead));

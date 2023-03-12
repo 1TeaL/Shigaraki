@@ -10,9 +10,13 @@ namespace ShiggyMod.Modules
         internal static float levelPlusChaos = 10f;
         internal static float regenPlusChaosRate = 8f;
         internal static float basePlusChaosGain = 1f;
-        internal static float skillPlusChaosGain = 2f;
+        internal static float killPlusChaosGain = 0.1f;
         internal static float modePlusChaosSpend = 5f;
         internal static float regenPlusChaosFraction = 0.05f;
+        internal static float backupGain = 10f;
+        internal static float afterburnerGain = 30f;
+        internal static float lysateGain = 15f;
+
 
 
         internal const float multAttackspeed = 2f;
@@ -213,7 +217,6 @@ namespace ShiggyMod.Modules
         }
 
         public static Dictionary<string, IndicatorType> indicatorDict;
-        
         public static void LoadDictionary()
         {
             indicatorDict = new Dictionary<string, IndicatorType>();

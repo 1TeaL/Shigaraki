@@ -60,8 +60,9 @@ namespace ShiggyMod.Modules.Survivors
 
 		public ShiggyMasterController Shiggymastercon;
 		public ShiggyController Shiggycon;
+        private EnergySystem energySystem;
 
-		public bool larvabuffGiven;
+        public bool larvabuffGiven;
 		public bool verminjumpbuffGiven;
         private uint minimushrumsoundID;
         public GameObject mushroomWard;
@@ -137,8 +138,10 @@ namespace ShiggyMod.Modules.Survivors
         private float stopwatch2;
 
         public void Awake()
-		{
-			child = GetComponentInChildren<ChildLocator>();
+        {
+            On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
+
+            child = GetComponentInChildren<ChildLocator>();
 			
 			indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator"));
 			passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
@@ -213,6 +216,9 @@ namespace ShiggyMod.Modules.Survivors
         {
             characterBody = gameObject.GetComponent<CharacterBody>();
             characterMaster = characterBody.master;
+
+            energySystem = gameObject.AddComponent<EnergySystem>();
+
             Shiggymastercon = characterMaster.gameObject.GetComponent<ShiggyMasterController>();
             if (!Shiggymastercon)
 			{
@@ -276,29 +282,51 @@ namespace ShiggyMod.Modules.Survivors
             hasExtra4 = false;
         }
 
-		public HurtBox GetTrackingTarget()
+        private void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
+        {
+            orig.Invoke(self, damageReport);
+            //shiggy kill check for energy
+            if (damageReport.attackerBody?.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+            {
+                if (damageReport.attackerBody && damageReport.victimBody)
+                {
+                    if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
+                    {
+                        EnergySystem energySystem = damageReport.attackerBody.gameObject.GetComponent<EnergySystem>();
+                        energySystem.currentplusChaos += energySystem.maxPlusChaos * StaticValues.killPlusChaosGain;
+                        energySystem.TriggerGlow(0.3f, 0.3f, Color.cyan);
+                    }
+                }
+
+            }
+        }
+
+
+        public HurtBox GetTrackingTarget()
 		{
 			return this.trackingTarget;
 		}
 
-		private void OnEnable()
+        public void OnEnable()
 		{
 			this.indicator.active = true;
 			this.passiveindicator.active = true;
 			this.activeindicator.active = true;
 		}
 
-		private void OnDisable()
+        public void OnDisable()
 		{
 			this.indicator.active = false;
 			this.passiveindicator.active = false;
 			this.activeindicator.active = false;
 		}
 
-		private void OnDestroy()
-        {			
-			if (mortarIndicatorInstance) EntityState.Destroy(mortarIndicatorInstance.gameObject);
-		}
+		public void OnDestroy()
+        {
+            On.RoR2.GlobalEventManager.OnCharacterDeath -= GlobalEventManager_OnCharacterDeath;
+            if (mortarIndicatorInstance) EntityState.Destroy(mortarIndicatorInstance.gameObject);
+            if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
+        }
 
         public void FixedUpdate()
         {
