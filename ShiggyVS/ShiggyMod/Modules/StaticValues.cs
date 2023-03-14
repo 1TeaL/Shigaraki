@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IL.RoR2.Skills;
+using On.RoR2.Skills;
+using System;
 using System.Collections.Generic;
 
 namespace ShiggyMod.Modules
@@ -217,8 +219,135 @@ namespace ShiggyMod.Modules
         }
 
         public static Dictionary<string, IndicatorType> indicatorDict;
+        public static Dictionary<string, RoR2.Skills.SkillDef> baseQuirkSkillDef;
+        public static Dictionary<RoR2.Skills.SkillDef, string> baseQuirkSkillString;
         public static void LoadDictionary()
         {
+            baseQuirkSkillString = new Dictionary<RoR2.Skills.SkillDef, string>();
+            baseQuirkSkillString.Add(Survivors.Shiggy.alphacontructpassiveDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.beetlepassiveDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.pestpassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.verminpassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.guppassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.hermitcrabpassiveDef,);
+            baseQuirkSkillString.Add(Survivors.Shiggy.larvapassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.lesserwisppassiveDef,);
+            baseQuirkSkillString.Add(Survivors.Shiggy.lunarexploderpassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.minimushrumpassiveDef,);
+            baseQuirkSkillString.Add(Survivors.Shiggy.roboballminibpassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.roboballminibpassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.voidbarnaclepassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.voidjailerpassiveDef,);
+            baseQuirkSkillString.Add(Survivors.Shiggy.impbosspassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.stonetitanpassiveDef,);
+            baseQuirkSkillString.Add(Survivors.Shiggy.vagrantpassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.magmawormpassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.overloadingwormpassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.captainpassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.commandopassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.acridpassiveDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.loaderpassiveDef, );
+
+            baseQuirkSkillString.Add(Survivors.Shiggy.alloyvultureflyDef, );
+            baseQuirkSkillString.Add(Survivors.Shiggy.beetleguardslamDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.bisonchargeDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.bronzongballDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.clayapothecarymortarDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.claytemplarminigunDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.elderlemurianfireblastDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.greaterwispballDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.impblinkDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.jellyfishnovaDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.lemurianfireballDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.lunargolemslideDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.lunarwispminigunDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.parentteleportDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.stonegolemlaserDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.voidreaverportalDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.beetlequeenshotgunDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.scavengerthqwibDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.claydunestriderbuffDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.grandparentsunDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.soluscontrolunityknockupDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.xiconstructbeamDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.voiddevastatorhomingDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.banditlightsoutDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.engiturretDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.huntressattackDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.artificerflamethrowerDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.mercdashDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.multbuffDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.rexmortarDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.railgunnercryoDef);
+            baseQuirkSkillString.Add(Survivors.Shiggy.voidfiendcleanseDef);
+
+
+            baseQuirkSkillDef = new Dictionary<string, RoR2.Skills.SkillDef>();
+            baseQuirkSkillDef.Add("MinorConstructBody", Survivors.Shiggy.alphacontructpassiveDef);
+            baseQuirkSkillDef.Add("MinorConstructOnKillBody", Survivors.Shiggy.alphacontructpassiveDef);
+            baseQuirkSkillDef.Add("BeetleBody", Survivors.Shiggy.beetlepassiveDef);
+            baseQuirkSkillDef.Add("FlyingVerminBody", Survivors.Shiggy.pestpassiveDef);
+            baseQuirkSkillDef.Add("VerminBody", Survivors.Shiggy.verminpassiveDef);
+            baseQuirkSkillDef.Add("GupBody", Survivors.Shiggy.guppassiveDef);
+            baseQuirkSkillDef.Add("GipBody", Survivors.Shiggy.guppassiveDef);
+            baseQuirkSkillDef.Add("GeepBody", Survivors.Shiggy.guppassiveDef);
+            baseQuirkSkillDef.Add("HermitCrabBody", Survivors.Shiggy.hermitcrabpassiveDef);
+            baseQuirkSkillDef.Add("AcidLarvaBody", Survivors.Shiggy.larvapassiveDef);
+            baseQuirkSkillDef.Add("WispBody", Survivors.Shiggy.lesserwisppassiveDef);
+            baseQuirkSkillDef.Add("LunarExploderBody", Survivors.Shiggy.lunarexploderpassiveDef);
+            baseQuirkSkillDef.Add("MiniMushroomBody", Survivors.Shiggy.minimushrumpassiveDef);
+            baseQuirkSkillDef.Add("RoboBallMiniBody", Survivors.Shiggy.roboballminibpassiveDef);
+            baseQuirkSkillDef.Add("RoboBallGreenBuddyBody", Survivors.Shiggy.roboballminibpassiveDef);
+            baseQuirkSkillDef.Add("RoboBallRedBuddyBody", Survivors.Shiggy.roboballminibpassiveDef);
+            baseQuirkSkillDef.Add("VoidBarnacleBody", Survivors.Shiggy.voidbarnaclepassiveDef);
+            baseQuirkSkillDef.Add("VoidJailerBody", Survivors.Shiggy.voidjailerpassiveDef);
+            baseQuirkSkillDef.Add("ImpBossBody", Survivors.Shiggy.impbosspassiveDef);
+            baseQuirkSkillDef.Add("TitanBody", Survivors.Shiggy.stonetitanpassiveDef);
+            baseQuirkSkillDef.Add("TitanGoldBody", Survivors.Shiggy.stonetitanpassiveDef);
+            baseQuirkSkillDef.Add("VagrantBody", Survivors.Shiggy.vagrantpassiveDef);
+            baseQuirkSkillDef.Add("MagmaWormBody", Survivors.Shiggy.magmawormpassiveDef);
+            baseQuirkSkillDef.Add("ElectricWormBody", Survivors.Shiggy.overloadingwormpassiveDef);
+            baseQuirkSkillDef.Add("CaptainBody", Survivors.Shiggy.captainpassiveDef);
+            baseQuirkSkillDef.Add("CommandoBody", Survivors.Shiggy.commandopassiveDef);
+            baseQuirkSkillDef.Add("CrocoBody", Survivors.Shiggy.acridpassiveDef);
+            baseQuirkSkillDef.Add("LoaderBody", Survivors.Shiggy.loaderpassiveDef);
+
+            baseQuirkSkillDef.Add("VultureBody", Survivors.Shiggy.alloyvultureflyDef);
+            baseQuirkSkillDef.Add("BeetleGuardBody", Survivors.Shiggy.beetleguardslamDef);
+            baseQuirkSkillDef.Add("BisonBody", Survivors.Shiggy.bisonchargeDef);
+            baseQuirkSkillDef.Add("BellBody", Survivors.Shiggy.bronzongballDef);
+            baseQuirkSkillDef.Add("ClayGrenadierBody", Survivors.Shiggy.clayapothecarymortarDef);
+            baseQuirkSkillDef.Add("ClayBruiserBody", Survivors.Shiggy.claytemplarminigunDef);
+            baseQuirkSkillDef.Add("LemurianBruiserBody", Survivors.Shiggy.elderlemurianfireblastDef);
+            baseQuirkSkillDef.Add("GreaterWispBody", Survivors.Shiggy.greaterwispballDef);
+            baseQuirkSkillDef.Add("ImpBody", Survivors.Shiggy.impblinkDef);
+            baseQuirkSkillDef.Add("JellyfishBody", Survivors.Shiggy.jellyfishnovaDef);
+            baseQuirkSkillDef.Add("LemurianBody", Survivors.Shiggy.lemurianfireballDef);
+            baseQuirkSkillDef.Add("LunarGolemBody", Survivors.Shiggy.lunargolemslideDef);
+            baseQuirkSkillDef.Add("LunarWispBody", Survivors.Shiggy.lunarwispminigunDef);
+            baseQuirkSkillDef.Add("ParentBody", Survivors.Shiggy.parentteleportDef);
+            baseQuirkSkillDef.Add("GolemBody", Survivors.Shiggy.stonegolemlaserDef);
+            baseQuirkSkillDef.Add("NullifierBody", Survivors.Shiggy.voidreaverportalDef);
+            baseQuirkSkillDef.Add("BeetleQueen2Body", Survivors.Shiggy.beetlequeenshotgunDef);
+            baseQuirkSkillDef.Add("GravekeeperBody", Survivors.Shiggy.scavengerthqwibDef);
+            baseQuirkSkillDef.Add("ClayBossBody", Survivors.Shiggy.claydunestriderbuffDef);
+            baseQuirkSkillDef.Add("GrandParentBody", Survivors.Shiggy.grandparentsunDef);
+            baseQuirkSkillDef.Add("RoboBallBossBody", Survivors.Shiggy.soluscontrolunityknockupDef);
+            baseQuirkSkillDef.Add("SuperRoboBallBossBody", Survivors.Shiggy.soluscontrolunityknockupDef);
+            baseQuirkSkillDef.Add("MegaConstructBody", Survivors.Shiggy.xiconstructbeamDef);
+            baseQuirkSkillDef.Add("VoidMegaCrabBody", Survivors.Shiggy.voiddevastatorhomingDef);
+            baseQuirkSkillDef.Add("Bandit2Body", Survivors.Shiggy.banditlightsoutDef);
+            baseQuirkSkillDef.Add("EngiBody", Survivors.Shiggy.engiturretDef);
+            baseQuirkSkillDef.Add("HuntressBody", Survivors.Shiggy.huntressattackDef);
+            baseQuirkSkillDef.Add("MageBody", Survivors.Shiggy.artificerflamethrowerDef);
+            baseQuirkSkillDef.Add("MercBody", Survivors.Shiggy.mercdashDef);
+            baseQuirkSkillDef.Add("ToolbotBody", Survivors.Shiggy.multbuffDef);
+            baseQuirkSkillDef.Add("TreebotBody", Survivors.Shiggy.rexmortarDef);
+            baseQuirkSkillDef.Add("RailgunnerBody", Survivors.Shiggy.railgunnercryoDef);
+            baseQuirkSkillDef.Add("VoidSurvivorBody", Survivors.Shiggy.voidfiendcleanseDef);
+
+
+
             indicatorDict = new Dictionary<string, IndicatorType>();
             indicatorDict.Add("MinorConstructBody", IndicatorType.PASSIVE);
             indicatorDict.Add("MinorConstructOnKillBody", IndicatorType.PASSIVE);
