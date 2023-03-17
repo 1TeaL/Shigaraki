@@ -764,7 +764,11 @@ namespace ShiggyMod.Modules.Survivors
                 }
 
             }            
+            
+            foreach (KeyValuePair<string, SkillDef> skill in Modules.StaticValues.baseQuirkSkillDef)
+            {
 
+            }
         }
         public bool IsQuirkHave(string skillName, CharacterBody characterBody)
         {
