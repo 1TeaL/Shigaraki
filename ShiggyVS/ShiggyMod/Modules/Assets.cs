@@ -32,7 +32,7 @@ namespace ShiggyMod.Modules
         private static string[] assetNames = new string[0];
 
         // CHANGE THIS
-        private const string assetbundleName = "ShiggyAssetBundle";
+        private const string assetbundleName = "shiggyassetbundle";
 
         //tracers
         public static GameObject VoidFiendBeamTracer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
@@ -144,7 +144,7 @@ namespace ShiggyMod.Modules
                     mainAssetBundle = AssetBundle.LoadFromStream(assetStream);
                 }
             }
-
+            Debug.Log(mainAssetBundle + "main asset bundle");
             assetNames = mainAssetBundle.GetAllAssetNames();
         }
 

@@ -29,6 +29,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef voidbarnaclepassiveDef;
         internal static SkillDef voidjailerpassiveDef;
 
+
         //boss monster passives
         internal static SkillDef impbosspassiveDef;
         internal static SkillDef stonetitanpassiveDef;
@@ -36,11 +37,13 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef overloadingwormpassiveDef;
         internal static SkillDef vagrantpassiveDef;
 
+
         //survivor passives
         internal static SkillDef acridpassiveDef;
         internal static SkillDef commandopassiveDef;
         internal static SkillDef captainpassiveDef;
         internal static SkillDef loaderpassiveDef;
+
 
         //monster actives
         internal static SkillDef alloyvultureflyDef;
@@ -60,6 +63,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef stonegolemlaserDef;
         internal static SkillDef voidreaverportalDef;
 
+
         //boss monster actives
         internal static SkillDef beetlequeenshotgunDef;
         internal static SkillDef grandparentsunDef;
@@ -69,6 +73,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef xiconstructbeamDef;
         internal static SkillDef voiddevastatorhomingDef;
         internal static SkillDef scavengerthqwibDef;
+
 
         //survivor actives
         internal static SkillDef artificerflamethrowerDef;
@@ -84,6 +89,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef rexmortarDef;
         internal static SkillDef voidfiendcleanseDef;
 
+
         //shiggy skills
         internal static SkillDef decayDef;
         internal static SkillDef aircannonDef;
@@ -92,6 +98,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef chooseDef;
         internal static SkillDef removeDef;
         internal static SkillDef emptySkillDef;
+
 
         internal override GameObject bodyPrefab { get; set; }
         internal override GameObject displayPrefab { get; set; }

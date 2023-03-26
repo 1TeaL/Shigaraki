@@ -79,6 +79,7 @@ namespace ShiggyMod.Modules.Survivors
 		public SkillDef[] skillListToOverrideOnRespawn;
 		public SkillDef[] storedAFOSkill;
 
+
         public void Awake()
         {
 
@@ -343,7 +344,7 @@ namespace ShiggyMod.Modules.Survivors
 									extra4given = true;
                                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
                                 }
-                                CheckQuirks(self);
+                                CheckQuirksForBuffs(self);
 
 
                             }
@@ -384,7 +385,7 @@ namespace ShiggyMod.Modules.Survivors
 		}
 
 
-        public void CheckQuirks(CharacterBody characterBody)
+        public void CheckQuirksForBuffs(CharacterBody characterBody)
         {
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             //check passive
@@ -783,6 +784,34 @@ namespace ShiggyMod.Modules.Survivors
                 && characterBody.skillLocator.utility.skillNameToken != prefix + skillName
                 && characterBody.skillLocator.special.skillNameToken != prefix + skillName);
         }
+
+        public bool SearchQuirks(SkillDef skillDef, CharacterBody characterBody)
+        {
+            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+
+            return !(extraskillLocator.extraFirst.skillDef != skillDef
+                && extraskillLocator.extraSecond.skillDef != skillDef
+                && extraskillLocator.extraThird.skillDef != skillDef
+                && extraskillLocator.extraFourth.skillDef != skillDef
+                && characterBody.skillLocator.primary.skillDef != skillDef
+                && characterBody.skillLocator.secondary.skillDef != skillDef
+                && characterBody.skillLocator.utility.skillDef != skillDef
+                && characterBody.skillLocator.special.skillDef != skillDef);
+        }
+
+        //public bool SearchSpecialQuirks(SkillDef skillDef1, SkillDef skillDef2, SkillDef skillDef3, SkillDef skillDef4, CharacterBody characterBody)
+        //{
+        //    extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+
+        //    return !(extraskillLocator.extraFirst.skillDef != skillDef
+        //        && extraskillLocator.extraSecond.skillDef != skillDef
+        //        && extraskillLocator.extraThird.skillDef != skillDef
+        //        && extraskillLocator.extraFourth.skillDef != skillDef
+        //        && characterBody.skillLocator.primary.skillDef != skillDef
+        //        && characterBody.skillLocator.secondary.skillDef != skillDef
+        //        && characterBody.skillLocator.utility.skillDef != skillDef
+        //        && characterBody.skillLocator.special.skillDef != skillDef);
+        //}
 
     }
 }

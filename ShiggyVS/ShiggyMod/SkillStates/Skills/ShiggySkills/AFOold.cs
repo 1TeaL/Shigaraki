@@ -10,6 +10,7 @@ using ExtraSkillSlots;
 using ShiggyMod.Modules.Networking;
 using R2API.Networking;
 using R2API.Networking.Interfaces;
+using ShiggyMod.Modules.QuirkTrees;
 
 namespace ShiggyMod.SkillStates
 {
@@ -52,7 +53,7 @@ namespace ShiggyMod.SkillStates
             //    characterBody.ApplyBuff(Modules.Buffs.voidjailerBuff);
             //}
 
-            //CheckQuirks();
+            //CheckQuirksForBuffs();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmPull","Attack.playbackRate", duration, 0.1f);
 
@@ -80,7 +81,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            //CheckQuirks();
+            //CheckQuirksForBuffs();
         }
 
 
@@ -135,7 +136,7 @@ namespace ShiggyMod.SkillStates
             //                RemoveSpecial();
             //                RemoveExtra4();
             //            }
-            //            //CheckQuirks();
+            //            //CheckQuirksForBuffs();
             //            this.outer.SetNextStateToMain();
             //            return;
             //        }
@@ -173,7 +174,7 @@ namespace ShiggyMod.SkillStates
                         
             //            Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
                         
-            //            //CheckQuirks();
+            //            //CheckQuirksForBuffs();
             //            this.outer.SetNextStateToMain();
             //            return;
             //        }
@@ -1021,7 +1022,7 @@ namespace ShiggyMod.SkillStates
 
         }
 
-        //public void CheckQuirks()
+        //public void CheckQuirksForBuffs()
         //    {
         //        extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
         //        //check passive

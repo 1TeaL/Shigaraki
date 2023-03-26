@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using RoR2.Projectile;
 using ExtraSkillSlots;
 using R2API.Networking;
+using ShiggyMod.Modules.QuirkTrees;
 
 namespace ShiggyMod.SkillStates
 {
@@ -27,7 +28,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmPull", "Attack.playbackRate", 0.5f, 0.1f);
-
+                      
 
         }
 
@@ -108,7 +109,7 @@ namespace ShiggyMod.SkillStates
                 extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
             }
 
-            Shiggymastercon.CheckQuirks(characterBody);
+            Shiggymastercon.CheckQuirksForBuffs(characterBody);
 
             Shiggymastercon.writeToAFOSkillList(null, 0);
         }

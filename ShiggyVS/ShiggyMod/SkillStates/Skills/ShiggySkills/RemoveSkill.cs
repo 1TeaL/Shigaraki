@@ -5,6 +5,7 @@ using ShiggyMod.Modules.Survivors;
 using UnityEngine.Networking;
 using RoR2.Projectile;
 using ExtraSkillSlots;
+using ShiggyMod.Modules.QuirkTrees;
 
 namespace ShiggyMod.SkillStates
 {
@@ -105,7 +106,7 @@ namespace ShiggyMod.SkillStates
                 extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
             }
 
-            Shiggymastercon.CheckQuirks(characterBody);
+            Shiggymastercon.CheckQuirksForBuffs(characterBody);
         }
 
         protected virtual void RemoveSkill1()

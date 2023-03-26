@@ -24,6 +24,7 @@ using RoR2.Orbs;
 using EmotesAPI;
 using EntityStates.JellyfishMonster;
 using ShiggyMod.Modules.Networking;
+using ShiggyMod.Modules.QuirkTrees;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -86,7 +87,6 @@ namespace ShiggyMod
             ShiggyCharacterBody = null;
             ShiggyPlugin.instance = this;
 
-            Modules.StaticValues.LoadDictionary(); // load dictionary to differentiate between passives and actives
             // load assets and read config
             Modules.Assets.Initialize();
             Modules.Config.ReadConfig();
@@ -104,6 +104,7 @@ namespace ShiggyMod
             // survivor initialization
             new Shiggy().Initialize();
 
+            Modules.StaticValues.LoadDictionary(); // load dictionary to differentiate between passives and actives
             //networking
             NetworkingAPI.RegisterMessageType<EquipmentDropNetworked>();
 
