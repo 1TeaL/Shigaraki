@@ -58,7 +58,7 @@ namespace ShiggyMod.SkillStates
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.rangedMultiplier;
+            
         }
         private void UpdateCrits()
         {

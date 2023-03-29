@@ -24,7 +24,6 @@ namespace ShiggyMod.Modules.Survivors
 	{
 		string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
-		public float rangedMultiplier;
 
         public float AFOTimer;
         public float overloadingtimer;
@@ -152,7 +151,6 @@ namespace ShiggyMod.Modules.Survivors
 
 			larvabuffGiven = false;
 			verminjumpbuffGiven = false;
-			rangedMultiplier = 1f;
 
 			alphacontructpassiveDef = false;
 			beetlepassiveDef = false;
@@ -494,16 +492,6 @@ namespace ShiggyMod.Modules.Survivors
                     projectileCount = 1;
                 }
 
-                rangedMultiplier = 1f;
-                //ranged boost buff
-                if (characterBody.HasBuff(Modules.Buffs.lesserwispBuff.buffIndex))
-                {
-                    rangedMultiplier *= StaticValues.lesserwisprangedMultiplier;
-                }
-                if (!characterBody.HasBuff(Modules.Buffs.lesserwispBuff.buffIndex))
-                {
-                    rangedMultiplier = 1f;
-                }
 
                 //overloadingworm buff
                 if (characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))

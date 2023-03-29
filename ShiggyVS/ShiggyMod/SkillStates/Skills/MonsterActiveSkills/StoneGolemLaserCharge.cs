@@ -91,7 +91,7 @@ namespace ShiggyMod.SkillStates
 
 
 			Shiggycon = gameObject.GetComponent<ShiggyController>();
-			damageCoefficient *= Shiggycon.rangedMultiplier;
+			
 
 		}
 
@@ -155,7 +155,7 @@ namespace ShiggyMod.SkillStates
 			{
 				PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
 				this.chargePercent = base.fixedAge / this.maxCharge;
-				this.damageCoefficient = (Modules.StaticValues.stonegolemDamageCoeffecient + 1f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoeffecient)) * Shiggycon.rangedMultiplier;
+				this.damageCoefficient = (Modules.StaticValues.stonegolemDamageCoeffecient + 1f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoeffecient));
 				this.radius = (this.baseRadius * this.damageCoefficient + 20f) / 4f;
 			}
             else

@@ -73,7 +73,7 @@ namespace ShiggyMod.SkillStates
                     this.printController.printTime = this.duration;
                 }
             }
-            damageCoefficient *= Shiggycon.rangedMultiplier;
+            
 
         }
 

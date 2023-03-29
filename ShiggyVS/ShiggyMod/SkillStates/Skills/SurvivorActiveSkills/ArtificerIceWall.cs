@@ -42,7 +42,7 @@ namespace ShiggyMod.SkillStates
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
             skillSwapped = false;
-            damageCoefficient *= Shiggycon.rangedMultiplier;
+            
 
             Util.PlaySound(PrepWall.prepWallSoundString, base.gameObject);
             this.areaIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(PrepWall.areaIndicatorPrefab);

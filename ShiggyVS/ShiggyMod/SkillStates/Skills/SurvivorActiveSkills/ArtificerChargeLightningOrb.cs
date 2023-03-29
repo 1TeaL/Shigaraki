@@ -47,7 +47,7 @@ namespace ShiggyMod.SkillStates
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
             skillSwapped = false;
-            damageCoefficient *= Shiggycon.rangedMultiplier;
+            
 
             this.animator = base.GetModelAnimator();
             this.childLocator = base.GetModelChildLocator();

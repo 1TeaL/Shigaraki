@@ -99,7 +99,7 @@ namespace ShiggyMod.SkillStates
                 hitCallback = laserHitCallback
             };
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.rangedMultiplier;
+            
         }
 
         public bool laserHitCallback(BulletAttack bulletRef, ref BulletHit hitInfo)

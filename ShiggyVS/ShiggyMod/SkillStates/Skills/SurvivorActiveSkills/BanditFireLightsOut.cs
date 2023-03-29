@@ -36,7 +36,7 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.rangedMultiplier;
+            
             base.AddRecoil(-3f * recoilAmplitude, -4f * recoilAmplitude, -0.5f * recoilAmplitude, 0.5f * recoilAmplitude);
 
             PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);

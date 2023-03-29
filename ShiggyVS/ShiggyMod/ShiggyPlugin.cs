@@ -212,12 +212,12 @@ namespace ShiggyMod
                     //beetlebuff
                     if (sender.HasBuff(Buffs.beetleBuff))
                     {
-                        args.damageMultAdd += (StaticValues.beetledamageMultiplier - 1);
+                        args.baseDamageAdd += (StaticValues.beetleFlatDamage);
                     }
                     //lesserwispbuff
                     if (sender.HasBuff(Buffs.lesserwispBuff))
                     {
-                        args.damageMultAdd += (StaticValues.lesserwispdamageMultiplier - 1);
+                        args.baseAttackSpeedAdd += (StaticValues.lesserwispFlatAttackSpeed);
                     }
 
                 }

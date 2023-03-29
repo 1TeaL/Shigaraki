@@ -230,7 +230,7 @@ namespace ShiggyMod.SkillStates
 									singularTarget.healthComponent.body.footPosition, //position
 									Quaternion.identity, //rotation
 									base.gameObject, //owner
-									this.damageStat * damageCoefficient * Shiggycon.rangedMultiplier, //damage
+									this.damageStat * damageCoefficient, //damage
 									force, //force
 									Util.CheckRoll(this.critStat, base.characterBody.master), //crit
 									DamageColorIndex.Default, //damage color

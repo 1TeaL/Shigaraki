@@ -50,7 +50,7 @@ namespace ShiggyMod.SkillStates
             }
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.rangedMultiplier;
+            
             EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
             {
                 origin = FindModelChild(LHand).position,

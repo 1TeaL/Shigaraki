@@ -55,7 +55,6 @@ namespace ShiggyMod.SkillStates
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
             skillSwapped = false;
-            totalDamageCoefficient *= Shiggycon.rangedMultiplier;
 
             AkSoundEngine.PostEvent(356992735, base.gameObject);
             if (base.HasBuff(Modules.Buffs.impbossBuff))

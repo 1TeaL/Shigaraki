@@ -45,7 +45,7 @@
 
 
 //            Shiggycon = gameObject.GetComponent<ShiggyController>();
-//            damageCoefficient *= Shiggycon.rangedMultiplier;
+//            
 //        }
 
 //        public override void OnExit()

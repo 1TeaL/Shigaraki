@@ -58,7 +58,7 @@ namespace ShiggyMod.SkillStates
             this.FireSingleHook(aimRay, 0f, 0f);
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.rangedMultiplier;
+            
         }
         private void FireSingleHook(Ray aimRay, float bonusPitch, float bonusYaw)
         {

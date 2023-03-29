@@ -78,8 +78,8 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "ALPHACONSTRUCT_NAME", "Barrier");
             LanguageAPI.Add(prefix + "ALPHACONSTRUCT_DESCRIPTION", $" Gain a barrier that blocks the next hit. Recharges after {StaticValues.alphaconstructCooldown} seconds. ");
             LanguageAPI.Add(prefix + "BEETLE_NAME", "Strength Boost");
-            LanguageAPI.Add(prefix + "BEETLE_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.beetledamageMultiplier}x damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee]</style>");
+            LanguageAPI.Add(prefix + "BEETLE_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.beetleFlatDamage} base damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Lesser Wisp]</style>");
             LanguageAPI.Add(prefix + "PEST_NAME", "Jump Boost");
             LanguageAPI.Add(prefix + "PEST_DESCRIPTION", $"<style=cIsUtility>Gain 4 extra jumps and jump power</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Jump]</style>");
@@ -91,9 +91,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "LARVA_NAME", "Acid Jump");
             LanguageAPI.Add(prefix + "LARVA_DESCRIPTION", $"<style=cIsDamage>Release an Acidic blast</style> when <style=cIsUtility>jumping and landing</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Melee] [Jump]</style> <style=cWorldEvent>[Decay]</style>");
-            LanguageAPI.Add(prefix + "LESSERWISP_NAME", "Ranged Boost");
-            LanguageAPI.Add(prefix + "LESSERWISP_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.lesserwispdamageMultiplier}x damage</style>. All <style=cSub>[Ranged]</style> attacks deal <style=cIsDamage>{StaticValues.lesserwisprangedMultiplier}x damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Ranged]</style>");
+            LanguageAPI.Add(prefix + "LESSERWISP_NAME", "Haste");
+            LanguageAPI.Add(prefix + "LESSERWISP_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.lesserwispFlatAttackSpeed} flat attackspeed</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Beetle]</style>");
             LanguageAPI.Add(prefix + "LUNAREXPLODER_NAME", "Lunar Aura");
             LanguageAPI.Add(prefix + "LUNAREXPLODER_DESCRIPTION", $"<style=cIsHealth>At <50% health</style>, periodically release a <style=cIsDamage>Lunar blaze that deals <style=cIsDamage>{StaticValues.lunarexploderDamageCoefficient}% damage</style> per tick to enemies on the ground</style>. ");
             LanguageAPI.Add(prefix + "HERMITCRAB_NAME", "Mortar");

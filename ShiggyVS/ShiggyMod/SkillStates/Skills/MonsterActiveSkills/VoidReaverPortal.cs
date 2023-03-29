@@ -39,7 +39,7 @@ namespace ShiggyMod.SkillStates
             EffectManager.SimpleMuzzleFlash(FirePortalBomb.muzzleflashEffectPrefab, base.gameObject, muzzleString, true);
             Shiggycon = base.GetComponent<ShiggyController>();
 
-            damageCoefficient *= Shiggycon.rangedMultiplier;
+            
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmDetonate", "Attack.playbackRate", duration, 0.1f);

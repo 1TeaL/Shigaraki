@@ -43,9 +43,7 @@ namespace ShiggyMod.SkillStates
 
             AkSoundEngine.PostEvent(356992735, base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            minDamageCoefficient *= Shiggycon.rangedMultiplier;
-            maxDamageCoefficient *= Shiggycon.rangedMultiplier;
-
+            
             this.duration = this.baseDuration / this.attackSpeedStat;
             if (this.muzzleflashEffectPrefab)
             {

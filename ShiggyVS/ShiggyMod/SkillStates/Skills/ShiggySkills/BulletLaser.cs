@@ -41,7 +41,7 @@ namespace ShiggyMod.SkillStates
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.rangedMultiplier;
+            
 
             bulletcount = 5 * (uint)Shiggycon.projectileCount;
         }
