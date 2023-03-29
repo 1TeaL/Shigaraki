@@ -44,7 +44,7 @@ namespace ShiggyMod.SkillStates
                 decayCount = 1;
             }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.strengthMultiplier;
+            
             this.duration = this.baseDuration / this.attackSpeedStat;
 
             aimRay = base.GetAimRay();

@@ -78,7 +78,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "ALPHACONSTRUCT_NAME", "Barrier");
             LanguageAPI.Add(prefix + "ALPHACONSTRUCT_DESCRIPTION", $" Gain a barrier that blocks the next hit. Recharges after {StaticValues.alphaconstructCooldown} seconds. ");
             LanguageAPI.Add(prefix + "BEETLE_NAME", "Strength Boost");
-            LanguageAPI.Add(prefix + "BEETLE_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.beetledamageMultiplier}x damage</style>. All <style=cSub>[Melee]</style> attacks deal <style=cIsDamage>{StaticValues.beetlestrengthMultiplier}x damage</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "BEETLE_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.beetledamageMultiplier}x damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Melee]</style>");
             LanguageAPI.Add(prefix + "PEST_NAME", "Jump Boost");
             LanguageAPI.Add(prefix + "PEST_DESCRIPTION", $"<style=cIsUtility>Gain 4 extra jumps and jump power</style>. " + Environment.NewLine + Environment.NewLine +

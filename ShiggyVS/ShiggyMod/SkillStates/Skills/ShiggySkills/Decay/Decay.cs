@@ -51,7 +51,6 @@ namespace ShiggyMod.SkillStates
             playEffect = false;
             damageType = DamageType.Generic;
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.strengthMultiplier;
 
             duration = baseduration / attackSpeedStat;
             fireTime = duration / 4;

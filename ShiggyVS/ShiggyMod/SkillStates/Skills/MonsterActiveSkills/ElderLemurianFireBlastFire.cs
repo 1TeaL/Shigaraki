@@ -44,7 +44,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayAnimation("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.strengthMultiplier;
+            
             Util.PlaySound(FireMegaFireball.attackString, base.gameObject);
             if (FireMegaFireball.muzzleflashEffectPrefab)
             {

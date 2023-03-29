@@ -104,8 +104,7 @@ namespace ShiggyMod.Modules
         
         internal const float alloyvultureflyduration = 10f;
 
-        internal const float beetledamageMultiplier = 1.5f;
-        internal const float beetlestrengthMultiplier = 1.5f;
+        internal const float beetledamageMultiplier = 2f;
 
         internal const float lesserwispdamageMultiplier = 1.5f;
         internal const float lesserwisprangedMultiplier = 1.5f;

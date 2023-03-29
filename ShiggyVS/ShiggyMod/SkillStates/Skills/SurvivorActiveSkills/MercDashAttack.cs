@@ -77,7 +77,7 @@ namespace ShiggyMod.SkillStates
             }
 
             damageFrequency = 1 / (basedamageFrequency * this.attackSpeedStat);
-            damageCoefficient *= Shiggycon.strengthMultiplier;
+            
         }
 
         public override void OnExit()

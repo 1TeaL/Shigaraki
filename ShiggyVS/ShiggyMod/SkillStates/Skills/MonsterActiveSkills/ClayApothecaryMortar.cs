@@ -182,7 +182,7 @@ namespace ShiggyMod.SkillStates
 							this.attack.attacker = base.gameObject;
 							this.attack.inflictor = base.gameObject;
 							this.attack.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
-							this.attack.baseDamage = this.damageStat * damageCoefficient * Shiggycon.strengthMultiplier;
+							this.attack.baseDamage = this.damageStat * damageCoefficient;
 							this.attack.baseForce = force;
 							this.attack.position = transform.position;
 							this.attack.radius = radius;

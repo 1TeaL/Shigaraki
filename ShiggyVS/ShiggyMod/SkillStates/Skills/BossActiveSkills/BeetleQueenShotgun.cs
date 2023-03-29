@@ -69,7 +69,7 @@ namespace ShiggyMod.SkillStates
             }
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.strengthMultiplier;
+            
 
         }
 

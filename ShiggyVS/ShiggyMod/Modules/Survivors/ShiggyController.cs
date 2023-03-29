@@ -24,7 +24,6 @@ namespace ShiggyMod.Modules.Survivors
 	{
 		string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
-		public float strengthMultiplier;
 		public float rangedMultiplier;
 
         public float AFOTimer;
@@ -153,7 +152,6 @@ namespace ShiggyMod.Modules.Survivors
 
 			larvabuffGiven = false;
 			verminjumpbuffGiven = false;
-			strengthMultiplier = 1f;
 			rangedMultiplier = 1f;
 
 			alphacontructpassiveDef = false;
@@ -506,23 +504,6 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     rangedMultiplier = 1f;
                 }
-                //strength boost buff
-                if (characterBody.HasBuff(Modules.Buffs.loaderBuff.buffIndex) | characterBody.HasBuff(Modules.Buffs.beetleBuff.buffIndex))
-                {
-
-                    if (characterBody.HasBuff(Modules.Buffs.loaderBuff.buffIndex) && characterBody.HasBuff(Modules.Buffs.beetleBuff.buffIndex))
-                    {
-                        strengthMultiplier = StaticValues.beetlestrengthMultiplier * StaticValues.loaderDamageMultiplier;
-                    }
-                    else
-                    {
-                        strengthMultiplier = StaticValues.beetlestrengthMultiplier;
-                    }
-                }
-                else
-                {
-                    strengthMultiplier = 1f;
-                }
 
                 //overloadingworm buff
                 if (characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
@@ -623,7 +604,11 @@ namespace ShiggyMod.Modules.Survivors
                     if (characterBody.inputBank.skill1.down
                         | characterBody.inputBank.skill2.down
                         | characterBody.inputBank.skill3.down
-                        | characterBody.inputBank.skill1.down)
+                        | characterBody.inputBank.skill4.down
+                        | extrainputBankTest.extraSkill1.down
+                        | extrainputBankTest.extraSkill2.down
+                        | extrainputBankTest.extraSkill3.down
+                        | extrainputBankTest.extraSkill4.down)
                     {
                         if (roboballTimer > 1f)
                         {
@@ -639,7 +624,11 @@ namespace ShiggyMod.Modules.Survivors
                     else if (!characterBody.inputBank.skill1.down
                         && !characterBody.inputBank.skill2.down
                         && !characterBody.inputBank.skill3.down
-                        && !characterBody.inputBank.skill1.down)
+                        && !characterBody.inputBank.skill1.down
+                        && !extrainputBankTest.extraSkill1.down
+                        && !extrainputBankTest.extraSkill2.down
+                        && !extrainputBankTest.extraSkill3.down
+                        && !extrainputBankTest.extraSkill4.down)
                     {
                         characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex, 0);
                     }
@@ -862,7 +851,7 @@ namespace ShiggyMod.Modules.Survivors
                         blastAttack.position = characterBody.footPosition;
                         blastAttack.attacker = base.gameObject;
                         blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
-                        blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5) * strengthMultiplier;
+                        blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5);
                         blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                         blastAttack.baseForce = Modules.StaticValues.larvaForce;
                         blastAttack.teamIndex = characterBody.teamComponent.teamIndex;

@@ -43,7 +43,7 @@ namespace ShiggyMod.SkillStates
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageCoefficient *= Shiggycon.strengthMultiplier;
+            
 
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
