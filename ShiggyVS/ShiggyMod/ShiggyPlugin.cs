@@ -212,12 +212,17 @@ namespace ShiggyMod
                     //beetlebuff
                     if (sender.HasBuff(Buffs.beetleBuff))
                     {
-                        args.baseDamageAdd += (StaticValues.beetleFlatDamage);
+                        args.baseDamageAdd += StaticValues.beetleFlatDamage;
                     }
                     //lesserwispbuff
                     if (sender.HasBuff(Buffs.lesserwispBuff))
                     {
-                        args.baseAttackSpeedAdd += (StaticValues.lesserwispFlatAttackSpeed);
+                        args.baseAttackSpeedAdd += StaticValues.lesserwispFlatAttackSpeed;
+                    }
+                    //lunar exploder
+                    if (sender.HasBuff(Buffs.lesserwispBuff))
+                    {
+                        args.baseShieldAdd += sender.maxHealth * StaticValues.lunarexploderShieldCoefficient;
                     }
 
                 }

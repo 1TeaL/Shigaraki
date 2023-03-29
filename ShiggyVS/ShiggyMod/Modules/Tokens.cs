@@ -94,8 +94,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "LESSERWISP_NAME", "Haste");
             LanguageAPI.Add(prefix + "LESSERWISP_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.lesserwispFlatAttackSpeed} flat attackspeed</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Beetle]</style>");
-            LanguageAPI.Add(prefix + "LUNAREXPLODER_NAME", "Lunar Aura");
-            LanguageAPI.Add(prefix + "LUNAREXPLODER_DESCRIPTION", $"<style=cIsHealth>At <50% health</style>, periodically release a <style=cIsDamage>Lunar blaze that deals <style=cIsDamage>{StaticValues.lunarexploderDamageCoefficient}% damage</style> per tick to enemies on the ground</style>. ");
+            LanguageAPI.Add(prefix + "LUNAREXPLODER_NAME", "Lunar Barrier");
+            LanguageAPI.Add(prefix + "LUNAREXPLODER_DESCRIPTION", $"Gain a <style=cIsUtility>Shield equal to {StaticValues.lunarexploderShieldCoefficient}% of your max health</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Scavenger]</style>");
             LanguageAPI.Add(prefix + "HERMITCRAB_NAME", "Mortar");
             LanguageAPI.Add(prefix + "HERMITCRAB_DESCRIPTION", $"While standing still, attack nearby enemies for <style=cIsDamage>{100 * StaticValues.mortarDamageCoefficient}% damage</style> and " +
                 $"gain <style=cIsUtility>{StaticValues.mortararmorGain} armor </style> every ({StaticValues.mortarbaseDuration}/Attackspeed) second(s). " +

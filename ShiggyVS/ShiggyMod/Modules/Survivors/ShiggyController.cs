@@ -899,38 +899,38 @@ namespace ShiggyMod.Modules.Survivors
                     }
                 }
                 //lunar exploder buff
-                if (characterBody.HasBuff(Buffs.lunarexploderBuff))
-                {
-                    if (characterBody.healthComponent.combinedHealth < characterBody.healthComponent.fullCombinedHealth / 2)
-                    {
-                        lunarTimer += Time.fixedDeltaTime;
-                        if (characterBody.hasEffectiveAuthority && lunarTimer >= Modules.StaticValues.lunarexploderbaseDuration)
-                        {
-                            lunarTimer = 0f;
-                            for (int i = 0; i < Modules.StaticValues.lunarexploderprojectileCount; i++)
-                            {
-                                float num = 360f / Modules.StaticValues.lunarexploderprojectileCount;
-                                Vector3 forward = Util.QuaternionSafeLookRotation(characterBody.transform.forward, characterBody.transform.up) * Util.ApplySpread(Vector3.forward, 0f, 0f, 1f, 1f, num * (float)i, 0f);
-                                FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
-                                fireProjectileInfo.projectilePrefab = DeathState.projectilePrefab;
-                                fireProjectileInfo.position = characterBody.corePosition + Vector3.up * DeathState.projectileVerticalSpawnOffset;
-                                fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(forward);
-                                fireProjectileInfo.owner = characterBody.gameObject;
-                                fireProjectileInfo.damage = characterBody.damage * Modules.StaticValues.lunarexploderDamageCoefficient;
-                                fireProjectileInfo.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
-                                ProjectileManager.instance.FireProjectile(fireProjectileInfo);
-                            }
-                            if (DeathState.deathExplosionEffect)
-                            {
-                                EffectManager.SpawnEffect(DeathState.deathExplosionEffect, new EffectData
-                                {
-                                    origin = characterBody.corePosition,
-                                    scale = Modules.StaticValues.lunarexploderRadius
-                                }, true);
-                            }
-                        }
-                    }
-                }
+                //if (characterBody.HasBuff(Buffs.lunarexploderBuff))
+                //{
+                //    if (characterBody.healthComponent.combinedHealth < characterBody.healthComponent.fullCombinedHealth / 2)
+                //    {
+                //        lunarTimer += Time.fixedDeltaTime;
+                //        if (characterBody.hasEffectiveAuthority && lunarTimer >= Modules.StaticValues.lunarexploderbaseDuration)
+                //        {
+                //            lunarTimer = 0f;
+                //            for (int i = 0; i < Modules.StaticValues.lunarexploderprojectileCount; i++)
+                //            {
+                //                float num = 360f / Modules.StaticValues.lunarexploderprojectileCount;
+                //                Vector3 forward = Util.QuaternionSafeLookRotation(characterBody.transform.forward, characterBody.transform.up) * Util.ApplySpread(Vector3.forward, 0f, 0f, 1f, 1f, num * (float)i, 0f);
+                //                FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
+                //                fireProjectileInfo.projectilePrefab = DeathState.projectilePrefab;
+                //                fireProjectileInfo.position = characterBody.corePosition + Vector3.up * DeathState.projectileVerticalSpawnOffset;
+                //                fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(forward);
+                //                fireProjectileInfo.owner = characterBody.gameObject;
+                //                fireProjectileInfo.damage = characterBody.damage * Modules.StaticValues.lunarexploderDamageCoefficient;
+                //                fireProjectileInfo.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
+                //                ProjectileManager.instance.FireProjectile(fireProjectileInfo);
+                //            }
+                //            if (DeathState.deathExplosionEffect)
+                //            {
+                //                EffectManager.SpawnEffect(DeathState.deathExplosionEffect, new EffectData
+                //                {
+                //                    origin = characterBody.corePosition,
+                //                    scale = Modules.StaticValues.lunarexploderRadius
+                //                }, true);
+                //            }
+                //        }
+                //    }
+                //}
 
             }
             

@@ -68,10 +68,11 @@ namespace ShiggyMod.Modules
         internal const float minimushrumhealFraction = 0.05f;
         internal const float minimushrumRadius = 4f;
 
-        internal const float lunarexploderprojectileCount = 1f;
-        internal const float lunarexploderbaseDuration = 2f;
-        internal const float lunarexploderRadius = 2.5f;
-        internal const float lunarexploderDamageCoefficient = 1f;
+        internal const float lunarexploderShieldCoefficient = 0.25f;
+        //internal const float lunarexploderprojectileCount = 1f;
+        //internal const float lunarexploderbaseDuration = 2f;
+        //internal const float lunarexploderRadius = 2.5f;
+        //internal const float lunarexploderDamageCoefficient = 1f;
 
         internal const float larvaForce= 400f;
         internal const float larvaRadius = 5f;
