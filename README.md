@@ -56,6 +56,22 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.0.0- THE SYNERGY UPDATE!
+    - Reworked Skills
+    	- a 
+    - Balance Changes
+    	- Cooldown changes for a lot of skills, longer in general to balance out how many skills able to be used along with item changes with the extraskill slots.
+    	- Backup magazines, hardlight afterburners and lysate cells now increase the number of stocks for extraskill slot 2, 3 and 4 respectively. 
+	-	
+    - Bug fixes
+    	- a
+    - New mechanics
+    	- Added a plus chaos meter
+    		- Stealing quirks now costs plus chaos. 
+    		- Plus chaos regenerates over time, stock based items will increase the maximum, cooldown based items will cheapen costs. 
+    		- Killing enemies will grant plus chaos.
+	- Added new ability- give quirk: Able to give passive quirks to allies- an ally is able to have one passive at a time. 
+	- 
 - 1.3.1
     - updated risk of option config for holdbuttonAFO, now it's a slider that goes from 0-10 instead of a % slider like for volume. DELETE YOUR CONFIGS!
 - 1.3.0
