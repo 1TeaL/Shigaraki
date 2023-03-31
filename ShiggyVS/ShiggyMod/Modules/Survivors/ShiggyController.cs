@@ -37,6 +37,7 @@ namespace ShiggyMod.Modules.Survivors
 		private float voidmortarTimer;
 		private float voidjailerTimer;
         private float roboballTimer;
+        private float jellfishtimer;
 
         private Ray downRay;
 		public Transform mortarIndicatorInstance;
@@ -641,6 +642,34 @@ namespace ShiggyMod.Modules.Survivors
                 }
 
 
+                //jellyfish heal buff
+                if (characterBody.hasEffectiveAuthority)
+                {
+                    if (characterBody.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
+                    {
+
+                        if (jellfishtimer > 1f)
+                        {
+                            int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.jellyfishHealStacksBuff.buffIndex);
+                            int buffCountToApply2 = Mathf.RoundToInt(characterBody.maxHealth * (1 - StaticValues.JellyfishHealTickRate));
+                            int buffCountToApply3 = buffCountToApply - buffCountToApply2;
+                            if(buffCountToApply3 < 2)
+                            {
+                                buffCountToApply3 = 2;
+                            }
+                            if (buffCountToApply > 1)
+                            {
+                                if (buffCountToApply >= 2)
+                                {
+                                    characterBody.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, buffCountToApply3);
+                                    jellfishtimer = 0f;
+                                }
+                            }
+                        }
+                        else jellfishtimer += Time.fixedDeltaTime;
+                    }
+
+                }
 
 
                 //mini mushrum buff

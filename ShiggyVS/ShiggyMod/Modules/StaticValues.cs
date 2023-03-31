@@ -145,7 +145,7 @@ namespace ShiggyMod.Modules
         internal const int greaterwispballbuffDuration = 4;
         internal const float greaterwispballProcCoefficient = 0f;
 
-        internal const float JellyfishHealDamageCoeffecient = 20f;
+        internal const float JellyfishHealTickRate = 0.05f;
         internal const float JellyfishHealProcCoefficient = 2f;
 
         internal const float lemurianfireballDamageCoeffecient = 2f;

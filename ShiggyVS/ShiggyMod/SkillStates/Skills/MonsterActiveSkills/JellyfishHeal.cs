@@ -23,7 +23,6 @@ namespace ShiggyMod.SkillStates
 
         private float healthCostFraction = 0.5f;
         private float radius;
-        private float damageCoefficient = Modules.StaticValues.JellyfishHealDamageCoeffecient;
         private float procCoefficient = 2f;
         private float force = 1f;
         private uint soundID;
@@ -70,6 +69,7 @@ namespace ShiggyMod.SkillStates
             {
                 hasFired = true;
                 new HealNetworkRequest(characterBody.masterObjectId, characterBody.GetBuffCount(Buffs.jellyfishHealStacksBuff)).Send(NetworkDestination.Clients);
+                characterBody.ApplyBuff(Buffs.jellyfishHealStacksBuff.buffIndex, 1);
             }
 
             if (base.fixedAge >= this.duration && base.isAuthority)

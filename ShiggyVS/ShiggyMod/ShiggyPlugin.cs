@@ -583,11 +583,9 @@ namespace ShiggyMod
                                 int currentStacks = self.body.GetBuffCount(Buffs.jellyfishHealStacksBuff.buffIndex) - 1;
                                 int damageDealt = Mathf.RoundToInt(damageInfo.damage);
 
-                                int buffTotal = damageDealt - currentStacks;
-                                if(buffTotal > Mathf.RoundToInt(self.body.maxHealth))
-                                {
-                                    buffTotal = Mathf.RoundToInt(self.body.maxHealth);
-                                }
+                                int buffTotal = (damageDealt)/2 + currentStacks;
+                                
+
                                 self.body.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, buffTotal);
                             }
 
