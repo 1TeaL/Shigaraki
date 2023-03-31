@@ -30,7 +30,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(ElderLemurianFireBlastFire));
             entityStates.Add(typeof(GreaterWispBuff));
             entityStates.Add(typeof(ImpBlink));
-            entityStates.Add(typeof(JellyfishNova));
+            entityStates.Add(typeof(JellyfishHeal));
             entityStates.Add(typeof(LemurianFireball));
             entityStates.Add(typeof(LunarGolemSlide));
             entityStates.Add(typeof(LunarWispMinigun));

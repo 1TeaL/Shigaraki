@@ -51,7 +51,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool claytemplarminigunDef;
 		public bool greaterwispballDef;
 		public bool impblinkDef;
-		public bool jellyfishnovaDef;
+		public bool JellyfishHealDef;
 		public bool lemurianfireballDef;
 		public bool lunargolemshotsDef;
 		public bool lunarwispminigunDef;
@@ -116,7 +116,7 @@ namespace ShiggyMod.Modules.Survivors
 			claytemplarminigunDef = false;
 			greaterwispballDef = false;
 			impblinkDef = false;
-			jellyfishnovaDef = false;
+			JellyfishHealDef = false;
 			lemurianfireballDef = false;
 			lunargolemshotsDef = false;
 			lunarwispminigunDef = false;
@@ -211,7 +211,7 @@ namespace ShiggyMod.Modules.Survivors
 			claytemplarminigunDef = false;
 			greaterwispballDef = false;
 			impblinkDef = false;
-			jellyfishnovaDef = false;
+			JellyfishHealDef = false;
 			lemurianfireballDef = false;
 			lunargolemshotsDef = false;
 			lunarwispminigunDef = false;
@@ -390,7 +390,7 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             //check passive
 
-            if (IsQuirkHave("ALPHACONSTRUCT_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.alphacontructpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -407,7 +407,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("BEETLE_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.beetlepassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -424,7 +424,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("GUP_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.guppassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -441,7 +441,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("LARVA_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.larvapassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -458,7 +458,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("LESSERWISP_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.lesserwisppassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -475,7 +475,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("LUNAREXPLODER_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.lunarexploderpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -492,7 +492,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("HERMITCRAB_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.hermitcrabpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -509,7 +509,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("PEST_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.pestpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -526,7 +526,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("VERMIN_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.verminpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -543,7 +543,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("MINIMUSHRUM_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.minimushrumpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -560,7 +560,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("ROBOBALLMINI_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.roboballminibpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -577,7 +577,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("VOIDBARNACLE_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.voidbarnaclepassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -594,7 +594,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("VOIDJAILER_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.voidjailerpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -611,7 +611,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("IMPBOSS_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.impbosspassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -628,7 +628,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("STONETITAN_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.stonetitanpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -645,7 +645,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("MAGMAWORM_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.magmawormpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -662,7 +662,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("OVERLOADINGWORM_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.overloadingwormpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -679,7 +679,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("VAGRANT_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.vagrantpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -698,7 +698,7 @@ namespace ShiggyMod.Modules.Survivors
 
 
 
-            if (IsQuirkHave("ACRID_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.acridpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -715,7 +715,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("COMMANDO_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.commandopassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -732,7 +732,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("CAPTAIN_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.captainpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -749,7 +749,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (IsQuirkHave("LOADER_NAME", characterBody))
+            if (SearchQuirksForBuffs(Shiggy.loaderpassiveDef, characterBody))
             {
                 if (NetworkServer.active)
                 {
@@ -764,28 +764,45 @@ namespace ShiggyMod.Modules.Survivors
                     characterBody.ApplyBuff(Modules.Buffs.loaderBuff.buffIndex, 0);
                 }
 
-            }            
-            
-            foreach (KeyValuePair<string, SkillDef> skill in Modules.StaticValues.baseQuirkSkillDef)
+            }
+
+            if (SearchQuirksForBuffs(Shiggy.JellyfishHealDef, characterBody))
             {
+                if (NetworkServer.active)
+                {
+                    characterBody.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex);
+
+                }
+            }
+            else
+            {
+                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.jellyfishHealStacksBuff))
+                {
+                    characterBody.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, 0);
+                }
 
             }
-        }
-        public bool IsQuirkHave(string skillName, CharacterBody characterBody)
-        {
-            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
 
-            return !(extraskillLocator.extraFirst.skillNameToken != prefix + skillName
-                && extraskillLocator.extraSecond.skillNameToken != prefix + skillName
-                && extraskillLocator.extraThird.skillNameToken != prefix + skillName
-                && extraskillLocator.extraFourth.skillNameToken != prefix + skillName
-                && characterBody.skillLocator.primary.skillNameToken != prefix + skillName
-                && characterBody.skillLocator.secondary.skillNameToken != prefix + skillName
-                && characterBody.skillLocator.utility.skillNameToken != prefix + skillName
-                && characterBody.skillLocator.special.skillNameToken != prefix + skillName);
-        }
+            //foreach (KeyValuePair<string, SkillDef> skill in Modules.StaticValues.baseQuirkSkillDef)
+            //{
 
-        public bool SearchQuirks(SkillDef skillDef, CharacterBody characterBody)
+            //}
+        }
+        //public bool IsQuirkHave(string skillName, CharacterBody characterBody)
+        //{
+        //    extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+
+        //    return !(extraskillLocator.extraFirst.skillNameToken != prefix + skillName
+        //        && extraskillLocator.extraSecond.skillNameToken != prefix + skillName
+        //        && extraskillLocator.extraThird.skillNameToken != prefix + skillName
+        //        && extraskillLocator.extraFourth.skillNameToken != prefix + skillName
+        //        && characterBody.skillLocator.primary.skillNameToken != prefix + skillName
+        //        && characterBody.skillLocator.secondary.skillNameToken != prefix + skillName
+        //        && characterBody.skillLocator.utility.skillNameToken != prefix + skillName
+        //        && characterBody.skillLocator.special.skillNameToken != prefix + skillName);
+        //}
+
+        public bool SearchQuirksForBuffs(SkillDef skillDef, CharacterBody characterBody)
         {
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
 

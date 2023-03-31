@@ -22,6 +22,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef greaterwispBuff;
         internal static BuffDef hermitcrabmortarBuff;
         internal static BuffDef hermitcrabmortararmorBuff;
+        internal static BuffDef jellyfishHealStacksBuff;
         internal static BuffDef larvajumpBuff;
         internal static BuffDef lesserwispBuff;
         internal static BuffDef lunarexploderBuff;
@@ -57,12 +58,12 @@ namespace ShiggyMod.Modules
         internal static void RegisterBuffs()
         {
 
-            flyBuff = Buffs.AddNewBuff("FlyBuff", Assets.jumpBuffIcon, Color.magenta, false, false);
-            beetleBuff = Buffs.AddNewBuff("StrengthBuff", Assets.boostBuffIcon, Color.grey, false, false);
-            alphashieldonBuff = Buffs.AddNewBuff("ShieldOnBuff", Assets.alphashieldonBuffIcon, Color.magenta, false, false);
-            alphashieldoffBuff = Buffs.AddNewBuff("ShieldOffBuff", Assets.alphashieldoffBuffIcon, Color.black, true, false);
-            decayDebuff = Buffs.AddNewBuff("decayDebuff", Assets.decayBuffIcon, Color.magenta, true, true);
-            multiplierBuff = Buffs.AddNewBuff("multiplierBuff", Assets.multiplierBuffIcon, Color.magenta, false, false);
+            flyBuff = Buffs.AddNewBuff("Fly Buff", Assets.jumpBuffIcon, Color.magenta, false, false);
+            beetleBuff = Buffs.AddNewBuff("Strength Buff", Assets.boostBuffIcon, Color.grey, false, false);
+            alphashieldonBuff = Buffs.AddNewBuff("Alpha Construct Shield On", Assets.alphashieldonBuffIcon, Color.magenta, false, false);
+            alphashieldoffBuff = Buffs.AddNewBuff("Alpha Construct Shield Off", Assets.alphashieldoffBuffIcon, Color.black, true, false);
+            decayDebuff = Buffs.AddNewBuff("decay Debuff", Assets.decayBuffIcon, Color.magenta, true, true);
+            multiplierBuff = Buffs.AddNewBuff("Multiplier Buff", Assets.multiplierBuffIcon, Color.magenta, false, false);
             pestjumpBuff = Buffs.AddNewBuff("jumpBuff", Assets.jumpBuffIcon, Color.cyan, false, false);
             verminsprintBuff = Buffs.AddNewBuff("sprintBuff", Assets.sprintBuffIcon, Color.green, false, false);
             gupspikeBuff = Buffs.AddNewBuff("spikybodyBuff", Assets.spikeBuffIcon, Color.red, false, false);
@@ -86,7 +87,7 @@ namespace ShiggyMod.Modules
             vagrantDebuff = Buffs.AddNewBuff("vagrantDebuff", Assets.orbdisableBuffIcon, Color.white, true, false);
             magmawormBuff = Buffs.AddNewBuff("blazingauraBuff", Assets.blazingBuffIcon, Color.magenta, false, false);
             overloadingwormBuff = Buffs.AddNewBuff("lightningauraBuff", Assets.lightningBuffIcon, Color.magenta, false, false);
-
+            jellyfishHealStacksBuff = Buffs.AddNewBuff("Jellyfish Heal Stacks", Assets.healBuffIcon, Color.grey, false, false);
             commandoBuff = Buffs.AddNewBuff("doubletapBuff", Assets.critBuffIcon, Color.magenta, false, false);
             acridBuff = Buffs.AddNewBuff("poisonBuff", Assets.bleedBuffIcon, Color.green, false, false);
             captainBuff = Buffs.AddNewBuff("microbotBuff", Assets.shieldBuffIcon, Color.red, false, false);

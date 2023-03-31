@@ -55,7 +55,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef elderlemurianfireblastDef;
         internal static SkillDef greaterwispballDef;
         internal static SkillDef impblinkDef;
-        internal static SkillDef jellyfishnovaDef;
+        internal static SkillDef JellyfishHealDef;
         internal static SkillDef lemurianfireballDef;
         internal static SkillDef lunargolemslideDef;
         internal static SkillDef lunarwispminigunDef;
@@ -1233,13 +1233,13 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
-            Shiggy.jellyfishnovaDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.JellyfishHealDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "JELLYFISH_NAME",
                 skillNameToken = prefix + "JELLYFISH_NAME",
                 skillDescriptionToken = prefix + "JELLYFISH_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Jellyfish"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.JellyfishNova)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.JellyfishHeal)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 6f,

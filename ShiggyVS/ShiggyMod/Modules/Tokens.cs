@@ -185,7 +185,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "IMP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Blink a short distance away, scaling with movespeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[LeftHanded]</style>");
             LanguageAPI.Add(prefix + "JELLYFISH_NAME", "Nova Explosion");
-            LanguageAPI.Add(prefix + "JELLYFISH_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Detonate an explosion on the target, stunning and dealing <style=cIsDamage>{100f * StaticValues.jellyfishnovaDamageCoeffecient}% damage</style>. " +
+            LanguageAPI.Add(prefix + "JELLYFISH_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Detonate an explosion on the target, stunning and dealing <style=cIsDamage>{100f * StaticValues.JellyfishHealDamageCoeffecient}% damage</style>. " +
                 $"This explosion can hurt the user as well. " +
                 $"Radius scales with attackspeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
