@@ -25,6 +25,7 @@ using EmotesAPI;
 using EntityStates.JellyfishMonster;
 using ShiggyMod.Modules.Networking;
 using ShiggyMod.Modules.QuirkTrees;
+using System;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -518,6 +519,9 @@ namespace ShiggyMod
                             blastAttack.damageType = DamageType.Generic | DamageType.BleedOnHit;
                             blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
+                            DamageAPI.AddModdedDamageType(blastAttack, Damage.shiggyDecay);
+
+
                             if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
                                 != self.body.baseNameToken)
                             {
@@ -532,44 +536,7 @@ namespace ShiggyMod
 
                             }, true);
 
-                            BullseyeSearch search = new BullseyeSearch
-                            {
-
-                                teamMaskFilter = TeamMask.GetEnemyTeams(self.body.teamComponent.teamIndex),
-                                filterByLoS = false,
-                                searchOrigin = self.transform.position,
-                                searchDirection = UnityEngine.Random.onUnitSphere,
-                                sortMode = BullseyeSearch.SortMode.Distance,
-                                maxDistanceFilter = Modules.StaticValues.spikedamageRadius,
-                                maxAngleFilter = 360f
-                            };
-
-                            search.RefreshCandidates();
-                            search.FilterOutGameObject(self.gameObject);
-
-
-
-                            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-                            foreach (HurtBox singularTarget in target)
-                            {
-                                if (singularTarget)
-                                {
-                                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-                                    {
-                                        InflictDotInfo info = new InflictDotInfo();
-                                        info.attackerObject = self.gameObject;
-                                        info.victimObject = singularTarget.healthComponent.body.gameObject;
-                                        info.duration = Modules.StaticValues.decayDamageTimer;
-                                        info.dotIndex = Modules.Dots.decayDot;
-
-                                        for (int i = 0; i < decayCount; i++)
-                                        {
-                                            DotController.InflictDot(ref info);
-
-                                        }
-                                    }
-                                }
-                            }
+                            
 
                         }
 
@@ -590,6 +557,45 @@ namespace ShiggyMod
                             }
 
                         }
+
+                        //expose
+                        if (self.body.HasBuff(RoR2Content.Buffs.MercExpose) && damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME" )
+                        {
+                            self.body.RemoveBuff(RoR2Content.Buffs.MercExpose);
+                            float num2 = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().damage * 3.5f;
+                            damageInfo.damage += num2;
+                            SkillLocator skillLocator = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().skillLocator;
+                            if (skillLocator)
+                            {
+                                skillLocator.DeductCooldownFromAllSkillsServer(1f);
+                            }
+                            EffectManager.SimpleImpactEffect(HealthComponent.AssetReferences.mercExposeConsumeEffectPrefab, damageInfo.position, Vector3.up, true);
+                        }
+
+                        //decay modded damage type to apply decay
+                        if (DamageAPI.HasModdedDamageType(damageInfo, Modules.Damage.shiggyDecay) && damageInfo.attacker)
+                        {
+                            int decayBuffCount = self.body.GetBuffCount(Buffs.decayDebuff);
+                            InflictDotInfo info = new InflictDotInfo();
+                            info.attackerObject = damageInfo.attacker.gameObject;
+                            info.victimObject = self.gameObject;
+                            info.duration = Modules.StaticValues.decayDamageTimer;
+                            info.dotIndex = Modules.Dots.decayDot;
+
+                            for (int i = 0; i < decayCount; i++)
+                            {
+                                DotController.InflictDot(ref info);
+                            }
+
+                            DecayEffectController controller = self.gameObject.GetComponent<DecayEffectController>();
+                            if (!controller)
+                            {
+                                controller = self.gameObject.AddComponent<DecayEffectController>();
+                                controller.attackerBody = damageInfo.attacker.gameObject.GetComponent<CharacterBody>();
+                            }
+
+                        }
+
                     }                    
                 }
 
@@ -710,12 +716,12 @@ namespace ShiggyMod
                         }
                     }
 
-                    DecayEffectController controller = self.gameObject.GetComponent<DecayEffectController>();
-                    if (!controller)
-                    {
-                        controller = self.gameObject.AddComponent<DecayEffectController>();
-                        controller.charbody = self;
-                    }
+                    //DecayEffectController controller = self.gameObject.GetComponent<DecayEffectController>();
+                    //if (!controller)
+                    //{
+                    //    controller = self.gameObject.AddComponent<DecayEffectController>();
+                    //    controller.charbody = self;
+                    //}
 
                 }
             }

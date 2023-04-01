@@ -240,7 +240,6 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY" }
             });
 
-            Modules.Skills.AddPrimarySkill(bodyPrefab, decayDef);
 
             #endregion
 
@@ -273,11 +272,6 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
-            Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
-            {
-                bulletlaserDef,
-
-            });
             #endregion
 
             #region Utility
@@ -287,7 +281,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "AIRCANNON_NAME",
                 skillDescriptionToken = prefix + "AIRCANNON_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("aircannon"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.RailgunnerCryoCharge)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.AirCannon)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 5f,
@@ -332,11 +326,6 @@ namespace ShiggyMod.Modules.Survivors
 
             //});
 
-            Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
-            {
-                aircannonDef,
-                //ARTIFICER,
-            });
             #endregion
 
             #region Special
@@ -366,10 +355,6 @@ namespace ShiggyMod.Modules.Survivors
 
 
 
-            Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
-            {
-                multiplierDef,
-            });
             #endregion
 
             #region Extra Skills
@@ -397,10 +382,6 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1
             });
-            Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
-            Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);
-            Modules.Skills.AddThirdExtraSkill(bodyPrefab, emptySkillDef);
-            Modules.Skills.AddFourthExtraSkill(bodyPrefab, emptySkillDef);
 
             chooseDef = Skills.CreateSkillDef(new SkillDefInfo
             {
@@ -1911,6 +1892,29 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE"}
 
             });
+            #endregion
+
+            #region Chosen Skills
+
+            Modules.Skills.AddPrimarySkill(bodyPrefab, decayDef);
+            Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
+            {
+                bulletlaserDef,
+
+            });
+            Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
+            {
+                aircannonDef,
+                mercdashDef,
+            });
+            Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
+            {
+                multiplierDef,
+            });
+            Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
+            Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);
+            Modules.Skills.AddThirdExtraSkill(bodyPrefab, emptySkillDef);
+            Modules.Skills.AddFourthExtraSkill(bodyPrefab, emptySkillDef);
             #endregion
         }
 

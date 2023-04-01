@@ -10,7 +10,8 @@ namespace ShiggyMod.SkillStates
 {
     internal class DecayEffectController : MonoBehaviour
     {
-        public CharacterBody charbody;
+        public CharacterBody charBody;
+        public CharacterBody attackerBody;
         private GameObject effectObj;
         public float timer;
         public TeamMask sameTeam = new TeamMask();
@@ -18,9 +19,20 @@ namespace ShiggyMod.SkillStates
         public void Start()
         {
             sameTeam.AddTeam(TeamIndex.Monster);
-            charbody = this.gameObject.GetComponent<CharacterBody>();
-            effectObj = Instantiate(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity);
+            //effectObj = Instantiate(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity);
+            charBody = gameObject.GetComponent<CharacterBody>();
             //effectObj = EffectManager.SimpleEffect(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity, true);
+
+
+            EffectData effectData = new EffectData
+            {
+                origin = base.transform.position,
+                rootObject = charBody.gameObject,
+            };
+            effectData.SetNetworkedObjectReference(base.gameObject);
+            EffectManager.SpawnEffect(Modules.Assets.decaybuffEffect, effectData, true);
+
+
         }
 
         public void Update()
@@ -39,7 +51,7 @@ namespace ShiggyMod.SkillStates
 
                 teamMaskFilter = TeamMask.GetEnemyTeams(TeamIndex.Player),
                 filterByLoS = false,
-                searchOrigin = charbody.corePosition,
+                searchOrigin = charBody.corePosition,
                 searchDirection = UnityEngine.Random.onUnitSphere,
                 sortMode = BullseyeSearch.SortMode.Distance,
                 maxDistanceFilter = Modules.StaticValues.decayspreadRadius,
@@ -59,7 +71,7 @@ namespace ShiggyMod.SkillStates
                     if (singularTarget.healthComponent && singularTarget.healthComponent.body)
                     {
                         InflictDotInfo info = new InflictDotInfo();
-                        info.attackerObject = charbody.gameObject;
+                        info.attackerObject = attackerBody.gameObject;
                         info.victimObject = singularTarget.healthComponent.body.gameObject;
                         info.duration = Modules.StaticValues.decayDamageTimer;
                         info.dotIndex = Modules.Dots.decayDot;
@@ -72,26 +84,33 @@ namespace ShiggyMod.SkillStates
                         scale = 1f,
 
                     }, true);
+
+                    DecayEffectController controller = singularTarget.gameObject.GetComponent<DecayEffectController>();
+                    if (!controller)
+                    {
+                        controller = singularTarget.gameObject.AddComponent<DecayEffectController>();
+                        controller.attackerBody = attackerBody;
+                    }
                 }
             }
         }
-        public void ApplyDotToSelf()
-        {
-            //Debug.Log("ApplyingDoTtoself");
-            InflictDotInfo info = new InflictDotInfo();
-            info.attackerObject = null;
-            info.victimObject = charbody.gameObject;
-            info.duration = Modules.StaticValues.decayDamageTimer;
-            info.dotIndex = Modules.Dots.decayDot;
+        //public void ApplyDotToSelf()
+        //{
+        //    //Debug.Log("ApplyingDoTtoself");
+        //    InflictDotInfo info = new InflictDotInfo();
+        //    info.attackerObject = attackerBody.gameObject;
+        //    info.victimObject = charBody.gameObject;
+        //    info.duration = Modules.StaticValues.decayDamageTimer;
+        //    info.dotIndex = Modules.Dots.decayDot;
 
-            DotController.InflictDot(ref info);
-            EffectManager.SpawnEffect(Modules.Assets.decayspreadEffect, new EffectData
-            {
-                origin = charbody.corePosition,
-                scale = 1f,
+        //    DotController.InflictDot(ref info);
+        //    EffectManager.SpawnEffect(Modules.Assets.decayspreadEffect, new EffectData
+        //    {
+        //        origin = charBody.corePosition,
+        //        scale = 1f,
 
-            }, true);
-        }
+        //    }, true);
+        //}
 
         public void FixedUpdate()
         {
@@ -101,21 +120,21 @@ namespace ShiggyMod.SkillStates
                 //Debug.Log("ApplyingDoTfromController");
                 timer = 0;
                 ApplyDoT();
-                ApplyDotToSelf();
+                //ApplyDotToSelf();
             }
-            if (charbody)
+            if (charBody)
             {
                 //If buff isn't present, destroy the effect and self.
-                if (!charbody.HasBuff(Modules.Buffs.decayDebuff))
+                if (!charBody.HasBuff(Modules.Buffs.decayDebuff))
                 {
                     Destroy(effectObj);
                     Destroy(this);
                 }
             }
-
-            if (!charbody)
+            else if (!charBody)
             {
                 Destroy(effectObj);
+                Destroy(this);
             }
         }
 

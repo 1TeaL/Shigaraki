@@ -6,146 +6,251 @@ using UnityEngine.Networking;
 using RoR2.Projectile;
 using EntityStates.Merc;
 using R2API.Networking;
+using ShiggyMod.SkillStates.BaseStates;
+using System.Collections.Generic;
+using System;
+using EntityStates.Treebot.Weapon;
+using RoR2.Audio;
+using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
     public class MercDash : BaseSkillState
-    {
-        string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        private float stopwatch;
-        public static float smallHopVelocity = 0.5f;
-        public static float dashPrepDuration = 0.1f;
-        public static float dashDuration = 0.2f;
-        public static float speedCoefficient = 20f;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
-        public HurtBox Target;
 
-        public static float overlapSphereRadius = 7f;
-        public static float lollypopFactor = 1f;
-        private Vector3 dashVector = Vector3.zero;
-        private Animator animator;
-        private CharacterModel characterModel;
+    {
+        public int swingIndex;
+
+        protected string hitboxName = "AroundHitbox";
+
+        protected DamageType damageType = DamageType.ApplyMercExpose;
+        protected float damageCoefficient = StaticValues.mercDamageCoefficient;
+        protected float procCoefficient = 1f;
+        protected float pushForce = 300f;
+        protected Vector3 bonusForce = Vector3.zero;
+        protected float baseDuration = 1f;
+        protected float attackStartTime = 0.2f;
+        protected float attackEndTime = 0.8f;
+        protected float hitStopDuration = 0.1f;
+        protected float attackRecoil = 0.75f;
+
+        protected string swingSoundString = "";
+        protected string hitSoundString = "";
+        protected string muzzleString = "SwingCenter";
+        protected GameObject swingEffectPrefab;
+        protected GameObject hitEffectPrefab;
+        protected NetworkSoundEventIndex impactSound;
+
+        public float duration;
+        private bool hasFired;
+        private float hitPauseTimer;
+        private OverlapAttack attack;
+        protected bool inHitPause;
+        protected float stopwatch;
+        protected Animator animator;
+        private BaseState.HitStopCachedState hitStopCachedState;
+        private Vector3 storedVelocity;
+
+        //movement
         private Transform modelTransform;
-        private bool isDashing;
-        private CameraTargetParams.AimRequest aimRequest;
-        public static GameObject blinkPrefab;
+        private Vector3 dashVector;
+        private float speedCoefficient = 3f;
+        private float speedCoefficientOnExit = 0.1f;
+
+        private Vector3 dashVelocity
+        {
+            get
+            {
+                return this.dashVector * this.moveSpeedStat * speedCoefficient;
+            }
+        }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            Ray aimRay = base.GetAimRay();
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            Shiggycon = gameObject.GetComponent<ShiggyController>();
-            this.modelTransform = base.GetModelTransform();
-            if (base.cameraTargetParams)
+            this.duration = this.baseDuration / this.attackSpeedStat;
+            this.hasFired = false;
+            this.animator = base.GetModelAnimator();
+            base.StartAimMode(0.5f + this.duration, false);
+            base.characterBody.outOfCombatStopwatch = 0f;
+            this.animator.SetBool("attacking", true);
+
+            HitBoxGroup hitBoxGroup = null;
+            Transform modelTransform = base.GetModelTransform();
+
+            if (modelTransform)
             {
-                this.aimRequest = base.cameraTargetParams.RequestAimType(CameraTargetParams.AimType.Aura);
+                hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == this.hitboxName);
             }
+
+            this.PlayAttackAnimation();
+
+            this.attack = new OverlapAttack();
+            this.attack.damageType = this.damageType;
+            this.attack.attacker = base.gameObject;
+            this.attack.inflictor = base.gameObject;
+            this.attack.teamIndex = base.GetTeam();
+            this.attack.damage = this.damageCoefficient * this.damageStat;
+            this.attack.procCoefficient = this.procCoefficient;
+            this.attack.hitEffectPrefab = this.hitEffectPrefab;
+            this.attack.forceVector = this.bonusForce;
+            this.attack.pushAwayForce = this.pushForce;
+            this.attack.hitBoxGroup = hitBoxGroup;
+            this.attack.isCrit = base.RollCrit();
+            this.attack.impactSound = this.impactSound;
+
+            //movement code
+
+            this.dashVector = base.inputBank.aimDirection;
+            base.gameObject.layer = LayerIndex.fakeActor.intVal;
+            base.characterMotor.Motor.RebuildCollidableLayers();
+            base.characterMotor.Motor.ForceUnground();
+            base.characterMotor.velocity = Vector3.zero;
+            this.modelTransform = base.GetModelTransform();
             if (this.modelTransform)
             {
-                this.animator = this.modelTransform.GetComponent<Animator>();
-                this.characterModel = this.modelTransform.GetComponent<CharacterModel>();
+                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay.duration = 0.7f;
+                temporaryOverlay.animateShaderAlpha = true;
+                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                temporaryOverlay.destroyComponentOnEnd = true;
+                temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matMercEnergized");
+                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
             }
-            if (base.isAuthority)
-            {
-                base.SmallHop(base.characterMotor, smallHopVelocity);
-            }
+            base.characterDirection.forward = base.characterMotor.velocity.normalized;
             if (NetworkServer.active)
             {
-                base.characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
+                base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
             }
-            PlayCrossfade("FullBody, Override", "Slam", "Attack.playbackRate", dashPrepDuration, 0.1f);
-            this.dashVector = base.inputBank.aimDirection;
-            base.characterDirection.forward = this.dashVector;
-            base.StartAimMode(dashPrepDuration, true);
-
         }
 
-        private void CreateBlinkEffect(Vector3 origin)
+        protected virtual void PlayAttackAnimation()
         {
-            EffectData effectData = new EffectData();
-            effectData.rotation = Util.QuaternionSafeLookRotation(this.dashVector);
-            effectData.origin = origin;
-            EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, false);
+            base.PlayCrossfade("Gesture, Override", "Slash" + (1 + swingIndex), "Slash.playbackRate", this.duration, 0.05f);
         }
+
         public override void OnExit()
         {
+            if (!this.hasFired) this.FireAttack();
+
             base.OnExit();
-            Util.PlaySound(EvisDash.endSoundString, base.gameObject);
-            base.characterMotor.velocity *= 0.1f;
-            base.SmallHop(base.characterMotor, smallHopVelocity);
-            CameraTargetParams.AimRequest aimRequest = this.aimRequest;
-            if (aimRequest != null)
-            {
-                aimRequest.Dispose();
-            }
             if (NetworkServer.active)
             {
                 base.characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);
             }
+            base.characterMotor.velocity *= speedCoefficientOnExit;
+            base.SmallHop(base.characterMotor, Assaulter2.exitSmallHop);
+            Util.PlaySound(Assaulter2.endSoundString, base.gameObject);
+            //this.PlayAnimation("FullBody, Override", "EvisLoopExit");
+            base.gameObject.layer = LayerIndex.defaultLayer.intVal;
+            base.characterMotor.Motor.RebuildCollidableLayers();
+
+
+
+            this.animator.SetBool("attacking", false);
         }
 
+        protected virtual void PlaySwingEffect()
+        {
+            EffectManager.SimpleMuzzleFlash(this.swingEffectPrefab, base.gameObject, this.muzzleString, true);
+        }
+
+        protected virtual void OnHitEnemyAuthority()
+        {
+            Util.PlaySound(this.hitSoundString, base.gameObject);
+
+
+            if (!this.inHitPause && this.hitStopDuration > 0f)
+            {
+                this.storedVelocity = base.characterMotor.velocity;
+                this.hitStopCachedState = base.CreateHitStopCachedState(base.characterMotor, this.animator, "Slash.playbackRate");
+                this.hitPauseTimer = this.hitStopDuration / this.attackSpeedStat;
+                this.inHitPause = true;
+            }
+
+            if (Assaulter2.selfOnHitOverlayEffectPrefab)
+            {
+                EffectData effectData = new EffectData
+                {
+                    origin = base.transform.position,
+                    genericFloat = this.hitStopDuration / this.attackSpeedStat
+                    
+                };
+                effectData.SetNetworkedObjectReference(base.gameObject);
+                EffectManager.SpawnEffect(Assaulter2.selfOnHitOverlayEffectPrefab, effectData, true);
+            }
+        }
+
+        private void FireAttack()
+        {
+            if (!this.hasFired)
+            {
+                this.hasFired = true;
+                Util.PlayAttackSpeedSound(this.swingSoundString, base.gameObject, this.attackSpeedStat);
+
+                if (base.isAuthority)
+                {
+                    this.PlaySwingEffect();
+                    base.AddRecoil(-1f * this.attackRecoil, -2f * this.attackRecoil, -0.5f * this.attackRecoil, 0.5f * this.attackRecoil);
+                }
+            }
+
+            if (base.isAuthority)
+            {
+                if (this.attack.Fire())
+                {
+                    this.OnHitEnemyAuthority();
+                }
+            }
+        }
+        
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            this.stopwatch += Time.fixedDeltaTime;
-            if (this.stopwatch > dashPrepDuration && !this.isDashing)
+
+            this.hitPauseTimer -= Time.fixedDeltaTime;
+
+            if (this.hitPauseTimer <= 0f && this.inHitPause)
             {
-                this.isDashing = true;
-                this.dashVector = base.inputBank.aimDirection;
-                this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
-                if (this.modelTransform)
-                {
-                    TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                    temporaryOverlay.duration = 0.6f;
-                    temporaryOverlay.animateShaderAlpha = true;
-                    temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
-                    temporaryOverlay.destroyComponentOnEnd = true;
-                    temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
-                    temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
-                    TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                    temporaryOverlay2.duration = 0.7f;
-                    temporaryOverlay2.animateShaderAlpha = true;
-                    temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
-                    temporaryOverlay2.destroyComponentOnEnd = true;
-                    temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
-                    temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
-                }
+                base.ConsumeHitStopCachedState(this.hitStopCachedState, base.characterMotor, this.animator);
+                this.inHitPause = false;
+                base.characterMotor.velocity = this.storedVelocity;
             }
-            bool flag = this.stopwatch >= dashDuration + dashPrepDuration;
-            if (this.isDashing)
+
+            if (!this.inHitPause)
             {
-                if (base.characterMotor && base.characterDirection)
-                {
-                    base.characterMotor.rootMotion += this.dashVector * (this.moveSpeedStat * speedCoefficient * Time.fixedDeltaTime);
-                }
-                if (base.isAuthority)
-                {
-                    Collider[] array = Physics.OverlapSphere(base.transform.position, base.characterBody.radius + overlapSphereRadius * (flag ? lollypopFactor : 1f), LayerIndex.entityPrecise.mask);
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        HurtBox component = array[i].GetComponent<HurtBox>();
-                        if (component && component.healthComponent != base.healthComponent)
-                        {
-                            MercDashAttack nextState = new MercDashAttack();
-                            this.outer.SetNextState(nextState);
-                            return;
-                        }
-                    }
-                }
+                this.stopwatch += Time.fixedDeltaTime;
+                //keep moving if not in hitpause
+                base.characterBody.isSprinting = true;
+                base.characterMotor.rootMotion += this.dashVelocity * Time.fixedDeltaTime;
+                base.characterDirection.forward = this.dashVelocity;
+                base.characterDirection.moveVector = this.dashVelocity;
             }
-            if (flag && base.isAuthority)
+            else
+            {
+                if (base.characterMotor) base.characterMotor.velocity = Vector3.zero;
+                if (this.animator) this.animator.SetFloat("Swing.playbackRate", 0f);
+            }
+
+            if (this.stopwatch >= (this.duration * this.attackStartTime) && this.stopwatch <= (this.duration * this.attackEndTime))
+            {
+                this.FireAttack();
+            }
+
+
+            if (this.stopwatch >= this.duration && base.isAuthority)
             {
                 this.outer.SetNextStateToMain();
+                return;
             }
         }
-
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.Frozen;
+            return InterruptPriority.PrioritySkill;
         }
+
+
     }
+
 }

@@ -1,6 +1,7 @@
 ﻿using ShiggyMod.SkillStates;
 using System.Collections.Generic;
 using System;
+using ShiggyMod.SkillStates.BaseStates;
 
 namespace ShiggyMod.Modules
 {
@@ -10,6 +11,8 @@ namespace ShiggyMod.Modules
 
         internal static void RegisterStates()
         {
+            entityStates.Add(typeof(BaseMeleeAttack));
+
             entityStates.Add(typeof(AlphaConstruct));
 
             entityStates.Add(typeof(Decay));
