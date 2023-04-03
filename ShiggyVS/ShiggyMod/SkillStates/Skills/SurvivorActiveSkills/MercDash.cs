@@ -12,6 +12,7 @@ using System;
 using EntityStates.Treebot.Weapon;
 using RoR2.Audio;
 using ShiggyMod.Modules;
+using R2API;
 
 namespace ShiggyMod.SkillStates
 {
@@ -30,7 +31,7 @@ namespace ShiggyMod.SkillStates
         protected float baseDuration = 0.4f;
         protected float attackStartTime = 0.1f;
         protected float attackEndTime = 0.9f;
-        protected float hitStopDuration = 0.1f;
+        protected float hitStopDuration = 0.07f;
         protected float attackRecoil = 0.75f;
 
         protected string swingSoundString = "";
@@ -98,6 +99,7 @@ namespace ShiggyMod.SkillStates
             this.attack.isCrit = base.RollCrit();
             this.attack.impactSound = this.impactSound;
 
+            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
             //movement code
 
             this.dashVector = base.inputBank.aimDirection;

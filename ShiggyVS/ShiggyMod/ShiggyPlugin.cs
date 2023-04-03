@@ -91,6 +91,7 @@ namespace ShiggyMod
             // load assets and read config
             Modules.Assets.Initialize();
             Modules.Config.ReadConfig();
+            Modules.Damage.SetupModdedDamage(); //setup modded damage
             if (Chainloader.PluginInfos.ContainsKey("com.rune580.riskofoptions")) //risk of options support
             {
                 Modules.Config.SetupRiskOfOptions();

@@ -83,6 +83,8 @@ namespace ShiggyMod.SkillStates.BaseStates
             this.attack.isCrit = base.RollCrit();
             this.attack.impactSound = this.impactSound;
 
+            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
+
         }
 
         protected virtual void PlayAttackAnimation()

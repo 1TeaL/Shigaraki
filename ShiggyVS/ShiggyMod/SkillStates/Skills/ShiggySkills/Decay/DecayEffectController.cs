@@ -12,7 +12,7 @@ namespace ShiggyMod.SkillStates
     {
         public CharacterBody charBody;
         public CharacterBody attackerBody;
-        private GameObject effectObj;
+        private GameObject effectObj = Modules.Assets.decaybuffEffect;
         public float timer;
         public TeamMask sameTeam = new TeamMask();
 
@@ -30,7 +30,7 @@ namespace ShiggyMod.SkillStates
                 rootObject = charBody.gameObject,
             };
             effectData.SetNetworkedObjectReference(base.gameObject);
-            EffectManager.SpawnEffect(Modules.Assets.decaybuffEffect, effectData, true);
+            EffectManager.SpawnEffect(effectObj, effectData, true);
 
 
         }
@@ -59,7 +59,7 @@ namespace ShiggyMod.SkillStates
             };
 
             search.RefreshCandidates();
-            //search.FilterOutGameObject(charbody.gameObject);
+            search.FilterOutGameObject(charBody.gameObject);
 
 
 

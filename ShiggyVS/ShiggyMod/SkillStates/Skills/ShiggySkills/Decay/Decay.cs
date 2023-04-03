@@ -15,20 +15,20 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
 
-            AkSoundEngine.PostEvent(4108468048, base.gameObject);
+            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
 
             this.hitboxName = "AroundHitbox";
 
             this.damageCoefficient = Modules.StaticValues.decayattackDamageCoeffecient;
             this.procCoefficient = 1f;
-            this.pushForce = 500f;
+            this.pushForce = 300f;
             this.damageType = DamageType.Generic;
             this.baseDuration = 1f;
             this.attackStartTime = 0.2f;
-            this.attackEndTime = 0.6f;
-            this.baseEarlyExitTime = 0.8f;
-            this.hitStopDuration = 0.1f;
-            this.attackRecoil = 0.5f;
+            this.attackEndTime = 0.4f;
+            this.baseEarlyExitTime = 0.4f;
+            this.hitStopDuration = 0.08f;
+            this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
 
             this.swingSoundString = "ShiggyMelee";
@@ -36,12 +36,12 @@ namespace ShiggyMod.SkillStates
             this.muzzleString = "RHand";
             this.swingEffectPrefab = Modules.Assets.decayspreadEffect;
             this.hitEffectPrefab = Modules.Assets.decayspreadEffect;
-            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
 
             this.impactSound = Modules.Assets.decayHitSoundEffect.index;
 
-
             base.OnEnter();
+            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
+
         }
 
         //public override void OnExit()
