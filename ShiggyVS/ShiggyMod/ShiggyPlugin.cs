@@ -573,7 +573,7 @@ namespace ShiggyMod
                         }
 
                         //decay modded damage type to apply decay
-                        if (DamageAPI.HasModdedDamageType(damageInfo, Modules.Damage.shiggyDecay) && damageInfo.attacker)
+                        if (DamageAPI.HasModdedDamageType(damageInfo, Modules.Damage.shiggyDecay) && damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
                         {
                             int decayBuffCount = self.body.GetBuffCount(Buffs.decayDebuff);
                             InflictDotInfo info = new InflictDotInfo();
@@ -581,6 +581,15 @@ namespace ShiggyMod
                             info.victimObject = self.gameObject;
                             info.duration = Modules.StaticValues.decayDamageTimer;
                             info.dotIndex = Modules.Dots.decayDot;
+
+                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.multiplierBuff))
+                            {
+                                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+                            }
+                            else
+                            {
+                                decayCount = 1;
+                            }
 
                             for (int i = 0; i < decayCount; i++)
                             {

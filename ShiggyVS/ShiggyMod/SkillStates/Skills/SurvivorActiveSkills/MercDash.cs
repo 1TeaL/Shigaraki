@@ -27,9 +27,9 @@ namespace ShiggyMod.SkillStates
         protected float procCoefficient = 1f;
         protected float pushForce = 300f;
         protected Vector3 bonusForce = Vector3.zero;
-        protected float baseDuration = 1f;
-        protected float attackStartTime = 0.2f;
-        protected float attackEndTime = 0.8f;
+        protected float baseDuration = 0.4f;
+        protected float attackStartTime = 0.1f;
+        protected float attackEndTime = 0.9f;
         protected float hitStopDuration = 0.1f;
         protected float attackRecoil = 0.75f;
 
@@ -53,7 +53,7 @@ namespace ShiggyMod.SkillStates
         //movement
         private Transform modelTransform;
         private Vector3 dashVector;
-        private float speedCoefficient = 3f;
+        private float speedCoefficient = 5f;
         private float speedCoefficientOnExit = 0.1f;
 
         private Vector3 dashVelocity
@@ -109,7 +109,7 @@ namespace ShiggyMod.SkillStates
             if (this.modelTransform)
             {
                 TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                temporaryOverlay.duration = 0.7f;
+                temporaryOverlay.duration = duration* 2;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;

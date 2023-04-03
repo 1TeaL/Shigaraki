@@ -20,7 +20,7 @@ namespace ShiggyMod.Modules
         internal static List<GameObject> networkObjDefs = new List<GameObject>();
 
         // networked hit sounds
-        internal static NetworkSoundEventDef swordHitSoundEvent;
+        internal static NetworkSoundEventDef decayHitSoundEffect;
 
         // lists of assets to add to contentpack
         internal static List<NetworkSoundEventDef> networkSoundEventDefs = new List<NetworkSoundEventDef>();
@@ -169,6 +169,7 @@ namespace ShiggyMod.Modules
             decayattackEffect = LoadEffect("DecayAttack");
             decaybuffEffect = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DecayBuff");
             decayspreadEffect = LoadEffect("DecaySpread");
+            decayHitSoundEffect = CreateNetworkSoundEventDef("ShiggyMelee");
 
             //alpha shield effect
             alphaconstructShieldBuff = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));

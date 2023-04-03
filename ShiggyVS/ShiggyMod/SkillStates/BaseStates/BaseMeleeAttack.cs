@@ -39,7 +39,7 @@ namespace ShiggyMod.SkillStates.BaseStates
         public float duration;
         private bool hasFired;
         private float hitPauseTimer;
-        private OverlapAttack attack;
+        public OverlapAttack attack;
         protected bool inHitPause;
         private bool hasHopped;
         protected float stopwatch;
@@ -83,14 +83,13 @@ namespace ShiggyMod.SkillStates.BaseStates
             this.attack.isCrit = base.RollCrit();
             this.attack.impactSound = this.impactSound;
 
-            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
         }
 
         protected virtual void PlayAttackAnimation()
         {
             //update animations one day
             //base.PlayCrossfade("Gesture, Override", "Slash" + (1 + swingIndex), "Slash.playbackRate", this.duration, 0.05f);
-            base.PlayCrossfade("FullBody, Override", "Slam" , "Slash.playbackRate", this.duration, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "Slam" , "Slash.playbackRate", this.duration/2, 0.05f);
         }
 
         public override void OnExit()
@@ -186,6 +185,7 @@ namespace ShiggyMod.SkillStates.BaseStates
             {
                 if (base.characterMotor) base.characterMotor.velocity = Vector3.zero;
                 if (this.animator) this.animator.SetFloat("Swing.playbackRate", 0f);
+                this.animator.SetFloat("Slash.playbackRate", 0f);
             }
 
             if (this.stopwatch >= (this.duration * this.attackStartTime) && this.stopwatch <= (this.duration * this.attackEndTime))
@@ -212,7 +212,7 @@ namespace ShiggyMod.SkillStates.BaseStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.PrioritySkill;
+            return InterruptPriority.Skill;
         }
 
         public override void OnSerialize(NetworkWriter writer)
