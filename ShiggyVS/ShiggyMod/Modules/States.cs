@@ -42,7 +42,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(StoneGolemLaserFire));
             entityStates.Add(typeof(VoidReaverPortal));
 
-            entityStates.Add(typeof(BeetleQueenShotgun));
+            entityStates.Add(typeof(BeetleQueenSummon));
             entityStates.Add(typeof(ClayDunestriderBuff));
             entityStates.Add(typeof(GrandparentSun));
             entityStates.Add(typeof(GrovetenderHook));

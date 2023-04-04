@@ -123,6 +123,8 @@ namespace ShiggyMod.SkillStates
             {
                 base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
             }
+
+            
         }
 
         protected virtual void PlayAttackAnimation()

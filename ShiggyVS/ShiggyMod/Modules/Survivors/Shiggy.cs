@@ -1397,7 +1397,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "BEETLEQUEEN_NAME",
                 skillDescriptionToken = prefix + "BEETLEQUEEN_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Beetle_Queen"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.BeetleQueenShotgun)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BeetleQueenSummon)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 4f,

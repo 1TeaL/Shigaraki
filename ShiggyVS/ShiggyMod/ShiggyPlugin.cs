@@ -110,6 +110,7 @@ namespace ShiggyMod
             //networking
             NetworkingAPI.RegisterMessageType<EquipmentDropNetworked>();
             NetworkingAPI.RegisterMessageType<HealNetworkRequest>();
+            NetworkingAPI.RegisterMessageType<SpawnBodyNetworkRequest>();
 
 
             // now make a content pack and add it- this part will change with the next update

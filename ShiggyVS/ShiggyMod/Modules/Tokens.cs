@@ -258,10 +258,10 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "HUNTRESS_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Fire {StaticValues.huntressmaxArrowCount/2} seeking arrows at the target for <style=cIsDamage>3x{100f * StaticValues.huntressDamageCoefficient}% damage</style>. " +
                 $"<style=cIsUtility>Critical Strikes fire {StaticValues.huntressmaxArrowCount} arrows</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
-            LanguageAPI.Add(prefix + "MERC_NAME", "Eviscerate");
-            LanguageAPI.Add(prefix + "MERC_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Target the nearest enemy, attacking them for <style=cIsDamage>{100f * StaticValues.mercDamageCoefficient}% damage</style> repeatedly. " +
-                $"<style=cIsUtility>You cannot be hit for the duration</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee] [LeftHanded]</style>");
+            LanguageAPI.Add(prefix + "MERC_NAME", "Wind Assault");
+            LanguageAPI.Add(prefix + "MERC_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Dash forward with a blade of wind, dealing <style=cIsDamage>{100f * StaticValues.mercDamageCoefficient}% damage</style> and expose all enemies hit. " +
+                 Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Air cannon]</style>");
             LanguageAPI.Add(prefix + "MULTBUFF_NAME", "Power Stance");
             LanguageAPI.Add(prefix + "MULTBUFF_DESCRIPTION", $"<style=cIsDamage>Agile.</style>Adopt a stance and gain <style=cIsUtility>{StaticValues.multArmor} armor, {StaticValues.multAttackspeed}x attackspeed but have {StaticValues.multMovespeed}x </style>. " +
                 $"Reactivate to cancel the stance." + Environment.NewLine + Environment.NewLine +
