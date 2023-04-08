@@ -1,4 +1,5 @@
-﻿using R2API.Networking.Interfaces;
+﻿using R2API;
+using R2API.Networking.Interfaces;
 using RoR2;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,6 @@ namespace ShiggyMod.Modules.Networking
     {
         //Network these ones.
         private string bodyName;
-        private Vector3 location;
         private string masterName;
         NetworkInstanceId netID;
 
@@ -23,28 +23,25 @@ namespace ShiggyMod.Modules.Networking
 
         }
 
-        public SpawnBodyNetworkRequest(NetworkInstanceId netID, string masterName, string bodyName, Vector3 vector3)
+        public SpawnBodyNetworkRequest(NetworkInstanceId netID, string bodyName, string masterName)
         {
             this.netID = netID;
-            this.masterName = masterName;
             this.bodyName = bodyName;
-            location = vector3;
+            this.masterName = masterName;
         }
 
         public void Deserialize(NetworkReader reader)
         {
             netID = reader.ReadNetworkId();
-            masterName = reader.ReadString();
             bodyName = reader.ReadString();
-            location = reader.ReadVector3();
+            masterName = reader.ReadString();
         }
 
         public void Serialize(NetworkWriter writer)
         {
             writer.Write(netID);
-            writer.Write(masterName);
             writer.Write(bodyName);
-            writer.Write(location);
+            writer.Write(masterName);
         }
 
         public void OnReceived()
@@ -55,22 +52,31 @@ namespace ShiggyMod.Modules.Networking
                 CharacterMaster charMaster = masterobject.GetComponent<CharacterMaster>();
                 CharacterBody charBody = charMaster.GetBody();
 
-                var monsterMaster = MasterCatalog.FindMasterPrefab(masterName);
-                var bodyGameObject = Object.Instantiate(monsterMaster.gameObject, location, Quaternion.identity);
-                var master = bodyGameObject.GetComponent<CharacterMaster>();
+                GameObject monsterMaster = PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/" + masterName), masterName + bodyName, true);
+                //var monsterMaster = MasterCatalog.FindMasterPrefab(bodyName);
+                //var bodyGameObject = Object.Instantiate(monsterMaster.gameObject, charBody.transform.position + charBody.characterDirection.forward * 2f, Quaternion.identity);
+                //var master = bodyGameObject.GetComponent<CharacterMaster>();
 
+                //master.teamIndex = TeamIndex.Player;
+                //NetworkServer.Spawn(bodyGameObject);
+                //master.bodyPrefab = BodyCatalog.FindBodyPrefab(bodyName);
+                //master.SpawnBody(charBody.transform.position + charBody.characterDirection.forward * 2f, Quaternion.identity);
 
                 MasterSummon summonAlly = new MasterSummon();
                 summonAlly.masterPrefab = monsterMaster;
                 summonAlly.ignoreTeamMemberLimit = true;
-                summonAlly.summonerBodyObject = monsterMaster.GetComponent<CharacterBody>().gameObject;
+                summonAlly.summonerBodyObject = masterobject;
                 summonAlly.teamIndexOverride = TeamIndex.Player;
                 summonAlly.inventoryToCopy = charBody.inventory;
-                summonAlly.position = location;
+                summonAlly.position = charBody.transform.position + charBody.characterDirection.forward * 2f;
                 summonAlly.rotation = charBody.transform.rotation;
                 summonAlly.useAmbientLevel = true;
 
-                master = summonAlly.Perform();                
+                if (summonAlly != null)
+                {
+                    CharacterMaster master = summonAlly.Perform();
+                }
+
 
             }
 

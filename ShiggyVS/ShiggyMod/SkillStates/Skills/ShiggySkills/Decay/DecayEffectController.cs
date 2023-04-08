@@ -19,18 +19,18 @@ namespace ShiggyMod.SkillStates
         public void Start()
         {
             sameTeam.AddTeam(TeamIndex.Monster);
-            //effectObj = Instantiate(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity);
+            effectObj = Instantiate(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity);
             charBody = gameObject.GetComponent<CharacterBody>();
             //effectObj = EffectManager.SimpleEffect(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity, true);
 
 
-            EffectData effectData = new EffectData
-            {
-                origin = base.transform.position,
-                rootObject = charBody.gameObject,
-            };
-            effectData.SetNetworkedObjectReference(base.gameObject);
-            EffectManager.SpawnEffect(effectObj, effectData, true);
+            //EffectData effectData = new EffectData
+            //{
+            //    origin = base.transform.position,
+            //    rootObject = charBody.gameObject,
+            //};
+            //effectData.SetNetworkedObjectReference(base.gameObject);
+            //EffectManager.SpawnEffect(effectObj, effectData, true);
 
 
         }

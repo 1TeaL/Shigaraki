@@ -208,9 +208,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VOIDREAVER_NAME", "Nullifier Artillery");
             LanguageAPI.Add(prefix + "VOIDREAVER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold the button down to constantly summon nullifier bombs on the target, dealing <style=cIsDamage>{100f * StaticValues.voidreaverDamageCoeffecient}% damage per bomb</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
-            LanguageAPI.Add(prefix + "BEETLEQUEEN_NAME", "Acid Shotgun");
-            LanguageAPI.Add(prefix + "BEETLEQUEEN_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Shoot an acid shotgun infront of you for <style=cIsDamage>5x{100f * StaticValues.beetlequeenDamageCoeffecient}%</style>, leaving an acid puddle on the ground. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "BEETLEQUEEN_NAME", "Summon Ally");
+            LanguageAPI.Add(prefix + "BEETLEQUEEN_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Summon a Survivor that <style=cIsUtility>inherits all your items</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[?which skill yet] [LeftHanded]</style>");
             LanguageAPI.Add(prefix + "GRANDPARENT_NAME", "Solar Flare");
             LanguageAPI.Add(prefix + "GRANDPARENT_DESCRIPTION", $"Hold the button to summon a miniature sun. Sprinting or letting go of the button cancels the skill. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[RightHanded]</style>");

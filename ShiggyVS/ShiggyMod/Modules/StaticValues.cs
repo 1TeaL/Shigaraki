@@ -271,7 +271,7 @@ namespace ShiggyMod.Modules
             //    { Survivors.Shiggy.parentteleportDef, Survivors.Shiggy.parentteleportUpgradedDef },
             //    { Survivors.Shiggy.stonegolemlaserDef, Survivors.Shiggy.stonegolemlaserUpgradedDef },
             //    { Survivors.Shiggy.voidreaverportalDef, Survivors.Shiggy.voidreaverportalUpgradedDef },
-            //    { Survivors.Shiggy.beetlequeenshotgunDef, Survivors.Shiggy.beetlequeenshotgunUpgradedDef },
+            //    { Survivors.Shiggy.beetlequeenSummonDef, Survivors.Shiggy.beetlequeenshotgunUpgradedDef },
             //    { Survivors.Shiggy.claydunestriderbuffDef, Survivors.Shiggy.claydunestriderbuffUpgradedDef },
             //    { Survivors.Shiggy.grandparentsunDef, Survivors.Shiggy.grandparentsunUpgradedDef },
             //    { Survivors.Shiggy.soluscontrolunityknockupDef, Survivors.Shiggy.soluscontrolunityknockupUpgradedDef },
@@ -331,7 +331,7 @@ namespace ShiggyMod.Modules
             //    { Survivors.Shiggy.parentteleportDef, Survivors.Shiggy.parentteleportUpgradedDef },
             //    { Survivors.Shiggy.stonegolemlaserDef, Survivors.Shiggy.stonegolemlaserUpgradedDef },
             //    { Survivors.Shiggy.voidreaverportalDef, Survivors.Shiggy.voidreaverportalUpgradedDef },
-            //    { Survivors.Shiggy.beetlequeenshotgunDef, Survivors.Shiggy.beetlequeenshotgunUpgradedDef },
+            //    { Survivors.Shiggy.beetlequeenSummonDef, Survivors.Shiggy.beetlequeenshotgunUpgradedDef },
             //    { Survivors.Shiggy.claydunestriderbuffDef, Survivors.Shiggy.claydunestriderbuffUpgradedDef },
             //    { Survivors.Shiggy.grandparentsunDef, Survivors.Shiggy.grandparentsunUpgradedDef },
             //    { Survivors.Shiggy.soluscontrolunityknockupDef, Survivors.Shiggy.soluscontrolunityknockupUpgradedDef },
@@ -358,7 +358,7 @@ namespace ShiggyMod.Modules
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.alphacontructpassiveDef, alphaconstruct);
             //var beetle = new List<RoR2.Skills.SkillDef>
             //{
-            //    Survivors.Shiggy.beetlequeenshotgunDef,
+            //    Survivors.Shiggy.beetlequeenSummonDef,
             //    Survivors.Shiggy.beetlequeenshotgunUpgradedDef,
             //    Survivors.Shiggy.lesserwisppassiveUpgradedDef
             //};
@@ -390,7 +390,7 @@ namespace ShiggyMod.Modules
             //};
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.hermitcrabpassiveDef, hermit);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.larvapassiveDef, Survivors.Shiggy.lunargolemslideDef);
-            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lesserwisppassiveDef, Survivors.Shiggy.beetlequeenshotgunDef);
+            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lesserwisppassiveDef, Survivors.Shiggy.beetlequeenSummonDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lunarexploderpassiveDef, Survivors.Shiggy.minimushrumpassiveDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.minimushrumpassiveDef, Survivors.Shiggy.claydunestriderbuffDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.roboballminibpassiveDef, Survivors.Shiggy.alloyvultureflyDef);
@@ -423,7 +423,7 @@ namespace ShiggyMod.Modules
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.parentteleportDef, "<style=cIsUtility>Teleport Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.stonegolemlaserDef, "<style=cIsUtility>Laser Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.voidreaverportalDef, "<style=cIsUtility>Nullifier Artillery Quirk</style> Get!");
-            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.beetlequeenshotgunDef, "<style=cIsUtility>Acid Shotgun Quirk</style> Get!");
+            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.beetlequeenSummonDef, "<style=cIsUtility>Acid Shotgun Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.claydunestriderbuffDef, "<style=cIsUtility>Tar Boost Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.grandparentsunDef, "<style=cIsUtility>Solar Flare Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.soluscontrolunityknockupDef, "<style=cIsUtility>Anti Gravity Quirk</style> Get!");
@@ -509,7 +509,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.parentteleportDef, "<style=cIsUtility>Teleport Quirk</style> Get!" },
                 { Survivors.Shiggy.stonegolemlaserDef, "<style=cIsUtility>Laser Quirk</style> Get!" },
                 { Survivors.Shiggy.voidreaverportalDef, "<style=cIsUtility>Nullifier Artillery Quirk</style> Get!" },
-                { Survivors.Shiggy.beetlequeenshotgunDef, "<style=cIsUtility>Acid Shotgun Quirk</style> Get!" },
+                { Survivors.Shiggy.beetlequeenSummonDef, "<style=cIsUtility>Acid Shotgun Quirk</style> Get!" },
                 { Survivors.Shiggy.claydunestriderbuffDef, "<style=cIsUtility>Tar Boost Quirk</style> Get!" },
                 { Survivors.Shiggy.grandparentsunDef, "<style=cIsUtility>Solar Flare Quirk</style> Get!" },
                 { Survivors.Shiggy.soluscontrolunityknockupDef, "<style=cIsUtility>Anti Gravity Quirk</style> Get!" },
@@ -575,7 +575,7 @@ namespace ShiggyMod.Modules
                 { "ParentBody", Survivors.Shiggy.parentteleportDef },
                 { "GolemBody", Survivors.Shiggy.stonegolemlaserDef },
                 { "NullifierBody", Survivors.Shiggy.voidreaverportalDef },
-                { "BeetleQueen2Body", Survivors.Shiggy.beetlequeenshotgunDef },
+                { "BeetleQueen2Body", Survivors.Shiggy.beetlequeenSummonDef },
                 { "GravekeeperBody", Survivors.Shiggy.grovetenderhookDef },
                 { "ClayBossBody", Survivors.Shiggy.claydunestriderbuffDef },
                 { "GrandParentBody", Survivors.Shiggy.grandparentsunDef },

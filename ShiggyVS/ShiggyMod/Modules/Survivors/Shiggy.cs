@@ -65,7 +65,7 @@ namespace ShiggyMod.Modules.Survivors
 
 
         //boss monster actives
-        internal static SkillDef beetlequeenshotgunDef;
+        internal static SkillDef beetlequeenSummonDef;
         internal static SkillDef grandparentsunDef;
         internal static SkillDef grovetenderhookDef;
         internal static SkillDef claydunestriderbuffDef;
@@ -987,7 +987,7 @@ namespace ShiggyMod.Modules.Survivors
             });
             #endregion
 
-            #region Override Skills
+            #region Active Skills
             //active skills
             Shiggy.alloyvultureflyDef = Skills.CreateSkillDef(new SkillDefInfo
             {
@@ -1391,7 +1391,7 @@ namespace ShiggyMod.Modules.Survivors
             });
 
 
-            Shiggy.beetlequeenshotgunDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.beetlequeenSummonDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BEETLEQUEEN_NAME",
                 skillNameToken = prefix + "BEETLEQUEEN_NAME",
@@ -1905,7 +1905,7 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                mercdashDef,
+                beetlequeenSummonDef,
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {

@@ -58,7 +58,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool parentteleportDef;
 		public bool stonegolemlaserDef;
 		public bool voidreaverportalDef;
-		public bool beetlequeenshotgunDef;
+		public bool beetlequeenSummonDef;
 		public bool grandparentsunDef;
 		public bool grovetenderhookDef;
 		public bool claydunestriderbuffDef;
@@ -124,7 +124,7 @@ namespace ShiggyMod.Modules.Survivors
 			stonegolemlaserDef = false;
 			voidreaverportalDef = false;
 
-			beetlequeenshotgunDef = false;
+			beetlequeenSummonDef = false;
 			grovetenderhookDef = false;
 			claydunestriderbuffDef = false;
 			soluscontrolunityknockupDef = false;
@@ -219,7 +219,7 @@ namespace ShiggyMod.Modules.Survivors
 			stonegolemlaserDef = false;
 			voidreaverportalDef = false;
 
-			beetlequeenshotgunDef = false;            
+			beetlequeenSummonDef = false;            
 			grovetenderhookDef = false;
 			claydunestriderbuffDef = false;
 			soluscontrolunityknockupDef = false;
