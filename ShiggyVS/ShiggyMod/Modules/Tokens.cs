@@ -10,11 +10,12 @@ namespace ShiggyMod.Modules
             #region Shiggy
             string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
-            string desc = "Shiggy can transform into any character/monster<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Shiggy copies every stat besides regen, armor and movespeed. The transformation will have 10% of its Max HP + Shiggy's Max HP" + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Use Shiggy's equipment to transform back to Shiggy. It can also drop naturally" + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Shiggy's secondary and utility skills are items that when activated give buffs that are carried over when transformed as well" + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Aim to increase your HP as he has low base HP" + Environment.NewLine + Environment.NewLine;
+            string desc = $"Shiggy is a multi-option survivor that can steal quirks from monster and base survivors to create his own playstyle.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
+            desc = desc + $"< ! > Steal quirk with {Config.AFOHotkey}. Remove quirks with {Config.RemoveHotkey}. Give quirks with. All rebindable in the configs." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > Grabbing a quirk when owning a specific quirk already will create a combination, these combinations can further combine." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > The Plus Chaos Meter in the middle increases naturally and by killing enemies, it is used for All For One and certain skills." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > Some quirks are passive buffs, while others are active skills." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > Try out all the quirks and craft your ultimate build!" + Environment.NewLine + Environment.NewLine;
 
 
 
@@ -36,11 +37,10 @@ namespace ShiggyMod.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "All For One");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." + Environment.NewLine +
-                "<style=cSub>[Melee]</style> skills deal <style=cWorldEvent>[Decay]</style>. " + Environment.NewLine +
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Steal quirks by looking at a target and pressing {Config.AFOHotkey}. Remove them with {Config.RemoveHotkey}. " + Environment.NewLine +
+                Helpers.Passive("[Plus Chaos Meter] [Decay] [Air Walk]") + Environment.NewLine +
                 "<style=cSub>[RightHanded]</style> and <style=cSub>[LeftHanded]</style> skills can be used together. " +
-                "<style=cIsUtility>He can sprint in any direction and has a double jump.</style>");
+                "<style=cIsUtility>He has a double jump. He can sprint in any direction.</style>");
             #endregion
 
             #region Base Skills
@@ -214,9 +214,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "GRANDPARENT_NAME", "Solar Flare");
             LanguageAPI.Add(prefix + "GRANDPARENT_DESCRIPTION", $"Hold the button to summon a miniature sun. Sprinting or letting go of the button cancels the skill. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[RightHanded]</style>");
-            LanguageAPI.Add(prefix + "GROVETENDER_NAME", "Hook Shotgun");
-            LanguageAPI.Add(prefix + "GROVETENDER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Shoot 5 hooks sequentially, pulling enemies and dealing <style=cIsDamage>{100f * StaticValues.grovetenderDamageCoeffecient}% damage per hook</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Ranged] [LeftHanded]</style>");
+            LanguageAPI.Add(prefix + "GROVETENDER_NAME", "Chain");
+            LanguageAPI.Add(prefix + "GROVETENDER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> <style=cIsUtility>Chain</style> nearby enemies for <style=cIsUtility>{StaticValues.grovetenderDuration} seconds, immobilising them</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Greater Wisp] [LeftHanded]</style>");
             LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_NAME", "Tar boost");
             LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> For the next {StaticValues.claydunestriderbuffDuration} seconds, your attacks <style=cIsDamage>Tar</style>, gain <style=cIsHealing>{100f * StaticValues.claydunestriderHealCoefficient} Lifesteal</style> and <style=cIsUtility>{100f * StaticValues.claydunestriderAttackSpeed}% attackspeed</style>. " +
                 $"Additional uses adds to the current duration. " + Environment.NewLine + Environment.NewLine +
@@ -289,9 +289,20 @@ namespace ShiggyMod.Modules
 
 
             #region Keywords
-            LanguageAPI.Add(prefix + "KEYWORD_DECAY", $"<style=cKeywordName>Decay</style> Deal <style=cIsDamage>100% of your base damage</style> per second for 10 seconds. " +
+            LanguageAPI.Add(prefix + "KEYWORD_DECAY", $"<style=cKeywordName>Decay</style> Deal <style=cIsDamage>{100f *StaticValues.decayDamageCoeffecient} damage</style> per second for {StaticValues.decayDamageTimer} seconds. This spreads to nearby targets every {StaticValues.decayadditionalTimer} seconds." +
                 $"Each <style=cStack>stack reduces movespeed and attackspeed by 4%</style>. " +
-                $"<style=cDeath>Instakills</style> at 50 stacks.");
+                $"<style=cDeath>Instakills</style> at {StaticValues.decayInstaKillThreshold} stacks.");
+            LanguageAPI.Add(prefix + "KEYWORD_PASSIVE", $"<style=cKeywordName>Plus Chaos Meter</style>"
+                + "Shigaraki has a" + Helpers.Passive(" meter that regenerates over time and through killing enemies. Stealing quirks, giving quirks, and specific skills cost plus chaos") + "."
+                + Environment.NewLine
+                + Environment.NewLine
+            + $"<style=cKeywordName>Decay</style>"
+                + $"Melee skills apply Decay. Decay deals <style=cIsDamage>{100f *StaticValues.decayDamageCoeffecient} damage</style> per second for {StaticValues.decayDamageTimer} seconds. This spreads to nearby targets every {StaticValues.decayadditionalTimer} seconds."
+                + Environment.NewLine
+                + Environment.NewLine
+            + $"<style=cKeywordName>Air Walk</style>"
+                + "<style=cIsUtility>Holding jump in the air after 0.5 seconds let's him Float, flying up or slowing his descent while using a skill</style>."
+                + Helpers.Passive(" Drains plus ultra"));
             #endregion
             #endregion
 

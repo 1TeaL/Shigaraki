@@ -29,7 +29,15 @@ namespace ShiggyMod.SkillStates
 
             if (NetworkServer.active)
             {
-                base.characterBody.ApplyBuff(Modules.Buffs.multiplierBuff.buffIndex, 1);
+                if (!base.characterBody.HasBuff(Modules.Buffs.multiplierBuff.buffIndex))
+                {
+                    base.characterBody.ApplyBuff(Modules.Buffs.multiplierBuff.buffIndex, 1);
+
+                }
+                else if (base.characterBody.HasBuff(Modules.Buffs.multiplierBuff.buffIndex))
+                {
+                    base.characterBody.ApplyBuff(Modules.Buffs.multiplierBuff.buffIndex, 0);
+                }
                 //base.characterBody.ApplyBuff(Modules.Buffs.acridBuff);
                 //base.characterBody.ApplyBuff(Modules.Buffs.impbossBuff);
                 //base.characterBody.ApplyBuff(Modules.Buffs.commandoBuff);

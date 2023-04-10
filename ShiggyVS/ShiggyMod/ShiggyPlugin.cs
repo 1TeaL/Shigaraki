@@ -154,82 +154,79 @@ namespace ShiggyMod
         {
             if (sender)
             {
-
-                if (sender.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                //roboballmini attackspeed buff
+                if (sender.HasBuff(Buffs.roboballminiattackspeedBuff))
                 {
-                    //roboballmini attackspeed buff
-                    if (sender.HasBuff(Buffs.roboballminiattackspeedBuff))
-                    {
-                        args.baseAttackSpeedAdd += (Modules.StaticValues.roboballattackspeedMultiplier * sender.GetBuffCount(Buffs.roboballminiattackspeedBuff));
-
-                    }
-                    //claydunestrider buff
-                    if (sender.HasBuff(Buffs.claydunestriderBuff))
-                    {
-                        args.baseAttackSpeedAdd += (StaticValues.claydunestriderAttackSpeed-1);
-
-                    }
-                    //mult buff
-                    if (sender.HasBuff(Buffs.multBuff))
-                    {
-                        args.armorAdd += StaticValues.multArmor;
-                        args.attackSpeedMultAdd += (StaticValues.multAttackspeed - 1);
-                        args.moveSpeedReductionMultAdd += (1 - StaticValues.multMovespeed);
-
-                    }
-                    //stonetitanarmor buff
-                    if (sender.HasBuff(Buffs.stonetitanBuff))
-                    {
-                        args.armorAdd += StaticValues.stonetitanarmorGain;
-                    }
-                    //voidbarnaclemortarattackspeed buff
-                    if (sender.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
-                    {
-                        args.baseAttackSpeedAdd += StaticValues.voidmortarattackspeedGain * sender.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff);
-
-                    }
-                    //hermitcrabmortararmor buff
-                    if (sender.HasBuff(Buffs.hermitcrabmortararmorBuff))
-                    {
-                        args.armorAdd += StaticValues.mortararmorGain * sender.GetBuffCount(Buffs.hermitcrabmortararmorBuff);
-                    }
-                    //verminsprint buff
-                    if (sender.HasBuff(Buffs.verminsprintBuff))
-                    {
-                        args.moveSpeedMultAdd += (StaticValues.verminmovespeedMultiplier - 1);
-                        sender.sprintingSpeedMultiplier = Modules.StaticValues.verminsprintMultiplier;
-                    }
-                    //fly buff
-                    if (sender.HasBuff(Buffs.flyBuff))
-                    {
-                        args.moveSpeedMultAdd += (0.5f);
-                        sender.acceleration *= 2f;
-                        sender.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
-                        sender.characterMotor.useGravity = false;
-                    }
-                    else
-                    {
-                        sender.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
-                        sender.characterMotor.useGravity = true;
-
-                    }
-                    //beetlebuff
-                    if (sender.HasBuff(Buffs.beetleBuff))
-                    {
-                        args.baseDamageAdd += StaticValues.beetleFlatDamage;
-                    }
-                    //lesserwispbuff
-                    if (sender.HasBuff(Buffs.lesserwispBuff))
-                    {
-                        args.baseAttackSpeedAdd += StaticValues.lesserwispFlatAttackSpeed;
-                    }
-                    //lunar exploder
-                    if (sender.HasBuff(Buffs.lesserwispBuff))
-                    {
-                        args.baseShieldAdd += sender.maxHealth * StaticValues.lunarexploderShieldCoefficient;
-                    }
+                    args.baseAttackSpeedAdd += (Modules.StaticValues.roboballattackspeedMultiplier * sender.GetBuffCount(Buffs.roboballminiattackspeedBuff));
 
                 }
+                //claydunestrider buff
+                if (sender.HasBuff(Buffs.claydunestriderBuff))
+                {
+                    args.baseAttackSpeedAdd += (StaticValues.claydunestriderAttackSpeed-1);
+
+                }
+                //mult buff
+                if (sender.HasBuff(Buffs.multBuff))
+                {
+                    args.armorAdd += StaticValues.multArmor;
+                    args.attackSpeedMultAdd += (StaticValues.multAttackspeed - 1);
+                    args.moveSpeedReductionMultAdd += (1 - StaticValues.multMovespeed);
+
+                }
+                //stonetitanarmor buff
+                if (sender.HasBuff(Buffs.stonetitanBuff))
+                {
+                    args.armorAdd += StaticValues.stonetitanarmorGain;
+                }
+                //voidbarnaclemortarattackspeed buff
+                if (sender.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
+                {
+                    args.baseAttackSpeedAdd += StaticValues.voidmortarattackspeedGain * sender.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff);
+
+                }
+                //hermitcrabmortararmor buff
+                if (sender.HasBuff(Buffs.hermitcrabmortararmorBuff))
+                {
+                    args.armorAdd += StaticValues.mortararmorGain * sender.GetBuffCount(Buffs.hermitcrabmortararmorBuff);
+                }
+                //verminsprint buff
+                if (sender.HasBuff(Buffs.verminsprintBuff))
+                {
+                    args.moveSpeedMultAdd += (StaticValues.verminmovespeedMultiplier - 1);
+                    sender.sprintingSpeedMultiplier = Modules.StaticValues.verminsprintMultiplier;
+                }
+                //fly buff
+                if (sender.HasBuff(Buffs.flyBuff))
+                {
+                    args.moveSpeedMultAdd += (0.5f);
+                    sender.acceleration *= 2f;
+                    sender.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                    sender.characterMotor.useGravity = false;
+                }
+                else
+                {
+                    sender.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
+                    sender.characterMotor.useGravity = true;
+
+                }
+                //beetlebuff
+                if (sender.HasBuff(Buffs.beetleBuff))
+                {
+                    args.baseDamageAdd += StaticValues.beetleFlatDamage;
+                }
+                //lesserwispbuff
+                if (sender.HasBuff(Buffs.lesserwispBuff))
+                {
+                    args.baseAttackSpeedAdd += StaticValues.lesserwispFlatAttackSpeed;
+                }
+                //lunar exploder
+                if (sender.HasBuff(Buffs.lesserwispBuff))
+                {
+                    args.baseShieldAdd += sender.maxHealth * StaticValues.lunarexploderShieldCoefficient;
+                }
+
+                
 
             }
 
@@ -441,12 +438,40 @@ namespace ShiggyMod
             {
                 if (damageInfo != null && damageInfo.attacker && damageInfo.attacker.GetComponent<CharacterBody>())
                 {
-                    //multiplier remove
+                    //loader passive
+                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
+                    {
+                        if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.loaderBuff))
+                        {
+                            damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.AddBarrierAuthority(damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.loaderBarrierGainCoefficient);
+                        }
+
+                    }
+
+
+                    //multiplier spend energy
                     if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
                     {
                         if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                         {
-                            damageInfo.attacker.GetComponent<CharacterBody>().ApplyBuff(Buffs.multiplierBuff.buffIndex, 0);
+                            EnergySystem energySys = damageInfo.attacker.gameObject.GetComponent<EnergySystem>();
+                            if (energySys)
+                            {
+                                float plusChaosflatCost = StaticValues.multiplierEnergyCost - energySys.costflatplusChaos;
+                                if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+
+                                float plusChaosCost = energySys.costmultiplierplusChaos * plusChaosflatCost;
+                                if (plusChaosCost < 0f) plusChaosCost = 0f;
+                                if(energySys.currentplusChaos < plusChaosCost)
+                                {
+                                    damageInfo.attacker.GetComponent<CharacterBody>().ApplyBuff(Buffs.multiplierBuff.buffIndex, 0);
+                                    energySys.TriggerGlow(0.3f, 0.3f, Color.black);
+                                }
+                                else
+                                {
+                                    energySys.SpendplusChaos(plusChaosCost);
+                                }
+                            }
                         }
                     }
                     bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
@@ -624,83 +649,15 @@ namespace ShiggyMod
             if (self?.healthComponent)
             {
                 orig.Invoke(self);
-                if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+
+                if (self.HasBuff(Buffs.multiplierBuff))
                 {
-                    //    //roboballmini attackspeed buff
-                    //    if (self.HasBuff(Buffs.roboballminiattackspeedBuff))
-                    //    {
-                    //        self.attackSpeed += (Modules.StaticValues.roboballattackspeedMultiplier * self.GetBuffCount(Buffs.roboballminiattackspeedBuff));
+                    self.damage *= Modules.StaticValues.multiplierCoefficient;
+                }
 
-                    //    }
-                    //    //claydunestrider buff
-                    //    if (self.HasBuff(Buffs.claydunestriderBuff))
-                    //    {
-                    //        self.attackSpeed *= StaticValues.claydunestriderAttackSpeed;
-
-                    //    }
-                    //    //mult buff
-                    //    if (self.HasBuff(Buffs.multBuff))
-                    //    {
-                    //        self.armor += StaticValues.multArmor;
-                    //        self.attackSpeed *= StaticValues.multAttackspeed;
-                    //        self.moveSpeed *= StaticValues.multMovespeed;
-
-                    //    }
-                    //    //stonetitanarmor buff
-                    //    if (self.HasBuff(Buffs.stonetitanBuff))
-                    //    {
-                    //        self.armor += StaticValues.stonetitanarmorGain;
-
-                    //    }
-                    //    //voidbarnaclemortarattackspeed buff
-                    //    if (self.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
-                    //    {
-                    //        Shiggycon = base.GetComponent<ShiggyController>();
-                    //        self.attackSpeed += Modules.StaticValues.voidmortarattackspeedGain* self.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff);
-
-                    //    }
-                    //    //hermitcrabmortararmor buff
-                    //    if (self.HasBuff(Buffs.hermitcrabmortararmorBuff))
-                    //    {
-                    //        int mortararmorbuffcount = self.GetBuffCount(Buffs.hermitcrabmortararmorBuff);
-                    //        self.armor += mortararmorbuffcount * Modules.StaticValues.mortararmorGain;
-                    //    }
-                    //    //verminsprint buff
-                    //    if (self.HasBuff(Buffs.verminsprintBuff))
-                    //    {
-                    //        self.sprintingSpeedMultiplier = Modules.StaticValues.verminsprintMultiplier;
-                    //        self.moveSpeed *= Modules.StaticValues.verminmovespeedMultiplier;
-                    //    }
-                    //    //multiplier buff
-                    if (self.HasBuff(Buffs.multiplierBuff))
-                    {
-                        self.damage *= Modules.StaticValues.multiplierCoefficient;
-                    }
-                    //    //fly buff
-                    //    if (self.HasBuff(Buffs.flyBuff))
-                    //    {
-                    //        self.moveSpeed *= 1.5f;
-                    //        self.acceleration *= 2f;
-                    //        self.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
-                    //        self.characterMotor.useGravity = false;
-                    //    }
-                    //    else
-                    //    {
-                    //        self.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
-                    //        self.characterMotor.useGravity = true;
-
-                    //    }
-                    //    //beetlebuff
-                    //    if (self.HasBuff(Buffs.beetleBuff))
-                    //    {
-                    //        self.damage *= Modules.StaticValues.beetledamageMultiplier;
-                    //    }
-                    //    //lesserwispbuff
-                    //    if (self.HasBuff(Buffs.lesserwispBuff))
-                    //    {
-                    //        self.damage *= Modules.StaticValues.lesserwispdamageMultiplier;
-                    //    }
-
+                if (self.HasBuff(Buffs.grovetenderChainDebuff))
+                {
+                    self.moveSpeed *= 0f;
                 }
 
                 if (self.HasBuff(Buffs.decayDebuff))

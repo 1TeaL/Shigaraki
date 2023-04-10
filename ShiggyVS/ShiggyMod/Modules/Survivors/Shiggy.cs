@@ -55,7 +55,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef elderlemurianfireblastDef;
         internal static SkillDef greaterwispballDef;
         internal static SkillDef impblinkDef;
-        internal static SkillDef JellyfishHealDef;
+        internal static SkillDef jellyfishHealDef;
         internal static SkillDef lemurianfireballDef;
         internal static SkillDef lunargolemslideDef;
         internal static SkillDef lunarwispminigunDef;
@@ -67,7 +67,7 @@ namespace ShiggyMod.Modules.Survivors
         //boss monster actives
         internal static SkillDef beetlequeenSummonDef;
         internal static SkillDef grandparentsunDef;
-        internal static SkillDef grovetenderhookDef;
+        internal static SkillDef grovetenderChainDef;
         internal static SkillDef claydunestriderbuffDef;
         internal static SkillDef soluscontrolunityknockupDef;
         internal static SkillDef xiconstructbeamDef;
@@ -209,7 +209,7 @@ namespace ShiggyMod.Modules.Survivors
             skillloc.passiveSkill.skillNameToken = prefix + "PASSIVE_NAME";
             skillloc.passiveSkill.skillDescriptionToken = prefix + "PASSIVE_DESCRIPTION";
             skillloc.passiveSkill.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("allforone");
-            skillloc.passiveSkill.keywordToken = prefix + "KEYWORD_DECAY";
+            skillloc.passiveSkill.keywordToken = prefix + "KEYWORD_PASSIVE";
             #endregion
 
             #region Primary
@@ -1214,7 +1214,7 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
-            Shiggy.JellyfishHealDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.jellyfishHealDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "JELLYFISH_NAME",
                 skillNameToken = prefix + "JELLYFISH_NAME",
@@ -1441,13 +1441,13 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "" }
 
             });
-            Shiggy.grovetenderhookDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.grovetenderChainDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "GROVETENDER_NAME",
                 skillNameToken = prefix + "GROVETENDER_NAME",
                 skillDescriptionToken = prefix + "GROVETENDER_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Grovetender"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.GrovetenderHook)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.GrovetenderChain)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 4f,

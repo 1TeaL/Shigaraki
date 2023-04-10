@@ -51,7 +51,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool claytemplarminigunDef;
 		public bool greaterwispballDef;
 		public bool impblinkDef;
-		public bool JellyfishHealDef;
+		public bool jellyfishHealDef;
 		public bool lemurianfireballDef;
 		public bool lunargolemshotsDef;
 		public bool lunarwispminigunDef;
@@ -60,7 +60,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool voidreaverportalDef;
 		public bool beetlequeenSummonDef;
 		public bool grandparentsunDef;
-		public bool grovetenderhookDef;
+		public bool grovetenderChainDef;
 		public bool claydunestriderbuffDef;
 		public bool soluscontrolunityknockupDef;
 		public bool xiconstructbeamDef;
@@ -116,7 +116,7 @@ namespace ShiggyMod.Modules.Survivors
 			claytemplarminigunDef = false;
 			greaterwispballDef = false;
 			impblinkDef = false;
-			JellyfishHealDef = false;
+			jellyfishHealDef = false;
 			lemurianfireballDef = false;
 			lunargolemshotsDef = false;
 			lunarwispminigunDef = false;
@@ -125,7 +125,7 @@ namespace ShiggyMod.Modules.Survivors
 			voidreaverportalDef = false;
 
 			beetlequeenSummonDef = false;
-			grovetenderhookDef = false;
+			grovetenderChainDef = false;
 			claydunestriderbuffDef = false;
 			soluscontrolunityknockupDef = false;
 			xiconstructbeamDef = false;
@@ -211,7 +211,7 @@ namespace ShiggyMod.Modules.Survivors
 			claytemplarminigunDef = false;
 			greaterwispballDef = false;
 			impblinkDef = false;
-			JellyfishHealDef = false;
+			jellyfishHealDef = false;
 			lemurianfireballDef = false;
 			lunargolemshotsDef = false;
 			lunarwispminigunDef = false;
@@ -220,7 +220,7 @@ namespace ShiggyMod.Modules.Survivors
 			voidreaverportalDef = false;
 
 			beetlequeenSummonDef = false;            
-			grovetenderhookDef = false;
+			grovetenderChainDef = false;
 			claydunestriderbuffDef = false;
 			soluscontrolunityknockupDef = false;
 			xiconstructbeamDef = false;
@@ -766,7 +766,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 
-            if (SearchQuirksForBuffs(Shiggy.JellyfishHealDef, characterBody))
+            if (SearchQuirksForBuffs(Shiggy.jellyfishHealDef, characterBody))
             {
                 if (NetworkServer.active)
                 {

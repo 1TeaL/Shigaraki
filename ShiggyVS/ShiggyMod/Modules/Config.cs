@@ -2,6 +2,7 @@
 using RiskOfOptions.OptionConfigs;
 using RiskOfOptions.Options;
 using RiskOfOptions;
+using UnityEngine;
 
 namespace ShiggyMod.Modules
 {
@@ -43,6 +44,8 @@ namespace ShiggyMod.Modules
                 retainLoadout));
             ModSettingsManager.AddOption(new StepSliderOption(
                 holdButtonAFO, new StepSliderConfig() { min = 0, max = 10, increment = 1f }));
+            ModSettingsManager.SetModDescription("Shigaraki Mod");
+            ModSettingsManager.SetModIcon(Assets.mainAssetBundle.LoadAsset<Sprite>("Shiggy"));
 
         }
     }

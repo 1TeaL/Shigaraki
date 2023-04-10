@@ -18,6 +18,10 @@ namespace ShiggyMod.Modules.Survivors
         public RectTransform plusChaosMeterGlowRect;
         public Image plusChaosMeterGlowBackground;
         public HGTextMeshProUGUI plusChaosNumber;
+        public HGTextMeshProUGUI quirkGetUI;
+        public string quirkGetString;
+        public float quirkGetStopwatch;
+
 
         //Energy system
         public float maxPlusChaos;
@@ -68,6 +72,8 @@ namespace ShiggyMod.Modules.Survivors
 
             //setup the UI element for the min/max
             plusChaosNumber = this.CreateLabel(CustomUIObject.transform, "plusChaosNumber", $"{(int)currentplusChaos} / {maxPlusChaos}", new Vector2(0, -110), 24f);
+            quirkGetString = "";
+            quirkGetUI = this.CreateLabel(CustomUIObject.transform, "quirkGetString", quirkGetString, new Vector2(0, -220), 24f);
 
 
             // Start timer on 1f to turn off the timer.
@@ -81,14 +87,52 @@ namespace ShiggyMod.Modules.Survivors
 
         }
 
+        public void quirkGetInformation(string stringToPass, float duration)
+        {
+            quirkGetStopwatch = duration;
+            quirkGetString = stringToPass;
+        }
+
         //Creates the label.
         private HGTextMeshProUGUI CreateLabel(Transform parent, string name, string text, Vector2 position, float textScale)
         {
-            GameObject gameObject = new GameObject(name);
-            gameObject.transform.parent = parent;
-            gameObject.AddComponent<CanvasRenderer>();
-            RectTransform rectTransform = gameObject.AddComponent<RectTransform>();
-            HGTextMeshProUGUI hgtextMeshProUGUI = gameObject.AddComponent<HGTextMeshProUGUI>();
+            //GameObject gameObject = new GameObject(name);
+            //gameObject.transform.parent = parent;
+            //gameObject.AddComponent<CanvasRenderer>();
+            //RectTransform rectTransform = gameObject.AddComponent<RectTransform>();
+            //HGTextMeshProUGUI hgtextMeshProUGUI = gameObject.AddComponent<HGTextMeshProUGUI>();
+            //hgtextMeshProUGUI.enabled = true;
+            //hgtextMeshProUGUI.text = text;
+            //hgtextMeshProUGUI.fontSize = textScale;
+            //hgtextMeshProUGUI.color = Color.white;
+            //hgtextMeshProUGUI.alignment = TextAlignmentOptions.Center;
+            //hgtextMeshProUGUI.enableWordWrapping = false;
+            //rectTransform.localPosition = Vector2.zero;
+            //rectTransform.anchorMin = Vector2.zero;
+            //rectTransform.anchorMax = Vector2.one;
+            //rectTransform.localScale = Vector3.one;
+            //rectTransform.sizeDelta = Vector2.zero;
+            //rectTransform.anchoredPosition = position;
+            //return hgtextMeshProUGUI;
+
+            GameObject textObj;
+            if (!parent)
+            {
+                CustomUIObject = new GameObject(name);
+                textObj = CustomUIObject;
+                Canvas canvas = textObj.AddComponent<Canvas>();
+                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            }
+            else
+            {
+                textObj = new GameObject(name);
+                textObj.transform.parent = parent;
+
+            }
+
+            textObj.AddComponent<CanvasRenderer>();
+            RectTransform rectTransform = textObj.AddComponent<RectTransform>();
+            HGTextMeshProUGUI hgtextMeshProUGUI = textObj.AddComponent<HGTextMeshProUGUI>();
             hgtextMeshProUGUI.enabled = true;
             hgtextMeshProUGUI.text = text;
             hgtextMeshProUGUI.fontSize = textScale;
@@ -168,6 +212,16 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Update()
         {
+            if (quirkGetUI)
+            {
+                quirkGetStopwatch -= Time.deltaTime;
+                if(quirkGetStopwatch < 0f)
+                {
+                    quirkGetStopwatch = 0f;
+                    quirkGetString = "";
+                }
+            }
+
             if (state != GlowState.STOP)
             {
                 glowStopwatch += Time.deltaTime;
@@ -218,6 +272,7 @@ namespace ShiggyMod.Modules.Survivors
             //if (plusChaosCost < 0f) plusChaosCost = 0f;
 
             currentplusChaos -= plusChaos;
+            TriggerGlow(0.3f, 0.3f, Color.magenta);
 
         }
 

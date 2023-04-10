@@ -236,10 +236,6 @@ namespace ShiggyMod.SkillStates
 		}
 		protected virtual void OnHitEnemyAuthority()
 		{
-			if (characterBody.HasBuff(Modules.Buffs.loaderBuff))
-			{
-				base.healthComponent.AddBarrierAuthority(healthComponent.fullCombinedHealth / 20);
-			}
 
 		}
 		public override InterruptPriority GetMinimumInterruptPriority()

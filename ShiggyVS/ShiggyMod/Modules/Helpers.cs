@@ -19,7 +19,7 @@ namespace ShiggyMod.Modules
 
         internal static string Passive(string desc)
         {
-            return "<color=#00ff00>" + desc + "</color>";
+            return "<color=#ED1ECA>" + desc + "</color>";
         }
 
         public static T[] Append<T>(ref T[] array, List<T> list)

@@ -102,7 +102,9 @@ namespace ShiggyMod.Modules
         internal const float verminjumpPower = 10f;
 
         internal const float multiplierCoefficient = 3f;
-        
+        internal const float multiplierEnergyCost = 10f;
+
+
         internal const float alloyvultureflyduration = 10f;
 
         internal const float beetleFlatDamage = 5f;
@@ -169,8 +171,8 @@ namespace ShiggyMod.Modules
         internal const float beetlequeenDamageCoeffecient = 4f;
         internal const float beetlequeenProcCoefficient = 0.5f;
 
-        internal const float grovetenderDamageCoeffecient = 3f;
-        internal const float grovetenderProcCoefficient = 0.5f;
+        internal const int grovetenderDuration = 6;
+        internal const float grovetenderRadius = 15f;
 
         internal const float claydunestriderDamageCoeffecient = 8f;
         internal const float claydunestriderProcCoefficient = 1f;
@@ -213,6 +215,8 @@ namespace ShiggyMod.Modules
 
         internal const float railgunnerDamageCoefficient = 15f;
         internal const float railgunnerProcCoefficient = 2f;
+
+        internal const float loaderBarrierGainCoefficient = 0.01f;
         public enum IndicatorType : uint
         {
             PASSIVE = 1,
@@ -264,7 +268,7 @@ namespace ShiggyMod.Modules
             //    { Survivors.Shiggy.elderlemurianfireblastDef, Survivors.Shiggy.elderlemurianfireblastUpgradedDef },
             //    { Survivors.Shiggy.greaterwispballDef, Survivors.Shiggy.greaterwispballUpgradedDef },
             //    { Survivors.Shiggy.impblinkDef, Survivors.Shiggy.impblinkUpgradedDef },
-            //    { Survivors.Shiggy.JellyfishHealDef, Survivors.Shiggy.JellyfishHealUpgradedDef },
+            //    { Survivors.Shiggy.jellyfishHealDef, Survivors.Shiggy.JellyfishHealUpgradedDef },
             //    { Survivors.Shiggy.lemurianfireballDef, Survivors.Shiggy.lemurianfireballUpgradedDef },
             //    { Survivors.Shiggy.lunargolemslideDef, Survivors.Shiggy.lunargolemslideUpgradedDef },
             //    { Survivors.Shiggy.lunarwispminigunDef, Survivors.Shiggy.lunarwispminigunUpgradedDef },
@@ -324,7 +328,7 @@ namespace ShiggyMod.Modules
             //    { Survivors.Shiggy.elderlemurianfireblastDef, Survivors.Shiggy.elderlemurianfireblastUpgradedDef },
             //    { Survivors.Shiggy.greaterwispballDef, Survivors.Shiggy.greaterwispballUpgradedDef },
             //    { Survivors.Shiggy.impblinkDef, Survivors.Shiggy.impblinkUpgradedDef },
-            //    { Survivors.Shiggy.JellyfishHealDef, Survivors.Shiggy.JellyfishHealUpgradedDef },
+            //    { Survivors.Shiggy.jellyfishHealDef, Survivors.Shiggy.JellyfishHealUpgradedDef },
             //    { Survivors.Shiggy.lemurianfireballDef, Survivors.Shiggy.lemurianfireballUpgradedDef },
             //    { Survivors.Shiggy.lunargolemslideDef, Survivors.Shiggy.lunargolemslideUpgradedDef },
             //    { Survivors.Shiggy.lunarwispminigunDef, Survivors.Shiggy.lunarwispminigunUpgradedDef },
@@ -416,7 +420,7 @@ namespace ShiggyMod.Modules
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.elderlemurianfireblastDef, "<style=cIsUtility>Fire Blast Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.greaterwispballDef, "<style=cIsUtility>Spirit Boost Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.impblinkDef, "<style=cIsUtility>Blink Quirk</style> Get!");
-            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.JellyfishHealDef, "<style=cIsUtility>Nova Explosion Quirk</style> Get!");
+            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.jellyfishHealDef, "<style=cIsUtility>Nova Explosion Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lemurianfireballDef, "<style=cIsUtility>Fireball Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lunargolemslideDef, "<style=cIsUtility>Slide Reset Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lunarwispminigunDef, "<style=cIsUtility>Lunar Minigun Quirk</style> Get!");
@@ -502,7 +506,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.elderlemurianfireblastDef, "<style=cIsUtility>Fire Blast Quirk</style> Get!" },
                 { Survivors.Shiggy.greaterwispballDef, "<style=cIsUtility>Spirit Boost Quirk</style> Get!" },
                 { Survivors.Shiggy.impblinkDef, "<style=cIsUtility>Blink Quirk</style> Get!" },
-                { Survivors.Shiggy.JellyfishHealDef, "<style=cIsUtility>Nova Explosion Quirk</style> Get!" },
+                { Survivors.Shiggy.jellyfishHealDef, "<style=cIsUtility>Nova Explosion Quirk</style> Get!" },
                 { Survivors.Shiggy.lemurianfireballDef, "<style=cIsUtility>Fireball Quirk</style> Get!" },
                 { Survivors.Shiggy.lunargolemslideDef, "<style=cIsUtility>Slide Reset Quirk</style> Get!" },
                 { Survivors.Shiggy.lunarwispminigunDef, "<style=cIsUtility>Lunar Minigun Quirk</style> Get!" },
@@ -568,7 +572,7 @@ namespace ShiggyMod.Modules
                 { "LemurianBruiserBody", Survivors.Shiggy.elderlemurianfireblastDef },
                 { "GreaterWispBody", Survivors.Shiggy.greaterwispballDef },
                 { "ImpBody", Survivors.Shiggy.impblinkDef },
-                { "JellyfishBody", Survivors.Shiggy.JellyfishHealDef },
+                { "JellyfishBody", Survivors.Shiggy.jellyfishHealDef },
                 { "LemurianBody", Survivors.Shiggy.lemurianfireballDef },
                 { "LunarGolemBody", Survivors.Shiggy.lunargolemslideDef },
                 { "LunarWispBody", Survivors.Shiggy.lunarwispminigunDef },
@@ -576,7 +580,7 @@ namespace ShiggyMod.Modules
                 { "GolemBody", Survivors.Shiggy.stonegolemlaserDef },
                 { "NullifierBody", Survivors.Shiggy.voidreaverportalDef },
                 { "BeetleQueen2Body", Survivors.Shiggy.beetlequeenSummonDef },
-                { "GravekeeperBody", Survivors.Shiggy.grovetenderhookDef },
+                { "GravekeeperBody", Survivors.Shiggy.grovetenderChainDef },
                 { "ClayBossBody", Survivors.Shiggy.claydunestriderbuffDef },
                 { "GrandParentBody", Survivors.Shiggy.grandparentsunDef },
                 { "RoboBallBossBody", Survivors.Shiggy.soluscontrolunityknockupDef },

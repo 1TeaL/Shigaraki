@@ -68,10 +68,7 @@ namespace ShiggyMod.SkillStates
         protected virtual void OnHitEnemyAuthority()
         {
             base.healthComponent.AddBarrierAuthority((healthComponent.fullCombinedHealth / 20) * (this.moveSpeedStat / 7) * dropTimer);
-            if (characterBody.HasBuff(Modules.Buffs.loaderBuff))
-            {
-                base.healthComponent.AddBarrierAuthority(healthComponent.fullCombinedHealth / 20);
-            }
+            
 
         }
 

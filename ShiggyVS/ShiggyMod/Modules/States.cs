@@ -45,7 +45,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(BeetleQueenSummon));
             entityStates.Add(typeof(ClayDunestriderBuff));
             entityStates.Add(typeof(GrandparentSun));
-            entityStates.Add(typeof(GrovetenderHook));
+            entityStates.Add(typeof(GrovetenderChain));
             entityStates.Add(typeof(SolusControlUnitKnockup));
             entityStates.Add(typeof(XiConstructBeam));
             entityStates.Add(typeof(VoidDevastatorHoming));

@@ -55,6 +55,9 @@ namespace ShiggyMod.Modules
         //elite 60 second debuff timer
         internal static BuffDef eliteDebuff;
 
+        //debuffs
+        internal static BuffDef grovetenderChainDebuff;
+
         internal static void RegisterBuffs()
         {
 
@@ -95,6 +98,9 @@ namespace ShiggyMod.Modules
             multBuff = Buffs.AddNewBuff("multBuff", Assets.predatorBuffIcon, Color.yellow, false, false);
 
             eliteDebuff = Buffs.AddNewBuff("eliteDebuff", Assets.critBuffIcon, Color.black, false, true);
+
+            //debuff
+            grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;
