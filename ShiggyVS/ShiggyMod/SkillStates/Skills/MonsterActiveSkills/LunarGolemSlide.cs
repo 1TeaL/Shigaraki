@@ -6,6 +6,7 @@ using EntityStates.LunarGolem;
 using UnityEngine.Networking;
 using RoR2.Projectile;
 using EntityStates.Commando;
+using ExtraSkillSlots;
 
 namespace ShiggyMod.SkillStates
 {
@@ -26,6 +27,7 @@ namespace ShiggyMod.SkillStates
         private float basejumpDuration = 0.2f;
         private float slideDuration;
         private float jumpDuration;
+        private ExtraSkillLocator extraskillLocator;
 
         public override void OnEnter()
         {
@@ -57,34 +59,44 @@ namespace ShiggyMod.SkillStates
                 Transform parent = base.FindModelChild("Spine");
                 this.slideEffectInstance = UnityEngine.Object.Instantiate<GameObject>(SlideState.slideEffectPrefab, parent);
             }
-            if(base.skillLocator.primary.skillNameToken == prefix + "LUNARGOLEM_NAME")
-            {
-                base.skillLocator.secondary.AddOneStock();
-                base.skillLocator.utility.AddOneStock();
-                base.skillLocator.special.AddOneStock();
 
-            }
-            if (base.skillLocator.secondary.skillNameToken == prefix + "LUNARGOLEM_NAME")
+            //lower cd of all skills
+            if(base.skillLocator.primary.skillDef != Shiggy.lunargolemSlideDef)
             {
-                base.skillLocator.primary.AddOneStock();
-                base.skillLocator.utility.AddOneStock();
-                base.skillLocator.special.AddOneStock();
-
+                skillLocator.primary.AddOneStock();
             }
-            if (base.skillLocator.utility.skillNameToken == prefix + "LUNARGOLEM_NAME")
+            if (base.skillLocator.secondary.skillDef != Shiggy.lunargolemSlideDef)
             {
-                base.skillLocator.primary.AddOneStock();
-                base.skillLocator.secondary.AddOneStock();
-                base.skillLocator.special.AddOneStock();
-
+                skillLocator.secondary.AddOneStock();
             }
-            if (base.skillLocator.special.skillNameToken == prefix + "LUNARGOLEM_NAME")
+            if (base.skillLocator.utility.skillDef != Shiggy.lunargolemSlideDef)
             {
-                base.skillLocator.primary.AddOneStock();
-                base.skillLocator.secondary.AddOneStock();
-                base.skillLocator.utility.AddOneStock();
-
+                skillLocator.utility.AddOneStock();
             }
+            if (base.skillLocator.special.skillDef != Shiggy.lunargolemSlideDef)
+            {
+                skillLocator.special.AddOneStock();
+            }
+
+            extraskillLocator = base.GetComponent<ExtraSkillLocator>();
+
+            if(extraskillLocator.extraFirst.skillDef != Shiggy.lunargolemSlideDef)
+            {
+                extraskillLocator.extraFirst.AddOneStock();
+            }
+            if (extraskillLocator.extraSecond.skillDef != Shiggy.lunargolemSlideDef)
+            {
+                extraskillLocator.extraSecond.AddOneStock();
+            }
+            if (extraskillLocator.extraThird.skillDef != Shiggy.lunargolemSlideDef)
+            {
+                extraskillLocator.extraThird.AddOneStock();
+            }
+            if (extraskillLocator.extraFourth.skillDef != Shiggy.lunargolemSlideDef)
+            {
+                extraskillLocator.extraFourth.AddOneStock();
+            }
+
 
         }
 

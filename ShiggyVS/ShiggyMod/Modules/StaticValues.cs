@@ -272,7 +272,7 @@ namespace ShiggyMod.Modules
             //    { Survivors.Shiggy.impblinkDef, Survivors.Shiggy.impblinkUpgradedDef },
             //    { Survivors.Shiggy.jellyfishHealDef, Survivors.Shiggy.JellyfishHealUpgradedDef },
             //    { Survivors.Shiggy.lemurianfireballDef, Survivors.Shiggy.lemurianfireballUpgradedDef },
-            //    { Survivors.Shiggy.lunargolemslideDef, Survivors.Shiggy.lunargolemslideUpgradedDef },
+            //    { Survivors.Shiggy.lunargolemSlideDef, Survivors.Shiggy.lunargolemslideUpgradedDef },
             //    { Survivors.Shiggy.lunarwispminigunDef, Survivors.Shiggy.lunarwispminigunUpgradedDef },
             //    { Survivors.Shiggy.parentteleportDef, Survivors.Shiggy.parentteleportUpgradedDef },
             //    { Survivors.Shiggy.stonegolemlaserDef, Survivors.Shiggy.stonegolemlaserUpgradedDef },
@@ -332,7 +332,7 @@ namespace ShiggyMod.Modules
             //    { Survivors.Shiggy.impblinkDef, Survivors.Shiggy.impblinkUpgradedDef },
             //    { Survivors.Shiggy.jellyfishHealDef, Survivors.Shiggy.JellyfishHealUpgradedDef },
             //    { Survivors.Shiggy.lemurianfireballDef, Survivors.Shiggy.lemurianfireballUpgradedDef },
-            //    { Survivors.Shiggy.lunargolemslideDef, Survivors.Shiggy.lunargolemslideUpgradedDef },
+            //    { Survivors.Shiggy.lunargolemSlideDef, Survivors.Shiggy.lunargolemslideUpgradedDef },
             //    { Survivors.Shiggy.lunarwispminigunDef, Survivors.Shiggy.lunarwispminigunUpgradedDef },
             //    { Survivors.Shiggy.parentteleportDef, Survivors.Shiggy.parentteleportUpgradedDef },
             //    { Survivors.Shiggy.stonegolemlaserDef, Survivors.Shiggy.stonegolemlaserUpgradedDef },
@@ -395,7 +395,7 @@ namespace ShiggyMod.Modules
             //    Survivors.Shiggy.voiddevastatorhomingUpgradedDef,
             //};
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.hermitcrabpassiveDef, hermit);
-            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.larvapassiveDef, Survivors.Shiggy.lunargolemslideDef);
+            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.larvapassiveDef, Survivors.Shiggy.lunargolemSlideDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lesserwisppassiveDef, Survivors.Shiggy.beetlequeenSummonDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lunarexploderpassiveDef, Survivors.Shiggy.minimushrumpassiveDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.minimushrumpassiveDef, Survivors.Shiggy.claydunestriderbuffDef);
@@ -424,7 +424,7 @@ namespace ShiggyMod.Modules
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.impblinkDef, "<style=cIsUtility>Blink Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.jellyfishHealDef, "<style=cIsUtility>Nova Explosion Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lemurianfireballDef, "<style=cIsUtility>Fireball Quirk</style> Get!");
-            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lunargolemslideDef, "<style=cIsUtility>Slide Reset Quirk</style> Get!");
+            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lunargolemSlideDef, "<style=cIsUtility>Slide Reset Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lunarwispminigunDef, "<style=cIsUtility>Lunar Minigun Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.parentteleportDef, "<style=cIsUtility>Teleport Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.stonegolemlaserDef, "<style=cIsUtility>Laser Quirk</style> Get!");
@@ -510,7 +510,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.impblinkDef, "<style=cIsUtility>Blink Quirk</style> Get!" },
                 { Survivors.Shiggy.jellyfishHealDef, "<style=cIsUtility>Nova Explosion Quirk</style> Get!" },
                 { Survivors.Shiggy.lemurianfireballDef, "<style=cIsUtility>Fireball Quirk</style> Get!" },
-                { Survivors.Shiggy.lunargolemslideDef, "<style=cIsUtility>Slide Reset Quirk</style> Get!" },
+                { Survivors.Shiggy.lunargolemSlideDef, "<style=cIsUtility>Slide Reset Quirk</style> Get!" },
                 { Survivors.Shiggy.lunarwispminigunDef, "<style=cIsUtility>Lunar Minigun Quirk</style> Get!" },
                 { Survivors.Shiggy.parentteleportDef, "<style=cIsUtility>Teleport Quirk</style> Get!" },
                 { Survivors.Shiggy.stonegolemlaserDef, "<style=cIsUtility>Laser Quirk</style> Get!" },
@@ -576,7 +576,7 @@ namespace ShiggyMod.Modules
                 { "ImpBody", Survivors.Shiggy.impblinkDef },
                 { "JellyfishBody", Survivors.Shiggy.jellyfishHealDef },
                 { "LemurianBody", Survivors.Shiggy.lemurianfireballDef },
-                { "LunarGolemBody", Survivors.Shiggy.lunargolemslideDef },
+                { "LunarGolemBody", Survivors.Shiggy.lunargolemSlideDef },
                 { "LunarWispBody", Survivors.Shiggy.lunarwispminigunDef },
                 { "ParentBody", Survivors.Shiggy.parentteleportDef },
                 { "GolemBody", Survivors.Shiggy.stonegolemlaserDef },

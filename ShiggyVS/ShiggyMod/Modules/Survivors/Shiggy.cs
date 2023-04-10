@@ -57,7 +57,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef impblinkDef;
         internal static SkillDef jellyfishHealDef;
         internal static SkillDef lemurianfireballDef;
-        internal static SkillDef lunargolemslideDef;
+        internal static SkillDef lunargolemSlideDef;
         internal static SkillDef lunarwispminigunDef;
         internal static SkillDef parentteleportDef;
         internal static SkillDef stonegolemlaserDef;
@@ -1264,7 +1264,7 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_BURNING" }
 
             });
-            Shiggy.lunargolemslideDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.lunargolemSlideDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "LUNARGOLEM_NAME",
                 skillNameToken = prefix + "LUNARGOLEM_NAME",
