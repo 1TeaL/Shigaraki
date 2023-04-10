@@ -43,7 +43,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool magmawormpassiveDef;
 		public bool overloadingwormpassiveDef;
 
-		public bool alloyvultureflyDef;
+		public bool alloyvultureWindBlastDef;
 		public bool beetleguardslamDef;
 		public bool bisonchargeDef;
 		public bool bronzongballDef;
@@ -108,7 +108,7 @@ namespace ShiggyMod.Modules.Survivors
 			overloadingwormpassiveDef = false;
 
 
-			alloyvultureflyDef = false;
+			alloyvultureWindBlastDef = false;
 			beetleguardslamDef = false;
 			bisonchargeDef = false;
 			bronzongballDef = false;
@@ -203,7 +203,7 @@ namespace ShiggyMod.Modules.Survivors
 			overloadingwormpassiveDef = false;
 
 
-			alloyvultureflyDef = false;
+			alloyvultureWindBlastDef = false;
 			beetleguardslamDef = false;
 			bisonchargeDef = false;
 			bronzongballDef = false;

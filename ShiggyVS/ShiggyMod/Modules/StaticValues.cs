@@ -22,6 +22,9 @@ namespace ShiggyMod.Modules
         internal static float lysateGain = 15f;
 
 
+        internal const float vulturePushRange = 70f;
+        internal const float vulturePushAngle = 180f;
+        internal const float vultureDamageCoefficient = 2f;
 
         internal const float multAttackspeed = 2f;
         internal const float multMovespeed = 0.4f;
@@ -105,7 +108,6 @@ namespace ShiggyMod.Modules
         internal const float multiplierEnergyCost = 10f;
 
 
-        internal const float alloyvultureflyduration = 10f;
 
         internal const float beetleFlatDamage = 5f;
 
@@ -259,7 +261,7 @@ namespace ShiggyMod.Modules
             //    { Survivors.Shiggy.acridpassiveDef, Survivors.Shiggy.acridpassiveUpgradedDef },
             //    { Survivors.Shiggy.loaderpassiveDef, Survivors.Shiggy.loaderpassiveUpgradedDef },
 
-            //    { Survivors.Shiggy.alloyvultureflyDef, Survivors.Shiggy.alloyvultureflyUpgradedDef },
+            //    { Survivors.Shiggy.alloyvultureWindBlastDef, Survivors.Shiggy.alloyvultureflyUpgradedDef },
             //    { Survivors.Shiggy.beetleguardslamDef, Survivors.Shiggy.beetleguardslamUpgradedDef },
             //    { Survivors.Shiggy.bisonchargeDef, Survivors.Shiggy.bisonchargeUpgradedDef },
             //    { Survivors.Shiggy.bronzongballDef, Survivors.Shiggy.bronzongballUpgradedDef },
@@ -319,7 +321,7 @@ namespace ShiggyMod.Modules
             //    { Survivors.Shiggy.acridpassiveDef, Survivors.Shiggy.acridpassiveUpgradedDef },
             //    { Survivors.Shiggy.loaderpassiveDef, Survivors.Shiggy.loaderpassiveUpgradedDef },
 
-            //    { Survivors.Shiggy.alloyvultureflyDef, Survivors.Shiggy.alloyvultureflyUpgradedDef },
+            //    { Survivors.Shiggy.alloyvultureWindBlastDef, Survivors.Shiggy.alloyvultureflyUpgradedDef },
             //    { Survivors.Shiggy.beetleguardslamDef, Survivors.Shiggy.beetleguardslamUpgradedDef },
             //    { Survivors.Shiggy.bisonchargeDef, Survivors.Shiggy.bisonchargeUpgradedDef },
             //    { Survivors.Shiggy.bronzongballDef, Survivors.Shiggy.bronzongballUpgradedDef },
@@ -397,7 +399,7 @@ namespace ShiggyMod.Modules
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lesserwisppassiveDef, Survivors.Shiggy.beetlequeenSummonDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.lunarexploderpassiveDef, Survivors.Shiggy.minimushrumpassiveDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.minimushrumpassiveDef, Survivors.Shiggy.claydunestriderbuffDef);
-            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.roboballminibpassiveDef, Survivors.Shiggy.alloyvultureflyDef);
+            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.roboballminibpassiveDef, Survivors.Shiggy.alloyvultureWindBlastDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.voidbarnaclepassiveDef, Survivors.Shiggy.voidjailerpassiveDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.voidjailerpassiveDef, Survivors.Shiggy.voidreaverportalDef);
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.impbosspassiveDef, Survivors.Shiggy.impbosspassiveDef);
@@ -411,7 +413,7 @@ namespace ShiggyMod.Modules
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.acridpassiveDef, "<style=cIsUtility>Poison Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.loaderpassiveDef, "<style=cIsUtility>Scrap Barrier Quirk</style> Get!");
 
-            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.alloyvultureflyDef, "<style=cIsUtility>Flight Quirk</style> Get!");
+            //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.alloyvultureWindBlastDef, "<style=cIsUtility>Flight Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.beetleguardslamDef, "<style=cIsUtility>Beetle Armor Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.bisonchargeDef, "<style=cIsUtility>Charging Quirk</style> Get!");
             //baseQuirkSkillUpgradeCheck.Add(Survivors.Shiggy.bronzongballDef, "<style=cIsUtility>Spiked Ball Control Quirk</style> Get!");
@@ -497,7 +499,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.acridpassiveDef, "<style=cIsUtility>Poison Quirk</style> Get!" },
                 { Survivors.Shiggy.loaderpassiveDef, "<style=cIsUtility>Scrap Barrier Quirk</style> Get!" },
 
-                { Survivors.Shiggy.alloyvultureflyDef, "<style=cIsUtility>Flight Quirk</style> Get!" },
+                { Survivors.Shiggy.alloyvultureWindBlastDef, "<style=cIsUtility>Flight Quirk</style> Get!" },
                 { Survivors.Shiggy.beetleguardslamDef, "<style=cIsUtility>Beetle Armor Quirk</style> Get!" },
                 { Survivors.Shiggy.bisonchargeDef, "<style=cIsUtility>Charging Quirk</style> Get!" },
                 { Survivors.Shiggy.bronzongballDef, "<style=cIsUtility>Spiked Ball Control Quirk</style> Get!" },
@@ -563,7 +565,7 @@ namespace ShiggyMod.Modules
                 { "CrocoBody", Survivors.Shiggy.acridpassiveDef },
                 { "LoaderBody", Survivors.Shiggy.loaderpassiveDef },
 
-                { "VultureBody", Survivors.Shiggy.alloyvultureflyDef },
+                { "VultureBody", Survivors.Shiggy.alloyvultureWindBlastDef },
                 { "BeetleGuardBody", Survivors.Shiggy.beetleguardslamDef },
                 { "BisonBody", Survivors.Shiggy.bisonchargeDef },
                 { "BellBody", Survivors.Shiggy.bronzongballDef },

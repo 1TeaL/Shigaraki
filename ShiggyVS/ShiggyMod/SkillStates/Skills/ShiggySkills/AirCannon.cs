@@ -50,7 +50,7 @@ namespace ShiggyMod.SkillStates
             aimRay = base.GetAimRay();
             this.aimRayDir = aimRay.direction;
             base.characterBody.SetAimTimer(this.duration);
-            AkSoundEngine.PostEvent(356992735, base.gameObject);
+            AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayAnimation("Body", "Jump", "Attack.playbackRate", duration);
 

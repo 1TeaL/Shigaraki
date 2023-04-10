@@ -4,13 +4,14 @@ using UnityEngine;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine.Networking;
 using RoR2.Projectile;
+using R2API.Networking.Interfaces;
 
 namespace ShiggyMod.SkillStates
 {
     public class Skill : BaseSkillState
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 0.5f;
+        public float baseDuration = 1f;
         public float duration;
         public ShiggyController Shiggycon;
         private DamageType damageType;

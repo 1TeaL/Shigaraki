@@ -12,7 +12,7 @@ namespace ShiggyMod.Modules
         internal static List<BuffDef> buffDefs = new List<BuffDef>();
 
         //monster buffs
-        internal static BuffDef flyBuff;
+        internal static BuffDef airwalkBuff;
         internal static BuffDef beetleBuff;
         internal static BuffDef alphashieldonBuff;
         internal static BuffDef alphashieldoffBuff;
@@ -61,7 +61,7 @@ namespace ShiggyMod.Modules
         internal static void RegisterBuffs()
         {
 
-            flyBuff = Buffs.AddNewBuff("Fly Buff", Assets.jumpBuffIcon, Color.magenta, false, false);
+            airwalkBuff = Buffs.AddNewBuff("Fly Buff", Assets.jumpBuffIcon, Color.magenta, false, false);
             beetleBuff = Buffs.AddNewBuff("Strength Buff", Assets.boostBuffIcon, Color.grey, false, false);
             alphashieldonBuff = Buffs.AddNewBuff("Alpha Construct Shield On", Assets.alphashieldonBuffIcon, Color.magenta, false, false);
             alphashieldoffBuff = Buffs.AddNewBuff("Alpha Construct Shield Off", Assets.alphashieldoffBuffIcon, Color.black, true, false);

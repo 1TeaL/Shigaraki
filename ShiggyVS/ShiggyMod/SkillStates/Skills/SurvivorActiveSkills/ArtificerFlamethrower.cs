@@ -56,7 +56,7 @@ namespace ShiggyMod.SkillStates
             extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
             skillSwapped = false;
 
-            AkSoundEngine.PostEvent(356992735, base.gameObject);
+            AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
             if (base.HasBuff(Modules.Buffs.impbossBuff))
             {
                 damageType |= DamageType.BleedOnHit;

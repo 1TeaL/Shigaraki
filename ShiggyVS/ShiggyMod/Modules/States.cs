@@ -23,7 +23,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(RemoveSkill));
             entityStates.Add(typeof(EmptySkill));
 
-            entityStates.Add(typeof(AlloyVultureFly));
+            entityStates.Add(typeof(AlloyVultureWindBlast));
             entityStates.Add(typeof(BisonCharge));
             entityStates.Add(typeof(BronzongBall));
             entityStates.Add(typeof(BeetleGuardSlam));

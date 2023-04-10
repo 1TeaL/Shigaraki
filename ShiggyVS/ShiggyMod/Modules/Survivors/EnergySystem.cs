@@ -71,10 +71,10 @@ namespace ShiggyMod.Modules.Survivors
             plusChaosMeterGlowRect = CustomUIObject.transform.GetChild(1).GetComponent<RectTransform>();
 
             //setup the UI element for the min/max
-            plusChaosNumber = this.CreateLabel(CustomUIObject.transform, "plusChaosNumber", $"{(int)currentplusChaos} / {maxPlusChaos}", new Vector2(0, -110), 24f);
-            quirkGetString = "";
-            quirkGetUI = this.CreateLabel(CustomUIObject.transform, "quirkGetString", quirkGetString, new Vector2(0, -220), 24f);
+            plusChaosNumber = this.CreateLabel(CustomUIObject.transform, "plusChaosNumber", $"{(int)currentplusChaos} / {maxPlusChaos}", new Vector2(0, -110), 24f, new Color(0.92f, 0.12f, 0.8f));
 
+            quirkGetUI = this.CreateLabel(CustomUIObject.transform, "quirkGetString", quirkGetString, new Vector2(0, -220), 24f, Color.white);
+            
 
             // Start timer on 1f to turn off the timer.
             state = GlowState.STOP;
@@ -91,10 +91,12 @@ namespace ShiggyMod.Modules.Survivors
         {
             quirkGetStopwatch = duration;
             quirkGetString = stringToPass;
+            quirkGetUI.enabled = true;
+            
         }
 
         //Creates the label.
-        private HGTextMeshProUGUI CreateLabel(Transform parent, string name, string text, Vector2 position, float textScale)
+        private HGTextMeshProUGUI CreateLabel(Transform parent, string name, string text, Vector2 position, float textScale, Color color)
         {
             //GameObject gameObject = new GameObject(name);
             //gameObject.transform.parent = parent;
@@ -136,7 +138,7 @@ namespace ShiggyMod.Modules.Survivors
             hgtextMeshProUGUI.enabled = true;
             hgtextMeshProUGUI.text = text;
             hgtextMeshProUGUI.fontSize = textScale;
-            hgtextMeshProUGUI.color = Color.white;
+            hgtextMeshProUGUI.color = color;
             hgtextMeshProUGUI.alignment = TextAlignmentOptions.Center;
             hgtextMeshProUGUI.enableWordWrapping = false;
             rectTransform.localPosition = Vector2.zero;
@@ -214,11 +216,14 @@ namespace ShiggyMod.Modules.Survivors
         {
             if (quirkGetUI)
             {
-                quirkGetStopwatch -= Time.deltaTime;
-                if(quirkGetStopwatch < 0f)
+                if(quirkGetStopwatch <= 0f)
                 {
                     quirkGetStopwatch = 0f;
-                    quirkGetString = "";
+                    quirkGetUI.enabled = false;
+                }
+                else
+                {
+                    quirkGetStopwatch -= Time.deltaTime;
                 }
             }
 

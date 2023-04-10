@@ -46,7 +46,7 @@ namespace ShiggyMod.Modules.Survivors
 
 
         //monster actives
-        internal static SkillDef alloyvultureflyDef;
+        internal static SkillDef alloyvultureWindBlastDef;
         internal static SkillDef beetleguardslamDef;
         internal static SkillDef bisonchargeDef;
         internal static SkillDef bronzongballDef;
@@ -989,13 +989,13 @@ namespace ShiggyMod.Modules.Survivors
 
             #region Active Skills
             //active skills
-            Shiggy.alloyvultureflyDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.alloyvultureWindBlastDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VULTURE_NAME",
                 skillNameToken = prefix + "VULTURE_NAME",
                 skillDescriptionToken = prefix + "VULTURE_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Alloy_Vulture"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.AlloyVultureFly)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.AlloyVultureWindBlast)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
                 baseRechargeInterval = 6f,

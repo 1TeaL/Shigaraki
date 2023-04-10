@@ -111,6 +111,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<EquipmentDropNetworked>();
             NetworkingAPI.RegisterMessageType<HealNetworkRequest>();
             NetworkingAPI.RegisterMessageType<SpawnBodyNetworkRequest>();
+            NetworkingAPI.RegisterMessageType<PerformForceNetworkRequest>();
 
 
             // now make a content pack and add it- this part will change with the next update
@@ -197,7 +198,7 @@ namespace ShiggyMod
                     sender.sprintingSpeedMultiplier = Modules.StaticValues.verminsprintMultiplier;
                 }
                 //fly buff
-                if (sender.HasBuff(Buffs.flyBuff))
+                if (sender.HasBuff(Buffs.airwalkBuff))
                 {
                     args.moveSpeedMultAdd += (0.5f);
                     sender.acceleration *= 2f;
