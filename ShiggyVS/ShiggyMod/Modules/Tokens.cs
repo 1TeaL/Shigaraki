@@ -47,7 +47,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "DECAY_NAME", "Decay");
             LanguageAPI.Add(prefix + "DECAY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> " +
                 $"Slam and <style=cWorldEvent>[Decay]</style> the ground/air around you, dealing <style=cIsDamage>{100f * StaticValues.decayattackDamageCoeffecient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee] [RightHanded]</style> <style=cWorldEvent>[Decay]</style>");
+                $"<style=cSub> [RightHanded]</style> <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "BULLETLASER_NAME", "Bullet Laser");
             LanguageAPI.Add(prefix + "BULLETLASER_DESCRIPTION", $"<style=cIsDamage>Agile." +
                 $"</style> Shoot piercing lasers for <style=cIsDamage>5x{100f * StaticValues.bulletlaserDamageCoeffecient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
@@ -55,12 +55,12 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "AIRCANNON_NAME", "Air Cannon");
             LanguageAPI.Add(prefix + "AIRCANNON_DESCRIPTION", $"<style=cIsDamage>Agile.</style> " +
                 $"Blasts an air shockwave behind you, dealing <style=cIsDamage>{100f * StaticValues.aircannonDamageCoeffecient}% damage</style> and propelling you forward." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee] [LeftHanded]</style>");
+                $"<style=cSub> [LeftHanded]</style>");
             LanguageAPI.Add(prefix + "MULTIPLIER_NAME", "Multiplier");
             LanguageAPI.Add(prefix + "MULTIPLIER_DESCRIPTION", $"<style=cIsDamage>Agile." +
                 $"</style> Boosts your next attack to deal <style=cIsDamage>{StaticValues.multiplierCoefficient}x damage</style>. " +
                 $"</style> Triples the number of projectiles, shots and decay stacks as well." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Ranged] [Melee] [RightHanded]</style>");
+                $"<style=cSub>[Ranged]  [RightHanded]</style>");
             LanguageAPI.Add(prefix + "AFO_NAME", "All For One");
             LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>." 
                 + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
@@ -90,7 +90,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "GUP_DESCRIPTION", $"<style=cIsDamage>Gain spikes that deal <style=cIsDamage>{StaticValues.spikedamageCoefficient * 100}% damage</style> to those around you when you're hit</style>. ");
             LanguageAPI.Add(prefix + "LARVA_NAME", "Acid Jump");
             LanguageAPI.Add(prefix + "LARVA_DESCRIPTION", $"<style=cIsDamage>Release an Acidic blast</style> when <style=cIsUtility>jumping and landing</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee] [Jump]</style> <style=cWorldEvent>[Decay]</style>");
+                $"<style=cSub> [Jump]</style> <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "LESSERWISP_NAME", "Haste");
             LanguageAPI.Add(prefix + "LESSERWISP_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.lesserwispFlatAttackSpeed} flat attackspeed</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Beetle]</style>");
@@ -148,9 +148,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "CAPTAIN_NAME", "Defensive Microbots");
             LanguageAPI.Add(prefix + "CAPTAIN_DESCRIPTION", $"Passively gain Microbots that shoot down nearby enemy projectiles. Drones are also given Microbots. " );
             LanguageAPI.Add(prefix + "LOADER_NAME", "Scrap Barrier");
-            LanguageAPI.Add(prefix + "LOADER_DESCRIPTION", $"Gain <style=cIsUtility> Gain 5% of your max health as barrier</style> and <style=cIsDamage>{100 * StaticValues.loaderDamageMultiplier}% damage</style> on all <style=cSub>[Melee]</style> attacks. " +
-                $"" + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee]</style>");
+            LanguageAPI.Add(prefix + "LOADER_DESCRIPTION", $"Gain <style=cIsUtility> Gain {100f *StaticValues.loaderBarrierGainCoefficient} of your max health as barrier</style> on all attacks. ");
             #endregion
 
             #region Active 
@@ -159,24 +157,24 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BEETLEGUARD_NAME", "Fast Drop");
             LanguageAPI.Add(prefix + "BEETLEGUARD_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Drop and slam down, stunning and dealing <style=cIsDamage>{100f * StaticValues.beetleguardslamDamageCoeffecient}% damage</style> and gaining <style=cIsHealing>5% of your max health as Barrier</style> on hit. " +
                 $"Damage, radius and barrier gain scales with drop time and movespeed. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee]</style> <style=cWorldEvent>[Decay]</style>");
+                $" <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "BISON_NAME", "Charging");
             LanguageAPI.Add(prefix + "BISON_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Charge forward at super speed, and if you slam into a solid object, generates a shockwave that stuns enemies for <style=cIsDamage>{100f * StaticValues.bisonchargeDamageCoeffecient}% damage</style> in a radius. Hold the button to keep charging. " +
                 $"Damage and radius scales with charge duration and movespeed. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee] [LeftHanded] [Movespeed]</style> <style=cWorldEvent>[Decay]</style>");
+                $"<style=cSub> [LeftHanded] [Movespeed]</style> <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "BRONZONG_NAME", "Spiked Ball Control");
             LanguageAPI.Add(prefix + "BRONZONG_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Summon 3 spiked balls, then release them, dealing <style=cIsDamage>{100f * StaticValues.bronzongballDamageCoeffecient}% damage</style> per ball. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [LeftHanded]</style>");
             LanguageAPI.Add(prefix + "APOTHECARY_NAME", "Clay AirStrike");
             LanguageAPI.Add(prefix + "APOTHECARY_DESCRIPTION", $"<style=cIsDamage>Tar. Agile.</style> Release a tar shockwave, dealing <style=cIsDamage>{100f * StaticValues.clayapothecarymortarDamageCoeffecient}% damage</style> and send a mortar into the sky, which rains down on enemies around you for <style=cIsDamage>{100f * StaticValues.clayapothecarymortarDamageCoeffecient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee] [Ranged] [LeftHanded] [Decay]</style>");
+                $"<style=cSub> [Ranged] [LeftHanded] [Decay]</style>");
             LanguageAPI.Add(prefix + "TEMPLAR_NAME", "Clay Minigun");
             LanguageAPI.Add(prefix + "TEMPLAR_DESCRIPTION", $"<style=cIsDamage>Tar. Agile.</style> Shoot a rapid hail of tar bullets, tarring and dealing <style=cIsDamage>{100f * StaticValues.claytemplarminigunDamageCoeffecient}% damage per bullet</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "ELDERLEMURIAN_NAME", "Fire Blast");
             LanguageAPI.Add(prefix + "ELDERLEMURIAN_DESCRIPTION", $"<style=cIsDamage>Burning. Agile.</style> Hold the button down to charge a fire blast which, when released, deals <style=cIsDamage>{100f * StaticValues.elderlemurianfireblastDamageCoefficient}% damage</style> per hit. " +
                 $"Number of hits and radius scales with charge duration." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee] [RightHanded]</style>");
+                $"<style=cSub> [RightHanded]</style>");
             LanguageAPI.Add(prefix + "GREATERWISP_NAME", "Spirit Boost");
             LanguageAPI.Add(prefix + "GREATERWISP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> For {StaticValues.greaterwispballbuffDuration} seconds, your attacks explode, dealing <style=cIsDamage>{100f * StaticValues.greaterwispballDamageCoeffecient}% damage</style> of the attack. " +
                 $"Additional uses adds to the current duration. " + Environment.NewLine + Environment.NewLine +
@@ -200,7 +198,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "PARENT_NAME", "Teleport");
             LanguageAPI.Add(prefix + "PARENT_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Teleport to the target you're looking at and generate a shockwave on arrival that stuns enemies for <style=cIsDamage>{100f * StaticValues.parentDamageCoeffecient}% damage</style> in a radius. " +
                 $"Damage and radius scales with charge duration. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Melee]</style> <style=cWorldEvent>[Decay]</style>");
+                $" <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "STONEGOLEM_NAME", "Laser");
             LanguageAPI.Add(prefix + "STONEGOLEM_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Hold the button down to charge a laser which, when released, deals <style=cIsDamage>{100f * StaticValues.stonegolemDamageCoeffecient}% damage</style>. " +
                 $"Damage and radius scales with charge duration." + Environment.NewLine + Environment.NewLine +
