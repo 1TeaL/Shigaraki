@@ -64,8 +64,11 @@ namespace ShiggyMod.SkillStates
             bool isAuthority = base.isAuthority;
             if (isAuthority)
             {
+                var lemProj = Modules.Projectiles.lemurianFireBall;
+                lemProj.GetComponent<ProjectileController>().procCoefficient = 1f;
+
                 ProjectileManager.instance.FireProjectile(
-                    Modules.Projectiles.lemurianFireBall, //prefab
+                    lemProj, //prefab
                     aimRay.origin, //position
                     Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
                     base.gameObject, //owner

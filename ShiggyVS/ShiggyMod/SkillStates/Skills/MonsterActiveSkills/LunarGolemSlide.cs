@@ -47,6 +47,7 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetSpreadBloom(0f, false);
             if (!this.startedStateGrounded)
             {
+                //need better animation
                 this.PlayAnimation("Body", "Jump");
                 Vector3 velocity = base.characterMotor.velocity;
                 velocity.y = base.characterBody.jumpPower;
