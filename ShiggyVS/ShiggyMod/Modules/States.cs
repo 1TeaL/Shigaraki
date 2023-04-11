@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using ShiggyMod.SkillStates.BaseStates;
+using ShiggyMod.SkillStates;
 
 namespace ShiggyMod.Modules
 {
@@ -13,8 +14,9 @@ namespace ShiggyMod.Modules
         {
             entityStates.Add(typeof(BaseMeleeAttack));
 
-            entityStates.Add(typeof(AlphaConstruct));
 
+            //base skills
+                        entityStates.Add(typeof(AlphaConstruct));
             entityStates.Add(typeof(Decay));
             entityStates.Add(typeof(BulletLaser));
             entityStates.Add(typeof(AirCannon));
@@ -93,6 +95,9 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(Captain));
             entityStates.Add(typeof(Commando));
             entityStates.Add(typeof(Loader));
+
+            //synergy skills
+            entityStates.Add(typeof(SweepingBeam));
         }
     }
 }

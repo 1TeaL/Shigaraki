@@ -127,8 +127,8 @@ namespace ShiggyMod.Modules
         internal const float aircannonDamageCoeffecient = 4f;
         internal const float aircannonProcCoefficient = 1f;
 
-        internal const float bulletlaserDamageCoeffecient = 3f;
-        internal const float bulletlaserProcCoefficient = 0.4f;
+        internal const float bulletlaserDamageCoefficient = 2f;
+        internal const float bulletlaserProcCoefficient = 0.3f;
 
         internal const float beetleguardslamDamageCoeffecient = 4f;
         internal const float beetleguardslamProcCoefficient = 1f;
@@ -219,6 +219,12 @@ namespace ShiggyMod.Modules
         internal const float railgunnerProcCoefficient = 2f;
 
         internal const float loaderBarrierGainCoefficient = 0.01f;
+
+        //synergy skills
+        internal const float sweepingBeamDamageCoeffecient = 1f;
+        internal const float sweepingBeamProcCoefficient = 0.2f;
+        internal const uint sweepingBeamTotalBullets = 10;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

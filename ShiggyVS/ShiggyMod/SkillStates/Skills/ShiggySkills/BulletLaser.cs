@@ -17,8 +17,8 @@ namespace ShiggyMod.SkillStates
 
         private float range = 100f;
         private float radius = 15f;
-        private float damageCoefficient = Modules.StaticValues.bulletlaserDamageCoeffecient;
-        private float procCoefficient = 1f;
+        private float damageCoefficient = Modules.StaticValues.bulletlaserDamageCoefficient;
+        private float procCoefficient = Modules.StaticValues.bulletlaserProcCoefficient;
         private float force = 1f;
         private float speedOverride =1f;
         private string muzzleString;

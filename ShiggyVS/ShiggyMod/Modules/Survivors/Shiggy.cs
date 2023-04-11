@@ -100,6 +100,10 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef emptySkillDef;
 
 
+        //synergy actives
+        internal static SkillDef sweepingBeamDef;
+
+
         internal override GameObject bodyPrefab { get; set; }
         internal override GameObject displayPrefab { get; set; }
 
@@ -988,7 +992,6 @@ namespace ShiggyMod.Modules.Survivors
             #endregion
 
             #region Active Skills
-            //active skills
             Shiggy.alloyvultureWindBlastDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VULTURE_NAME",
@@ -1894,12 +1897,42 @@ namespace ShiggyMod.Modules.Survivors
             });
             #endregion
 
+            #region Synergy Active Skills
+
+            sweepingBeamDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SWEEPINGBEAM_NAME",
+                skillNameToken = prefix + "SWEEPINGBEAM_NAME",
+                skillDescriptionToken = prefix + "SWEEPINGBEAM_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SweepingBeam)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            #endregion
+
             #region Chosen Skills
 
             Modules.Skills.AddPrimarySkill(bodyPrefab, decayDef);
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
+                sweepingBeamDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
