@@ -62,9 +62,9 @@ If you enjoy my work, support me on Ko-fi!
     - Balance Changes
     	- Cooldown changes for a lot of skills, longer in general to balance out how many skills able to be used along with item changes with the extraskill slots.
     	- Backup magazines, hardlight afterburners and lysate cells now increase the number of stocks for extraskill slot 2, 3 and 4 respectively. 
-	-	
+    	- Bullet laser correctly has a proc coefficient of 0.3 instead of 1 for each bullet. Now does 5x200% damage instead of 5x300%, as it was a lot stronger than other skills. 
     - Bug fixes
-    	- a
+    	- Bullet laser correctly has a proc coefficient of 0.4 instead of 1. 
     - New mechanics
     	- Added a plus chaos meter
     		- Stealing quirks now costs plus chaos. 
@@ -137,7 +137,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Bullet Laser<br>Secondary</td>
     <td><img src="https://user-images.githubusercontent.com/93917577/179195235-c3128f52-9292-4560-b194-8a6f24e1da5b.png" width="100" height="100"></td>
-    <td>Shoot piercing lasers for 5x300% damage.<br><br><br><br><br>[Ranged]</td>
+    <td>Shoot piercing lasers for 5x200% damage.<br><br><br><br><br>[Ranged]</td>
     <td>Proc: 0.3.<br>CD: 3s.</td>
   </tr>
   <tr>
