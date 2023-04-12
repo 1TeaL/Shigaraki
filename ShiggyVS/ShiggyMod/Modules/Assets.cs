@@ -78,6 +78,7 @@ namespace ShiggyMod.Modules
         public static GameObject bisonEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bison/BisonChargeStep.prefab").WaitForCompletion();
         public static GameObject GupSpikeEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GupExplosion.prefab").WaitForCompletion();
         public static GameObject lemfireBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/Fireball.prefab").WaitForCompletion();
+        public static GameObject lemfireBallGhost = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/FireballGhost.prefab").WaitForCompletion();
         public static GameObject greaterwispBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/GreaterWisp/WispCannon.prefab").WaitForCompletion();
         public static GameObject chargegreaterwispBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/GreaterWisp/OmniExplosionVFXGreaterWisp.prefab").WaitForCompletion();
         public static GameObject larvajumpEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/AcidLarva/AcidLarvaLeapExplosion.prefab").WaitForCompletion();

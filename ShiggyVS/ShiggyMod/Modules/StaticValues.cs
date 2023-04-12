@@ -225,6 +225,13 @@ namespace ShiggyMod.Modules
         internal const float sweepingBeamProcCoefficient = 0.2f;
         internal const uint sweepingBeamTotalBullets = 10;
 
+        internal const float bombGlaiveDamageCoefficient = 1.2f;
+        internal const float bombGlaiveDamageCoefficientPerBounce = 1.5f;
+        internal const float bombGlaiveBounceRange = 30f;
+        internal const float bombGlaiveProcCoefficient = 0.8f;
+        internal const int bombGlaiveMaxBounceCount = 6;
+        internal const float bombGlaiveTravelSpeed = 20f;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

@@ -102,6 +102,7 @@ namespace ShiggyMod.Modules.Survivors
 
         //synergy actives
         internal static SkillDef sweepingBeamDef;
+        internal static SkillDef bombGlaiveDef;
 
 
         internal override GameObject bodyPrefab { get; set; }

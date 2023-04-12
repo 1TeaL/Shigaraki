@@ -4,6 +4,7 @@ using UnityEngine;
 using ShiggyMod.Modules.Survivors;
 using RoR2.Projectile;
 using EntityStates.LemurianMonster;
+using EmotesAPI;
 
 namespace ShiggyMod.SkillStates
 {
@@ -64,11 +65,9 @@ namespace ShiggyMod.SkillStates
             bool isAuthority = base.isAuthority;
             if (isAuthority)
             {
-                var lemProj = Modules.Projectiles.lemurianFireBall;
-                lemProj.GetComponent<ProjectileController>().procCoefficient = 1f;
 
                 ProjectileManager.instance.FireProjectile(
-                    lemProj, //prefab
+                    Modules.Projectiles.lemurianFireBall, //prefab
                     aimRay.origin, //position
                     Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
                     base.gameObject, //owner
@@ -80,17 +79,17 @@ namespace ShiggyMod.SkillStates
                     speedOverride); //speed }
 
 
-                ProjectileManager.instance.FireProjectile(
-                    FireFireball.projectilePrefab, //prefab
-                    FindModelChild(this.muzzleString).position, //position
-                    Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
-                    base.gameObject, //owner
-                    0f, //damage
-                    0f, //force
-                    Util.CheckRoll(this.critStat, base.characterBody.master), //crit
-                    DamageColorIndex.Default, //damage color
-                    null, //target
-                    speedOverride); //speed }
+                //ProjectileManager.instance.FireProjectile(
+                //    FireFireball.projectilePrefab, //prefab
+                //    FindModelChild(this.muzzleString).position, //position
+                //    Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
+                //    base.gameObject, //owner
+                //    0f, //damage
+                //    0f, //force
+                //    Util.CheckRoll(this.critStat, base.characterBody.master), //crit
+                //    DamageColorIndex.Default, //damage color
+                //    null, //target
+                //    speedOverride); //speed }
             }
 
         }

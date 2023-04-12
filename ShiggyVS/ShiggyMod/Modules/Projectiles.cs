@@ -57,54 +57,42 @@ namespace ShiggyMod.Modules
         private static void CreateLemurianFireBall()
         {
             lemurianFireBall = PrefabAPI.InstantiateClone(Modules.Assets.lemfireBall, "lemurianFireBall", true);
-
-            ProjectileImpactExplosion checkProjectileExplosion = lemurianFireBall.GetComponent<ProjectileImpactExplosion>();
-
-            if (!checkProjectileExplosion)
+            Rigidbody lemurianFireballRigidbody = lemurianFireBall.GetComponent<Rigidbody>();
+            if (!lemurianFireballRigidbody)
             {
-                ProjectileImpactExplosion lemurianFireBallexplosion = lemurianFireBall.AddComponent<ProjectileImpactExplosion>();
-                InitializeImpactExplosion(lemurianFireBallexplosion);
-
-                lemurianFireBallexplosion.blastDamageCoefficient = 1f;
-                lemurianFireBallexplosion.blastProcCoefficient = 1f;
-                lemurianFireBallexplosion.blastRadius = 5f;
-                lemurianFireBallexplosion.destroyOnEnemy = true;
-                lemurianFireBallexplosion.lifetime = 6f;
-                lemurianFireBallexplosion.impactEffect = EntityStates.LemurianMonster.FireFireball.effectPrefab;
-                lemurianFireBallexplosion.timerAfterImpact = false;
-                lemurianFireBallexplosion.lifetimeAfterImpact = 0f;
-                lemurianFireBallexplosion.destroyOnWorld = true;
-
-                lemurianFireBallexplosion.GetComponent<ProjectileDamage>().damageType = DamageType.IgniteOnHit;
-
-            }
-            else if(checkProjectileExplosion)
-            {
-                ProjectileImpactExplosion lemurianFireBallexplosion = lemurianFireBall.AddComponent<ProjectileImpactExplosion>();
-                InitializeImpactExplosion(lemurianFireBallexplosion);
-
-                lemurianFireBallexplosion.blastDamageCoefficient = 1f;
-                lemurianFireBallexplosion.blastProcCoefficient = 1f;
-                lemurianFireBallexplosion.blastRadius = 5f;
-                lemurianFireBallexplosion.destroyOnEnemy = true;
-                lemurianFireBallexplosion.lifetime = 6f;
-                lemurianFireBallexplosion.impactEffect = EntityStates.LemurianMonster.FireFireball.effectPrefab;
-                lemurianFireBallexplosion.timerAfterImpact = false;
-                lemurianFireBallexplosion.lifetimeAfterImpact = 0f;
-                lemurianFireBallexplosion.destroyOnWorld = true;
-
-                lemurianFireBallexplosion.GetComponent<ProjectileDamage>().damageType = DamageType.IgniteOnHit;
-                lemurianFireBallexplosion.GetComponent<ProjectileInflictTimedBuff>().buffDef = Modules.Buffs.acridBuff;
-                lemurianFireBallexplosion.GetComponent<ProjectileInflictTimedBuff>().duration = 10;
-
-
+                lemurianFireballRigidbody = lemurianFireBall.AddComponent<Rigidbody>();
             }
 
+            ProjectileImpactExplosion lemurianFireBallexplosion = lemurianFireBall.GetComponent<ProjectileImpactExplosion>();
+
+            if (!lemurianFireBallexplosion)
+            {
+                lemurianFireBallexplosion = lemurianFireBall.AddComponent<ProjectileImpactExplosion>();
+
+            }
+            InitializeImpactExplosion(lemurianFireBallexplosion);
+
+            lemurianFireBallexplosion.blastDamageCoefficient = 1f;
+            lemurianFireBallexplosion.blastProcCoefficient = 1f;
+            lemurianFireBallexplosion.blastRadius = 5f;
+            lemurianFireBallexplosion.destroyOnEnemy = true;
+            lemurianFireBallexplosion.lifetime = 6f;
+            lemurianFireBallexplosion.impactEffect = EntityStates.LemurianMonster.FireFireball.effectPrefab;
+            lemurianFireBallexplosion.timerAfterImpact = false;
+            lemurianFireBallexplosion.lifetimeAfterImpact = 0f;
+            lemurianFireBallexplosion.destroyOnWorld = true;
 
             ProjectileController lemurianFireBallController = lemurianFireBall.GetComponent<ProjectileController>();
-            if (Assets.lemfireBall !=null) lemurianFireBallController.ghostPrefab = EntityStates.LemurianMonster.FireFireball.projectilePrefab;
-            lemurianFireBallController.startSound = "";
+            lemurianFireBallController.rigidbody = lemurianFireballRigidbody;
+            lemurianFireBallController.rigidbody.useGravity = true;
+            lemurianFireBallController.rigidbody.mass = 1f;
+            lemurianFireBallController.procCoefficient = 1f;
             
+            ProjectileDamage lemurianFireBallDamage = lemurianFireBall.GetComponent<ProjectileDamage>();
+            lemurianFireBallDamage.damageType = DamageType.IgniteOnHit;
+
+            if (Assets.lemfireBallGhost != null) lemurianFireBallController.ghostPrefab = Assets.lemfireBallGhost;
+            lemurianFireBallController.startSound = "";            
 
 
         }
