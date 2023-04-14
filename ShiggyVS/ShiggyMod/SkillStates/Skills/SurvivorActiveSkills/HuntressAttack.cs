@@ -106,6 +106,7 @@ namespace ShiggyMod.SkillStates
             genericDamageOrb.attacker = base.gameObject;
             genericDamageOrb.procCoefficient = procCoefficient;
             genericDamageOrb.damageType = damageType;
+            
             HurtBox hurtBox = this.Target;
             if (hurtBox)
             {

@@ -9,7 +9,7 @@ using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
 using R2API.Networking;
 
-namespace ShiggyMod.SkillStates.SynergisedPassiveSkills
+namespace ShiggyMod.SkillStates
 {
     public class GravityMortar : Skill
     {

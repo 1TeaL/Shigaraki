@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 using RoR2.Projectile;
 using ExtraSkillSlots;
 using R2API.Networking;
-using ShiggyMod.Modules.QuirkTrees;
 
 namespace ShiggyMod.SkillStates
 {

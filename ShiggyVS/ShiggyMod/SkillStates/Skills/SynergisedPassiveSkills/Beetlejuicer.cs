@@ -9,7 +9,7 @@ using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
 using R2API.Networking;
 
-namespace ShiggyMod.SkillStates.Skills.SynergisedPassiveSkills
+namespace ShiggyMod.SkillStates.Skills
 {
     public class Beetlejuicer : Skill
     {

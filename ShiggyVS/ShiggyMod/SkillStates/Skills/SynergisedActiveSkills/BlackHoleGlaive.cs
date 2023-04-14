@@ -11,14 +11,16 @@ using R2API.Networking;
 using RoR2.Projectile;
 using EntityStates.Huntress.HuntressWeapon;
 using RoR2.Orbs;
+using ShiggyMod.Modules.Networking;
+using R2API.Networking.Interfaces;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BombGlaive : Skill
+    public class BlackHoleGlaive : BaseSkillState
     {
         //huntress + void devastator crab
 
-        public float baseDuration = 1f;
+        public float baseDuration = 2f;
         public float duration;
         public ShiggyController Shiggycon;
         private Transform modelTransform;
@@ -29,7 +31,7 @@ namespace ShiggyMod.SkillStates
 
         private string muzzleString;
         private Animator animator;
-        private HurtBox initialOrbTarget;
+        private HurtBox Target;
         private bool hasTriedToThrowGlaive;
         private bool hasSuccessfullyThrownGlaive;
         private float stopwatch;
@@ -40,44 +42,47 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
             duration = baseDuration / attackSpeedStat;
+            hasTriedToThrowGlaive = false;
 
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "LHand";
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            this.animator = base.GetModelAnimator();
+            Transform modelTransform = base.GetModelTransform();
+            if (modelTransform)
+            {
+                this.childLocator = modelTransform.GetComponent<ChildLocator>();
+                this.animator = modelTransform.GetComponent<Animator>();
+            }
+
             //this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration / 2, 0.1f);
             //PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration/2, 0.1f);
 
             Util.PlayAttackSpeedSound(ThrowGlaive.attackSoundString, base.gameObject, this.attackSpeedStat);
-            if (Shiggycon.Target && base.isAuthority)
+            if (Shiggycon && base.isAuthority)
             {
-                this.initialOrbTarget = Shiggycon.GetTrackingTarget();
+                this.Target = Shiggycon.GetTrackingTarget();
             }
+            if (!Target)
+            {
+                return;
+            }
+
             if (base.characterMotor && ThrowGlaive.smallHopStrength != 0f)
             {
                 base.characterMotor.velocity.y = ThrowGlaive.smallHopStrength;
             }
 
-            if (this.modelTransform)
+            if (Assets.huntressGlaiveChargeEffect)
             {
-                this.childLocator = this.modelTransform.GetComponent<ChildLocator>();
-                if (this.childLocator)
-                {
-                    Transform transform = this.childLocator.FindChild(muzzleString);
-                    if (transform && ThrowGlaive.chargePrefab)
-                    {
-                        this.chargeEffect = UnityEngine.Object.Instantiate<GameObject>(ThrowGlaive.chargePrefab, transform.position, transform.rotation);
-                        this.chargeEffect.transform.parent = transform;
-                    }
-                }
+                this.chargeEffect = UnityEngine.Object.Instantiate<GameObject>(Assets.huntressGlaiveChargeEffect, this.childLocator.FindChild(muzzleString).position, Util.QuaternionSafeLookRotation(aimRay.direction.normalized));
+                this.chargeEffect.transform.parent = this.childLocator.FindChild(muzzleString);
             }
 
 
             On.RoR2.Orbs.LightningOrb.OnArrival += LightningOrb_OnArrival;
-
         }
 
         private void LightningOrb_OnArrival(On.RoR2.Orbs.LightningOrb.orig_OnArrival orig, LightningOrb self)
@@ -85,31 +90,36 @@ namespace ShiggyMod.SkillStates
             orig(self);
             if (self.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
             {
-                new BlastAttack
+                if(self.lightningType == LightningOrb.LightningType.HuntressGlaive)
                 {
-                    attacker = self.attacker.gameObject,
-                    teamIndex = TeamComponent.GetObjectTeam(self.attacker.gameObject),
-                    falloffModel = BlastAttack.FalloffModel.None,
-                    baseDamage = self.damageValue,
-                    damageType = DamageType.Generic,
-                    damageColorIndex = DamageColorIndex.Default,
-                    baseForce = -1000f,
-                    position = self.target.transform.position,
-                    radius = StaticValues.bombGlaiveBounceRange/2f,
-                    procCoefficient = StaticValues.bombGlaiveProcCoefficient,
-                    attackerFiltering = AttackerFiltering.NeverHitSelf,
-                }.Fire();
+                    //new BlastAttack
+                    //{
+                    //    attacker = self.attacker.gameObject,
+                    //    teamIndex = TeamComponent.GetObjectTeam(self.attacker.gameObject),
+                    //    falloffModel = BlastAttack.FalloffModel.None,
+                    //    baseDamage = self.damageValue,
+                    //    damageType = DamageType.Generic,
+                    //    damageColorIndex = DamageColorIndex.Default,
+                    //    baseForce = -1000f,
+                    //    position = self.target.transform.position,
+                    //    radius = StaticValues.blackholeGlaiveBounceRange / 2f,
+                    //    procCoefficient = StaticValues.blackholeGlaiveProcCoefficient,
+                    //    attackerFiltering = AttackerFiltering.NeverHitSelf,
+                    //}.Fire();
+                    new PerformForceNetworkRequest(characterBody.masterObjectId, self.target.transform.position, Vector3.up, StaticValues.blackholeGlaiveBounceRange / 2f, self.damageValue).Send(NetworkDestination.Clients);
 
-                EffectManager.SpawnEffect(EntityStates.VoidMegaCrab.DeathState.voidDeathEffect, new EffectData
-                {
-                    origin = self.target.transform.position,
-                    scale = StaticValues.bombGlaiveBounceRange / 2f
-                }, true);
+                    EffectManager.SpawnEffect(Assets.voidMegaCrabExplosionEffect, new EffectData
+                    {
+                        origin = self.target.transform.position,
+                        scale = StaticValues.blackholeGlaiveBounceRange / 2f
+                    }, true);
+
+                }
             }
 
         }
 
-        public void FireOrbGlaive()
+        private void FireOrbGlaive()
         {
             if (!NetworkServer.active || this.hasTriedToThrowGlaive)
             {
@@ -118,23 +128,23 @@ namespace ShiggyMod.SkillStates
             this.hasTriedToThrowGlaive = true;
             LightningOrb lightningOrb = new LightningOrb();
             lightningOrb.lightningType = LightningOrb.LightningType.HuntressGlaive;
-            lightningOrb.damageValue = base.characterBody.damage * StaticValues.bombGlaiveDamageCoefficient;
+            lightningOrb.damageValue = base.characterBody.damage * StaticValues.blackholeGlaiveDamageCoefficient;
             lightningOrb.isCrit = Util.CheckRoll(base.characterBody.crit, base.characterBody.master);
             lightningOrb.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
             lightningOrb.attacker = base.gameObject;
-            lightningOrb.procCoefficient = StaticValues.bombGlaiveProcCoefficient;
-            lightningOrb.bouncesRemaining = StaticValues.bombGlaiveMaxBounceCount;
-            lightningOrb.speed = StaticValues.bombGlaiveTravelSpeed;
+            lightningOrb.procCoefficient = StaticValues.blackholeGlaiveProcCoefficient;
+            lightningOrb.bouncesRemaining = StaticValues.blackholeGlaiveMaxBounceCount;
+            lightningOrb.speed = StaticValues.blackholeGlaiveTravelSpeed;            
             lightningOrb.bouncedObjects = new List<HealthComponent>();
-            lightningOrb.range = StaticValues.bombGlaiveBounceRange;
-            lightningOrb.damageCoefficientPerBounce = StaticValues.bombGlaiveDamageCoefficientPerBounce;
+            lightningOrb.range = StaticValues.blackholeGlaiveBounceRange;
+            lightningOrb.damageCoefficientPerBounce = StaticValues.blackholeGlaiveDamageCoefficientPerBounce;
 
-            HurtBox hurtBox = this.initialOrbTarget;
+            HurtBox hurtBox = this.Target;
             if (hurtBox)
             {
                 this.hasSuccessfullyThrownGlaive = true;
-                Transform transform = this.childLocator.FindChild(muzzleString);
-                EffectManager.SimpleMuzzleFlash(ThrowGlaive.muzzleFlashPrefab, base.gameObject, muzzleString, true);
+                Transform transform = this.childLocator.FindChild(this.muzzleString);
+                EffectManager.SimpleMuzzleFlash(Assets.huntressGlaiveMuzzleEffect, base.gameObject, muzzleString, true);
                 lightningOrb.origin = transform.position;
                 lightningOrb.target = hurtBox;
                 OrbManager.instance.AddOrb(lightningOrb);
@@ -156,46 +166,44 @@ namespace ShiggyMod.SkillStates
             }
             if (!this.hasTriedToThrowGlaive)
             {
-                for (int i = 0; i < 1 * Shiggycon.projectileCount; i++)
-                {
-                    FireOrbGlaive();
-                }
+                FireOrbGlaive();
+                
             }
             if (!this.hasSuccessfullyThrownGlaive && NetworkServer.active)
             {
                 //refund if unsucessful
-                if (base.skillLocator.primary.skillDef == Shiggy.bombGlaiveDef)
+                if (base.skillLocator.primary.skillDef == Shiggy.blackholeGlaiveDef)
                 {
                     skillLocator.primary.AddOneStock();
                 }
-                if (base.skillLocator.secondary.skillDef == Shiggy.bombGlaiveDef)
+                if (base.skillLocator.secondary.skillDef == Shiggy.blackholeGlaiveDef)
                 {
                     skillLocator.secondary.AddOneStock();
                 }
-                if (base.skillLocator.utility.skillDef == Shiggy.bombGlaiveDef)
+                if (base.skillLocator.utility.skillDef == Shiggy.blackholeGlaiveDef)
                 {
                     skillLocator.utility.AddOneStock();
                 }
-                if (base.skillLocator.special.skillDef == Shiggy.bombGlaiveDef)
+                if (base.skillLocator.special.skillDef == Shiggy.blackholeGlaiveDef)
                 {
                     skillLocator.special.AddOneStock();
                 }
 
                 extraskillLocator = base.GetComponent<ExtraSkillLocator>();
 
-                if (extraskillLocator.extraFirst.skillDef == Shiggy.bombGlaiveDef)
+                if (extraskillLocator.extraFirst.skillDef == Shiggy.blackholeGlaiveDef)
                 {
                     extraskillLocator.extraFirst.AddOneStock();
                 }
-                if (extraskillLocator.extraSecond.skillDef == Shiggy.bombGlaiveDef)
+                if (extraskillLocator.extraSecond.skillDef == Shiggy.blackholeGlaiveDef)
                 {
                     extraskillLocator.extraSecond.AddOneStock();
                 }
-                if (extraskillLocator.extraThird.skillDef == Shiggy.bombGlaiveDef)
+                if (extraskillLocator.extraThird.skillDef == Shiggy.blackholeGlaiveDef)
                 {
                     extraskillLocator.extraThird.AddOneStock();
                 }
-                if (extraskillLocator.extraFourth.skillDef == Shiggy.bombGlaiveDef)
+                if (extraskillLocator.extraFourth.skillDef == Shiggy.blackholeGlaiveDef)
                 {
                     extraskillLocator.extraFourth.AddOneStock();
                 }
@@ -214,10 +222,8 @@ namespace ShiggyMod.SkillStates
                 {
                     EntityState.Destroy(this.chargeEffect);
                 }
-                for (int i = 0; i < 1 * Shiggycon.projectileCount; i++)
-                {
-                    FireOrbGlaive();
-                }
+                FireOrbGlaive();
+                
             }
             CharacterMotor characterMotor = base.characterMotor;
             characterMotor.velocity.y = characterMotor.velocity.y + ThrowGlaive.antigravityStrength * Time.fixedDeltaTime * (1f - this.stopwatch / this.duration);
@@ -237,12 +243,12 @@ namespace ShiggyMod.SkillStates
         }
         public override void OnSerialize(NetworkWriter writer)
         {
-            writer.Write(HurtBoxReference.FromHurtBox(this.initialOrbTarget));
+            writer.Write(HurtBoxReference.FromHurtBox(this.Target));
         }
 
         public override void OnDeserialize(NetworkReader reader)
         {
-            this.initialOrbTarget = reader.ReadHurtBoxReference().ResolveHurtBox();
+            this.Target = reader.ReadHurtBoxReference().ResolveHurtBox();
         }
     }
 }

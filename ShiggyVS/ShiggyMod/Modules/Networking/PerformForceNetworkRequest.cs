@@ -15,7 +15,8 @@ namespace ShiggyMod.Modules.Networking
         Vector3 origin;
         Vector3 direction;
         private float Range;
-
+        private float damage;
+        
         //Don't network these.
         GameObject bodyObj;
         private BullseyeSearch search;
@@ -27,12 +28,13 @@ namespace ShiggyMod.Modules.Networking
 
         }
 
-        public PerformForceNetworkRequest(NetworkInstanceId netID, Vector3 origin, Vector3 direction, float Range)
+        public PerformForceNetworkRequest(NetworkInstanceId netID, Vector3 origin, Vector3 direction, float Range, float damage)
         {
             this.netID = netID;
             this.origin = origin;
             this.direction = direction;
             this.Range = Range;
+            this.damage = damage;
         }
 
         public void Deserialize(NetworkReader reader)
@@ -41,6 +43,7 @@ namespace ShiggyMod.Modules.Networking
             origin = reader.ReadVector3();
             direction = reader.ReadVector3();
             Range = reader.ReadSingle();
+            damage = reader.ReadSingle();
         }
 
         public void Serialize(NetworkWriter writer)
@@ -49,6 +52,7 @@ namespace ShiggyMod.Modules.Networking
             writer.Write(origin);
             writer.Write(direction);
             writer.Write(Range);
+            writer.Write(damage);
         }
 
         public void OnReceived()
@@ -121,7 +125,7 @@ namespace ShiggyMod.Modules.Networking
                         DamageInfo damageInfo = new DamageInfo
                         {
                             attacker = bodyObj,
-                            damage = charBody.damage * Modules.StaticValues.vultureDamageCoefficient,
+                            damage = damage,
                             position = singularTarget.transform.position,
                             procCoefficient = 1f,
                             damageType = DamageType.Stun1s,

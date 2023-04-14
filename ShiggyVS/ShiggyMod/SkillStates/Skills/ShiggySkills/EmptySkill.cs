@@ -10,7 +10,6 @@ using ExtraSkillSlots;
 using ShiggyMod.Modules.Networking;
 using R2API.Networking;
 using R2API.Networking.Interfaces;
-using ShiggyMod.Modules.QuirkTrees;
 
 namespace ShiggyMod.SkillStates
 {

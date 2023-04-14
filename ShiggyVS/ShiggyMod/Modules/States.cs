@@ -98,6 +98,7 @@ namespace ShiggyMod.Modules
 
             //synergy skills
             entityStates.Add(typeof(SweepingBeam));
+            entityStates.Add(typeof(BlackHoleGlaive));
         }
     }
 }

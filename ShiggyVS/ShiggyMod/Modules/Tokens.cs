@@ -281,6 +281,15 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[LeftHanded]</style>");
             #endregion
 
+            #region Synergised Active
+            LanguageAPI.Add(prefix + "SWEEPINGBEAM_NAME", "Sweeping Beam");
+            LanguageAPI.Add(prefix + "SWEEPINGBEAM_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Fire a sweeping beam, dealing <style=cIsDamage>{100f * StaticValues.sweepingBeamDamageCoeffecient}% per hit</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[RapidPierce] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "BLACKHOLEGLAIVE_NAME", "Black Hole Glaive");
+            LanguageAPI.Add(prefix + "BLACKHOLEGLAIVE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Throw a seeking glaive that bounces up to {StaticValues.blackholeGlaiveMaxBounceCount} times for <style=cIsDamage>{100f * StaticValues.blackholeGlaiveDamageCoefficient}% per hit</style>, damaging and pulling nearby enemies as well. Damage increases by <style=cIsDamage>{100f * (StaticValues.blackholeGlaiveDamageCoefficientPerBounce-1f)} per bounce</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[MechStance] [RightHanded]</style>");
+            #endregion
+
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_DESCRIPTION", "As Shiggy, beat the game or obliterate on Monsoon.");

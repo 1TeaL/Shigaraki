@@ -24,7 +24,6 @@ using RoR2.Orbs;
 using EmotesAPI;
 using EntityStates.JellyfishMonster;
 using ShiggyMod.Modules.Networking;
-using ShiggyMod.Modules.QuirkTrees;
 using System;
 
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -153,83 +152,87 @@ namespace ShiggyMod
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            if (sender)
+            if (sender?.healthComponent)
             {
-                //roboballmini attackspeed buff
-                if (sender.HasBuff(Buffs.roboballminiattackspeedBuff))
+                if (sender)
                 {
-                    args.baseAttackSpeedAdd += (Modules.StaticValues.roboballattackspeedMultiplier * sender.GetBuffCount(Buffs.roboballminiattackspeedBuff));
+                    //roboballmini attackspeed buff
+                    if (sender.HasBuff(Buffs.roboballminiattackspeedBuff))
+                    {
+                        args.baseAttackSpeedAdd += (Modules.StaticValues.roboballattackspeedMultiplier * sender.GetBuffCount(Buffs.roboballminiattackspeedBuff));
+
+                    }
+                    //claydunestrider buff
+                    if (sender.HasBuff(Buffs.claydunestriderBuff))
+                    {
+                        args.baseAttackSpeedAdd += (StaticValues.claydunestriderAttackSpeed - 1);
+
+                    }
+                    //mult buff
+                    if (sender.HasBuff(Buffs.multBuff))
+                    {
+                        args.armorAdd += StaticValues.multArmor;
+                        args.attackSpeedMultAdd += (StaticValues.multAttackspeed - 1);
+                        args.moveSpeedReductionMultAdd += (1 - StaticValues.multMovespeed);
+
+                    }
+                    //stonetitanarmor buff
+                    if (sender.HasBuff(Buffs.stonetitanBuff))
+                    {
+                        args.armorAdd += StaticValues.stonetitanarmorGain;
+                    }
+                    //voidbarnaclemortarattackspeed buff
+                    if (sender.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
+                    {
+                        args.baseAttackSpeedAdd += StaticValues.voidmortarattackspeedGain * sender.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff);
+
+                    }
+                    //hermitcrabmortararmor buff
+                    if (sender.HasBuff(Buffs.hermitcrabmortararmorBuff))
+                    {
+                        args.armorAdd += StaticValues.mortararmorGain * sender.GetBuffCount(Buffs.hermitcrabmortararmorBuff);
+                    }
+                    //verminsprint buff
+                    if (sender.HasBuff(Buffs.verminsprintBuff))
+                    {
+                        args.moveSpeedMultAdd += (StaticValues.verminmovespeedMultiplier - 1);
+                        sender.sprintingSpeedMultiplier = Modules.StaticValues.verminsprintMultiplier;
+                    }
+                    //fly buff
+                    if (sender.HasBuff(Buffs.airwalkBuff))
+                    {
+                        args.moveSpeedMultAdd += (0.5f);
+                        sender.acceleration *= 2f;
+                        sender.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                        sender.characterMotor.useGravity = false;
+                    }
+                    else
+                    {
+                        sender.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
+                        sender.characterMotor.useGravity = true;
+
+                    }
+                    //beetlebuff
+                    if (sender.HasBuff(Buffs.beetleBuff))
+                    {
+                        args.baseDamageAdd += StaticValues.beetleFlatDamage;
+                    }
+                    //lesserwispbuff
+                    if (sender.HasBuff(Buffs.lesserwispBuff))
+                    {
+                        args.baseAttackSpeedAdd += StaticValues.lesserwispFlatAttackSpeed;
+                    }
+                    //lunar exploder
+                    if (sender.HasBuff(Buffs.lesserwispBuff))
+                    {
+                        args.baseShieldAdd += sender.maxHealth * StaticValues.lunarexploderShieldCoefficient;
+                    }
+
+
 
                 }
-                //claydunestrider buff
-                if (sender.HasBuff(Buffs.claydunestriderBuff))
-                {
-                    args.baseAttackSpeedAdd += (StaticValues.claydunestriderAttackSpeed-1);
-
-                }
-                //mult buff
-                if (sender.HasBuff(Buffs.multBuff))
-                {
-                    args.armorAdd += StaticValues.multArmor;
-                    args.attackSpeedMultAdd += (StaticValues.multAttackspeed - 1);
-                    args.moveSpeedReductionMultAdd += (1 - StaticValues.multMovespeed);
-
-                }
-                //stonetitanarmor buff
-                if (sender.HasBuff(Buffs.stonetitanBuff))
-                {
-                    args.armorAdd += StaticValues.stonetitanarmorGain;
-                }
-                //voidbarnaclemortarattackspeed buff
-                if (sender.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
-                {
-                    args.baseAttackSpeedAdd += StaticValues.voidmortarattackspeedGain * sender.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff);
-
-                }
-                //hermitcrabmortararmor buff
-                if (sender.HasBuff(Buffs.hermitcrabmortararmorBuff))
-                {
-                    args.armorAdd += StaticValues.mortararmorGain * sender.GetBuffCount(Buffs.hermitcrabmortararmorBuff);
-                }
-                //verminsprint buff
-                if (sender.HasBuff(Buffs.verminsprintBuff))
-                {
-                    args.moveSpeedMultAdd += (StaticValues.verminmovespeedMultiplier - 1);
-                    sender.sprintingSpeedMultiplier = Modules.StaticValues.verminsprintMultiplier;
-                }
-                //fly buff
-                if (sender.HasBuff(Buffs.airwalkBuff))
-                {
-                    args.moveSpeedMultAdd += (0.5f);
-                    sender.acceleration *= 2f;
-                    sender.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
-                    sender.characterMotor.useGravity = false;
-                }
-                else
-                {
-                    sender.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
-                    sender.characterMotor.useGravity = true;
-
-                }
-                //beetlebuff
-                if (sender.HasBuff(Buffs.beetleBuff))
-                {
-                    args.baseDamageAdd += StaticValues.beetleFlatDamage;
-                }
-                //lesserwispbuff
-                if (sender.HasBuff(Buffs.lesserwispBuff))
-                {
-                    args.baseAttackSpeedAdd += StaticValues.lesserwispFlatAttackSpeed;
-                }
-                //lunar exploder
-                if (sender.HasBuff(Buffs.lesserwispBuff))
-                {
-                    args.baseShieldAdd += sender.maxHealth * StaticValues.lunarexploderShieldCoefficient;
-                }
-
-                
-
             }
+            
 
         }
 
@@ -263,7 +266,7 @@ namespace ShiggyMod
                             damageInfo2.position = victimBody.corePosition;
                             damageInfo2.force = Vector3.zero;
                             damageInfo2.procCoefficient = StaticValues.commandoProcCoefficient;
-                            damageInfo2.damageColorIndex = DamageColorIndex.WeakPoint;
+                            damageInfo2.damageColorIndex = DamageColorIndex.Default;
                             damageInfo2.crit = false;
                             damageInfo2.attacker = body.gameObject;
                             damageInfo2.inflictor = victimBody.gameObject;
@@ -299,7 +302,7 @@ namespace ShiggyMod
                                 falloffModel = BlastAttack.FalloffModel.None,
                                 baseDamage = body.damage * StaticValues.vagrantDamageCoefficient * body.attackSpeed / 3,
                                 damageType = damageType2,
-                                damageColorIndex = DamageColorIndex.Fragile,
+                                damageColorIndex = DamageColorIndex.Default,
                                 baseForce = 0,
                                 position = victimBody.transform.position,
                                 radius = StaticValues.vagrantRadius * body.attackSpeed / 3,
@@ -370,7 +373,7 @@ namespace ShiggyMod
                                 falloffModel = BlastAttack.FalloffModel.None,
                                 baseDamage = damageInfo.damage * StaticValues.greaterwispballDamageCoeffecient,
                                 damageType = damageInfo.damageType,
-                                damageColorIndex = DamageColorIndex.Count,
+                                damageColorIndex = DamageColorIndex.Default,
                                 baseForce = 0,
                                 procChainMask = damageInfo.procChainMask,
                                 position = victimBody.transform.position,

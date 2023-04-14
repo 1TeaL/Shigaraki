@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using RoR2.UI;
 using UnityEngine.AddressableAssets;
+using System.Runtime.CompilerServices;
 
 namespace ShiggyMod.Modules
 {
@@ -75,6 +76,9 @@ namespace ShiggyMod.Modules
         public static GameObject decaybuffEffect;
         public static GameObject decayspreadEffect;
 
+        public static GameObject voidMegaCrabExplosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidMegaCrab/VoidMegacrabAntimatterExplosion.prefab").WaitForCompletion();
+        public static GameObject huntressGlaiveChargeEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/ChargeGlaive.prefab").WaitForCompletion();
+        public static GameObject huntressGlaiveMuzzleEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressGlaiveSwing.prefab").WaitForCompletion();
         public static GameObject bisonEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Bison/BisonChargeStep.prefab").WaitForCompletion();
         public static GameObject GupSpikeEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/Gup/GupExplosion.prefab").WaitForCompletion();
         public static GameObject lemfireBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/Fireball.prefab").WaitForCompletion();
