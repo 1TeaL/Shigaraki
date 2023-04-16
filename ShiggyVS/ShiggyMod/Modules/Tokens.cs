@@ -288,6 +288,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BLACKHOLEGLAIVE_NAME", "Black Hole Glaive");
             LanguageAPI.Add(prefix + "BLACKHOLEGLAIVE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Throw a seeking glaive that bounces up to {StaticValues.blackholeGlaiveMaxBounceCount} times for <style=cIsDamage>{100f * StaticValues.blackholeGlaiveDamageCoefficient}% per hit</style>, damaging and pulling nearby enemies as well. Damage increases by <style=cIsDamage>{100f * (StaticValues.blackholeGlaiveDamageCoefficientPerBounce-1f)} per bounce</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[MechStance] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "GRAVITATIONALDOWNFORCE_NAME", "Gravitational Downforce");
+            LanguageAPI.Add(prefix + "GRAVITATIONALDOWNFORCE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Amplify the force of gravity around you, sending enemies down and dealing <style=cIsDamage>{100f * StaticValues.gravitationalDownforceDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Elemental Void] [RightHanded]</style>");
             #endregion
 
             #region Synergised Passive

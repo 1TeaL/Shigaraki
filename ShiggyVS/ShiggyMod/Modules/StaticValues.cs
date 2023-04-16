@@ -244,6 +244,10 @@ namespace ShiggyMod.Modules
         internal const float omniboostBuffCoefficient = 0.3f;
         internal const float omniboostBuffStackCoefficient = 0.05f;
 
+        internal const float gravitationalDownforceDamageCoefficient = 2f;
+        internal const float gravitationalDownforceRange = 50f;
+        internal const float gravitationalDownforceForce = 100f;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

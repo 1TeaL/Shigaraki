@@ -44,8 +44,8 @@ namespace ShiggyMod.SkillStates
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", fireTime, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
             this.muzzleString = "LHand";
-            //EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-            //EffectManager.SimpleMuzzleFlash(Modules.Assets.voidfiendblinkmuzzleEffect, base.gameObject, this.muzzleString, false);
+            EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
+            EffectManager.SimpleMuzzleFlash(Modules.Assets.voidfiendblinkmuzzleEffect, base.gameObject, this.muzzleString, false);
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -59,6 +59,10 @@ namespace ShiggyMod.SkillStates
 
             direction = (Quaternion.Euler(0f, -maxAngle/2f, 0f) * aimRay.direction).normalized;
 
+        }
+        public override void OnExit()
+        {
+            base.OnExit();
         }
 
         public override void FixedUpdate()

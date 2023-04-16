@@ -103,6 +103,7 @@ namespace ShiggyMod.Modules.Survivors
         //synergy actives
         internal static SkillDef sweepingBeamDef;
         internal static SkillDef blackholeGlaiveDef;
+        internal static SkillDef gravitationalDownforceDef;
 
         //synergy passive
         internal static SkillDef bigBangDef;
@@ -1937,6 +1938,31 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "BLACKHOLEGLAIVE_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BlackHoleGlaive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            gravitationalDownforceDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "GRAVITATIONALDOWNFORCE_NAME",
+                skillNameToken = prefix + "GRAVITATIONALDOWNFORCE_NAME",
+                skillDescriptionToken = prefix + "GRAVITATIONALDOWNFORCE_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.GravitationalDownforce)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,

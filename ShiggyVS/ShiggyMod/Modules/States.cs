@@ -100,6 +100,7 @@ namespace ShiggyMod.Modules
             //synergy active skills
             entityStates.Add(typeof(SweepingBeam));
             entityStates.Add(typeof(BlackHoleGlaive));
+            entityStates.Add(typeof(GravitationalDownforce));
 
             //synergy passive skills
             entityStates.Add(typeof(BigBang));
