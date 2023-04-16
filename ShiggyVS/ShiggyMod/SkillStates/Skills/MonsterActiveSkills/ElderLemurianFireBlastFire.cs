@@ -149,7 +149,7 @@ namespace ShiggyMod.SkillStates
                         info.duration = Modules.StaticValues.decayDamageTimer;
                         info.dotIndex = Modules.Dots.decayDot;
 
-                        for (int i = 0; i < Shiggycon.decayCount; i++)
+                        for (int i = 0; i < Shiggycon.; i++)
                         {
                             DotController.InflictDot(ref info);
 

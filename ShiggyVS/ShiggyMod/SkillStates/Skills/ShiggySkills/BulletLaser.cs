@@ -43,7 +43,7 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
 
-            bulletcount = 5 * (uint)Shiggycon.projectileCount;
+            bulletcount = 5 * (uint)Shiggycon.;
         }
 
         public override void OnExit()

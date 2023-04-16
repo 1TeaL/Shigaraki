@@ -157,8 +157,8 @@ namespace ShiggyMod.Modules
                 + Environment.NewLine + Environment.NewLine + 
                 $" <style=cSub>[Engineer]</style>");
             LanguageAPI.Add(prefix + "BEETLEGUARD_NAME", "Fast Drop");
-            LanguageAPI.Add(prefix + "BEETLEGUARD_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Drop and slam down, stunning and dealing <style=cIsDamage>{100f * StaticValues.beetleguardslamDamageCoeffecient}% damage</style> and gaining <style=cIsHealing>5% of your max health as Barrier</style> on hit. " +
-                $"Damage, radius and barrier gain scales with drop time and movespeed. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "BEETLEGUARD_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Drop and slam down, stunning and dealing <style=cIsDamage>{100f * StaticValues.beetleguardSlamDamageCoefficient}% damage</style> and gaining <style=cIsHealing>{Modules.StaticValues.beetleguardSlamBarrierCoefficient * 100f}% of your max health as Barrier</style> on hit. " +
+                $"Damage and radius and barrier gain scales with drop time and movespeed. " + Environment.NewLine + Environment.NewLine +
                 $" <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "BISON_NAME", "Charging");
             LanguageAPI.Add(prefix + "BISON_DESCRIPTION", $"<style=cIsDamage>Stunning. Agile.</style> Charge forward at super speed, and if you slam into a solid object, generates a shockwave that stuns enemies for <style=cIsDamage>{100f * StaticValues.bisonchargeDamageCoeffecient}% damage</style> in a radius. Hold the button to keep charging. " +
@@ -185,7 +185,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "IMP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Blink a short distance away, scaling with movespeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[LeftHanded]</style>");
             LanguageAPI.Add(prefix + "JELLYFISH_NAME", "Regenerate");
-            LanguageAPI.Add(prefix + "JELLYFISH_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Store half the damage you take as buff stacks, decaying by <style=cIsUtility>{100f * StaticValues.JellyfishHealTickRate}% of your max HP every second</style>. " +
+            LanguageAPI.Add(prefix + "JELLYFISH_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Store half the damage you take, decaying by <style=cIsUtility>{100f * StaticValues.JellyfishHealTickRate}% of your max HP every second</style>. " +
                 $"Activate this skill to <style=cIsHealing>Heal based on the number of stacks</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Alpha Construct] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "LEMURIAN_NAME", "Fireball");
@@ -232,7 +232,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VOIDDEVASTATOR_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Shoot 2x{StaticValues.voiddevastatorTotalMissiles} homing missiles, dealing <style=cIsDamage>{100f * StaticValues.voiddevastatorDamageCoeffecient}% damage per missile</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "SCAVENGER_NAME", "Throw Thqwibs");
-            LanguageAPI.Add(prefix + "SCAVENGER_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Throw {StaticValues.scavengerProjectileCount} thqwibs that activate <style=cDeath>On-Kill effects</style> and deal <style=cIsDamage>{100f * StaticValues.scavengerDamageCoeffecient}% damage</style> each. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "SCAVENGER_DESCRIPTION", $"<style=cIsDamage> Agile.</style> Throw {StaticValues.scavenger} thqwibs that activate <style=cDeath>On-Kill effects</style> and deal <style=cIsDamage>{100f * StaticValues.scavengerDamageCoeffecient}% damage</style> each. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "ARTIFICERFLAMETHROWER_NAME", "Elementality: Fire");
             LanguageAPI.Add(prefix + "ARTIFICERFLAMETHROWER_DESCRIPTION", $"<style=cIsDamage>Burning. Agile.</style> Burn all enemies in front of you for <style=cIsDamage>{100f * StaticValues.artificerflamethrowerDamageCoefficient}% damage</style>. " + Environment.NewLine +
@@ -290,6 +290,14 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[MechStance] [RightHanded]</style>");
             #endregion
 
+            #region Synergised Passive
+            LanguageAPI.Add(prefix + "BIGBANG_NAME", "Big Bang");
+            LanguageAPI.Add(prefix + "BIGBANG_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Each hit on an enemy builds up an explosive charge. On the {StaticValues.bigbangBuffThreshold}th hit, an explosion occurs, dealing <style=cIsDamage>{100f * StaticValues.bigbangBuffHealthCoefficient}% of the enemy's max health</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Wisper]</style>");
+            LanguageAPI.Add(prefix + "WISPER_NAME", "Wisper");
+            LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Every attack shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoeffcient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Big Bang]</style>");
+            #endregion
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_DESCRIPTION", "As Shiggy, beat the game or obliterate on Monsoon.");

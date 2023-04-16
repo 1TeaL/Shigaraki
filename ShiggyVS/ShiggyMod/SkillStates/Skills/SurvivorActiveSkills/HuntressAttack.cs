@@ -72,14 +72,14 @@ namespace ShiggyMod.SkillStates
             if (this.isCrit)
             {
                 this.muzzleflashEffectPrefab = FireFlurrySeekingArrow.critMuzzleflashEffectPrefab;
-                this.maxArrowCount = critMaxArrowCount * Shiggycon.projectileCount;
-                this.arrowReloadDuration = critBaseArrowReloadDuration / (attackSpeedStat * Shiggycon.projectileCount);
+                this.maxArrowCount = critMaxArrowCount * Shiggycon.;
+                this.arrowReloadDuration = critBaseArrowReloadDuration / (attackSpeedStat * Shiggycon.);
             }
             else
             {
                 this.muzzleflashEffectPrefab = IdleTracking.muzzleflashEffectPrefab;
-                this.maxArrowCount = maxArrowCount * Shiggycon.projectileCount;
-                this.arrowReloadDuration = baseArrowReloadDuration / (attackSpeedStat * Shiggycon.projectileCount);
+                this.maxArrowCount = maxArrowCount * Shiggycon.;
+                this.arrowReloadDuration = baseArrowReloadDuration / (attackSpeedStat * Shiggycon.);
             }
         }
         public override void OnExit()

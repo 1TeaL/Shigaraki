@@ -7,6 +7,8 @@ using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
 using EntityStates.Huntress;
 using R2API.Networking;
+using R2API;
+using static UnityEngine.ParticleSystem.PlaybackState;
 
 namespace ShiggyMod.SkillStates
 {
@@ -18,7 +20,7 @@ namespace ShiggyMod.SkillStates
         public static float slamRadius = 10f;
         public static float slamProcCoefficient = 1f;
         public static float slamForce = 1000f;
-        private float damageCoefficient = Modules.StaticValues.beetleguardslamDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.beetleguardSlamDamageCoefficient;
 
         private bool hasDropped;
         private Vector3 flyVector = Vector3.zero;
@@ -71,51 +73,16 @@ namespace ShiggyMod.SkillStates
             
 
         }
-
-        public void ApplyDoT()
+        protected virtual void OnHitEnemyAuthority(BlastAttack.Result result)
         {
-            Ray aimRay = base.GetAimRay();
-            theSpot = base.characterBody.footPosition;
-            BullseyeSearch search = new BullseyeSearch
+            foreach (BlastAttack.HitPoint hitpoint in result.hitPoints)
             {
+                //gain barrier per hit
+                base.healthComponent.AddBarrierAuthority((healthComponent.fullCombinedHealth / 20) * (this.moveSpeedStat / 7) * dropTimer);
 
-                teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
-                filterByLoS = false,
-                searchOrigin = theSpot,
-                searchDirection = UnityEngine.Random.onUnitSphere,
-                sortMode = BullseyeSearch.SortMode.Distance,
-                maxDistanceFilter = slamRadius * dropTimer,
-                maxAngleFilter = 360f
-            };
-
-            search.RefreshCandidates();
-            search.FilterOutGameObject(base.gameObject);
-
-
-
-            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-            foreach (HurtBox singularTarget in target)
-            {
-                if (singularTarget)
-                {
-                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-                    {
-                        InflictDotInfo info = new InflictDotInfo();
-                        info.attackerObject = base.gameObject;
-                        info.victimObject = singularTarget.healthComponent.body.gameObject;
-                        info.duration = Modules.StaticValues.decayDamageTimer;
-                        info.dotIndex = Modules.Dots.decayDot;
-
-                        for (int i = 0; i < Shiggycon.decayCount; i++)
-                        {
-                            DotController.InflictDot(ref info);
-
-                        }
-                    }
-                }
             }
-        }
 
+        }
 
         public override void FixedUpdate()
         {
@@ -199,13 +166,12 @@ namespace ShiggyMod.SkillStates
                 blastAttack.teamIndex = base.teamComponent.teamIndex;
                 blastAttack.damageType = damageType;
                 blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+                blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
 
-                ApplyDoT();
-                
-                if (blastAttack.Fire().hitCount > 0)
+                BlastAttack.Result result = blastAttack.Fire();
+                if (result.hitCount > 0)
                 {
-                    this.OnHitEnemyAuthority();
-
+                    this.OnHitEnemyAuthority(result);
                 }
 
                 EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData

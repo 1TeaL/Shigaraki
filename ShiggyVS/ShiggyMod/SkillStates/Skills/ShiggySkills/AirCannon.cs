@@ -25,7 +25,7 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride =1f;
         private DamageType damageType;
-        private int decayCount;
+        
         private float previousMass;
         private float rollSpeed;
         private Vector3 previousPosition;
@@ -37,11 +37,11 @@ namespace ShiggyMod.SkillStates
             damageType = DamageType.Stun1s;
             if (base.HasBuff(Modules.Buffs.multiplierBuff))
             {
-                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+                 = (int)Modules.StaticValues.multiplierCoefficient;
             }
             else
             {
-                decayCount = 1;
+                 = 1;
             }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
@@ -198,7 +198,7 @@ namespace ShiggyMod.SkillStates
                         info.duration = Modules.StaticValues.decayDamageTimer;
                         info.dotIndex = Modules.Dots.decayDot;
 
-                        for (int i = 0; i < decayCount; i++)
+                        for (int i = 0; i < ; i++)
                         {
                             DotController.InflictDot(ref info);
 

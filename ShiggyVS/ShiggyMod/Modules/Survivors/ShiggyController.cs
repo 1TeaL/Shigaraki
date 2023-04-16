@@ -122,8 +122,8 @@ namespace ShiggyMod.Modules.Survivors
         public float quirkTimer;
 
         public float shiggyDamage;
-        public int projectileCount;
-        public int decayCount;
+        public int ;
+        public int ;
         public int captainitemcount;
         private DamageType damageType;
         private DamageType damageType2;
@@ -484,13 +484,13 @@ namespace ShiggyMod.Modules.Survivors
                 //check multiplier buff
                 if (characterBody.HasBuff(Modules.Buffs.multiplierBuff))
                 {
-                    decayCount = (int)Modules.StaticValues.multiplierCoefficient;
-                    projectileCount = 1 * (int)Modules.StaticValues.multiplierCoefficient;
+                     = (int)Modules.StaticValues.multiplierCoefficient;
+                     = 1 * (int)Modules.StaticValues.multiplierCoefficient;
                 }
                 else
                 {
-                    decayCount = 1;
-                    projectileCount = 1;
+                     = 1;
+                     = 1;
                 }
 
 
@@ -936,9 +936,9 @@ namespace ShiggyMod.Modules.Survivors
                 //        if (characterBody.hasEffectiveAuthority && lunarTimer >= Modules.StaticValues.lunarexploderbaseDuration)
                 //        {
                 //            lunarTimer = 0f;
-                //            for (int i = 0; i < Modules.StaticValues.lunarexploderprojectileCount; i++)
+                //            for (int i = 0; i < Modules.StaticValues.lunarexploder; i++)
                 //            {
-                //                float num = 360f / Modules.StaticValues.lunarexploderprojectileCount;
+                //                float num = 360f / Modules.StaticValues.lunarexploder;
                 //                Vector3 forward = Util.QuaternionSafeLookRotation(characterBody.transform.forward, characterBody.transform.up) * Util.ApplySpread(Vector3.forward, 0f, 0f, 1f, 1f, num * (float)i, 0f);
                 //                FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
                 //                fireProjectileInfo.projectilePrefab = DeathState.projectilePrefab;
@@ -1124,7 +1124,7 @@ namespace ShiggyMod.Modules.Survivors
 						info.duration = Modules.StaticValues.decayDamageTimer;
 						info.dotIndex = Modules.Dots.decayDot;
 
-                        for (int i = 0; i < decayCount; i++)
+                        for (int i = 0; i < ; i++)
                         {
                             DotController.InflictDot(ref info);
 

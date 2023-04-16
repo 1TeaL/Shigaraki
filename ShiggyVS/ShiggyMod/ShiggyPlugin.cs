@@ -25,6 +25,7 @@ using EmotesAPI;
 using EntityStates.JellyfishMonster;
 using ShiggyMod.Modules.Networking;
 using System;
+using RoR2.Items;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -79,7 +80,7 @@ namespace ShiggyMod
         //public static Dictionary<ItemBase, bool> ItemStatusDictionary = new Dictionary<ItemBase, bool>();
         //public static Dictionary<EquipmentBase, bool> EquipmentStatusDictionary = new Dictionary<EquipmentBase, bool>();
         private BlastAttack blastAttack;
-        private int decayCount;
+        
 
         private void Awake()
         {
@@ -245,6 +246,8 @@ namespace ShiggyMod
             {
                 var body = attacker.GetComponent<CharacterBody>();
                 var victimBody = victim.GetComponent<CharacterBody>();
+
+
                 DamageType damageType2;
                 if (body.HasBuff(Buffs.impbossBuff))
                 {
@@ -271,7 +274,7 @@ namespace ShiggyMod
                             damageInfo2.attacker = body.gameObject;
                             damageInfo2.inflictor = victimBody.gameObject;
                             damageInfo2.damageType = damageInfo.damageType;
-                            damageInfo2.procCoefficient = 0f;
+                            damageInfo2.procCoefficient = 1f;
                             damageInfo2.procChainMask = default(ProcChainMask);
                             victimBody.healthComponent.TakeDamage(damageInfo2);
                         }
@@ -297,6 +300,7 @@ namespace ShiggyMod
                             }
                             new BlastAttack
                             {
+                                crit = false,
                                 attacker = damageInfo.attacker.gameObject,
                                 teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
                                 falloffModel = BlastAttack.FalloffModel.None,
@@ -324,36 +328,39 @@ namespace ShiggyMod
                     //acrid buff
                     if (body.HasBuff(Modules.Buffs.acridBuff))
                     {
-                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
-                        {
-                            if (victimBody.healthComponent)
-                            {
-                                InflictDotInfo info = new InflictDotInfo();
-                                info.attackerObject = body.gameObject;
-                                info.victimObject = victimBody.healthComponent.body.gameObject;
-                                info.duration = Modules.StaticValues.decayDamageTimer/2;
-                                info.dotIndex = DotController.DotIndex.Poison;
+                        damageInfo.damageType |= DamageType.PoisonOnHit;
+                        //if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        //{
+                        //    if (victimBody.healthComponent)
+                        //    {
+                        //        InflictDotInfo info = new InflictDotInfo();
+                        //        info.attackerObject = body.gameObject;
+                        //        info.victimObject = victimBody.healthComponent.body.gameObject;
+                        //        info.duration = Modules.StaticValues.decayDamageTimer/2;
+                        //        info.dotIndex = DotController.DotIndex.Poison;
 
-                                DotController.InflictDot(ref info);
-                            }
-                        }
+                        //        DotController.InflictDot(ref info);
+                        //    }
+                        //}
                     }
                     //impboss buff
                     if (body.HasBuff(Modules.Buffs.impbossBuff))
                     {
-                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
-                        {
-                            if (victimBody.healthComponent)
-                            {
-                                InflictDotInfo info = new InflictDotInfo();
-                                info.attackerObject = body.gameObject;
-                                info.victimObject = victimBody.healthComponent.body.gameObject;
-                                info.duration = Modules.StaticValues.decayDamageTimer/2;
-                                info.dotIndex = DotController.DotIndex.Bleed;
+                        damageInfo.damageType |= DamageType.BleedOnHit;
 
-                                DotController.InflictDot(ref info);
-                            }
-                        }
+                        //if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        //{
+                        //    if (victimBody.healthComponent)
+                        //    {
+                        //        InflictDotInfo info = new InflictDotInfo();
+                        //        info.attackerObject = body.gameObject;
+                        //        info.victimObject = victimBody.healthComponent.body.gameObject;
+                        //        info.duration = Modules.StaticValues.decayDamageTimer/2;
+                        //        info.dotIndex = DotController.DotIndex.Bleed;
+
+                        //        DotController.InflictDot(ref info);
+                        //    }
+                        //}
                     }
                     //greaterwisp buff
                     if (body.HasBuff(Modules.Buffs.greaterwispBuff))
@@ -368,6 +375,7 @@ namespace ShiggyMod
                             }, true);
                             new BlastAttack
                             {
+                                crit = false,
                                 attacker = damageInfo.attacker.gameObject,
                                 teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
                                 falloffModel = BlastAttack.FalloffModel.None,
@@ -384,6 +392,72 @@ namespace ShiggyMod
                             
                         }
                     }
+
+                    //bigbang buff
+                    if (body.HasBuff(Modules.Buffs.bigbangBuff))
+                    {
+
+                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            int bigbangCount = victimBody.GetBuffCount(Modules.Buffs.bigbangDebuff);
+                            if (bigbangCount < StaticValues.bigbangBuffThreshold)
+                            {
+                                victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, bigbangCount + 1);
+                            }
+                            else if (bigbangCount >= StaticValues.bigbangBuffThreshold)
+                            {
+                                victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, 0);
+                                if (EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab)
+                                {
+                                    EffectManager.SpawnEffect(EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab, new EffectData
+                                    {
+                                        origin = victimBody.transform.position,
+                                        scale = StaticValues.bigbangBuffRadius * body.attackSpeed / 3
+                                    }, true);
+                                }
+                                new BlastAttack
+                                {
+                                    crit = false,
+                                    attacker = damageInfo.attacker.gameObject,
+                                    teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
+                                    falloffModel = BlastAttack.FalloffModel.None,
+                                    baseDamage = victimBody.healthComponent.fullCombinedHealth * StaticValues.bigbangBuffHealthCoefficient,
+                                    damageType = DamageType.Stun1s,
+                                    damageColorIndex = DamageColorIndex.Default,
+                                    baseForce = 0,
+                                    position = victimBody.transform.position,
+                                    radius = StaticValues.bigbangBuffRadius * body.attackSpeed / 3,
+                                    procCoefficient = 1f,
+                                    attackerFiltering = AttackerFiltering.NeverHitSelf,
+                                }.Fire();
+                            }
+                        }                        
+                    }
+
+                    //wisper buff
+                    if (body.HasBuff(Buffs.wisperBuff))
+                    {
+                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
+                        {
+                            DevilOrb devilOrb = new DevilOrb
+                            {
+                                origin = body.corePosition,
+                                damageValue = body.damage * StaticValues.wisperBuffDamageCoeffcient,
+                                teamIndex = body.teamComponent.teamIndex,
+                                attacker = base.gameObject,
+                                damageColorIndex = DamageColorIndex.Item,
+                                scale = 1f,
+                                effectType = DevilOrb.EffectType.Wisp,
+                                procCoefficient = 1f
+                            };
+                            if (devilOrb.target = victimBody.mainHurtBox)
+                            {
+                                devilOrb.isCrit = Util.CheckRoll(body.crit, body.master);
+                                OrbManager.instance.AddOrb(devilOrb);
+                            }
+                        }
+                    }
+
                 }
             }
         }
@@ -528,11 +602,11 @@ namespace ShiggyMod
 
                             if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.multiplierBuff))
                             {
-                                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+                                 = (int)Modules.StaticValues.multiplierCoefficient;
                             }
                             else
                             {
-                                decayCount = 1;
+                                 = 1;
                             }
 
                             var damageInfo2 = new DamageInfo();
@@ -593,7 +667,7 @@ namespace ShiggyMod
                         if (self.body.HasBuff(RoR2Content.Buffs.MercExpose) && damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME" )
                         {
                             self.body.RemoveBuff(RoR2Content.Buffs.MercExpose);
-                            float num2 = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().damage * 3.5f;
+                            float num2 = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().damage * Modules.StaticValues.exposeDamageCoefficient;
                             damageInfo.damage += num2;
                             SkillLocator skillLocator = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().skillLocator;
                             if (skillLocator)
@@ -615,14 +689,14 @@ namespace ShiggyMod
 
                             if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.multiplierBuff))
                             {
-                                decayCount = (int)Modules.StaticValues.multiplierCoefficient;
+                                 = (int)Modules.StaticValues.multiplierCoefficient;
                             }
                             else
                             {
-                                decayCount = 1;
+                                 = 1;
                             }
 
-                            for (int i = 0; i < decayCount; i++)
+                            for (int i = 0; i < ; i++)
                             {
                                 DotController.InflictDot(ref info);
                             }

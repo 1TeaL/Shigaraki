@@ -72,7 +72,7 @@ namespace ShiggyMod.Modules
         internal const float minimushrumRadius = 4f;
 
         internal const float lunarexploderShieldCoefficient = 0.25f;
-        //internal const float lunarexploderprojectileCount = 1f;
+        //internal const float lunarexploder = 1f;
         //internal const float lunarexploderbaseDuration = 2f;
         //internal const float lunarexploderRadius = 2.5f;
         //internal const float lunarexploderDamageCoefficient = 1f;
@@ -130,7 +130,8 @@ namespace ShiggyMod.Modules
         internal const float bulletlaserDamageCoefficient = 2f;
         internal const float bulletlaserProcCoefficient = 0.3f;
 
-        internal const float beetleguardslamDamageCoeffecient = 4f;
+        internal const float beetleguardSlamDamageCoefficient = 4f;
+        internal const float beetleguardSlamBarrierCoefficient = 0.05f;
         internal const float beetleguardslamProcCoefficient = 1f;
 
         internal const float bisonchargeDamageCoeffecient = 6f;
@@ -189,7 +190,7 @@ namespace ShiggyMod.Modules
         internal const float voiddevastatorDamageCoeffecient = 1f;
         internal const float voiddevastatorProcCoefficient = 0.5f;
 
-        internal const int scavengerProjectileCount = 3;
+        internal const int scavenger = 3;
         internal const float scavengerDamageCoeffecient = 4f;
         internal const float scavengerProcCoefficient = 0.5f;
 
@@ -208,6 +209,7 @@ namespace ShiggyMod.Modules
         internal const float huntressProcCoefficient = 0.7f;
         internal const int huntressmaxArrowCount = 6;
 
+        internal static float exposeDamageCoefficient = 3.5f;
         internal const float mercDamageCoefficient = 1f;
         internal const float mercProcCoefficient = 1f;
 
@@ -223,14 +225,21 @@ namespace ShiggyMod.Modules
         //synergy skills
         internal const float sweepingBeamDamageCoeffecient = 1f;
         internal const float sweepingBeamProcCoefficient = 0.2f;
-        internal const uint sweepingBeamTotalBullets = 10;
+        internal const uint sweepingBeamTotalBullets = 20;
 
         internal const float blackholeGlaiveDamageCoefficient = 1.2f;
         internal const float blackholeGlaiveDamageCoefficientPerBounce = 1.2f;
         internal const float blackholeGlaiveBounceRange = 40f;
+        internal const float blackholeGlaiveBlastRange = 10f;
         internal const float blackholeGlaiveProcCoefficient = 0.8f;
         internal const int blackholeGlaiveMaxBounceCount = 4;
         internal const float blackholeGlaiveTravelSpeed = 30f;
+
+        internal const int bigbangBuffThreshold = 5;
+        internal const float bigbangBuffHealthCoefficient = 0.2f;
+        internal const float bigbangBuffRadius= 20f;
+
+        internal const float wisperBuffDamageCoeffcient = 2f;
 
         public enum IndicatorType : uint
         {
@@ -244,6 +253,7 @@ namespace ShiggyMod.Modules
         public static Dictionary<RoR2.Skills.SkillDef, RoR2.BuffIndex> baseQuirkSkilltoBuff;
         public static Dictionary<RoR2.Skills.SkillDef, RoR2.Skills.SkillDef> baseQuirkSkillbaseUpgradeCheck;
         public static Dictionary<RoR2.Skills.SkillDef, RoR2.Skills.SkillDef> baseQuirkandUpgrade;
+
         //public static Dictionary<RoR2.Skills.SkillDef, >
         public static void LoadDictionary()
         {

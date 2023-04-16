@@ -27,7 +27,7 @@ namespace ShiggyMod.SkillStates
         private float minSpread = 0f;
         private float maxSpread = 5f;
         private string muzzleName = "LHand";
-        private int projectileCount;
+        
 
         public override void OnEnter()
         {
@@ -43,7 +43,7 @@ namespace ShiggyMod.SkillStates
             {
                 EffectManager.SimpleMuzzleFlash(ThrowSack.effectPrefab, base.gameObject, muzzleName, false);
             }
-            projectileCount = Modules.StaticValues.scavengerProjectileCount * (int)Shiggycon.projectileCount;
+             = Modules.StaticValues.scavenger * (int)Shiggycon.;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
@@ -84,7 +84,7 @@ namespace ShiggyMod.SkillStates
                 magnitude = direction.magnitude;
                 ray2.direction = direction;
             }
-            for (int i = 0; i < projectileCount; i++)
+            for (int i = 0; i < ; i++)
             {
                 Quaternion rotation = Util.QuaternionSafeLookRotation(Util.ApplySpread(ray2.direction, minSpread, maxSpread, 1f, 1f, 0f, 0f));
 

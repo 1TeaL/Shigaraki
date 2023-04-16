@@ -9,17 +9,17 @@ using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
 using R2API.Networking;
 
-namespace ShiggyMod.SkillStates.Skills
+namespace ShiggyMod.SkillStates
 {
-    public class SpikyBody : Skill
+    public class Wisper : Skill
     {
-        //Bronzong + gup
+        //Greater wisp + grovetender
         public override void OnEnter()
         {
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.ApplyBuff(Buffs.acridBuff.buffIndex, 1);
+                characterBody.ApplyBuff(Modules.Buffs.wisperBuff.buffIndex, 1);
             }
         }
 

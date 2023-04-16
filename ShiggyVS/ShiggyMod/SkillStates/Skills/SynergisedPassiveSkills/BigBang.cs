@@ -11,15 +11,15 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class Genesis : Skill
+    public class BigBang : Skill
     {
-        //xi construct + clay apothecary
+        //Clay templar + wandering vagrant
         public override void OnEnter()
         {
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.ApplyBuff(Modules.Buffs.acridBuff.buffIndex, 1);
+                characterBody.ApplyBuff(Modules.Buffs.bigbangBuff.buffIndex, 1);
             }
         }
 
