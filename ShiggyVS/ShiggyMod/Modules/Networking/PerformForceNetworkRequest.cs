@@ -16,6 +16,8 @@ namespace ShiggyMod.Modules.Networking
         Vector3 direction;
         private float Range;
         private float damage;
+        private float angle;
+        private bool playEffect;
         
         //Don't network these.
         GameObject bodyObj;
@@ -28,13 +30,15 @@ namespace ShiggyMod.Modules.Networking
 
         }
 
-        public PerformForceNetworkRequest(NetworkInstanceId netID, Vector3 origin, Vector3 direction, float Range, float damage)
+        public PerformForceNetworkRequest(NetworkInstanceId netID, Vector3 origin, Vector3 direction, float Range, float damage, float angle, bool playEffect)
         {
             this.netID = netID;
             this.origin = origin;
             this.direction = direction;
             this.Range = Range;
             this.damage = damage;
+            this.angle = angle;
+            this.playEffect = playEffect;
         }
 
         public void Deserialize(NetworkReader reader)
@@ -44,6 +48,8 @@ namespace ShiggyMod.Modules.Networking
             direction = reader.ReadVector3();
             Range = reader.ReadSingle();
             damage = reader.ReadSingle();
+            angle = reader.ReadSingle();
+            playEffect = reader.ReadBoolean();
         }
 
         public void Serialize(NetworkWriter writer)
@@ -53,6 +59,8 @@ namespace ShiggyMod.Modules.Networking
             writer.Write(direction);
             writer.Write(Range);
             writer.Write(damage);
+            writer.Write(angle);
+            writer.Write(playEffect);
         }
 
         public void OnReceived()
@@ -137,14 +145,16 @@ namespace ShiggyMod.Modules.Networking
                         singularTarget.healthComponent.TakeDamage(damageInfo);
                         GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
 
-
-                        EffectManager.SpawnEffect(blastEffectPrefab, new EffectData
+                        if (playEffect)
                         {
-                            origin = singularTarget.transform.position,
-                            scale = 1f,
-                            rotation = Quaternion.LookRotation(singularTarget.transform.position - origin),
+                            EffectManager.SpawnEffect(blastEffectPrefab, new EffectData
+                            {
+                                origin = singularTarget.transform.position,
+                                scale = 1f,
+                                rotation = Quaternion.LookRotation(singularTarget.transform.position - origin),
 
-                        }, true);
+                            }, true);
+                        }
                     }
                 }
             }
@@ -158,7 +168,7 @@ namespace ShiggyMod.Modules.Networking
             this.search.searchDirection = direction;
             this.search.sortMode = BullseyeSearch.SortMode.Distance;
             this.search.maxDistanceFilter = Range;
-            this.search.maxAngleFilter = Modules.StaticValues.vulturePushAngle;
+            this.search.maxAngleFilter = angle;
             this.search.RefreshCandidates();
             this.search.FilterOutGameObject(charBody.gameObject);
             this.trackingTargets = this.search.GetResults().ToList<HurtBox>();

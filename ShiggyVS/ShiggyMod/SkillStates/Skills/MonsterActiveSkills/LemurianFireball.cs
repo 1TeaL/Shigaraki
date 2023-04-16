@@ -44,10 +44,8 @@ namespace ShiggyMod.SkillStates
                 this.chargeVfxInstance.transform.parent = FindModelChild(this.muzzleString).transform;
             }
 
-            for (int i = 0; i < 1 * Shiggycon.; i++)
-            {
-                FireBall();
-            }
+            FireBall();
+            
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();

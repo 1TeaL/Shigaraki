@@ -174,20 +174,6 @@ namespace ShiggyMod.SkillStates
                             GlobalEventManager.instance.OnHitAll(damageInfo, hurtBox2.healthComponent.gameObject);
                         }
 
-                        if (hurtBox2.healthComponent)
-                        {
-                            InflictDotInfo info = new InflictDotInfo();
-                            info.attackerObject = base.gameObject;
-                            info.victimObject = hurtBox2.healthComponent.body.gameObject;
-                            info.duration = Modules.StaticValues.decayDamageTimer;
-                            info.dotIndex = Modules.Dots.decayDot;
-
-                            for (int i = 0; i < Shiggycon.; i++)
-                            {
-                                DotController.InflictDot(ref info);
-
-                            }
-                        }
                     }
                 }
                 else if (base.isAuthority && this.stopwatch > minimumDuration)

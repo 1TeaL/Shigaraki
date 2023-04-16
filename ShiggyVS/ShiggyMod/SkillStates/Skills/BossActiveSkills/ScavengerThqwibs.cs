@@ -43,7 +43,6 @@ namespace ShiggyMod.SkillStates
             {
                 EffectManager.SimpleMuzzleFlash(ThrowSack.effectPrefab, base.gameObject, muzzleName, false);
             }
-             = Modules.StaticValues.scavenger * (int)Shiggycon.;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
@@ -84,7 +83,7 @@ namespace ShiggyMod.SkillStates
                 magnitude = direction.magnitude;
                 ray2.direction = direction;
             }
-            for (int i = 0; i < ; i++)
+            for (int i = 0; i < Modules.StaticValues.scavenger; i++)
             {
                 Quaternion rotation = Util.QuaternionSafeLookRotation(Util.ApplySpread(ray2.direction, minSpread, maxSpread, 1f, 1f, 0f, 0f));
 

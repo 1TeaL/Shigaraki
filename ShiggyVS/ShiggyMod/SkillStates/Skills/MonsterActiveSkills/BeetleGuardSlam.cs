@@ -9,6 +9,7 @@ using EntityStates.Huntress;
 using R2API.Networking;
 using R2API;
 using static UnityEngine.ParticleSystem.PlaybackState;
+using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
@@ -78,7 +79,7 @@ namespace ShiggyMod.SkillStates
             foreach (BlastAttack.HitPoint hitpoint in result.hitPoints)
             {
                 //gain barrier per hit
-                base.healthComponent.AddBarrierAuthority((healthComponent.fullCombinedHealth / 20) * (this.moveSpeedStat / 7) * dropTimer);
+                base.healthComponent.AddBarrierAuthority((healthComponent.fullCombinedHealth * StaticValues.beetleguardSlamBarrierCoefficient) * (this.moveSpeedStat / 7) * dropTimer);
 
             }
 

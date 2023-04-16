@@ -9,6 +9,7 @@ using EntityStates.Huntress;
 using EntityStates.LemurianBruiserMonster;
 using EntityStates.Mage.Weapon;
 using System.Collections.Generic;
+using R2API;
 
 namespace ShiggyMod.SkillStates
 {
@@ -89,6 +90,8 @@ namespace ShiggyMod.SkillStates
                 blastAttack.damageType = (Util.CheckRoll(Flamethrower.ignitePercentChance, base.characterBody.master) ? DamageType.IgniteOnHit : damageType);
                 blastAttack.attackerFiltering = AttackerFiltering.Default;
 
+                blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
+
                 Debug.Log(hitCount + "hitcount");
                 for (int i = 0; i < hitCount; i++)
                 {
@@ -96,7 +99,6 @@ namespace ShiggyMod.SkillStates
                     {
                         OnHitEnemyAuthority();
                     }
-                    ApplyDoT();
                     EffectManager.SpawnEffect(this.blastEffectPrefab, new EffectData
                     {
                         origin = moveVec,
@@ -116,49 +118,6 @@ namespace ShiggyMod.SkillStates
         {
 
         }
-        public void ApplyDoT()
-        {
-            Ray aimRay = base.GetAimRay();
-            BullseyeSearch search = new BullseyeSearch
-            {
-
-                teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
-                filterByLoS = false,
-                searchOrigin = moveVec,
-                searchDirection = UnityEngine.Random.onUnitSphere,
-                sortMode = BullseyeSearch.SortMode.Distance,
-                maxDistanceFilter = radius,
-                maxAngleFilter = 360f
-            };
-
-            search.RefreshCandidates();
-            search.FilterOutGameObject(base.gameObject);
-
-
-
-            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-            foreach (HurtBox singularTarget in target)
-            {
-                if (singularTarget)
-                {
-                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-                    {
-                        InflictDotInfo info = new InflictDotInfo();
-                        info.attackerObject = base.gameObject;
-                        info.victimObject = singularTarget.healthComponent.body.gameObject;
-                        info.duration = Modules.StaticValues.decayDamageTimer;
-                        info.dotIndex = Modules.Dots.decayDot;
-
-                        for (int i = 0; i < Shiggycon.; i++)
-                        {
-                            DotController.InflictDot(ref info);
-
-                        }
-                    }
-                }
-            }
-        }
-
         public override void FixedUpdate()
         {
             base.FixedUpdate();

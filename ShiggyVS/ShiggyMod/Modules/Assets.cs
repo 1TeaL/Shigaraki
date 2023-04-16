@@ -71,11 +71,14 @@ namespace ShiggyMod.Modules
         //public static Material alphaconstructShieldBuff = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
         public static Material alphaconstructShieldBuff;
         public static Material multiplierShieldBuff;
-
+        
+        //own effects
         public static GameObject decayattackEffect;
         public static GameObject decaybuffEffect;
         public static GameObject decayspreadEffect;
 
+
+        //game effects
         public static GameObject voidMegaCrabExplosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidMegaCrab/VoidMegacrabAntimatterExplosion.prefab").WaitForCompletion();
         public static GameObject huntressGlaiveChargeEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/ChargeGlaive.prefab").WaitForCompletion();
         public static GameObject huntressGlaiveMuzzleEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressGlaiveSwing.prefab").WaitForCompletion();

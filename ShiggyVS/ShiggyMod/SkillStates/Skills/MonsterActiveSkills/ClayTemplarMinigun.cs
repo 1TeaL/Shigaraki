@@ -51,7 +51,7 @@ namespace ShiggyMod.SkillStates
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
 
             this.baseFireRate = 1f / baseFireInterval;
-            baseBulletCount = 3 * (uint)Shiggycon.;
+            baseBulletCount = 3;
             this.critEndTime = Run.FixedTimeStamp.negativeInfinity;
             this.lastCritCheck = Run.FixedTimeStamp.negativeInfinity;
             Util.PlaySound(MinigunFire.startSound, base.gameObject);

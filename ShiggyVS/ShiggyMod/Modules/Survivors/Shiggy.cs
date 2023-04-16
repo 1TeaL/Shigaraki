@@ -104,6 +104,11 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef sweepingBeamDef;
         internal static SkillDef blackholeGlaiveDef;
 
+        //synergy passive
+        internal static SkillDef bigBangDef;
+        internal static SkillDef wisperDef;
+        internal static SkillDef omniboostDef;
+
 
         internal override GameObject bodyPrefab { get; set; }
         internal override GameObject displayPrefab { get; set; }
@@ -1948,6 +1953,86 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            #endregion
+
+
+            #region Synergy Passive Skills
+
+            bigBangDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "BIGBANG_NAME",
+                skillNameToken = prefix + "BIGBANG_NAME",
+                skillDescriptionToken = prefix + "BIGBANG_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BigBang)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] {}
+
+            });
+            wisperDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "WISPER_NAME",
+                skillNameToken = prefix + "WISPER_NAME",
+                skillDescriptionToken = prefix + "WISPER_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Wisper)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] {}
+
+            });
+            omniboostDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "OMNIBOOST_NAME",
+                skillNameToken = prefix + "OMNIBOOST_NAME",
+                skillDescriptionToken = prefix + "OMNIBOOST_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Omniboost)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] {}
 
             });
             #endregion

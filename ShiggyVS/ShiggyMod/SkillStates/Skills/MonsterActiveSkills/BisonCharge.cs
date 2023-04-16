@@ -6,6 +6,7 @@ using EntityStates;
 using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
 using EntityStates.Loader;
+using R2API;
 
 namespace ShiggyMod.SkillStates
 {
@@ -167,12 +168,11 @@ namespace ShiggyMod.SkillStates
 					blastAttack.teamIndex = base.teamComponent.teamIndex;
 					blastAttack.damageType = damageType;
 					blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-
+					blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
                     Util.PlaySound(EntityStates.Bison.Headbutt.attackSoundString, base.gameObject);
 
 					AkSoundEngine.PostEvent(4108468048, base.gameObject);
 					
-					ApplyDoT();
 					
 					if (blastAttack.Fire().hitCount > 0)
 					{
@@ -192,48 +192,6 @@ namespace ShiggyMod.SkillStates
 			}
 		}
 
-		public void ApplyDoT()
-		{
-			Ray aimRay = base.GetAimRay();
-			BullseyeSearch search = new BullseyeSearch
-			{
-
-				teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
-				filterByLoS = false,
-				searchOrigin = base.transform.position,
-				searchDirection = UnityEngine.Random.onUnitSphere,
-				sortMode = BullseyeSearch.SortMode.Distance,
-				maxDistanceFilter = hitradius * totalDuration,
-				maxAngleFilter = 360f
-			};
-
-			search.RefreshCandidates();
-			search.FilterOutGameObject(base.gameObject);
-
-
-
-			List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-			foreach (HurtBox singularTarget in target)
-			{
-				if (singularTarget)
-				{
-					if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-					{
-						InflictDotInfo info = new InflictDotInfo();
-						info.attackerObject = base.gameObject;
-						info.victimObject = singularTarget.healthComponent.body.gameObject;
-						info.duration = Modules.StaticValues.decayDamageTimer;
-						info.dotIndex = Modules.Dots.decayDot;
-
-						for (int i = 0; i < Shiggycon.; i++)
-						{
-							DotController.InflictDot(ref info);
-
-						}
-					}
-				}
-			}
-		}
 		protected virtual void OnHitEnemyAuthority()
 		{
 

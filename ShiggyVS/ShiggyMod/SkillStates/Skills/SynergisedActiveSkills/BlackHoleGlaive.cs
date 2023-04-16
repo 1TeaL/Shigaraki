@@ -106,7 +106,7 @@ namespace ShiggyMod.SkillStates
                     //    procCoefficient = StaticValues.blackholeGlaiveProcCoefficient,
                     //    attackerFiltering = AttackerFiltering.NeverHitSelf,
                     //}.Fire();
-                    new PerformForceNetworkRequest(characterBody.masterObjectId, self.target.transform.position, Vector3.up, StaticValues.blackholeGlaiveBounceRange / 2f, self.damageValue).Send(NetworkDestination.Clients);
+                    new PerformForceNetworkRequest(characterBody.masterObjectId, self.target.transform.position, Vector3.up, StaticValues.blackholeGlaiveBlastRange, self.damageValue, 360f, false).Send(NetworkDestination.Clients);
 
                     EffectManager.SpawnEffect(Assets.voidMegaCrabExplosionEffect, new EffectData
                     {

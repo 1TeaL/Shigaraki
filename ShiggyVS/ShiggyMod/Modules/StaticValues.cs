@@ -239,7 +239,10 @@ namespace ShiggyMod.Modules
         internal const float bigbangBuffHealthCoefficient = 0.2f;
         internal const float bigbangBuffRadius= 20f;
 
-        internal const float wisperBuffDamageCoeffcient = 2f;
+        internal const float wisperBuffDamageCoefficient = 2f;
+
+        internal const float omniboostBuffCoefficient = 0.3f;
+        internal const float omniboostBuffStackCoefficient = 0.05f;
 
         public enum IndicatorType : uint
         {

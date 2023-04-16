@@ -122,8 +122,6 @@ namespace ShiggyMod.Modules.Survivors
         public float quirkTimer;
 
         public float shiggyDamage;
-        public int ;
-        public int ;
         public int captainitemcount;
         private DamageType damageType;
         private DamageType damageType2;
@@ -140,7 +138,6 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Awake()
         {
-            On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
 
             child = GetComponentInChildren<ChildLocator>();
 			
@@ -285,24 +282,6 @@ namespace ShiggyMod.Modules.Survivors
             hasExtra4 = false;
         }
 
-        private void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
-        {
-            orig.Invoke(self, damageReport);
-            //shiggy kill check for energy
-            if (damageReport.attackerBody?.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-            {
-                if (damageReport.attackerBody && damageReport.victimBody)
-                {
-                    if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
-                    {
-                        EnergySystem energySystem = damageReport.attackerBody.gameObject.GetComponent<EnergySystem>();
-                        energySystem.currentplusChaos += energySystem.maxPlusChaos * StaticValues.killPlusChaosGain;
-                        energySystem.TriggerGlow(0.3f, 0.3f, Color.cyan);
-                    }
-                }
-
-            }
-        }
 
 
         public HurtBox GetTrackingTarget()
@@ -326,7 +305,6 @@ namespace ShiggyMod.Modules.Survivors
 
 		public void OnDestroy()
         {
-            On.RoR2.GlobalEventManager.OnCharacterDeath -= GlobalEventManager_OnCharacterDeath;
             if (mortarIndicatorInstance) EntityState.Destroy(mortarIndicatorInstance.gameObject);
             if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
         }
@@ -481,17 +459,6 @@ namespace ShiggyMod.Modules.Survivors
                 damageType = DamageType.Generic;
                 damageType2 = DamageType.SlowOnHit;
 
-                //check multiplier buff
-                if (characterBody.HasBuff(Modules.Buffs.multiplierBuff))
-                {
-                     = (int)Modules.StaticValues.multiplierCoefficient;
-                     = 1 * (int)Modules.StaticValues.multiplierCoefficient;
-                }
-                else
-                {
-                     = 1;
-                     = 1;
-                }
 
 
                 //overloadingworm buff
@@ -874,10 +841,9 @@ namespace ShiggyMod.Modules.Survivors
                         blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
                         blastAttack.damageType = damageType;
                         blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-
+                        blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
                         blastAttack.Fire();
 
-                        ApplyDoT();
 
                     }
 
@@ -907,8 +873,8 @@ namespace ShiggyMod.Modules.Survivors
                         blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
                         blastAttack.damageType = damageType;
                         blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+                        blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
                         blastAttack.Fire();
-                        ApplyDoT();
                     }
                 }
                 else
@@ -1088,48 +1054,6 @@ namespace ShiggyMod.Modules.Survivors
 						EffectManager.SpawnEffect(Modules.Assets.voidjailermuzzleEffect, effectData, true);
 						
 					}
-				}
-			}
-		}
-		public void ApplyDoT()
-		{
-			Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
-			BullseyeSearch search = new BullseyeSearch
-			{
-
-				teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-				filterByLoS = false,
-				searchOrigin = characterBody.corePosition,
-				searchDirection = UnityEngine.Random.onUnitSphere,
-				sortMode = BullseyeSearch.SortMode.Distance,
-				maxDistanceFilter = Modules.StaticValues.larvaRadius,
-				maxAngleFilter = 360f
-			};
-
-			search.RefreshCandidates();
-			search.FilterOutGameObject(characterBody.gameObject);
-
-
-
-			List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-			foreach (HurtBox singularTarget in target)
-			{
-				if (singularTarget)
-				{
-					if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-					{
-						InflictDotInfo info = new InflictDotInfo();
-						info.attackerObject = characterBody.gameObject;
-						info.victimObject = singularTarget.healthComponent.body.gameObject;
-						info.duration = Modules.StaticValues.decayDamageTimer;
-						info.dotIndex = Modules.Dots.decayDot;
-
-                        for (int i = 0; i < ; i++)
-                        {
-                            DotController.InflictDot(ref info);
-
-                        }
-                    }
 				}
 			}
 		}

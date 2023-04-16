@@ -47,7 +47,7 @@ namespace ShiggyMod.SkillStates
             {
                 hasFired= true;
 
-                new PerformForceNetworkRequest(characterBody.masterObjectId, base.GetAimRay().origin - GetAimRay().direction, base.GetAimRay().direction, pushRange, characterBody.damage * Modules.StaticValues.vultureDamageCoefficient).Send(NetworkDestination.Clients);
+                new PerformForceNetworkRequest(characterBody.masterObjectId, base.GetAimRay().origin - GetAimRay().direction, base.GetAimRay().direction, pushRange, characterBody.damage * Modules.StaticValues.vultureDamageCoefficient, Modules.StaticValues.vulturePushAngle, true).Send(NetworkDestination.Clients);
             }
 
             if (base.fixedAge >= duration)

@@ -51,7 +51,7 @@ namespace ShiggyMod.SkillStates
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            baseBulletCount = 3 * (uint)Shiggycon.;
+            baseBulletCount = 3;
 
             this.muzzleTransformOne = base.FindModelChild(this.muzzleString);
             if (this.muzzleTransformOne && FireLunarGuns.muzzleVfxPrefab)

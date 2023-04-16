@@ -41,6 +41,18 @@ namespace ShiggyMod.Modules
         internal static BuffDef magmawormBuff;
         internal static BuffDef overloadingwormBuff;
 
+        //monsterdebuffs
+        internal static BuffDef grovetenderChainDebuff;
+
+        //synergy buffs
+        internal static BuffDef bigbangBuff;
+        internal static BuffDef wisperBuff;
+        internal static BuffDef omniboostBuff;
+        internal static BuffDef omniboostBuffStacks;
+
+        //synergy debuffs
+        internal static BuffDef bigbangDebuff;
+
         //survivor buffs
         internal static BuffDef acridBuff;
         internal static BuffDef commandoBuff;
@@ -55,8 +67,6 @@ namespace ShiggyMod.Modules
         //elite 60 second debuff timer
         internal static BuffDef eliteDebuff;
 
-        //debuffs
-        internal static BuffDef grovetenderChainDebuff;
 
         internal static void RegisterBuffs()
         {
@@ -99,8 +109,13 @@ namespace ShiggyMod.Modules
 
             eliteDebuff = Buffs.AddNewBuff("eliteDebuff", Assets.critBuffIcon, Color.black, false, true);
 
+            bigbangBuff = Buffs.AddNewBuff("bigbangBuff", Assets.orbreadyBuffIcon, new Color(0.67f, 0.87f, 0.93f), false, false);
+            wisperBuff = Buffs.AddNewBuff("wisperBuff", Assets.multiplierBuffIcon, new Color(0.52f, 0.48f, 0.39f), false, false);
+            omniboostBuff = Buffs.AddNewBuff("omniboost Buff", Assets.boostBuffIcon, Color.white, false, false);
+            omniboostBuffStacks = Buffs.AddNewBuff("omniboost Buff", Assets.boostBuffIcon, Color.gray, true, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
+            bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.white, true, true);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

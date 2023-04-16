@@ -5,6 +5,8 @@ using ShiggyMod.Modules.Survivors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using R2API.Networking;
+using R2API;
 
 namespace ShiggyMod.SkillStates
 {
@@ -35,14 +37,6 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = DamageType.Stun1s;
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                 = (int)Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                 = 1;
-            }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
             this.duration = this.baseDuration / this.attackSpeedStat;
@@ -61,7 +55,6 @@ namespace ShiggyMod.SkillStates
                 Vector3 theSpot = aimRay.origin - 2 * aimRay.direction;
                 Vector3 theSpot2 = aimRay.origin - 2 * aimRay.direction;
 
-                ApplyDoT();
                 BlastAttack blastAttack = new BlastAttack();
                 blastAttack.radius = radius;
                 blastAttack.procCoefficient = 1f;
@@ -74,6 +67,9 @@ namespace ShiggyMod.SkillStates
                 blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
                 blastAttack.damageType = damageType;
                 blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+
+                blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
+
                 BlastAttack.Result result = blastAttack.Fire();
 
                 EffectData effectData = new EffectData();
@@ -164,50 +160,6 @@ namespace ShiggyMod.SkillStates
                 return;
             }
         }
-
-        public void ApplyDoT()
-        {
-            Ray aimRay = base.GetAimRay();
-            BullseyeSearch search = new BullseyeSearch
-            {
-
-                teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
-                filterByLoS = false,
-                searchOrigin = base.characterBody.footPosition,
-                searchDirection = UnityEngine.Random.onUnitSphere,
-                sortMode = BullseyeSearch.SortMode.Distance,
-                maxDistanceFilter = radius,
-                maxAngleFilter = 360f
-            };
-
-            search.RefreshCandidates();
-            search.FilterOutGameObject(base.gameObject);
-
-
-
-            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-            foreach (HurtBox singularTarget in target)
-            {
-                if (singularTarget)
-                {
-                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-                    {
-                        InflictDotInfo info = new InflictDotInfo();
-                        info.attackerObject = base.gameObject;
-                        info.victimObject = singularTarget.healthComponent.body.gameObject;
-                        info.duration = Modules.StaticValues.decayDamageTimer;
-                        info.dotIndex = Modules.Dots.decayDot;
-
-                        for (int i = 0; i < ; i++)
-                        {
-                            DotController.InflictDot(ref info);
-
-                        }
-                    }
-                }
-            }
-        }
-
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {

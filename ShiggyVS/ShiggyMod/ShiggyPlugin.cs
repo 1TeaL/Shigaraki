@@ -143,6 +143,7 @@ namespace ShiggyMod
             On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
             R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+            On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
@@ -227,6 +228,18 @@ namespace ShiggyMod
                     if (sender.HasBuff(Buffs.lesserwispBuff))
                     {
                         args.baseShieldAdd += sender.maxHealth * StaticValues.lunarexploderShieldCoefficient;
+                    }
+                    //omniboost buff
+                    if (sender.HasBuff(Buffs.omniboostBuff))
+                    {
+                        args.damageMultAdd += StaticValues.omniboostBuffCoefficient;
+                        args.attackSpeedMultAdd += StaticValues.omniboostBuffCoefficient;
+                    }
+                    //omniboost buff
+                    if (sender.HasBuff(Buffs.omniboostBuffStacks))
+                    {
+                        args.damageMultAdd += StaticValues.omniboostBuffStackCoefficient;
+                        args.attackSpeedMultAdd += StaticValues.omniboostBuffStackCoefficient;
                     }
 
 
@@ -442,13 +455,13 @@ namespace ShiggyMod
                             DevilOrb devilOrb = new DevilOrb
                             {
                                 origin = body.corePosition,
-                                damageValue = body.damage * StaticValues.wisperBuffDamageCoeffcient,
+                                damageValue = body.damage * StaticValues.wisperBuffDamageCoefficient,
                                 teamIndex = body.teamComponent.teamIndex,
-                                attacker = base.gameObject,
+                                attacker = body.gameObject,
                                 damageColorIndex = DamageColorIndex.Item,
                                 scale = 1f,
                                 effectType = DevilOrb.EffectType.Wisp,
-                                procCoefficient = 1f
+                                procCoefficient = damageInfo.procCoefficient,
                             };
                             if (devilOrb.target = victimBody.mainHurtBox)
                             {
@@ -482,6 +495,40 @@ namespace ShiggyMod
 
             }
         }
+
+
+        private void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
+        {
+            orig.Invoke(self, damageReport);
+            
+
+            if (damageReport.attackerBody && damageReport.victimBody)
+            {
+                //shiggy kill check for energy
+                if (damageReport.attackerBody?.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                {
+                    if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
+                    {
+                        EnergySystem energySystem = damageReport.attackerBody.gameObject.GetComponent<EnergySystem>();
+                        energySystem.currentplusChaos += energySystem.maxPlusChaos * StaticValues.killPlusChaosGain;
+                        energySystem.TriggerGlow(0.3f, 0.3f, Color.cyan);
+                    }
+                }
+
+                //omniboost buff stacks
+                if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
+                {
+                    if (damageReport.attackerBody.HasBuff(Buffs.omniboostBuff))
+                    {
+                        var omniBuffCount = damageReport.attackerBody.GetBuffCount(Buffs.omniboostBuffStacks);
+
+                        damageReport.attackerBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
+                    }
+                }
+            }
+        }
+
+
 
         //EMOTES
         private void SurvivorCatalog_Init(On.RoR2.SurvivorCatalog.orig_Init orig)
@@ -547,6 +594,7 @@ namespace ShiggyMod
                                 }
                                 else
                                 {
+                                    damageInfo.damage *= StaticValues.multiplierCoefficient;
                                     energySys.SpendplusChaos(plusChaosCost);
                                 }
                             }
@@ -599,15 +647,6 @@ namespace ShiggyMod
                         if (self.body.HasBuff(Modules.Buffs.gupspikeBuff.buffIndex))
                         {
                             //Spike buff
-
-                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.multiplierBuff))
-                            {
-                                 = (int)Modules.StaticValues.multiplierCoefficient;
-                            }
-                            else
-                            {
-                                 = 1;
-                            }
 
                             var damageInfo2 = new DamageInfo();
 
@@ -687,19 +726,9 @@ namespace ShiggyMod
                             info.duration = Modules.StaticValues.decayDamageTimer;
                             info.dotIndex = Modules.Dots.decayDot;
 
-                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.multiplierBuff))
-                            {
-                                 = (int)Modules.StaticValues.multiplierCoefficient;
-                            }
-                            else
-                            {
-                                 = 1;
-                            }
 
-                            for (int i = 0; i < ; i++)
-                            {
-                                DotController.InflictDot(ref info);
-                            }
+                            DotController.InflictDot(ref info);
+                            
 
                             DecayEffectController controller = self.gameObject.GetComponent<DecayEffectController>();
                             if (!controller)
@@ -730,10 +759,6 @@ namespace ShiggyMod
             {
                 orig.Invoke(self);
 
-                if (self.HasBuff(Buffs.multiplierBuff))
-                {
-                    self.damage *= Modules.StaticValues.multiplierCoefficient;
-                }
 
                 if (self.HasBuff(Buffs.grovetenderChainDebuff))
                 {

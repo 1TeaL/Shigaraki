@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ShiggyMod.Modules.Survivors;
 using EntityStates.ParentMonster;
+using R2API;
 
 namespace ShiggyMod.SkillStates
 {
@@ -102,7 +103,7 @@ namespace ShiggyMod.SkillStates
                 }, true);
 
 
-                ApplyDoT();
+                blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
                 if (blastAttack.Fire().hitCount > 0)
                 {
                     this.OnHitEnemyAuthority();
@@ -119,47 +120,6 @@ namespace ShiggyMod.SkillStates
         protected virtual void OnHitEnemyAuthority()
         {
 
-        }
-        public void ApplyDoT()
-        {
-            Ray aimRay = base.GetAimRay();
-            BullseyeSearch search = new BullseyeSearch
-            {
-
-                teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
-                filterByLoS = false,
-                searchOrigin = base.characterBody.corePosition,
-                searchDirection = UnityEngine.Random.onUnitSphere,
-                sortMode = BullseyeSearch.SortMode.Distance,
-                maxDistanceFilter = radius,
-                maxAngleFilter = 360f
-            };
-
-            search.RefreshCandidates();
-            search.FilterOutGameObject(base.gameObject);
-
-
-
-            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-            foreach (HurtBox singularTarget in target)
-            {
-                if (singularTarget)
-                {
-                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-                    {
-                        InflictDotInfo info = new InflictDotInfo();
-                        info.attackerObject = base.gameObject;
-                        info.victimObject = singularTarget.healthComponent.body.gameObject;
-                        info.duration = Modules.StaticValues.decayDamageTimer;
-                        info.dotIndex = Modules.Dots.decayDot;
-
-                        for (int i = 0; i < Shiggycon.; i++)
-                        {
-                            DotController.InflictDot(ref info);
-                        }
-                    }
-                }
-            }
         }
         public override InterruptPriority GetMinimumInterruptPriority()
         {

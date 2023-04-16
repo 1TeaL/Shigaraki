@@ -95,10 +95,8 @@ namespace ShiggyMod.SkillStates
                     {
                         fireTimer = 0f;
 
-                        for (int i = 0; i < Shiggycon.; i++)
-                        {
-                            this.PortalFire();
-                        }
+                        this.PortalFire();
+                        
 
                     }
                 }

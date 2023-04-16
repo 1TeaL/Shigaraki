@@ -292,11 +292,14 @@ namespace ShiggyMod.Modules
 
             #region Synergised Passive
             LanguageAPI.Add(prefix + "BIGBANG_NAME", "Big Bang");
-            LanguageAPI.Add(prefix + "BIGBANG_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Each hit on an enemy builds up an explosive charge. On the {StaticValues.bigbangBuffThreshold}th hit, an explosion occurs, dealing <style=cIsDamage>{100f * StaticValues.bigbangBuffHealthCoefficient}% of the enemy's max health</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "BIGBANG_DESCRIPTION", $"Each hit on an enemy builds up an explosive charge. On the {StaticValues.bigbangBuffThreshold}th hit, an explosion occurs, dealing <style=cIsDamage>{100f * StaticValues.bigbangBuffHealthCoefficient}% of the enemy's max health</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wisper]</style>");
             LanguageAPI.Add(prefix + "WISPER_NAME", "Wisper");
-            LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Every attack shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoeffcient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Big Bang]</style>");
+            LanguageAPI.Add(prefix + "OMNIBOOST_NAME", "Omniboost");
+            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Killing an enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per kill</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Double Time]</style>");
             #endregion
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");

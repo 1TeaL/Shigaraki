@@ -51,7 +51,7 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 
-            totalBullets = Modules.StaticValues.sweepingBeamTotalBullets * (uint)Shiggycon.;
+            totalBullets = Modules.StaticValues.sweepingBeamTotalBullets;
             fireTime = duration / totalBullets;
 
             PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", fireTime, 0.1f);

@@ -16,7 +16,6 @@ namespace ShiggyMod.Modules
 
 
             //base skills
-                        entityStates.Add(typeof(AlphaConstruct));
             entityStates.Add(typeof(Decay));
             entityStates.Add(typeof(BulletLaser));
             entityStates.Add(typeof(AirCannon));
@@ -25,6 +24,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(RemoveSkill));
             entityStates.Add(typeof(EmptySkill));
 
+            //active skills
             entityStates.Add(typeof(AlloyVultureWindBlast));
             entityStates.Add(typeof(BisonCharge));
             entityStates.Add(typeof(BronzongBall));
@@ -70,6 +70,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(RexMortar));
             entityStates.Add(typeof(VoidFiendCleanse));
 
+            //passive skills
             entityStates.Add(typeof(AlphaConstruct));
             entityStates.Add(typeof(Beetle));
             entityStates.Add(typeof(BlindPest));
@@ -96,9 +97,13 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(Commando));
             entityStates.Add(typeof(Loader));
 
-            //synergy skills
+            //synergy active skills
             entityStates.Add(typeof(SweepingBeam));
             entityStates.Add(typeof(BlackHoleGlaive));
+
+            //synergy passive skills
+            entityStates.Add(typeof(BigBang));
+            entityStates.Add(typeof(Wisper));
         }
     }
 }
