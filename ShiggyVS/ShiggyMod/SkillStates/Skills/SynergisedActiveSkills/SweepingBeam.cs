@@ -24,7 +24,7 @@ namespace ShiggyMod.SkillStates
         private DamageType damageType;
 
         private float range = 100f;
-        private float damageCoefficient = Modules.StaticValues.sweepingBeamDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.sweepingBeamDamageCoefficient;
         private float procCoefficient = Modules.StaticValues.sweepingBeamProcCoefficient;
         private float force = 100f;
         private string muzzleString;

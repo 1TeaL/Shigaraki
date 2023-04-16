@@ -155,7 +155,7 @@ namespace ShiggyMod.SkillStates
 			{
 				PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
 				this.chargePercent = base.fixedAge / this.maxCharge;
-				this.damageCoefficient = (Modules.StaticValues.stonegolemDamageCoeffecient + 1f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoeffecient));
+				this.damageCoefficient = (Modules.StaticValues.stonegolemDamageCoefficient + 1f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoefficient));
 				this.radius = (this.baseRadius * this.damageCoefficient + 20f) / 4f;
 			}
             else

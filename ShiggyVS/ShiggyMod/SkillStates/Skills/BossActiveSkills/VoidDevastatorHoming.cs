@@ -17,7 +17,7 @@ namespace ShiggyMod.SkillStates
 
 
         private float radius = 15f;
-        private float damageCoefficient = Modules.StaticValues.voiddevastatorDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.voiddevastatorDamageCoefficient;
         private float procCoefficient = Modules.StaticValues.voiddevastatorProcCoefficient;
         private float force = 1f;
         private float speedOverride = -1f;

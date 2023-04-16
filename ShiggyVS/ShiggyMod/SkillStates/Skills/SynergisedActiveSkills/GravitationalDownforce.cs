@@ -85,8 +85,7 @@ namespace ShiggyMod.SkillStates
             if(base.fixedAge > fireTime && !hasFired)
             {
                 hasFired = true;
-                EffectManager.SimpleMuzzleFlash(EntityStates.RoboBallBoss.Weapon.FireEyeBlast.muzzleflashEffectPrefab, base.gameObject, this.muzzleString, true);
-                new PeformDirectionalForceNetworkRequest(characterBody.masterObjectId, direction, force, StaticValues.gravitationalDownforceDamageCoefficient, StaticValues.gravitationalDownforceRange).Send(NetworkDestination.Clients);
+                new PeformDirectionalForceNetworkRequest(characterBody.masterObjectId, direction, force, damageStat *StaticValues.gravitationalDownforceDamageCoefficient, StaticValues.gravitationalDownforceRange).Send(NetworkDestination.Clients);
             }
             if(base.fixedAge > duration)
             {

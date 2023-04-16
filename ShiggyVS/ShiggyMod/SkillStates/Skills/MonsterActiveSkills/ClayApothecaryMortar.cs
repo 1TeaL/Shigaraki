@@ -22,7 +22,7 @@ namespace ShiggyMod.SkillStates
 
         private float radius = 5f;
 		private float searchradius = 100f;
-		private float damageCoefficient = Modules.StaticValues.clayapothecarymortarDamageCoeffecient;
+		private float damageCoefficient = Modules.StaticValues.clayapothecarymortarDamageCoefficient;
         private float procCoefficient = 1f;
         private float force = 100f;
 		private float blastUpwardForce = 1000f;

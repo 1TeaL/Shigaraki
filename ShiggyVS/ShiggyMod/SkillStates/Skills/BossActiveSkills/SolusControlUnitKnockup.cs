@@ -19,7 +19,7 @@ namespace ShiggyMod.SkillStates
 
 
         private float radius = 50f;
-        private float damageCoefficient = Modules.StaticValues.soluscontrolunitDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.soluscontrolunitDamageCoefficient;
         private float procCoefficient = 1f;
         private float force = 1f;
         private float speedOverride = -1f;

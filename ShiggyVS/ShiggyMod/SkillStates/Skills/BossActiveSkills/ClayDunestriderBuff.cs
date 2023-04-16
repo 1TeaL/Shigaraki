@@ -18,7 +18,7 @@ namespace ShiggyMod.SkillStates
         public static float baseTimeBetweenShots = 0.5f;
         public static float recoilAmplitude = 1f;
 
-        private float damageCoefficient = Modules.StaticValues.claydunestriderDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.claydunestriderDamageCoefficient;
         private float force = 1f;
         private float speedOverride = -1f;
         private Transform modelTransform;

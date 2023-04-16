@@ -60,7 +60,7 @@ namespace ShiggyMod.Modules
         internal const float stonetitanarmorGain = 10f;
 
         internal const float voidjailerInterval = 1f;
-        internal const float voidjailerDamageCoeffecient = 1f;
+        internal const float voidjailerDamageCoefficient = 1f;
         internal const float voidjailerminpullDistance = 10f;
         internal const float voidjailermaxpullDistance = 50f;
         internal const float voidjailerpullLiftVelocity = -10f;
@@ -115,16 +115,16 @@ namespace ShiggyMod.Modules
 
         internal const float decayspreadRadius = 10f;
         internal const float decayadditionalTimer = 6f;
-        internal const float decayDamageCoeffecient = 1f;
+        internal const float decayDamageCoefficient = 1f;
         internal const float decayDamageStack = 0.5f;
         internal const float decayDamagePercentage = 0.005f;
         internal const float decayDamageTimer = 10f;
         internal const float decayInstaKillThreshold = 50f;
 
-        internal const float decayattackDamageCoeffecient = 3f;
+        internal const float decayattackDamageCoefficient = 3f;
         internal const float decayattackProcCoefficient = 1f;
 
-        internal const float aircannonDamageCoeffecient = 4f;
+        internal const float aircannonDamageCoefficient = 4f;
         internal const float aircannonProcCoefficient = 1f;
 
         internal const float bulletlaserDamageCoefficient = 2f;
@@ -134,64 +134,65 @@ namespace ShiggyMod.Modules
         internal const float beetleguardSlamBarrierCoefficient = 0.05f;
         internal const float beetleguardslamProcCoefficient = 1f;
 
-        internal const float bisonchargeDamageCoeffecient = 6f;
+        internal const float bisonchargeDamageCoefficient = 6f;
         internal const float bisonchargeProcCoefficient = 1f;
 
-        internal const float bronzongballDamageCoeffecient = 4f;
+        internal const float bronzongballDamageCoefficient = 4f;
         internal const float bronzongballProcCoefficient = 1f;
 
-        internal const float clayapothecarymortarDamageCoeffecient = 2f;
+        internal const float clayapothecarymortarDamageCoefficient = 2f;
         internal const float clayapothecarymortarProcCoefficient = 0.5f;
 
-        internal const float claytemplarminigunDamageCoeffecient = 0.3f;
+        internal const float claytemplarminigunDamageCoefficient = 0.3f;
         internal const float claytemplarminigunProcCoefficient = 0.05f;
 
-        internal const float greaterwispballDamageCoeffecient = 0.5f;
+        internal const float greaterwispballDamageCoefficient = 0.5f;
+        internal const float greaterwispballRadius = 6f;
         internal const int greaterwispballbuffDuration = 4;
         internal const float greaterwispballProcCoefficient = 0f;
 
         internal const float JellyfishHealTickRate = 0.05f;
         internal const float JellyfishHealProcCoefficient = 2f;
 
-        internal const float lemurianfireballDamageCoeffecient = 2f;
+        internal const float lemurianfireballDamageCoefficient = 2f;
         internal const float lemurianfireballProcCoefficient = 1f;
 
         internal const float elderlemurianfireblastProcCoefficient = 0.5f;
         internal const float elderlemurianfireblastDamageCoefficient = 2f;
 
-        internal const float lunarwispminigunDamageCoeffecient = 3f;
+        internal const float lunarwispminigunDamageCoefficient = 3f;
         internal const float lunarwispminigunProcCoefficient = 0.1f;
 
-        internal const float parentDamageCoeffecient = 6f;
+        internal const float parentDamageCoefficient = 6f;
         internal const float parentProcCoefficient = 1f;
 
-        internal const float stonegolemDamageCoeffecient = 4f;
+        internal const float stonegolemDamageCoefficient = 4f;
         internal const float stonegolemProcCoefficient = 2f;
 
-        internal const float voidreaverDamageCoeffecient = 2f;
+        internal const float voidreaverDamageCoefficient = 2f;
         internal const float voidreaverProcCoefficient = 0.2f;
 
-        internal const float beetlequeenDamageCoeffecient = 4f;
+        internal const float beetlequeenDamageCoefficient = 4f;
         internal const float beetlequeenProcCoefficient = 0.5f;
 
         internal const int grovetenderDuration = 6;
         internal const float grovetenderRadius = 15f;
 
-        internal const float claydunestriderDamageCoeffecient = 8f;
+        internal const float claydunestriderDamageCoefficient = 8f;
         internal const float claydunestriderProcCoefficient = 1f;
 
-        internal const float soluscontrolunitDamageCoeffecient = 4f;
+        internal const float soluscontrolunitDamageCoefficient = 4f;
         internal const float soluscontrolunitProcCoefficient = 1f;
 
-        internal const float xiconstructDamageCoeffecient = 2f;
+        internal const float xiconstructDamageCoefficient = 2f;
         internal const float xiconstructProcCoefficient = 0.2f;
 
         internal const int voiddevastatorTotalMissiles = 8;
-        internal const float voiddevastatorDamageCoeffecient = 1f;
+        internal const float voiddevastatorDamageCoefficient = 1f;
         internal const float voiddevastatorProcCoefficient = 0.5f;
 
         internal const int scavenger = 3;
-        internal const float scavengerDamageCoeffecient = 4f;
+        internal const float scavengerDamageCoefficient = 4f;
         internal const float scavengerProcCoefficient = 0.5f;
 
         internal const float artificerflamethrowerDamageCoefficient = 15f;
@@ -223,7 +224,7 @@ namespace ShiggyMod.Modules
         internal const float loaderBarrierGainCoefficient = 0.01f;
 
         //synergy skills
-        internal const float sweepingBeamDamageCoeffecient = 1f;
+        internal const float sweepingBeamDamageCoefficient = 1f;
         internal const float sweepingBeamProcCoefficient = 0.2f;
         internal const uint sweepingBeamTotalBullets = 20;
 
@@ -243,10 +244,19 @@ namespace ShiggyMod.Modules
 
         internal const float omniboostBuffCoefficient = 0.3f;
         internal const float omniboostBuffStackCoefficient = 0.05f;
+        internal const float omniboostBuffTimer = 6f;
 
         internal const float gravitationalDownforceDamageCoefficient = 2f;
-        internal const float gravitationalDownforceRange = 50f;
+        internal const float gravitationalDownforceRange = 70f;
         internal const float gravitationalDownforceForce = 100f;
+
+        internal const float gachaBuffThreshold = 30f;
+        internal const int gachaTier1Amount = 4;
+        internal const int gachaTier2Amount = 2;
+        internal const int gachaTier3Amount = 1;
+
+        internal const float windShieldRadius = 8f;
+        internal const float windShieldDamageCoefficient = 0.1f;
 
         public enum IndicatorType : uint
         {

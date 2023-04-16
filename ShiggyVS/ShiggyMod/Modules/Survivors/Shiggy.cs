@@ -1,5 +1,6 @@
 ﻿using BepInEx.Configuration;
 using EntityStates;
+using EntityStates.Railgunner.Scope;
 using RoR2;
 using RoR2.Skills;
 using System;
@@ -104,11 +105,13 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef sweepingBeamDef;
         internal static SkillDef blackholeGlaiveDef;
         internal static SkillDef gravitationalDownforceDef;
+        internal static SkillDef windShieldDef;
 
         //synergy passive
         internal static SkillDef bigBangDef;
         internal static SkillDef wisperDef;
         internal static SkillDef omniboostDef;
+        internal static SkillDef gachaDef;
 
 
         internal override GameObject bodyPrefab { get; set; }
@@ -1981,6 +1984,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            windShieldDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "WINDSHIELD_NAME",
+                skillNameToken = prefix + "WINDSHIELD_NAME",
+                skillDescriptionToken = prefix + "WINDSHIELD_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.WindShield)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             #endregion
 
 
@@ -2061,6 +2089,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] {}
 
             });
+            gachaDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "GACHA_NAME",
+                skillNameToken = prefix + "GACHA_NAME",
+                skillDescriptionToken = prefix + "GACHA_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Gacha)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
             #endregion
 
             #region Chosen Skills
@@ -2069,17 +2122,18 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
-                sweepingBeamDef,
+                windShieldDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                blackholeGlaiveDef,
+                omniboostDef,
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
+                gachaDef,
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);

@@ -113,6 +113,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<SpawnBodyNetworkRequest>();
             NetworkingAPI.RegisterMessageType<PerformForceNetworkRequest>();
             NetworkingAPI.RegisterMessageType<PeformDirectionalForceNetworkRequest>();
+            NetworkingAPI.RegisterMessageType<ItemDropNetworked>();
 
 
             // now make a content pack and add it- this part will change with the next update
@@ -206,14 +207,7 @@ namespace ShiggyMod
                     {
                         args.moveSpeedMultAdd += (0.5f);
                         sender.acceleration *= 2f;
-                        sender.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
-                        sender.characterMotor.useGravity = false;
-                    }
-                    else
-                    {
-                        sender.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
-                        sender.characterMotor.useGravity = true;
-
+                        
                     }
                     //beetlebuff
                     if (sender.HasBuff(Buffs.beetleBuff))
@@ -239,8 +233,9 @@ namespace ShiggyMod
                     //omniboost buff
                     if (sender.HasBuff(Buffs.omniboostBuffStacks))
                     {
-                        args.damageMultAdd += StaticValues.omniboostBuffStackCoefficient;
-                        args.attackSpeedMultAdd += StaticValues.omniboostBuffStackCoefficient;
+                        int omniboostBuffcount = sender.GetBuffCount(Buffs.omniboostBuffStacks);
+                        args.damageMultAdd += StaticValues.omniboostBuffStackCoefficient * omniboostBuffcount;
+                        args.attackSpeedMultAdd += StaticValues.omniboostBuffStackCoefficient * omniboostBuffcount;
                     }
 
 
@@ -393,13 +388,13 @@ namespace ShiggyMod
                                 attacker = damageInfo.attacker.gameObject,
                                 teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
                                 falloffModel = BlastAttack.FalloffModel.None,
-                                baseDamage = damageInfo.damage * StaticValues.greaterwispballDamageCoeffecient,
+                                baseDamage = damageInfo.damage * StaticValues.greaterwispballDamageCoefficient,
                                 damageType = damageInfo.damageType,
                                 damageColorIndex = DamageColorIndex.Default,
                                 baseForce = 0,
                                 procChainMask = damageInfo.procChainMask,
                                 position = victimBody.transform.position,
-                                radius = 6f,
+                                radius = StaticValues.greaterwispballRadius,
                                 procCoefficient = 0f,
                                 attackerFiltering = AttackerFiltering.NeverHitSelf,
                             }.Fire();
@@ -441,7 +436,7 @@ namespace ShiggyMod
                                     baseForce = 0,
                                     position = victimBody.transform.position,
                                     radius = StaticValues.bigbangBuffRadius * body.attackSpeed / 3,
-                                    procCoefficient = 1f,
+                                    procCoefficient = 0f,
                                     attackerFiltering = AttackerFiltering.NeverHitSelf,
                                 }.Fire();
                             }
@@ -462,7 +457,7 @@ namespace ShiggyMod
                                 damageColorIndex = DamageColorIndex.Item,
                                 scale = 1f,
                                 effectType = DevilOrb.EffectType.Wisp,
-                                procCoefficient = damageInfo.procCoefficient,
+                                procCoefficient = 0f,
                             };
                             if (devilOrb.target = victimBody.mainHurtBox)
                             {
@@ -484,13 +479,14 @@ namespace ShiggyMod
             {
                 if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
                 {
-                    Shiggycon = self.GetComponent<ShiggyController>();
+                    var buffcon = self.GetComponent<BuffController>();
+                    
 
-                    if (Shiggycon.overloadingWard) EntityState.Destroy(Shiggycon.overloadingWard);
-                    if (Shiggycon.mushroomWard) EntityState.Destroy(Shiggycon.mushroomWard);
-                    if (Shiggycon.magmawormWard) EntityState.Destroy(Shiggycon.magmawormWard);
-                    if (Shiggycon.mortarIndicatorInstance) EntityState.Destroy(Shiggycon.mortarIndicatorInstance.gameObject);
-                    if (Shiggycon.voidmortarIndicatorInstance) EntityState.Destroy(Shiggycon.voidmortarIndicatorInstance.gameObject);
+                    if (buffcon.overloadingWard) EntityState.Destroy(buffcon.overloadingWard);
+                    if (buffcon.mushroomWard) EntityState.Destroy(buffcon.mushroomWard);
+                    if (buffcon.magmawormWard) EntityState.Destroy(buffcon.magmawormWard);
+                    if (buffcon.mortarIndicatorInstance) EntityState.Destroy(buffcon.mortarIndicatorInstance.gameObject);
+                    if (buffcon.voidmortarIndicatorInstance) EntityState.Destroy(buffcon.voidmortarIndicatorInstance.gameObject);
                     AkSoundEngine.PostEvent(2108803202, this.gameObject);
                 }
 

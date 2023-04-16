@@ -101,10 +101,13 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(SweepingBeam));
             entityStates.Add(typeof(BlackHoleGlaive));
             entityStates.Add(typeof(GravitationalDownforce));
+            entityStates.Add(typeof(WindShield));
 
             //synergy passive skills
             entityStates.Add(typeof(BigBang));
             entityStates.Add(typeof(Wisper));
+            entityStates.Add(typeof(Omniboost));
+            entityStates.Add(typeof(Gacha));
         }
     }
 }

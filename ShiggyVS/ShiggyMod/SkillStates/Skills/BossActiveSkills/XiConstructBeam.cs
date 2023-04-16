@@ -20,7 +20,7 @@ namespace ShiggyMod.SkillStates
         private bool beamPlay;
         private float radius = 10f;
         private float range = 200f;
-        private float damageCoefficient = Modules.StaticValues.xiconstructDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.xiconstructDamageCoefficient;
         private float procCoefficient = Modules.StaticValues.xiconstructProcCoefficient;
         private float force = 100f;
         private float fireTimer;

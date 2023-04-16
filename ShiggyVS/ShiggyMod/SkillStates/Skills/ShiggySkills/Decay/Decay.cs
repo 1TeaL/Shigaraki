@@ -19,7 +19,7 @@ namespace ShiggyMod.SkillStates
 
             this.hitboxName = "AroundHitbox";
 
-            this.damageCoefficient = Modules.StaticValues.decayattackDamageCoeffecient;
+            this.damageCoefficient = Modules.StaticValues.decayattackDamageCoefficient;
             this.procCoefficient = 1f;
             this.pushForce = 300f;
             this.damageType = DamageType.Generic;

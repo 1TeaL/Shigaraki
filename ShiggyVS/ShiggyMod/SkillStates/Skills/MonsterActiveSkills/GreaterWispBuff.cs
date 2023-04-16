@@ -20,7 +20,7 @@ namespace ShiggyMod.SkillStates
         public static GameObject effectPrefab;
 
         private float radius = 0.5f;
-        private float damageCoefficient = Modules.StaticValues.greaterwispballDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.greaterwispballDamageCoefficient;
         private float procCoefficient = 1f;
         private float force = 1000f;
         private float speedOverride = -1f;

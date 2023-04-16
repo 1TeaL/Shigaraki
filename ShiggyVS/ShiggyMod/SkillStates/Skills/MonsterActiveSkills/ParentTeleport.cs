@@ -22,7 +22,7 @@ namespace ShiggyMod.SkillStates
         private DamageType damageType;
 
         private float radius = 10f;
-        private float damageCoefficient = Modules.StaticValues.parentDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.parentDamageCoefficient;
         private float procCoefficient = 1f;
         private float force = 1000f;
 

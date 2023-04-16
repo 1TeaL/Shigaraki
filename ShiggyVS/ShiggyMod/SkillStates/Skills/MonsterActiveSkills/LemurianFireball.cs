@@ -18,7 +18,7 @@ namespace ShiggyMod.SkillStates
 
         private string muzzleString;
         private Animator animator;
-        private float damageCoefficient = Modules.StaticValues.lemurianfireballDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.lemurianfireballDamageCoefficient;
         private float force = 1f;
         private float speedOverride = -1f;
         private GameObject chargeVfxInstance;

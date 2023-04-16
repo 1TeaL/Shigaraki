@@ -18,7 +18,7 @@ namespace ShiggyMod.SkillStates
 
 
         private float radius = 15f;
-        private float damageCoefficient = Modules.StaticValues.bronzongballDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.bronzongballDamageCoefficient;
         private float procCoefficient = 1f;
         private float force = 500f;
         public  float selfForce = 500f;

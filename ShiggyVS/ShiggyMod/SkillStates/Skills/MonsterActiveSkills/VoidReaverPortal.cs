@@ -17,7 +17,7 @@ namespace ShiggyMod.SkillStates
         public float duration;
         public ShiggyController Shiggycon;
 
-        private float damageCoefficient = Modules.StaticValues.voidreaverDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.voidreaverDamageCoefficient;
         private float procCoefficient = 1f;
         private float force = 0f;
         private float speedOverride = -1f;

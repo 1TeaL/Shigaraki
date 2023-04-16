@@ -20,7 +20,7 @@ namespace ShiggyMod.Modules
 
         public static void RegisterDots()
         {
-            decayDot = DotAPI.RegisterDotDef(CreateDot(1f, Modules.StaticValues.decayDamageCoeffecient, DamageColorIndex.DeathMark, Buffs.decayDebuff), DecayDotEffect);
+            decayDot = DotAPI.RegisterDotDef(CreateDot(1f, Modules.StaticValues.decayDamageCoefficient, DamageColorIndex.DeathMark, Buffs.decayDebuff), DecayDotEffect);
 
         }
 
@@ -33,7 +33,7 @@ namespace ShiggyMod.Modules
             if (attackerBody && victimBody)
             {
 
-                //float damageMultiplier = Modules.StaticValues.decayDamageCoeffecient + Modules.StaticValues.decayDamageStack * victimBody.GetBuffCount(Buffs.decayDebuff);
+                //float damageMultiplier = Modules.StaticValues.decayDamageCoefficient + Modules.StaticValues.decayDamageStack * victimBody.GetBuffCount(Buffs.decayDebuff);
                 float damageMultiplier = Modules.StaticValues.decayDamageStack;
                 float decaydamage = 0f;
                 if (self.victimBody) decaydamage += attackerBody.damage;

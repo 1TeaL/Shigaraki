@@ -17,7 +17,7 @@ namespace ShiggyMod.SkillStates
         private DamageType damageType;
 
 
-        private float damageCoefficient = Modules.StaticValues.lunarwispminigunDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.lunarwispminigunDamageCoefficient;
         private float procCoefficient = 0.2f;
         private float force = 60f;
         private string muzzleString;

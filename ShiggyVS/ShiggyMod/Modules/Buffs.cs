@@ -49,6 +49,8 @@ namespace ShiggyMod.Modules
         internal static BuffDef wisperBuff;
         internal static BuffDef omniboostBuff;
         internal static BuffDef omniboostBuffStacks;
+        internal static BuffDef gachaBuff;
+        internal static BuffDef windShieldBuff;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
@@ -113,6 +115,8 @@ namespace ShiggyMod.Modules
             wisperBuff = Buffs.AddNewBuff("wisperBuff", Assets.multiplierBuffIcon, new Color(0.52f, 0.48f, 0.39f), false, false);
             omniboostBuff = Buffs.AddNewBuff("omniboost Buff", Assets.boostBuffIcon, Color.white, false, false);
             omniboostBuffStacks = Buffs.AddNewBuff("omniboost Buff", Assets.boostBuffIcon, Color.gray, true, false);
+            gachaBuff = Buffs.AddNewBuff("gacha Buff", Assets.attackspeedBuffIcon, Color.yellow, true, false);
+            windShieldBuff = Buffs.AddNewBuff("windShield Buff", Assets.shieldBuffIcon, Color.white, false, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
             bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.white, true, true);

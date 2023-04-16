@@ -22,7 +22,7 @@ namespace ShiggyMod.SkillStates
 
         public float SpeedCoefficient = 15f;
         private float radius = 15f;
-        private float damageCoefficient = Modules.StaticValues.aircannonDamageCoeffecient;
+        private float damageCoefficient = Modules.StaticValues.aircannonDamageCoefficient;
         private float procCoefficient = 1f;
         private float force = 1f;
         private float speedOverride =1f;
