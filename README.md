@@ -58,14 +58,26 @@ If you enjoy my work, support me on Ko-fi!
 
 - 2.0.0- THE SYNERGY UPDATE!
     - Reworked Skills
-    	- a 
+    	- Beetle: Strength boost now gives flat 5 damage, no melee bonus.
+	- Lesser wisp: Ranged boost changed to Haste-> gives flat 0.5 attack speed, no ranged bonus.
+	- Lunar exploder: Lunar aura changed to Lunar barrier-> gives shield equal to 25% of max health.
+	- Jellyfish: Nova explosion changed to Regenerate-> Store half the damage you take, activate skill to heal.
+	- Beetle queen: Acid shotgun changed to Summon Ally-> Summon a survivor that inherits all your items (allows quirks to be taken from them too).
+	- Mercenary: Eviscerate changed to Wind Assault-> Dash forward through enemies, applying expose.
+	- Grovetender: Hook Shotgun changed to Chain-> Immobilize nearby enemies for 6 seconds.
+	- Multiplier: changed to constant active that costs plus chaos meter per hit. Multiplier no longer triples projectiles and decay ticks anymore due to this. Multiplier also no longer triples Shigaraki's current damage passively, just the damage on-hit: Unintendedly would triple damage for DoTs without spending anything.
+	- Loader: Scrap barrier-> Gain 1% of max hp as barrier on all hits- not just melee atacks and no more damage boost for melee attacks.
+	- Vulture: Flight changed to Wind Blast-> Create a gust of wind, pushing enemies and stunning them for 200% damage.
     - Balance Changes
+    	- No more melee and ranged arbitrary discrepancy between skills to streamline balance.
     	- Cooldown changes for a lot of skills, longer in general to balance out how many skills able to be used along with item changes with the extraskill slots.
     	- Backup magazines, hardlight afterburners and lysate cells now increase the number of stocks for extraskill slot 2, 3 and 4 respectively. 
     	- Bullet laser correctly has a proc coefficient of 0.3 instead of 1 for each bullet. Now does 5x200% damage instead of 5x300%, as it was a lot stronger than other skills. 
     - Bug fixes
     	- Bullet laser correctly has a proc coefficient of 0.4 instead of 1. 
+    	- Double tap correctly has a proc coefficient of 1 instead of 0. 
     - New mechanics
+    	- Added ability for Shigaraki to trigger expose- reducing cooldowns by 1 and dealing 350% bonus damage like mercenary.
     	- Added a plus chaos meter
     		- Stealing quirks now costs plus chaos. 
     		- Plus chaos regenerates over time, stock based items will increase the maximum, cooldown based items will cheapen costs. 
