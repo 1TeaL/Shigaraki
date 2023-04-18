@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BigBang : Skill
+    public class BigBangPassive : Skill
     {
         //Clay templar + wandering vagrant
         public override void OnEnter()

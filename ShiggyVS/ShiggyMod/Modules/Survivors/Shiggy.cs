@@ -106,12 +106,14 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef blackholeGlaiveDef;
         internal static SkillDef gravitationalDownforceDef;
         internal static SkillDef windShieldDef;
+        internal static SkillDef genesisDef;
+        internal static SkillDef refreshDef;
 
         //synergy passive
-        internal static SkillDef bigBangDef;
-        internal static SkillDef wisperDef;
-        internal static SkillDef omniboostDef;
-        internal static SkillDef gachaDef;
+        internal static SkillDef bigBangPassiveDef;
+        internal static SkillDef wisperPassiveDef;
+        internal static SkillDef omniboostPassiveDef;
+        internal static SkillDef gachaPassiveDef;
 
 
         internal override GameObject bodyPrefab { get; set; }
@@ -2009,18 +2011,68 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            genesisDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "GENESIS_NAME",
+                skillNameToken = prefix + "GENESIS_NAME",
+                skillDescriptionToken = prefix + "GENESIS_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Genesis)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            refreshDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "REFRESH_NAME",
+                skillNameToken = prefix + "REFRESH_NAME",
+                skillDescriptionToken = prefix + "REFRESH_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Refresh)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             #endregion
 
 
             #region Synergy Passive Skills
 
-            bigBangDef = Skills.CreateSkillDef(new SkillDefInfo
+            bigBangPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BIGBANG_NAME",
                 skillNameToken = prefix + "BIGBANG_NAME",
                 skillDescriptionToken = prefix + "BIGBANG_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.BigBang)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BigBangPassive)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -2039,13 +2091,13 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] {}
 
             });
-            wisperDef = Skills.CreateSkillDef(new SkillDefInfo
+            wisperPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "WISPER_NAME",
                 skillNameToken = prefix + "WISPER_NAME",
                 skillDescriptionToken = prefix + "WISPER_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.Wisper)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.WisperPassive)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -2064,13 +2116,13 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] {}
 
             });
-            omniboostDef = Skills.CreateSkillDef(new SkillDefInfo
+            omniboostPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "OMNIBOOST_NAME",
                 skillNameToken = prefix + "OMNIBOOST_NAME",
                 skillDescriptionToken = prefix + "OMNIBOOST_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.Omniboost)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.OmniboostPassive)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -2089,13 +2141,13 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] {}
 
             });
-            gachaDef = Skills.CreateSkillDef(new SkillDefInfo
+            gachaPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "GACHA_NAME",
                 skillNameToken = prefix + "GACHA_NAME",
                 skillDescriptionToken = prefix + "GACHA_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.Gacha)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.GachaPassive)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -2122,18 +2174,18 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
-                windShieldDef,
+                genesisDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                omniboostDef,
+                omniboostPassiveDef,
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
-                gachaDef,
+                gachaPassiveDef,
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);

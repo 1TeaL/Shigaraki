@@ -34,9 +34,9 @@ namespace ShiggyMod.SkillStates
             Util.PlaySound(FireTarball.attackSoundString, base.gameObject);
             if (NetworkServer.active)
             {
-                int buffcount = characterBody.GetBuffCount(Modules.Buffs.claydunestriderBuff);
-                //characterBody.ApplyBuff(Modules.Buffs.claydunestriderBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration + buffcount, Modules.StaticValues.claydunestriderbuffDuration + buffcount);
-                characterBody.AddTimedBuffAuthority(Modules.Buffs.claydunestriderBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration);
+                //int buffcount = characterBody.GetBuffCount(Modules.Buffs.claydunestriderBuff);
+                characterBody.ApplyBuff(Modules.Buffs.claydunestriderBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration);
+                //characterBody.AddTimedBuffAuthority(Modules.Buffs.claydunestriderBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration);
             }
 
             EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData

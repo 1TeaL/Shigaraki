@@ -17,6 +17,8 @@ using R2API.Networking.Interfaces;
 using UnityEngine.UIElements;
 using ShiggyMod.SkillStates;
 using IL.RoR2.Achievements.Bandit2;
+using RoR2.Items;
+using UnityEngine.AddressableAssets;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -34,10 +36,8 @@ namespace ShiggyMod.Modules.Survivors
 		public float larvaTimer;
         public float attackSpeedGain;
         public float mortarTimer;
-		private float voidmortarTimer;
-		private float voidjailerTimer;
-        private float roboballTimer;
         private float jellyfishtimer;
+        private float windshieldTimer;
 
         private Ray downRay;
         public float maxTrackingDistance = 70f;
@@ -65,7 +65,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool verminjumpbuffGiven;
         private uint minimushrumsoundID;
 
-		private ExtraInputBankTest extrainputBankTest;
+        private ExtraInputBankTest extrainputBankTest;
 		private ExtraSkillLocator extraskillLocator;
 		public bool alphacontructpassiveDef;
 		public bool beetlepassiveDef;
@@ -120,9 +120,9 @@ namespace ShiggyMod.Modules.Survivors
         public int captainitemcount;
         private DamageType damageType;
         private DamageType damageType2;
-        private float effecttimer1;
-        private float effecttimer2;
-        private float effecttimer3;
+        private float multTimer;
+        private float clayDunestriderTimer;
+        private float greaterwispTimer;
 
         //AFO
         private bool informAFOToPlayers;
@@ -363,12 +363,73 @@ namespace ShiggyMod.Modules.Survivors
                 shiggyDamage = characterBody.damage;
 
                 //Buff effects
+
+
+                //windshield buff
+                if (characterBody.HasBuff(Buffs.windShieldBuff))
+                {
+
+
+                    Collider[] array = Physics.OverlapSphere(characterBody.transform.position, StaticValues.windShieldRadius, LayerIndex.projectile.mask);
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        ProjectileController component = array[i].GetComponent<ProjectileController>();
+                        if (component)
+                        {
+                            TeamComponent component2 = component.owner.GetComponent<TeamComponent>();
+                            if (component2 && component2.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
+                            {
+                                EffectData effectData = new EffectData();
+                                effectData.origin = component.transform.position;
+                                effectData.scale = 1f;
+                                EffectManager.SpawnEffect(EntityStates.Engi.EngiWeapon.FireSeekerGrenades.hitEffectPrefab, effectData, false);
+                                UnityEngine.Object.Destroy(array[i].gameObject);
+                                //Object.Destroy(component.gameObject);
+                            }
+                        }
+                    }
+
+
+                    if (windshieldTimer < 1f)
+                    {
+                        windshieldTimer += Time.fixedDeltaTime;
+                    }
+                    if (windshieldTimer >= 1f)
+                    {
+                        windshieldTimer = 0f;
+                        new BlastAttack
+                        {
+                            crit = false,
+                            attacker = characterBody.gameObject,
+                            teamIndex = TeamComponent.GetObjectTeam(characterBody.gameObject),
+                            falloffModel = BlastAttack.FalloffModel.None,
+                            baseDamage = characterBody.damage * StaticValues.windShieldDamageCoefficient,
+                            damageType = DamageType.Stun1s,
+                            damageColorIndex = DamageColorIndex.Default,
+                            baseForce = 0,
+                            procChainMask = new ProcChainMask(),
+                            position = characterBody.transform.position,
+                            radius = StaticValues.windShieldRadius,
+                            procCoefficient = 0.001f,
+                            attackerFiltering = AttackerFiltering.NeverHitSelf,
+                        }.Fire();
+
+                        EffectManager.SpawnEffect(Modules.Assets.engiShieldEffect, new EffectData
+                        {
+                            origin = characterBody.transform.position,
+                            scale = StaticValues.windShieldRadius,
+                            rotation = Quaternion.LookRotation(characterBody.characterDirection.forward)
+
+                        }, false);
+                    }
+                }
+
                 //multbuff buff
                 if (characterBody.HasBuff(Modules.Buffs.multBuff))
                 {
-                    if (effecttimer1 > 1f)
+                    if (multTimer > 1f)
                     {
-                        effecttimer1 = 0f;
+                        multTimer = 0f;
                         EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
                         {
                             origin = child.FindChild("LHand").position,
@@ -387,16 +448,16 @@ namespace ShiggyMod.Modules.Survivors
                     }
                     else
                     {
-                        effecttimer1 += Time.fixedDeltaTime;
+                        multTimer += Time.fixedDeltaTime;
 
                     }
                 }
                 //claydunestrider buff
                 if (characterBody.HasBuff(Modules.Buffs.claydunestriderBuff))
                 {
-                    if (effecttimer2 > 1f)
+                    if (clayDunestriderTimer > 1f)
                     {
-                        effecttimer2 = 0f;
+                        clayDunestriderTimer = 0f;
                         EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData
                         {
                             origin = characterBody.corePosition,
@@ -407,16 +468,16 @@ namespace ShiggyMod.Modules.Survivors
                     }
                     else
                     {
-                        effecttimer2 += Time.fixedDeltaTime;
+                        clayDunestriderTimer += Time.fixedDeltaTime;
 
                     }
                 }
                 //Greaterwisp buff
                 if (characterBody.HasBuff(Modules.Buffs.greaterwispBuff))
                 {
-                    if (effecttimer3 > 1f)
+                    if (greaterwispTimer > 1f)
                     {
-                        effecttimer3 = 0f;
+                        greaterwispTimer = 0f;
                         EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
                         {
                             origin = child.FindChild("LHand").position,
@@ -435,7 +496,7 @@ namespace ShiggyMod.Modules.Survivors
                     }
                     else
                     {
-                        effecttimer3 += Time.fixedDeltaTime;
+                        greaterwispTimer += Time.fixedDeltaTime;
 
                     }
                 }

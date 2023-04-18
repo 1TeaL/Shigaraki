@@ -29,7 +29,7 @@ namespace ShiggyMod.SkillStates
 
             if (NetworkServer.active)
             {
-                characterBody.ApplyBuff(Buffs.windShieldBuff.buffIndex, 1);
+                characterBody.ApplyBuff(Buffs.windShieldBuff.buffIndex, 1, StaticValues.windShieldDuration);
             }
         }
 

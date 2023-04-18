@@ -280,6 +280,18 @@ namespace ShiggyMod.Modules.Survivors
             TriggerGlow(0.3f, 0.3f, Color.magenta);
 
         }
+        public void GainplusChaos(float plusChaos)
+        {
+            //float plusChaosflatCost = plusChaos - costflatplusChaos;
+            //if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+
+            //float plusChaosCost = rageplusChaosCost * costmultiplierplusChaos * plusChaosflatCost;
+            //if (plusChaosCost < 0f) plusChaosCost = 0f;
+
+            currentplusChaos += plusChaos;
+            TriggerGlow(0.3f, 0.3f, Color.cyan);
+
+        }
 
         public void TriggerGlow(float newDecayTimer, float newFlashTimer, Color newStartingColor)
         {

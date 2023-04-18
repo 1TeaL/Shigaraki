@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class Gacha : Skill
+    public class GachaPassive : Skill
     {
         //Beetle queen + Scavenger
         public override void OnEnter()

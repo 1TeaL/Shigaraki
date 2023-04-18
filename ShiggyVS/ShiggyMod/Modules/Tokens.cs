@@ -11,7 +11,7 @@ namespace ShiggyMod.Modules
             string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
             string desc = $"Shiggy is a multi-option survivor that can steal quirks from monster and base survivors to create his own playstyle.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            desc = desc + $"< ! > Steal quirk with {Config.AFOHotkey}. Remove quirks with {Config.RemoveHotkey}. Give quirks with. All rebindable in the configs." + Environment.NewLine + Environment.NewLine;
+            desc = desc + $"< ! > Steal quirk with {Config.AFOHotkey.Value}. Remove quirks with {Config.RemoveHotkey.Value}. Give quirks with. All rebindable in the configs." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Grabbing a quirk when owning a specific quirk already will create a combination, these combinations can further combine." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > The Plus Chaos Meter in the middle increases naturally and by killing enemies, it is used for All For One and certain skills." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Some quirks are passive buffs, while others are active skills." + Environment.NewLine + Environment.NewLine;
@@ -37,7 +37,7 @@ namespace ShiggyMod.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "All For One");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Steal quirks by looking at a target and pressing {Config.AFOHotkey}. Remove them with {Config.RemoveHotkey}. " + Environment.NewLine +
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Steal quirks by looking at a target and pressing {Config.AFOHotkey.Value}. Remove them with {Config.RemoveHotkey.Value}. " + Environment.NewLine +
                 Helpers.Passive("[Plus Chaos Meter] [Decay] [Air Walk]") + Environment.NewLine +
                 "<style=cSub>[RightHanded]</style> and <style=cSub>[LeftHanded]</style> skills can be used together. " +
                 "<style=cIsUtility>He has a double jump. He can sprint in any direction.</style>");
@@ -192,7 +192,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "LEMURIAN_DESCRIPTION", $"<style=cIsDamage>Burning. Agile.</style> Shoot a fireball, burning and dealing <style=cIsDamage>{100f * StaticValues.lemurianfireballDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ranged] [LeftHanded]</style>");
             LanguageAPI.Add(prefix + "LUNARGOLEM_NAME", "Slide Reset");
-            LanguageAPI.Add(prefix + "LUNARGOLEM_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Slide, resetting coolodwns for all other skills. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "LUNARGOLEM_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Slide, Reducing all cooldowns by {StaticValues.lunarGolemSlideCooldown}s. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[LeftHanded]</style>");
             LanguageAPI.Add(prefix + "LUNARWISP_NAME", "Lunar Minigun");
             LanguageAPI.Add(prefix + "LUNARWISP_DESCRIPTION", $"<style=cIsDamage>Cripple. Agile.</style> Shoot a rapid hail of lunar bullets, crippling and dealing <style=cIsDamage>{100f * StaticValues.lunarwispminigunDamageCoefficient}% damage per bullet</style>. " + Environment.NewLine + Environment.NewLine +
@@ -292,8 +292,15 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "GRAVITATIONALDOWNFORCE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Amplify the force of gravity around you, sending enemies down and dealing <style=cIsDamage>{100f * StaticValues.gravitationalDownforceDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Elemental Void] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "WINDSHIELD_NAME", "Wind Shield");
-            LanguageAPI.Add(prefix + "WINDSHIELD_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Generate a barrier of wind around you, removing nearby projectiles and stunning nearby enemies for <style=cIsDamage>{100f * StaticValues.windShieldDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "WINDSHIELD_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Generate a barrier of wind around you for {StaticValues.windShieldDuration}, removing nearby projectiles and stunning nearby enemies for <style=cIsDamage>{100f * StaticValues.windShieldDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wind Slash] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "GENESIS_NAME", "Genesis");
+            LanguageAPI.Add(prefix + "GENESIS_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Rays of light from the sky, attacking enemies all around you forfor <style=cIsDamage>{StaticValues.genesisNumberOfAttacks}x{100f * StaticValues.genesisDamageCoefficient}% damage</style>. " +
+                $"Attackspeed increases the number of attacks. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Shadow Claw] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "REFRESH_NAME", "Refresh");
+            LanguageAPI.Add(prefix + "REFRESH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Recharge all skills and recover <style=cIsUtility>{100f * StaticValues.refreshEnergyCoefficient}% of your maximum plus chaos</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Gacha] [RightHanded]</style>");
             #endregion
 
             #region Synergised Passive

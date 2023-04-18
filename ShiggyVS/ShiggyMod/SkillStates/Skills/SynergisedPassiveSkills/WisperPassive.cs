@@ -11,15 +11,15 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class Omniboost : Skill
+    public class WisperPassive : Skill
     {
-        //Beetle + Lesser wisp
+        //Greater wisp + grovetender
         public override void OnEnter()
         {
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.ApplyBuff(Modules.Buffs.omniboostBuff.buffIndex, 1);
+                characterBody.ApplyBuff(Modules.Buffs.wisperBuff.buffIndex, 1);
             }
         }
 

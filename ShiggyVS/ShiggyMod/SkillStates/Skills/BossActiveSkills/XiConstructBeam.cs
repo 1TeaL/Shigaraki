@@ -114,7 +114,7 @@ namespace ShiggyMod.SkillStates
                     if (body)
                     {
                         Ray aimRay = base.GetAimRay();
-                        EffectManager.SpawnEffect(Modules.Assets.xiconstructexplosionEffect, new EffectData
+                        EffectManager.SpawnEffect(Modules.Assets.xiconstructSecondMuzzleEffect, new EffectData
                         {
                             origin = healthComponent.body.corePosition,
                             scale = 1f,

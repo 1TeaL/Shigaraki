@@ -102,12 +102,14 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(BlackHoleGlaive));
             entityStates.Add(typeof(GravitationalDownforce));
             entityStates.Add(typeof(WindShield));
+            entityStates.Add(typeof(Genesis));
+            entityStates.Add(typeof(Refresh));
 
             //synergy passive skills
-            entityStates.Add(typeof(BigBang));
-            entityStates.Add(typeof(Wisper));
-            entityStates.Add(typeof(Omniboost));
-            entityStates.Add(typeof(Gacha));
+            entityStates.Add(typeof(BigBangPassive));
+            entityStates.Add(typeof(WisperPassive));
+            entityStates.Add(typeof(OmniboostPassive));
+            entityStates.Add(typeof(GachaPassive));
         }
     }
 }

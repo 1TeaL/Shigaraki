@@ -53,7 +53,7 @@ namespace ShiggyMod.Modules
         internal const float vagrantdamageThreshold = 4f;
 
         internal const float claydunestriderHealCoefficient = 0.1f;
-        internal const int claydunestriderbuffDuration = 4;
+        internal const int claydunestriderbuffDuration = 8;
         internal const float claydunestriderAttackSpeed = 1.5f;
         //internal const float clayduneArmor = 100f;
 
@@ -148,7 +148,7 @@ namespace ShiggyMod.Modules
 
         internal const float greaterwispballDamageCoefficient = 0.5f;
         internal const float greaterwispballRadius = 6f;
-        internal const int greaterwispballbuffDuration = 4;
+        internal const int greaterwispballbuffDuration = 8;
         internal const float greaterwispballProcCoefficient = 0f;
 
         internal const float JellyfishHealTickRate = 0.05f;
@@ -162,6 +162,8 @@ namespace ShiggyMod.Modules
 
         internal const float lunarwispminigunDamageCoefficient = 3f;
         internal const float lunarwispminigunProcCoefficient = 0.1f;
+
+        internal const float lunarGolemSlideCooldown = 4f;
 
         internal const float parentDamageCoefficient = 6f;
         internal const float parentProcCoefficient = 1f;
@@ -256,7 +258,16 @@ namespace ShiggyMod.Modules
         internal const int gachaTier3Amount = 1;
 
         internal const float windShieldRadius = 8f;
+        internal const float windShieldDuration = 8f;
         internal const float windShieldDamageCoefficient = 0.1f;
+
+        internal const float genesisRadius = 70f;
+        internal const float genesisDamageCoefficient = 2f;
+        internal const int genesisNumberOfAttacks = 5;
+        internal const float genesisProcCoefficient = 0.4f;
+        internal const float genesisStartHeight = 30f;
+
+        internal const float refreshEnergyCoefficient = 0.5f;
 
         public enum IndicatorType : uint
         {

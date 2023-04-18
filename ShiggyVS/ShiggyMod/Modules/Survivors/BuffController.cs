@@ -14,6 +14,7 @@ using R2API.Networking.Interfaces;
 using static UnityEngine.ParticleSystem.PlaybackState;
 using HG;
 using RoR2.Projectile;
+using RoR2.Items;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -34,7 +35,6 @@ namespace ShiggyMod.Modules.Survivors
         private float roboballTimer;
         private float gachaBuffThreshold;
         private float omniboostTimer;
-        private float windshieldTimer;
 
         private Ray downRay;
 		public Transform mortarIndicatorInstance;
@@ -44,7 +44,6 @@ namespace ShiggyMod.Modules.Survivors
 
         private CharacterBody characterBody;
 		private InputBankTest inputBank;
-        private ChildLocator child;
 		private readonly BullseyeSearch search = new BullseyeSearch();
 		private CharacterMaster characterMaster;
 
@@ -103,7 +102,6 @@ namespace ShiggyMod.Modules.Survivors
 		public bool voiddevastatorhomingDef;
 		public bool scavengerthqwibDef;
 
-        public float shiggyDamage;
         public int captainitemcount;
         private DamageType damageType;
         private DamageType damageType2;
@@ -111,12 +109,10 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Awake()
         {
-
-            child = GetComponentInChildren<ChildLocator>();			
+	
 			//On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
-			inputBank = gameObject.GetComponent<InputBankTest>();
 
-			larvabuffGiven = false;
+            larvabuffGiven = false;
 			verminjumpbuffGiven = false;
 
 			alphacontructpassiveDef = false;
@@ -170,11 +166,12 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Start()
         {
-            characterMaster = characterBody.master;
-            characterBody = gameObject.GetComponent<CharacterBody>();
+            characterMaster = gameObject.GetComponent<CharacterMaster>();
+            characterBody = characterMaster.GetBody();
+            inputBank = gameObject.GetComponent<InputBankTest>();
 
-            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
-            extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
+            extraskillLocator = gameObject.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = gameObject.GetComponent<ExtraInputBankTest>();
 
 
             alphacontructpassiveDef = false;
@@ -242,53 +239,6 @@ namespace ShiggyMod.Modules.Survivors
             {
                 //Buff effects
                 
-                //windshield buff
-                if(characterBody.HasBuff(Buffs.windShieldBuff))
-                {
-                    Collider[] array = Physics.OverlapSphere(characterBody.transform.position, StaticValues.windShieldRadius, LayerIndex.projectile.mask);
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        ProjectileController component = array[i].GetComponent<ProjectileController>();
-                        if (component)
-                        {
-                            TeamComponent component2 = component.owner.GetComponent<TeamComponent>();
-                            if (component2 && component2.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
-                            {
-                                EffectData effectData = new EffectData();
-                                effectData.origin = component.transform.position;
-                                effectData.scale = 1f;
-                                EffectManager.SpawnEffect(EntityStates.Engi.EngiWeapon.FireSeekerGrenades.hitEffectPrefab, effectData, false);
-                                Object.Destroy(array[i].gameObject);
-                                //Object.Destroy(component.gameObject);
-                            }
-                        }
-                    }
-
-                    if (windshieldTimer < 0f)
-                    {
-                        windshieldTimer += Time.fixedDeltaTime;
-                    }
-                    if(windshieldTimer >= 1f)
-                    {
-                        windshieldTimer = 0f;
-                        new BlastAttack
-                        {
-                            crit = false,
-                            attacker = characterBody.gameObject,
-                            teamIndex = TeamComponent.GetObjectTeam(characterBody.gameObject),
-                            falloffModel = BlastAttack.FalloffModel.None,
-                            baseDamage = characterBody.damage * StaticValues.windShieldDamageCoefficient,
-                            damageType = DamageType.Stun1s,
-                            damageColorIndex = DamageColorIndex.Default,
-                            baseForce = 0,
-                            procChainMask = new ProcChainMask(),
-                            position = characterBody.transform.position,
-                            radius = StaticValues.windShieldRadius,
-                            procCoefficient = 0.001f,
-                            attackerFiltering = AttackerFiltering.NeverHitSelf,
-                        }.Fire();
-                    }
-                }
 
                 //gacha buff timer
                 if(characterBody.HasBuff(Buffs.gachaBuff))
@@ -312,6 +262,14 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         new ItemDropNetworked(characterBody.masterObjectId).Send(NetworkDestination.Clients);
                         characterBody.ApplyBuff(Buffs.gachaBuff.buffIndex, 1);
+
+                        EffectManager.SpawnEffect(Modules.Assets.scavSackEffect, new EffectData
+                        {
+                            origin = characterBody.transform.position,
+                            scale = 1f,
+                            rotation = Quaternion.LookRotation(characterBody.characterDirection.forward)
+
+                        }, false);
                     }
                 }
                 //gacha buff timer
@@ -855,7 +813,7 @@ namespace ShiggyMod.Modules.Survivors
 
 						Vector3 position = singularTarget.transform.position;
 						Vector3 start = characterBody.corePosition;
-						Transform transform = child.FindChild("LHand").transform;
+						Transform transform = characterBody.transform;
 						if (transform)
 						{
 							start = transform.position;

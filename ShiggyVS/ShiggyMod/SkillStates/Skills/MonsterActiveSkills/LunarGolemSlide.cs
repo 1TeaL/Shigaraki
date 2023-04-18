@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 using RoR2.Projectile;
 using EntityStates.Commando;
 using ExtraSkillSlots;
+using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
@@ -62,41 +63,42 @@ namespace ShiggyMod.SkillStates
             }
 
             //lower cd of all skills
-            if(base.skillLocator.primary.skillDef != Shiggy.lunargolemSlideDef)
-            {
-                skillLocator.primary.AddOneStock();
-            }
-            if (base.skillLocator.secondary.skillDef != Shiggy.lunargolemSlideDef)
-            {
-                skillLocator.secondary.AddOneStock();
-            }
-            if (base.skillLocator.utility.skillDef != Shiggy.lunargolemSlideDef)
-            {
-                skillLocator.utility.AddOneStock();
-            }
-            if (base.skillLocator.special.skillDef != Shiggy.lunargolemSlideDef)
-            {
-                skillLocator.special.AddOneStock();
-            }
+            skillLocator.DeductCooldownFromAllSkillsServer(StaticValues.lunarGolemSlideCooldown);
+            //if (base.skillLocator.primary.skillDef != Shiggy.lunargolemSlideDef)
+            //{
+            //    skillLocator.primary.AddOneStock();
+            //}
+            //if (base.skillLocator.secondary.skillDef != Shiggy.lunargolemSlideDef)
+            //{
+            //    skillLocator.secondary.AddOneStock();
+            //}
+            //if (base.skillLocator.utility.skillDef != Shiggy.lunargolemSlideDef)
+            //{
+            //    skillLocator.utility.AddOneStock();
+            //}
+            //if (base.skillLocator.special.skillDef != Shiggy.lunargolemSlideDef)
+            //{
+            //    skillLocator.special.AddOneStock();
+            //}
 
-            extraskillLocator = base.GetComponent<ExtraSkillLocator>();
+            //extraskillLocator = base.GetComponent<ExtraSkillLocator>();
 
-            if(extraskillLocator.extraFirst.skillDef != Shiggy.lunargolemSlideDef)
-            {
-                extraskillLocator.extraFirst.AddOneStock();
-            }
-            if (extraskillLocator.extraSecond.skillDef != Shiggy.lunargolemSlideDef)
-            {
-                extraskillLocator.extraSecond.AddOneStock();
-            }
-            if (extraskillLocator.extraThird.skillDef != Shiggy.lunargolemSlideDef)
-            {
-                extraskillLocator.extraThird.AddOneStock();
-            }
-            if (extraskillLocator.extraFourth.skillDef != Shiggy.lunargolemSlideDef)
-            {
-                extraskillLocator.extraFourth.AddOneStock();
-            }
+            //if(extraskillLocator.extraFirst.skillDef != Shiggy.lunargolemSlideDef)
+            //{
+            //    extraskillLocator.extraFirst.AddOneStock();
+            //}
+            //if (extraskillLocator.extraSecond.skillDef != Shiggy.lunargolemSlideDef)
+            //{
+            //    extraskillLocator.extraSecond.AddOneStock();
+            //}
+            //if (extraskillLocator.extraThird.skillDef != Shiggy.lunargolemSlideDef)
+            //{
+            //    extraskillLocator.extraThird.AddOneStock();
+            //}
+            //if (extraskillLocator.extraFourth.skillDef != Shiggy.lunargolemSlideDef)
+            //{
+            //    extraskillLocator.extraFourth.AddOneStock();
+            //}
 
 
         }

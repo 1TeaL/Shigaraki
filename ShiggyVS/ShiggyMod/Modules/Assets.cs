@@ -67,10 +67,10 @@ namespace ShiggyMod.Modules
         public static Sprite claygooBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdClayGoo.asset").WaitForCompletion().iconSprite;
         public static Sprite predatorBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/AttackSpeedOnCrit/bdAttackSpeedOnCrit.asset").WaitForCompletion().iconSprite;
 
-
-        //public static Material alphaconstructShieldBuff = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
-        public static Material alphaconstructShieldBuff;
-        public static Material multiplierShieldBuff;
+        //game material
+        //public static Material alphaconstructShieldBuffMat = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
+        public static Material alphaconstructShieldBuffMat;
+        public static Material multiplierShieldBuffMat;
         
         //own effects
         public static GameObject decayattackEffect;
@@ -95,7 +95,10 @@ namespace ShiggyMod.Modules
         public static GameObject voidjailerEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidJailer/VoidJailerDeathBombExplosion.prefab").WaitForCompletion();
         public static GameObject voidjailermuzzleEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
         public static GameObject xiconstructbeamEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructInitialMuzzleFlash.prefab").WaitForCompletion();
-        public static GameObject xiconstructexplosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructSecondMuzzleFlash.prefab").WaitForCompletion();
+        public static GameObject xiconstructSecondMuzzleEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructSecondMuzzleFlash.prefab").WaitForCompletion();
+        public static GameObject xiconstructDeathEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructDeathEffect.prefab").WaitForCompletion();
+        public static GameObject xiconstructBeamLaser = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/LaserMajorConstruct.prefab").WaitForCompletion();
+
         public static RoR2.Audio.LoopSoundDef xiconstructsound = Addressables.LoadAssetAsync<RoR2.Audio.LoopSoundDef>("RoR2/DLC1/MajorAndMinorConstruct/lsdMajorConstructLaser.asset").WaitForCompletion();
         public static GameObject grandparentSunPrefab;
         public static GameObject grandparentSunSpawnPrefab;
@@ -122,6 +125,8 @@ namespace ShiggyMod.Modules
         public static RoR2.Audio.LoopSoundDef railgunnercryochargingSound = Addressables.LoadAssetAsync<RoR2.Audio.LoopSoundDef>("RoR2/DLC1/Railgunner/lsdRailgunnerBackpackCharging.asset").WaitForCompletion();
         public static RoR2.Audio.LoopSoundDef railgunnercryoofflineSound = Addressables.LoadAssetAsync<RoR2.Audio.LoopSoundDef>("RoR2/DLC1/Railgunner/lsdRailgunnerBackpackOffline.asset").WaitForCompletion();
         public static GameObject multEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Toolbot/OmniExplosionVFXToolbotQuick.prefab").WaitForCompletion();
+        public static GameObject engiShieldEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Engi/BubbleShieldEndEffect.prefab").WaitForCompletion();
+        public static GameObject scavSackEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Scav/ScavSackExplosion.prefab").WaitForCompletion();
 
         //Shiggy Equipment Obj
         //internal static GameObject ShiggyEquipmentPrefab;
@@ -180,8 +185,10 @@ namespace ShiggyMod.Modules
             decayHitSoundEffect = CreateNetworkSoundEventDef("ShiggyMelee");
 
             //alpha shield effect
-            alphaconstructShieldBuff = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
-            alphaconstructShieldBuff.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
+            alphaconstructShieldBuffMat = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
+            alphaconstructShieldBuffMat.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
+
+            
 
             //xiconstruct beam effect
             beam = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("XiConstructBeam");
@@ -189,7 +196,7 @@ namespace ShiggyMod.Modules
             networkObjDefs.Add(beam);
 
             //multiplier effect
-            multiplierShieldBuff = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
+            multiplierShieldBuffMat = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
 
 
             PopulateEffects();

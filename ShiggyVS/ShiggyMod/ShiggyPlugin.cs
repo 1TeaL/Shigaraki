@@ -479,15 +479,18 @@ namespace ShiggyMod
             {
                 if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
                 {
-                    var buffcon = self.GetComponent<BuffController>();
+                    var shiggycon = self.gameObject.GetComponent<ShiggyController>();
                     
-
+                    AkSoundEngine.PostEvent(2108803202, self.gameObject);
+                }
+                var buffcon = self.gameObject.GetComponent<BuffController>();
+                if (buffcon)
+                {
                     if (buffcon.overloadingWard) EntityState.Destroy(buffcon.overloadingWard);
                     if (buffcon.mushroomWard) EntityState.Destroy(buffcon.mushroomWard);
                     if (buffcon.magmawormWard) EntityState.Destroy(buffcon.magmawormWard);
                     if (buffcon.mortarIndicatorInstance) EntityState.Destroy(buffcon.mortarIndicatorInstance.gameObject);
                     if (buffcon.voidmortarIndicatorInstance) EntityState.Destroy(buffcon.voidmortarIndicatorInstance.gameObject);
-                    AkSoundEngine.PostEvent(2108803202, this.gameObject);
                 }
 
             }
@@ -507,8 +510,7 @@ namespace ShiggyMod
                     if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
                     {
                         EnergySystem energySystem = damageReport.attackerBody.gameObject.GetComponent<EnergySystem>();
-                        energySystem.currentplusChaos += energySystem.maxPlusChaos * StaticValues.killPlusChaosGain;
-                        energySystem.TriggerGlow(0.3f, 0.3f, Color.cyan);
+                        energySystem.GainplusChaos(energySystem.maxPlusChaos * StaticValues.killPlusChaosGain);
                     }
                 }
 
@@ -844,8 +846,8 @@ namespace ShiggyMod
             {
                 if (self.body)
                 {
-                    this.OverlayFunction(Modules.Assets.alphaconstructShieldBuff, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
-                    this.OverlayFunction(Modules.Assets.multiplierShieldBuff, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
+                    this.OverlayFunction(Modules.Assets.alphaconstructShieldBuffMat, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
+                    this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
                 }
             }
         }
