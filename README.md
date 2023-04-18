@@ -73,6 +73,7 @@ If you enjoy my work, support me on Ko-fi!
     	- Cooldown changes for a lot of skills, longer in general to balance out how many skills able to be used along with item changes with the extraskill slots.
     	- Backup magazines, hardlight afterburners and lysate cells now increase the number of stocks for extraskill slot 2, 3 and 4 respectively. 
     	- Bullet laser correctly has a proc coefficient of 0.3 instead of 1 for each bullet. Now does 5x200% damage instead of 5x300%, as it was a lot stronger than other skills. 
+    	- Both Tar Boost and Spirit Boost has been changed to give 8 second buffs but are no longer stackable.
     - Bug fixes
     	- Bullet laser correctly has a proc coefficient of 0.4 instead of 1. 
     	- Double tap correctly has a proc coefficient of 1 instead of 0. 
