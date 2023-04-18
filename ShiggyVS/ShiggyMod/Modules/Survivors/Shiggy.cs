@@ -108,6 +108,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef windShieldDef;
         internal static SkillDef genesisDef;
         internal static SkillDef refreshDef;
+        internal static SkillDef expungeDef;
 
         //synergy passive
         internal static SkillDef bigBangPassiveDef;
@@ -2061,6 +2062,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            expungeDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "EXPUNGE_NAME",
+                skillNameToken = prefix + "EXPUNGE_NAME",
+                skillDescriptionToken = prefix + "EXPUNGE_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Expunge)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             #endregion
 
 
@@ -2174,18 +2200,17 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
-                genesisDef,
+                refreshDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                omniboostPassiveDef,
+                expungeDef
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
-                gachaPassiveDef,
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);

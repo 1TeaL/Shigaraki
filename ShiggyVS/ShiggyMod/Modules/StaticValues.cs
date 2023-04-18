@@ -269,6 +269,11 @@ namespace ShiggyMod.Modules
 
         internal const float refreshEnergyCoefficient = 0.5f;
 
+        internal const float expungeDamageCoefficient = 5f;
+        internal const float expungeProcCoefficient = 1f;
+        internal const float expungeRadius = 7f;
+        internal const float expungeDamageMultiplier = 1.5f;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

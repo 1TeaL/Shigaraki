@@ -21,17 +21,14 @@ namespace ShiggyMod.SkillStates
 
         public float baseDuration = 1f;
         public float duration;
-        private float fireInterval;
-        private float stopwatch;
+        private float totalHits;
         public ShiggyController Shiggycon;
-        private DamageType damageType;
+        
 
         private string muzzleString;
-        private Vector3 direction = Vector3.down;
 
         private ChildLocator childLocator;
         private Animator animator;
-        private GameObject chargeEffect;
         public LoopSoundDef loopSoundDef = Modules.Assets.xiconstructsound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
 
@@ -41,7 +38,11 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             this.duration = this.baseDuration / this.attackSpeedStat;
-            fireInterval = duration / StaticValues.genesisNumberOfAttacks;
+            totalHits = StaticValues.genesisNumberOfAttacks * attackSpeedStat;
+            if(totalHits < StaticValues.genesisNumberOfAttacks)
+            {
+                totalHits = StaticValues.genesisNumberOfAttacks;   
+            }
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
@@ -106,16 +107,18 @@ namespace ShiggyMod.SkillStates
                 Debug.Log("add gencon");
                 GenesisController gencon = singularTarget.healthComponent.gameObject.GetComponent<GenesisController>();
 
+
                 if (gencon)
                 {
-                    gencon.totalHits += Mathf.RoundToInt(StaticValues.genesisNumberOfAttacks * attackSpeedStat);
+                    gencon.totalHits += Mathf.RoundToInt(totalHits);
+                    gencon.duration = 0f;
                 }
                 if (!gencon)
                 {
                     gencon = singularTarget.healthComponent.gameObject.AddComponent<GenesisController>();
                     gencon.Target = singularTarget;
                     gencon.shiggyBody = characterBody;
-                    gencon.totalHits = Mathf.RoundToInt(StaticValues.genesisNumberOfAttacks * attackSpeedStat);
+                    gencon.totalHits = Mathf.RoundToInt(totalHits);
                 }
 
             }

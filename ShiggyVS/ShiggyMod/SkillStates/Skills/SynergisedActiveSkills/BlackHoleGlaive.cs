@@ -82,42 +82,8 @@ namespace ShiggyMod.SkillStates
             }
 
 
-            On.RoR2.Orbs.LightningOrb.OnArrival += LightningOrb_OnArrival;
         }
 
-        private void LightningOrb_OnArrival(On.RoR2.Orbs.LightningOrb.orig_OnArrival orig, LightningOrb self)
-        {
-            orig(self);
-            if (self.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-            {
-                if(self.lightningType == LightningOrb.LightningType.HuntressGlaive)
-                {
-                    //new BlastAttack
-                    //{
-                    //    attacker = self.attacker.gameObject,
-                    //    teamIndex = TeamComponent.GetObjectTeam(self.attacker.gameObject),
-                    //    falloffModel = BlastAttack.FalloffModel.None,
-                    //    baseDamage = self.damageValue,
-                    //    damageType = DamageType.Generic,
-                    //    damageColorIndex = DamageColorIndex.Default,
-                    //    baseForce = -1000f,
-                    //    position = self.target.transform.position,
-                    //    radius = StaticValues.blackholeGlaiveBounceRange / 2f,
-                    //    procCoefficient = StaticValues.blackholeGlaiveProcCoefficient,
-                    //    attackerFiltering = AttackerFiltering.NeverHitSelf,
-                    //}.Fire();
-                    new PerformForceNetworkRequest(characterBody.masterObjectId, self.target.transform.position, Vector3.up, StaticValues.blackholeGlaiveBlastRange, self.damageValue, 360f, false).Send(NetworkDestination.Clients);
-
-                    EffectManager.SpawnEffect(Assets.voidMegaCrabExplosionEffect, new EffectData
-                    {
-                        origin = self.target.transform.position,
-                        scale = StaticValues.blackholeGlaiveBounceRange / 2f
-                    }, true);
-
-                }
-            }
-
-        }
 
         private void FireOrbGlaive()
         {
@@ -159,7 +125,6 @@ namespace ShiggyMod.SkillStates
             //PlayCrossfade("RightArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
             PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
 
-            On.RoR2.Orbs.LightningOrb.OnArrival -= LightningOrb_OnArrival;
             if (this.chargeEffect)
             {
                 EntityState.Destroy(this.chargeEffect);

@@ -98,6 +98,8 @@ namespace ShiggyMod.Modules
         public static GameObject xiconstructSecondMuzzleEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructSecondMuzzleFlash.prefab").WaitForCompletion();
         public static GameObject xiconstructDeathEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructDeathEffect.prefab").WaitForCompletion();
         public static GameObject xiconstructBeamLaser = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/LaserMajorConstruct.prefab").WaitForCompletion();
+        public static GameObject lunarGolemSmokeEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/LunarGolem/BlastSmokeLunarGolem.prefab").WaitForCompletion();
+        public static GameObject impBossExplosionEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/ImpBoss/ImpBossBlink.prefab").WaitForCompletion();
 
         public static RoR2.Audio.LoopSoundDef xiconstructsound = Addressables.LoadAssetAsync<RoR2.Audio.LoopSoundDef>("RoR2/DLC1/MajorAndMinorConstruct/lsdMajorConstructLaser.asset").WaitForCompletion();
         public static GameObject grandparentSunPrefab;

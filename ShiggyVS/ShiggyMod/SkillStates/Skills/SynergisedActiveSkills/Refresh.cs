@@ -22,7 +22,7 @@ namespace ShiggyMod.SkillStates
 
             //play animation?
 
-            EffectManager.SpawnEffect(Assets.xiconstructSecondMuzzleEffect, new EffectData
+            EffectManager.SpawnEffect(Assets.lunarGolemSmokeEffect, new EffectData
             {
                 origin = base.transform.position,
                 scale = 1f,

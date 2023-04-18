@@ -301,6 +301,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "REFRESH_NAME", "Refresh");
             LanguageAPI.Add(prefix + "REFRESH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Recharge all skills and recover <style=cIsUtility>{100f * StaticValues.refreshEnergyCoefficient}% of your maximum plus chaos</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Gacha] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "EXPUNGE_NAME", "Expunge");
+            LanguageAPI.Add(prefix + "EXPUNGE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Expunge enemies in an area, dealing <style=cIsDamage>{100f * StaticValues.expungeDamageCoefficient}% damage, with each debuff increasing damage by {100f* StaticValues.expungeDamageMultiplier}%</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Orbital Spikes] [RightHanded]</style>");
             #endregion
 
             #region Synergised Passive

@@ -26,6 +26,7 @@ using EntityStates.JellyfishMonster;
 using ShiggyMod.Modules.Networking;
 using System;
 using RoR2.Items;
+using R2API.Networking.Interfaces;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -146,6 +147,7 @@ namespace ShiggyMod
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
             R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
+            On.RoR2.Orbs.LightningOrb.OnArrival += LightningOrb_OnArrival;
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
@@ -153,6 +155,39 @@ namespace ShiggyMod
             }
         }
 
+        private void LightningOrb_OnArrival(On.RoR2.Orbs.LightningOrb.orig_OnArrival orig, LightningOrb self)
+        {
+            orig(self);
+            if (self.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+            {
+                if (self.lightningType == LightningOrb.LightningType.HuntressGlaive)
+                {
+                    //new BlastAttack
+                    //{
+                    //    attacker = self.attacker.gameObject,
+                    //    teamIndex = TeamComponent.GetObjectTeam(self.attacker.gameObject),
+                    //    falloffModel = BlastAttack.FalloffModel.None,
+                    //    baseDamage = self.damageValue,
+                    //    damageType = DamageType.Generic,
+                    //    damageColorIndex = DamageColorIndex.Default,
+                    //    baseForce = -1000f,
+                    //    position = self.target.transform.position,
+                    //    radius = StaticValues.blackholeGlaiveBounceRange / 2f,
+                    //    procCoefficient = StaticValues.blackholeGlaiveProcCoefficient,
+                    //    attackerFiltering = AttackerFiltering.NeverHitSelf,
+                    //}.Fire();
+                    new PerformForceNetworkRequest(self.attacker.gameObject.GetComponent<CharacterBody>().masterObjectId, self.target.transform.position, Vector3.up, StaticValues.blackholeGlaiveBlastRange, self.damageValue, 360f, false).Send(NetworkDestination.Clients);
+
+                    EffectManager.SpawnEffect(Modules.Assets.voidMegaCrabExplosionEffect, new EffectData
+                    {
+                        origin = self.target.transform.position,
+                        scale = StaticValues.blackholeGlaiveBounceRange / 2f
+                    }, true);
+
+                }
+            }
+
+        }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
@@ -563,20 +598,18 @@ namespace ShiggyMod
                 if (damageInfo != null && damageInfo.attacker && damageInfo.attacker.GetComponent<CharacterBody>())
                 {
                     //loader passive
-                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
+                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.loaderBuff))
                     {
-                        if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.loaderBuff))
-                        {
-                            damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.AddBarrierAuthority(damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.loaderBarrierGainCoefficient);
-                        }
-
+                        damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.AddBarrierAuthority(damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.loaderBarrierGainCoefficient);
                     }
+
+                    
 
 
                     //multiplier spend energy
                     if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
                     {
-                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT && ((damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic))
                         {
                             EnergySystem energySys = damageInfo.attacker.gameObject.GetComponent<EnergySystem>();
                             if (energySys)
@@ -599,6 +632,8 @@ namespace ShiggyMod
                             }
                         }
                     }
+
+                    //for self damage
                     bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
                     if (!flag && damageInfo.damage > 0f)
                     {
@@ -658,7 +693,7 @@ namespace ShiggyMod
                             blastAttack.baseDamage = self.body.damage * Modules.StaticValues.spikedamageCoefficient;
                             blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                             blastAttack.baseForce = 100f;
-                            blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
+                            blastAttack.teamIndex = TeamComponent.GetObjectTeam(self.body.gameObject);
                             blastAttack.damageType = DamageType.Generic | DamageType.BleedOnHit;
                             blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
@@ -681,66 +716,103 @@ namespace ShiggyMod
 
                             
 
-                        }
+                        }                     
 
 
-                        //jellyfish heal stacks
-                        if (self.body.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
+
+                    }
+                    //jellyfish heal stacks
+                    if (self.body.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
+                    {
+                        if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
+                            != self.body.baseNameToken)
                         {
-                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                                != self.body.baseNameToken)
-                            {
-                                int currentStacks = self.body.GetBuffCount(Buffs.jellyfishHealStacksBuff.buffIndex) - 1;
-                                int damageDealt = Mathf.RoundToInt(damageInfo.damage);
+                            int currentStacks = self.body.GetBuffCount(Buffs.jellyfishHealStacksBuff.buffIndex) - 1;
+                            int damageDealt = Mathf.RoundToInt(damageInfo.damage);
 
-                                int buffTotal = (damageDealt)/2 + currentStacks;
-                                
+                            int buffTotal = (damageDealt) / 2 + currentStacks;
 
-                                self.body.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, buffTotal);
-                            }
 
+                            self.body.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, buffTotal);
                         }
 
-                        //expose
-                        if (self.body.HasBuff(RoR2Content.Buffs.MercExpose) && damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME" )
+                    }
+                    //expunge damage bonus
+                    bool expunge = (damageInfo.damageType & DamageType.BypassArmor) > 0;
+                    if (expunge && damageInfo.attacker.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                    {
+                        //deal bonus damage based on number of debuffs
+                        int debuffCount = 0;
+                        DotController d = DotController.FindDotController(self.gameObject);
+
+                        foreach (BuffIndex buffType in BuffCatalog.debuffBuffIndices)
                         {
-                            self.body.RemoveBuff(RoR2Content.Buffs.MercExpose);
-                            float num2 = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().damage * Modules.StaticValues.exposeDamageCoefficient;
-                            damageInfo.damage += num2;
-                            SkillLocator skillLocator = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().skillLocator;
-                            if (skillLocator)
+                            if (self.body.HasBuff(buffType))
                             {
-                                skillLocator.DeductCooldownFromAllSkillsServer(1f);
+                                debuffCount++;
                             }
-                            EffectManager.SimpleImpactEffect(HealthComponent.AssetReferences.mercExposeConsumeEffectPrefab, damageInfo.position, Vector3.up, true);
                         }
 
-                        //decay modded damage type to apply decay
-                        if (DamageAPI.HasModdedDamageType(damageInfo, Modules.Damage.shiggyDecay) && damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                        DotController dotController = DotController.FindDotController(self.gameObject);
+                        if (dotController)
                         {
-                            int decayBuffCount = self.body.GetBuffCount(Buffs.decayDebuff);
-                            InflictDotInfo info = new InflictDotInfo();
-                            info.attackerObject = damageInfo.attacker.gameObject;
-                            info.victimObject = self.gameObject;
-                            info.duration = Modules.StaticValues.decayDamageTimer;
-                            info.dotIndex = Modules.Dots.decayDot;
-
-
-                            DotController.InflictDot(ref info);
-                            
-
-                            DecayEffectController controller = self.gameObject.GetComponent<DecayEffectController>();
-                            if (!controller)
+                            for (DotController.DotIndex dotIndex = DotController.DotIndex.Bleed; dotIndex < DotController.DotIndex.Count; dotIndex++)
                             {
-                                controller = self.gameObject.AddComponent<DecayEffectController>();
-                                controller.attackerBody = damageInfo.attacker.gameObject.GetComponent<CharacterBody>();
+                                if (dotController.HasDotActive(dotIndex))
+                                {
+                                    debuffCount++;
+                                }
                             }
-
                         }
 
+                        if (self.body.HasBuff(Buffs.decayDebuff))
+                        {
+                            debuffCount++;
+                        }
+
+                        Debug.Log(debuffCount + "debuffcount");
+                        float buffDamage = 0f;
+                        float buffBaseDamage = damageInfo.damage * StaticValues.expungeDamageMultiplier;
+                        buffDamage = buffBaseDamage * debuffCount;
+                        damageInfo.damage += buffDamage;
+                    }
+
+                    //expose
+                    if (self.body.HasBuff(RoR2Content.Buffs.MercExpose) && damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                    {
+                        self.body.RemoveBuff(RoR2Content.Buffs.MercExpose);
+                        float num2 = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().damage * Modules.StaticValues.exposeDamageCoefficient;
+                        damageInfo.damage += num2;
+                        SkillLocator skillLocator = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().skillLocator;
+                        if (skillLocator)
+                        {
+                            skillLocator.DeductCooldownFromAllSkillsServer(1f);
+                        }
+                        EffectManager.SimpleImpactEffect(HealthComponent.AssetReferences.mercExposeConsumeEffectPrefab, damageInfo.position, Vector3.up, true);
+                    }
+
+                    //decay modded damage type to apply decay
+                    if (DamageAPI.HasModdedDamageType(damageInfo, Modules.Damage.shiggyDecay) && damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                    {
+                        int decayBuffCount = self.body.GetBuffCount(Buffs.decayDebuff);
+                        InflictDotInfo info = new InflictDotInfo();
+                        info.attackerObject = damageInfo.attacker.gameObject;
+                        info.victimObject = self.gameObject;
+                        info.duration = Modules.StaticValues.decayDamageTimer;
+                        info.dotIndex = Modules.Dots.decayDot;
 
 
-                    }                    
+                        DotController.InflictDot(ref info);
+
+
+                        DecayEffectController controller = self.gameObject.GetComponent<DecayEffectController>();
+                        if (!controller)
+                        {
+                            controller = self.gameObject.AddComponent<DecayEffectController>();
+                            controller.attackerBody = damageInfo.attacker.gameObject.GetComponent<CharacterBody>();
+                        }
+
+                    }
                 }
 
             }

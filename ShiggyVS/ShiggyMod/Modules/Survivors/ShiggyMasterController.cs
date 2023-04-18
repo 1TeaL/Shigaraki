@@ -1,8 +1,11 @@
 ﻿using EntityStates;
 using ExtraSkillSlots;
 using R2API.Networking;
+using R2API.Networking.Interfaces;
 using RoR2;
+using RoR2.Orbs;
 using RoR2.Skills;
+using ShiggyMod.Modules.Networking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,7 +89,7 @@ namespace ShiggyMod.Modules.Survivors
 			On.RoR2.CharacterBody.Start += CharacterBody_Start;
             On.RoR2.Run.Start += Run_Start;
 
-			skillListToOverrideOnRespawn = new SkillDef[8];
+            skillListToOverrideOnRespawn = new SkillDef[8];
             storedAFOSkill = new SkillDef[1];
             alphacontructpassiveDef = false;
 			beetlepassiveDef = false;
@@ -146,7 +149,8 @@ namespace ShiggyMod.Modules.Survivors
         {
 			On.RoR2.CharacterBody.Start -= CharacterBody_Start;
 			On.RoR2.Run.Start -= Run_Start;
-		}
+        }
+
 
         public void Run_Start(On.RoR2.Run.orig_Start orig, Run self)
         {
