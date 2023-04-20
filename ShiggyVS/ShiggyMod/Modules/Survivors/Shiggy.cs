@@ -110,6 +110,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef refreshDef;
         internal static SkillDef expungeDef;
         internal static SkillDef shadowClawDef;
+        internal static SkillDef orbitalStrikeDef;
 
         //synergy passive
         internal static SkillDef bigBangPassiveDef;
@@ -2113,6 +2114,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            orbitalStrikeDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "ORBITALSTRIKE_NAME",
+                skillNameToken = prefix + "ORBITALSTRIKE_NAME",
+                skillDescriptionToken = prefix + "ORBITALSTRIKE_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.OrbitalStrike)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             #endregion
 
 
@@ -2232,7 +2258,7 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                expungeDef
+                orbitalStrikeDef
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {

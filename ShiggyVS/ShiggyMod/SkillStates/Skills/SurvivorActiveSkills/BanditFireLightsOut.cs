@@ -41,6 +41,7 @@ namespace ShiggyMod.SkillStates
 
             PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
+            Util.PlaySound(EntityStates.Bandit2.StealthMode.exitStealthSound, base.gameObject);
             damageType = DamageType.BonusToLowHealth | DamageType.ResetCooldownsOnKill;
             if (effectPrefab)
             {

@@ -310,6 +310,9 @@ namespace ShiggyMod.Modules
                 $"Kills reset all your cooldowns. Staying cloaked gradually slows your movespeed." +
                 $"Attackspeed increases the number of attacks. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Genesis] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "ORBITALSTRIKE_NAME", "Orbital Strike");
+            LanguageAPI.Add(prefix + "ORBITALSTRIKE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to aim and release to call an orbital strike to a location, dealing <style=cIsDamage>{100f * StaticValues.orbitalStrikeDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Blast Burn] [RightHanded]</style>");
             #endregion
 
             #region Synergised Passive

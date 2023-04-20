@@ -281,6 +281,9 @@ namespace ShiggyMod.Modules
         internal const float shadowClawInterval = 0.3f;
         internal const float shadowClawMovespeedCharge = 10f;
 
+        internal const float orbitalStrikeDamageCoefficient = 10f;
+        internal const float orbitalStrikeMaxDistance = 150f;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

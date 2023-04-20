@@ -89,11 +89,13 @@ namespace ShiggyMod.SkillStates
                 temporaryOverlay.animateShaderAlpha = true;
 
             }
+            Util.PlaySound(EntityStates.Bandit2.StealthMode.enterStealthSound, base.gameObject);
         }
 
         public override void OnExit()
         {
             base.OnExit();
+            Util.PlaySound(EntityStates.Bandit2.StealthMode.exitStealthSound, base.gameObject);
             CrosshairUtils.OverrideRequest overrideRequest = this.crosshairOverrideRequest;
             if (overrideRequest != null)
             {
