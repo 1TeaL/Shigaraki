@@ -32,7 +32,7 @@ namespace ShiggyMod.SkillStates
         private float baseTimeBetweenPreps;
         private float baseBarrageDuration = 1f;
         private float baseTimeBetweenBarrages;
-        public int totalBombs;
+        public int totalBombs = Modules.StaticValues.maxballCount;
 
         private ChildLocator childLocator;
         private int currentBombIndex;
@@ -43,14 +43,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                totalBombs = Modules.StaticValues.maxballCount * (int)Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                totalBombs = Modules.StaticValues.maxballCount;
-            }
+            
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);

@@ -28,7 +28,7 @@ namespace ShiggyMod.SkillStates
         private float recoilAmplitude = 4f;
         private GameObject effectPrefab = Modules.Assets.banditmuzzleEffect;
         private string muzzleName = "RHand";
-        private float bulletCount;
+        private float bulletCount = 1;
         public LoopSoundDef loopSoundDef = Modules.Assets.railgunnercryoofflineSound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
         public GameObject reloadcrosshairOverridePrefab = Modules.Assets.railgunnercryoreloadCrosshair;
@@ -48,14 +48,7 @@ namespace ShiggyMod.SkillStates
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
             damageType = DamageType.Freeze2s;
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                bulletCount = 1 * Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                bulletCount = 1;
-            }
+            
             if (effectPrefab)
             {
                 EffectManager.SimpleMuzzleFlash(effectPrefab, base.gameObject, muzzleName, false);

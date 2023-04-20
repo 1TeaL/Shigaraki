@@ -25,7 +25,7 @@ namespace ShiggyMod.SkillStates
         private string MuzzleString = "RHand";
         private float missileTimer;
         private int missileWaveCount;
-        private int totalMissileWaveCount;
+        private int totalMissileWaveCount = Modules.StaticValues.voiddevastatorTotalMissiles;
 
         public override void OnEnter()
         {
@@ -37,14 +37,7 @@ namespace ShiggyMod.SkillStates
             Util.PlaySound(FireVoidMissiles.enterSoundString, base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                totalMissileWaveCount = Modules.StaticValues.voiddevastatorTotalMissiles * (int)Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                totalMissileWaveCount = Modules.StaticValues.voiddevastatorTotalMissiles;
-            }
+            
             durationBetweenMissiles = (duration / totalMissileWaveCount)-0.05f;
 
             //if (FireVoidMissiles.muzzleEffectPrefab)

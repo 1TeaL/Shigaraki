@@ -205,7 +205,7 @@ namespace ShiggyMod.Modules
         internal const float artificerlightningorbMinDamageCoefficient = 4f;
         internal const float artificerlightningorbMaxDamageCoefficient = 12f;
 
-        internal const float banditDamageCoefficient = 3f;
+        internal const float banditDamageCoefficient = 6f;
         internal const float banditcloakDuration = 3f;
 
         internal const float huntressDamageCoefficient = 1f;
@@ -273,6 +273,13 @@ namespace ShiggyMod.Modules
         internal const float expungeProcCoefficient = 1f;
         internal const float expungeRadius = 7f;
         internal const float expungeDamageMultiplier = 1.5f;
+
+        internal const float shadowClawDamageCoefficient = 3f;
+        internal const float shadowClawProcCoefficient = 0.3f;
+        internal const float shadowClawRadius = 6f;
+        internal const int shadowClawHits = 3;
+        internal const float shadowClawInterval = 0.3f;
+        internal const float shadowClawMovespeedCharge = 10f;
 
         public enum IndicatorType : uint
         {

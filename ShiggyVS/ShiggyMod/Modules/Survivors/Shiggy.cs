@@ -109,6 +109,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef genesisDef;
         internal static SkillDef refreshDef;
         internal static SkillDef expungeDef;
+        internal static SkillDef shadowClawDef;
 
         //synergy passive
         internal static SkillDef bigBangPassiveDef;
@@ -2087,6 +2088,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            shadowClawDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SHADOWCLAW_NAME",
+                skillNameToken = prefix + "SHADOWCLAW_NAME",
+                skillDescriptionToken = prefix + "SHADOWCLAW_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ShadowClaw)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             #endregion
 
 
@@ -2200,7 +2226,7 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
-                refreshDef,
+                shadowClawDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]

@@ -304,6 +304,12 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "EXPUNGE_NAME", "Expunge");
             LanguageAPI.Add(prefix + "EXPUNGE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Expunge enemies in an area, dealing <style=cIsDamage>{100f * StaticValues.expungeDamageCoefficient}% damage, with each debuff increasing damage by {100f* StaticValues.expungeDamageMultiplier}%</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Orbital Spikes] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "SHADOWCLAW_NAME", "Shadow Claw");
+            LanguageAPI.Add(prefix + "SHADOWCLAW_DESCRIPTION", $"<style=cIsDamage>Slayer. Agile.</style> <style=cIsUtility>Cloak yourself</style> while holding the button. " +
+                $"Release to claw nearby enemies for <style=cIsDamage>{StaticValues.shadowClawHits}x{100f * StaticValues.shadowClawDamageCoefficient}% damage</style>. " +
+                $"Kills reset all your cooldowns. Staying cloaked gradually slows your movespeed." +
+                $"Attackspeed increases the number of attacks. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Genesis] [RightHanded]</style>");
             #endregion
 
             #region Synergised Passive

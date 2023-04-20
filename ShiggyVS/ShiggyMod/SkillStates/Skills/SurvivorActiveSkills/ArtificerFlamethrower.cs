@@ -65,14 +65,6 @@ namespace ShiggyMod.SkillStates
             {
                 damageType |= DamageType.PoisonOnHit;
             }
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                tickFrequency *= (uint)Modules.StaticValues.multiplierCoefficient;
-            }
-            else
-            {
-                tickFrequency *= 1f;
-            }
             this.stopwatch = 0f;
             this.entryDuration = baseEntryDuration / this.attackSpeedStat;
             this.flamethrowerDuration = baseFlamethrowerDuration;
