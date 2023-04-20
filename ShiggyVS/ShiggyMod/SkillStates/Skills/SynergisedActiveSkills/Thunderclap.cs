@@ -16,23 +16,23 @@ using R2API;
 
 namespace ShiggyMod.SkillStates
 {
-    public class MercDash : BaseSkillState
+    public class Thunderclap : BaseSkillState
 
     {
         public int swingIndex;
 
         protected string hitboxName = "AroundHitbox";
 
-        protected DamageType damageType = DamageType.ApplyMercExpose;
-        protected float damageCoefficient = StaticValues.mercDamageCoefficient;
-        protected float procCoefficient = StaticValues.mercProcCoefficient;
-        protected float pushForce = StaticValues.mercpushForce;
-        protected Vector3 bonusForce = StaticValues.mercbonusForce;
-        protected float baseDuration = StaticValues.mercbaseDuration;
-        protected float attackStartTime = StaticValues.mercattackStartTime;
-        protected float attackEndTime = StaticValues.mercattackEndTime;
-        protected float hitStopDuration = StaticValues.merchitStopDuration;
-        protected float attackRecoil = StaticValues.mercattackRecoil;
+        protected DamageType damageType = DamageType.Shock5s;
+        protected float damageCoefficient = StaticValues.thunderclapDamageCoefficient;
+        protected float procCoefficient = StaticValues.thunderclapprocCoefficient;
+        protected float pushForce = StaticValues.thunderclappushForce;
+        protected Vector3 bonusForce = StaticValues.thunderclapbonusForce;
+        protected float baseDuration = StaticValues.thunderclapbaseDuration;
+        protected float attackStartTime = StaticValues.thunderclapattackStartTime;
+        protected float attackEndTime = StaticValues.thunderclapattackEndTime;
+        protected float hitStopDuration = StaticValues.thunderclaphitStopDuration;
+        protected float attackRecoil = StaticValues.thunderclapattackRecoil;
 
         protected string swingSoundString = "";
         protected string hitSoundString = "";
@@ -41,6 +41,7 @@ namespace ShiggyMod.SkillStates
         protected GameObject hitEffectPrefab;
         protected NetworkSoundEventIndex impactSound;
 
+        private float preDashTimer;
         public float duration;
         private bool hasFired;
         private float hitPauseTimer;
@@ -54,8 +55,8 @@ namespace ShiggyMod.SkillStates
         //movement
         private Transform modelTransform;
         private Vector3 dashVector;
-        private float speedCoefficient = 5f;
-        private float speedCoefficientOnExit = 0.1f;
+        private float speedCoefficient = 12f;
+        private float speedCoefficientOnExit = 0f;
 
         private Vector3 dashVelocity
         {
@@ -111,7 +112,7 @@ namespace ShiggyMod.SkillStates
             if (this.modelTransform)
             {
                 TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                temporaryOverlay.duration = duration* 2;
+                temporaryOverlay.duration = duration* 3;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
@@ -212,40 +213,50 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            this.hitPauseTimer -= Time.fixedDeltaTime;
-
-            if (this.hitPauseTimer <= 0f && this.inHitPause)
+            //stay still, move after prep
+            if (preDashTimer < duration * 2f)
             {
-                base.ConsumeHitStopCachedState(this.hitStopCachedState, base.characterMotor, this.animator);
-                this.inHitPause = false;
-                base.characterMotor.velocity = this.storedVelocity;
+                preDashTimer += Time.fixedDeltaTime;
+                //play prestance anim here
             }
-
-            if (!this.inHitPause)
+            else if (preDashTimer >= duration * 2f)
             {
-                this.stopwatch += Time.fixedDeltaTime;
-                //keep moving if not in hitpause
-                base.characterBody.isSprinting = true;
-                base.characterMotor.rootMotion += this.dashVelocity * Time.fixedDeltaTime;
-                base.characterDirection.forward = this.dashVelocity;
-                base.characterDirection.moveVector = this.dashVelocity;
-            }
-            else
-            {
-                if (base.characterMotor) base.characterMotor.velocity = Vector3.zero;
-                if (this.animator) this.animator.SetFloat("Swing.playbackRate", 0f);
-            }
 
-            if (this.stopwatch >= (this.duration * this.attackStartTime) && this.stopwatch <= (this.duration * this.attackEndTime))
-            {
-                this.FireAttack();
-            }
+                this.hitPauseTimer -= Time.fixedDeltaTime;
+
+                if (this.hitPauseTimer <= 0f && this.inHitPause)
+                {
+                    base.ConsumeHitStopCachedState(this.hitStopCachedState, base.characterMotor, this.animator);
+                    this.inHitPause = false;
+                    base.characterMotor.velocity = this.storedVelocity;
+                }
+
+                if (!this.inHitPause)
+                {
+                    this.stopwatch += Time.fixedDeltaTime;
+                    //keep moving if not in hitpause
+                    base.characterBody.isSprinting = true;
+                    base.characterMotor.rootMotion += this.dashVelocity * Time.fixedDeltaTime;
+                    base.characterDirection.forward = this.dashVelocity;
+                    base.characterDirection.moveVector = this.dashVelocity;
+                }
+                else
+                {
+                    if (base.characterMotor) base.characterMotor.velocity = Vector3.zero;
+                    if (this.animator) this.animator.SetFloat("Swing.playbackRate", 0f);
+                }
+
+                if (this.stopwatch >= (this.duration * this.attackStartTime) && this.stopwatch <= (this.duration * this.attackEndTime))
+                {
+                    this.FireAttack();
+                }
 
 
-            if (this.stopwatch >= this.duration && base.isAuthority)
-            {
-                this.outer.SetNextStateToMain();
-                return;
+                if (this.stopwatch >= this.duration && base.isAuthority)
+                {
+                    this.outer.SetNextStateToMain();
+                    return;
+                }
             }
         }
 

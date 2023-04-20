@@ -4,6 +4,7 @@ using On.RoR2.Skills;
 using RoR2;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ShiggyMod.Modules
 {
@@ -213,8 +214,15 @@ namespace ShiggyMod.Modules
         internal const int huntressmaxArrowCount = 6;
 
         internal static float exposeDamageCoefficient = 3.5f;
-        internal const float mercDamageCoefficient = 1f;
+        internal const float mercDamageCoefficient = 3f;
         internal const float mercProcCoefficient = 1f;
+        internal const float mercpushForce = 300f;
+        public static Vector3 mercbonusForce = Vector3.zero;
+        internal const float mercbaseDuration = 0.4f;
+        internal const float mercattackStartTime = 0.1f;
+        internal const float mercattackEndTime = 0.9f;
+        internal const float merchitStopDuration = 0.07f;
+        internal const float mercattackRecoil = 0.75f;
 
         internal const float rexDamageCoefficient = 4f;
         internal const float rexProcCoefficient = 1f;
@@ -281,8 +289,18 @@ namespace ShiggyMod.Modules
         internal const float shadowClawInterval = 0.3f;
         internal const float shadowClawMovespeedCharge = 10f;
 
-        internal const float orbitalStrikeDamageCoefficient = 10f;
+        internal const float orbitalStrikeDamageCoefficient = 15f;
         internal const float orbitalStrikeMaxDistance = 150f;
+
+        internal const float thunderclapDamageCoefficient = 5f;
+        internal const float thunderclapprocCoefficient = 1f;
+        internal const float thunderclappushForce = 300f;
+        public static Vector3 thunderclapbonusForce = Vector3.zero;
+        internal const float thunderclapbaseDuration = 0.25f;
+        internal const float thunderclapattackStartTime = 0.1f;
+        internal const float thunderclapattackEndTime = 0.9f;
+        internal const float thunderclaphitStopDuration = 0.1f;
+        internal const float thunderclapattackRecoil = 0.75f;
 
         public enum IndicatorType : uint
         {

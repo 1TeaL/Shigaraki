@@ -313,6 +313,10 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "ORBITALSTRIKE_NAME", "Orbital Strike");
             LanguageAPI.Add(prefix + "ORBITALSTRIKE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to aim and release to call an orbital strike to a location, dealing <style=cIsDamage>{100f * StaticValues.orbitalStrikeDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Blast Burn] [RightHanded]</style>");
+            LanguageAPI.Add(prefix + "THUNDERCLAP_NAME", "Thunderclap");
+            LanguageAPI.Add(prefix + "THUNDERCLAP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Dash forward while covered in electricity, dealing <style=cIsDamage>{100f * StaticValues.mercDamageCoefficient}% damage</style> and shock all enemies hit. " +
+                 Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Air cannon]</style>");
             #endregion
 
             #region Synergised Passive
