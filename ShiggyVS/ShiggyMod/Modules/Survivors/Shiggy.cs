@@ -2284,7 +2284,7 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                orbitalStrikeDef
+                mercdashDef
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {

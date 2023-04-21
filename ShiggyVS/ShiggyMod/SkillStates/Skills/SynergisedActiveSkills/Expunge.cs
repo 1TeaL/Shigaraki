@@ -14,6 +14,7 @@ namespace ShiggyMod.SkillStates
 {
     public class Expunge : BaseSkillState
     {
+        //overloading worm + imp boss
         private BlastAttack blastAttack;
         public float fireTime;
         public bool hasFired = false;

@@ -15,6 +15,7 @@ using Object = UnityEngine.Object;
 
 namespace ShiggyMod.SkillStates
 {
+    //captain + void reaver/nullifier
     public class OrbitalStrike : BaseSkillState
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";

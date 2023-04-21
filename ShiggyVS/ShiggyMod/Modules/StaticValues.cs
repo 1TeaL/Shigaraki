@@ -223,6 +223,8 @@ namespace ShiggyMod.Modules
         internal const float mercattackEndTime = 0.9f;
         internal const float merchitStopDuration = 0.07f;
         internal const float mercattackRecoil = 0.75f;
+        internal const float mercSpeedCoefficient = 5f;
+        internal const float mercSpeedCoefficientOnExit = 0.1f;
 
         internal const float rexDamageCoefficient = 4f;
         internal const float rexProcCoefficient = 1f;
@@ -301,6 +303,8 @@ namespace ShiggyMod.Modules
         internal const float thunderclapattackEndTime = 0.9f;
         internal const float thunderclaphitStopDuration = 0.1f;
         internal const float thunderclapattackRecoil = 0.75f;
+        internal const float thunderclapSpeedCoefficient = 15f;
+        internal const float thunderclapSpeedCoefficientOnExit = 0f;
 
         public enum IndicatorType : uint
         {

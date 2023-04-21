@@ -13,6 +13,7 @@ using EntityStates.ImpMonster;
 
 namespace ShiggyMod.SkillStates
 {
+    //imp + bandit
     public class ShadowClaw : BaseSkillState
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";

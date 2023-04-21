@@ -19,7 +19,6 @@ namespace ShiggyMod.SkillStates
     public class MercDash : BaseSkillState
 
     {
-        public int swingIndex;
 
         protected string hitboxName = "AroundHitbox";
 
@@ -50,12 +49,13 @@ namespace ShiggyMod.SkillStates
         protected Animator animator;
         private BaseState.HitStopCachedState hitStopCachedState;
         private Vector3 storedVelocity;
+        private Vector3 forwardDirection;
 
         //movement
         private Transform modelTransform;
         private Vector3 dashVector;
-        private float speedCoefficient = 5f;
-        private float speedCoefficientOnExit = 0.1f;
+        private float speedCoefficient = StaticValues.mercSpeedCoefficient;
+        private float speedCoefficientOnExit = StaticValues.mercSpeedCoefficientOnExit;
 
         private Vector3 dashVelocity
         {
@@ -82,8 +82,12 @@ namespace ShiggyMod.SkillStates
             {
                 hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == this.hitboxName);
             }
+            if (base.isAuthority && base.inputBank && base.characterDirection)
+            {
+                this.forwardDirection = ((base.inputBank.moveVector == Vector3.zero) ? base.characterDirection.forward : base.inputBank.moveVector).normalized;
+            }
 
-            this.PlayAttackAnimation();
+            //play animation here
 
             this.attack = new OverlapAttack();
             this.attack.damageType = this.damageType;
@@ -111,7 +115,7 @@ namespace ShiggyMod.SkillStates
             if (this.modelTransform)
             {
                 TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                temporaryOverlay.duration = duration* 2;
+                temporaryOverlay.duration = duration;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
@@ -123,13 +127,34 @@ namespace ShiggyMod.SkillStates
             {
                 base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
             }
-
+            
+            Util.PlaySound(EvisDash.beginSoundString, base.gameObject);
             
         }
 
-        protected virtual void PlayAttackAnimation()
+        private void CreateBlinkEffect(Vector3 origin)
         {
-            base.PlayCrossfade("Gesture, Override", "Slash" + (1 + swingIndex), "Slash.playbackRate", this.duration, 0.05f);
+            EffectData effectData = new EffectData();
+            effectData.rotation = Util.QuaternionSafeLookRotation(this.forwardDirection);
+            effectData.origin = origin;
+            EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, false);
+            if (this.modelTransform)
+            {
+                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay.duration = duration;
+                temporaryOverlay.animateShaderAlpha = true;
+                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                temporaryOverlay.destroyComponentOnEnd = true;
+                temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
+                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay2.duration = 0.7f;
+                temporaryOverlay2.animateShaderAlpha = true;
+                temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                temporaryOverlay2.destroyComponentOnEnd = true;
+                temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
+                temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+            }
         }
 
         public override void OnExit()
@@ -142,8 +167,9 @@ namespace ShiggyMod.SkillStates
                 base.characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);
             }
             base.characterMotor.velocity *= speedCoefficientOnExit;
-            base.SmallHop(base.characterMotor, Assaulter2.exitSmallHop);
+            base.SmallHop(base.characterMotor, 1f);
             Util.PlaySound(Assaulter2.endSoundString, base.gameObject);
+            //Util.PlaySound(EvisDash.endSoundString, base.gameObject);
             //this.PlayAnimation("FullBody, Override", "EvisLoopExit");
             base.gameObject.layer = LayerIndex.defaultLayer.intVal;
             base.characterMotor.Motor.RebuildCollidableLayers();
@@ -190,6 +216,7 @@ namespace ShiggyMod.SkillStates
             {
                 this.hasFired = true;
                 Util.PlayAttackSpeedSound(this.swingSoundString, base.gameObject, this.attackSpeedStat);
+                this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
 
                 if (base.isAuthority)
                 {
@@ -213,6 +240,7 @@ namespace ShiggyMod.SkillStates
             base.FixedUpdate();
 
             this.hitPauseTimer -= Time.fixedDeltaTime;
+
 
             if (this.hitPauseTimer <= 0f && this.inHitPause)
             {
