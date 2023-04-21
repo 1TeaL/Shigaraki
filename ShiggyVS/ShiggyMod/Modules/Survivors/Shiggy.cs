@@ -112,12 +112,15 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef shadowClawDef;
         internal static SkillDef orbitalStrikeDef;
         internal static SkillDef thunderclapDef;
+        internal static SkillDef blastBurnDef;
+        internal static SkillDef barrierJellyDef;
 
         //synergy passive
         internal static SkillDef bigBangPassiveDef;
         internal static SkillDef wisperPassiveDef;
         internal static SkillDef omniboostPassiveDef;
         internal static SkillDef gachaPassiveDef;
+        internal static SkillDef stoneFormPassiveDef;
 
 
         internal override GameObject bodyPrefab { get; set; }
@@ -2107,7 +2110,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -2132,7 +2135,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -2158,6 +2161,56 @@ namespace ShiggyMod.Modules.Survivors
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            blastBurnDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "BLASTBURN_NAME",
+                skillNameToken = prefix + "BLASTBURN_NAME",
+                skillDescriptionToken = prefix + "BLASTBURN_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BlastBurn)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            barrierJellyDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "BARRIERJELLY_NAME",
+                skillNameToken = prefix + "BARRIERJELLY_NAME",
+                skillDescriptionToken = prefix + "BARRIERJELLY_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BarrierJelly)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -2270,6 +2323,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { }
 
             });
+            stoneFormPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "STONEFORM_NAME",
+                skillNameToken = prefix + "STONEFORM_NAME",
+                skillDescriptionToken = prefix + "STONEFORM_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.StoneFormPassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
             #endregion
 
             #region Chosen Skills
@@ -2278,7 +2356,7 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
-                thunderclapDef,
+                blastBurnDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]

@@ -306,6 +306,17 @@ namespace ShiggyMod.Modules
         internal const float thunderclapSpeedCoefficient = 15f;
         internal const float thunderclapSpeedCoefficientOnExit = 0f;
 
+        internal const float blastBurnDamageCoefficient = 2f;
+        internal const float blastBurnProcCoefficient = 0.3f;
+        internal const float blastBurnStartRadius = 5f;
+        internal const float blastBurnIncrementRadius = 1f;
+        internal const float blastBurnBaseInterval = 0.8f;
+
+        internal const int barrierJellyDuration = 3;
+
+        internal const float stoneFormBlockChance = 20f;
+        internal const float stoneFormWaitDuration = 3f;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

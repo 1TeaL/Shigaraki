@@ -107,6 +107,9 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(Expunge));
             entityStates.Add(typeof(ShadowClaw));
             entityStates.Add(typeof(OrbitalStrike));
+            entityStates.Add(typeof(Thunderclap));
+            entityStates.Add(typeof(BlastBurn));
+            entityStates.Add(typeof(BarrierJelly));
 
             //synergy passive skills
             entityStates.Add(typeof(BigBangPassive));

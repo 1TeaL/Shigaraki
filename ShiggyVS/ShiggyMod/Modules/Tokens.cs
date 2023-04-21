@@ -287,10 +287,10 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[RapidPierce] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "BLACKHOLEGLAIVE_NAME", "Black Hole Glaive");
             LanguageAPI.Add(prefix + "BLACKHOLEGLAIVE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Throw a seeking glaive that bounces up to {StaticValues.blackholeGlaiveMaxBounceCount} times for <style=cIsDamage>{100f * StaticValues.blackholeGlaiveDamageCoefficient}% per hit</style>, damaging and pulling nearby enemies as well. Damage increases by <style=cIsDamage>{100f * (StaticValues.blackholeGlaiveDamageCoefficientPerBounce-1f)} per bounce</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[MechStance] [RightHanded]</style>");
+                $"<style=cSub>[Mech Stance] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "GRAVITATIONALDOWNFORCE_NAME", "Gravitational Downforce");
             LanguageAPI.Add(prefix + "GRAVITATIONALDOWNFORCE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Amplify the force of gravity around you, sending enemies down and dealing <style=cIsDamage>{100f * StaticValues.gravitationalDownforceDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Elemental Void] [RightHanded]</style>");
+                $"<style=cSub>[Elemental Fusion] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "WINDSHIELD_NAME", "Wind Shield");
             LanguageAPI.Add(prefix + "WINDSHIELD_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Generate a barrier of wind around you for {StaticValues.windShieldDuration}, removing nearby projectiles and stunning nearby enemies for <style=cIsDamage>{100f * StaticValues.windShieldDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wind Slash] [RightHanded]</style>");
@@ -316,22 +316,38 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "THUNDERCLAP_NAME", "Thunderclap");
             LanguageAPI.Add(prefix + "THUNDERCLAP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Dash forward while covered in electricity, dealing <style=cIsDamage>{100f * StaticValues.mercDamageCoefficient}% damage</style> and shock all enemies hit. " +
                  Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Air cannon]</style>");
+                $"<style=cSub>[Mach Punch]</style>");
+            LanguageAPI.Add(prefix + "BLASTBURN_NAME", "Blast Burn");
+            LanguageAPI.Add(prefix + "BLASTBURN_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to radiate heat from your body, dealing <style=cIsDamage>{100f * StaticValues.blastBurnDamageCoefficient}% damage</style> in pulses, burning all enemies hit. The size of the blast increases after each pulse. " +
+                $"Attackspeed decreases the gap between pulses." +
+                 Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Orbital Strike]</style>");
+            LanguageAPI.Add(prefix + "BARRIERJELLY_NAME", "Barrier Jelly");
+            LanguageAPI.Add(prefix + "BARRIERJELLY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Become <style=cIsUtility>invincible for {StaticValues.barrierJellyDuration} seconds</style>. "  +
+                 Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Blind Senses]</style>");
             #endregion
 
             #region Synergised Passive
             LanguageAPI.Add(prefix + "BIGBANG_NAME", "Big Bang");
-            LanguageAPI.Add(prefix + "BIGBANG_DESCRIPTION", $"Each hit on an enemy builds up an explosive charge. On the {StaticValues.bigbangBuffThreshold}th hit, an explosion occurs, dealing <style=cIsDamage>{100f * StaticValues.bigbangBuffHealthCoefficient}% of the enemy's max health</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "BIGBANG_DESCRIPTION", $"Each hit on an enemy builds up an explosive charge. On the {StaticValues.bigbangBuffThreshold}th hit, an explosion occurs, dealing <style=cIsDamage>{100f * StaticValues.bigbangBuffHealthCoefficient}% of the enemy's max health</style>. " + 
+                Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wisper]</style>");
             LanguageAPI.Add(prefix + "WISPER_NAME", "Wisper");
-            LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient. " + 
+                Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Big Bang]</style>");
             LanguageAPI.Add(prefix + "OMNIBOOST_NAME", "Omniboost");
-            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Killing an enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per kill</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Killing an enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per kill</style>. " + 
+                Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Double Time]</style>");
-            LanguageAPI.Add(prefix + "GACHA_NAME", "Gacaha");
-            LanguageAPI.Add(prefix + "GACHA_DESCRIPTION", $"Get a random item every <style=cIsUtility>{StaticValues.gachaBuffThreshold} seconds</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "GACHA_NAME", "Gacha");
+            LanguageAPI.Add(prefix + "GACHA_DESCRIPTION", $"Get a random item every <style=cIsUtility>{StaticValues.gachaBuffThreshold} seconds</style>. " + 
+                Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Refresh]</style>");
+            LanguageAPI.Add(prefix + "STONEFORM_NAME", "Stone Form");
+            LanguageAPI.Add(prefix + "STONEFORM_DESCRIPTION", $"While still for {StaticValues.stoneFormWaitDuration} seconds, enter stone form. Gain <style=cIsUtility>{StaticValues.stoneFormBlockChance}% block chance and take no knockback</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Ingrain]</style>");
             #endregion
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");

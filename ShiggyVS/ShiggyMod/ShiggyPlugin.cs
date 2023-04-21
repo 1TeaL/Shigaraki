@@ -637,6 +637,24 @@ namespace ShiggyMod
                     bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
                     if (!flag && damageInfo.damage > 0f)
                     {
+                        damageInfo.force = Vector3.zero;
+                        //stone form passive buff
+                        if (self.body.HasBuff(Buffs.stoneFormStillBuff.buffIndex))
+                        {
+                            if (Util.CheckRoll(StaticValues.stoneFormBlockChance, self.body.master))
+                            {
+                                damageInfo.rejected = true;
+
+                                EffectData effectData = new EffectData
+                                {
+                                    origin = damageInfo.position,
+                                    rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
+                                };
+                                EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearEffectPrefab, effectData, true);
+                            }
+
+                        }
+
                         //stone titan buff
                         if (self.body.HasBuff(Buffs.stonetitanBuff.buffIndex))
                         {
@@ -813,6 +831,7 @@ namespace ShiggyMod
                         }
 
                     }
+
                 }
 
             }

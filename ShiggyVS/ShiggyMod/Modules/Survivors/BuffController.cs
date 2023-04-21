@@ -15,6 +15,7 @@ using static UnityEngine.ParticleSystem.PlaybackState;
 using HG;
 using RoR2.Projectile;
 using RoR2.Items;
+using System;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -35,6 +36,8 @@ namespace ShiggyMod.Modules.Survivors
         private float roboballTimer;
         private float gachaBuffThreshold;
         private float omniboostTimer;
+        private float stoneFormTimer;
+        private float stoneformStillbuffTimer;
 
         private Ray downRay;
 		public Transform mortarIndicatorInstance;
@@ -105,7 +108,6 @@ namespace ShiggyMod.Modules.Survivors
         public int captainitemcount;
         private DamageType damageType;
         private DamageType damageType2;
-
 
         public void Awake()
         {
@@ -507,10 +509,45 @@ namespace ShiggyMod.Modules.Survivors
 
                 }
 
+                //stoneform buff still effect
+                if (characterBody.HasBuff(Buffs.stoneFormStillBuff.buffIndex))
+                {
+                    if(stoneformStillbuffTimer < 1f)
+                    {
+                        stoneformStillbuffTimer += Time.fixedDeltaTime;
+                    }
+                    else if (stoneformStillbuffTimer >= 1f)
+                    {
+                        stoneformStillbuffTimer = 0f;
+
+                        EffectManager.SpawnEffect(Assets.stonetitanFistEffect, new EffectData
+                        {
+                            origin = characterBody.transform.position,
+                            scale = 1f,
+                            rotation = Quaternion.identity,
+
+                        }, true);
+                    }
+                }
 
                 //Standing still/not moving buffs
                 if (characterBody.GetNotMoving())
                 {
+                    //stoneform buff
+                    if (characterBody.HasBuff(Modules.Buffs.stoneFormBuff.buffIndex))
+                    {
+                        if(stoneFormTimer < StaticValues.stoneFormWaitDuration)
+                        {
+                            stoneFormTimer += Time.fixedDeltaTime;
+                        }
+                        else if (stoneFormTimer >= StaticValues.stoneFormWaitDuration)
+                        {
+                            if (!characterBody.HasBuff(Buffs.stoneFormStillBuff.buffIndex))
+                            {
+                                characterBody.ApplyBuff(Buffs.stoneFormStillBuff.buffIndex, 1);                                
+                            }
+                        }
+                    }
 
                     //hermitcrab mortarbuff
                     if (characterBody.HasBuff(Modules.Buffs.hermitcrabmortarBuff))
@@ -526,7 +563,9 @@ namespace ShiggyMod.Modules.Survivors
                             characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, hermitbuffcount + 1);
                             mortarTimer = 0f;
                             FireMortar();
+
                         }
+
                     }
                     else
                     {
@@ -557,10 +596,15 @@ namespace ShiggyMod.Modules.Survivors
                         if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
                         characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
                     }
-                }
-
+                }//moving buffs
                 else if (!characterBody.GetNotMoving())
                 {
+                    stoneFormTimer = 0f;
+                    if (characterBody.HasBuff(Buffs.stoneFormStillBuff.buffIndex))
+                    {
+                        characterBody.ApplyBuff(Buffs.stoneFormStillBuff.buffIndex, 0);
+                    }
+
                     if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
                     characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
                     if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
@@ -932,7 +976,15 @@ namespace ShiggyMod.Modules.Survivors
 				OrbManager.instance.AddOrb(mortarOrb);
 			}
 
-		}
+            EffectManager.SpawnEffect(EntityStates.HermitCrab.FireMortar.mortarMuzzleflashEffect, new EffectData
+            {
+                origin = characterBody.gameObject.transform.position,
+                scale = 1f,
+                rotation = Util.QuaternionSafeLookRotation(mortarOrb.target.transform.position - characterBody.gameObject.transform.position),
+
+            }, true);
+
+        }
 
 		//overloading orb
 		private void OverloadingFire()

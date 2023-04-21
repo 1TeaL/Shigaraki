@@ -132,6 +132,8 @@ namespace ShiggyMod.Modules
         public static GameObject scavSackEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Scav/ScavSackExplosion.prefab").WaitForCompletion();
         public static GameObject teslaEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/ShockNearby/TeslaFieldBuffEffect.prefab").WaitForCompletion();
         public static GameObject overloadingEliteEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/EliteLightning/LightningStakeNova.prefab").WaitForCompletion();
+        public static GameObject alphaConstructMuzzleFlashEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructMuzzleflashSpawnMinorConstruct.prefab").WaitForCompletion();
+        public static GameObject stonetitanFistEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Titan/TitanFistEffect.prefab").WaitForCompletion();
 
         //game projectiles
         public static GameObject captainAirStrikeProj = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Captain/CaptainAirstrikeProjectile1.prefab").WaitForCompletion();

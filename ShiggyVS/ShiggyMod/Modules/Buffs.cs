@@ -51,6 +51,8 @@ namespace ShiggyMod.Modules
         internal static BuffDef omniboostBuffStacks;
         internal static BuffDef gachaBuff;
         internal static BuffDef windShieldBuff;
+        internal static BuffDef stoneFormBuff;
+        internal static BuffDef stoneFormStillBuff;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
@@ -114,9 +116,11 @@ namespace ShiggyMod.Modules
             bigbangBuff = Buffs.AddNewBuff("bigbangBuff", Assets.orbreadyBuffIcon, new Color(0.67f, 0.87f, 0.93f), false, false);
             wisperBuff = Buffs.AddNewBuff("wisperBuff", Assets.multiplierBuffIcon, new Color(0.52f, 0.48f, 0.39f), false, false);
             omniboostBuff = Buffs.AddNewBuff("omniboost Buff", Assets.boostBuffIcon, Color.white, false, false);
-            omniboostBuffStacks = Buffs.AddNewBuff("omniboost Buff", Assets.boostBuffIcon, Color.gray, true, false);
+            omniboostBuffStacks = Buffs.AddNewBuff("omniboost Buff stacks", Assets.boostBuffIcon, Color.gray, true, false);
             gachaBuff = Buffs.AddNewBuff("gacha Buff", Assets.attackspeedBuffIcon, Color.yellow, true, false);
             windShieldBuff = Buffs.AddNewBuff("windShield Buff", Assets.shieldBuffIcon, Color.white, false, false);
+            stoneFormBuff = Buffs.AddNewBuff("stoneForm Buff", Assets.shieldBuffIcon, Color.grey, false, false);
+            stoneFormStillBuff = Buffs.AddNewBuff("stoneFormStill Buff", Assets.skinBuffIcon, Color.grey, false, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
             bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.white, true, true);

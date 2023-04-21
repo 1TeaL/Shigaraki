@@ -12,44 +12,38 @@ using System;
 
 namespace ShiggyMod.SkillStates
 {
-    public class Expunge : BaseSkillState
+    public class BlastBurn : BaseSkillState
     {
+        //Elder lemurian and lemurian
         private BlastAttack blastAttack;
-        public float fireTime;
-        public bool hasFired = false;
+        public float fireInterval;
+        public float stopwatch;
         public float radius;
-        public float baseDuration = 1f;
-        public float duration;
 
-        //Imp boss + Magmaworm
         public override void OnEnter()
         {
             base.OnEnter();
-            duration = baseDuration / attackSpeedStat;
-            fireTime = duration / 2f;
-            radius = StaticValues.expungeRadius * attackSpeedStat;
-            if(radius < StaticValues.expungeRadius)
-            {
-                radius = StaticValues.expungeRadius;
-            }
-            
+            fireInterval = StaticValues.blastBurnBaseInterval / attackSpeedStat;
+            radius = StaticValues.blastBurnStartRadius;
+
 
             Ray aimRay = base.GetAimRay();
 
 
             blastAttack = new BlastAttack();
             blastAttack.radius = radius;
-            blastAttack.procCoefficient = StaticValues.expungeProcCoefficient;
-            blastAttack.position = aimRay.origin + aimRay.direction * radius;
+            blastAttack.procCoefficient = StaticValues.blastBurnProcCoefficient;
+            blastAttack.position = aimRay.origin;
             blastAttack.attacker = base.gameObject;
             blastAttack.crit = characterBody.RollCrit();
-            blastAttack.baseDamage = damageStat* Modules.StaticValues.expungeDamageCoefficient;
+            blastAttack.baseDamage = damageStat * Modules.StaticValues.blastBurnDamageCoefficient;
             blastAttack.falloffModel = BlastAttack.FalloffModel.None;
             blastAttack.baseForce = 400f;
             blastAttack.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
             blastAttack.damageType |= DamageType.BypassArmor;
             blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
+            //play anim
 
         }
 
@@ -63,29 +57,36 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if(base.fixedAge > fireTime && !hasFired)
+            if (base.IsKeyDownAuthority())
             {
-                hasFired = true;
-                Ray aimRay = base.GetAimRay();
-                EffectManager.SpawnEffect(Assets.impBossExplosionEffect, new EffectData
+                stopwatch += Time.fixedDeltaTime;
+                if (stopwatch > fireInterval)
                 {
-                    origin = aimRay.origin + aimRay.direction * radius,
-                    scale = radius,
-                    rotation = Quaternion.identity,
+                    stopwatch = 0f;
+                    Ray aimRay = base.GetAimRay();
+                    EffectManager.SpawnEffect(Assets.elderlemurianexplosionEffect, new EffectData
+                    {
+                        origin = aimRay.origin,
+                        scale = radius,
+                        rotation = Quaternion.identity,
 
-                }, true);
+                    }, true);
 
-                blastAttack.position = aimRay.origin + aimRay.direction * radius;
-                blastAttack.Fire();
+                    blastAttack.position = aimRay.origin;
+                    blastAttack.Fire();
+
+                    //increment radius size after each attack
+                    radius += StaticValues.blastBurnIncrementRadius;
+                }
             }
-
-            if(base.fixedAge > duration)
+            else if (!base.IsKeyDownAuthority())
             {
+
                 this.outer.SetNextStateToMain();
                 return;
             }
 
-        }
 
+        }
     }
 }
