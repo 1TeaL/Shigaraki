@@ -123,7 +123,8 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef gachaPassiveDef;
         internal static SkillDef stoneFormPassiveDef;
         internal static SkillDef auraOfBlightPassiveDef;
-        internal static SkillDef barbeSpikesPassiveDef;
+        internal static SkillDef barbedSpikesPassiveDef;
+        internal static SkillDef ingrainPassiveDef;
 
 
         internal override GameObject bodyPrefab { get; set; }
@@ -2401,13 +2402,38 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { }
 
             });
-            barbeSpikesPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            barbedSpikesPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BARBEDSPIKES_NAME",
                 skillNameToken = prefix + "BARBEDSPIKES_NAME",
                 skillDescriptionToken = prefix + "BARBEDSPIKES_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BarbedSpikesPassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
+            ingrainPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "INGRAIN_NAME",
+                skillNameToken = prefix + "INGRAIN_NAME",
+                skillDescriptionToken = prefix + "INGRAIN_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.IngrainPassive)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -2434,18 +2460,15 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
-                auraOfBlightPassiveDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                blackholeGlaiveDef
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
-                barbeSpikesPassiveDef
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);

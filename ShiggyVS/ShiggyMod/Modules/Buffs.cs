@@ -56,6 +56,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef mechStanceBuff;
         internal static BuffDef auraOfBlightBuff;
         internal static BuffDef barbedSpikesBuff;
+        internal static BuffDef ingrainBuff;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
@@ -127,9 +128,10 @@ namespace ShiggyMod.Modules
             mechStanceBuff = Buffs.AddNewBuff("mechStance Buff", Assets.ruinDebuffIcon, Color.yellow, false, false);
             auraOfBlightBuff = Buffs.AddNewBuff("AuraOfPoison Buff", Assets.bleedBuffIcon, Color.yellow, false, false);
             barbedSpikesBuff = Buffs.AddNewBuff("barbedSpikes Buff", Assets.spikyDebuffIcon, Color.grey, false, false);
+            ingrainBuff = Buffs.AddNewBuff("ingrain Buff", Assets.medkitBuffIcon, Color.green, false, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
-            bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.white, true, true);
+            bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.green, true, true);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

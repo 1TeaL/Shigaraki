@@ -361,6 +361,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BARBEDSPIKES_DESCRIPTION", $"Deal <style=cIsDamage>{StaticValues.barbedSpikesDamageCoefficient* 100f}% damage</style> to nearby enemies every {StaticValues.barbedSpikesBuffThreshold} seconds. " +
                 $"Damage increases the area of effect. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Expunge]</style>");
+            LanguageAPI.Add(prefix + "INGRAIN_NAME", "Ingrain");
+            LanguageAPI.Add(prefix + "INGRAIN_DESCRIPTION", $"Gain health regen equivalent to <style=cIsHealing>{StaticValues.ingrainBuffHealthRegen* 100f}% of your max health</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Stone Form]</style>");
             #endregion
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");

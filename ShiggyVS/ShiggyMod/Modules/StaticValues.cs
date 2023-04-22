@@ -333,6 +333,8 @@ namespace ShiggyMod.Modules
         internal static float barbedSpikesProcCoefficient = 0.5f;
         internal static float barbedSpikesRadius = 7f;
 
+        internal static float ingrainBuffHealthRegen = 0.1f;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

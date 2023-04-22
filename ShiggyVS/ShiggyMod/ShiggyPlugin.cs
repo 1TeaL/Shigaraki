@@ -196,10 +196,15 @@ namespace ShiggyMod
             {
                 if (sender)
                 {
+                    //ingrain buff
+                    if (sender.HasBuff(Buffs.ingrainBuff))
+                    {
+                        args.baseRegenAdd += StaticValues.ingrainBuffHealthRegen * sender.healthComponent.fullCombinedHealth;
+                    }
                     //roboballmini attackspeed buff
                     if (sender.HasBuff(Buffs.roboballminiattackspeedBuff))
                     {
-                        args.baseAttackSpeedAdd += (Modules.StaticValues.roboballattackspeedMultiplier * sender.GetBuffCount(Buffs.roboballminiattackspeedBuff));
+                        args.baseAttackSpeedAdd += (StaticValues.roboballattackspeedMultiplier * sender.GetBuffCount(Buffs.roboballminiattackspeedBuff));
 
                     }
                     //claydunestrider buff
