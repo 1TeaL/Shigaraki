@@ -148,11 +148,28 @@ namespace ShiggyMod
             R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
             On.RoR2.Orbs.LightningOrb.OnArrival += LightningOrb_OnArrival;
+            On.RoR2.OverlapAttack.Fire += OverlapAttack_Fire;
+           
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
                 On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
             }
+        }
+
+        private bool OverlapAttack_Fire(On.RoR2.OverlapAttack.orig_Fire orig, OverlapAttack self, List<HurtBox> hitResults)
+        {
+
+            GameObject attacker = self.attacker;
+            if (attacker)
+            {
+                if(attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                {
+                    //add decay to all overlap attacks
+                    self.AddModdedDamageType(Damage.shiggyDecay);
+                }
+            }
+            return orig(self, hitResults);
         }
 
         private void LightningOrb_OnArrival(On.RoR2.Orbs.LightningOrb.orig_OnArrival orig, LightningOrb self)
@@ -296,7 +313,6 @@ namespace ShiggyMod
             {
                 var body = attacker.GetComponent<CharacterBody>();
                 var victimBody = victim.GetComponent<CharacterBody>();
-
 
                 DamageType damageType2;
                 if (body.HasBuff(Buffs.impbossBuff))

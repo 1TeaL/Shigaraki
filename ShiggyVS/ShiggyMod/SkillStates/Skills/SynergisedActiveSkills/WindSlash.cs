@@ -5,20 +5,23 @@ using ShiggyMod.Modules.Survivors;
 using RoR2.Projectile;
 using EntityStates.LemurianMonster;
 using EmotesAPI;
+using R2API;
+using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
-    public class LemurianFireball : BaseSkillState
+    //merc + air cannon
+    public class WindSlash : BaseSkillState
     {
-        public float baseDuration = 0.5f;
+        public float baseDuration = 0.6f;
         public float duration;
         public ShiggyController Shiggycon;
 
-        public static GameObject effectPrefab;
+        public static GameObject mercProjectile = Modules.Assets.mercWindProj;
 
         private string muzzleString;
         private Animator animator;
-        private float damageCoefficient = Modules.StaticValues.lemurianfireballDamageCoefficient;
+        private float damageCoefficient = Modules.StaticValues.windSlashDamageCoefficient;
         private float force = 1f;
         private float speedOverride = -1f;
         private GameObject chargeVfxInstance;
@@ -38,30 +41,33 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration / 2, 0.1f);
             //PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration/2, 0.1f);
-            if (transform && ChargeFireball.chargeVfxPrefab)
-            {
-                this.chargeVfxInstance = UnityEngine.Object.Instantiate<GameObject>(ChargeFireball.chargeVfxPrefab, FindModelChild(this.muzzleString).position, Util.QuaternionSafeLookRotation(aimRay.direction));
-                this.chargeVfxInstance.transform.parent = FindModelChild(this.muzzleString).transform;
-            }
 
-            FireBall();
-            
 
-            
+            FireWind();
 
         }
-        public void FireBall()
+        public void FireWind()
         {
             Ray aimRay = base.GetAimRay();
-            
-            EffectManager.SimpleMuzzleFlash(FireFireball.effectPrefab, base.gameObject, muzzleString, false);
-            
+
+            EffectManager.SpawnEffect(EntityStates.Merc.Uppercut.swingEffectPrefab, new EffectData
+            {
+                origin = FindModelChild(muzzleString).position,
+                scale = 1f,
+                rotation = Quaternion.LookRotation(aimRay.direction),
+
+            }, true);
+
             bool isAuthority = base.isAuthority;
             if (isAuthority)
             {
 
+                //var mercProjectileUpdated = mercProjectile;
+                //DamageAPI.ModdedDamageTypeHolderComponent damageTypeComponent = mercProjectileUpdated.AddComponent<DamageAPI.ModdedDamageTypeHolderComponent>();
+                //damageTypeComponent.Add(Damage.shiggyDecay);
+
                 ProjectileManager.instance.FireProjectile(
-                    Modules.Projectiles.lemurianFireBall, //prefab
+                    mercProjectile, //prefab
                     aimRay.origin, //position
                     Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
                     base.gameObject, //owner
@@ -104,12 +110,7 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
-            if (base.fixedAge >= this.duration && base.isAuthority && base.IsKeyDownAuthority())
-            {
-                this.outer.SetNextState(new LemurianFireball());
-            }
-            else if (base.fixedAge >= this.duration && base.isAuthority)
+            if (base.fixedAge >= this.duration && base.isAuthority)
             {
                 this.outer.SetNextStateToMain();
                 return;

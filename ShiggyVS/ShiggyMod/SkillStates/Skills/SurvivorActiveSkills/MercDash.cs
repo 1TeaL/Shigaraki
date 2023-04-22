@@ -103,7 +103,6 @@ namespace ShiggyMod.SkillStates
             this.attack.isCrit = base.RollCrit();
             this.attack.impactSound = this.impactSound;
 
-            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
             //movement code
 
             this.dashVector = base.inputBank.aimDirection;

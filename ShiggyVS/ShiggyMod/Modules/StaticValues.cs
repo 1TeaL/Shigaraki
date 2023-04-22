@@ -121,7 +121,7 @@ namespace ShiggyMod.Modules
         internal const float decayDamageStack = 0.5f;
         internal const float decayDamagePercentage = 0.005f;
         internal const float decayDamageTimer = 10f;
-        internal const float decayInstaKillThreshold = 50f;
+        internal const float decayInstaKillThreshold = 100f;
 
         internal const float decayattackDamageCoefficient = 3f;
         internal const float decayattackProcCoefficient = 1f;
@@ -335,6 +335,7 @@ namespace ShiggyMod.Modules
 
         internal static float ingrainBuffHealthRegen = 0.1f;
 
+        internal static float windSlashDamageCoefficient = 1f;
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

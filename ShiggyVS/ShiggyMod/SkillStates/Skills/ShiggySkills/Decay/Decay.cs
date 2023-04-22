@@ -21,7 +21,7 @@ namespace ShiggyMod.SkillStates
 
             this.damageCoefficient = Modules.StaticValues.decayattackDamageCoefficient;
             this.procCoefficient = 1f;
-            this.pushForce = 300f;
+            this.pushForce = 100f;
             this.damageType = DamageType.Generic;
             this.baseDuration = 1f;
             this.attackStartTime = 0.2f;
@@ -40,7 +40,6 @@ namespace ShiggyMod.SkillStates
             this.impactSound = Modules.Assets.decayHitSoundEffect.index;
 
             base.OnEnter();
-            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
 
         }
 

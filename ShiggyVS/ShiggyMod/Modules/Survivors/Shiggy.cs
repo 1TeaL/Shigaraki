@@ -115,6 +115,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef blastBurnDef;
         internal static SkillDef barrierJellyDef;
         internal static SkillDef mechStanceDef;
+        internal static SkillDef windSlashDef;
 
         //synergy passive
         internal static SkillDef bigBangPassiveDef;
@@ -2247,6 +2248,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            windSlashDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "WINDSLASH_NAME",
+                skillNameToken = prefix + "WINDSLASH_NAME",
+                skillDescriptionToken = prefix + "WINDSLASH_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.WindSlash)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             #endregion
 
 
@@ -2465,6 +2491,7 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
+                ingrainPassiveDef
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {

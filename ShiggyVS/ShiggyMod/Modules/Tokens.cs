@@ -332,6 +332,10 @@ namespace ShiggyMod.Modules
                 $"Movespeed increases the size and damage of the quakes. " +
                  Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Blackhole Glaive]</style>");
+            LanguageAPI.Add(prefix + "WINDSLASH_NAME", "Wind Slash");
+            LanguageAPI.Add(prefix + "WINDSLASH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Fire a wind of blades that deals <style=cIsDamage>8x{100f * StaticValues.windSlashDamageCoefficient}% damage</style>. " +
+                 Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Wind Shield]</style>");
             #endregion
 
             #region Synergised Passive
