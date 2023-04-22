@@ -354,6 +354,13 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "STONEFORM_NAME", "Stone Form");
             LanguageAPI.Add(prefix + "STONEFORM_DESCRIPTION", $"While still for {StaticValues.stoneFormWaitDuration} seconds, enter stone form. Gain <style=cIsUtility>{StaticValues.stoneFormBlockChance}% block chance and take no knockback</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ingrain]</style>");
+            LanguageAPI.Add(prefix + "AURAOFBLIGHT_NAME", "Aura Of Blight");
+            LanguageAPI.Add(prefix + "AURAOFBLIGHT_DESCRIPTION", $"Apply blight to enemies around you every second, dealing <style=cIsDamage>{StaticValues.auraOfBlightBuffDotDamage * 100f}% over {StaticValues.auraOfBlightBuffDotDuration} seconds</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Decay Plus Ultra]</style>");
+            LanguageAPI.Add(prefix + "BARBEDSPIKES_NAME", "Barbed Spikes");
+            LanguageAPI.Add(prefix + "BARBEDSPIKES_DESCRIPTION", $"Deal <style=cIsDamage>{StaticValues.barbedSpikesDamageCoefficient* 100f}% damage</style> to nearby enemies every {StaticValues.barbedSpikesBuffThreshold} seconds. " +
+                $"Damage increases the area of effect. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Expunge]</style>");
             #endregion
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");

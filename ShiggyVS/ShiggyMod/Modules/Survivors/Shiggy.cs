@@ -122,6 +122,8 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef omniboostPassiveDef;
         internal static SkillDef gachaPassiveDef;
         internal static SkillDef stoneFormPassiveDef;
+        internal static SkillDef auraOfBlightPassiveDef;
+        internal static SkillDef barbeSpikesPassiveDef;
 
 
         internal override GameObject bodyPrefab { get; set; }
@@ -2374,6 +2376,56 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { }
 
             });
+            auraOfBlightPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "AURAOFBLIGHT_NAME",
+                skillNameToken = prefix + "AURAOFBLIGHT_NAME",
+                skillDescriptionToken = prefix + "AURAOFBLIGHT_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.AuraOfBlightPassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
+            barbeSpikesPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "BARBEDSPIKES_NAME",
+                skillNameToken = prefix + "BARBEDSPIKES_NAME",
+                skillDescriptionToken = prefix + "BARBEDSPIKES_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BarbedSpikesPassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
             #endregion
 
             #region Chosen Skills
@@ -2382,18 +2434,18 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
-                mechStanceDef,
+                auraOfBlightPassiveDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                stoneFormPassiveDef
+                blackholeGlaiveDef
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
-                barrierJellyDef
+                barbeSpikesPassiveDef
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);

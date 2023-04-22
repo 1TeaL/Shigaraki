@@ -16,6 +16,9 @@ using HG;
 using RoR2.Projectile;
 using RoR2.Items;
 using System;
+using ShiggyMod.SkillStates;
+using On.EntityStates.Huntress;
+using Object = UnityEngine.Object;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -38,10 +41,13 @@ namespace ShiggyMod.Modules.Survivors
         private float omniboostTimer;
         private float stoneFormTimer;
         private float stoneformStillbuffTimer;
+        private float auraOfBlightTimer;
+        private float barbedSpikesTimer;
 
         private Ray downRay;
-		public Transform mortarIndicatorInstance;
-        public Transform voidmortarIndicatorInstance;
+		public GameObject mortarIndicatorInstance;
+        public GameObject voidmortarIndicatorInstance;
+        public GameObject barbedSpikesIndicatorInstance;
 
         public HurtBox Target;
 
@@ -225,12 +231,23 @@ namespace ShiggyMod.Modules.Survivors
 
 		public void OnDestroy()
         {
-            if (mortarIndicatorInstance) EntityState.Destroy(mortarIndicatorInstance.gameObject);
-            if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
+            if (mortarIndicatorInstance)
+            {
+                mortarIndicatorInstance.SetActive(false);
+                EntityState.Destroy(mortarIndicatorInstance.gameObject);
+            }
+            if (voidmortarIndicatorInstance)
+            {
+                voidmortarIndicatorInstance.SetActive(false);
+                EntityState.Destroy(voidmortarIndicatorInstance.gameObject);
+            }
+            if (barbedSpikesIndicatorInstance)
+            {
+                barbedSpikesIndicatorInstance.SetActive(false);
+                EntityState.Destroy(barbedSpikesIndicatorInstance.gameObject);
+            }
             if (mushroomWard) EntityState.Destroy (mushroomWard.gameObject);
             if (magmawormWard) EntityState.Destroy(magmawormWard);
-            if (mortarIndicatorInstance) EntityState.Destroy(mortarIndicatorInstance.gameObject);
-            if (voidmortarIndicatorInstance) EntityState.Destroy(voidmortarIndicatorInstance.gameObject);
 
         }
 
@@ -240,7 +257,85 @@ namespace ShiggyMod.Modules.Survivors
 			if (characterBody.hasEffectiveAuthority)
             {
                 //Buff effects
-                
+
+                if (characterBody.HasBuff(Buffs.barbedSpikesBuff))
+                {
+                    if (!barbedSpikesIndicatorInstance)
+                    {
+                        CreateBarbedSpikesIndicator();
+                    }
+
+                    if (barbedSpikesTimer < StaticValues.auraOfBlightBuffThreshold)
+                    {
+                        barbedSpikesTimer += Time.fixedDeltaTime;
+                    }
+                    else if (barbedSpikesTimer >= StaticValues.auraOfBlightBuffThreshold)
+                    {
+                        barbedSpikesTimer = 0f;
+                        BullseyeSearch search = new BullseyeSearch
+                        {
+
+                            teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                            filterByLoS = false,
+                            searchOrigin = characterBody.corePosition,
+                            searchDirection = UnityEngine.Random.onUnitSphere,
+                            sortMode = BullseyeSearch.SortMode.Distance,
+                            maxDistanceFilter = StaticValues.barbedSpikesRadius,
+                            maxAngleFilter = 360f
+                        };
+
+                        search.RefreshCandidates();
+                        search.FilterOutGameObject(characterBody.gameObject);
+
+                        List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                        foreach (HurtBox singularTarget in target)
+                        {
+                            if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                            {
+                                LightningOrb lightningOrb = new LightningOrb();
+                                lightningOrb.attacker = characterBody.gameObject;
+                                lightningOrb.bouncedObjects = null;
+                                lightningOrb.bouncesRemaining = 0;
+                                lightningOrb.damageCoefficientPerBounce = 1f;
+                                lightningOrb.damageColorIndex = DamageColorIndex.Item;
+                                lightningOrb.damageValue = StaticValues.barbedSpikesDamageCoefficient * characterBody.damage;
+                                lightningOrb.isCrit = characterBody.RollCrit();
+                                lightningOrb.lightningType = LightningOrb.LightningType.RazorWire;
+                                lightningOrb.origin = characterBody.corePosition;
+                                lightningOrb.procChainMask = default(ProcChainMask);
+                                lightningOrb.procChainMask.AddProc(ProcType.Thorns);
+                                lightningOrb.procCoefficient = StaticValues.barbedSpikesProcCoefficient;
+                                lightningOrb.range = 0f;
+                                lightningOrb.teamIndex = characterBody.teamComponent.teamIndex;
+                                lightningOrb.target = singularTarget;
+                                OrbManager.instance.AddOrb(lightningOrb);
+                                
+                            }
+                        }
+                    }
+                }
+                else if (!characterBody.HasBuff(Buffs.barbedSpikesBuff))
+                {
+                    if (barbedSpikesIndicatorInstance)
+                    {
+                        barbedSpikesIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(barbedSpikesIndicatorInstance.gameObject);
+                    }
+                }
+
+                if (characterBody.HasBuff(Buffs.auraOfBlightBuff))
+                {
+                    if(auraOfBlightTimer < StaticValues.auraOfBlightBuffThreshold)
+                    {
+                        auraOfBlightTimer += Time.fixedDeltaTime;
+                    }
+                    else if (auraOfBlightTimer >= StaticValues.auraOfBlightBuffThreshold)
+                    {
+                        auraOfBlightTimer = 0f;
+                        ApplyBlight();
+
+                    }
+                }
 
                 //gacha buff timer
                 if(characterBody.HasBuff(Buffs.gachaBuff))
@@ -520,7 +615,7 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         stoneformStillbuffTimer = 0f;
 
-                        EffectManager.SpawnEffect(Assets.stonetitanFistEffect, new EffectData
+                        EffectManager.SpawnEffect(Assets.titanClapEffect, new EffectData
                         {
                             origin = characterBody.transform.position,
                             scale = 1f,
@@ -544,6 +639,13 @@ namespace ShiggyMod.Modules.Survivors
                         {
                             if (!characterBody.HasBuff(Buffs.stoneFormStillBuff.buffIndex))
                             {
+                                EffectManager.SpawnEffect(Assets.stonetitanFistEffect, new EffectData
+                                {
+                                    origin = characterBody.transform.position,
+                                    scale = 1f,
+                                    rotation = Quaternion.identity,
+
+                                }, true);
                                 characterBody.ApplyBuff(Buffs.stoneFormStillBuff.buffIndex, 1);                                
                             }
                         }
@@ -605,10 +707,18 @@ namespace ShiggyMod.Modules.Survivors
                         characterBody.ApplyBuff(Buffs.stoneFormStillBuff.buffIndex, 0);
                     }
 
-                    if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
-                    characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
-                    if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
-                    characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
+                    if (mortarIndicatorInstance)
+                    {
+                        characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
+                        mortarIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(mortarIndicatorInstance.gameObject);
+                    }
+                    if (voidmortarIndicatorInstance)
+                    {
+                        characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
+                        voidmortarIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(voidmortarIndicatorInstance.gameObject);
+                    }
 
                     //voidjailer buff
                     if (characterBody.HasBuff(Modules.Buffs.voidjailerBuff.buffIndex))
@@ -772,7 +882,7 @@ namespace ShiggyMod.Modules.Survivors
 			List<HurtBox> target = search.GetResults().ToList<HurtBox>();
 			foreach (HurtBox singularTarget in target)
 			{
-				if (singularTarget)
+				if (singularTarget.healthComponent)
 				{
 					if (singularTarget.healthComponent && singularTarget.healthComponent.body)
 					{
@@ -792,7 +902,57 @@ namespace ShiggyMod.Modules.Survivors
 
 		}
 
-		public void VoidJailerPull()
+
+        public void ApplyBlight()
+        {
+            BullseyeSearch search = new BullseyeSearch
+            {
+
+                teamMaskFilter = TeamMask.GetEnemyTeams(TeamIndex.Player),
+                filterByLoS = false,
+                searchOrigin = characterBody.corePosition,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = Modules.StaticValues.auraOfBlightBuffRadius,
+                maxAngleFilter = 360f
+            };
+
+            search.RefreshCandidates();
+            search.FilterOutGameObject(characterBody.gameObject);
+
+
+
+            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+            foreach (HurtBox singularTarget in target)
+            {
+                if (singularTarget)
+                {
+                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                    {
+                        InflictDotInfo info = new InflictDotInfo();
+                        info.attackerObject = characterBody.gameObject;
+                        info.victimObject = singularTarget.healthComponent.body.gameObject;
+                        info.duration = StaticValues.auraOfBlightBuffDotDuration;
+                        info.totalDamage = StaticValues.auraOfBlightBuffDotDamage;
+                        info.dotIndex = DotController.DotIndex.Blight;
+
+                        DotController.InflictDot(ref info);
+                    }
+
+
+                    EffectManager.SpawnEffect(EntityStates.Croco.Disease.muzzleflashEffectPrefab, new EffectData
+                    {
+                        origin = singularTarget.transform.position,
+                        scale = 1f,
+                        rotation = Quaternion.identity
+
+                    }, true);
+
+                }
+            }
+        }
+
+        public void VoidJailerPull()
 		{
 			BullseyeSearch search = new BullseyeSearch
 			{
@@ -876,85 +1036,71 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Update()
         {
-            //update mortar indicator
-            if (this.mortarIndicatorInstance) this.UpdateIndicator();
+            //update mortar indicator, voidmortar and barbed spikes
+            UpdateIndicator();
 
         }
         
      
 
         private void UpdateIndicator()
-		{
-			if (this.mortarIndicatorInstance)
-			{
-				float maxDistance = 250f;
+        {
+            if (this.barbedSpikesIndicatorInstance)
+            {
+                float maxDistance = 250f;
 
-				this.downRay = new Ray
-				{
-					direction = Vector3.down,
-					origin = base.transform.position
-				};
+                this.barbedSpikesIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.damage / characterBody.baseDamage);
+                this.barbedSpikesIndicatorInstance.transform.localPosition = characterBody.corePosition;
+            }
+            if (this.mortarIndicatorInstance)
+            {
+                this.mortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.armor / characterBody.baseArmor);
+                this.mortarIndicatorInstance.transform.localPosition = characterBody.corePosition;
 
-				RaycastHit raycastHit;
-				if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
-				{
-					this.mortarIndicatorInstance.transform.position = raycastHit.point;
-					this.mortarIndicatorInstance.transform.up = raycastHit.normal;
-					mortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.mortarRadius * (characterBody.armor/characterBody.baseArmor);
-
-				}
 			}
 			if (this.voidmortarIndicatorInstance)
-			{
-				float maxDistance = 250f;
-
-				this.downRay = new Ray
-				{
-					direction = Vector3.down,
-					origin = base.transform.position
-				};
-
-				RaycastHit raycastHit;
-				if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
-				{
-					this.voidmortarIndicatorInstance.transform.position = raycastHit.point;
-					this.voidmortarIndicatorInstance.transform.up = raycastHit.normal;
-					voidmortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.voidmortarRadius * characterBody.attackSpeed;
-
-				}
+            {
+                this.voidmortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.attackSpeed);
+                this.voidmortarIndicatorInstance.transform.localPosition = characterBody.corePosition;
 			}
-		}
-		//hermit crab mortar
-		private void CreateMortarIndicator()
+        }
+        //barbed spikes indicator
+        private void CreateBarbedSpikesIndicator()
+        {
+            if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+            {
+                this.barbedSpikesIndicatorInstance = Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab);
+                this.barbedSpikesIndicatorInstance.SetActive(true);
+                
+                this.barbedSpikesIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.damage / characterBody.baseDamage);
+                this.barbedSpikesIndicatorInstance.transform.localPosition = characterBody.corePosition;
+
+            }
+        }
+        //hermit crab mortar
+        private void CreateMortarIndicator()
 		{
 			if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
-			{
-				this.downRay = new Ray
-				{
-					direction = Vector3.down,
-					origin = base.transform.position
-				};
+            {
+                this.mortarIndicatorInstance = Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab);
+                this.mortarIndicatorInstance.SetActive(true);
+                this.mortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.armor / characterBody.baseArmor);
+                this.mortarIndicatorInstance.transform.localPosition = characterBody.corePosition;
 
-				mortarIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab).transform;
-				mortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.mortarRadius * characterBody.armor;
-
-			}
+            }
 		}
 		//void barnacle mortar	
 		private void CreateVoidMortarIndicator()
 		{
 			if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
-			{
-				this.downRay = new Ray
-				{
-					direction = Vector3.down,
-					origin = base.transform.position
-				};
+            {
+                this.voidmortarIndicatorInstance = Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab);
+                this.voidmortarIndicatorInstance.SetActive(true);
 
-				voidmortarIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab).transform;
-				voidmortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.voidmortarRadius * characterBody.attackSpeed;
+                this.voidmortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.attackSpeed);
+                this.voidmortarIndicatorInstance.transform.localPosition = characterBody.corePosition;
 
-			}
+            }
 		}
 
 		//code for both mortars

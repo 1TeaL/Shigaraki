@@ -116,6 +116,8 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(WisperPassive));
             entityStates.Add(typeof(OmniboostPassive));
             entityStates.Add(typeof(GachaPassive));
+            entityStates.Add(typeof(StoneFormPassive));
+            entityStates.Add(typeof(AuraOfBlightPassive));
         }
     }
 }

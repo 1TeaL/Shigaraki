@@ -244,9 +244,9 @@ namespace ShiggyMod.Modules
         internal const float blackholeGlaiveDamageCoefficient = 1.2f;
         internal const float blackholeGlaiveDamageCoefficientPerBounce = 1.2f;
         internal const float blackholeGlaiveBounceRange = 40f;
-        internal const float blackholeGlaiveBlastRange = 10f;
+        internal const float blackholeGlaiveBlastRange = 15f;
         internal const float blackholeGlaiveProcCoefficient = 0.8f;
-        internal const int blackholeGlaiveMaxBounceCount = 4;
+        internal const int blackholeGlaiveMaxBounceCount = 5;
         internal const float blackholeGlaiveTravelSpeed = 30f;
 
         internal const int bigbangBuffThreshold = 5;
@@ -316,12 +316,22 @@ namespace ShiggyMod.Modules
         internal const int barrierJellyDuration = 3;
 
         internal const float stoneFormBlockChance = 20f;
-        internal const float stoneFormWaitDuration = 3f;
+        internal const float stoneFormWaitDuration = 2f;
 
         internal static float mechStanceStepRate = 8f;
         internal static float mechStanceRadius = 6f;
         internal static float mechStanceDamageCoefficient = 3f;
         internal static float mechStanceProcCoefficient = 1f;
+
+        internal static float auraOfBlightBuffThreshold = 1f;
+        internal static float auraOfBlightBuffRadius = 10f;
+        internal static float auraOfBlightBuffDotDamage = 4f;
+        internal static float auraOfBlightBuffDotDuration = 5f;
+
+        internal static float barbedSpikesBuffThreshold = 0.5f;
+        internal static float barbedSpikesDamageCoefficient = 0.5f;
+        internal static float barbedSpikesProcCoefficient = 0.5f;
+        internal static float barbedSpikesRadius = 7f;
 
         public enum IndicatorType : uint
         {

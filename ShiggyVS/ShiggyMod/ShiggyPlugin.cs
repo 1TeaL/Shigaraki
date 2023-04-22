@@ -172,17 +172,18 @@ namespace ShiggyMod
                     //    damageColorIndex = DamageColorIndex.Default,
                     //    baseForce = -1000f,
                     //    position = self.target.transform.position,
-                    //    radius = StaticValues.blackholeGlaiveBounceRange / 2f,
+                    //    radius = StaticValues.blackholeGlaiveBlastRange,
                     //    procCoefficient = StaticValues.blackholeGlaiveProcCoefficient,
                     //    attackerFiltering = AttackerFiltering.NeverHitSelf,
                     //}.Fire();
-                    new PerformForceNetworkRequest(self.attacker.gameObject.GetComponent<CharacterBody>().masterObjectId, self.target.transform.position, Vector3.up, StaticValues.blackholeGlaiveBlastRange, self.damageValue, 360f, false).Send(NetworkDestination.Clients);
+                    new PerformForceNetworkRequest(self.attacker.gameObject.GetComponent<CharacterBody>().masterObjectId, self.target.transform.position, Vector3.up, 0f, self.damageValue, 360f, false).Send(NetworkDestination.Clients);
 
                     EffectManager.SpawnEffect(Modules.Assets.voidMegaCrabExplosionEffect, new EffectData
                     {
                         origin = self.target.transform.position,
-                        scale = StaticValues.blackholeGlaiveBounceRange / 2f
+                        scale = StaticValues.blackholeGlaiveBlastRange
                     }, true);
+                    
 
                 }
             }
@@ -524,8 +525,21 @@ namespace ShiggyMod
                     if (buffcon.overloadingWard) EntityState.Destroy(buffcon.overloadingWard);
                     if (buffcon.mushroomWard) EntityState.Destroy(buffcon.mushroomWard);
                     if (buffcon.magmawormWard) EntityState.Destroy(buffcon.magmawormWard);
-                    if (buffcon.mortarIndicatorInstance) EntityState.Destroy(buffcon.mortarIndicatorInstance.gameObject);
-                    if (buffcon.voidmortarIndicatorInstance) EntityState.Destroy(buffcon.voidmortarIndicatorInstance.gameObject);
+                    if (buffcon.mortarIndicatorInstance)
+                    {
+                        buffcon.mortarIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(buffcon.mortarIndicatorInstance.gameObject);
+                    }
+                    if (buffcon.voidmortarIndicatorInstance)
+                    {
+                        buffcon.voidmortarIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(buffcon.voidmortarIndicatorInstance.gameObject);
+                    }
+                    if (buffcon.barbedSpikesIndicatorInstance)
+                    {
+                        buffcon.barbedSpikesIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(buffcon.barbedSpikesIndicatorInstance.gameObject);
+                    }
                 }
 
             }

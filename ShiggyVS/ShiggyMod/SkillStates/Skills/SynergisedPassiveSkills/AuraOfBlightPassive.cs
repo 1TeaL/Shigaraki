@@ -11,15 +11,15 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class WisperPassive : Skill
+    public class AuraOfBlightPassive : Skill
     {
-        //Greater wisp + grovetender
+        //Acrid + acid larva
         public override void OnEnter()
         {
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.ApplyBuff(Modules.Buffs.wisperBuff.buffIndex, 1);
+                characterBody.ApplyBuff(Modules.Buffs.auraOfBlightBuff.buffIndex, 1);
             }
         }
 

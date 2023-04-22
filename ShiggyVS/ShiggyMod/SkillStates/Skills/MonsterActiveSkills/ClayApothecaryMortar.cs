@@ -7,6 +7,8 @@ using UnityEngine.Networking;
 using System.Linq;
 using RoR2.Projectile;
 using System.Collections.Generic;
+using R2API;
+using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
@@ -80,44 +82,6 @@ namespace ShiggyMod.SkillStates
         }
 
 
-        public void ApplyDoT()
-        {
-            Ray aimRay = base.GetAimRay();
-            BullseyeSearch search = new BullseyeSearch
-            {
-
-                teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
-                filterByLoS = false,
-                searchOrigin = base.characterBody.corePosition,
-                searchDirection = UnityEngine.Random.onUnitSphere,
-                sortMode = BullseyeSearch.SortMode.Distance,
-                maxDistanceFilter = radius,
-                maxAngleFilter = 360f
-            };
-
-            search.RefreshCandidates();
-            search.FilterOutGameObject(base.gameObject);
-
-
-
-            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-            foreach (HurtBox singularTarget in target)
-            {
-                if (singularTarget)
-                {
-                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-                    {
-                        InflictDotInfo info = new InflictDotInfo();
-                        info.attackerObject = base.gameObject;
-                        info.victimObject = singularTarget.healthComponent.body.gameObject;
-                        info.duration = Modules.StaticValues.decayDamageTimer;
-                        info.dotIndex = Modules.Dots.decayDot;
-
-                        DotController.InflictDot(ref info);
-                    }
-                }
-            }
-        }
 
         public override void OnExit()
         {
@@ -163,16 +127,7 @@ namespace ShiggyMod.SkillStates
 				}
 				if (base.isAuthority)
                 {
-                    if (base.HasBuff(Modules.Buffs.multiplierBuff))
-                    {
-                        ApplyDoT();
-                        ApplyDoT();
-                        ApplyDoT();
-                    }
-                    else
-                    {
-                        ApplyDoT();
-                    }
+                    
                     if (this.modelTransform)
 					{
 						Transform transform = base.FindModelChild("Chest");
@@ -190,6 +145,9 @@ namespace ShiggyMod.SkillStates
 							this.attack.bonusForce = new Vector3(0f, blastUpwardForce, 0f);
 							this.attack.damageType = damageType;
 							this.attack.Fire();
+
+                            this.attack.AddModdedDamageType(Damage.shiggyDecay);
+
                             if(this.attack.Fire().hitCount > 0)
                             {
                                 this.OnHitEnemyAuthority();

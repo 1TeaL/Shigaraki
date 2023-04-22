@@ -39,6 +39,7 @@ namespace ShiggyMod.Modules
         public static GameObject VoidFiendBeamTracer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
 
         //buffs
+        public static Sprite spikyDebuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Treebot/bdEntangle.asset").WaitForCompletion().iconSprite;
         public static Sprite ruinDebuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarDetonationCharge.asset").WaitForCompletion().iconSprite;
         public static Sprite warcryBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/WarCryOnMultiKill/bdWarCryBuff.asset").WaitForCompletion().iconSprite;
         public static Sprite shieldBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdArmorBoost.asset").WaitForCompletion().iconSprite;
@@ -136,6 +137,7 @@ namespace ShiggyMod.Modules
         public static GameObject overloadingEliteEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/EliteLightning/LightningStakeNova.prefab").WaitForCompletion();
         public static GameObject alphaConstructMuzzleFlashEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/MajorAndMinorConstruct/MajorConstructMuzzleflashSpawnMinorConstruct.prefab").WaitForCompletion();
         public static GameObject stonetitanFistEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Titan/TitanFistEffect.prefab").WaitForCompletion();
+        public static GameObject titanClapEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Titan/ExplosionGolemClap.prefab").WaitForCompletion();
 
         //game projectiles
         public static GameObject captainAirStrikeProj = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Captain/CaptainAirstrikeProjectile1.prefab").WaitForCompletion();
