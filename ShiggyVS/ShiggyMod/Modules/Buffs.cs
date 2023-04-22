@@ -57,6 +57,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef auraOfBlightBuff;
         internal static BuffDef barbedSpikesBuff;
         internal static BuffDef ingrainBuff;
+        internal static BuffDef limiterRemovalBuff;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
@@ -67,6 +68,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef captainBuff;
         internal static BuffDef loaderBuff;
         internal static BuffDef multBuff;
+        internal static BuffDef OFABuff;
 
         //shiggy skill decay and multiplier
         internal static BuffDef decayDebuff;
@@ -92,7 +94,7 @@ namespace ShiggyMod.Modules
             hermitcrabmortarBuff = Buffs.AddNewBuff("mortarBuff", Assets.mortarBuffIcon, Color.magenta, false, false);
             hermitcrabmortararmorBuff = Buffs.AddNewBuff("mortararmorBuff", Assets.shieldBuffIcon, Color.blue, true, false);
             larvajumpBuff = Buffs.AddNewBuff("larvajumpBuff", Assets.jumpBuffIcon, Color.green, false, false);
-            lesserwispBuff = Buffs.AddNewBuff("RangedBuff", Assets.boostBuffIcon, Color.red, false, false);
+            lesserwispBuff = Buffs.AddNewBuff("RangedBuff", Assets.boostBuffIcon, Color.red, false, false); 
             lunarexploderBuff = Buffs.AddNewBuff("lunarauraBuff", Assets.crippleBuffIcon, Color.blue, false, false);
             minimushrumBuff = Buffs.AddNewBuff("healingauraBuff", Assets.healBuffIcon, Color.green, false, false);
             roboballminiBuff = Buffs.AddNewBuff("solusprobeBuff", Assets.jumpBuffIcon, Color.grey, false, false);
@@ -114,6 +116,7 @@ namespace ShiggyMod.Modules
             captainBuff = Buffs.AddNewBuff("microbotBuff", Assets.shieldBuffIcon, Color.red, false, false);
             loaderBuff = Buffs.AddNewBuff("loaderBuff", Assets.shieldBuffIcon, Color.yellow, false, false);
             multBuff = Buffs.AddNewBuff("multBuff", Assets.predatorBuffIcon, Color.yellow, false, false);
+            OFABuff = Buffs.AddNewBuff("One For All Buff", Assets.lightningBuffIcon, Color.magenta, false, false);
 
             eliteDebuff = Buffs.AddNewBuff("eliteDebuff", Assets.critBuffIcon, Color.black, false, true);
 
@@ -129,6 +132,7 @@ namespace ShiggyMod.Modules
             auraOfBlightBuff = Buffs.AddNewBuff("AuraOfPoison Buff", Assets.bleedBuffIcon, Color.yellow, false, false);
             barbedSpikesBuff = Buffs.AddNewBuff("barbedSpikes Buff", Assets.spikyDebuffIcon, Color.grey, false, false);
             ingrainBuff = Buffs.AddNewBuff("ingrain Buff", Assets.medkitBuffIcon, Color.green, false, false);
+            limiterRemovalBuff = Buffs.AddNewBuff("limiterRemoval Buff", Assets.lightningBuffIcon, Color.black, false, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
             bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.green, true, true);

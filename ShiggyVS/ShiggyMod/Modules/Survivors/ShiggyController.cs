@@ -40,6 +40,7 @@ namespace ShiggyMod.Modules.Survivors
         private float windshieldTimer;
         private float mechStanceTimer;
         private float airwalkTimer;
+        private float OFATimer;
 
         private Ray downRay;
         public float maxTrackingDistance = 70f;
@@ -364,6 +365,25 @@ namespace ShiggyMod.Modules.Survivors
             }
 			if (characterBody.hasEffectiveAuthority)
             {
+                //OFA
+                if (characterBody.HasBuff(Buffs.OFABuff))
+                {
+                    //play ofa particles here
+
+                    if (OFATimer < StaticValues.OFAThreshold)
+                    {
+                        OFATimer += Time.fixedDeltaTime;
+                    }
+                    else if (OFATimer >= StaticValues.OFAThreshold)
+                    {
+                        OFATimer = 0f;
+                        //take damage every second based off current hp
+                        new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.OFAHealthCostCoefficient).Send(NetworkDestination.Clients);
+                    }
+                }
+
+
+                //moving buffs
                 //air walk
                 if (!characterBody.characterMotor.isGrounded)
                 {

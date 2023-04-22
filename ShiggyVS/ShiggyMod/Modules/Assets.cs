@@ -73,8 +73,11 @@ namespace ShiggyMod.Modules
         //game material
         //public static Material alphaconstructShieldBuffMat = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
         public static Material alphaconstructShieldBuffMat;
+
+        //own material
         public static Material multiplierShieldBuffMat;
-        
+        public static Material limiterRemovalBuffMat; //need to clone multiplier buff and have different colour or have diff anim
+
         //own effects
         public static GameObject decayattackEffect;
         public static GameObject decaybuffEffect;
@@ -214,6 +217,7 @@ namespace ShiggyMod.Modules
 
             //multiplier effect
             multiplierShieldBuffMat = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
+            limiterRemovalBuffMat = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
 
 
             PopulateEffects();

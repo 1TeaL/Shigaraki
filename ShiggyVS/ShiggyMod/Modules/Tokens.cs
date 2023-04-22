@@ -74,7 +74,7 @@ namespace ShiggyMod.Modules
 
 
 
-            #region Passive
+            #region Passives
             LanguageAPI.Add(prefix + "ALPHACONSTRUCT_NAME", "Barrier");
             LanguageAPI.Add(prefix + "ALPHACONSTRUCT_DESCRIPTION", $" Gain a barrier that blocks the next hit. Recharges after {StaticValues.alphaconstructCooldown} seconds. ");
             LanguageAPI.Add(prefix + "BEETLE_NAME", "Strength Boost");
@@ -151,7 +151,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "LOADER_DESCRIPTION", $"Gain <style=cIsUtility> Gain {100f *StaticValues.loaderBarrierGainCoefficient} of your max health as barrier</style> on all attacks. ");
             #endregion
 
-            #region Active 
+            #region Actives 
             LanguageAPI.Add(prefix + "VULTURE_NAME", "Wind Blast");
             LanguageAPI.Add(prefix + "VULTURE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Create a gust of wind, pushing and stunning enemies in front of you for <style=cIsDamage>{100f*StaticValues.vultureDamageCoefficient}% damage</style>. "
                 + Environment.NewLine + Environment.NewLine + 
@@ -279,6 +279,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VOIDFIEND_NAME", "Cleanse");
             LanguageAPI.Add(prefix + "VOIDFIEND_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Disappear into the Void, <style=cIsUtility>cleansing all debuffs</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[LeftHanded]</style>");
+            LanguageAPI.Add(prefix + "DEKUOFA_NAME", "OFA 100%");
+            LanguageAPI.Add(prefix + "DEKUOFA_DESCRIPTION", $"Go beyond your limits, boosting Damage, Attackspeed, Armor and Movespeed by {100f *(1 + StaticValues.OFACoefficient)}% additively, " + Helpers.Damage($"taking {100f * StaticValues.OFAHealthCostCoefficient}% of CURRENT health as damage every second ") + "." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Multiplier]</style>");
             #endregion
 
             #region Synergised Active
@@ -314,28 +317,26 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "ORBITALSTRIKE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to aim and release to call an orbital strike to a location, dealing <style=cIsDamage>{100f * StaticValues.orbitalStrikeDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Blast Burn] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "THUNDERCLAP_NAME", "Thunderclap");
-            LanguageAPI.Add(prefix + "THUNDERCLAP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Dash forward while covered in electricity, dealing <style=cIsDamage>{100f * StaticValues.mercDamageCoefficient}% damage</style> and shock all enemies hit. " +
-                 Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "THUNDERCLAP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Dash forward while covered in electricity, dealing <style=cIsDamage>{100f * StaticValues.mercDamageCoefficient}% damage</style> and shock all enemies hit. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Mach Punch]</style>");
             LanguageAPI.Add(prefix + "BLASTBURN_NAME", "Blast Burn");
             LanguageAPI.Add(prefix + "BLASTBURN_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to radiate heat from your body, dealing <style=cIsDamage>{100f * StaticValues.blastBurnDamageCoefficient}% damage</style> in pulses, burning all enemies hit. The size of the blast increases after each pulse. " +
-                $"Attackspeed decreases the gap between pulses." +
-                 Environment.NewLine + Environment.NewLine +
+                $"Attackspeed decreases the gap between pulses." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Orbital Strike]</style>");
             LanguageAPI.Add(prefix + "BARRIERJELLY_NAME", "Barrier Jelly");
-            LanguageAPI.Add(prefix + "BARRIERJELLY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Become <style=cIsUtility>invincible for {StaticValues.barrierJellyDuration} seconds</style>. "  +
-                 Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "BARRIERJELLY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Become <style=cIsUtility>invincible for {StaticValues.barrierJellyDuration} seconds</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Blind Senses]</style>");
             LanguageAPI.Add(prefix + "MECHSTANCE_NAME", "Mech Stance");
             LanguageAPI.Add(prefix + "MECHSTANCE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Become <style=cIsUtility>immune to fall damage, walking causes quakes that deal {100f* StaticValues.mechStanceDamageCoefficient}% damage</style>. " +
                 $"However, jumping prevents you from gaining height. " +
-                $"Movespeed increases the size and damage of the quakes. " +
-                 Environment.NewLine + Environment.NewLine +
+                $"Movespeed increases the size and damage of the quakes. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Blackhole Glaive]</style>");
             LanguageAPI.Add(prefix + "WINDSLASH_NAME", "Wind Slash");
-            LanguageAPI.Add(prefix + "WINDSLASH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Fire a wind of blades that deals <style=cIsDamage>8x{100f * StaticValues.windSlashDamageCoefficient}% damage</style>. " +
-                 Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "WINDSLASH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Fire a wind of blades that deals <style=cIsDamage>8x{100f * StaticValues.windSlashDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wind Shield]</style>");
+            LanguageAPI.Add(prefix + "LIMITERREMOVAL_NAME", "Limiter Removal");
+            LanguageAPI.Add(prefix + "LIMITERREMOVAL_DESCRIPTION", $"Break your limits, boosting Damage, Attackspeed and Armor by {StaticValues.limiterRemovalCoefficient}x multiplicatively, " + Helpers.Damage($"taking {100f * StaticValues.limiterRemovalHealthCostCoefficient}% of MAX health as damage every time you hit an enemy ") + "." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Multiplier]</style>");
             #endregion
 
             #region Synergised Passive
@@ -344,8 +345,7 @@ namespace ShiggyMod.Modules
                 Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wisper]</style>");
             LanguageAPI.Add(prefix + "WISPER_NAME", "Wisper");
-            LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient. " + 
-                Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Big Bang]</style>");
             LanguageAPI.Add(prefix + "OMNIBOOST_NAME", "Omniboost");
             LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Killing an enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per kill</style>. " + 

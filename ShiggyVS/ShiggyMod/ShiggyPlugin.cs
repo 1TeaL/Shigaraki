@@ -115,6 +115,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<PerformForceNetworkRequest>();
             NetworkingAPI.RegisterMessageType<PeformDirectionalForceNetworkRequest>();
             NetworkingAPI.RegisterMessageType<ItemDropNetworked>();
+            NetworkingAPI.RegisterMessageType<SpendHealthNetworkRequest>();
 
 
             // now make a content pack and add it- this part will change with the next update
@@ -213,11 +214,6 @@ namespace ShiggyMod
             {
                 if (sender)
                 {
-                    //ingrain buff
-                    if (sender.HasBuff(Buffs.ingrainBuff))
-                    {
-                        args.baseRegenAdd += StaticValues.ingrainBuffHealthRegen * sender.healthComponent.fullCombinedHealth;
-                    }
                     //roboballmini attackspeed buff
                     if (sender.HasBuff(Buffs.roboballminiattackspeedBuff))
                     {
@@ -295,7 +291,19 @@ namespace ShiggyMod
                         args.damageMultAdd += StaticValues.omniboostBuffStackCoefficient * omniboostBuffcount;
                         args.attackSpeedMultAdd += StaticValues.omniboostBuffStackCoefficient * omniboostBuffcount;
                     }
-
+                    //ingrain buff
+                    if (sender.HasBuff(Buffs.ingrainBuff))
+                    {
+                        args.baseRegenAdd += StaticValues.ingrainBuffHealthRegen * sender.healthComponent.fullCombinedHealth;
+                    }
+                    //ofa buff
+                    if (sender.HasBuff(Buffs.OFABuff))
+                    {
+                        args.damageMultAdd += StaticValues.OFACoefficient;
+                        args.armorAdd += sender.armor * (1 + StaticValues.OFACoefficient);
+                        args.attackSpeedMultAdd += StaticValues.OFACoefficient;
+                        args.moveSpeedMultAdd += StaticValues.OFACoefficient;
+                    }
 
 
                 }
@@ -638,9 +646,15 @@ namespace ShiggyMod
                         damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.AddBarrierAuthority(damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.loaderBarrierGainCoefficient);
                     }
 
-                    
 
-
+                    //limiter removal buff health cost
+                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.limiterRemovalBuff))
+                    {
+                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT && ((damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic))
+                        {
+                            new SpendHealthNetworkRequest(damageInfo.attacker.GetComponent<CharacterBody>().masterObjectId, damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.limiterRemovalHealthCostCoefficient).Send(NetworkDestination.Clients);
+                        }
+                    }
                     //multiplier spend energy
                     if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
                     {
@@ -884,6 +898,13 @@ namespace ShiggyMod
             {
                 orig.Invoke(self);
 
+                //limiter removal buff
+                if (self.HasBuff(Buffs.OFABuff))
+                {
+                    self.damage *= StaticValues.limiterRemovalCoefficient;
+                    self.armor *= StaticValues.limiterRemovalCoefficient;
+                    self.attackSpeed *= StaticValues.limiterRemovalCoefficient;
+                }
 
                 if (self.HasBuff(Buffs.grovetenderChainDebuff))
                 {
@@ -974,6 +995,7 @@ namespace ShiggyMod
                 {
                     this.OverlayFunction(Modules.Assets.alphaconstructShieldBuffMat, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
                     this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
+                    this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.limiterRemovalBuff), self);
                 }
             }
         }

@@ -336,6 +336,14 @@ namespace ShiggyMod.Modules
         internal static float ingrainBuffHealthRegen = 0.1f;
 
         internal static float windSlashDamageCoefficient = 1f;
+
+        internal static float OFACoefficient = 0.5f;
+        internal static float OFAThreshold = 1f;
+        internal static float OFAHealthCostCoefficient = 0.1f;
+
+        internal static float limiterRemovalCoefficient = 2f;
+        internal static float limiterRemovalHealthCostCoefficient = 0.05f;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

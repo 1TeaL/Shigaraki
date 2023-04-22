@@ -90,6 +90,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef rexmortarDef;
         internal static SkillDef voidfiendcleanseDef;
 
+        internal static SkillDef DekuOFADef;
 
         //shiggy skills
         internal static SkillDef decayDef;
@@ -116,6 +117,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef barrierJellyDef;
         internal static SkillDef mechStanceDef;
         internal static SkillDef windSlashDef;
+        internal static SkillDef limiterRemovalDef;
 
         //synergy passive
         internal static SkillDef bigBangPassiveDef;
@@ -2255,6 +2257,81 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "WINDSLASH_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.WindSlash)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            DekuOFADef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "DEKUOFA_NAME",
+                skillNameToken = prefix + "DEKUOFA_NAME",
+                skillDescriptionToken = prefix + "DEKUOFA_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.DekuOFA)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            DekuOFADef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "DEKUOFA_NAME",
+                skillNameToken = prefix + "DEKUOFA_NAME",
+                skillDescriptionToken = prefix + "DEKUOFA_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.DekuOFA)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            limiterRemovalDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "LIMITERREMOVAL_NAME",
+                skillNameToken = prefix + "LIMITERREMOVAL_NAME",
+                skillDescriptionToken = prefix + "LIMITERREMOVAL_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.LimiterRemoval)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,

@@ -69,6 +69,8 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(RailgunnerCryoFire));
             entityStates.Add(typeof(RexMortar));
             entityStates.Add(typeof(VoidFiendCleanse));
+            //collab skills
+            entityStates.Add(typeof(DekuOFA));
 
             //passive skills
             entityStates.Add(typeof(AlphaConstruct));
@@ -112,6 +114,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(BarrierJelly));
             entityStates.Add(typeof(MechStance));
             entityStates.Add(typeof(WindSlash));
+            entityStates.Add(typeof(LimiterRemoval));
 
             //synergy passive skills
             entityStates.Add(typeof(BigBangPassive));

@@ -36,9 +36,9 @@ namespace ShiggyMod.Modules
                 //float damageMultiplier = Modules.StaticValues.decayDamageCoefficient + Modules.StaticValues.decayDamageStack * victimBody.GetBuffCount(Buffs.decayDebuff);
                 float damageMultiplier = Modules.StaticValues.decayDamageStack;
                 float decaydamage = 0f;
-                if (self.victimBody) decaydamage += attackerBody.damage;
+                decaydamage += attackerBody.damage;
                 dotStack.damage = GetMax(victimBody.healthComponent.fullCombinedHealth * Modules.StaticValues.decayDamagePercentage, decaydamage * damageMultiplier);
-                dotStack.damageType = DamageType.DoT;
+                dotStack.damageType = DamageType.DoT;                
                 dotStack.attackerObject = attackerBody.gameObject;
                 
             }

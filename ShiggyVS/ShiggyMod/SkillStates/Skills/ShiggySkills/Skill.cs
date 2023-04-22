@@ -30,11 +30,12 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
+            //base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-
-
             damageType = DamageType.Generic;
+
+
 
         }
 
