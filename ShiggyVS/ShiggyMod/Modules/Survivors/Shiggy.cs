@@ -114,6 +114,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef thunderclapDef;
         internal static SkillDef blastBurnDef;
         internal static SkillDef barrierJellyDef;
+        internal static SkillDef mechStanceDef;
 
         //synergy passive
         internal static SkillDef bigBangPassiveDef;
@@ -2218,6 +2219,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            mechStanceDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "MECHSTANCE_NAME",
+                skillNameToken = prefix + "MECHSTANCE_NAME",
+                skillDescriptionToken = prefix + "MECHSTANCE_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.MechStance)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             #endregion
 
 
@@ -2356,17 +2382,18 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
-                blastBurnDef,
+                mechStanceDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                mercdashDef
+                stoneFormPassiveDef
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
+                barrierJellyDef
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);

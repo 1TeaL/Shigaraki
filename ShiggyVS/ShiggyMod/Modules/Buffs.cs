@@ -53,6 +53,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef windShieldBuff;
         internal static BuffDef stoneFormBuff;
         internal static BuffDef stoneFormStillBuff;
+        internal static BuffDef mechStanceBuff;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
@@ -121,6 +122,7 @@ namespace ShiggyMod.Modules
             windShieldBuff = Buffs.AddNewBuff("windShield Buff", Assets.shieldBuffIcon, Color.white, false, false);
             stoneFormBuff = Buffs.AddNewBuff("stoneForm Buff", Assets.shieldBuffIcon, Color.grey, false, false);
             stoneFormStillBuff = Buffs.AddNewBuff("stoneFormStill Buff", Assets.skinBuffIcon, Color.grey, false, false);
+            mechStanceBuff = Buffs.AddNewBuff("mechStance Buff", Assets.ruinDebuffIcon, Color.yellow, false, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
             bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.white, true, true);

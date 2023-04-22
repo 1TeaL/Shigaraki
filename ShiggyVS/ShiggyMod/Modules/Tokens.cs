@@ -326,6 +326,12 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BARRIERJELLY_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Become <style=cIsUtility>invincible for {StaticValues.barrierJellyDuration} seconds</style>. "  +
                  Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Blind Senses]</style>");
+            LanguageAPI.Add(prefix + "MECHSTANCE_NAME", "Mech Stance");
+            LanguageAPI.Add(prefix + "MECHSTANCE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Become <style=cIsUtility>immune to fall damage, walking causes quakes that deal {100f* StaticValues.mechStanceDamageCoefficient}% damage</style>. " +
+                $"However, jumping prevents you from gaining height. " +
+                $"Movespeed increases the size and damage of the quakes. " +
+                 Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Blackhole Glaive]</style>");
             #endregion
 
             #region Synergised Passive

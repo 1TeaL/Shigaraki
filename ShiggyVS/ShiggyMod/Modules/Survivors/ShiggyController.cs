@@ -38,6 +38,8 @@ namespace ShiggyMod.Modules.Survivors
         public float mortarTimer;
         private float jellyfishtimer;
         private float windshieldTimer;
+        private float mechStanceTimer;
+        private float airwalkTimer;
 
         private Ray downRay;
         public float maxTrackingDistance = 70f;
@@ -53,7 +55,8 @@ namespace ShiggyMod.Modules.Survivors
 		private InputBankTest inputBank;
 		private float trackerUpdateStopwatch;
         private ChildLocator child;
-		private readonly BullseyeSearch search = new BullseyeSearch();
+        private Animator anim;
+        private readonly BullseyeSearch search = new BullseyeSearch();
 		private CharacterMaster characterMaster;
 
 		public ShiggyMasterController Shiggymastercon;
@@ -135,8 +138,9 @@ namespace ShiggyMod.Modules.Survivors
         {
 
             child = GetComponentInChildren<ChildLocator>();
-			
-			indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator"));
+            anim = GetComponentInChildren<Animator>();
+
+            indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator"));
 			passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
 			activeindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
 			//On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
@@ -359,11 +363,156 @@ namespace ShiggyMod.Modules.Survivors
 
             }
 			if (characterBody.hasEffectiveAuthority)
-            {//shiggy current damage
+            {
+                //air walk
+                if (!characterBody.characterMotor.isGrounded)
+                {
+                    airwalkTimer += Time.fixedDeltaTime;
+                    //after 0.5 seconds start flying
+                    if (airwalkTimer > 0.5f)
+                    {
+                        if (energySystem.currentplusChaos > 1f)
+                        {
+                            if (characterBody.inputBank.jump.down)
+                            {
+                                characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 1);
+
+                                //if falling down
+                                if (characterBody.characterMotor.velocity.y < 0)
+                                {
+                                    energySystem.SpendplusChaos(StaticValues.airwalkEnergyFraction);
+                                    if (characterBody.inputBank.skill1.down
+                                        | characterBody.inputBank.skill2.down
+                                        | characterBody.inputBank.skill3.down
+                                        | characterBody.inputBank.skill4.down
+                                        | extrainputBankTest.extraSkill1.down
+                                        | extrainputBankTest.extraSkill2.down
+                                        | extrainputBankTest.extraSkill3.down
+                                        | extrainputBankTest.extraSkill4.down)
+                                    {
+                                        characterBody.characterMotor.velocity.y = 0f;
+                                    }
+                                    else
+                                    {
+                                        if (airwalkTimer < 3f)
+                                        {
+                                            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                        }
+                                        else
+                                        {
+                                            characterBody.characterMotor.velocity.y = 0f;
+                                        }
+                                    }
+                                }
+                                //if rising up
+                                else if (characterBody.characterMotor.velocity.y >= 0)
+                                {
+                                    energySystem.SpendplusChaos(StaticValues.airwalkEnergyFraction);
+                                    if (characterBody.inputBank.skill1.down
+                                        | characterBody.inputBank.skill2.down
+                                        | characterBody.inputBank.skill3.down
+                                        | characterBody.inputBank.skill4.down
+                                        | extrainputBankTest.extraSkill1.down
+                                        | extrainputBankTest.extraSkill2.down
+                                        | extrainputBankTest.extraSkill3.down
+                                        | extrainputBankTest.extraSkill4.down)
+                                    {
+                                        characterBody.characterMotor.velocity.y = 0f;
+                                    }
+                                    else
+                                    {
+                                        if (airwalkTimer < 3f)
+                                        {
+                                            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                        }
+                                        else
+                                        {
+                                            characterBody.characterMotor.velocity.y = 0f;
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            //move in the direction you're moving at a normal speed
+                            if (characterBody.inputBank.moveVector != Vector3.zero)
+                            {
+                                energySystem.SpendplusChaos(StaticValues.airwalkEnergyFraction);
+                                //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
+                                characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
+                                //characterBody.characterMotor.disableAirControlUntilCollision = false;
+                            }
+
+
+                        }
+
+                    }
+                }
+                else if (characterBody.characterMotor.isGrounded)
+                {
+                    //remove airwalk buff when landed
+                    airwalkTimer = 0f;
+                    if (NetworkServer.active)
+                    {
+                        characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 0);
+                    }
+                }
+
+
+
+                //shiggy current damage
                 shiggyDamage = characterBody.damage;
 
                 //Buff effects
 
+                //mechstance buff
+                if (characterBody.HasBuff(Buffs.mechStanceBuff))
+                {
+                    if (characterBody.inputBank.jump.down)
+                    {
+                        if (characterBody.characterMotor.velocity.y > 2f)
+                        {
+                            characterBody.characterMotor.velocity.y = 0f;
+                        }
+                    }
+
+                    if (anim)
+                    {
+                        if (anim.GetBool("isMoving"))
+                        {
+                            //while walking do blast attacks, scales with movespeed
+                            mechStanceTimer += Time.fixedDeltaTime;
+                            if(mechStanceTimer >= StaticValues.mechStanceStepRate / characterBody.moveSpeed)
+                            {
+
+                                EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
+                                {
+                                    origin = characterBody.footPosition,
+                                    scale = StaticValues.mechStanceRadius * (characterBody.moveSpeed / characterBody.baseMoveSpeed),
+                                }, true);
+
+                                BlastAttack blastAttack = new BlastAttack();
+                                blastAttack.radius = StaticValues.mechStanceRadius * (characterBody.moveSpeed / characterBody.baseMoveSpeed);
+                                blastAttack.procCoefficient = StaticValues.mechStanceProcCoefficient;
+                                blastAttack.position = characterBody.footPosition;
+                                blastAttack.attacker = characterBody.gameObject;
+                                blastAttack.crit = characterBody.RollCrit();
+                                blastAttack.baseDamage = characterBody.damage * StaticValues.mechStanceDamageCoefficient * (characterBody.moveSpeed/ characterBody.baseMoveSpeed);
+                                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                                blastAttack.baseForce = 400f;
+                                blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
+                                blastAttack.damageType = damageType;
+                                blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+                                blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
+
+                                blastAttack.Fire();
+                                mechStanceTimer = 0f;
+                            }
+                        }
+                    }
+
+                    
+                }
 
                 //windshield buff
                 if (characterBody.HasBuff(Buffs.windShieldBuff))
@@ -989,10 +1138,10 @@ namespace ShiggyMod.Modules.Survivors
                 //}
 
             }
-            
 
 
-		}
+
+        }
 
 		//public void MagmawormFire()
 		//{

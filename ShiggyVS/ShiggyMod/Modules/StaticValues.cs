@@ -21,6 +21,7 @@ namespace ShiggyMod.Modules
         internal static float backupGain = 10f;
         internal static float afterburnerGain = 30f;
         internal static float lysateGain = 15f;
+        internal const float airwalkEnergyFraction = 0.01f;
 
 
         internal const float vulturePushRange = 70f;
@@ -316,6 +317,11 @@ namespace ShiggyMod.Modules
 
         internal const float stoneFormBlockChance = 20f;
         internal const float stoneFormWaitDuration = 3f;
+
+        internal static float mechStanceStepRate = 8f;
+        internal static float mechStanceRadius = 6f;
+        internal static float mechStanceDamageCoefficient = 3f;
+        internal static float mechStanceProcCoefficient = 1f;
 
         public enum IndicatorType : uint
         {

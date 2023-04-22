@@ -31,6 +31,7 @@ namespace ShiggyMod.SkillStates
         public static uint loopSoundID;
         public static GameObject coverLeftInstance;
         public static GameObject coverRightInstance;
+        private ExtraSkillLocator extraskillLocator;
 
         public override void OnEnter()
         {
@@ -42,18 +43,22 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 
-            damageType = DamageType.Generic;
             base.OnEnter();
-            if (NetworkServer.active)
+            if (!characterBody.HasBuff(Buffs.multBuff.buffIndex))
             {
                 characterBody.ApplyBuff(Modules.Buffs.multBuff.buffIndex, 1);
+                Util.PlaySound(ToolbotDualWield.enterSoundString, base.gameObject);
+                EffectManager.SimpleMuzzleFlash(Modules.Assets.multEffect, base.gameObject, "LHand", false);
+                EffectManager.SimpleMuzzleFlash(Modules.Assets.multEffect, base.gameObject, "RHand", false);
+                loopSoundID = Util.PlaySound(ToolbotDualWield.startLoopSoundString, base.gameObject);
+            }
+            else if (characterBody.HasBuff(Buffs.multBuff.buffIndex))
+            {
+                characterBody.ApplyBuff(Modules.Buffs.multBuff.buffIndex, 0);
+                AkSoundEngine.StopPlayingID(MultBuff.loopSoundID);
+                Util.PlaySound(ToolbotDualWieldEnd.enterSfx, base.gameObject);
             }
 
-            Util.PlaySound(ToolbotDualWield.enterSoundString, base.gameObject);
-            Util.PlaySound(ToolbotDualWieldEnd.enterSfx, base.gameObject);
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.multEffect, base.gameObject, "LHand", false);
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.multEffect, base.gameObject, "RHand", false);
-            loopSoundID = Util.PlaySound(ToolbotDualWield.startLoopSoundString, base.gameObject);
             //if (ToolbotDualWield.coverPrefab)
             //{
             //    Transform transform = base.FindModelChild("LHand");
@@ -74,27 +79,15 @@ namespace ShiggyMod.SkillStates
         {
             base.OnExit();
 
-            Util.PlaySound(ToolbotDualWield.exitSoundString, base.gameObject);
-            Util.PlaySound(ToolbotDualWield.stopLoopSoundString, base.gameObject);
-            if (base.skillLocator.primary.skillNameToken == prefix + "MULTBUFF_NAME")
+
+            if (characterBody.HasBuff(Buffs.multBuff.buffIndex))
             {
-                characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.multbuffcancelDef, GenericSkill.SkillOverridePriority.Contextual);
+                Util.PlaySound(ToolbotDualWield.exitSoundString, base.gameObject);
+                Util.PlaySound(ToolbotDualWield.stopLoopSoundString, base.gameObject);
             }
-            if (base.skillLocator.secondary.skillNameToken == prefix + "MULTBUFF_NAME")
+            else if (!characterBody.HasBuff(Buffs.multBuff.buffIndex))
             {
-                characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.multbuffcancelDef, GenericSkill.SkillOverridePriority.Contextual);
-            }
-            if (base.skillLocator.utility.skillNameToken == prefix + "MULTBUFF_NAME")
-            {
-                characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.multbuffcancelDef, GenericSkill.SkillOverridePriority.Contextual);
-            }
-            if (base.skillLocator.special.skillNameToken == prefix + "MULTBUFF_NAME")
-            {
-                characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.multbuffcancelDef, GenericSkill.SkillOverridePriority.Contextual);
+                AkSoundEngine.StopPlayingID(MultBuff.loopSoundID);
             }
         }
 
