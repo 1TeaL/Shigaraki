@@ -58,16 +58,25 @@ If you enjoy my work, support me on Ko-fi!
 
 - 2.0.0- THE SYNERGY UPDATE!
     - Reworked Skills
+    	- Decay: Instead of a slam it's a swipe in front of you, less janky in general.
+    	- Decay DoT: 
+    		- It no longer reapplies to the user, it now properly recognizes you are the attacker of the enemy's hit so you'll see their health bars properly.
+    		- Damage now scales off of your damage instead of the enemy's damage, dealing the higher of 50% damage or 0.5% of the enemy's max health per second per stack.
+    		- The instakill threshold has changed from 50-> 100 stacks- this is due to this update providing more ways to stack decay.
+    		- All overlap attacks will apply decay (Including projectiles that have cause them *cough* Wind Slash *cough*). 
     	- Beetle: Strength boost now gives flat 5 damage, no melee bonus.
-	- Lesser wisp: Ranged boost changed to Haste-> gives flat 0.5 attack speed, no ranged bonus.
-	- Lunar exploder: Lunar aura changed to Lunar barrier-> gives shield equal to 25% of max health.
-	- Jellyfish: Nova explosion changed to Regenerate-> Store half the damage you take, activate skill to heal.
-	- Beetle queen: Acid shotgun changed to Summon Ally-> Summon a survivor that inherits all your items (allows quirks to be taken from them too).
-	- Mercenary: Eviscerate changed to Wind Assault-> Dash forward through enemies, applying expose.
-	- Grovetender: Hook Shotgun changed to Chain-> Immobilize nearby enemies for 6 seconds.
-	- Multiplier: changed to constant active that costs plus chaos meter per hit. Multiplier no longer triples projectiles and decay ticks anymore due to this. Multiplier also no longer triples Shigaraki's current damage passively, just the damage on-hit: Unintendedly would triple damage for DoTs without spending anything.
-	- Loader: Scrap barrier-> Gain 1% of max hp as barrier on all hits- not just melee atacks and no more damage boost for melee attacks.
-	- Vulture: Flight changed to Wind Blast-> Create a gust of wind, pushing enemies and stunning them for 200% damage.
+    	- Lesser wisp: Ranged boost changed to Haste-> gives flat 0.5 attack speed, no ranged bonus.
+    	- Lunar exploder: Lunar aura changed to Lunar barrier-> gives shield equal to 25% of max health.
+    	- Jellyfish: Nova explosion changed to Regenerate-> Store half the damage you take, activate skill to heal.
+    	- Beetle queen: Acid shotgun changed to Summon Ally-> Summon a survivor that inherits all your items (allows quirks to be taken from them too).
+    	- Mercenary: Eviscerate changed to Wind Assault-> Dash forward through enemies, applying expose.
+    	- Grovetender: Hook Shotgun changed to Chain-> Immobilize nearby enemies for 6 seconds.
+    	- Multiplier: 
+    		- changed to constant active that costs plus chaos meter per hit. 
+    		- Multiplier no longer triples projectiles and decay ticks anymore due to this. 
+    		- Multiplier also no longer triples Shigaraki's current damage passively, just the damage on-hit: Unintendedly would triple damage for DoTs without spending anything.
+    	- Loader: Scrap barrier-> Gain 1% of max hp as barrier on all hits- not just melee atacks and no more damage boost for melee attacks.
+    	- Vulture: Flight changed to Wind Blast-> Create a gust of wind, pushing enemies and stunning them for 200% damage.
     - Balance Changes
     	- No more melee and ranged arbitrary discrepancy between skills to streamline balance.
     	- Cooldown changes for a lot of skills, longer in general to balance out how many skills able to be used along with item changes with the extraskill slots.
