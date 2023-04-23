@@ -342,8 +342,11 @@ namespace ShiggyMod.Modules
         internal static float OFAThreshold = 1f;
         internal static float OFAHealthCostCoefficient = 0.1f;
 
-        internal static float LIMITBREAKCoefficient = 5f;
-        internal static float LIMITBREAKHealthCostCoefficient = 0.05f;
+        internal static float limitBreakCoefficient = 5f;
+        internal static float limitBreakHealthCostCoefficient = 0.05f;
+
+        internal static float voidFormHealthCostCoefficient = 0.05f;
+        internal static float voidFormThreshold = 1f;
 
         public enum IndicatorType : uint
         {

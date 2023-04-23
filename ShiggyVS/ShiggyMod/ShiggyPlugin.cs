@@ -704,7 +704,7 @@ namespace ShiggyMod
                     {
                         if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT && ((damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic))
                         {
-                            new SpendHealthNetworkRequest(damageInfo.attacker.GetComponent<CharacterBody>().masterObjectId, damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.LIMITBREAKHealthCostCoefficient).Send(NetworkDestination.Clients);
+                            new SpendHealthNetworkRequest(damageInfo.attacker.GetComponent<CharacterBody>().masterObjectId, damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.limitBreakHealthCostCoefficient).Send(NetworkDestination.Clients);
                         }
                     }
                     //multiplier spend energy
@@ -951,7 +951,7 @@ namespace ShiggyMod
                 //limiter removal buff
                 if (self.HasBuff(Buffs.OFABuff))
                 {
-                    self.damage *= StaticValues.LIMITBREAKCoefficient;
+                    self.damage *= StaticValues.limitBreakCoefficient;
                 }
 
                 if (self.HasBuff(Buffs.grovetenderChainDebuff))
@@ -1044,6 +1044,7 @@ namespace ShiggyMod
                     this.OverlayFunction(Modules.Assets.alphaconstructShieldBuffMat, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
                     this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
                     this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.limitBreakBuff), self);
+                    this.OverlayFunction(Modules.Assets.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.voidFormBuff), self);
                 }
             }
         }

@@ -58,6 +58,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef barbedSpikesBuff;
         internal static BuffDef ingrainBuff;
         internal static BuffDef limitBreakBuff;
+        internal static BuffDef voidFormBuff;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
@@ -134,7 +135,8 @@ namespace ShiggyMod.Modules
             auraOfBlightBuff = Buffs.AddNewBuff("AuraOfPoison Buff", Assets.bleedBuffIcon, Color.yellow, false, false);
             barbedSpikesBuff = Buffs.AddNewBuff("barbedSpikes Buff", Assets.spikyDebuffIcon, Color.grey, false, false);
             ingrainBuff = Buffs.AddNewBuff("ingrain Buff", Assets.medkitBuffIcon, Color.green, false, false);
-            limitBreakBuff = Buffs.AddNewBuff("LIMITBREAK Buff", Assets.lightningBuffIcon, Color.black, false, false);
+            limitBreakBuff = Buffs.AddNewBuff("limit Break Buff", Assets.lightningBuffIcon, Color.black, false, false);
+            voidFormBuff = Buffs.AddNewBuff("void form Buff", Assets.voidFogDebuffIcon, Color.magenta, false, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
             bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.green, true, true);

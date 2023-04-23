@@ -41,6 +41,7 @@ namespace ShiggyMod.Modules.Survivors
         private float mechStanceTimer;
         private float airwalkTimer;
         private float OFATimer;
+        private float voidFormTimer;
 
         private Ray downRay;
         public float maxTrackingDistance = 70f;
@@ -365,6 +366,24 @@ namespace ShiggyMod.Modules.Survivors
             }
 			if (characterBody.hasEffectiveAuthority)
             {
+
+                //void form buff
+                if (characterBody.HasBuff(Buffs.voidFormBuff))
+                {
+                    if (voidFormTimer < StaticValues.voidFormThreshold)
+                    {
+                        voidFormTimer += Time.fixedDeltaTime;
+                    }
+                    else if (voidFormTimer >= StaticValues.voidFormThreshold)
+                    {
+                        voidFormTimer = 0f;
+                        //take damage every second based off current hp, cleanse self as well
+                        new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.voidFormHealthCostCoefficient).Send(NetworkDestination.Clients);
+
+                        Util.CleanseBody(characterBody, true, false, false, true, true, true);                        
+                    }
+                }
+
                 //OFA
                 if (characterBody.HasBuff(Buffs.OFABuff))
                 {

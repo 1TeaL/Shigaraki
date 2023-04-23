@@ -118,6 +118,11 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef mechStanceDef;
         internal static SkillDef windSlashDef;
         internal static SkillDef limitBreakDef;
+        internal static SkillDef voidFormDef;
+        internal static SkillDef elementalFusionDef;
+        internal static SkillDef decayPlusUltraDef;
+        internal static SkillDef machPunchDef;
+        internal static SkillDef rapidPierceDef;
 
         //synergy passive
         internal static SkillDef bigBangPassiveDef;
@@ -128,6 +133,26 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef auraOfBlightPassiveDef;
         internal static SkillDef barbedSpikesPassiveDef;
         internal static SkillDef ingrainPassiveDef;
+        internal static SkillDef doubleTimePassiveDef;
+        internal static SkillDef blindSensesPassiveDef;
+
+        //synergy lv2 active
+        internal static SkillDef overclockDef;
+        internal static SkillDef extremeSpeedkDef;
+        internal static SkillDef deathAuraDef;
+        internal static SkillDef OFAFODef;
+        internal static SkillDef energyDestructionWaveDef;
+        internal static SkillDef finalReleaseDef;
+        internal static SkillDef weatherReportDef;
+        internal static SkillDef wildCardDef;
+        internal static SkillDef lightAndDarknessDef;
+
+        //synergy lv2 passive
+        internal static SkillDef supernovaPassiveDef;
+        internal static SkillDef reversalPassiveDef;
+        internal static SkillDef machineFormPassiveDef;
+        internal static SkillDef gargoylePassiveDef;
+        internal static SkillDef decayAwakenedPassiveDef;
 
 
         internal override GameObject bodyPrefab { get; set; }
@@ -2299,14 +2324,14 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
-            });
-            DekuOFADef = Skills.CreateSkillDef(new SkillDefInfo
+            });            
+            limitBreakDef = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "DEKUOFA_NAME",
-                skillNameToken = prefix + "DEKUOFA_NAME",
-                skillDescriptionToken = prefix + "DEKUOFA_DESCRIPTION",
+                skillName = prefix + "LIMITBREAK_NAME",
+                skillNameToken = prefix + "LIMITBREAK_NAME",
+                skillDescriptionToken = prefix + "LIMITBREAK_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.DekuOFA)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.LimitBreak)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -2325,13 +2350,13 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
-            limitBreakDef = Skills.CreateSkillDef(new SkillDefInfo
+            voidFormDef = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "LIMITBREAK_NAME",
-                skillNameToken = prefix + "LIMITBREAK_NAME",
-                skillDescriptionToken = prefix + "LIMITBREAK_DESCRIPTION",
+                skillName = prefix + "VOIDFORM_NAME",
+                skillNameToken = prefix + "VOIDFORM_NAME",
+                skillDescriptionToken = prefix + "VOIDFORM_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.LimitBreak)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.VoidForm)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,

@@ -280,7 +280,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VOIDFIEND_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Disappear into the Void, <style=cIsUtility>cleansing all debuffs</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[LeftHanded]</style>");
             LanguageAPI.Add(prefix + "DEKUOFA_NAME", "OFA 100%");
-            LanguageAPI.Add(prefix + "DEKUOFA_DESCRIPTION", $"Go beyond your limits, boosting Damage, Attackspeed, Armor and Movespeed by {100f *(1 + StaticValues.OFACoefficient)}% additively, " + Helpers.Damage($"taking {100f * StaticValues.OFAHealthCostCoefficient}% of CURRENT health as damage every second ") + "." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "DEKUOFA_DESCRIPTION", $"Go beyond your limits, boosting Damage, Attackspeed, Armor and Movespeed by {100f *(1 + StaticValues.OFACoefficient)}% additively, " + Helpers.Damage($"taking {100f * StaticValues.OFAHealthCostCoefficient}% of CURRENT health as damage every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Multiplier]</style>");
             #endregion
 
@@ -335,8 +335,11 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "WINDSLASH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Fire a wind of blades that deals <style=cIsDamage>8x{100f * StaticValues.windSlashDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wind Shield]</style>");
             LanguageAPI.Add(prefix + "LIMITBREAK_NAME", "Limit Break");
-            LanguageAPI.Add(prefix + "LIMITBREAK_DESCRIPTION", $"Break your limits, boosting Damage by {StaticValues.LIMITBREAKCoefficient}x multiplicatively, " + Helpers.Damage($"taking {100f * StaticValues.LIMITBREAKHealthCostCoefficient}% of MAX health as damage every time you hit an enemy ") + "." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "LIMITBREAK_DESCRIPTION", $"Break your limits, boosting Damage by {StaticValues.limitBreakCoefficient}x multiplicatively, " + Helpers.Damage($"taking {100f * StaticValues.limitBreakHealthCostCoefficient}% of MAX health as damage every time you hit an enemy") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Multiplier]</style>");
+            LanguageAPI.Add(prefix + "VOIDFORM_NAME", "Void Form");
+            LanguageAPI.Add(prefix + "VOIDFORM_DESCRIPTION", $"Accept the void, constantly cleansing yourself, but " + Helpers.Damage($"taking {100f * StaticValues.voidFormHealthCostCoefficient}% of CURRENT health as damage every second") + "." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Limit Break]</style>");
             #endregion
 
             #region Synergised Passive
