@@ -150,12 +150,84 @@ namespace ShiggyMod
             On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
             On.RoR2.Orbs.LightningOrb.OnArrival += LightningOrb_OnArrival;
             On.RoR2.OverlapAttack.Fire += OverlapAttack_Fire;
+            On.RoR2.BulletAttack.Fire += BulletAttack_Fire;
+            On.RoR2.BlastAttack.Fire += BlastAttack_Fire;
            
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
                 On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
             }
+        }
+
+        private BlastAttack.Result BlastAttack_Fire(On.RoR2.BlastAttack.orig_Fire orig, BlastAttack self)
+        {
+
+            GameObject attacker = self.attacker;
+            if (attacker)
+            {
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.acridBuff))
+                {
+                    //add poison to all blast attacks
+                    self.damageType |= DamageType.PoisonOnHit;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.impbossBuff))
+                {
+                    //add bleed to all blast attacks
+                    self.damageType |= DamageType.BleedOnHit;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.elementalFusionFireBuff))
+                {
+                    //add ignite to all blast attacks
+                    self.damageType |= DamageType.IgniteOnHit;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.elementalFusionFreezeBuff))
+                {
+                    //add freeze to all blast attacks
+                    self.damageType |= DamageType.Freeze2s;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.elementalFusionShockBuff))
+                {
+                    //add freeze to all blast attacks
+                    self.damageType |= DamageType.Shock5s;
+                }
+            }
+            return orig(self);
+        }
+
+        private void BulletAttack_Fire(On.RoR2.BulletAttack.orig_Fire orig, BulletAttack self)
+        {
+            orig(self);
+            GameObject attacker = self.owner;
+            if (attacker)
+            {
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.acridBuff))
+                {
+                    //add poison to all bullet attacks
+                    self.damageType |= DamageType.PoisonOnHit;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.impbossBuff))
+                {
+                    //add bleed to all bullet attacks
+                    self.damageType |= DamageType.BleedOnHit;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.elementalFusionFireBuff))
+                {
+                    //add ignite to all bullet attacks
+                    self.damageType |= DamageType.IgniteOnHit;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.elementalFusionFreezeBuff))
+                {
+                    //add freeze to all bullet attacks
+                    self.damageType |= DamageType.Freeze2s;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.elementalFusionShockBuff))
+                {
+                    //add freeze to all bullet attacks
+                    self.damageType |= DamageType.Shock5s;
+                }
+            }
+
         }
 
         private bool OverlapAttack_Fire(On.RoR2.OverlapAttack.orig_Fire orig, OverlapAttack self, List<HurtBox> hitResults)
@@ -168,6 +240,31 @@ namespace ShiggyMod
                 {
                     //add decay to all overlap attacks
                     self.AddModdedDamageType(Damage.shiggyDecay);
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.acridBuff))
+                {
+                    //add poison to all overlap attacks
+                    self.damageType |= DamageType.PoisonOnHit;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.impbossBuff))
+                {
+                    //add bleed to all overlap attacks
+                    self.damageType |= DamageType.BleedOnHit;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.elementalFusionFireBuff))
+                {
+                    //add ignite to all overlap attacks
+                    self.damageType |= DamageType.IgniteOnHit;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.elementalFusionFreezeBuff))
+                {
+                    //add freeze to all overlap attacks
+                    self.damageType |= DamageType.Freeze2s;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.elementalFusionShockBuff))
+                {
+                    //add freeze to all overlap attacks
+                    self.damageType |= DamageType.Shock5s;
                 }
             }
             return orig(self, hitResults);
@@ -259,9 +356,7 @@ namespace ShiggyMod
                     //fly buff
                     if (sender.HasBuff(Buffs.airwalkBuff))
                     {
-                        args.moveSpeedMultAdd += (0.5f);
-                        sender.acceleration *= 2f;
-                        
+                        sender.acceleration *= 2f;                        
                     }
                     //beetlebuff
                     if (sender.HasBuff(Buffs.beetleBuff))
@@ -412,44 +507,6 @@ namespace ShiggyMod
                             damageInfo.damageType |= DamageType.ClayGoo;
                         }
                     }
-                    //acrid buff
-                    if (body.HasBuff(Modules.Buffs.acridBuff))
-                    {
-                        damageInfo.damageType |= DamageType.PoisonOnHit;
-                        //if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
-                        //{
-                        //    if (victimBody.healthComponent)
-                        //    {
-                        //        InflictDotInfo info = new InflictDotInfo();
-                        //        info.attackerObject = body.gameObject;
-                        //        info.victimObject = victimBody.healthComponent.body.gameObject;
-                        //        info.duration = Modules.StaticValues.decayDamageTimer/2;
-                        //        info.dotIndex = DotController.DotIndex.Poison;
-
-                        //        DotController.InflictDot(ref info);
-                        //    }
-                        //}
-                    }
-                    //impboss buff
-                    if (body.HasBuff(Modules.Buffs.impbossBuff))
-                    {
-                        damageInfo.damageType |= DamageType.BleedOnHit;
-
-                        //if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
-                        //{
-                        //    if (victimBody.healthComponent)
-                        //    {
-                        //        InflictDotInfo info = new InflictDotInfo();
-                        //        info.attackerObject = body.gameObject;
-                        //        info.victimObject = victimBody.healthComponent.body.gameObject;
-                        //        info.duration = Modules.StaticValues.decayDamageTimer/2;
-                        //        info.dotIndex = DotController.DotIndex.Bleed;
-
-                        //        DotController.InflictDot(ref info);
-                        //    }
-                        //}
-                    }
-                    //greaterwisp buff
                     if (body.HasBuff(Modules.Buffs.greaterwispBuff))
                     {
                         if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient != 0f)
@@ -481,7 +538,9 @@ namespace ShiggyMod
                     }
 
                     //elemntal fusion cycling stacks
-                    if (body.HasBuff(Buffs.omniboostBuff))
+                    if (body.HasBuff(Buffs.elementalFusionFireBuff)
+                        | body.HasBuff(Buffs.elementalFusionFreezeBuff)
+                        | body.HasBuff(Buffs.elementalFusionShockBuff))
                     {
                         if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                         {
@@ -491,60 +550,13 @@ namespace ShiggyMod
                             if (elementalBuffCount < StaticValues.elementalFusionThreshold)
                             {
                                 body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, elementalBuffCount + 1);
-                                elementalBuffCount++;
-
-                                if(elementalBuffCount >= StaticValues.elementalFusionThreshold)
-                                {
-                                    if (body.HasBuff(Buffs.elementalFusionFireBuff))
-                                    {
-                                        damageInfo.damageType |= DamageType.IgniteOnHit;
-                                        body.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 0);
-                                        body.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 1);
-                                        body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
-
-                                        EffectManager.SpawnEffect(Modules.Assets.artificerFireMuzzleEffect, new EffectData
-                                        {
-                                            origin = body.corePosition,
-                                            scale = 1f,
-                                            rotation = Quaternion.identity,
-                                        }, false);
-
-                                    }
-                                    if (body.HasBuff(Buffs.elementalFusionFreezeBuff))
-                                    {
-                                        damageInfo.damageType |= DamageType.Freeze2s;
-                                        body.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 0);
-                                        body.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 1);
-                                        body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
-
-                                        EffectManager.SpawnEffect(Modules.Assets.artificerIceMuzzleEffect, new EffectData
-                                        {
-                                            origin = body.corePosition,
-                                            scale = 1f,
-                                            rotation = Quaternion.identity,
-                                        }, false);
-                                    }
-                                    if (body.HasBuff(Buffs.elementalFusionShockBuff))
-                                    {
-                                        damageInfo.damageType |= DamageType.Shock5s;
-                                        body.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 0);
-                                        body.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 1);
-                                        body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
-
-                                        EffectManager.SpawnEffect(Modules.Assets.artificerLightningMuzzleEffect, new EffectData
-                                        {
-                                            origin = body.corePosition,
-                                            scale = 1f,
-                                            rotation = Quaternion.identity,
-                                        }, false);
-                                    }
-                                }
+                                                                
                             }
-                            else if (elementalBuffCount >= StaticValues.elementalFusionThreshold)
+                            else if (elementalBuffCount >= StaticValues.elementalFusionThreshold && victimBody)
                             {
                                 if (body.HasBuff(Buffs.elementalFusionFireBuff))
                                 {
-                                    damageInfo.damageType |= DamageType.IgniteOnHit;
+
                                     body.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 0);
                                     body.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 1);
                                     body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
@@ -557,9 +569,8 @@ namespace ShiggyMod
                                     }, false);
 
                                 }
-                                if (body.HasBuff(Buffs.elementalFusionFreezeBuff))
+                                else if (body.HasBuff(Buffs.elementalFusionFreezeBuff))
                                 {
-                                    damageInfo.damageType |= DamageType.Freeze2s;
                                     body.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 0);
                                     body.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 1);
                                     body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
@@ -571,9 +582,8 @@ namespace ShiggyMod
                                         rotation = Quaternion.identity,
                                     }, false);
                                 }
-                                if (body.HasBuff(Buffs.elementalFusionShockBuff))
+                                else if (body.HasBuff(Buffs.elementalFusionShockBuff))
                                 {
-                                    damageInfo.damageType |= DamageType.Shock5s;
                                     body.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 0);
                                     body.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 1);
                                     body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
@@ -824,10 +834,12 @@ namespace ShiggyMod
                 attackerBody.healthComponent.Heal(report.damageDealt * Modules.StaticValues.claydunestriderHealCoefficient, default(ProcChainMask), true);
 
             }
+
         }
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
+
             if (self)
             {
                 if (damageInfo != null && damageInfo.attacker && damageInfo.attacker.GetComponent<CharacterBody>())
@@ -838,19 +850,32 @@ namespace ShiggyMod
                         damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.AddBarrierAuthority(damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.loaderBarrierGainCoefficient);
                     }
 
-
-                    //limiter removal buff health cost
+                    //limit break buff health cost
                     if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.limitBreakBuff))
                     {
-                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT && ((damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic))
+                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                         {
-                            new SpendHealthNetworkRequest(damageInfo.attacker.GetComponent<CharacterBody>().masterObjectId, damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.limitBreakHealthCostCoefficient).Send(NetworkDestination.Clients);
+                            Debug.Log("deal damage to self");
+                            DamageInfo damageInfo2 = new DamageInfo();
+                            damageInfo2.damage = StaticValues.limitBreakHealthCostCoefficient * damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth;
+                            damageInfo2.position = damageInfo.attacker.transform.position;
+                            damageInfo2.force = Vector3.zero;
+                            damageInfo2.damageColorIndex = DamageColorIndex.WeakPoint;
+                            damageInfo2.crit = false;
+                            damageInfo2.attacker = null;
+                            damageInfo2.inflictor = null;
+                            damageInfo2.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
+                            damageInfo2.procCoefficient = 0f;
+                            damageInfo2.procChainMask = default(ProcChainMask);
+                            damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.TakeDamage(damageInfo2);
                         }
                     }
+
                     //multiplier spend energy
                     if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
                     {
-                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT && ((damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic))
+
+                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                         {
                             EnergySystem energySys = damageInfo.attacker.gameObject.GetComponent<EnergySystem>();
                             if (energySys)
@@ -860,12 +885,13 @@ namespace ShiggyMod
 
                                 float plusChaosCost = energySys.costmultiplierplusChaos * plusChaosflatCost;
                                 if (plusChaosCost < 0f) plusChaosCost = 0f;
-                                if(energySys.currentplusChaos < plusChaosCost)
+
+                                if (energySys.currentplusChaos < plusChaosCost)
                                 {
                                     damageInfo.attacker.GetComponent<CharacterBody>().ApplyBuff(Buffs.multiplierBuff.buffIndex, 0);
                                     energySys.TriggerGlow(0.3f, 0.3f, Color.black);
                                 }
-                                else
+                                else if (energySys.currentplusChaos >= plusChaosCost)
                                 {
                                     damageInfo.damage *= StaticValues.multiplierCoefficient;
                                     energySys.SpendplusChaos(plusChaosCost);
@@ -874,16 +900,103 @@ namespace ShiggyMod
                         }
                     }
 
+
                     //for self damage
                     bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
                     if (!flag && damageInfo.damage > 0f)
                     {
-                        damageInfo.force = Vector3.zero;
+                        if (self.body.HasBuff(Buffs.blindSensesBuff.buffIndex))
+                        {
+                            //fake calculating the chance to block for a bear
+                            if (self.body.inventory.GetItemCount(RoR2Content.Items.Bear) > 0 && Util.CheckRoll(Util.ConvertAmplificationPercentageIntoReductionPercentage(15f * (float)self.body.inventory.GetItemCount(RoR2Content.Items.Bear)), 0f, null))
+                            {
+                                //blind senses damage 
+                                LightningOrb lightningOrb = new LightningOrb();
+                                lightningOrb.attacker = self.body.gameObject;
+                                lightningOrb.bouncedObjects = null;
+                                lightningOrb.bouncesRemaining = 0;
+                                lightningOrb.damageCoefficientPerBounce = 1f;
+                                lightningOrb.damageColorIndex = DamageColorIndex.Item;
+                                lightningOrb.damageValue = damageInfo.damage * StaticValues.blindSensesDamageCoefficient;
+                                lightningOrb.isCrit = self.body.RollCrit();
+                                lightningOrb.lightningType = LightningOrb.LightningType.RazorWire;
+                                lightningOrb.origin = self.body.corePosition;
+                                lightningOrb.procChainMask = default(ProcChainMask);
+                                lightningOrb.procChainMask.AddProc(ProcType.Thorns);
+                                lightningOrb.procCoefficient = 1f;
+                                lightningOrb.damageType = DamageType.Stun1s;
+                                lightningOrb.range = 0f;
+                                lightningOrb.teamIndex = self.body.teamComponent.teamIndex;
+                                lightningOrb.target = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().mainHurtBox;
+                                OrbManager.instance.AddOrb(lightningOrb);
+                                
+                            }
+
+                            if (Util.CheckRoll(StaticValues.blindSensesBlockChance, self.body.master))
+                            {
+
+                                //blind senses damage 
+                                LightningOrb lightningOrb = new LightningOrb();
+                                lightningOrb.attacker = self.body.gameObject;
+                                lightningOrb.bouncedObjects = null;
+                                lightningOrb.bouncesRemaining = 0;
+                                lightningOrb.damageCoefficientPerBounce = 1f;
+                                lightningOrb.damageColorIndex = DamageColorIndex.Item;
+                                lightningOrb.damageValue = damageInfo.damage * StaticValues.blindSensesDamageCoefficient;
+                                lightningOrb.isCrit = self.body.RollCrit();
+                                lightningOrb.lightningType = LightningOrb.LightningType.RazorWire;
+                                lightningOrb.origin = self.body.corePosition;
+                                lightningOrb.procChainMask = default(ProcChainMask);
+                                lightningOrb.procChainMask.AddProc(ProcType.Thorns);
+                                lightningOrb.procCoefficient = 1f;
+                                lightningOrb.damageType = DamageType.Stun1s;
+                                lightningOrb.range = 0f;
+                                lightningOrb.teamIndex = self.body.teamComponent.teamIndex;
+                                lightningOrb.target = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().mainHurtBox;
+                                OrbManager.instance.AddOrb(lightningOrb);
+
+                                damageInfo.rejected = true;
+
+                                EffectData effectData = new EffectData
+                                {
+                                    origin = damageInfo.position,
+                                    rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
+                                };
+                                EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearEffectPrefab, effectData, true);
+                            }
+
+                        }
+
                         //stone form passive buff
                         if (self.body.HasBuff(Buffs.stoneFormStillBuff.buffIndex))
                         {
+                            damageInfo.force = Vector3.zero;
                             if (Util.CheckRoll(StaticValues.stoneFormBlockChance, self.body.master))
                             {
+
+                                //blind senses damage 
+                                if (self.body.HasBuff(Buffs.blindSensesBuff.buffIndex))
+                                {
+                                    LightningOrb lightningOrb = new LightningOrb();
+                                    lightningOrb.attacker = self.body.gameObject;
+                                    lightningOrb.bouncedObjects = null;
+                                    lightningOrb.bouncesRemaining = 0;
+                                    lightningOrb.damageCoefficientPerBounce = 1f;
+                                    lightningOrb.damageColorIndex = DamageColorIndex.Item;
+                                    lightningOrb.damageValue = damageInfo.damage * StaticValues.blindSensesDamageCoefficient;
+                                    lightningOrb.isCrit = self.body.RollCrit();
+                                    lightningOrb.lightningType = LightningOrb.LightningType.RazorWire;
+                                    lightningOrb.origin = self.body.corePosition;
+                                    lightningOrb.procChainMask = default(ProcChainMask);
+                                    lightningOrb.procChainMask.AddProc(ProcType.Thorns);
+                                    lightningOrb.procCoefficient = 1f;
+                                    lightningOrb.damageType = DamageType.Stun1s;
+                                    lightningOrb.range = 0f;
+                                    lightningOrb.teamIndex = self.body.teamComponent.teamIndex;
+                                    lightningOrb.target = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().mainHurtBox;
+                                    OrbManager.instance.AddOrb(lightningOrb);
+                                }
+
                                 damageInfo.rejected = true;
 
                                 EffectData effectData = new EffectData
@@ -940,8 +1053,6 @@ namespace ShiggyMod
                         if (self.body.HasBuff(Modules.Buffs.gupspikeBuff.buffIndex))
                         {
                             //Spike buff
-
-                            var damageInfo2 = new DamageInfo();
 
                             blastAttack = new BlastAttack();
                             blastAttack.radius = Modules.StaticValues.spikedamageRadius;
@@ -1074,11 +1185,9 @@ namespace ShiggyMod
                 }
 
             }
-            
-
-
 
             orig.Invoke(self, damageInfo);
+
         }
 
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
@@ -1089,7 +1198,7 @@ namespace ShiggyMod
                 orig.Invoke(self);
 
                 //limiter removal buff
-                if (self.HasBuff(Buffs.OFABuff))
+                if (self.HasBuff(Buffs.limitBreakBuff))
                 {
                     self.damage *= StaticValues.limitBreakCoefficient;
                 }

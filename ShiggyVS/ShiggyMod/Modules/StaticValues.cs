@@ -21,7 +21,7 @@ namespace ShiggyMod.Modules
         internal static float backupGain = 10f;
         internal static float afterburnerGain = 30f;
         internal static float lysateGain = 15f;
-        internal const float airwalkEnergyFraction = 0.01f;
+        internal const float airwalkEnergyFraction = 0.1f;
 
 
         internal const float vulturePushRange = 70f;
@@ -316,7 +316,7 @@ namespace ShiggyMod.Modules
 
         internal const int barrierJellyDuration = 3;
 
-        internal const float stoneFormBlockChance = 20f;
+        internal const float stoneFormBlockChance = 30f;
         internal const float stoneFormWaitDuration = 2f;
 
         internal static float mechStanceStepRate = 8f;
@@ -345,8 +345,8 @@ namespace ShiggyMod.Modules
         internal static float limitBreakCoefficient = 5f;
         internal static float limitBreakHealthCostCoefficient = 0.05f;
 
-        internal static float voidFormHealthCostCoefficient = 0.05f;
-        internal static float voidFormThreshold = 1f;
+        internal static float voidFormHealthCostCoefficient = 0.025f;
+        internal static float voidFormThreshold = 0.5f;
 
         internal static int elementalFusionThreshold = 5;
 
@@ -355,12 +355,15 @@ namespace ShiggyMod.Modules
         internal static float decayPlusUltraDamageCoefficient = 10f;
         internal static float decayPlusUltraProcCoefficient = 1f;
         internal static float decayPlusUltraRadius = 50f;
-        internal static float decayPlusUltraForce = 500f;
+        internal static float decayPlusUltraForce = 1000f;
 
         internal static float doubleTimeCoefficient = 0.5f;
         internal static float doubleTimeSlowCoefficient = 0.5f;
         internal static float doubleTimeThreshold = 2f;
         internal static float doubleTimeRadius = 15f;
+
+        internal static float blindSensesBlockChance = 20f;
+        internal static float blindSensesDamageCoefficient = 1f;
 
         public enum IndicatorType : uint
         {

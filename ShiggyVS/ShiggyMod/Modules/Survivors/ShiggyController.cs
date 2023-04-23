@@ -414,12 +414,12 @@ namespace ShiggyMod.Modules.Survivors
                         {
                             if (characterBody.inputBank.jump.down)
                             {
+                                energySystem.SpendplusChaos(StaticValues.airwalkEnergyFraction);
                                 characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 1);
 
                                 //if falling down
                                 if (characterBody.characterMotor.velocity.y < 0)
                                 {
-                                    energySystem.SpendplusChaos(StaticValues.airwalkEnergyFraction);
                                     if (characterBody.inputBank.skill1.down
                                         | characterBody.inputBank.skill2.down
                                         | characterBody.inputBank.skill3.down
@@ -446,7 +446,6 @@ namespace ShiggyMod.Modules.Survivors
                                 //if rising up
                                 else if (characterBody.characterMotor.velocity.y >= 0)
                                 {
-                                    energySystem.SpendplusChaos(StaticValues.airwalkEnergyFraction);
                                     if (characterBody.inputBank.skill1.down
                                         | characterBody.inputBank.skill2.down
                                         | characterBody.inputBank.skill3.down
@@ -476,7 +475,6 @@ namespace ShiggyMod.Modules.Survivors
                             //move in the direction you're moving at a normal speed
                             if (characterBody.inputBank.moveVector != Vector3.zero)
                             {
-                                energySystem.SpendplusChaos(StaticValues.airwalkEnergyFraction);
                                 //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
                                 characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
                                 //characterBody.characterMotor.disableAirControlUntilCollision = false;

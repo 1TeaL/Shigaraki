@@ -65,6 +65,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef elementalFusionBuffStacks;
         internal static BuffDef doubleTimeBuff;
         internal static BuffDef doubleTimeBuffStacks;
+        internal static BuffDef blindSensesBuff;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
@@ -144,12 +145,13 @@ namespace ShiggyMod.Modules
             ingrainBuff = Buffs.AddNewBuff("ingrain Buff", Assets.medkitBuffIcon, Color.green, false, false);
             limitBreakBuff = Buffs.AddNewBuff("limit Break Buff", Assets.lightningBuffIcon, Color.black, false, false);
             voidFormBuff = Buffs.AddNewBuff("void form Buff", Assets.voidFogDebuffIcon, Color.magenta, false, false);
-            elementalFusionFireBuff = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.red, false, false);
-            elementalFusionFreezeBuff = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.cyan, false, false);
-            elementalFusionShockBuff = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.yellow, false, false);
-            elementalFusionBuffStacks = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.white, true, false);
+            elementalFusionFireBuff = Buffs.AddNewBuff("elementalFusionFire Buff", Assets.multiplierBuffIcon, Color.red, false, false);
+            elementalFusionFreezeBuff = Buffs.AddNewBuff("elementalFusionFreeze Buff", Assets.multiplierBuffIcon, Color.cyan, false, false);
+            elementalFusionShockBuff = Buffs.AddNewBuff("elementalFusionShock Buff", Assets.multiplierBuffIcon, Color.yellow, false, false);
+            elementalFusionBuffStacks = Buffs.AddNewBuff("elementalFusion Buff Stacks", Assets.multiplierBuffIcon, Color.white, true, false);
             doubleTimeBuff = Buffs.AddNewBuff("doubleTime Buff", Assets.warcryBuffIcon, Color.white, false, false);
             doubleTimeBuffStacks = Buffs.AddNewBuff("double Time Buff Stacks", Assets.warcryBuffIcon, Color.yellow, true, false);
+            blindSensesBuff = Buffs.AddNewBuff("blindSenses Buff", Assets.cloakBuffIcon, Color.green, false, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
             bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.green, true, true);

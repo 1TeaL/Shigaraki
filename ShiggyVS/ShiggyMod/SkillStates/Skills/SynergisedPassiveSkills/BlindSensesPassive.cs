@@ -11,15 +11,15 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class DoubleTimePassive : Skill
+    public class BlindSensesPassive : Skill
     {
-        //Solus probe + commando
+        //blind pest + blind vermin
         public override void OnEnter()
         {
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.ApplyBuff(Modules.Buffs.doubleTimeBuff.buffIndex, 1);
+                characterBody.ApplyBuff(Modules.Buffs.blindSensesBuff.buffIndex, 1);
             }
         }
 

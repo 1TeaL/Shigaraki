@@ -10,6 +10,8 @@ using ExtraSkillSlots;
 using R2API.Networking;
 using System;
 using R2API;
+using ShiggyMod.Modules.Networking;
+using R2API.Networking.Interfaces;
 
 namespace ShiggyMod.SkillStates
 {
@@ -73,6 +75,7 @@ namespace ShiggyMod.SkillStates
 
                 }, true);
 
+                new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.decayPlusUltraHealthCostCoefficient).Send(NetworkDestination.Clients);
                 BlastAttack.Result result = blastAttack.Fire();
                 if (result.hitCount > 0)
                 {
