@@ -8,21 +8,18 @@ namespace ShiggyMod.SkillStates
 {
     public class RapidPierce : BaseSkillState
     {
-        public float baseDuration = 1f;
+        public float baseDuration = 0.7f;
         public float duration;
         private float fireTime;
         public bool hasFired;
         public ShiggyController Shiggycon;
-        private DamageType damageType;
+        private DamageType damageType = DamageType.Generic;
 
-        private float range = 100f;
-        private float radius = 15f;
-        private float damageCoefficient = Modules.StaticValues.bulletlaserDamageCoefficient;
-        private float procCoefficient = Modules.StaticValues.bulletlaserProcCoefficient;
-        private float force = 1f;
-        private float speedOverride =1f;
+        private float range = 200f;
+        private float damageCoefficient = Modules.StaticValues.rapidPierceDamageCoefficient;
+        private float procCoefficient = Modules.StaticValues.rapidPierceProcCoefficient;
+        private float force = 200f;
         private string muzzleString;
-        private uint bulletcount;
 
         public override void OnEnter()
         {
@@ -35,15 +32,13 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmPunch","Attack.playbackRate", fireTime, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
-            this.muzzleString = "LHand";
+            this.muzzleString = "RHand";
             //EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
             //EffectManager.SimpleMuzzleFlash(Modules.Assets.voidfiendblinkmuzzleEffect, base.gameObject, this.muzzleString, false);
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
-
-            bulletcount = 5 ;
         }
 
         public override void OnExit()
@@ -58,13 +53,13 @@ namespace ShiggyMod.SkillStates
 
             if (base.fixedAge >= this.fireTime && !hasFired)
             {
-                PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", fireTime, 0.1f);
+                //PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", fireTime, 0.1f);
                 hasFired = true;
 
                 Ray aimRay = base.GetAimRay();
                 var bulletAttack = new BulletAttack
                 {
-                    bulletCount = bulletcount,
+                    bulletCount = 1,
                     aimVector = aimRay.direction,
                     origin = aimRay.origin,
                     damage = this.damageStat * damageCoefficient,
@@ -82,11 +77,11 @@ namespace ShiggyMod.SkillStates
                     smartCollision = false,
                     procChainMask = default(ProcChainMask),
                     procCoefficient = procCoefficient,
-                    radius = 1f,
+                    radius = 1.5f,
                     sniper = false,
                     stopperMask = LayerIndex.noCollision.mask,
                     weapon = null,
-                    tracerEffectPrefab = Modules.Assets.VoidFiendBeamTracer,
+                    tracerEffectPrefab = Modules.Assets.railgunnerSnipeLightTracerEffect,
                     spreadPitchScale = 0f,
                     spreadYawScale = 0f,
                     queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,

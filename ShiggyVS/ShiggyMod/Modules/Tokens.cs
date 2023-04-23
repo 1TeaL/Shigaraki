@@ -344,6 +344,12 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "DECAYPLUSULTRA_NAME", "Decay Plus Ultra");
             LanguageAPI.Add(prefix + "DECAYPLUSULTRA_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Push your body and Decay beyond their limits, dealing <style=cIsDamage>{100f * StaticValues.decayPlusUltraDamageCoefficient}% damage</style> in an enormous area. " + Helpers.Damage($"Take {100f * StaticValues.decayPlusUltraHealthCostCoefficient}% of MAX health as damage") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Aura Of Blight]</style> <style=cWorldEvent>[Decay]</style>");
+            LanguageAPI.Add(prefix + "MACHPUNCH_NAME", "Mach Punch");
+            LanguageAPI.Add(prefix + "MACHPUNCH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to gather energy in your fist. When the button is released, teleport and smash nearby enemies, dealing<style=cIsDamage>{100f * StaticValues.machPunchDamageCoefficient}% damage, multiplied</style> by how long you were charging. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Thunderclap]</style> <style=cWorldEvent>[Decay]</style>");
+            LanguageAPI.Add(prefix + "RAPIDPIERCE_NAME", "Rapid Pierce");
+            LanguageAPI.Add(prefix + "RAPIDPIERCE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Shoot a quick railgun, dealing <style=cIsDamage>{100f * StaticValues.rapidPierceDamageCoefficient}% damage</style> in a long line. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Sweeping Beam]</style>");
             #endregion
 
             #region Synergised Passive

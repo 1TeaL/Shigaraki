@@ -373,6 +373,9 @@ namespace ShiggyMod.Modules
         internal static float machPunchBaseDistance = 2f;
         internal static float machPunchRadius = 2f;
 
+        internal static float rapidPierceDamageCoefficient = 4f;
+        internal static float rapidPierceProcCoefficient = 1f;
+
 
         public enum IndicatorType : uint
         {
