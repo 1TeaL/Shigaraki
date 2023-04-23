@@ -371,6 +371,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "INGRAIN_NAME", "Ingrain");
             LanguageAPI.Add(prefix + "INGRAIN_DESCRIPTION", $"Gain health regen equivalent to <style=cIsHealing>{StaticValues.ingrainBuffHealthRegen* 100f}% of your max health</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Stone Form]</style>");
+            LanguageAPI.Add(prefix + "ELEMENTALFUSION_NAME", "Elemental Fusion");
+            LanguageAPI.Add(prefix + "ELEMENTALFUSION_DESCRIPTION", $"Gain elemental power, with every {StaticValues.elementalFusionThreshold} hits <style=cIsDamage>burning, freezing or shocking enemies</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Gravitational Downforce]</style>");
             #endregion
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");

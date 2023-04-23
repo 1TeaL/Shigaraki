@@ -443,7 +443,7 @@ namespace ShiggyMod
                             EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
                             {
                                 origin = victimBody.transform.position,
-                                scale = 6f,
+                                scale = StaticValues.greaterwispballRadius,
                                 rotation = Util.QuaternionSafeLookRotation(damageInfo.force)
                             }, true);
                             new BlastAttack
@@ -466,16 +466,143 @@ namespace ShiggyMod
                         }
                     }
 
+                    //elemntal fusion cycling stacks
+                    if (body.HasBuff(Buffs.omniboostBuff))
+                    {
+                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            //deal ignite, freeze, or shock damage type every 5 hits
+                            var elementalBuffCount = body.GetBuffCount(Buffs.elementalFusionBuffStacks);
+
+                            if (elementalBuffCount < StaticValues.elementalFusionThreshold)
+                            {
+                                body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, elementalBuffCount + 1);
+                                elementalBuffCount++;
+
+                                if(elementalBuffCount >= StaticValues.elementalFusionThreshold)
+                                {
+                                    if (body.HasBuff(Buffs.elementalFusionFireBuff))
+                                    {
+                                        damageInfo.damageType |= DamageType.IgniteOnHit;
+                                        body.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 0);
+                                        body.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 1);
+                                        body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
+
+                                        EffectManager.SpawnEffect(Modules.Assets.artificerFireMuzzleEffect, new EffectData
+                                        {
+                                            origin = body.corePosition,
+                                            scale = 1f,
+                                            rotation = Quaternion.identity,
+                                        }, false);
+
+                                    }
+                                    if (body.HasBuff(Buffs.elementalFusionFreezeBuff))
+                                    {
+                                        damageInfo.damageType |= DamageType.Freeze2s;
+                                        body.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 0);
+                                        body.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 1);
+                                        body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
+
+                                        EffectManager.SpawnEffect(Modules.Assets.artificerIceMuzzleEffect, new EffectData
+                                        {
+                                            origin = body.corePosition,
+                                            scale = 1f,
+                                            rotation = Quaternion.identity,
+                                        }, false);
+                                    }
+                                    if (body.HasBuff(Buffs.elementalFusionShockBuff))
+                                    {
+                                        damageInfo.damageType |= DamageType.Shock5s;
+                                        body.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 0);
+                                        body.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 1);
+                                        body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
+
+                                        EffectManager.SpawnEffect(Modules.Assets.artificerLightningMuzzleEffect, new EffectData
+                                        {
+                                            origin = body.corePosition,
+                                            scale = 1f,
+                                            rotation = Quaternion.identity,
+                                        }, false);
+                                    }
+                                }
+                            }
+                            else if (elementalBuffCount >= StaticValues.elementalFusionThreshold)
+                            {
+                                if (body.HasBuff(Buffs.elementalFusionFireBuff))
+                                {
+                                    damageInfo.damageType |= DamageType.IgniteOnHit;
+                                    body.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 0);
+                                    body.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 1);
+                                    body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
+
+                                    EffectManager.SpawnEffect(Modules.Assets.artificerFireMuzzleEffect, new EffectData
+                                    {
+                                        origin = body.corePosition,
+                                        scale = 1f,
+                                        rotation = Quaternion.identity,
+                                    }, false);
+
+                                }
+                                if (body.HasBuff(Buffs.elementalFusionFreezeBuff))
+                                {
+                                    damageInfo.damageType |= DamageType.Freeze2s;
+                                    body.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 0);
+                                    body.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 1);
+                                    body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
+
+                                    EffectManager.SpawnEffect(Modules.Assets.artificerIceMuzzleEffect, new EffectData
+                                    {
+                                        origin = body.corePosition,
+                                        scale = 1f,
+                                        rotation = Quaternion.identity,
+                                    }, false);
+                                }
+                                if (body.HasBuff(Buffs.elementalFusionShockBuff))
+                                {
+                                    damageInfo.damageType |= DamageType.Shock5s;
+                                    body.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 0);
+                                    body.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 1);
+                                    body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
+
+                                    EffectManager.SpawnEffect(Modules.Assets.artificerLightningMuzzleEffect, new EffectData
+                                    {
+                                        origin = body.corePosition,
+                                        scale = 1f,
+                                        rotation = Quaternion.identity,
+                                    }, false);
+                                }
+                            }
+                        }
+
+                    }
+
+
                     //omniboost buff stacks
                     if (body.HasBuff(Buffs.omniboostBuff))
                     {
-                        //add a debuff stack to the enemy, after 3 stacks gain your own buff stack
-                        var omnidebuffCount = victimBody.GetBuffCount(Buffs.omniboostDebuffStacks);
-                        if(omnidebuffCount < StaticValues.omniboostNumberOfHits)
+                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                         {
-                            victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, omnidebuffCount + 1);
+                            //add a debuff stack to the enemy, after 3 stacks gain your own buff stack
+                            var omnidebuffCount = victimBody.GetBuffCount(Buffs.omniboostDebuffStacks);
+                            if (omnidebuffCount < StaticValues.omniboostNumberOfHits)
+                            {
+                                victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, omnidebuffCount + 1);
+                                omnidebuffCount++;
 
-                            if(omnidebuffCount >= StaticValues.omniboostNumberOfHits)
+                                if (omnidebuffCount >= StaticValues.omniboostNumberOfHits)
+                                {
+                                    var omniBuffCount = body.GetBuffCount(Buffs.omniboostBuffStacks);
+                                    body.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
+                                    victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
+
+                                    EffectManager.SpawnEffect(EntityStates.Wisp1Monster.FireEmbers.hitEffectPrefab, new EffectData
+                                    {
+                                        origin = victimBody.transform.position,
+                                        scale = 1f
+                                    }, false);
+                                }
+                            }
+                            else if (omnidebuffCount >= StaticValues.omniboostNumberOfHits)
                             {
                                 var omniBuffCount = body.GetBuffCount(Buffs.omniboostBuffStacks);
                                 body.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
@@ -488,18 +615,7 @@ namespace ShiggyMod
                                 }, false);
                             }
                         }
-                        else if (omnidebuffCount > StaticValues.omniboostNumberOfHits)
-                        {
-                            var omniBuffCount = body.GetBuffCount(Buffs.omniboostBuffStacks);
-                            body.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
-                            victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
-
-                            EffectManager.SpawnEffect(EntityStates.Wisp1Monster.FireEmbers.hitEffectPrefab, new EffectData
-                            {
-                                origin = victimBody.transform.position,
-                                scale = 1f
-                            }, false);
-                        }
+                            
 
                     }
                     //bigbang buff
@@ -512,6 +628,7 @@ namespace ShiggyMod
                             if (bigbangCount < StaticValues.bigbangBuffThreshold)
                             {
                                 victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, bigbangCount + 1);
+                                bigbangCount++;
                                 if (bigbangCount >= StaticValues.bigbangBuffThreshold)
                                 {
                                     victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, 0);
@@ -540,7 +657,7 @@ namespace ShiggyMod
                                     }.Fire();
                                 }
                             }
-                            else if (bigbangCount > StaticValues.bigbangBuffThreshold)
+                            else if (bigbangCount >= StaticValues.bigbangBuffThreshold)
                             {
                                 victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, 0);
                                 if (EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab)

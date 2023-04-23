@@ -126,6 +126,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(AuraOfBlightPassive));
             entityStates.Add(typeof(BarbedSpikesPassive));
             entityStates.Add(typeof(IngrainPassive));
+            entityStates.Add(typeof(ElementalFusionPassive));
         }
     }
 }

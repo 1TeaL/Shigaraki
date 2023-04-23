@@ -59,6 +59,10 @@ namespace ShiggyMod.Modules
         internal static BuffDef ingrainBuff;
         internal static BuffDef limitBreakBuff;
         internal static BuffDef voidFormBuff;
+        internal static BuffDef elementalFusionFireBuff;
+        internal static BuffDef elementalFusionFreezeBuff;
+        internal static BuffDef elementalFusionShockBuff;
+        internal static BuffDef elementalFusionBuffStacks;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
@@ -137,6 +141,10 @@ namespace ShiggyMod.Modules
             ingrainBuff = Buffs.AddNewBuff("ingrain Buff", Assets.medkitBuffIcon, Color.green, false, false);
             limitBreakBuff = Buffs.AddNewBuff("limit Break Buff", Assets.lightningBuffIcon, Color.black, false, false);
             voidFormBuff = Buffs.AddNewBuff("void form Buff", Assets.voidFogDebuffIcon, Color.magenta, false, false);
+            elementalFusionFireBuff = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.red, false, false);
+            elementalFusionFreezeBuff = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.cyan, false, false);
+            elementalFusionShockBuff = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.yellow, false, false);
+            elementalFusionBuffStacks = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.white, true, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
             bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.green, true, true);

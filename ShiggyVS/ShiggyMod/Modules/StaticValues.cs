@@ -348,6 +348,8 @@ namespace ShiggyMod.Modules
         internal static float voidFormHealthCostCoefficient = 0.05f;
         internal static float voidFormThreshold = 1f;
 
+        internal static int elementalFusionThreshold = 5;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

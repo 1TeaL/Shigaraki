@@ -119,7 +119,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef windSlashDef;
         internal static SkillDef limitBreakDef;
         internal static SkillDef voidFormDef;
-        internal static SkillDef elementalFusionDef;
+        internal static SkillDef elementalFusionPassiveDef;
         internal static SkillDef decayPlusUltraDef;
         internal static SkillDef machPunchDef;
         internal static SkillDef rapidPierceDef;
@@ -2562,6 +2562,31 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "INGRAIN_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.IngrainPassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            }); 
+            elementalFusionPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "ELEMENTALFUSION_NAME",
+                skillNameToken = prefix + "ELEMENTALFUSION_NAME",
+                skillDescriptionToken = prefix + "ELEMENTALFUSION_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ElementalFusionPassive)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
