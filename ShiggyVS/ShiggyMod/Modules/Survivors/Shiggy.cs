@@ -2655,6 +2655,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { }
 
             });
+            doubleTimePassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "DOUBLETIME_NAME",
+                skillNameToken = prefix + "DOUBLETIME_NAME",
+                skillDescriptionToken = prefix + "DOUBLETIME_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.DoubleTimePassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
             #endregion
 
             #region Chosen Skills

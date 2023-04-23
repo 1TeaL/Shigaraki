@@ -1,5 +1,6 @@
 ﻿using R2API;
 using System;
+using UnityEngine.Bindings;
 
 namespace ShiggyMod.Modules
 {
@@ -377,6 +378,10 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "ELEMENTALFUSION_NAME", "Elemental Fusion");
             LanguageAPI.Add(prefix + "ELEMENTALFUSION_DESCRIPTION", $"Gain elemental power, with every {StaticValues.elementalFusionThreshold} hits <style=cIsDamage>burning, freezing or shocking enemies</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Gravitational Downforce]</style>");
+            LanguageAPI.Add(prefix + "DOUBLETIME_NAME", "Double Time");
+            LanguageAPI.Add(prefix + "DOUBLETIME_DESCRIPTION", $"Perceive time at a heightened speed. Nearby enemies' <style=cIsUtility>movespeed and attackspeed are slowed down by {StaticValues.doubleTimeSlowCoefficient * 100f}%</style>. Killing enemies grant <style=cIsDamage>{StaticValues.doubleTimeCoefficient * 100f}% damage, attackspeed and movespeed</style> additively. " +
+                $"Stacks are halved every {StaticValues.doubleTimeThreshold} seconds. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Omniboost]</style>");
             #endregion
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");

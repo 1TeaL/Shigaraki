@@ -127,6 +127,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(BarbedSpikesPassive));
             entityStates.Add(typeof(IngrainPassive));
             entityStates.Add(typeof(ElementalFusionPassive));
+            entityStates.Add(typeof(DoubleTimePassive));
         }
     }
 }
