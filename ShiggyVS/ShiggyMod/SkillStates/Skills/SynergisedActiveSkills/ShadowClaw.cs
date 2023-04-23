@@ -10,6 +10,7 @@ using ShiggyMod.Modules;
 using System;
 using Random = UnityEngine.Random;
 using EntityStates.ImpMonster;
+using R2API;
 
 namespace ShiggyMod.SkillStates
 {
@@ -77,6 +78,7 @@ namespace ShiggyMod.SkillStates
             blastAttack.damageType = damageType;
             blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
+            DamageAPI.AddModdedDamageType(blastAttack, Damage.shiggyDecay);
 
             this.modelTransform = base.GetModelTransform();
             if (this.modelTransform && BlinkState.destealthMaterial)

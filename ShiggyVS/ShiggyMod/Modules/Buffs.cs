@@ -63,10 +63,13 @@ namespace ShiggyMod.Modules
         internal static BuffDef elementalFusionFreezeBuff;
         internal static BuffDef elementalFusionShockBuff;
         internal static BuffDef elementalFusionBuffStacks;
+        internal static BuffDef doubleTimeBuff;
+        internal static BuffDef doubleTimeBuffStacks;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
         internal static BuffDef omniboostDebuffStacks;
+        internal static BuffDef doubleTimeDebuff;
 
         //survivor buffs
         internal static BuffDef acridBuff;
@@ -88,7 +91,7 @@ namespace ShiggyMod.Modules
         {
 
             airwalkBuff = Buffs.AddNewBuff("Fly Buff", Assets.jumpBuffIcon, Color.magenta, false, false);
-            beetleBuff = Buffs.AddNewBuff("Strength Buff", Assets.boostBuffIcon, Color.grey, false, false);
+            beetleBuff = Buffs.AddNewBuff("Strength Buff", Assets.boostBuffIcon, new Color(0.67f, 0.87f, 0.93f), false, false);
             alphashieldonBuff = Buffs.AddNewBuff("Alpha Construct Shield On", Assets.alphashieldonBuffIcon, Color.magenta, false, false);
             alphashieldoffBuff = Buffs.AddNewBuff("Alpha Construct Shield Off", Assets.alphashieldoffBuffIcon, Color.black, true, false);
             decayDebuff = Buffs.AddNewBuff("decay Debuff", Assets.decayBuffIcon, Color.magenta, true, true);
@@ -145,9 +148,12 @@ namespace ShiggyMod.Modules
             elementalFusionFreezeBuff = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.cyan, false, false);
             elementalFusionShockBuff = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.yellow, false, false);
             elementalFusionBuffStacks = Buffs.AddNewBuff("void form Buff", Assets.multiplierBuffIcon, Color.white, true, false);
+            doubleTimeBuff = Buffs.AddNewBuff("doubleTime Buff", Assets.warcryBuffIcon, Color.white, false, false);
+            doubleTimeBuffStacks = Buffs.AddNewBuff("double Time Buff Stacks", Assets.warcryBuffIcon, Color.yellow, true, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
             bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.green, true, true);
+            doubleTimeDebuff = Buffs.AddNewBuff("doubleTime Debuff", Assets.warcryBuffIcon, Color.black, false, true);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

@@ -303,6 +303,20 @@ namespace ShiggyMod
                         args.attackSpeedMultAdd += StaticValues.OFACoefficient;
                         args.moveSpeedMultAdd += StaticValues.OFACoefficient;
                     }
+                    //double time buff
+                    if (sender.HasBuff(Buffs.doubleTimeBuffStacks))
+                    {
+                        int doubletimeBuffcount = sender.GetBuffCount(Buffs.doubleTimeBuffStacks);
+                        args.damageMultAdd += StaticValues.doubleTimeCoefficient * doubletimeBuffcount;
+                        args.attackSpeedMultAdd += StaticValues.doubleTimeCoefficient * doubletimeBuffcount;
+                        args.moveSpeedMultAdd += StaticValues.doubleTimeCoefficient * doubletimeBuffcount;
+                    }
+                    //double time debuff
+                    if (sender.HasBuff(Buffs.doubleTimeDebuff))
+                    {
+                        args.attackSpeedMultAdd -= StaticValues.doubleTimeSlowCoefficient;
+                        args.moveSpeedMultAdd -= StaticValues.doubleTimeSlowCoefficient;
+                    }
 
 
                 }
@@ -768,6 +782,15 @@ namespace ShiggyMod
                     {
                         EnergySystem energySystem = damageReport.attackerBody.gameObject.GetComponent<EnergySystem>();
                         energySystem.GainplusChaos(energySystem.maxPlusChaos * StaticValues.killPlusChaosGain);
+                    }
+                }
+
+                if (damageReport.attackerBody.HasBuff(Buffs.doubleTimeBuff))
+                {
+                    if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
+                    {
+                        int doubleTimeStacksBuffCount = damageReport.attackerBody.GetBuffCount(Buffs.doubleTimeBuffStacks);
+                        damageReport.attackerBody.ApplyBuff(Buffs.doubleTimeBuffStacks.buffIndex, doubleTimeStacksBuffCount + 1);
                     }
                 }
 

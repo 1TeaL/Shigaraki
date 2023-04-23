@@ -350,6 +350,18 @@ namespace ShiggyMod.Modules
 
         internal static int elementalFusionThreshold = 5;
 
+        internal static float decayPlusUltraHealthCostCoefficient = 0.1f;
+        internal static float decayPlusUltraDuration = 1.5f;
+        internal static float decayPlusUltraDamageCoefficient = 10f;
+        internal static float decayPlusUltraProcCoefficient = 1f;
+        internal static float decayPlusUltraRadius = 50f;
+        internal static float decayPlusUltraForce = 500f;
+
+        internal static float doubleTimeCoefficient = 0.5f;
+        internal static float doubleTimeSlowCoefficient = 0.5f;
+        internal static float doubleTimeThreshold = 2f;
+        internal static float doubleTimeRadius = 15f;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

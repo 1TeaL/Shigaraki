@@ -135,6 +135,10 @@ namespace ShiggyMod.SkillStates
             }
         }
 
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.PrioritySkill;
+        }
 
     }
 

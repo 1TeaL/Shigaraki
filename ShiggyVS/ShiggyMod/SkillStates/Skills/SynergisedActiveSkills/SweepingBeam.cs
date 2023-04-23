@@ -126,6 +126,10 @@ namespace ShiggyMod.SkillStates
             this.direction = (Quaternion.Euler(0f, maxAngle/totalBullets, 0f) * this.direction).normalized;
 
         }
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.PrioritySkill;
+        }
 
     }
 }

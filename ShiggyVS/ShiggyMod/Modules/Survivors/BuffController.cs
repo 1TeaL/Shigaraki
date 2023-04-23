@@ -43,6 +43,8 @@ namespace ShiggyMod.Modules.Survivors
         private float stoneformStillbuffTimer;
         private float auraOfBlightTimer;
         private float barbedSpikesTimer;
+        private float doubleTimeTimer;
+        private float doubleTimeStacksTimer;
 
         private Ray downRay;
 		public GameObject mortarIndicatorInstance;
@@ -257,6 +259,34 @@ namespace ShiggyMod.Modules.Survivors
 			if (characterBody.hasEffectiveAuthority)
             {
                 //Buff effects
+
+                //double time slow effect
+                if(characterBody.HasBuff(Buffs.doubleTimeBuff))
+                {
+                    if(doubleTimeTimer < 1f)
+                    {
+                        doubleTimeTimer += Time.fixedDeltaTime;
+                    }
+                    else if (doubleTimeTimer >= 1f)
+                    {
+                        ApplyDoubleTimeDebuff();
+                        doubleTimeTimer = 0f;
+                    }
+                }
+                //double time buff removal
+                if (characterBody.HasBuff(Buffs.doubleTimeBuffStacks))
+                {
+                    if (doubleTimeStacksTimer < StaticValues.doubleTimeThreshold)
+                    {
+                        doubleTimeStacksTimer += Time.fixedDeltaTime;
+                    }
+                    else if (doubleTimeStacksTimer >= StaticValues.doubleTimeThreshold)
+                    {
+                        doubleTimeStacksTimer = 0f;
+                        int doubleTimeStacksBuffcount = characterBody.GetBuffCount(Buffs.doubleTimeBuffStacks);
+                        characterBody.ApplyBuff(Buffs.doubleTimeBuffStacks.buffIndex, Mathf.RoundToInt(doubleTimeStacksBuffcount/2));
+                    }
+                }
 
                 if (characterBody.HasBuff(Buffs.barbedSpikesBuff))
                 {
@@ -902,6 +932,47 @@ namespace ShiggyMod.Modules.Survivors
 
 		}
 
+        public void ApplyDoubleTimeDebuff()
+        {
+            BullseyeSearch search = new BullseyeSearch
+            {
+
+                teamMaskFilter = TeamMask.GetEnemyTeams(TeamIndex.Player),
+                filterByLoS = false,
+                searchOrigin = characterBody.corePosition,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = Modules.StaticValues.doubleTimeRadius,
+                maxAngleFilter = 360f
+            };
+
+            search.RefreshCandidates();
+            search.FilterOutGameObject(characterBody.gameObject);
+
+
+
+            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+            foreach (HurtBox singularTarget in target)
+            {
+                if (singularTarget)
+                {
+                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                    {
+                        singularTarget.healthComponent.body.ApplyBuff(Buffs.doubleTimeDebuff.buffIndex, 1, 2);
+                    }
+
+
+                    EffectManager.SpawnEffect(EntityStates.Commando.CommandoWeapon.FireShotgun.hitEffectPrefab, new EffectData
+                    {
+                        origin = singularTarget.transform.position,
+                        scale = 1f,
+                        rotation = Quaternion.identity
+
+                    }, true);
+
+                }
+            }
+        }
 
         public void ApplyBlight()
         {

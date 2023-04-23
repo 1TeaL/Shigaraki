@@ -312,13 +312,13 @@ namespace ShiggyMod.Modules
                 $"Release to claw nearby enemies for <style=cIsDamage>{StaticValues.shadowClawHits}x{100f * StaticValues.shadowClawDamageCoefficient}% damage</style>. " +
                 $"Kills reset all your cooldowns. Staying cloaked gradually slows your movespeed." +
                 $"Attackspeed increases the number of attacks. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Genesis] [RightHanded]</style>");
+                $"<style=cSub>[Genesis] [RightHanded]</style> <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "ORBITALSTRIKE_NAME", "Orbital Strike");
             LanguageAPI.Add(prefix + "ORBITALSTRIKE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to aim and release to call an orbital strike to a location, dealing <style=cIsDamage>{100f * StaticValues.orbitalStrikeDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Blast Burn] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "THUNDERCLAP_NAME", "Thunderclap");
             LanguageAPI.Add(prefix + "THUNDERCLAP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Dash forward while covered in electricity, dealing <style=cIsDamage>{100f * StaticValues.mercDamageCoefficient}% damage</style> and shock all enemies hit. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Mach Punch]</style>");
+                $"<style=cSub>[Mach Punch]</style> <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "BLASTBURN_NAME", "Blast Burn");
             LanguageAPI.Add(prefix + "BLASTBURN_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to radiate heat from your body, dealing <style=cIsDamage>{100f * StaticValues.blastBurnDamageCoefficient}% damage</style> in pulses, burning all enemies hit. The size of the blast increases after each pulse. " +
                 $"Attackspeed decreases the gap between pulses." + Environment.NewLine + Environment.NewLine +
@@ -330,7 +330,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "MECHSTANCE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Become <style=cIsUtility>immune to fall damage, walking causes quakes that deal {100f* StaticValues.mechStanceDamageCoefficient}% damage</style>. " +
                 $"However, jumping prevents you from gaining height. " +
                 $"Movespeed increases the size and damage of the quakes. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Blackhole Glaive]</style>");
+                $"<style=cSub>[Blackhole Glaive]</style> <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "WINDSLASH_NAME", "Wind Slash");
             LanguageAPI.Add(prefix + "WINDSLASH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Fire a wind of blades that deals <style=cIsDamage>8x{100f * StaticValues.windSlashDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wind Shield]</style>");
@@ -340,6 +340,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VOIDFORM_NAME", "Void Form");
             LanguageAPI.Add(prefix + "VOIDFORM_DESCRIPTION", $"Accept the void, constantly cleansing yourself, but " + Helpers.Damage($"taking {100f * StaticValues.voidFormHealthCostCoefficient}% of CURRENT health as damage every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Limit Break]</style>");
+            LanguageAPI.Add(prefix + "DECAYPLUSULTRA_NAME", "Decay Plus Ultra");
+            LanguageAPI.Add(prefix + "DECAYPLUSULTRA_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Push your body and Decay beyond their limits, dealing <style=cIsDamage>{100f * StaticValues.decayPlusUltraDamageCoefficient}% damage</style> in an enormous area. " + Helpers.Damage($"Take {100f * StaticValues.decayPlusUltraHealthCostCoefficient}% of MAX health as damage") + "." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Aura Of Blight]</style> <style=cWorldEvent>[Decay]</style>");
             #endregion
 
             #region Synergised Passive

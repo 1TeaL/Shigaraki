@@ -2375,6 +2375,56 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            voidFormDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "VOIDFORM_NAME",
+                skillNameToken = prefix + "VOIDFORM_NAME",
+                skillDescriptionToken = prefix + "VOIDFORM_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.VoidForm)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            decayPlusUltraDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "DECAYPLUSULTRA_NAME",
+                skillNameToken = prefix + "DECAYPLUSULTRA_NAME",
+                skillDescriptionToken = prefix + "DECAYPLUSULTRA_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.DecayPlusUltra)),
+                activationStateMachineName = "Body",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
             #endregion
 
 
@@ -2613,16 +2663,20 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
+                voidFormDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                ingrainPassiveDef
+                ingrainPassiveDef,
+                DekuOFADef,
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
+                elementalFusionPassiveDef,
+                limitBreakDef
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);
