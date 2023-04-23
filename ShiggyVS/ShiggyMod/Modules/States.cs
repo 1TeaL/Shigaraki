@@ -114,7 +114,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(BarrierJelly));
             entityStates.Add(typeof(MechStance));
             entityStates.Add(typeof(WindSlash));
-            entityStates.Add(typeof(LimiterRemoval));
+            entityStates.Add(typeof(LimitBreak));
 
             //synergy passive skills
             entityStates.Add(typeof(BigBangPassive));

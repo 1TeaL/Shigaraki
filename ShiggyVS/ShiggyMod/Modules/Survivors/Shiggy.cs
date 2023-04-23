@@ -117,7 +117,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef barrierJellyDef;
         internal static SkillDef mechStanceDef;
         internal static SkillDef windSlashDef;
-        internal static SkillDef limiterRemovalDef;
+        internal static SkillDef limitBreakDef;
 
         //synergy passive
         internal static SkillDef bigBangPassiveDef;
@@ -2325,13 +2325,13 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
-            limiterRemovalDef = Skills.CreateSkillDef(new SkillDefInfo
+            limitBreakDef = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "LIMITERREMOVAL_NAME",
-                skillNameToken = prefix + "LIMITERREMOVAL_NAME",
-                skillDescriptionToken = prefix + "LIMITERREMOVAL_DESCRIPTION",
+                skillName = prefix + "LIMITBREAK_NAME",
+                skillNameToken = prefix + "LIMITBREAK_NAME",
+                skillDescriptionToken = prefix + "LIMITBREAK_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.LimiterRemoval)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.LimitBreak)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,

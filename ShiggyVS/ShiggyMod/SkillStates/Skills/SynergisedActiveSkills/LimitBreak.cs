@@ -11,7 +11,7 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class LimiterRemoval : Skill
+    public class LimitBreak : Skill
     {
         //Deku one for all + multiplier
         public override void OnEnter()
@@ -29,14 +29,14 @@ namespace ShiggyMod.SkillStates
 
             }, true);
 
-            if (!characterBody.HasBuff(Buffs.limiterRemovalBuff.buffIndex))
+            if (!characterBody.HasBuff(Buffs.limitBreakBuff.buffIndex))
             {
-                characterBody.ApplyBuff(Buffs.limiterRemovalBuff.buffIndex, 1);
+                characterBody.ApplyBuff(Buffs.limitBreakBuff.buffIndex, 1);
             }
             else
-            if (characterBody.HasBuff(Buffs.limiterRemovalBuff.buffIndex))
+            if (characterBody.HasBuff(Buffs.limitBreakBuff.buffIndex))
             {
-                characterBody.ApplyBuff(Buffs.limiterRemovalBuff.buffIndex, 0);
+                characterBody.ApplyBuff(Buffs.limitBreakBuff.buffIndex, 0);
             }
         }
 

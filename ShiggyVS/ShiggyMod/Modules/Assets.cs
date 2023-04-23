@@ -76,7 +76,7 @@ namespace ShiggyMod.Modules
 
         //own material
         public static Material multiplierShieldBuffMat;
-        public static Material limiterRemovalBuffMat; //need to clone multiplier buff and have different colour or have diff anim
+        public static Material limitBreakBuffMat; //need to clone multiplier buff and have different colour or have diff anim
 
         //own effects
         public static GameObject decayattackEffect;
@@ -217,7 +217,7 @@ namespace ShiggyMod.Modules
 
             //multiplier effect
             multiplierShieldBuffMat = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
-            limiterRemovalBuffMat = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
+            limitBreakBuffMat = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
 
 
             PopulateEffects();

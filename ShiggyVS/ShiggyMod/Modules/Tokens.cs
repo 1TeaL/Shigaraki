@@ -334,8 +334,8 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "WINDSLASH_NAME", "Wind Slash");
             LanguageAPI.Add(prefix + "WINDSLASH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Fire a wind of blades that deals <style=cIsDamage>8x{100f * StaticValues.windSlashDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wind Shield]</style>");
-            LanguageAPI.Add(prefix + "LIMITERREMOVAL_NAME", "Limiter Removal");
-            LanguageAPI.Add(prefix + "LIMITERREMOVAL_DESCRIPTION", $"Break your limits, boosting Damage, Attackspeed and Armor by {StaticValues.limiterRemovalCoefficient}x multiplicatively, " + Helpers.Damage($"taking {100f * StaticValues.limiterRemovalHealthCostCoefficient}% of MAX health as damage every time you hit an enemy ") + "." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "LIMITBREAK_NAME", "Limit Break");
+            LanguageAPI.Add(prefix + "LIMITBREAK_DESCRIPTION", $"Break your limits, boosting Damage by {StaticValues.LIMITBREAKCoefficient}x multiplicatively, " + Helpers.Damage($"taking {100f * StaticValues.LIMITBREAKHealthCostCoefficient}% of MAX health as damage every time you hit an enemy ") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Multiplier]</style>");
             #endregion
 
@@ -348,7 +348,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Big Bang]</style>");
             LanguageAPI.Add(prefix + "OMNIBOOST_NAME", "Omniboost");
-            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Killing an enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per kill</style>. " + 
+            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>. " + 
                 Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Double Time]</style>");
             LanguageAPI.Add(prefix + "GACHA_NAME", "Gacha");

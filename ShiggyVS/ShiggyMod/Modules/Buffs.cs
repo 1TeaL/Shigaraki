@@ -57,10 +57,11 @@ namespace ShiggyMod.Modules
         internal static BuffDef auraOfBlightBuff;
         internal static BuffDef barbedSpikesBuff;
         internal static BuffDef ingrainBuff;
-        internal static BuffDef limiterRemovalBuff;
+        internal static BuffDef limitBreakBuff;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
+        internal static BuffDef omniboostDebuffStacks;
 
         //survivor buffs
         internal static BuffDef acridBuff;
@@ -124,6 +125,7 @@ namespace ShiggyMod.Modules
             wisperBuff = Buffs.AddNewBuff("wisperBuff", Assets.multiplierBuffIcon, new Color(0.52f, 0.48f, 0.39f), false, false);
             omniboostBuff = Buffs.AddNewBuff("omniboost Buff", Assets.boostBuffIcon, Color.white, false, false);
             omniboostBuffStacks = Buffs.AddNewBuff("omniboost Buff stacks", Assets.boostBuffIcon, Color.gray, true, false);
+            omniboostDebuffStacks = Buffs.AddNewBuff("omniboost Debuff stacks", Assets.boostBuffIcon, Color.black, true, true);
             gachaBuff = Buffs.AddNewBuff("gacha Buff", Assets.attackspeedBuffIcon, Color.yellow, true, false);
             windShieldBuff = Buffs.AddNewBuff("windShield Buff", Assets.shieldBuffIcon, Color.white, false, false);
             stoneFormBuff = Buffs.AddNewBuff("stoneForm Buff", Assets.shieldBuffIcon, Color.grey, false, false);
@@ -132,7 +134,7 @@ namespace ShiggyMod.Modules
             auraOfBlightBuff = Buffs.AddNewBuff("AuraOfPoison Buff", Assets.bleedBuffIcon, Color.yellow, false, false);
             barbedSpikesBuff = Buffs.AddNewBuff("barbedSpikes Buff", Assets.spikyDebuffIcon, Color.grey, false, false);
             ingrainBuff = Buffs.AddNewBuff("ingrain Buff", Assets.medkitBuffIcon, Color.green, false, false);
-            limiterRemovalBuff = Buffs.AddNewBuff("limiterRemoval Buff", Assets.lightningBuffIcon, Color.black, false, false);
+            limitBreakBuff = Buffs.AddNewBuff("LIMITBREAK Buff", Assets.lightningBuffIcon, Color.black, false, false);
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
             bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.green, true, true);

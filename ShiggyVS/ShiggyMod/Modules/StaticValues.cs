@@ -257,6 +257,7 @@ namespace ShiggyMod.Modules
 
         internal const float omniboostBuffCoefficient = 0.3f;
         internal const float omniboostBuffStackCoefficient = 0.05f;
+        internal const int omniboostNumberOfHits = 3;
         internal const float omniboostBuffTimer = 6f;
 
         internal const float gravitationalDownforceDamageCoefficient = 2f;
@@ -337,12 +338,12 @@ namespace ShiggyMod.Modules
 
         internal static float windSlashDamageCoefficient = 1f;
 
-        internal static float OFACoefficient = 0.5f;
+        internal static float OFACoefficient = 1f;
         internal static float OFAThreshold = 1f;
         internal static float OFAHealthCostCoefficient = 0.1f;
 
-        internal static float limiterRemovalCoefficient = 2f;
-        internal static float limiterRemovalHealthCostCoefficient = 0.05f;
+        internal static float LIMITBREAKCoefficient = 5f;
+        internal static float LIMITBREAKHealthCostCoefficient = 0.05f;
 
         public enum IndicatorType : uint
         {

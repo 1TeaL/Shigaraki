@@ -299,7 +299,6 @@ namespace ShiggyMod
                     //ofa buff
                     if (sender.HasBuff(Buffs.OFABuff))
                     {
-                        args.damageMultAdd += StaticValues.OFACoefficient;
                         args.armorAdd += sender.armor * (1 + StaticValues.OFACoefficient);
                         args.attackSpeedMultAdd += StaticValues.OFACoefficient;
                         args.moveSpeedMultAdd += StaticValues.OFACoefficient;
@@ -467,6 +466,31 @@ namespace ShiggyMod
                         }
                     }
 
+                    //omniboost buff stacks
+                    if (body.HasBuff(Buffs.omniboostBuff))
+                    {
+                        //add a debuff stack to the enemy, after 3 stacks gain your own buff stack
+                        var omnidebuffCount = victimBody.GetBuffCount(Buffs.omniboostDebuffStacks);
+                        if(omnidebuffCount < StaticValues.omniboostNumberOfHits)
+                        {
+                            victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, omnidebuffCount + 1);
+
+                            if(omnidebuffCount >= StaticValues.omniboostNumberOfHits)
+                            {
+                                var omniBuffCount = body.GetBuffCount(Buffs.omniboostBuffStacks);
+                                body.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
+                                victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
+
+                            }
+                        }
+                        else if (omnidebuffCount > StaticValues.omniboostNumberOfHits)
+                        {
+                            var omniBuffCount = body.GetBuffCount(Buffs.omniboostBuffStacks);
+                            body.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
+                            victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
+                        }
+
+                    }
                     //bigbang buff
                     if (body.HasBuff(Modules.Buffs.bigbangBuff))
                     {
@@ -477,8 +501,35 @@ namespace ShiggyMod
                             if (bigbangCount < StaticValues.bigbangBuffThreshold)
                             {
                                 victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, bigbangCount + 1);
+                                if (bigbangCount >= StaticValues.bigbangBuffThreshold)
+                                {
+                                    victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, 0);
+                                    if (EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab)
+                                    {
+                                        EffectManager.SpawnEffect(EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab, new EffectData
+                                        {
+                                            origin = victimBody.transform.position,
+                                            scale = StaticValues.bigbangBuffRadius * body.attackSpeed / 3
+                                        }, true);
+                                    }
+                                    new BlastAttack
+                                    {
+                                        crit = false,
+                                        attacker = damageInfo.attacker.gameObject,
+                                        teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
+                                        falloffModel = BlastAttack.FalloffModel.None,
+                                        baseDamage = victimBody.healthComponent.fullCombinedHealth * StaticValues.bigbangBuffHealthCoefficient,
+                                        damageType = DamageType.Stun1s,
+                                        damageColorIndex = DamageColorIndex.Default,
+                                        baseForce = 0,
+                                        position = victimBody.transform.position,
+                                        radius = StaticValues.bigbangBuffRadius * body.attackSpeed / 3,
+                                        procCoefficient = 0f,
+                                        attackerFiltering = AttackerFiltering.NeverHitSelf,
+                                    }.Fire();
+                                }
                             }
-                            else if (bigbangCount >= StaticValues.bigbangBuffThreshold)
+                            else if (bigbangCount > StaticValues.bigbangBuffThreshold)
                             {
                                 victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, 0);
                                 if (EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab)
@@ -592,16 +643,6 @@ namespace ShiggyMod
                     }
                 }
 
-                //omniboost buff stacks
-                if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
-                {
-                    if (damageReport.attackerBody.HasBuff(Buffs.omniboostBuff))
-                    {
-                        var omniBuffCount = damageReport.attackerBody.GetBuffCount(Buffs.omniboostBuffStacks);
-
-                        damageReport.attackerBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
-                    }
-                }
             }
         }
 
@@ -648,11 +689,11 @@ namespace ShiggyMod
 
 
                     //limiter removal buff health cost
-                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.limiterRemovalBuff))
+                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.limitBreakBuff))
                     {
                         if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT && ((damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic))
                         {
-                            new SpendHealthNetworkRequest(damageInfo.attacker.GetComponent<CharacterBody>().masterObjectId, damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.limiterRemovalHealthCostCoefficient).Send(NetworkDestination.Clients);
+                            new SpendHealthNetworkRequest(damageInfo.attacker.GetComponent<CharacterBody>().masterObjectId, damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.LIMITBREAKHealthCostCoefficient).Send(NetworkDestination.Clients);
                         }
                     }
                     //multiplier spend energy
@@ -780,14 +821,12 @@ namespace ShiggyMod
                                 rotation = Quaternion.LookRotation(self.transform.position)
 
                             }, true);
-
-                            
-
-                        }                     
-
-
-
+                                                     
+                        }               
                     }
+
+                    
+
                     //jellyfish heal stacks
                     if (self.body.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
                     {
@@ -901,9 +940,7 @@ namespace ShiggyMod
                 //limiter removal buff
                 if (self.HasBuff(Buffs.OFABuff))
                 {
-                    self.damage *= StaticValues.limiterRemovalCoefficient;
-                    self.armor *= StaticValues.limiterRemovalCoefficient;
-                    self.attackSpeed *= StaticValues.limiterRemovalCoefficient;
+                    self.damage *= StaticValues.LIMITBREAKCoefficient;
                 }
 
                 if (self.HasBuff(Buffs.grovetenderChainDebuff))
@@ -995,7 +1032,7 @@ namespace ShiggyMod
                 {
                     this.OverlayFunction(Modules.Assets.alphaconstructShieldBuffMat, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
                     this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
-                    this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.limiterRemovalBuff), self);
+                    this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.limitBreakBuff), self);
                 }
             }
         }
