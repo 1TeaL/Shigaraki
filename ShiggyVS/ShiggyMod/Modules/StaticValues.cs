@@ -181,6 +181,7 @@ namespace ShiggyMod.Modules
 
         internal const int grovetenderDuration = 6;
         internal const float grovetenderRadius = 15f;
+        internal const float grovetenderDamageCoefficient = 1f;
 
         internal const float claydunestriderDamageCoefficient = 8f;
         internal const float claydunestriderProcCoefficient = 1f;
@@ -342,7 +343,7 @@ namespace ShiggyMod.Modules
         internal static float OFAThreshold = 1f;
         internal static float OFAHealthCostCoefficient = 0.1f;
 
-        internal static float limitBreakCoefficient = 5f;
+        internal static float limitBreakCoefficient = 3f;
         internal static float limitBreakHealthCostCoefficient = 0.05f;
 
         internal static float voidFormHealthCostCoefficient = 0.025f;
@@ -364,6 +365,14 @@ namespace ShiggyMod.Modules
 
         internal static float blindSensesBlockChance = 20f;
         internal static float blindSensesDamageCoefficient = 1f;
+
+        internal static float machPunchDamageCoefficient = 6f;
+        internal static float machPunchProcCoefficient = 1f;
+        internal static float machPunchForce = 600f;
+        internal static int machPunchBaseMaxCharge = 3;
+        internal static float machPunchBaseDistance = 2f;
+        internal static float machPunchRadius = 2f;
+
 
         public enum IndicatorType : uint
         {

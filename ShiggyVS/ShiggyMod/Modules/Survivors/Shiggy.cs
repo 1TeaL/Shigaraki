@@ -2688,18 +2688,21 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
-                decayPlusUltraDef
+                jellyfishHealDef,
+                lunarexploderpassiveDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                limitBreakDef,
+                lunargolemSlideDef,
+                grovetenderChainDef,
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
-                elementalFusionPassiveDef,
+                alloyvultureWindBlastDef,
+                loaderpassiveDef,
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);

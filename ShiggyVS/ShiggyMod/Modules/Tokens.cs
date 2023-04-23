@@ -216,7 +216,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "GRANDPARENT_DESCRIPTION", $"Hold the button to summon a miniature sun. Sprinting or letting go of the button cancels the skill. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[RightHanded]</style>");
             LanguageAPI.Add(prefix + "GROVETENDER_NAME", "Chain");
-            LanguageAPI.Add(prefix + "GROVETENDER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> <style=cIsUtility>Chain</style> nearby enemies for <style=cIsUtility>{StaticValues.grovetenderDuration} seconds, immobilising them</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "GROVETENDER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> <style=cIsUtility>Chain</style> nearby enemies for <style=cIsUtility>{StaticValues.grovetenderDuration} seconds, gathering them in front of you and immobilising them</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Greater Wisp] [LeftHanded]</style>");
             LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_NAME", "Tar boost");
             LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_DESCRIPTION", $"<style=cIsDamage>Agile.</style> For the next {StaticValues.claydunestriderbuffDuration} seconds, your attacks <style=cIsDamage>Tar</style>, gain <style=cIsHealing>{100f * StaticValues.claydunestriderHealCoefficient} Lifesteal</style> and <style=cIsUtility>{100f * StaticValues.claydunestriderAttackSpeed}% attackspeed</style>. " +

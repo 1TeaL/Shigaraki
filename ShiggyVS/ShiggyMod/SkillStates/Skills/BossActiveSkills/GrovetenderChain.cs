@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using IL.RoR2.UI;
 using R2API.Networking;
+using ShiggyMod.Modules.Networking;
+using ShiggyMod.Modules;
+using R2API.Networking.Interfaces;
 
 namespace ShiggyMod.SkillStates
 {
@@ -37,7 +40,6 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            ChainNearby();
             this.modelAnimator = base.GetModelAnimator();
             ChildLocator component = this.modelAnimator.GetComponent<ChildLocator>();
             if (component)
@@ -50,6 +52,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
+
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -65,13 +68,17 @@ namespace ShiggyMod.SkillStates
 
         public void ChainNearby()
         {
+
             Ray aimRay = base.GetAimRay();
+
+            new PerformForceNetworkRequest(characterBody.masterObjectId, base.GetAimRay().origin + GetAimRay().direction * radius, base.GetAimRay().direction, 0f, characterBody.damage * Modules.StaticValues.grovetenderDamageCoefficient, 360f, true).Send(NetworkDestination.Clients);
+
             BullseyeSearch search = new BullseyeSearch
             {
 
                 teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
                 filterByLoS = false,
-                searchOrigin = aimRay.origin,
+                searchOrigin = aimRay.origin + GetAimRay().direction * radius,
                 searchDirection = UnityEngine.Random.onUnitSphere,
                 sortMode = BullseyeSearch.SortMode.Distance,
                 maxDistanceFilter = radius,
