@@ -481,6 +481,11 @@ namespace ShiggyMod
                                 body.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
                                 victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
 
+                                EffectManager.SpawnEffect(EntityStates.Wisp1Monster.FireEmbers.hitEffectPrefab, new EffectData
+                                {
+                                    origin = victimBody.transform.position,
+                                    scale = 1f
+                                }, false);
                             }
                         }
                         else if (omnidebuffCount > StaticValues.omniboostNumberOfHits)
@@ -488,6 +493,12 @@ namespace ShiggyMod
                             var omniBuffCount = body.GetBuffCount(Buffs.omniboostBuffStacks);
                             body.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
                             victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
+
+                            EffectManager.SpawnEffect(EntityStates.Wisp1Monster.FireEmbers.hitEffectPrefab, new EffectData
+                            {
+                                origin = victimBody.transform.position,
+                                scale = 1f
+                            }, false);
                         }
 
                     }

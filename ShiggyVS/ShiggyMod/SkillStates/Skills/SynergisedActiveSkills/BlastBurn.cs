@@ -9,6 +9,7 @@ using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
 using R2API.Networking;
 using System;
+using EntityStates.LemurianMonster;
 
 namespace ShiggyMod.SkillStates
 {
@@ -19,7 +20,9 @@ namespace ShiggyMod.SkillStates
         public float fireInterval;
         public float stopwatch;
         public float radius;
+        private string muzzleString = "RHand";
 
+        private GameObject chargeVfxInstance;
         public override void OnEnter()
         {
             base.OnEnter();
@@ -44,12 +47,21 @@ namespace ShiggyMod.SkillStates
             blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
             //play anim
+            if (transform && ChargeFireball.chargeVfxPrefab)
+            {
+                this.chargeVfxInstance = UnityEngine.Object.Instantiate<GameObject>(ChargeFireball.chargeVfxPrefab, FindModelChild(this.muzzleString).position, Util.QuaternionSafeLookRotation(aimRay.direction));
+                this.chargeVfxInstance.transform.parent = FindModelChild(this.muzzleString).transform;
+            }
 
         }
 
         public override void OnExit()
         {
             base.OnExit();
+            if (this.chargeVfxInstance)
+            {
+                EntityState.Destroy(this.chargeVfxInstance);
+            }
 
         }
 
@@ -74,6 +86,7 @@ namespace ShiggyMod.SkillStates
 
                     blastAttack.position = aimRay.origin;
                     blastAttack.Fire();
+                    EffectManager.SimpleMuzzleFlash(FireFireball.effectPrefab, base.gameObject, muzzleString, false);
 
                     //increment radius size after each attack
                     radius += StaticValues.blastBurnIncrementRadius;
