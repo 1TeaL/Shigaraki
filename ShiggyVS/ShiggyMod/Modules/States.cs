@@ -121,6 +121,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(RapidPierce));
             entityStates.Add(typeof(TheWorld));
             entityStates.Add(typeof(TheWorldFreeze));
+            entityStates.Add(typeof(ExtremeSpeed));
 
             //synergy passive skills
             entityStates.Add(typeof(BigBangPassive));
@@ -134,6 +135,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(ElementalFusionPassive));
             entityStates.Add(typeof(DoubleTimePassive));
             entityStates.Add(typeof(BlindSensesPassive));
+            entityStates.Add(typeof(SupernovaPassive));
         }
     }
 }

@@ -28,6 +28,7 @@ using System;
 using RoR2.Items;
 using R2API.Networking.Interfaces;
 using EntityStates.VagrantMonster;
+using ShiggyMod.Modules.Networking;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -119,6 +120,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<SpendHealthNetworkRequest>();
             NetworkingAPI.RegisterMessageType<DisableSlideStateMachine>();
             NetworkingAPI.RegisterMessageType<SetTheWorldFreezeOnBodyRequest>();
+            NetworkingAPI.RegisterMessageType<TakeDamageForceRequest>();
 
 
 

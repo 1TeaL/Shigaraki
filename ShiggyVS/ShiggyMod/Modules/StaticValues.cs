@@ -386,6 +386,13 @@ namespace ShiggyMod.Modules
         internal static float supernovaProcCoefficient = 3f;
         internal static float supernovaHealthThreshold = 0.75f;
 
+        internal static float extremeSpeedDistance = 20f;
+        internal static float extremeSpeedDamageCoefficient = 2f;
+        internal static float extremeSpeedProcCoefficient = 0.2f;
+        internal static int extremeSpeedNumberOfHits = 5;
+        internal static float extremeSpeedIntervals = 0.3f;
+        internal static float extremeSpeedForce = 20f;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

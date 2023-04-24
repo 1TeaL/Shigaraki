@@ -78,6 +78,7 @@ namespace ShiggyMod.Modules
 
         //ultimate debuffs
         internal static BuffDef theWorldDebuff;
+        internal static BuffDef extremeSpeedHitsDebuff;
 
         //survivor buffs
         internal static BuffDef acridBuff;
@@ -160,6 +161,7 @@ namespace ShiggyMod.Modules
             doubleTimeBuffStacks = Buffs.AddNewBuff("double Time Buff Stacks", Assets.warcryBuffIcon, Color.yellow, true, false);
             blindSensesBuff = Buffs.AddNewBuff("blindSenses Buff", Assets.cloakBuffIcon, Color.green, false, false);
             supernovaBuff = Buffs.AddNewBuff("supernova Buff Stacks", Assets.singularityBuffIcon, Color.cyan, true, false);
+            extremeSpeedHitsDebuff = Buffs.AddNewBuff("extremeSpeedHits Debuff", Assets.crippleBuffIcon, Color.magenta, true, true);
 
             theWorldBuff = Buffs.AddNewBuff("The World Buff", Assets.resonanceBuffIcon, Color.yellow, false, false);
             theWorldDebuff = Buffs.AddNewBuff("The World Debuff", Assets.resonanceBuffIcon, Color.black, false, true);

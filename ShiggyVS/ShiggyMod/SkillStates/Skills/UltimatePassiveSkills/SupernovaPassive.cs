@@ -13,6 +13,7 @@ namespace ShiggyMod.SkillStates
 {
     public class SupernovaPassive : Skill
     {
+        //big bang + wisper
         public override void OnEnter()
         {
             base.OnEnter();
