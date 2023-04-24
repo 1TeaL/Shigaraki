@@ -11,15 +11,14 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ads : Skill
+    public class SupernovaPassive : Skill
     {
-        //Greater wisp + grovetender
         public override void OnEnter()
         {
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.ApplyBuff(Modules.Buffs.wisperBuff.buffIndex, 1);
+                characterBody.ApplyBuff(Modules.Buffs.supernovaBuff.buffIndex, 1);
             }
         }
 

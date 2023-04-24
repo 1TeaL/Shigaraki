@@ -27,6 +27,7 @@ using ShiggyMod.Modules.Networking;
 using System;
 using RoR2.Items;
 using R2API.Networking.Interfaces;
+using EntityStates.VagrantMonster;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -906,7 +907,7 @@ namespace ShiggyMod
 
                     //for self damage
                     bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
-                    if (!flag && damageInfo.damage > 0f)
+                    if (!flag && damageInfo.damage > 0f && damageInfo.attacker.gameObject.GetComponent<CharacterBody>() != self.body)
                     {
                         if (self.body.HasBuff(Buffs.blindSensesBuff.buffIndex))
                         {
@@ -1037,19 +1038,16 @@ namespace ShiggyMod
                         //alpha construct shield
                         if (self.body.HasBuff(Modules.Buffs.alphashieldonBuff.buffIndex))
                         {
-                            if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                                != self.body.baseNameToken)
+                            EffectData effectData2 = new EffectData
                             {
-                                EffectData effectData2 = new EffectData
-                                {
-                                    origin = damageInfo.position,
-                                    rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
-                                };
-                                EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
-                                damageInfo.rejected = true;
-                                self.body.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 0);
-                                self.body.ApplyBuff(Modules.Buffs.alphashieldoffBuff.buffIndex, StaticValues.alphaconstructCooldown);
-                            }
+                                origin = damageInfo.position,
+                                rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
+                            };
+                            EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearVoidEffectPrefab, effectData2, true);
+                            damageInfo.rejected = true;
+                            self.body.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 0);
+                            self.body.ApplyBuff(Modules.Buffs.alphashieldoffBuff.buffIndex, StaticValues.alphaconstructCooldown);
+                            
 
                         }
                         //spike buff
@@ -1090,22 +1088,81 @@ namespace ShiggyMod
                         }               
                     }
 
-                    
+
+                    //supernova stacks
+                    if (self.body.HasBuff(Modules.Buffs.supernovaBuff.buffIndex))
+                    {
+                        
+                        int currentStacks = self.body.GetBuffCount(Buffs.supernovaBuff.buffIndex) - 1;
+                        int damageDealt = Mathf.RoundToInt(damageInfo.damage);
+
+                        int buffTotal = (damageDealt) + currentStacks;
+
+                  
+
+                        if(buffTotal < Mathf.RoundToInt(StaticValues.supernovaHealthThreshold * self.body.healthComponent.fullCombinedHealth))
+                        {
+                            self.body.ApplyBuff(Modules.Buffs.supernovaBuff.buffIndex, buffTotal);
+                        }
+                        else if (buffTotal >= Mathf.RoundToInt(StaticValues.supernovaHealthThreshold * self.body.healthComponent.fullCombinedHealth))
+                        {
+                            self.body.ApplyBuff(Modules.Buffs.supernovaBuff.buffIndex, 1);
+
+                            Vector3 position = base.transform.position;
+                            Util.PlaySound(FireMegaNova.novaSoundString, self.body.gameObject);
+                            EffectManager.SpawnEffect(FireMegaNova.novaEffectPrefab, new EffectData
+                            {
+                                origin = position,
+                                scale = 1f,
+                                rotation = Quaternion.LookRotation(self.transform.position)
+
+                            }, false);
+
+                            Transform modelTransform = self.body.gameObject.GetComponent<ModelLocator>().modelTransform;
+                            if (modelTransform)
+                            {
+                                TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                                temporaryOverlay.duration = 3f;
+                                temporaryOverlay.animateShaderAlpha = true;
+                                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                                temporaryOverlay.destroyComponentOnEnd = true;
+                                temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matVagrantEnergized");
+                                temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
+                            }
+                            new BlastAttack
+                            {
+                                attacker = base.gameObject,
+                                baseDamage = self.body.damage* StaticValues.supernovaDamageCoefficient,
+                                baseForce = FireMegaNova.novaForce,
+                                bonusForce = Vector3.zero,
+                                attackerFiltering = AttackerFiltering.NeverHitSelf,
+                                crit = self.body.RollCrit(),
+                                damageColorIndex = DamageColorIndex.Default,
+                                damageType = DamageType.Generic,
+                                falloffModel = BlastAttack.FalloffModel.None,
+                                inflictor = self.body.gameObject,
+                                position = position,
+                                procChainMask = default(ProcChainMask),
+                                procCoefficient = StaticValues.supernovaProcCoefficient,
+                                radius = StaticValues.supernovaRadius,
+                                losType = BlastAttack.LoSType.NearestHit,
+                                teamIndex = self.body.teamComponent.teamIndex,
+                                impactEffect = EffectCatalog.FindEffectIndexFromPrefab(FireMegaNova.novaImpactEffectPrefab)
+                            }.Fire();
+                            
+                        }
+                    }
 
                     //jellyfish heal stacks
                     if (self.body.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
                     {
-                        if (damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken
-                            != self.body.baseNameToken)
-                        {
-                            int currentStacks = self.body.GetBuffCount(Buffs.jellyfishHealStacksBuff.buffIndex) - 1;
-                            int damageDealt = Mathf.RoundToInt(damageInfo.damage);
+                        int currentStacks = self.body.GetBuffCount(Buffs.jellyfishHealStacksBuff.buffIndex) - 1;
+                        int damageDealt = Mathf.RoundToInt(damageInfo.damage);
 
-                            int buffTotal = (damageDealt) / 2 + currentStacks;
+                        int buffTotal = (damageDealt) / 2 + currentStacks;
 
 
-                            self.body.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, buffTotal);
-                        }
+                        self.body.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, buffTotal);                       
 
                     }
                     //expunge damage bonus

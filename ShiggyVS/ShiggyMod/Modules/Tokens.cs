@@ -395,11 +395,12 @@ namespace ShiggyMod.Modules
 
             #region Ultimate Actives
             LanguageAPI.Add(prefix + "THEWORLD_NAME", "The World");
-            LanguageAPI.Add(prefix + "THEWORLD_DESCRIPTION", $"Break the rules of The World. <style=cIsUtility>Stop Time, preventing all enemies around you from moving and attacking. Projectiles are also frozen</style>. " + Helpers.Passive($"Drains plus chaos while active") +"." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub></style>");
+            LanguageAPI.Add(prefix + "THEWORLD_DESCRIPTION", $"Break the rules of The World. <style=cIsUtility>Stop Time, preventing all enemies around you from moving and attacking. Projectiles are also frozen</style>. " + Helpers.Passive($"Drains plus chaos while active") +".");
             #endregion
 
             #region Ultimate Passives
+            LanguageAPI.Add(prefix + "SUPERNOVA_NAME", "Supernova");
+            LanguageAPI.Add(prefix + "SUPERNOVA_DESCRIPTION", $"Absorb the damage you take, charging a supernova within you. When total damage is greater than <style=cIsUtility>{StaticValues.supernovaHealthThreshold* 100f}% of your MAX health</style>, unleash a colossal explosion, dealing <style=cIsDamage>{StaticValues.supernovaDamageCoefficient* 100f}% damage</style> in a large area around you. ");
             #endregion
 
             #region Achievements

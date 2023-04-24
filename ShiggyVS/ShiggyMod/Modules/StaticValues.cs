@@ -380,6 +380,10 @@ namespace ShiggyMod.Modules
         internal static float overclockCoefficient = 10f;
         internal static float overclockEnergyCost = 0.2f;
 
+        internal static float supernovaDamageCoefficient = 20f;
+        internal static float supernovaRadius = 50f;
+        internal static float supernovaProcCoefficient = 3f;
+        internal static float supernovaHealthThreshold = 0.75f;
 
         public enum IndicatorType : uint
         {
