@@ -298,7 +298,8 @@ namespace ShiggyMod.Modules
         internal const float orbitalStrikeDamageCoefficient = 15f;
         internal const float orbitalStrikeMaxDistance = 150f;
 
-        internal const float thunderclapDamageCoefficient = 5f;
+        internal const float thunderclapDamageCoefficient = 2f;
+        internal const float thunderclapRadius = 7f;
         internal const float thunderclapprocCoefficient = 1f;
         internal const float thunderclappushForce = 300f;
         public static Vector3 thunderclapbonusForce = Vector3.zero;

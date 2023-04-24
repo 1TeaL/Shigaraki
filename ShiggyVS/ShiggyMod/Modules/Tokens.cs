@@ -318,7 +318,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "ORBITALSTRIKE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to aim and release to call an orbital strike to a location, dealing <style=cIsDamage>{100f * StaticValues.orbitalStrikeDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Blast Burn] [RightHanded]</style>");
             LanguageAPI.Add(prefix + "THUNDERCLAP_NAME", "Thunderclap");
-            LanguageAPI.Add(prefix + "THUNDERCLAP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Dash forward while covered in electricity, dealing <style=cIsDamage>{100f * StaticValues.mercDamageCoefficient}% damage</style> and shock all enemies hit. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "THUNDERCLAP_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Dash forward while covered in electricity, shocking enemies for <style=cIsDamage>{100f * StaticValues.mercDamageCoefficient}% damage</style> and releasing a blast of electricity at the end. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Mach Punch]</style> <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "BLASTBURN_NAME", "Blast Burn");
             LanguageAPI.Add(prefix + "BLASTBURN_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to radiate heat from your body, dealing <style=cIsDamage>{100f * StaticValues.blastBurnDamageCoefficient}% damage</style> in pulses, burning all enemies hit. The size of the blast increases after each pulse. " +

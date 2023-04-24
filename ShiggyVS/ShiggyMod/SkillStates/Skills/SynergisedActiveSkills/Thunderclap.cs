@@ -13,6 +13,8 @@ using EntityStates.Treebot.Weapon;
 using RoR2.Audio;
 using ShiggyMod.Modules;
 using R2API;
+using HG;
+using UnityEngine.UIElements;
 
 namespace ShiggyMod.SkillStates
 {
@@ -33,6 +35,7 @@ namespace ShiggyMod.SkillStates
         protected float attackEndTime = StaticValues.thunderclapattackEndTime;
         protected float hitStopDuration = StaticValues.thunderclaphitStopDuration;
         protected float attackRecoil = StaticValues.thunderclapattackRecoil;
+        protected float radius = StaticValues.thunderclapRadius;
 
         protected string swingSoundString = "";
         protected string hitSoundString = "";
@@ -58,6 +61,7 @@ namespace ShiggyMod.SkillStates
         private Vector3 dashVector;
         private float speedCoefficient = StaticValues.thunderclapSpeedCoefficient;
         private float speedCoefficientOnExit = StaticValues.thunderclapSpeedCoefficientOnExit;
+        private BlastAttack blastAttack;
 
         private Vector3 dashVelocity
         {
@@ -131,6 +135,22 @@ namespace ShiggyMod.SkillStates
             Util.PlaySound(Evis.beginSoundString, base.gameObject);
             Util.PlaySound(EvisDash.beginSoundString, base.gameObject);
 
+            //blast attack for end 
+            blastAttack = new BlastAttack();
+            blastAttack.radius = radius;
+            blastAttack.procCoefficient = procCoefficient;
+            blastAttack.position = base.characterBody.corePosition;
+            blastAttack.attacker = base.gameObject;
+            blastAttack.crit = characterBody.RollCrit();
+            blastAttack.baseDamage = damageStat * damageCoefficient;
+            blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+            blastAttack.baseForce = 400f;
+            blastAttack.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
+            blastAttack.damageType = damageType;
+            blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+
+            DamageAPI.AddModdedDamageType(blastAttack, Damage.shiggyDecay);
+
         }
 
         private void CreateBlinkEffect(Vector3 origin)
@@ -150,8 +170,17 @@ namespace ShiggyMod.SkillStates
             {
                 base.characterBody.RemoveBuff(RoR2Content.Buffs.HiddenInvincibility);
             }
+            //blast attack at the end
+            blastAttack.position = characterBody.corePosition;
+            blastAttack.Fire();
+            EffectManager.SpawnEffect(Assets.lightningNovaEffectPrefab, new EffectData
+            {
+                origin = characterBody.corePosition,
+                scale = radius,
+                rotation = Quaternion.identity
+            }, true);
+
             base.characterMotor.velocity *= speedCoefficientOnExit;
-            base.SmallHop(base.characterMotor, 1f);
             //Util.PlaySound(EvisDash.endSoundString, base.gameObject);
             Util.PlaySound(Assaulter2.endSoundString, base.gameObject);
             //this.PlayAnimation("FullBody, Override", "EvisLoopExit");
