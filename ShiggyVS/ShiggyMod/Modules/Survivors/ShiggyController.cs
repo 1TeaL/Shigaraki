@@ -19,21 +19,24 @@ using ShiggyMod.SkillStates;
 using IL.RoR2.Achievements.Bandit2;
 using RoR2.Items;
 using UnityEngine.AddressableAssets;
+using Object = UnityEngine.Object;
 
 namespace ShiggyMod.Modules.Survivors
 {
     public class ShiggyController : MonoBehaviour
-	{
-		string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
+    {
+        string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
+
+        private GameObject overclockIndicatorInstance;
 
         public float AFOTimer;
         public float overloadingtimer;
-		public float magmawormtimer;
-		public float vagranttimer;
-		public float alphaconstructshieldtimer;
-		public float lunarTimer;
-		public float larvaTimer;
+        public float magmawormtimer;
+        public float vagranttimer;
+        public float alphaconstructshieldtimer;
+        public float lunarTimer;
+        public float larvaTimer;
         public float attackSpeedGain;
         public float mortarTimer;
         private float jellyfishtimer;
@@ -42,77 +45,78 @@ namespace ShiggyMod.Modules.Survivors
         private float airwalkTimer;
         private float OFATimer;
         private float voidFormTimer;
+        private float overclockTimer;
 
         private Ray downRay;
         public float maxTrackingDistance = 70f;
-		public float maxTrackingAngle = 20f;
-		public float trackerUpdateFrequency = 10f;
-		private Indicator indicator;
-		private Indicator passiveindicator;
-		private Indicator activeindicator;
-		private HurtBox trackingTarget;
+        public float maxTrackingAngle = 20f;
+        public float trackerUpdateFrequency = 10f;
+        private Indicator indicator;
+        private Indicator passiveindicator;
+        private Indicator activeindicator;
+        private HurtBox trackingTarget;
         public HurtBox Target;
 
         private CharacterBody characterBody;
-		private InputBankTest inputBank;
-		private float trackerUpdateStopwatch;
+        private InputBankTest inputBank;
+        private float trackerUpdateStopwatch;
         private ChildLocator child;
         private Animator anim;
         private readonly BullseyeSearch search = new BullseyeSearch();
-		private CharacterMaster characterMaster;
+        private CharacterMaster characterMaster;
 
-		public ShiggyMasterController Shiggymastercon;
-		public ShiggyController Shiggycon;
+        public ShiggyMasterController Shiggymastercon;
+        public ShiggyController Shiggycon;
         public EnergySystem energySystem;
-        public BuffController buffcon; 
+        public BuffController buffcon;
 
         public bool larvabuffGiven;
-		public bool verminjumpbuffGiven;
+        public bool verminjumpbuffGiven;
         private uint minimushrumsoundID;
 
         private ExtraInputBankTest extrainputBankTest;
-		private ExtraSkillLocator extraskillLocator;
-		public bool alphacontructpassiveDef;
-		public bool beetlepassiveDef;
-		public bool pestpassiveDef;
-		public bool verminpassiveDef;
-		public bool guppassiveDef;
-		public bool hermitcrabpassiveDef;
-		public bool larvapassiveDef;
-		public bool lesserwisppassiveDef;
-		public bool lunarexploderpassiveDef;
-		public bool minimushrumpassiveDef;
-		public bool roboballminibpassiveDef;
-		public bool voidbarnaclepassiveDef;
-		public bool voidjailerpassiveDef;
+        private ExtraSkillLocator extraskillLocator;
+        public bool alphacontructpassiveDef;
+        public bool beetlepassiveDef;
+        public bool pestpassiveDef;
+        public bool verminpassiveDef;
+        public bool guppassiveDef;
+        public bool hermitcrabpassiveDef;
+        public bool larvapassiveDef;
+        public bool lesserwisppassiveDef;
+        public bool lunarexploderpassiveDef;
+        public bool minimushrumpassiveDef;
+        public bool roboballminibpassiveDef;
+        public bool voidbarnaclepassiveDef;
+        public bool voidjailerpassiveDef;
         public bool impbosspassiveDef;
         public bool stonetitanpassiveDef;
-		public bool magmawormpassiveDef;
-		public bool overloadingwormpassiveDef;
+        public bool magmawormpassiveDef;
+        public bool overloadingwormpassiveDef;
 
-		public bool alloyvultureWindBlastDef;
-		public bool beetleguardslamDef;
-		public bool bisonchargeDef;
-		public bool bronzongballDef;
-		public bool clayapothecarymortarDef;
-		public bool claytemplarminigunDef;
-		public bool greaterwispballDef;
-		public bool impblinkDef;
-		public bool jellyfishHealDef;
-		public bool lemurianfireballDef;
-		public bool lunargolemshotsDef;
-		public bool lunarwispminigunDef;
-		public bool parentteleportDef;
-		public bool stonegolemlaserDef;
-		public bool voidreaverportalDef;
-		public bool beetlequeenSummonDef;
+        public bool alloyvultureWindBlastDef;
+        public bool beetleguardslamDef;
+        public bool bisonchargeDef;
+        public bool bronzongballDef;
+        public bool clayapothecarymortarDef;
+        public bool claytemplarminigunDef;
+        public bool greaterwispballDef;
+        public bool impblinkDef;
+        public bool jellyfishHealDef;
+        public bool lemurianfireballDef;
+        public bool lunargolemshotsDef;
+        public bool lunarwispminigunDef;
+        public bool parentteleportDef;
+        public bool stonegolemlaserDef;
+        public bool voidreaverportalDef;
+        public bool beetlequeenSummonDef;
         public bool grandparentsunDef;
         public bool grovetenderChainDef;
-		public bool claydunestriderbuffDef;
-		public bool soluscontrolunityknockupDef;
-		public bool xiconstructbeamDef;
-		public bool voiddevastatorhomingDef;
-		public bool scavengerthqwibDef;
+        public bool claydunestriderbuffDef;
+        public bool soluscontrolunityknockupDef;
+        public bool xiconstructbeamDef;
+        public bool voiddevastatorhomingDef;
+        public bool scavengerthqwibDef;
 
         public bool hasExtra1;
         public bool hasExtra2;
@@ -143,59 +147,59 @@ namespace ShiggyMod.Modules.Survivors
             anim = GetComponentInChildren<Animator>();
 
             indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator"));
-			passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
-			activeindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
-			//On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
-			inputBank = gameObject.GetComponent<InputBankTest>();
+            passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
+            activeindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
+            //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+            inputBank = gameObject.GetComponent<InputBankTest>();
 
-			larvabuffGiven = false;
-			verminjumpbuffGiven = false;
+            larvabuffGiven = false;
+            verminjumpbuffGiven = false;
 
-			alphacontructpassiveDef = false;
-			beetlepassiveDef = false;
-			pestpassiveDef = false;
-			verminpassiveDef = false;
-			guppassiveDef = false;
-			hermitcrabpassiveDef = false;
-			larvapassiveDef = false;
-			lesserwisppassiveDef = false;
-			lunarexploderpassiveDef = false;
-			minimushrumpassiveDef = false;
-			roboballminibpassiveDef = false;
-			voidbarnaclepassiveDef = false;
-			voidjailerpassiveDef = false;
+            alphacontructpassiveDef = false;
+            beetlepassiveDef = false;
+            pestpassiveDef = false;
+            verminpassiveDef = false;
+            guppassiveDef = false;
+            hermitcrabpassiveDef = false;
+            larvapassiveDef = false;
+            lesserwisppassiveDef = false;
+            lunarexploderpassiveDef = false;
+            minimushrumpassiveDef = false;
+            roboballminibpassiveDef = false;
+            voidbarnaclepassiveDef = false;
+            voidjailerpassiveDef = false;
 
 
             impbosspassiveDef = false;
             stonetitanpassiveDef = false;
-			magmawormpassiveDef = false;
-			overloadingwormpassiveDef = false;
+            magmawormpassiveDef = false;
+            overloadingwormpassiveDef = false;
 
 
-			alloyvultureWindBlastDef = false;
-			beetleguardslamDef = false;
-			bisonchargeDef = false;
-			bronzongballDef = false;
-			clayapothecarymortarDef = false;
-			claytemplarminigunDef = false;
-			greaterwispballDef = false;
-			impblinkDef = false;
-			jellyfishHealDef = false;
-			lemurianfireballDef = false;
-			lunargolemshotsDef = false;
-			lunarwispminigunDef = false;
-			parentteleportDef = false;
-			stonegolemlaserDef = false;
-			voidreaverportalDef = false;
+            alloyvultureWindBlastDef = false;
+            beetleguardslamDef = false;
+            bisonchargeDef = false;
+            bronzongballDef = false;
+            clayapothecarymortarDef = false;
+            claytemplarminigunDef = false;
+            greaterwispballDef = false;
+            impblinkDef = false;
+            jellyfishHealDef = false;
+            lemurianfireballDef = false;
+            lunargolemshotsDef = false;
+            lunarwispminigunDef = false;
+            parentteleportDef = false;
+            stonegolemlaserDef = false;
+            voidreaverportalDef = false;
 
-			beetlequeenSummonDef = false;
-			grovetenderChainDef = false;
+            beetlequeenSummonDef = false;
+            grovetenderChainDef = false;
             grandparentsunDef = false;
             claydunestriderbuffDef = false;
-			soluscontrolunityknockupDef = false;
-			xiconstructbeamDef = false;
-			voiddevastatorhomingDef = false;
-			scavengerthqwibDef = false;
+            soluscontrolunityknockupDef = false;
+            xiconstructbeamDef = false;
+            voiddevastatorhomingDef = false;
+            scavengerthqwibDef = false;
 
             hasQuirk = false;
             hasExtra1 = false;
@@ -215,7 +219,7 @@ namespace ShiggyMod.Modules.Survivors
             characterMaster = characterBody.master;
 
             energySystem = gameObject.GetComponent<EnergySystem>();
-            if(!energySystem)
+            if (!energySystem)
             {
                 energySystem = gameObject.AddComponent<EnergySystem>();
             }
@@ -227,57 +231,57 @@ namespace ShiggyMod.Modules.Survivors
 
             Shiggymastercon = characterMaster.gameObject.GetComponent<ShiggyMasterController>();
             if (!Shiggymastercon)
-			{
-				Shiggymastercon = characterMaster.gameObject.AddComponent<ShiggyMasterController>();
-			}
+            {
+                Shiggymastercon = characterMaster.gameObject.AddComponent<ShiggyMasterController>();
+            }
 
-			extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
 
             alphacontructpassiveDef = false;
-			beetlepassiveDef = false;
-			pestpassiveDef = false;
-			verminpassiveDef = false;
-			guppassiveDef = false;
-			hermitcrabpassiveDef = false;
-			larvapassiveDef = false;
-			lesserwisppassiveDef = false;
-			lunarexploderpassiveDef = false;
-			minimushrumpassiveDef = false;
-			roboballminibpassiveDef = false;
-			voidbarnaclepassiveDef = false;
-			voidjailerpassiveDef = false;
+            beetlepassiveDef = false;
+            pestpassiveDef = false;
+            verminpassiveDef = false;
+            guppassiveDef = false;
+            hermitcrabpassiveDef = false;
+            larvapassiveDef = false;
+            lesserwisppassiveDef = false;
+            lunarexploderpassiveDef = false;
+            minimushrumpassiveDef = false;
+            roboballminibpassiveDef = false;
+            voidbarnaclepassiveDef = false;
+            voidjailerpassiveDef = false;
 
             impbosspassiveDef = false;
             stonetitanpassiveDef = false;
-			magmawormpassiveDef = false;
-			overloadingwormpassiveDef = false;
+            magmawormpassiveDef = false;
+            overloadingwormpassiveDef = false;
 
 
-			alloyvultureWindBlastDef = false;
-			beetleguardslamDef = false;
-			bisonchargeDef = false;
-			bronzongballDef = false;
-			clayapothecarymortarDef = false;
-			claytemplarminigunDef = false;
-			greaterwispballDef = false;
-			impblinkDef = false;
-			jellyfishHealDef = false;
-			lemurianfireballDef = false;
-			lunargolemshotsDef = false;
-			lunarwispminigunDef = false;
-			parentteleportDef = false;
-			stonegolemlaserDef = false;
-			voidreaverportalDef = false;
+            alloyvultureWindBlastDef = false;
+            beetleguardslamDef = false;
+            bisonchargeDef = false;
+            bronzongballDef = false;
+            clayapothecarymortarDef = false;
+            claytemplarminigunDef = false;
+            greaterwispballDef = false;
+            impblinkDef = false;
+            jellyfishHealDef = false;
+            lemurianfireballDef = false;
+            lunargolemshotsDef = false;
+            lunarwispminigunDef = false;
+            parentteleportDef = false;
+            stonegolemlaserDef = false;
+            voidreaverportalDef = false;
 
-			beetlequeenSummonDef = false;
-			grovetenderChainDef = false;
+            beetlequeenSummonDef = false;
+            grovetenderChainDef = false;
             grandparentsunDef = false;
             claydunestriderbuffDef = false;
-			soluscontrolunityknockupDef = false;
-			xiconstructbeamDef = false;
-			voiddevastatorhomingDef = false;
-			scavengerthqwibDef = false;
+            soluscontrolunityknockupDef = false;
+            xiconstructbeamDef = false;
+            voiddevastatorhomingDef = false;
+            scavengerthqwibDef = false;
 
             informAFOToPlayers = false;
             hasStolen = false;
@@ -291,28 +295,31 @@ namespace ShiggyMod.Modules.Survivors
 
 
         public HurtBox GetTrackingTarget()
-		{
-			return this.trackingTarget;
-		}
+        {
+            return this.trackingTarget;
+        }
 
         public void OnEnable()
-		{
-			this.indicator.active = true;
-			this.passiveindicator.active = true;
-			this.activeindicator.active = true;
-		}
+        {
+            this.indicator.active = true;
+            this.passiveindicator.active = true;
+            this.activeindicator.active = true;
+        }
 
         public void OnDisable()
-		{
-			this.indicator.active = false;
-			this.passiveindicator.active = false;
-			this.activeindicator.active = false;
-		}
-
-		public void OnDestroy()
         {
-            //if (mortarIndicatorInstance) EntityState.Destroy(mortarIndicatorInstance.gameObject);
-            //if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
+            this.indicator.active = false;
+            this.passiveindicator.active = false;
+            this.activeindicator.active = false;
+        }
+
+        public void OnDestroy()
+        {
+            if (overclockIndicatorInstance)
+            {
+                overclockIndicatorInstance.SetActive(false);
+                EntityState.Destroy(overclockIndicatorInstance.gameObject);
+            }
         }
 
         public void FixedUpdate()
@@ -333,14 +340,14 @@ namespace ShiggyMod.Modules.Survivors
                         if (Modules.StaticValues.indicatorDict[name] == StaticValues.IndicatorType.PASSIVE)
                         {
                             this.passiveindicator.active = true;
-							this.activeindicator.active = false;
-							this.passiveindicator.targetTransform = this.trackingTarget.transform;
+                            this.activeindicator.active = false;
+                            this.passiveindicator.targetTransform = this.trackingTarget.transform;
 
                         }
-						else if (Modules.StaticValues.indicatorDict[name] == StaticValues.IndicatorType.ACTIVE)
-						{
-							this.passiveindicator.active = false;
-							this.activeindicator.active = true;
+                        else if (Modules.StaticValues.indicatorDict[name] == StaticValues.IndicatorType.ACTIVE)
+                        {
+                            this.passiveindicator.active = false;
+                            this.activeindicator.active = true;
                             this.activeindicator.targetTransform = this.trackingTarget.transform;
 
                         }
@@ -364,8 +371,20 @@ namespace ShiggyMod.Modules.Survivors
                 }
 
             }
-			if (characterBody.hasEffectiveAuthority)
+            if (characterBody.hasEffectiveAuthority)
             {
+                //overclock buff energy cost
+                if (characterBody.HasBuff(Buffs.theWorldBuff))
+                {
+                    //energy cost
+                    float plusChaosflatCost = StaticValues.overclockEnergyCost - energySystem.costflatplusChaos;
+                    if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+
+                    float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                    if (plusChaosCost < 0f) plusChaosCost = 0f;
+                    energySystem.SpendplusChaos(plusChaosCost);
+                }
+
 
                 //void form buff
                 if (characterBody.HasBuff(Buffs.voidFormBuff))
@@ -380,7 +399,7 @@ namespace ShiggyMod.Modules.Survivors
                         //take damage every second based off current hp, cleanse self as well
                         new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.voidFormHealthCostCoefficient).Send(NetworkDestination.Clients);
 
-                        Util.CleanseBody(characterBody, true, false, false, true, true, true);                        
+                        Util.CleanseBody(characterBody, true, false, false, true, true, true);
                     }
                 }
 
@@ -414,7 +433,12 @@ namespace ShiggyMod.Modules.Survivors
                         {
                             if (characterBody.inputBank.jump.down)
                             {
-                                energySystem.SpendplusChaos(StaticValues.airwalkEnergyFraction);
+                                float plusChaosflatCost = StaticValues.airwalkEnergyFraction - energySystem.costflatplusChaos;
+                                if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+
+                                float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                                if (plusChaosCost < 0f) plusChaosCost = 0f;
+                                energySystem.SpendplusChaos(plusChaosCost);
                                 characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 1);
 
                                 //if falling down
@@ -519,7 +543,7 @@ namespace ShiggyMod.Modules.Survivors
                         {
                             //while walking do blast attacks, scales with movespeed
                             mechStanceTimer += Time.fixedDeltaTime;
-                            if(mechStanceTimer >= StaticValues.mechStanceStepRate / characterBody.moveSpeed)
+                            if (mechStanceTimer >= StaticValues.mechStanceStepRate / characterBody.moveSpeed)
                             {
 
                                 EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
@@ -534,7 +558,7 @@ namespace ShiggyMod.Modules.Survivors
                                 blastAttack.position = characterBody.footPosition;
                                 blastAttack.attacker = characterBody.gameObject;
                                 blastAttack.crit = characterBody.RollCrit();
-                                blastAttack.baseDamage = characterBody.damage * StaticValues.mechStanceDamageCoefficient * (characterBody.moveSpeed/ characterBody.baseMoveSpeed);
+                                blastAttack.baseDamage = characterBody.damage * StaticValues.mechStanceDamageCoefficient * (characterBody.moveSpeed / characterBody.baseMoveSpeed);
                                 blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                                 blastAttack.baseForce = 400f;
                                 blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
@@ -548,14 +572,12 @@ namespace ShiggyMod.Modules.Survivors
                         }
                     }
 
-                    
+
                 }
 
                 //windshield buff
                 if (characterBody.HasBuff(Buffs.windShieldBuff))
                 {
-
-
                     Collider[] array = Physics.OverlapSphere(characterBody.transform.position, StaticValues.windShieldRadius, LayerIndex.projectile.mask);
                     for (int i = 0; i < array.Length; i++)
                     {
@@ -687,628 +709,76 @@ namespace ShiggyMod.Modules.Survivors
                     }
                 }
 
-                ////captain buff items
-                //captainitemcount = characterBody.master.inventory.GetItemCount(RoR2Content.Items.CaptainDefenseMatrix);
-                //if (characterBody.HasBuff(Buffs.captainBuff))
-                //{
-                //    if (captainitemcount < 1)
-                //    {
-                //        characterBody.master.inventory.GiveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
-                //    }
 
-                //}
-                //else if (!characterBody.HasBuff(Buffs.captainBuff) && captainitemcount > 0)
-                //{
-                //    characterBody.master.inventory.RemoveItem(RoR2Content.Items.CaptainDefenseMatrix, 1);
-                //}
-
-                //damagetypes for moves
-                damageType = DamageType.Generic;
-                damageType2 = DamageType.SlowOnHit;
-
-
-
-                //overloadingworm buff
-                //if (characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
-                //{
-                //    if (!NetworkServer.active)
-                //    {
-                //        return;
-                //    }
-                //    if (overloadingWard == null)
-                //    {
-                //        this.overloadingWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/NearbyDamageBonusIndicator"), characterBody.footPosition, Quaternion.identity);
-                //        this.overloadingWard.transform.parent = characterBody.transform;
-                //        //this.magmawormWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
-
-                //        if (overloadingtimer > StaticValues.overloadingInterval / characterBody.attackSpeed)
-                //        {
-                //            overloadingtimer = 0f;
-                //            OverloadingFire();
-
-                //        }
-                //        else
-                //        {
-                //            overloadingtimer += Time.fixedDeltaTime;
-                //        }
-                //    }
-                //}
-                //else if (!characterBody.HasBuff(Modules.Buffs.overloadingwormBuff.buffIndex))
-                //{
-                //    if (this.overloadingWard)
-                //    {
-                //        EntityState.Destroy(this.overloadingWard);
-                //    }
-                //}
-
-                //magmaworm buff
-                //if (characterBody.HasBuff(Modules.Buffs.magmawormBuff.buffIndex))
-                //{
-                //    if (!NetworkServer.active)
-                //    {
-                //        return;
-                //    }
-                //    if (magmawormWard == null)
-                //    {
-                //        this.magmawormWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/NearbyDamageBonusIndicator"), characterBody.footPosition, Quaternion.identity);
-                //        this.magmawormWard.transform.parent = characterBody.transform;
-                //        //this.magmawormWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
-
-                //        if (magmawormtimer > StaticValues.magmawormInterval / characterBody.attackSpeed)
-                //        {
-                //            magmawormtimer = 0f;
-                //            MagmawormFire();
-
-                //        }
-                //        else
-                //        {
-                //            magmawormtimer += Time.fixedDeltaTime;
-                //        }
-                //    }
-                //}
-                //else if (!characterBody.HasBuff(Modules.Buffs.magmawormBuff.buffIndex))
-                //{
-                //    if (this.magmawormWard)
-                //    {
-                //        EntityState.Destroy(this.magmawormWard);
-                //    }
-                //}
 
                 //vagrant disablebuff
-                if (characterBody.hasEffectiveAuthority)
+                if (characterBody.HasBuff(Modules.Buffs.vagrantdisableBuff.buffIndex))
                 {
-                    if (characterBody.HasBuff(Modules.Buffs.vagrantdisableBuff.buffIndex))
+                    if (vagranttimer > 1f)
                     {
-                        if (vagranttimer > 1f)
+                        int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.vagrantdisableBuff.buffIndex);
+                        if (buffCountToApply > 1)
                         {
-                            int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.vagrantdisableBuff.buffIndex);
-                            if (buffCountToApply > 1)
+                            if (buffCountToApply >= 2)
                             {
-                                if (buffCountToApply >= 2)
-                                {
-                                    characterBody.ApplyBuff(Modules.Buffs.vagrantdisableBuff.buffIndex, buffCountToApply - 1);
-                                    vagranttimer = 0f;
-                                }
-                            }
-                            else
-                            {
-                                characterBody.ApplyBuff(Modules.Buffs.vagrantdisableBuff.buffIndex, 0);
-                                characterBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex, 1);
-
+                                characterBody.ApplyBuff(Modules.Buffs.vagrantdisableBuff.buffIndex, buffCountToApply - 1);
+                                vagranttimer = 0f;
                             }
                         }
-                        else vagranttimer += Time.fixedDeltaTime;
+                        else
+                        {
+                            characterBody.ApplyBuff(Modules.Buffs.vagrantdisableBuff.buffIndex, 0);
+                            characterBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex, 1);
+
+                        }
                     }
-
+                    else vagranttimer += Time.fixedDeltaTime;
                 }
-                //roboballmini buff
-                //if (characterBody.HasBuff(Modules.Buffs.roboballminiBuff.buffIndex))
-                //{
-                //    if (characterBody.inputBank.skill1.down
-                //        | characterBody.inputBank.skill2.down
-                //        | characterBody.inputBank.skill3.down
-                //        | characterBody.inputBank.skill4.down
-                //        | extrainputBankTest.extraSkill1.down
-                //        | extrainputBankTest.extraSkill2.down
-                //        | extrainputBankTest.extraSkill3.down
-                //        | extrainputBankTest.extraSkill4.down)
-                //    {
-                //        if (roboballTimer > 1f)
-                //        {
-                //            roboballTimer = 0f;
-                //            characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex);
-                //        }
-                //        else
-                //        {
-                //            roboballTimer += Time.fixedDeltaTime;
 
-                //        }
-                //    }
-                //    else if (!characterBody.inputBank.skill1.down
-                //        && !characterBody.inputBank.skill2.down
-                //        && !characterBody.inputBank.skill3.down
-                //        && !characterBody.inputBank.skill1.down
-                //        && !extrainputBankTest.extraSkill1.down
-                //        && !extrainputBankTest.extraSkill2.down
-                //        && !extrainputBankTest.extraSkill3.down
-                //        && !extrainputBankTest.extraSkill4.down)
-                //    {
-                //        characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex, 0);
-                //    }
-                //    //if (characterBody.inputBank.jump.down)
-                //    //{
-                //    //    characterBody.ApplyBuff(Buffs.airwalkBuff.buffIndex);
-                //    //    base.transform.position = characterBody.transform.position;
-                //    //    if (characterBody.hasEffectiveAuthority && characterBody.characterMotor)
-                //    //    {
-                //    //        if (characterBody.inputBank.moveVector != Vector3.zero)
-                //    //        {
-                //    //            characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed * Modules.StaticValues.roboballboostMultiplier);
-                //    //            characterBody.characterMotor.disableAirControlUntilCollision = false;
-                //    //        }
-                //    //    }
-                //    //}
-                //    //else if (!characterBody.inputBank.jump.down)
-                //    //{
-                //    //    characterBody.RemoveBuff(Buffs.airwalkBuff.buffIndex);
-                //    //}
 
-                //}
 
 
                 //jellyfish heal buff
-                if (characterBody.hasEffectiveAuthority)
+                if (characterBody.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
                 {
-                    if (characterBody.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
+
+                    if (jellyfishtimer > 1f)
                     {
-
-                        if (jellyfishtimer > 1f)
+                        int jellyfishBuffCount = characterBody.GetBuffCount(Modules.Buffs.jellyfishHealStacksBuff.buffIndex);
+                        int jellyfishBuffCountToReduce = Mathf.RoundToInt(characterBody.maxHealth * (1 - StaticValues.JellyfishHealTickRate));
+                        int jellyfishBuffCountToApply = jellyfishBuffCount - jellyfishBuffCountToReduce;
+                        if (jellyfishBuffCountToApply < 2)
                         {
-                            int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.jellyfishHealStacksBuff.buffIndex);
-                            int buffCountToApply2 = Mathf.RoundToInt(characterBody.maxHealth * (1 - StaticValues.JellyfishHealTickRate));
-                            int buffCountToApply3 = buffCountToApply - buffCountToApply2;
-                            if(buffCountToApply3 < 2)
-                            {
-                                buffCountToApply3 = 2;
-                            }
-                            if (buffCountToApply > 1)
-                            {
-                                if (buffCountToApply >= 2)
-                                {
-                                    characterBody.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, buffCountToApply3);
-                                    jellyfishtimer = 0f;
-                                }
-                            }
+                            jellyfishBuffCountToApply = 2;
                         }
-                        else jellyfishtimer += Time.fixedDeltaTime;
+                        if (jellyfishBuffCount > 1)
+                        {
+                            if (jellyfishBuffCount >= 2)
+
+                                characterBody.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, jellyfishBuffCountToApply);
+                            jellyfishtimer = 0f;
+                        }
                     }
-
                 }
-
-
-                //mini mushrum buff
-                //if (characterBody.HasBuff(Modules.Buffs.minimushrumBuff.buffIndex))
-                //{
-                //    if (!NetworkServer.active)
-                //    {
-                //        return;
-                //    }
-                //    if (this.mushroomWard == null)
-                //    {
-                //        this.minimushrumsoundID = Util.PlaySound(Plant.healSoundLoop, characterBody.modelLocator.modelTransform.gameObject);
-                //        this.mushroomWard = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/MiniMushroomWard"), characterBody.footPosition, Quaternion.identity);
-                //        this.mushroomWard.transform.parent = characterBody.transform;
-                //        this.mushroomWard.GetComponent<TeamFilter>().teamIndex = characterBody.teamComponent.teamIndex;
-                //        if (this.mushroomWard)
-                //        {
-                //            HealingWard component = this.mushroomWard.GetComponent<HealingWard>();
-                //            component.healFraction = Modules.StaticValues.minimushrumhealFraction;
-                //            component.healPoints = 0f;
-                //            component.Networkradius = Modules.StaticValues.minimushrumRadius;
-                //            component.interval = Modules.StaticValues.minimushrumInterval;
-                //            //component.healTimer = Modules.StaticValues.minimushrumhealFraction;
-                //        }
-                //        NetworkServer.Spawn(this.mushroomWard);
-                //    }
-                //}
-                //else if (!characterBody.HasBuff(Modules.Buffs.minimushrumBuff.buffIndex))
-                //{
-                //    if (this.mushroomWard)
-                //    {
-                //        AkSoundEngine.StopPlayingID(this.minimushrumsoundID);
-                //        Util.PlaySound(Plant.healSoundStop, base.gameObject);
-                //        EntityState.Destroy(this.mushroomWard);
-                //    }
-                //}
-
-                ////alpha shield buff
-                //if (characterBody.hasEffectiveAuthority)
-                //{
-                //    if (characterBody.HasBuff(Modules.Buffs.alphashieldoffBuff.buffIndex))
-                //    {
-
-                //        if (alphaconstructshieldtimer > 1f)
-                //        {
-                //            int buffCountToApply2 = characterBody.GetBuffCount(Modules.Buffs.alphashieldoffBuff.buffIndex);
-                //            if (buffCountToApply2 > 1)
-                //            {
-                //                if (buffCountToApply2 >= 2)
-                //                {
-                //                    characterBody.ApplyBuff(Modules.Buffs.alphashieldoffBuff.buffIndex, buffCountToApply2 - 1);
-                //                    alphaconstructshieldtimer = 0f;
-                //                }
-                //            }
-                //            else
-                //            {
-                //                characterBody.ApplyBuff(Modules.Buffs.alphashieldoffBuff.buffIndex, 0);
-                //                characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 1);
-
-                //            }
-                //        }
-                //        else alphaconstructshieldtimer += Time.fixedDeltaTime;
-                //    }
-
-                //}
-
-
-                ////Standing still/not moving buffs
-                //if (characterBody.GetNotMoving())
-                //{
-
-                //    //hermitcrab mortarbuff
-                //    if (characterBody.HasBuff(Modules.Buffs.hermitcrabmortarBuff))
-                //    {
-                //        if (!this.mortarIndicatorInstance)
-                //        {
-                //            CreateMortarIndicator();
-                //        }
-                //        mortarTimer += Time.fixedDeltaTime;
-                //        if (mortarTimer >= Modules.StaticValues.mortarbaseDuration / (characterBody.attackSpeed))
-                //        {
-                //            int hermitbuffcount = characterBody.GetBuffCount(Buffs.hermitcrabmortararmorBuff.buffIndex);
-                //            characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, hermitbuffcount + 1);
-                //            mortarTimer = 0f;
-                //            FireMortar();
-                //        }
-                //    }
-                //    else
-                //    {
-                //        if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
-                //        characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
-
-                //    }
-
-                //    //voidbarnacle mortarbuff
-                //    if (characterBody.HasBuff(Modules.Buffs.voidbarnaclemortarBuff))
-                //    {
-                //        if (!this.voidmortarIndicatorInstance)
-                //        {
-                //            CreateVoidMortarIndicator();
-                //        }
-                //        voidmortarTimer += Time.fixedDeltaTime;
-                //        if (voidmortarTimer >= Modules.StaticValues.voidmortarbaseDuration / (characterBody.armor / characterBody.baseArmor))
-                //        {
-                //            int voidbarnaclebuffcount = characterBody.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff.buffIndex);
-                //            characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, voidbarnaclebuffcount + 1);
-                //            attackSpeedGain = Modules.StaticValues.voidmortarattackspeedGain * characterBody.GetBuffCount(Modules.Buffs.voidbarnaclemortarattackspeedBuff);
-                //            voidmortarTimer = 0f;
-                //            FireMortar();
-                //        }
-                //    }
-                //    else
-                //    {
-                //        if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
-                //        characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
-                //    }
-                //}
-
-                //else if (!characterBody.GetNotMoving())
-                //{
-                //    if (this.mortarIndicatorInstance) EntityState.Destroy(this.mortarIndicatorInstance.gameObject);
-                //    characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortararmorBuff.buffIndex, 0);
-                //    if (this.voidmortarIndicatorInstance) EntityState.Destroy(this.voidmortarIndicatorInstance.gameObject);
-                //    characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
-
-                //    //voidjailer buff
-                //    if (characterBody.HasBuff(Modules.Buffs.voidjailerBuff.buffIndex))
-                //    {
-                //        float num = characterBody.moveSpeed;
-                //        bool isSprinting = characterBody.isSprinting;
-                //        if (isSprinting)
-                //        {
-                //            num /= characterBody.sprintingSpeedMultiplier;
-                //        }
-                //        voidjailerTimer += Time.fixedDeltaTime;
-                //        if (voidjailerTimer > StaticValues.voidjailerInterval / (num / characterBody.baseMoveSpeed))
-                //        {
-                //            voidjailerTimer = 0f;
-                //            VoidJailerPull();
-                //        }
-                //    }
-                //}
-
-                ////verminjump buff
-                //if (characterBody.HasBuff(Buffs.pestjumpBuff) && !verminjumpbuffGiven)
-                //{
-                //    verminjumpbuffGiven = true;
-                //    characterBody.characterMotor.jumpCount += Modules.StaticValues.verminjumpStacks;
-                //    characterBody.maxJumpCount += Modules.StaticValues.verminjumpStacks;
-                //    characterBody.baseJumpCount += Modules.StaticValues.verminjumpStacks;
-                //    characterBody.jumpPower += Modules.StaticValues.verminjumpPower;
-                //    characterBody.baseJumpPower += Modules.StaticValues.verminjumpPower;
-                //}
-                //else
-                //{
-                //    if (!characterBody.HasBuff(Buffs.pestjumpBuff))
-                //    {
-                //        if (verminjumpbuffGiven)
-                //        {
-                //            verminjumpbuffGiven = false;
-                //            characterBody.characterMotor.jumpCount -= Modules.StaticValues.verminjumpStacks;
-                //            characterBody.maxJumpCount -= Modules.StaticValues.verminjumpStacks;
-                //            characterBody.baseJumpCount -= Modules.StaticValues.verminjumpStacks;
-                //            characterBody.jumpPower -= Modules.StaticValues.verminjumpPower;
-                //            characterBody.baseJumpPower -= Modules.StaticValues.verminjumpPower;
-                //        }
-
-                //    }
-                //}
-                ////larvajump buff
-                //if (characterBody.HasBuff(Buffs.larvajumpBuff))
-                //{
-                //    if (!larvabuffGiven)
-                //    {
-                //        larvabuffGiven = true;
-                //        characterBody.characterMotor.jumpCount += Modules.StaticValues.larvajumpStacks;
-                //        characterBody.maxJumpCount += Modules.StaticValues.larvajumpStacks;
-                //        characterBody.baseJumpCount += Modules.StaticValues.larvajumpStacks;
-                //        characterBody.jumpPower += Modules.StaticValues.larvajumpPower;
-                //        characterBody.baseJumpPower += Modules.StaticValues.larvajumpPower;
-                //        characterBody.maxJumpHeight = Trajectory.CalculateApex(characterBody.jumpPower);
-                //    }
-
-                //    if (characterBody.inputBank.jump.justPressed && characterBody && characterBody.characterMotor.jumpCount < characterBody.maxJumpCount)
-                //    {
-                //        Vector3 footPosition = characterBody.footPosition;
-                //        EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
-                //        {
-                //            origin = footPosition,
-                //            scale = Modules.StaticValues.larvaRadius
-                //        }, true);
-
-                //        BlastAttack blastAttack = new BlastAttack();
-                //        blastAttack.radius = Modules.StaticValues.larvaRadius;
-                //        blastAttack.procCoefficient = Modules.StaticValues.larvaProcCoefficient;
-                //        blastAttack.position = characterBody.footPosition;
-                //        blastAttack.attacker = base.gameObject;
-                //        blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
-                //        blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5);
-                //        blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                //        blastAttack.baseForce = Modules.StaticValues.larvaForce;
-                //        blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-                //        blastAttack.damageType = damageType;
-                //        blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-                //        blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
-                //        blastAttack.Fire();
-
-
-                //    }
-
-                //    if (!characterBody.characterMotor.isGrounded)
-                //    {
-                //        larvaTimer += Time.fixedDeltaTime;
-                //    }
-                //    if (characterBody.characterMotor.isGrounded && larvaTimer > 1f)
-                //    {
-                //        larvaTimer = 0f;
-                //        Vector3 footPosition = characterBody.footPosition;
-                //        EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
-                //        {
-                //            origin = footPosition,
-                //            scale = Modules.StaticValues.larvaRadius
-                //        }, true);
-
-                //        BlastAttack blastAttack = new BlastAttack();
-                //        blastAttack.radius = Modules.StaticValues.larvaRadius;
-                //        blastAttack.procCoefficient = Modules.StaticValues.larvaProcCoefficient;
-                //        blastAttack.position = characterBody.footPosition;
-                //        blastAttack.attacker = base.gameObject;
-                //        blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
-                //        blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.larvaDamageCoefficient * (characterBody.jumpPower / 5);
-                //        blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                //        blastAttack.baseForce = Modules.StaticValues.larvaForce;
-                //        blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-                //        blastAttack.damageType = damageType;
-                //        blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-                //        blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
-                //        blastAttack.Fire();
-                //    }
-                //}
-                //else
-                //{
-                //    if (!characterBody.HasBuff(Buffs.larvajumpBuff))
-                //    {
-                //        if (larvabuffGiven)
-                //        {
-                //            larvabuffGiven = false;
-                //            characterBody.characterMotor.jumpCount -= Modules.StaticValues.larvajumpStacks;
-                //            characterBody.maxJumpCount -= Modules.StaticValues.larvajumpStacks;
-                //            characterBody.baseJumpCount -= Modules.StaticValues.larvajumpStacks;
-                //            characterBody.jumpPower -= Modules.StaticValues.larvajumpPower;
-                //            characterBody.baseJumpPower -= Modules.StaticValues.larvajumpPower;
-                //            characterBody.maxJumpHeight = Trajectory.CalculateApex(characterBody.jumpPower);
-                //        }
-                //    }
-                //}
-                //lunar exploder buff
-                //if (characterBody.HasBuff(Buffs.lunarexploderBuff))
-                //{
-                //    if (characterBody.healthComponent.combinedHealth < characterBody.healthComponent.fullCombinedHealth / 2)
-                //    {
-                //        lunarTimer += Time.fixedDeltaTime;
-                //        if (characterBody.hasEffectiveAuthority && lunarTimer >= Modules.StaticValues.lunarexploderbaseDuration)
-                //        {
-                //            lunarTimer = 0f;
-                //            for (int i = 0; i < Modules.StaticValues.lunarexploder; i++)
-                //            {
-                //                float num = 360f / Modules.StaticValues.lunarexploder;
-                //                Vector3 forward = Util.QuaternionSafeLookRotation(characterBody.transform.forward, characterBody.transform.up) * Util.ApplySpread(Vector3.forward, 0f, 0f, 1f, 1f, num * (float)i, 0f);
-                //                FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
-                //                fireProjectileInfo.projectilePrefab = DeathState.projectilePrefab;
-                //                fireProjectileInfo.position = characterBody.corePosition + Vector3.up * DeathState.projectileVerticalSpawnOffset;
-                //                fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(forward);
-                //                fireProjectileInfo.owner = characterBody.gameObject;
-                //                fireProjectileInfo.damage = characterBody.damage * Modules.StaticValues.lunarexploderDamageCoefficient;
-                //                fireProjectileInfo.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
-                //                ProjectileManager.instance.FireProjectile(fireProjectileInfo);
-                //            }
-                //            if (DeathState.deathExplosionEffect)
-                //            {
-                //                EffectManager.SpawnEffect(DeathState.deathExplosionEffect, new EffectData
-                //                {
-                //                    origin = characterBody.corePosition,
-                //                    scale = Modules.StaticValues.lunarexploderRadius
-                //                }, true);
-                //            }
-                //        }
-                //    }
-                //}
-
+                else jellyfishtimer += Time.fixedDeltaTime;
             }
-
-
-
         }
 
-		//public void MagmawormFire()
-		//{
-		//	Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
-		//	BullseyeSearch search = new BullseyeSearch
-		//	{
-
-		//		teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-		//		filterByLoS = false,
-		//		searchOrigin = characterBody.corePosition,
-		//		searchDirection = UnityEngine.Random.onUnitSphere,
-		//		sortMode = BullseyeSearch.SortMode.Distance,
-		//		maxDistanceFilter = StaticValues.magmawormRadius,
-		//		maxAngleFilter = 360f
-		//	};
-
-		//	search.RefreshCandidates();
-		//	search.FilterOutGameObject(characterBody.gameObject);
 
 
 
-		//	List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-		//	foreach (HurtBox singularTarget in target)
-		//	{
-		//		if (singularTarget)
-		//		{
-		//			if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-		//			{
-		//				InflictDotInfo info = new InflictDotInfo();
-		//				info.attackerObject = characterBody.gameObject;
-		//				info.victimObject = singularTarget.healthComponent.body.gameObject;
-		//				info.duration = Modules.StaticValues.magmawormDuration;
-		//				info.dotIndex = DotController.DotIndex.Burn;
-		//				info.totalDamage = characterBody.damage * Modules.StaticValues.magmawormCoefficient;
-		//				info.damageMultiplier = 1f;
 
-		//				RoR2.StrengthenBurnUtils.CheckDotForUpgrade(characterBody.inventory, ref info);
-		//				DotController.InflictDot(ref info);
-		//			}
-		//		}
-		//	}
 
-		//}
-
-		//public void VoidJailerPull()
-		//{
-		//	BullseyeSearch search = new BullseyeSearch
-		//	{
-
-		//		teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-		//		filterByLoS = false,
-		//		searchOrigin = characterBody.corePosition,
-		//		searchDirection = UnityEngine.Random.onUnitSphere,
-		//		sortMode = BullseyeSearch.SortMode.Distance,
-		//		maxDistanceFilter = StaticValues.voidjailermaxpullDistance,
-		//		maxAngleFilter = 360f
-		//	};
-
-		//	search.RefreshCandidates();
-		//	search.FilterOutGameObject(characterBody.gameObject);
+    
 
 
 
-		//	List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-		//	foreach (HurtBox singularTarget in target)
-		//	{
-		//		if (singularTarget)
-		//		{
-		//			Vector3 a = singularTarget.transform.position - characterBody.corePosition;
-		//			float magnitude = a.magnitude;
-		//			Vector3 vector = a / magnitude;
-		//			if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-		//			{
-		//				float Weight = 1f;
-		//				if (singularTarget.healthComponent.body.characterMotor)
-		//				{
-		//					Weight = singularTarget.healthComponent.body.characterMotor.mass;
-		//				}
-		//				else if (singularTarget.healthComponent.body.rigidbody)
-		//				{
-		//					Weight = singularTarget.healthComponent.body.rigidbody.mass;
-		//				}
-		//				Vector3 a2 = vector;
-		//				float d = Trajectory.CalculateInitialYSpeedForHeight(Mathf.Abs(StaticValues.voidjailerminpullDistance - magnitude)) * Mathf.Sign(StaticValues.voidjailerminpullDistance - magnitude);
-		//				a2 *= d;
-		//				a2.y = StaticValues.voidjailerpullLiftVelocity;
-		//				DamageInfo damageInfo = new DamageInfo
-		//				{
-		//					attacker = base.gameObject,
-		//					damage = characterBody.damage * Modules.StaticValues.voidjailerDamageCoefficient,
-		//					position = singularTarget.transform.position,
-		//					procCoefficient = 0.5f,
-		//					damageType = damageType2,
 
-		//				};
-		//				singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);
-		//				singularTarget.healthComponent.TakeDamage(damageInfo);
-		//				GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
-
-
-  //                      EffectManager.SpawnEffect(Modules.Assets.voidjailerEffect, new EffectData
-  //                      {
-  //                          origin = singularTarget.transform.position,
-  //                          scale = 1f,
-
-  //                      }, true);
-
-		//				Vector3 position = singularTarget.transform.position;
-		//				Vector3 start = characterBody.corePosition;
-		//				Transform transform = child.FindChild("LHand").transform;
-		//				if (transform)
-		//				{
-		//					start = transform.position;
-		//				}
-		//				EffectData effectData = new EffectData
-		//				{
-		//					origin = position,
-		//					start = start
-		//				};
-		//				EffectManager.SpawnEffect(Modules.Assets.voidjailermuzzleEffect, effectData, true);
-						
-		//			}
-		//		}
-		//	}
-		//}
 
         public void Update()
         {
-            //update mortar indicator
-            //if (this.mortarIndicatorInstance) this.UpdateIndicator();
+            //update indicator
+            OverclockUpdater();
 
             if (!informAFOToPlayers)
             {
@@ -1396,105 +866,225 @@ namespace ShiggyMod.Modules.Survivors
                 stopwatch2 = 0f;
             } 
         }
-        
-     
 
-  //      private void UpdateIndicator()
-		//{
-		//	if (this.mortarIndicatorInstance)
-		//	{
-		//		float maxDistance = 250f;
+        //      private void UpdateIndicator()
+        //{
+        //	if (this.mortarIndicatorInstance)
+        //	{
+        //		float maxDistance = 250f;
 
-		//		this.downRay = new Ray
-		//		{
-		//			direction = Vector3.down,
-		//			origin = base.transform.position
-		//		};
+        //		this.downRay = new Ray
+        //		{
+        //			direction = Vector3.down,
+        //			origin = base.transform.position
+        //		};
 
-		//		RaycastHit raycastHit;
-		//		if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
-		//		{
-		//			this.mortarIndicatorInstance.transform.position = raycastHit.point;
-		//			this.mortarIndicatorInstance.transform.up = raycastHit.normal;
-		//			mortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.mortarRadius * (characterBody.armor/characterBody.baseArmor);
+        //		RaycastHit raycastHit;
+        //		if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
+        //		{
+        //			this.mortarIndicatorInstance.transform.position = raycastHit.point;
+        //			this.mortarIndicatorInstance.transform.up = raycastHit.normal;
+        //			mortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.mortarRadius * (characterBody.armor/characterBody.baseArmor);
 
-		//		}
-		//	}
-		//	if (this.voidmortarIndicatorInstance)
-		//	{
-		//		float maxDistance = 250f;
+        //		}
+        //	}
+        //	if (this.voidmortarIndicatorInstance)
+        //	{
+        //		float maxDistance = 250f;
 
-		//		this.downRay = new Ray
-		//		{
-		//			direction = Vector3.down,
-		//			origin = base.transform.position
-		//		};
+        //		this.downRay = new Ray
+        //		{
+        //			direction = Vector3.down,
+        //			origin = base.transform.position
+        //		};
 
-		//		RaycastHit raycastHit;
-		//		if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
-		//		{
-		//			this.voidmortarIndicatorInstance.transform.position = raycastHit.point;
-		//			this.voidmortarIndicatorInstance.transform.up = raycastHit.normal;
-		//			voidmortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.voidmortarRadius * characterBody.attackSpeed;
+        //		RaycastHit raycastHit;
+        //		if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
+        //		{
+        //			this.voidmortarIndicatorInstance.transform.position = raycastHit.point;
+        //			this.voidmortarIndicatorInstance.transform.up = raycastHit.normal;
+        //			voidmortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.voidmortarRadius * characterBody.attackSpeed;
 
-		//		}
-		//	}
-		//}
-		//hermit crab mortar
-		//private void CreateMortarIndicator()
-		//{
-		//	if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
-		//	{
-		//		this.downRay = new Ray
-		//		{
-		//			direction = Vector3.down,
-		//			origin = base.transform.position
-		//		};
+        //		}
+        //	}
+        //}
+        //hermit crab mortar
+        //private void CreateMortarIndicator()
+        //{
+        //	if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+        //	{
+        //		this.downRay = new Ray
+        //		{
+        //			direction = Vector3.down,
+        //			origin = base.transform.position
+        //		};
 
-		//		mortarIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab).transform;
-		//		mortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.mortarRadius * characterBody.armor;
+        private void OverclockUpdater()
+        {
+            if (characterBody.HasBuff(Buffs.theWorldBuff))
+            {
+                //check for energy- if none then remove buff
+                if(energySystem.currentplusChaos > 1f)
+                {
+                    //radius increases overtime
+                    overclockTimer += Time.deltaTime;
+                    float maxRadius = overclockTimer * StaticValues.overclockCoefficient;
+                    if (maxRadius > 250f)
+                    {
+                        maxRadius = 250f;
+                    }
 
-		//	}
-		//}
-		////void barnacle mortar	
-		//private void CreateVoidMortarIndicator()
-		//{
-		//	if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
-		//	{
-		//		this.downRay = new Ray
-		//		{
-		//			direction = Vector3.down,
-		//			origin = base.transform.position
-		//		};
 
-		//		voidmortarIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab).transform;
-		//		voidmortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.voidmortarRadius * characterBody.attackSpeed;
+                    //arrow rain prefab instance, expanding over time to indicate the radius
+                    if (!overclockIndicatorInstance)
+                    {
+                        CreateOverclockIndicator();
+                    }
+                    if (this.overclockIndicatorInstance)
+                    {
+                        this.overclockIndicatorInstance.transform.localScale = Vector3.one * maxRadius;
+                        this.overclockIndicatorInstance.transform.localPosition = characterBody.corePosition;
+                    }
+                    //freeze projectile 
+                    Collider[] array = Physics.OverlapSphere(characterBody.corePosition, maxRadius, LayerIndex.projectile.mask);
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        ProjectileController component = array[i].GetComponent<ProjectileController>();
+                        if (component)
+                        {
+                            TeamComponent component2 = component.owner.GetComponent<TeamComponent>();
+                            if (component2 && component2.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
+                            {
+                                EffectData effectData = new EffectData();
+                                effectData.origin = component.transform.position;
+                                effectData.scale = 1f;
+                                EffectManager.SpawnEffect(EntityStates.BeetleMonster.HeadbuttState.hitEffectPrefab, effectData, false);
+                                //UnityEngine.Object.Destroy(array[i].gameObject);
+                                Object.Destroy(component.gameObject);
+                            }
+                        }
+                    }
 
-		//	}
-		//}
+                    //stop enemies from moving
+                    BullseyeSearch search = new BullseyeSearch
+                    {
 
-		////code for both mortars
-		//private void FireMortar()
-		//{
-		//	MortarOrb mortarOrb = new MortarOrb
-		//	{
-		//		attacker = characterBody.gameObject,
-		//		damageColorIndex = DamageColorIndex.WeakPoint,
-		//		damageValue = characterBody.damage * Modules.StaticValues.mortarDamageCoefficient * characterBody.attackSpeed * (characterBody.armor/characterBody.baseArmor),
-		//		origin = characterBody.corePosition,
-		//		procChainMask = default(ProcChainMask),
-		//		procCoefficient = 1f,
-		//		isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
-		//		teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
-		//	};
-		//	if (mortarOrb.target = mortarOrb.PickNextTarget(mortarOrb.origin, Modules.StaticValues.mortarRadius * characterBody.attackSpeed * (characterBody.armor/characterBody.baseArmor)))
-		//	{
-		//		OrbManager.instance.AddOrb(mortarOrb);
-		//	}
+                        teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                        filterByLoS = false,
+                        searchOrigin = characterBody.corePosition,
+                        searchDirection = UnityEngine.Random.onUnitSphere,
+                        sortMode = BullseyeSearch.SortMode.Distance,
+                        maxDistanceFilter = maxRadius,
+                        maxAngleFilter = 360f
+                    };
 
-		//}
+                    search.RefreshCandidates();
+                    search.FilterOutGameObject(characterBody.gameObject);
 
-		private void SearchForTarget(Ray aimRay)
+                    List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                    foreach (HurtBox singularTarget in target)
+                    {
+                        if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                        {
+                            //stop time for all enemies within this radius
+                            if (!singularTarget.healthComponent.body.HasBuff(Buffs.theWorldDebuff))
+                            {
+                                singularTarget.healthComponent.body.ApplyBuff(Buffs.theWorldDebuff.buffIndex, 1);
+                            }
+
+                            new SetTheWorldFreezeOnBodyRequest(singularTarget.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
+                        }
+                    }
+                                     
+
+                }
+                else
+                {
+                    characterBody.ApplyBuff(Buffs.theWorldBuff.buffIndex, 0);
+                }
+
+                
+            }
+            else if (!characterBody.HasBuff(Buffs.theWorldBuff))
+            {
+                //make sure to reset the timer and instance size 
+                overclockTimer = 0f;
+                if (this.overclockIndicatorInstance)
+                {
+                    this.overclockIndicatorInstance.SetActive(false);
+                    EntityState.Destroy(overclockIndicatorInstance);
+
+                    //allow time to move for enemies
+                    BullseyeSearch search = new BullseyeSearch
+                    {
+
+                        teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                        filterByLoS = false,
+                        searchOrigin = characterBody.corePosition,
+                        searchDirection = UnityEngine.Random.onUnitSphere,
+                        sortMode = BullseyeSearch.SortMode.Distance,
+                        maxDistanceFilter = 250f,
+                        maxAngleFilter = 360f
+                    };
+
+                    search.RefreshCandidates();
+                    search.FilterOutGameObject(characterBody.gameObject);
+
+                    List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                    foreach (HurtBox singularTarget in target)
+                    {
+                        if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                        {
+                            //stop time for all enemies within this radius
+                            if (singularTarget.healthComponent.body.HasBuff(Buffs.theWorldDebuff))
+                            {
+                                singularTarget.healthComponent.body.ApplyBuff(Buffs.theWorldDebuff.buffIndex, 0);
+                            }
+                        }
+                    }
+
+                    //freeze projectile 
+                    Collider[] array = Physics.OverlapSphere(characterBody.corePosition, 250f, LayerIndex.projectile.mask);
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        ProjectileController component = array[i].GetComponent<ProjectileController>();
+                        if (component)
+                        {
+                            TeamComponent component2 = component.owner.GetComponent<TeamComponent>();
+                            if (component2 && component2.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
+                            {
+                                EffectData effectData = new EffectData();
+                                effectData.origin = component.transform.position;
+                                effectData.scale = 1f;
+                                EffectManager.SpawnEffect(EntityStates.BeetleMonster.HeadbuttState.hitEffectPrefab, effectData, false);
+                                //UnityEngine.Object.Destroy(array[i].gameObject);
+                                Object.Destroy(component.gameObject);
+                                component.enabled = false;
+
+                            }
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+        //overclock indicator
+        private void CreateOverclockIndicator()
+        {
+            if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+            {
+                this.overclockIndicatorInstance = Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab);
+                this.overclockIndicatorInstance.SetActive(true);
+
+                this.overclockIndicatorInstance.transform.localScale = Vector3.one * StaticValues.overclockCoefficient;
+                this.overclockIndicatorInstance.transform.localPosition = characterBody.corePosition;
+
+            }
+        }
+
+        private void SearchForTarget(Ray aimRay)
 		{
 			this.search.teamMaskFilter = TeamMask.all;
 			this.search.filterByLoS = true;

@@ -12,15 +12,12 @@ namespace ShiggyMod.SkillStates
 {
     public class AlloyVultureWindBlast : Skill
     {
-        public float firetime;
-        public bool hasFired;
         public float pushRange;
 
         public override void OnEnter()
         {
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
-            firetime = duration / 2f;
             pushRange = Modules.StaticValues.vulturePushRange * attackSpeedStat;
             if(pushRange < Modules.StaticValues.vulturePushRange) 
             {
@@ -29,6 +26,7 @@ namespace ShiggyMod.SkillStates
 
             AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
 
+            new PerformForceNetworkRequest(characterBody.masterObjectId, base.GetAimRay().origin - GetAimRay().direction, base.GetAimRay().direction, pushRange, pushRange, characterBody.damage * Modules.StaticValues.vultureDamageCoefficient, Modules.StaticValues.vulturePushAngle, true).Send(NetworkDestination.Clients);
 
         }
 
@@ -42,13 +40,6 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
-            if(base.fixedAge > firetime && !hasFired)
-            {
-                hasFired= true;
-
-                new PerformForceNetworkRequest(characterBody.masterObjectId, base.GetAimRay().origin - GetAimRay().direction, base.GetAimRay().direction, pushRange, characterBody.damage * Modules.StaticValues.vultureDamageCoefficient, Modules.StaticValues.vulturePushAngle, true).Send(NetworkDestination.Clients);
-            }
 
             if (base.fixedAge >= duration)
             {

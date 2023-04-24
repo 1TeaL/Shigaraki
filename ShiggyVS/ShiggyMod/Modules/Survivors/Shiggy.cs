@@ -137,7 +137,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef blindSensesPassiveDef;
 
         //synergy lv2 active
-        internal static SkillDef overclockDef;
+        internal static SkillDef theWorldDef;
         internal static SkillDef extremeSpeedkDef;
         internal static SkillDef deathAuraDef;
         internal static SkillDef OFAFODef;
@@ -2407,7 +2407,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "MACHPUNCH_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MachPunch)),
-                activationStateMachineName = "Body",
+                activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
@@ -2432,7 +2432,32 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "RAPIDPIERCE_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.RapidPierce)),
-                activationStateMachineName = "Body",
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            theWorldDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "THEWORLD_NAME",
+                skillNameToken = prefix + "THEWORLD_NAME",
+                skillDescriptionToken = prefix + "THEWORLD_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.TheWorld)),
+                activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
@@ -2738,21 +2763,15 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
-                jellyfishHealDef,
-                lunarexploderpassiveDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
-                lunargolemSlideDef,
-                grovetenderChainDef,
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
-                alloyvultureWindBlastDef,
-                loaderpassiveDef,
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);

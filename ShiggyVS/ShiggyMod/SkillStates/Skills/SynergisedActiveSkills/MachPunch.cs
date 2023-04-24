@@ -37,7 +37,7 @@ namespace ShiggyMod.SkillStates
         private Vector3 randRelPos;
         private int randFreq;
         private bool reducerFlipFlop;
-        private GameObject effectPrefab = EntityStates.Loader.ThrowPylon.muzzleflashObject;
+        private GameObject effectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/LightningStakeNova");
 
         public static float healthCostFraction;
         private GameObject chargeVfxInstance;
@@ -117,8 +117,7 @@ namespace ShiggyMod.SkillStates
 
             base.FixedUpdate();
             //bool flag = base.fixedAge < this.maxCharge && base.IsKeyDownAuthority();
-            bool flag = base.IsKeyDownAuthority();
-            if (flag)
+            if (base.fixedAge < this.maxCharge && base.IsKeyDownAuthority())
             {
 
                 //base.PlayAnimation("FullBody, Override", "SmashFullCharge", "Attack.playbackRate", 1f);

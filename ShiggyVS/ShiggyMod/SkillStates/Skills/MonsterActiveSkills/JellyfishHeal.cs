@@ -13,7 +13,7 @@ namespace ShiggyMod.SkillStates
 {
     public class JellyfishHeal : BaseSkillState
     {
-        public float baseDuration = 2f;
+        public float baseDuration = 0.6f;
         private float fireTime;
         public float duration;
         public bool hasFired;
@@ -44,7 +44,7 @@ namespace ShiggyMod.SkillStates
             
             PlayCrossfade("RightArm, Override", "RightArmDetonate", "Attack.playbackRate", duration, 0.1f);
             Transform modelTransform = base.GetModelTransform();
-            AkSoundEngine.PostEvent(2085946697, base.gameObject);
+            //AkSoundEngine.PostEvent(2085946697, base.gameObject);
             this.soundID = Util.PlaySound(JellyNova.chargingSoundString, base.gameObject);
             
             

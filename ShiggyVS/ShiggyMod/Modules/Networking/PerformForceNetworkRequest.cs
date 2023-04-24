@@ -14,7 +14,8 @@ namespace ShiggyMod.Modules.Networking
         NetworkInstanceId netID;
         Vector3 origin;
         Vector3 direction;
-        private float Range;
+        private float searchRange;
+        private float pullRange;
         private float damage;
         private float angle;
         private bool playEffect;
@@ -30,12 +31,13 @@ namespace ShiggyMod.Modules.Networking
 
         }
 
-        public PerformForceNetworkRequest(NetworkInstanceId netID, Vector3 origin, Vector3 direction, float Range, float damage, float angle, bool playEffect)
+        public PerformForceNetworkRequest(NetworkInstanceId netID, Vector3 origin, Vector3 direction, float searchRange, float pullRange, float damage, float angle, bool playEffect)
         {
             this.netID = netID;
             this.origin = origin;
             this.direction = direction;
-            this.Range = Range;
+            this.pullRange = pullRange;
+            this.searchRange = searchRange;
             this.damage = damage;
             this.angle = angle;
             this.playEffect = playEffect;
@@ -46,7 +48,8 @@ namespace ShiggyMod.Modules.Networking
             netID = reader.ReadNetworkId();
             origin = reader.ReadVector3();
             direction = reader.ReadVector3();
-            Range = reader.ReadSingle();
+            pullRange = reader.ReadSingle();
+            searchRange= reader.ReadSingle();
             damage = reader.ReadSingle();
             angle = reader.ReadSingle();
             playEffect = reader.ReadBoolean();
@@ -57,7 +60,8 @@ namespace ShiggyMod.Modules.Networking
             writer.Write(netID);
             writer.Write(origin);
             writer.Write(direction);
-            writer.Write(Range);
+            writer.Write(pullRange);
+            writer.Write(searchRange);
             writer.Write(damage);
             writer.Write(angle);
             writer.Write(playEffect);
@@ -127,7 +131,7 @@ namespace ShiggyMod.Modules.Networking
                         }
 
                         Vector3 a2 = vector;
-                        float d = Trajectory.CalculateInitialYSpeedForHeight(Mathf.Abs(Range - magnitude)) * Mathf.Sign(Range - magnitude);
+                        float d = Trajectory.CalculateInitialYSpeedForHeight(Mathf.Abs(pullRange - magnitude)) * Mathf.Sign(pullRange - magnitude);
                         a2 *= d;
                         //a2.y = -30f;
                         DamageInfo damageInfo = new DamageInfo
@@ -167,7 +171,7 @@ namespace ShiggyMod.Modules.Networking
             this.search.searchOrigin = origin;
             this.search.searchDirection = direction;
             this.search.sortMode = BullseyeSearch.SortMode.Distance;
-            this.search.maxDistanceFilter = Range;
+            this.search.maxDistanceFilter = searchRange;
             this.search.maxAngleFilter = angle;
             this.search.RefreshCandidates();
             this.search.FilterOutGameObject(charBody.gameObject);

@@ -3,14 +3,21 @@ using RoR2;
 using UnityEngine;
 using ShiggyMod.Modules.Survivors;
 using EntityStates.VoidSurvivor;
+using HG;
+using static RoR2.BulletAttack;
+using static RoR2.BlastAttack;
+using System.Collections.Generic;
+using EmotesAPI;
+using System.Reflection;
 
 namespace ShiggyMod.SkillStates
 {
     public class RapidPierce : BaseSkillState
     {
-        public float baseDuration = 0.7f;
-        public float duration;
-        private float fireTime;
+        private float baseFireInterval = 1.5f;
+        private float fireInterval;
+        private float fireTimer;
+        public int shotsHit;
         public bool hasFired;
         public ShiggyController Shiggycon;
         private DamageType damageType = DamageType.Generic;
@@ -24,17 +31,19 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
-            this.fireTime = 0.2f * this.duration;
+            fireInterval = baseFireInterval / (this.attackSpeedStat * (1f + shotsHit / 5f));
+
+
+            if (shotsHit < 0)
+            {
+                shotsHit = 0;
+            }
             hasFired = false;
             Ray aimRay = base.GetAimRay();
-            base.characterBody.SetAimTimer(this.duration);
+            base.characterBody.SetAimTimer(1f);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmPunch","Attack.playbackRate", fireTime, 0.1f);
             AkSoundEngine.PostEvent(3660048432, base.gameObject);
             this.muzzleString = "RHand";
-            //EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-            //EffectManager.SimpleMuzzleFlash(Modules.Assets.voidfiendblinkmuzzleEffect, base.gameObject, this.muzzleString, false);
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -45,57 +54,109 @@ namespace ShiggyMod.SkillStates
         {
             base.OnExit();
         }
+         public void Fire()
+        {
+            PlayCrossfade("LeftArm, Override", "LeftArmPunch","Attack.playbackRate", fireInterval, 0.1f);
+
+            base.characterBody.AddSpreadBloom(1f);
+            base.AddRecoil(-1f , 2f, -0.5f , 0.5f);
+            EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
+            Ray aimRay = base.GetAimRay();
+            bool hasHit = false;
+            Vector3 hitPoint = Vector3.zero;
+            float hitDistance = 0f;
+            HealthComponent hitHealthComponent = null;
+
+            var bulletAttack = new BulletAttack
+            {
+                bulletCount = 1,
+                aimVector = aimRay.direction,
+                origin = aimRay.origin,
+                damage = this.damageStat * damageCoefficient,
+                damageColorIndex = DamageColorIndex.Default,
+                damageType = damageType,
+                falloffModel = BulletAttack.FalloffModel.None,
+                maxDistance = range,
+                force = force,
+                hitMask = LayerIndex.CommonMasks.bullet,
+                minSpread = 0f,
+                maxSpread = 0f,
+                isCrit = base.RollCrit(),
+                owner = base.gameObject,
+                muzzleName = muzzleString,
+                smartCollision = false,
+                procChainMask = default(ProcChainMask),
+                procCoefficient = procCoefficient,
+                radius = 1f,
+                sniper = false,
+                stopperMask = LayerIndex.noCollision.mask,
+                weapon = null,
+                tracerEffectPrefab = Modules.Assets.railgunnerSnipeLightTracerEffect,
+                spreadPitchScale = 1f,
+                spreadYawScale = 1f,
+                queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+                hitEffectPrefab = Modules.Assets.railgunnerHitSparkEffect,
+
+            };
+            bulletAttack.hitCallback = delegate (BulletAttack bulletAttackRef, ref BulletHit hitInfo)
+            {
+                var result = BulletAttack.defaultHitCallback(bulletAttackRef, ref hitInfo);
+                if (hitInfo.hitHurtBox)
+                {
+                    hasHit = true;
+                    hitPoint = hitInfo.point;
+                    hitDistance = hitInfo.distance;
+
+                    hitHealthComponent = hitInfo.hitHurtBox.healthComponent;
+                    //hitHealthComponent.body.AddBuff();
+
+                }
+                return result;
+            };
+            bulletAttack.filterCallback = delegate (BulletAttack bulletAttackRef, ref BulletAttack.BulletHit info)
+            {
+                return (!info.entityObject || info.entityObject != bulletAttack.owner) && BulletAttack.defaultFilterCallback(bulletAttackRef, ref info);
+            };
+
+            bulletAttack.Fire();
+            if(hasHit)
+            {
+                shotsHit++;
+            }
+            else if (!hasHit)
+            {
+                shotsHit -= shotsHit/2;
+            }
+
+            fireInterval = baseFireInterval / (this.attackSpeedStat * (1f + shotsHit / 5f));
+        }
+
 
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if (base.fixedAge >= this.fireTime && !hasFired)
+            if (base.IsKeyDownAuthority())
             {
-                //PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", fireTime, 0.1f);
-                hasFired = true;
-
-                Ray aimRay = base.GetAimRay();
-                var bulletAttack = new BulletAttack
+                this.fireTimer -= Time.fixedDeltaTime;
+                if (this.fireTimer <= 0f)
                 {
-                    bulletCount = 1,
-                    aimVector = aimRay.direction,
-                    origin = aimRay.origin,
-                    damage = this.damageStat * damageCoefficient,
-                    damageColorIndex = DamageColorIndex.Default,
-                    damageType = damageType,
-                    falloffModel = BulletAttack.FalloffModel.None,
-                    maxDistance = range,
-                    force = force,
-                    hitMask = LayerIndex.CommonMasks.bullet,
-                    minSpread = 0f,
-                    maxSpread = 0f,
-                    isCrit = base.RollCrit(),
-                    owner = base.gameObject,
-                    muzzleName = muzzleString,
-                    smartCollision = false,
-                    procChainMask = default(ProcChainMask),
-                    procCoefficient = procCoefficient,
-                    radius = 1.5f,
-                    sniper = false,
-                    stopperMask = LayerIndex.noCollision.mask,
-                    weapon = null,
-                    tracerEffectPrefab = Modules.Assets.railgunnerSnipeLightTracerEffect,
-                    spreadPitchScale = 0f,
-                    spreadYawScale = 0f,
-                    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                    hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,
+                    float num = fireInterval;
+                    this.fireTimer += num;
+                    this.Fire();
+                }
 
-                };
-                bulletAttack.Fire();
             }
-
-
-            if (base.fixedAge >= this.duration && base.isAuthority)
+            else
             {
-                this.outer.SetNextStateToMain();
-                return;
+                if (base.isAuthority)
+                {
+                    this.outer.SetNextStateToMain();
+                    return;
+
+                }
+
             }
         }
 

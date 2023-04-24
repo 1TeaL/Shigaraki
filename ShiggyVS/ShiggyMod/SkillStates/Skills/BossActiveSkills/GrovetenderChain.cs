@@ -12,6 +12,7 @@ using R2API.Networking;
 using ShiggyMod.Modules.Networking;
 using ShiggyMod.Modules;
 using R2API.Networking.Interfaces;
+using static UnityEngine.UI.Image;
 
 namespace ShiggyMod.SkillStates
 {
@@ -47,7 +48,14 @@ namespace ShiggyMod.SkillStates
                 component.FindChild(muzzleString);
             }
             Util.PlayAttackSpeedSound(FireHook.soundString, base.gameObject, this.attackSpeedStat);
-            EffectManager.SimpleMuzzleFlash(FireHook.muzzleflashEffectPrefab, base.gameObject, muzzleString, false);
+
+            EffectManager.SpawnEffect(FireHook.muzzleflashEffectPrefab, new EffectData
+            {
+                origin = FindModelChild(muzzleString).position,
+                scale = 1f,
+                rotation = Quaternion.LookRotation(aimRay.direction),
+
+            }, true);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
@@ -56,7 +64,8 @@ namespace ShiggyMod.SkillStates
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+            ChainNearby();
+
         }
         public override void OnExit()
         {
@@ -71,18 +80,18 @@ namespace ShiggyMod.SkillStates
 
             Ray aimRay = base.GetAimRay();
 
-            new PerformForceNetworkRequest(characterBody.masterObjectId, base.GetAimRay().origin + GetAimRay().direction * radius, base.GetAimRay().direction, 0f, characterBody.damage * Modules.StaticValues.grovetenderDamageCoefficient, 360f, true).Send(NetworkDestination.Clients);
+            new PerformForceNetworkRequest(characterBody.masterObjectId, base.GetAimRay().origin - GetAimRay().direction, base.GetAimRay().origin - GetAimRay().direction, radius, 0f, characterBody.damage * Modules.StaticValues.grovetenderDamageCoefficient, StaticValues.grovetenderAngle, true).Send(NetworkDestination.Clients);
 
             BullseyeSearch search = new BullseyeSearch
             {
 
                 teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam()),
                 filterByLoS = false,
-                searchOrigin = aimRay.origin + GetAimRay().direction * radius,
+                searchOrigin = base.GetAimRay().origin - GetAimRay().direction,
                 searchDirection = UnityEngine.Random.onUnitSphere,
                 sortMode = BullseyeSearch.SortMode.Distance,
                 maxDistanceFilter = radius,
-                maxAngleFilter = 360f
+                maxAngleFilter = StaticValues.grovetenderAngle
             };
 
             search.RefreshCandidates();

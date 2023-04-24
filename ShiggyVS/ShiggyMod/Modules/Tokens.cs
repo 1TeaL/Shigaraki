@@ -348,7 +348,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "MACHPUNCH_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Hold to gather energy in your fist. When the button is released, teleport and smash nearby enemies, dealing<style=cIsDamage>{100f * StaticValues.machPunchDamageCoefficient}% - {3f * 100f * StaticValues.machPunchDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Thunderclap]</style> <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "RAPIDPIERCE_NAME", "Rapid Pierce");
-            LanguageAPI.Add(prefix + "RAPIDPIERCE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Shoot a quick railgun, dealing <style=cIsDamage>{100f * StaticValues.rapidPierceDamageCoefficient}% damage</style> in a long line. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "RAPIDPIERCE_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Shoot a railgun, dealing <style=cIsDamage>{100f * StaticValues.rapidPierceDamageCoefficient}% damage</style> in a long line. <style=cIsUtility>Hitting targets consecutively increases the firerate</style>." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Sweeping Beam]</style>");
             #endregion
 
@@ -392,6 +392,16 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BLINDSENSES_DESCRIPTION", $"Gain the heightened senses of blindness. Gain <style=cIsUtility>{StaticValues.blindSensesBlockChance* 100f}% dodge chance</style>. <style=cIsUtility>Blocking an attack causes you to counterattack</style>, stunning and dealing <style=cIsDamage>{StaticValues.blindSensesDamageCoefficient* 100f}% of the damage</style> you would have taken to the attacker. Getting Tougher Times increases the chances of this counterattack independent of dodging as well. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Barrier Jelly]</style>");
             #endregion
+
+            #region Ultimate Actives
+            LanguageAPI.Add(prefix + "THEWORLD_NAME", "The World");
+            LanguageAPI.Add(prefix + "THEWORLD_DESCRIPTION", $"Break the rules of The World. <style=cIsUtility>Stop Time, preventing all enemies around you from moving and attacking. Projectiles are also frozen</style>. " + Helpers.Passive($"Drains plus chaos while active") +"." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub></style>");
+            #endregion
+
+            #region Ultimate Passives
+            #endregion
+
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_DESCRIPTION", "As Shiggy, beat the game or obliterate on Monsoon.");

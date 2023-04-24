@@ -50,7 +50,7 @@ namespace ShiggyMod.SkillStates
 
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("Fullbody, Override", "Slam", "Attack.playbackRate", 0.2f, 0.1f);
+            //PlayCrossfade("Fullbody, Override", "Slam", "Attack.playbackRate", 1f, 0.1f);
 
 
             base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;

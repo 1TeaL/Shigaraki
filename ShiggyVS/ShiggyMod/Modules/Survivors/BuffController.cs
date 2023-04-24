@@ -1118,8 +1118,6 @@ namespace ShiggyMod.Modules.Survivors
         {
             if (this.barbedSpikesIndicatorInstance)
             {
-                float maxDistance = 250f;
-
                 this.barbedSpikesIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.damage / characterBody.baseDamage);
                 this.barbedSpikesIndicatorInstance.transform.localPosition = characterBody.corePosition;
             }

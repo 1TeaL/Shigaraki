@@ -116,6 +116,9 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<PeformDirectionalForceNetworkRequest>();
             NetworkingAPI.RegisterMessageType<ItemDropNetworked>();
             NetworkingAPI.RegisterMessageType<SpendHealthNetworkRequest>();
+            NetworkingAPI.RegisterMessageType<DisableSlideStateMachine>();
+            NetworkingAPI.RegisterMessageType<SetTheWorldFreezeOnBodyRequest>();
+
 
 
             // now make a content pack and add it- this part will change with the next update
@@ -291,7 +294,7 @@ namespace ShiggyMod
                     //    procCoefficient = StaticValues.blackholeGlaiveProcCoefficient,
                     //    attackerFiltering = AttackerFiltering.NeverHitSelf,
                     //}.Fire();
-                    new PerformForceNetworkRequest(self.attacker.gameObject.GetComponent<CharacterBody>().masterObjectId, self.target.transform.position, Vector3.up, 0f, self.damageValue, 360f, false).Send(NetworkDestination.Clients);
+                    new PerformForceNetworkRequest(self.attacker.gameObject.GetComponent<CharacterBody>().masterObjectId, self.target.transform.position, Vector3.up, StaticValues.blackholeGlaiveBlastRange, 0f, self.damageValue, 360f, false).Send(NetworkDestination.Clients);
 
                     EffectManager.SpawnEffect(Modules.Assets.voidMegaCrabExplosionEffect, new EffectData
                     {
@@ -369,7 +372,7 @@ namespace ShiggyMod
                         args.baseAttackSpeedAdd += StaticValues.lesserwispFlatAttackSpeed;
                     }
                     //lunar exploder
-                    if (sender.HasBuff(Buffs.lesserwispBuff))
+                    if (sender.HasBuff(Buffs.lunarexploderBuff))
                     {
                         args.baseShieldAdd += sender.maxHealth * StaticValues.lunarexploderShieldCoefficient;
                     }
@@ -1197,12 +1200,20 @@ namespace ShiggyMod
             {
                 orig.Invoke(self);
 
+                //overclock debuff
+                if (self.HasBuff(Buffs.theWorldDebuff))
+                {
+                    self.attackSpeed *= 0f;
+                    self.moveSpeed *= 0f;
+
+
+                }
                 //limiter removal buff
                 if (self.HasBuff(Buffs.limitBreakBuff))
                 {
                     self.damage *= StaticValues.limitBreakCoefficient;
                 }
-
+                //grovetender debuff
                 if (self.HasBuff(Buffs.grovetenderChainDebuff))
                 {
                     self.moveSpeed *= 0f;
