@@ -68,21 +68,6 @@ namespace ShiggyMod.SkillStates
 
             Util.PlaySound(BaseChargeFist.startChargeLoopSFXString, base.gameObject);
 
-            if (NetworkServer.active && base.healthComponent)
-            {
-                DamageInfo damageInfo = new DamageInfo();
-                damageInfo.damage = base.healthComponent.fullCombinedHealth * 0.1f;
-                damageInfo.position = base.transform.position;
-                damageInfo.force = Vector3.zero;
-                damageInfo.damageColorIndex = DamageColorIndex.Default;
-                damageInfo.crit = false;
-                damageInfo.attacker = null;
-                damageInfo.inflictor = null;
-                damageInfo.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
-                damageInfo.procCoefficient = 0f;
-                damageInfo.procChainMask = default(ProcChainMask);
-                base.healthComponent.TakeDamage(damageInfo);
-            }
         }
 
         public void IndicatorUpdator()
@@ -98,7 +83,7 @@ namespace ShiggyMod.SkillStates
             {
                 this.maxDistance = this.hitDis;
             }
-            this.damageMult = Modules.StaticValues.machPunchDamageCoefficient + 1f * (this.chargePercent * Modules.StaticValues.machPunchDamageCoefficient);
+            this.damageMult = Modules.StaticValues.machPunchDamageCoefficient + 2f * (this.chargePercent * Modules.StaticValues.machPunchDamageCoefficient);
             this.radius = (this.baseRadius * this.damageMult + 10f) / 4f;
             this.maxMoveVec = this.maxDistance * direction;
             this.areaIndicator.transform.localScale = Vector3.one * this.radius;
@@ -167,11 +152,11 @@ namespace ShiggyMod.SkillStates
                 bool isAuthority = base.isAuthority;
                 if (isAuthority)
                 {
-                    MachPunchRelease detroit100Release = new MachPunchRelease();
-                    detroit100Release.damageMult = this.damageMult;
-                    detroit100Release.radius = this.radius;
-                    detroit100Release.moveVec = this.maxMoveVec;
-                    this.outer.SetNextState(detroit100Release);
+                    MachPunchRelease machPunchRelease = new MachPunchRelease();
+                    machPunchRelease.damageMult = this.damageMult;
+                    machPunchRelease.radius = this.radius;
+                    machPunchRelease.moveVec = this.maxMoveVec;
+                    this.outer.SetNextState(machPunchRelease);
                 }
             }
         }
