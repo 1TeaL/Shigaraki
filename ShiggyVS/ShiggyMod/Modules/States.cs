@@ -122,6 +122,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(TheWorld));
             entityStates.Add(typeof(TheWorldFreeze));
             entityStates.Add(typeof(ExtremeSpeed));
+            entityStates.Add(typeof(DeathAura));
 
             //synergy passive skills
             entityStates.Add(typeof(BigBangPassive));

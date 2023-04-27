@@ -398,7 +398,10 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "THEWORLD_DESCRIPTION", $"Break the rules of The World. <style=cIsUtility>Stop Time, preventing all enemies around you from moving and attacking. Projectiles are also frozen</style>. " + Helpers.Passive($"Drains plus chaos while active") +".");
             LanguageAPI.Add(prefix + "EXTREMESPEED_NAME", "Extreme Speed");
             LanguageAPI.Add(prefix + "EXTREMESPEED_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Instantaneously move at blinding speeds through enemies. After a delay, deal <style=cIsDamage>{StaticValues.extremeSpeedNumberOfHits}x{100f * StaticValues.extremeSpeedDamageCoefficient}% damage</style>. " +
-                $"Number of hits scales with attackspeed.");
+                $"Number of hits scales with attackspeed." + Environment.NewLine + Environment.NewLine +
+                $"<style=cWorldEvent>[Decay]</style>");
+            LanguageAPI.Add(prefix + "DEATHAURA_NAME", "Death Aura");
+            LanguageAPI.Add(prefix + "DEATHAURA_DESCRIPTION", $"Become death itself, <style=cIsUtility> applying a stacking debuff to enemies and a stacking buff to yourself  every {StaticValues.deathAuraThreshold} second</style>. Each debuff stack increases <style=cIsDamage>DoT damage by {100f * StaticValues.deathAuraDebuffCoefficient}% while each buff stack increases your DoT damage by {100f* StaticValues.deathAuraBuffCoefficient}%</style>. " + Helpers.Passive($"Drains plus chaos while active") + ".");
             #endregion
 
             #region Ultimate Passives

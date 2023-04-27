@@ -163,7 +163,7 @@ namespace ShiggyMod.Modules.Survivors
                 regenPlusChaos = maxPlusChaos * StaticValues.regenPlusChaosFraction;
 
                 costmultiplierplusChaos = (float)Math.Pow(0.75f, characterBody.master.inventory.GetItemCount(RoR2Content.Items.AlienHead));
-                costflatplusChaos = (5 * characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarBadLuck));
+                costflatplusChaos = (StaticValues.costFlatPlusChaosSpend * characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarBadLuck));
 
                 if (costmultiplierplusChaos > 1f)
                 {

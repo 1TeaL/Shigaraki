@@ -1,4 +1,5 @@
-﻿using R2API.Networking;
+﻿using R2API;
+using R2API.Networking;
 using R2API.Networking.Interfaces;
 using RoR2;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using UnityEngine.Networking;
 
 namespace ShiggyMod.Modules.Networking
 {
-    internal class TakeDamageForceRequest : INetMessage
+    internal class TakeMeleeDamageForceRequest : INetMessage
     {
         //Network these ones.
         NetworkInstanceId enemynetID;
@@ -25,12 +26,12 @@ namespace ShiggyMod.Modules.Networking
         private List<HurtBox> trackingTargets;
         private GameObject blastEffectPrefab = Assets.loaderOmniImpactLightningEffect;
 
-        public TakeDamageForceRequest()
+        public TakeMeleeDamageForceRequest()
         {
 
         }
 
-        public TakeDamageForceRequest(NetworkInstanceId enemynetID, Vector3 direction, float force, float damage, NetworkInstanceId charnetID)
+        public TakeMeleeDamageForceRequest(NetworkInstanceId enemynetID, Vector3 direction, float force, float damage, NetworkInstanceId charnetID)
         {
             this.enemynetID = enemynetID;
             this.direction = direction;
@@ -108,6 +109,7 @@ namespace ShiggyMod.Modules.Networking
                     crit = charcharBody.RollCrit(),
 
                 };
+                DamageAPI.AddModdedDamageType(damageInfo, Damage.shiggyDecay);
 
                 enemycharBody.healthComponent.TakeDamageForce(direction * force * (Weight), true, true);
                 enemycharBody.healthComponent.TakeDamage(damageInfo);

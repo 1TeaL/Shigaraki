@@ -75,10 +75,12 @@ namespace ShiggyMod.Modules
         //ultimate buffs
         internal static BuffDef theWorldBuff;
         internal static BuffDef supernovaBuff;
+        internal static BuffDef deathAuraBuff;
 
         //ultimate debuffs
         internal static BuffDef theWorldDebuff;
         internal static BuffDef extremeSpeedHitsDebuff;
+        internal static BuffDef deathAuraDebuff;
 
         //survivor buffs
         internal static BuffDef acridBuff;
@@ -161,15 +163,17 @@ namespace ShiggyMod.Modules
             doubleTimeBuffStacks = Buffs.AddNewBuff("double Time Buff Stacks", Assets.warcryBuffIcon, Color.yellow, true, false);
             blindSensesBuff = Buffs.AddNewBuff("blindSenses Buff", Assets.cloakBuffIcon, Color.green, false, false);
             supernovaBuff = Buffs.AddNewBuff("supernova Buff Stacks", Assets.singularityBuffIcon, Color.cyan, true, false);
-            extremeSpeedHitsDebuff = Buffs.AddNewBuff("extremeSpeedHits Debuff", Assets.crippleBuffIcon, Color.magenta, true, true);
+            deathAuraBuff = Buffs.AddNewBuff("Death aura Buff", Assets.deathMarkDebuffIcon, Color.magenta, true, false);
 
             theWorldBuff = Buffs.AddNewBuff("The World Buff", Assets.resonanceBuffIcon, Color.yellow, false, false);
-            theWorldDebuff = Buffs.AddNewBuff("The World Debuff", Assets.resonanceBuffIcon, Color.black, false, true);
 
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
             bigbangDebuff = Buffs.AddNewBuff("bigbangDebuff", Assets.orbdisableBuffIcon, Color.green, true, true);
             doubleTimeDebuff = Buffs.AddNewBuff("doubleTime Debuff", Assets.warcryBuffIcon, Color.black, false, true);
+            theWorldDebuff = Buffs.AddNewBuff("The World Debuff", Assets.resonanceBuffIcon, Color.black, false, true);
+            extremeSpeedHitsDebuff = Buffs.AddNewBuff("extremeSpeedHits Debuff", Assets.crippleBuffIcon, Color.magenta, true, true);
+            deathAuraDebuff = Buffs.AddNewBuff("Death aura Debuff", Assets.deathMarkDebuffIcon, Color.black, true, true);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

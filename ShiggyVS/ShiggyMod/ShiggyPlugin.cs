@@ -120,7 +120,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<SpendHealthNetworkRequest>();
             NetworkingAPI.RegisterMessageType<DisableSlideStateMachine>();
             NetworkingAPI.RegisterMessageType<SetTheWorldFreezeOnBodyRequest>();
-            NetworkingAPI.RegisterMessageType<TakeDamageForceRequest>();
+            NetworkingAPI.RegisterMessageType<TakeMeleeDamageForceRequest>();
 
 
 
@@ -436,17 +436,22 @@ namespace ShiggyMod
                 var body = attacker.GetComponent<CharacterBody>();
                 var victimBody = victim.GetComponent<CharacterBody>();
 
-                DamageType damageType2;
-                if (body.HasBuff(Buffs.impbossBuff))
-                {
-                    damageType2 = DamageType.BleedOnHit | DamageType.Stun1s;
-                }
-                else
-                {
-                    damageType2 = DamageType.Stun1s;
-                }
+
                 if (body && victimBody)
                 {
+
+
+                    //impboss buff just incase
+                    if (body.HasBuff(Buffs.impbossBuff))
+                    {
+                        damageInfo.damageType |= DamageType.BleedOnHit;
+                    }
+                    //acrid buff just incase
+                    if (body.HasBuff(Buffs.acridBuff))
+                    {
+                        damageInfo.damageType |= DamageType.PoisonOnHit;
+                    }
+
                     //commando buff
                     if (body.HasBuff(Modules.Buffs.commandoBuff))
                     {
@@ -493,7 +498,7 @@ namespace ShiggyMod
                                 teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
                                 falloffModel = BlastAttack.FalloffModel.None,
                                 baseDamage = body.damage * StaticValues.vagrantDamageCoefficient * body.attackSpeed / 3,
-                                damageType = damageType2,
+                                damageType = DamageType.Stun1s,
                                 damageColorIndex = DamageColorIndex.Default,
                                 baseForce = 0,
                                 position = victimBody.transform.position,
@@ -850,6 +855,24 @@ namespace ShiggyMod
             {
                 if (damageInfo != null && damageInfo.attacker && damageInfo.attacker.GetComponent<CharacterBody>())
                 {
+
+                    //death aura buff and debuff
+                    if (self.body.HasBuff(Buffs.deathAuraDebuff))
+                    {
+                        if (damageInfo.damageType == DamageType.DoT)
+                        {
+                            damageInfo.damage *= (1 + self.body.GetBuffCount(Buffs.deathAuraDebuff) * StaticValues.deathAuraDebuffCoefficient);
+                        }
+                    }
+                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.deathAuraBuff))
+                    {
+                        if (damageInfo.damageType == DamageType.DoT)
+                        {
+                            damageInfo.damage *= (1 + damageInfo.attacker.GetComponent<CharacterBody>().GetBuffCount(Buffs.deathAuraBuff) * StaticValues.deathAuraBuffCoefficient);
+                        }
+                    }
+
+
                     //loader passive
                     if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.loaderBuff))
                     {
@@ -1110,15 +1133,15 @@ namespace ShiggyMod
                         {
                             self.body.ApplyBuff(Modules.Buffs.supernovaBuff.buffIndex, 1);
 
-                            Vector3 position = base.transform.position;
+                            Vector3 position = self.body.transform.position;
                             Util.PlaySound(FireMegaNova.novaSoundString, self.body.gameObject);
                             EffectManager.SpawnEffect(FireMegaNova.novaEffectPrefab, new EffectData
                             {
                                 origin = position,
-                                scale = 1f,
+                                scale = StaticValues.supernovaRadius,
                                 rotation = Quaternion.LookRotation(self.transform.position)
 
-                            }, false);
+                            }, true);
 
                             Transform modelTransform = self.body.gameObject.GetComponent<ModelLocator>().modelTransform;
                             if (modelTransform)
@@ -1133,7 +1156,7 @@ namespace ShiggyMod
                             }
                             new BlastAttack
                             {
-                                attacker = base.gameObject,
+                                attacker = self.body.gameObject,
                                 baseDamage = self.body.damage* StaticValues.supernovaDamageCoefficient,
                                 baseForce = FireMegaNova.novaForce,
                                 bonusForce = Vector3.zero,
@@ -1364,6 +1387,8 @@ namespace ShiggyMod
                     this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
                     this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.limitBreakBuff), self);
                     this.OverlayFunction(Modules.Assets.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.voidFormBuff), self);
+                    this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.deathAuraBuff), self);
+                    this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.deathAuraDebuff), self);
                 }
             }
         }

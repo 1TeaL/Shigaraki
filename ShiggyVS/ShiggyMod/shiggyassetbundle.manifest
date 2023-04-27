@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3399504496
+CRC: 2925585411
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0210ffe8bbc3bc393eab0d7fd9e22675
+    Hash: 7475ac77d06e1f6d5ebdcedc35c311ce
   TypeTreeHash:
     serializedVersion: 2
     Hash: 2aabfa7e2248303e3bca13b9a3057ad2
@@ -135,6 +135,7 @@ Assets:
 - Assets/Shigaraki/GUI/Survivors/Huntress.png
 - Assets/Shigaraki/Emotes/humanoidShigaraki.prefab
 - Assets/Shigaraki/Import/humanoidDeku.fbx
+- Assets/Shigaraki/Assets/SphereIndicator.prefab
 - Assets/Shigaraki/Animations/Jump.anim
 - Assets/Shigaraki/GUI/Survivors/Engineer.png
 - Assets/Shigaraki/Assets/Material/MultiplierMat.mat
@@ -192,6 +193,7 @@ Assets:
 - Assets/Shigaraki/Assets/Material/noise3blur.png
 - Assets/Shigaraki/Assets/MeshShiggy.mesh
 - Assets/Shigaraki/Assets/Particle/DecaySpread.prefab
+- Assets/Shigaraki/Assets/Material/HealthMoteAura.mat
 - Assets/Shigaraki/Animations/RightArmOut.anim
 - Assets/Shigaraki/Animations/EntranceLoop.anim
 - Assets/Shigaraki/GUI/Monsters/Mini_Mushrum.png

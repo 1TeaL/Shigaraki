@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using RoR2.UI;
 using UnityEngine.AddressableAssets;
 using System.Runtime.CompilerServices;
+using System;
 
 namespace ShiggyMod.Modules
 {
@@ -39,6 +40,7 @@ namespace ShiggyMod.Modules
         public static GameObject VoidFiendBeamTracer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
 
         //buffs
+        public static Sprite deathMarkDebuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/DeathMark/bdDeathMark.asset").WaitForCompletion().iconSprite;
         public static Sprite singularityBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/ElementalRingVoid/bdElementalRingVoidReady.asset").WaitForCompletion().iconSprite;
         public static Sprite cloakBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdCloak.asset").WaitForCompletion().iconSprite;
         public static Sprite voidFogDebuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdVoidFogMild.asset").WaitForCompletion().iconSprite;
@@ -155,12 +157,22 @@ namespace ShiggyMod.Modules
         public static GameObject lightningNovaEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/LightningStakeNova");
         public static GameObject muzzleflashMageLightningLargePrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/MuzzleFlashes/MuzzleflashMageLightningLarge");
 
+
         //game projectiles
         public static GameObject captainAirStrikeProj = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Captain/CaptainAirstrikeProjectile1.prefab").WaitForCompletion();
         public static GameObject mercWindProj = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Merc/EvisProjectile.prefab").WaitForCompletion();
         public static GameObject lemfireBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/Fireball.prefab").WaitForCompletion();
         public static GameObject lemfireBallGhost = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Lemurian/FireballGhost.prefab").WaitForCompletion();
         public static GameObject greaterwispBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/GreaterWisp/WispCannon.prefab").WaitForCompletion();
+
+        //Area indicators
+        internal static GameObject deathAuraIndicator;
+        internal static GameObject theWorldIndicator;
+        internal static GameObject hermitCrabMortarIndicator;
+        internal static GameObject voidBarnacleMortarIndicator;
+        internal static GameObject barbedSpikesIndicator;
+        internal static GameObject auraOfBlightIndicator;
+        internal static GameObject doubleTimeIndicator;
 
 
         //Shiggy Equipment Obj
@@ -213,6 +225,101 @@ namespace ShiggyMod.Modules
                 Debug.LogError("There is no AssetBundle to load assets from.");
                 return;
             }
+
+
+            //warbanner material setup
+            Material warbannerMat = Addressables.LoadAssetAsync<Material>(key: "RoR2/Base/WardOnLevel/matWarbannerSphereIndicator.mat").WaitForCompletion();
+            Material[] warbannerArray = new Material[1];
+            warbannerArray[0] = warbannerMat;
+
+            //Creating spheres and adding the material to them
+            deathAuraIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+
+            MeshRenderer deathAuraIndicatorMeshRender = deathAuraIndicator.gameObject.GetComponent<MeshRenderer>();
+            if (!deathAuraIndicatorMeshRender)
+            {
+                Debug.Log("Failed to find Mesh renderer!");
+            }
+            deathAuraIndicatorMeshRender.materials = warbannerArray;
+            deathAuraIndicatorMeshRender.material.SetColor("_TintColor", new Color(153/255f, 21/255f, 63/255f));
+            networkObjDefs.Add(deathAuraIndicator);
+            PrefabAPI.RegisterNetworkPrefab(deathAuraIndicator);
+
+            theWorldIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+
+            MeshRenderer theWorldIndicatorMeshRender = theWorldIndicator.gameObject.GetComponent<MeshRenderer>();
+            if (!theWorldIndicatorMeshRender)
+            {
+                Debug.Log("Failed to find Mesh renderer!");
+            }
+            theWorldIndicatorMeshRender.materials = warbannerArray;
+            theWorldIndicatorMeshRender.material.SetColor("_TintColor", Color.gray);
+            networkObjDefs.Add(theWorldIndicator);
+            PrefabAPI.RegisterNetworkPrefab(theWorldIndicator);
+
+
+            hermitCrabMortarIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+
+            MeshRenderer hermitCrabMortarIndicatorMeshRender = hermitCrabMortarIndicator.gameObject.GetComponent<MeshRenderer>();
+            if (!hermitCrabMortarIndicatorMeshRender)
+            {
+                Debug.Log("Failed to find Mesh renderer!");
+            }
+            hermitCrabMortarIndicatorMeshRender.materials = warbannerArray;
+            hermitCrabMortarIndicatorMeshRender.material.SetColor("_TintColor", Color.blue);
+            networkObjDefs.Add(hermitCrabMortarIndicator);
+            PrefabAPI.RegisterNetworkPrefab(hermitCrabMortarIndicator);
+
+            voidBarnacleMortarIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+
+            MeshRenderer voidBarnacleMortarIndicatorMeshRender = voidBarnacleMortarIndicator.gameObject.GetComponent<MeshRenderer>();
+            if (!voidBarnacleMortarIndicatorMeshRender)
+            {
+                Debug.Log("Failed to find Mesh renderer!");
+            }
+            voidBarnacleMortarIndicatorMeshRender.materials = warbannerArray;
+            voidBarnacleMortarIndicatorMeshRender.material.SetColor("_TintColor", Color.magenta);
+            networkObjDefs.Add(voidBarnacleMortarIndicator);
+            PrefabAPI.RegisterNetworkPrefab(voidBarnacleMortarIndicator);
+
+            barbedSpikesIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+
+            MeshRenderer barbedSpikesIndicatorMeshRender = barbedSpikesIndicator.gameObject.GetComponent<MeshRenderer>();
+            if (!barbedSpikesIndicatorMeshRender)
+            {
+                Debug.Log("Failed to find Mesh renderer!");
+            }
+            barbedSpikesIndicatorMeshRender.materials = warbannerArray;
+            barbedSpikesIndicatorMeshRender.material.SetColor("_TintColor", new Color(153/255f, 74/255f, 21/255f));
+            networkObjDefs.Add(barbedSpikesIndicator);
+            PrefabAPI.RegisterNetworkPrefab(barbedSpikesIndicator);
+
+            auraOfBlightIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+
+            MeshRenderer auraOfBlightIndicatorMeshRender = auraOfBlightIndicator.gameObject.GetComponent<MeshRenderer>();
+            if (!auraOfBlightIndicatorMeshRender)
+            {
+                Debug.Log("Failed to find Mesh renderer!");
+            }
+            auraOfBlightIndicatorMeshRender.materials = warbannerArray;
+            auraOfBlightIndicatorMeshRender.material.SetColor("_TintColor", new Color(125 / 255f, 156 / 255f, 42 / 255f));
+            networkObjDefs.Add(auraOfBlightIndicator);
+            PrefabAPI.RegisterNetworkPrefab(auraOfBlightIndicator);
+
+            doubleTimeIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+
+            MeshRenderer doubleTimeIndicatorMeshRender = doubleTimeIndicator.gameObject.GetComponent<MeshRenderer>();
+            if (!doubleTimeIndicatorMeshRender)
+            {
+                Debug.Log("Failed to find Mesh renderer!");
+            }
+            doubleTimeIndicatorMeshRender.materials = warbannerArray;
+            doubleTimeIndicatorMeshRender.material.SetColor("_TintColor", new Color(247 / 255f, 222 / 255f, 27 / 255f));
+            networkObjDefs.Add(doubleTimeIndicator);
+            PrefabAPI.RegisterNetworkPrefab(doubleTimeIndicator);
+
+
+
             //decay particle
             decayattackEffect = LoadEffect("DecayAttack");
             decaybuffEffect = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DecayBuff");
@@ -243,6 +350,7 @@ namespace ShiggyMod.Modules
             //ShiggyEquipmentPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyEquipmentModel");
             ////Shiggy Item prefab
             //ShiggyItemPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyItemModel");
+
         }
 
         private static void PopulateEffects()

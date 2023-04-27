@@ -54,7 +54,13 @@ namespace ShiggyMod.SkillStates
 			
 			Vector3 startPos = characterBody.transform.position;
 			Ray aimRay = base.GetAimRay();
-			moveVec = aimRay.direction * distance * moveSpeedStat;
+
+            float sprintMultiplier = 1f;
+            if (characterBody.isSprinting)
+            {
+                sprintMultiplier = 1.5f;
+            }
+			moveVec = (aimRay.direction * distance * (moveSpeedStat/characterBody.baseMoveSpeed))/sprintMultiplier;
             base.characterMotor.rootMotion += this.moveVec;
 
             if (this.modelTransform)
@@ -69,18 +75,19 @@ namespace ShiggyMod.SkillStates
             }
             EffectManager.SimpleMuzzleFlash(EvisDash.blinkPrefab, base.gameObject, this.muzzleString, false);
             EffectManager.SimpleMuzzleFlash(Modules.Assets.muzzleflashMageLightningLargePrefab, base.gameObject, this.muzzleString, false);
+            CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
         }
 		public override void OnExit()
 		{
 			base.OnExit();
             endPos = characterBody.transform.position;
             ApplyComponent();
+            CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
 
-		}
+        }
 		public override void FixedUpdate()
 		{
 			base.FixedUpdate();
-            CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
 
 
             if (base.fixedAge >= duration && base.isAuthority)

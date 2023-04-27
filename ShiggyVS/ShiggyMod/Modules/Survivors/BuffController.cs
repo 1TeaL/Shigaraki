@@ -47,6 +47,8 @@ namespace ShiggyMod.Modules.Survivors
         private float doubleTimeStacksTimer;
 
         private Ray downRay;
+        public GameObject doubleTimeIndicatorInstance;
+        public GameObject auraOfBlightIndicatorInstance;
 		public GameObject mortarIndicatorInstance;
         public GameObject voidmortarIndicatorInstance;
         public GameObject barbedSpikesIndicatorInstance;
@@ -248,6 +250,16 @@ namespace ShiggyMod.Modules.Survivors
                 barbedSpikesIndicatorInstance.SetActive(false);
                 EntityState.Destroy(barbedSpikesIndicatorInstance.gameObject);
             }
+            if (auraOfBlightIndicatorInstance)
+            {
+                auraOfBlightIndicatorInstance.SetActive(false);
+                EntityState.Destroy(auraOfBlightIndicatorInstance.gameObject);
+            }
+            if (doubleTimeIndicatorInstance)
+            {
+                doubleTimeIndicatorInstance.SetActive(false);
+                EntityState.Destroy(doubleTimeIndicatorInstance.gameObject);
+            }
             if (mushroomWard) EntityState.Destroy (mushroomWard.gameObject);
             if (magmawormWard) EntityState.Destroy(magmawormWard);
 
@@ -272,6 +284,19 @@ namespace ShiggyMod.Modules.Survivors
                         ApplyDoubleTimeDebuff();
                         doubleTimeTimer = 0f;
                     }
+
+                    if (!doubleTimeIndicatorInstance)
+                    {
+                        CreateDoubleTimeIndicator();
+                    }
+                }
+                else if (!characterBody.HasBuff(Buffs.doubleTimeBuff))
+                {
+                    if (doubleTimeIndicatorInstance)
+                    {
+                        doubleTimeIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(doubleTimeIndicatorInstance.gameObject);
+                    }
                 }
                 //double time buff removal
                 if (characterBody.HasBuff(Buffs.doubleTimeBuffStacks))
@@ -295,11 +320,11 @@ namespace ShiggyMod.Modules.Survivors
                         CreateBarbedSpikesIndicator();
                     }
 
-                    if (barbedSpikesTimer < StaticValues.auraOfBlightBuffThreshold)
+                    if (barbedSpikesTimer < StaticValues.barbedSpikesBuffThreshold)
                     {
                         barbedSpikesTimer += Time.fixedDeltaTime;
                     }
-                    else if (barbedSpikesTimer >= StaticValues.auraOfBlightBuffThreshold)
+                    else if (barbedSpikesTimer >= StaticValues.barbedSpikesBuffThreshold)
                     {
                         barbedSpikesTimer = 0f;
                         BullseyeSearch search = new BullseyeSearch
@@ -364,6 +389,18 @@ namespace ShiggyMod.Modules.Survivors
                         auraOfBlightTimer = 0f;
                         ApplyBlight();
 
+                    }
+                    if (!this.auraOfBlightIndicatorInstance)
+                    {
+                        CreateAuraOfBlightIndicator();
+                    }
+                }
+                else if (!characterBody.HasBuff(Buffs.auraOfBlightBuff))
+                {
+                    if (auraOfBlightIndicatorInstance)
+                    {
+                        auraOfBlightIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(auraOfBlightIndicatorInstance.gameObject);
                     }
                 }
 
@@ -1123,22 +1160,62 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (this.mortarIndicatorInstance)
             {
-                this.mortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.armor / characterBody.baseArmor);
+                this.mortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.mortarRadius * (characterBody.armor / characterBody.baseArmor);
                 this.mortarIndicatorInstance.transform.localPosition = characterBody.corePosition;
 
 			}
 			if (this.voidmortarIndicatorInstance)
             {
-                this.voidmortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.attackSpeed);
+                this.voidmortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.voidmortarRadius * (characterBody.attackSpeed);
                 this.voidmortarIndicatorInstance.transform.localPosition = characterBody.corePosition;
 			}
+            if(this.doubleTimeIndicatorInstance)
+            {
+                this.doubleTimeIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.doubleTimeRadius;
+                this.doubleTimeIndicatorInstance.transform.localPosition = characterBody.corePosition;
+            }
+            if(this.auraOfBlightIndicatorInstance)
+            {
+                this.auraOfBlightIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.auraOfBlightBuffRadius;
+                this.auraOfBlightIndicatorInstance.transform.localPosition = characterBody.corePosition;
+            }
+        }
+
+        //aura of blight buff 
+        private void CreateAuraOfBlightIndicator()
+        {
+            if (Assets.auraOfBlightIndicator)
+            {
+                this.auraOfBlightIndicatorInstance= Object.Instantiate<GameObject>(Assets.auraOfBlightIndicator);
+                this.auraOfBlightIndicatorInstance.SetActive(true);
+
+                this.auraOfBlightIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.auraOfBlightBuffRadius;
+                this.auraOfBlightIndicatorInstance.transform.localPosition = characterBody.corePosition;
+
+            }
+
+        }
+
+        //double time buff 
+        private void CreateDoubleTimeIndicator()
+        {
+            if (Assets.doubleTimeIndicator)
+            {
+                this.doubleTimeIndicatorInstance = Object.Instantiate<GameObject>(Assets.doubleTimeIndicator);
+                this.doubleTimeIndicatorInstance.SetActive(true);
+
+                this.doubleTimeIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.doubleTimeRadius;
+                this.doubleTimeIndicatorInstance.transform.localPosition = characterBody.corePosition;
+
+            }
+
         }
         //barbed spikes indicator
         private void CreateBarbedSpikesIndicator()
         {
-            if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+            if (Assets.barbedSpikesIndicator)
             {
-                this.barbedSpikesIndicatorInstance = Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab);
+                this.barbedSpikesIndicatorInstance = Object.Instantiate<GameObject>(Assets.barbedSpikesIndicator);
                 this.barbedSpikesIndicatorInstance.SetActive(true);
                 
                 this.barbedSpikesIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.damage / characterBody.baseDamage);
@@ -1149,9 +1226,9 @@ namespace ShiggyMod.Modules.Survivors
         //hermit crab mortar
         private void CreateMortarIndicator()
 		{
-			if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+			if (Assets.hermitCrabMortarIndicator)
             {
-                this.mortarIndicatorInstance = Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab);
+                this.mortarIndicatorInstance = Object.Instantiate<GameObject>(Assets.hermitCrabMortarIndicator);
                 this.mortarIndicatorInstance.SetActive(true);
                 this.mortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.armor / characterBody.baseArmor);
                 this.mortarIndicatorInstance.transform.localPosition = characterBody.corePosition;
@@ -1161,9 +1238,9 @@ namespace ShiggyMod.Modules.Survivors
 		//void barnacle mortar	
 		private void CreateVoidMortarIndicator()
 		{
-			if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+			if (Assets.voidBarnacleMortarIndicator)
             {
-                this.voidmortarIndicatorInstance = Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab);
+                this.voidmortarIndicatorInstance = Object.Instantiate<GameObject>(Assets.voidBarnacleMortarIndicator);
                 this.voidmortarIndicatorInstance.SetActive(true);
 
                 this.voidmortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.attackSpeed);

@@ -16,7 +16,8 @@ namespace ShiggyMod.Modules
         internal static float regenPlusChaosRate = 8f;
         internal static float basePlusChaosGain = 1f;
         internal static float killPlusChaosGain = 0.1f;
-        internal static float modePlusChaosSpend = 5f;
+        internal static float costFlatPlusChaosSpend = 5f;
+        internal static float costFlatContantlyDrainingCoefficient = 0.005f;
         internal static float regenPlusChaosFraction = 0.05f;
         internal static float backupGain = 10f;
         internal static float afterburnerGain = 30f;
@@ -378,7 +379,7 @@ namespace ShiggyMod.Modules
         internal static float rapidPierceDamageCoefficient = 4f;
         internal static float rapidPierceProcCoefficient = 1f;
 
-        internal static float overclockCoefficient = 10f;
+        internal static float overclockCoefficient = 15f;
         internal static float overclockEnergyCost = 0.2f;
 
         internal static float supernovaDamageCoefficient = 20f;
@@ -389,9 +390,17 @@ namespace ShiggyMod.Modules
         internal static float extremeSpeedDistance = 20f;
         internal static float extremeSpeedDamageCoefficient = 2f;
         internal static float extremeSpeedProcCoefficient = 0.2f;
-        internal static int extremeSpeedNumberOfHits = 5;
-        internal static float extremeSpeedIntervals = 0.3f;
+        internal static int extremeSpeedNumberOfHits = 3;
+        internal static float extremeSpeedIntervals = 0.2f;
         internal static float extremeSpeedForce = 20f;
+
+        internal static float deathAuraThreshold = 1f;
+        internal static float deathAuraRadius = 20f;
+        internal static float deathAuraRadiusStacks = 4f;
+        internal static int deathAuraDuration= 3;
+        internal static float deathAuraBuffCoefficient = 0.2f;
+        internal static float deathAuraBuffEnergyCost = 0.15f;
+        internal static float deathAuraDebuffCoefficient = 0.2f;
 
         public enum IndicatorType : uint
         {

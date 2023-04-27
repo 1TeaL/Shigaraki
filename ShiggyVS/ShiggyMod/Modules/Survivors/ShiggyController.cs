@@ -28,7 +28,8 @@ namespace ShiggyMod.Modules.Survivors
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
 
-        private GameObject overclockIndicatorInstance;
+        private GameObject theWorldIndicatorInstance;
+        public GameObject deathAuraIndicatorInstance;
 
         public float AFOTimer;
         public float overloadingtimer;
@@ -46,6 +47,7 @@ namespace ShiggyMod.Modules.Survivors
         private float OFATimer;
         private float voidFormTimer;
         private float overclockTimer;
+        private float deathAuraTimer;
 
         private Ray downRay;
         public float maxTrackingDistance = 70f;
@@ -315,10 +317,15 @@ namespace ShiggyMod.Modules.Survivors
 
         public void OnDestroy()
         {
-            if (overclockIndicatorInstance)
+            if (theWorldIndicatorInstance)
             {
-                overclockIndicatorInstance.SetActive(false);
-                EntityState.Destroy(overclockIndicatorInstance.gameObject);
+                theWorldIndicatorInstance.SetActive(false);
+                EntityState.Destroy(theWorldIndicatorInstance.gameObject);
+            }
+            if (deathAuraIndicatorInstance)
+            {
+                deathAuraIndicatorInstance.SetActive(false);
+                EntityState.Destroy(deathAuraIndicatorInstance.gameObject);
             }
         }
 
@@ -373,11 +380,118 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (characterBody.hasEffectiveAuthority)
             {
-                //overclock buff energy cost
+                if (characterBody.HasBuff(Buffs.deathAuraBuff))
+                {
+                    //energy cost
+                    float plusChaosflatCost = StaticValues.deathAuraBuffEnergyCost - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                    if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+
+                    float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                    if (plusChaosCost < 0f) plusChaosCost = 0f;
+                    energySystem.SpendplusChaos(plusChaosCost);
+
+                    if (energySystem.currentplusChaos > 1f)
+                    {
+                        //make the death aura indicator
+                        if (!deathAuraIndicatorInstance)
+                        {
+                            CreateDeathAuraIndicator();
+                        }
+                        //every 1 secs add a debuff to enemies and a buff stack to self, also drain energy
+                        if (deathAuraTimer < StaticValues.deathAuraThreshold)
+                        {
+                            deathAuraTimer += Time.fixedDeltaTime;
+                        }
+                        else if (deathAuraTimer >= StaticValues.deathAuraThreshold)
+                        {
+                            deathAuraTimer = 0f;
+
+                            //add buff to self
+                            int deathAuraBuffCount = characterBody.GetBuffCount(Buffs.deathAuraBuff);
+                            characterBody.ApplyBuff(Buffs.deathAuraBuff.buffIndex, deathAuraBuffCount + 1);
+
+                            BullseyeSearch search = new BullseyeSearch
+                            {
+
+                                teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                                filterByLoS = false,
+                                searchOrigin = characterBody.corePosition,
+                                searchDirection = UnityEngine.Random.onUnitSphere,
+                                sortMode = BullseyeSearch.SortMode.Distance,
+                                maxDistanceFilter = StaticValues.deathAuraRadius + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff),
+                                maxAngleFilter = 360f
+                            };
+
+                            search.RefreshCandidates();
+                            search.FilterOutGameObject(characterBody.gameObject);
+
+                            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                            foreach (HurtBox singularTarget in target)
+                            {
+                                if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                                {
+                                    //add the debuff to all enemies
+                                    int deathAuraDebuffCount = 0;
+                                    deathAuraDebuffCount = singularTarget.healthComponent.body.GetBuffCount(Buffs.deathAuraDebuff);
+
+                                    singularTarget.healthComponent.body.ApplyBuff(Buffs.deathAuraDebuff.buffIndex, deathAuraDebuffCount + 1);
+
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        characterBody.ApplyBuff(Buffs.deathAuraBuff.buffIndex, 0);
+
+                    }
+                        
+                }
+                else if (!characterBody.HasBuff(Buffs.deathAuraBuff))
+                {
+
+                    if(deathAuraIndicatorInstance)
+                    {
+                        deathAuraIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(deathAuraIndicatorInstance.gameObject);
+
+                        BullseyeSearch search = new BullseyeSearch
+                        {
+
+                            teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                            filterByLoS = false,
+                            searchOrigin = characterBody.corePosition,
+                            searchDirection = UnityEngine.Random.onUnitSphere,
+                            sortMode = BullseyeSearch.SortMode.Distance,
+                            maxDistanceFilter = StaticValues.deathAuraRadius * 2f + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff),
+                            maxAngleFilter = 360f
+                        };
+
+                        search.RefreshCandidates();
+                        search.FilterOutGameObject(characterBody.gameObject);
+
+                        List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                        foreach (HurtBox singularTarget in target)
+                        {
+                            if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                            {
+
+                                if(singularTarget.healthComponent.body.HasBuff(Buffs.deathAuraBuff))
+                                {
+                                    singularTarget.healthComponent.body.ApplyBuff(Buffs.deathAuraDebuff.buffIndex, 0);
+                                }
+
+                            }
+                        }
+                    }
+
+                } 
+
+                //the world buff energy cost
                 if (characterBody.HasBuff(Buffs.theWorldBuff))
                 {
                     //energy cost
-                    float plusChaosflatCost = StaticValues.overclockEnergyCost - energySystem.costflatplusChaos;
+                    float plusChaosflatCost = StaticValues.overclockEnergyCost - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
                     if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
 
                     float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
@@ -433,7 +547,8 @@ namespace ShiggyMod.Modules.Survivors
                         {
                             if (characterBody.inputBank.jump.down)
                             {
-                                float plusChaosflatCost = StaticValues.airwalkEnergyFraction - energySystem.costflatplusChaos;
+                                //constantly draining energy cost for air walk
+                                float plusChaosflatCost = StaticValues.airwalkEnergyFraction - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
                                 if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
 
                                 float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
@@ -778,7 +893,7 @@ namespace ShiggyMod.Modules.Survivors
         public void Update()
         {
             //update indicator
-            OverclockUpdater();
+            IndicatorUpdater();
 
             if (!informAFOToPlayers)
             {
@@ -919,12 +1034,20 @@ namespace ShiggyMod.Modules.Survivors
         //			origin = base.transform.position
         //		};
 
-        private void OverclockUpdater()
+        private void IndicatorUpdater()
         {
+            //death aura indicator
+            if (this.deathAuraIndicatorInstance)
+            {
+                this.deathAuraIndicatorInstance.transform.localScale = Vector3.one * (StaticValues.deathAuraRadius + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff));
+                this.deathAuraIndicatorInstance.transform.localPosition = characterBody.corePosition;
+            }
+
+            //the world indicator + more update stuff
             if (characterBody.HasBuff(Buffs.theWorldBuff))
             {
                 //check for energy- if none then remove buff
-                if(energySystem.currentplusChaos > 1f)
+                if (energySystem.currentplusChaos > 1f)
                 {
                     //radius increases overtime
                     overclockTimer += Time.deltaTime;
@@ -936,14 +1059,14 @@ namespace ShiggyMod.Modules.Survivors
 
 
                     //arrow rain prefab instance, expanding over time to indicate the radius
-                    if (!overclockIndicatorInstance)
+                    if (!theWorldIndicatorInstance)
                     {
-                        CreateOverclockIndicator();
+                        CreateTheWorldIndicator();
                     }
-                    if (this.overclockIndicatorInstance)
+                    if (this.theWorldIndicatorInstance)
                     {
-                        this.overclockIndicatorInstance.transform.localScale = Vector3.one * maxRadius;
-                        this.overclockIndicatorInstance.transform.localPosition = characterBody.corePosition;
+                        this.theWorldIndicatorInstance.transform.localScale = Vector3.one * maxRadius;
+                        this.theWorldIndicatorInstance.transform.localPosition = characterBody.corePosition;
                     }
                     //freeze projectile 
                     Collider[] array = Physics.OverlapSphere(characterBody.corePosition, maxRadius, LayerIndex.projectile.mask);
@@ -990,15 +1113,33 @@ namespace ShiggyMod.Modules.Survivors
                             if (!singularTarget.healthComponent.body.HasBuff(Buffs.theWorldDebuff))
                             {
                                 singularTarget.healthComponent.body.ApplyBuff(Buffs.theWorldDebuff.buffIndex, 1);
-                            }
 
-                            new SetTheWorldFreezeOnBodyRequest(singularTarget.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
+                                new SetTheWorldFreezeOnBodyRequest(singularTarget.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
+
+                                SetStateOnHurt component = singularTarget.healthComponent.body.healthComponent.GetComponent<SetStateOnHurt>();
+                                bool flag = component == null;
+                                if (!flag)
+                                {
+                                    bool canBeHitStunned = component.canBeFrozen;
+                                    if (canBeHitStunned)
+                                    {
+                                        component.SetFrozen(1);
+                                        bool flag2 = singularTarget.healthComponent.body.characterMotor;
+                                        if (flag2)
+                                        {
+                                            singularTarget.healthComponent.body.characterMotor.velocity = Vector3.zero;
+                                        }
+                                    }
+                                }
+                            }
                         }
+
+                        
                     }
-                                     
+
 
                 }
-                else
+                else if (energySystem.currentplusChaos <= 1f)
                 {
                     characterBody.ApplyBuff(Buffs.theWorldBuff.buffIndex, 0);
                 }
@@ -1009,10 +1150,10 @@ namespace ShiggyMod.Modules.Survivors
             {
                 //make sure to reset the timer and instance size 
                 overclockTimer = 0f;
-                if (this.overclockIndicatorInstance)
+                if (this.theWorldIndicatorInstance)
                 {
-                    this.overclockIndicatorInstance.SetActive(false);
-                    EntityState.Destroy(overclockIndicatorInstance);
+                    this.theWorldIndicatorInstance.SetActive(false);
+                    EntityState.Destroy(theWorldIndicatorInstance);
 
                     //allow time to move for enemies
                     BullseyeSearch search = new BullseyeSearch
@@ -1070,16 +1211,34 @@ namespace ShiggyMod.Modules.Survivors
             }
         }
 
-        //overclock indicator
-        private void CreateOverclockIndicator()
+        //death Aura Indicator 
+        private void CreateDeathAuraIndicator()
         {
-            if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+            if (Assets.deathAuraIndicator)
             {
-                this.overclockIndicatorInstance = Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab);
-                this.overclockIndicatorInstance.SetActive(true);
+                this.deathAuraIndicatorInstance = Object.Instantiate<GameObject>(Assets.deathAuraIndicator);
+                this.deathAuraIndicatorInstance.SetActive(true);
 
-                this.overclockIndicatorInstance.transform.localScale = Vector3.one * StaticValues.overclockCoefficient;
-                this.overclockIndicatorInstance.transform.localPosition = characterBody.corePosition;
+                this.deathAuraIndicatorInstance.transform.localScale = Vector3.one * (Modules.StaticValues.deathAuraRadius + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff));
+                this.deathAuraIndicatorInstance.transform.localPosition = characterBody.corePosition;
+
+            }
+            else
+            {
+                Debug.Log("null");
+            }
+        }
+
+        //overclock indicator
+        private void CreateTheWorldIndicator()
+        {
+            if (Assets.theWorldIndicator)
+            {
+                this.theWorldIndicatorInstance = Object.Instantiate<GameObject>(Assets.theWorldIndicator);
+                this.theWorldIndicatorInstance.SetActive(true);
+
+                this.theWorldIndicatorInstance.transform.localScale = Vector3.one * StaticValues.overclockCoefficient;
+                this.theWorldIndicatorInstance.transform.localPosition = characterBody.corePosition;
 
             }
         }

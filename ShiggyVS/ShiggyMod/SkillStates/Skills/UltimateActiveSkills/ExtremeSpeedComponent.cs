@@ -42,13 +42,13 @@ namespace ShiggyMod.SkillStates
 					{
 						currentNumber += 1;
 						timer -= interval;
-						new TakeDamageForceRequest(charbody.masterObjectId, Vector3.up, StaticValues.extremeSpeedForce / 2f, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
+						new TakeMeleeDamageForceRequest(charbody.masterObjectId, Vector3.up, StaticValues.extremeSpeedForce / 2f, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
 					}
 					else if (currentNumber == numberOfHits)
 					{
 						AkSoundEngine.PostEvent("impactsfx", charbody.gameObject);
 						currentNumber += 1;
-						new TakeDamageForceRequest(charbody.masterObjectId, Vector3.down, StaticValues.extremeSpeedForce * 2f, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
+						new TakeMeleeDamageForceRequest(charbody.masterObjectId, Vector3.down, StaticValues.extremeSpeedForce, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
 					}
 					else if (currentNumber > numberOfHits)
 					{
