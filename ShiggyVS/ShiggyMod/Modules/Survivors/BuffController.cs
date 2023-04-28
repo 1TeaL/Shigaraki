@@ -335,7 +335,7 @@ namespace ShiggyMod.Modules.Survivors
                             searchOrigin = characterBody.corePosition,
                             searchDirection = UnityEngine.Random.onUnitSphere,
                             sortMode = BullseyeSearch.SortMode.Distance,
-                            maxDistanceFilter = StaticValues.barbedSpikesRadius,
+                            maxDistanceFilter = StaticValues.barbedSpikesRadius * characterBody.damage/characterBody.baseDamage,
                             maxAngleFilter = 360f
                         };
 
@@ -1252,31 +1252,81 @@ namespace ShiggyMod.Modules.Survivors
 		//code for both mortars
 		private void FireMortar()
 		{
-			MortarOrb mortarOrb = new MortarOrb
-			{
-				attacker = characterBody.gameObject,
-				damageColorIndex = DamageColorIndex.WeakPoint,
-				damageValue = characterBody.damage * Modules.StaticValues.mortarDamageCoefficient * characterBody.attackSpeed * (characterBody.armor/characterBody.baseArmor),
-				origin = characterBody.corePosition,
-				procChainMask = default(ProcChainMask),
-				procCoefficient = 1f,
-				isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
-				teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
-			};
-			if (mortarOrb.target = mortarOrb.PickNextTarget(mortarOrb.origin, Modules.StaticValues.mortarRadius * characterBody.attackSpeed * (characterBody.armor/characterBody.baseArmor)))
-			{
-				OrbManager.instance.AddOrb(mortarOrb);
-			}
 
-            EffectManager.SpawnEffect(EntityStates.HermitCrab.FireMortar.mortarMuzzleflashEffect, new EffectData
+            BullseyeSearch search = new BullseyeSearch
             {
-                origin = characterBody.gameObject.transform.position,
-                scale = 1f,
-                rotation = Util.QuaternionSafeLookRotation(mortarOrb.target.transform.position - characterBody.gameObject.transform.position),
 
-            }, true);
+                teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                filterByLoS = false,
+                searchOrigin = characterBody.corePosition,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = Modules.StaticValues.mortarRadius * characterBody.attackSpeed * (characterBody.armor / characterBody.baseArmor),
+                maxAngleFilter = 360f
+            };
 
+            search.RefreshCandidates();
+            search.FilterOutGameObject(characterBody.gameObject);
+
+            HurtBox target = this.search.GetResults().FirstOrDefault<HurtBox>();
+
+            if (target.healthComponent && target.healthComponent.body)
+            {
+
+                LightningOrb lightningOrb = new LightningOrb();
+                lightningOrb.attacker = characterBody.gameObject;
+                lightningOrb.bouncedObjects = null;
+                lightningOrb.bouncesRemaining = 0;
+                lightningOrb.damageCoefficientPerBounce = 1f;
+                lightningOrb.damageColorIndex = DamageColorIndex.Item;
+                lightningOrb.damageValue = characterBody.damage * Modules.StaticValues.mortarDamageCoefficient * characterBody.attackSpeed * (characterBody.armor / characterBody.baseArmor);
+                lightningOrb.isCrit = characterBody.RollCrit();
+                lightningOrb.lightningType = LightningOrb.LightningType.MageLightning;
+                lightningOrb.origin = characterBody.corePosition;
+                lightningOrb.procChainMask = default(ProcChainMask);
+                lightningOrb.procChainMask.AddProc(ProcType.Thorns);
+                lightningOrb.procCoefficient = 1f;
+                lightningOrb.range = 0f;
+                lightningOrb.teamIndex = characterBody.teamComponent.teamIndex;
+                lightningOrb.target = target;
+                OrbManager.instance.AddOrb(lightningOrb);
+
+                EffectManager.SpawnEffect(EntityStates.HermitCrab.FireMortar.mortarMuzzleflashEffect, new EffectData
+                {
+                    origin = characterBody.corePosition,
+                    scale = 1f,
+                    rotation = Util.QuaternionSafeLookRotation(target.transform.position - characterBody.corePosition),
+
+                }, true); ;
+            }
+            
         }
+
+   //     MortarOrb mortarOrb = new MortarOrb
+			//{
+			//	attacker = characterBody.gameObject,
+			//	damageColorIndex = DamageColorIndex.Default,
+			//	damageValue = characterBody.damage * Modules.StaticValues.mortarDamageCoefficient * characterBody.attackSpeed * (characterBody.armor/characterBody.baseArmor),
+			//	origin = characterBody.corePosition,
+			//	procChainMask = default(ProcChainMask),
+			//	procCoefficient = 1f,
+			//	isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
+			//	teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
+			//};
+			//if (mortarOrb.target = mortarOrb.PickNextTarget(mortarOrb.origin, Modules.StaticValues.mortarRadius * characterBody.attackSpeed * (characterBody.armor/characterBody.baseArmor)))
+			//{
+			//	OrbManager.instance.AddOrb(mortarOrb);
+			//}
+
+   //         EffectManager.SpawnEffect(EntityStates.HermitCrab.FireMortar.mortarMuzzleflashEffect, new EffectData
+   //         {
+   //             origin = characterBody.corePosition,
+   //             scale = 1f,
+   //             rotation = Util.QuaternionSafeLookRotation(mortarOrb.target.transform.position - characterBody.corePosition),
+
+   //         }, true);
+
+   //     }
 
 		//overloading orb
 		private void OverloadingFire()
@@ -1330,73 +1380,73 @@ namespace ShiggyMod.Modules.Survivors
 
     }
 
-    //mortar orb
-    public class MortarOrb : Orb
-	{
-		public override void Begin()
-		{
-			base.duration = 0.5f;
-			EffectData effectData = new EffectData
-			{
-				origin = this.origin,
-				genericFloat = base.duration
-			};
-			effectData.SetHurtBoxReference(this.target);
-            GameObject effectPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/OrbEffects/SquidOrbEffect");
-            EffectManager.SpawnEffect(effectPrefab, effectData, true);
-		}
-		public HurtBox PickNextTarget(Vector3 position, float range)
-		{
-			BullseyeSearch bullseyeSearch = new BullseyeSearch();
-			bullseyeSearch.searchOrigin = position;
-			bullseyeSearch.searchDirection = Vector3.zero;
-			bullseyeSearch.teamMaskFilter = TeamMask.allButNeutral;
-			bullseyeSearch.teamMaskFilter.RemoveTeam(this.teamIndex);
-			bullseyeSearch.filterByLoS = false;
-			bullseyeSearch.sortMode = BullseyeSearch.SortMode.Distance;
-			bullseyeSearch.maxDistanceFilter = range;
-			bullseyeSearch.RefreshCandidates();
-			List<HurtBox> list = bullseyeSearch.GetResults().ToList<HurtBox>();
-			if (list.Count <= 0)
-			{
-				return null;
-			}
-			return list[UnityEngine.Random.Range(0, list.Count)];
-		}
-		public override void OnArrival()
-		{
-			if (this.target)
-			{
-				HealthComponent healthComponent = this.target.healthComponent;
-				if (healthComponent)
-				{
-					DamageInfo damageInfo = new DamageInfo
-					{
-						damage = this.damageValue,
-						attacker = this.attacker,
-						inflictor = null,
-						force = Vector3.zero,
-						crit = this.isCrit,
-						procChainMask = this.procChainMask,
-						procCoefficient = this.procCoefficient,
-						position = this.target.transform.position,
-						damageColorIndex = this.damageColorIndex
-					};
-					healthComponent.TakeDamage(damageInfo);
-					GlobalEventManager.instance.OnHitEnemy(damageInfo, healthComponent.gameObject);
-					GlobalEventManager.instance.OnHitAll(damageInfo, healthComponent.gameObject);
-				}
-			}
-		}
+ //   //mortar orb
+ //   public class MortarOrb : Orb
+	//{
+	//	public override void Begin()
+	//	{
+	//		base.duration = 0.5f;
+	//		EffectData effectData = new EffectData
+	//		{
+	//			origin = this.origin,
+	//			genericFloat = base.duration
+	//		};
+	//		effectData.SetHurtBoxReference(this.target);
+ //           GameObject effectPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/OrbEffects/SquidOrbEffect");
+ //           EffectManager.SpawnEffect(effectPrefab, effectData, true);
+	//	}
+	//	public HurtBox PickNextTarget(Vector3 position, float range)
+	//	{
+	//		BullseyeSearch bullseyeSearch = new BullseyeSearch();
+	//		bullseyeSearch.searchOrigin = position;
+	//		bullseyeSearch.searchDirection = Vector3.zero;
+	//		bullseyeSearch.teamMaskFilter = TeamMask.allButNeutral;
+	//		bullseyeSearch.teamMaskFilter.RemoveTeam(this.teamIndex);
+	//		bullseyeSearch.filterByLoS = false;
+	//		bullseyeSearch.sortMode = BullseyeSearch.SortMode.Distance;
+	//		bullseyeSearch.maxDistanceFilter = range;
+	//		bullseyeSearch.RefreshCandidates();
+	//		List<HurtBox> list = bullseyeSearch.GetResults().ToList<HurtBox>();
+	//		if (list.Count <= 0)
+	//		{
+	//			return null;
+	//		}
+	//		return list[UnityEngine.Random.Range(0, list.Count)];
+	//	}
+	//	public override void OnArrival()
+	//	{
+	//		if (this.target)
+	//		{
+	//			HealthComponent healthComponent = this.target.healthComponent;
+	//			if (healthComponent)
+	//			{
+	//				DamageInfo damageInfo = new DamageInfo
+	//				{
+	//					damage = this.damageValue,
+	//					attacker = this.attacker,
+	//					inflictor = null,
+	//					force = Vector3.zero,
+	//					crit = this.isCrit,
+	//					procChainMask = this.procChainMask,
+	//					procCoefficient = this.procCoefficient,
+	//					position = this.target.transform.position,
+	//					damageColorIndex = this.damageColorIndex
+	//				};
+	//				healthComponent.TakeDamage(damageInfo);
+	//				GlobalEventManager.instance.OnHitEnemy(damageInfo, healthComponent.gameObject);
+	//				GlobalEventManager.instance.OnHitAll(damageInfo, healthComponent.gameObject);
+	//			}
+	//		}
+	//	}
 
-		public float damageValue;
-		public GameObject attacker;
-		public TeamIndex teamIndex;
-		public bool isCrit;
-		public ProcChainMask procChainMask;
-		public float procCoefficient = 1f;
-		public DamageColorIndex damageColorIndex;
-	}
+	//	public float damageValue;
+	//	public GameObject attacker;
+	//	public TeamIndex teamIndex;
+	//	public bool isCrit;
+	//	public ProcChainMask procChainMask;
+	//	public float procCoefficient = 1f;
+	//	public DamageColorIndex damageColorIndex;
+	//}
 
 
 

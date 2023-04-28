@@ -18,7 +18,7 @@ namespace ShiggyMod.Modules
         internal static float killPlusChaosGain = 0.1f;
         internal static float costFlatPlusChaosSpend = 5f;
         internal static float costFlatContantlyDrainingCoefficient = 0.005f;
-        internal static float regenPlusChaosFraction = 0.05f;
+        internal static float regenPlusChaosFraction = 0.025f;
         internal static float backupGain = 10f;
         internal static float afterburnerGain = 30f;
         internal static float lysateGain = 15f;
@@ -379,8 +379,9 @@ namespace ShiggyMod.Modules
         internal static float rapidPierceDamageCoefficient = 4f;
         internal static float rapidPierceProcCoefficient = 1f;
 
-        internal static float overclockCoefficient = 15f;
-        internal static float overclockEnergyCost = 0.2f;
+        internal static float theWorldCoefficient = 15f;
+        internal static float theWorldEnergyCost = 1f;
+        internal static float theWorldEnergyMaxRadius = 400f;
 
         internal static float supernovaDamageCoefficient = 20f;
         internal static float supernovaRadius = 50f;
@@ -398,7 +399,7 @@ namespace ShiggyMod.Modules
         internal static float deathAuraRadius = 20f;
         internal static float deathAuraRadiusStacks = 4f;
         internal static int deathAuraDuration= 3;
-        internal static float deathAuraBuffCoefficient = 0.2f;
+        internal static float deathAuraBuffCoefficient = 0.5f;
         internal static float deathAuraBuffEnergyCost = 0.15f;
         internal static float deathAuraDebuffCoefficient = 0.2f;
 

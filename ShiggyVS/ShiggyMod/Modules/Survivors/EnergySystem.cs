@@ -31,6 +31,10 @@ namespace ShiggyMod.Modules.Survivors
         public float costflatplusChaos;
         public float plusChaosDecayTimer;
         public bool SetActiveTrue;
+        //bools to stop energy regen after skill used
+        private bool ifEnergyUsed;
+        private float energyDecayTimer;
+        private bool ifEnergyRegenAllowed;
 
         //Energy bar glow
         private enum GlowState
@@ -173,7 +177,26 @@ namespace ShiggyMod.Modules.Survivors
 
 
             //plusChaos Currently have
-            currentplusChaos += regenPlusChaos * Time.fixedDeltaTime;
+
+            //allow regen
+            if (ifEnergyUsed)
+            {
+                if (energyDecayTimer > 1f)
+                {
+                    energyDecayTimer = 0f;
+                    ifEnergyRegenAllowed = true;
+                    ifEnergyUsed = false;
+                }
+                else
+                {
+                    ifEnergyRegenAllowed = false;
+                    energyDecayTimer += Time.fixedDeltaTime;
+                }
+            }
+            if(ifEnergyRegenAllowed)
+            {
+                currentplusChaos += regenPlusChaos * Time.fixedDeltaTime;
+            }
 
 
             if (currentplusChaos > maxPlusChaos)
@@ -278,6 +301,7 @@ namespace ShiggyMod.Modules.Survivors
 
             currentplusChaos -= plusChaos;
             TriggerGlow(0.3f, 0.3f, Color.magenta);
+            ifEnergyUsed = true;
 
         }
         public void GainplusChaos(float plusChaos)

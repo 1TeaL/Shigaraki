@@ -166,6 +166,7 @@ namespace ShiggyMod.Modules
         public static GameObject greaterwispBall = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/GreaterWisp/WispCannon.prefab").WaitForCompletion();
 
         //Area indicators
+        internal static GameObject sphereIndicator;
         internal static GameObject deathAuraIndicator;
         internal static GameObject theWorldIndicator;
         internal static GameObject hermitCrabMortarIndicator;
@@ -232,8 +233,12 @@ namespace ShiggyMod.Modules
             Material[] warbannerArray = new Material[1];
             warbannerArray[0] = warbannerMat;
 
+            
             //Creating spheres and adding the material to them
-            deathAuraIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+            sphereIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+            sphereIndicator.AddComponent<NetworkIdentity>();
+
+            deathAuraIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "deathAuraIndicator");
 
             MeshRenderer deathAuraIndicatorMeshRender = deathAuraIndicator.gameObject.GetComponent<MeshRenderer>();
             if (!deathAuraIndicatorMeshRender)
@@ -241,11 +246,11 @@ namespace ShiggyMod.Modules
                 Debug.Log("Failed to find Mesh renderer!");
             }
             deathAuraIndicatorMeshRender.materials = warbannerArray;
-            deathAuraIndicatorMeshRender.material.SetColor("_TintColor", new Color(153/255f, 21/255f, 63/255f));
+            deathAuraIndicatorMeshRender.material.SetColor("_TintColor", new Color(153f / 255f, 21f / 255f, 63f / 255f)); //new Color(153/255f, 21/255f, 63/255f)
             networkObjDefs.Add(deathAuraIndicator);
             PrefabAPI.RegisterNetworkPrefab(deathAuraIndicator);
 
-            theWorldIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+            theWorldIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "theWorldIndicator"); 
 
             MeshRenderer theWorldIndicatorMeshRender = theWorldIndicator.gameObject.GetComponent<MeshRenderer>();
             if (!theWorldIndicatorMeshRender)
@@ -253,12 +258,12 @@ namespace ShiggyMod.Modules
                 Debug.Log("Failed to find Mesh renderer!");
             }
             theWorldIndicatorMeshRender.materials = warbannerArray;
-            theWorldIndicatorMeshRender.material.SetColor("_TintColor", Color.gray);
+            theWorldIndicatorMeshRender.material.SetColor("_TintColor", Color.cyan);
             networkObjDefs.Add(theWorldIndicator);
             PrefabAPI.RegisterNetworkPrefab(theWorldIndicator);
 
 
-            hermitCrabMortarIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+            hermitCrabMortarIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "hermitCrabMortarIndicator");
 
             MeshRenderer hermitCrabMortarIndicatorMeshRender = hermitCrabMortarIndicator.gameObject.GetComponent<MeshRenderer>();
             if (!hermitCrabMortarIndicatorMeshRender)
@@ -270,7 +275,7 @@ namespace ShiggyMod.Modules
             networkObjDefs.Add(hermitCrabMortarIndicator);
             PrefabAPI.RegisterNetworkPrefab(hermitCrabMortarIndicator);
 
-            voidBarnacleMortarIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+            voidBarnacleMortarIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "voidBarnacleMortarIndicator");
 
             MeshRenderer voidBarnacleMortarIndicatorMeshRender = voidBarnacleMortarIndicator.gameObject.GetComponent<MeshRenderer>();
             if (!voidBarnacleMortarIndicatorMeshRender)
@@ -282,7 +287,7 @@ namespace ShiggyMod.Modules
             networkObjDefs.Add(voidBarnacleMortarIndicator);
             PrefabAPI.RegisterNetworkPrefab(voidBarnacleMortarIndicator);
 
-            barbedSpikesIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+            barbedSpikesIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "barbedSpikesIndicator");
 
             MeshRenderer barbedSpikesIndicatorMeshRender = barbedSpikesIndicator.gameObject.GetComponent<MeshRenderer>();
             if (!barbedSpikesIndicatorMeshRender)
@@ -290,11 +295,11 @@ namespace ShiggyMod.Modules
                 Debug.Log("Failed to find Mesh renderer!");
             }
             barbedSpikesIndicatorMeshRender.materials = warbannerArray;
-            barbedSpikesIndicatorMeshRender.material.SetColor("_TintColor", new Color(153/255f, 74/255f, 21/255f));
+            barbedSpikesIndicatorMeshRender.material.SetColor("_TintColor", new Color(153f / 255f, 74f / 255f, 21f / 255f));
             networkObjDefs.Add(barbedSpikesIndicator);
             PrefabAPI.RegisterNetworkPrefab(barbedSpikesIndicator);
 
-            auraOfBlightIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+            auraOfBlightIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "auraOfBlightIndicator");
 
             MeshRenderer auraOfBlightIndicatorMeshRender = auraOfBlightIndicator.gameObject.GetComponent<MeshRenderer>();
             if (!auraOfBlightIndicatorMeshRender)
@@ -302,11 +307,11 @@ namespace ShiggyMod.Modules
                 Debug.Log("Failed to find Mesh renderer!");
             }
             auraOfBlightIndicatorMeshRender.materials = warbannerArray;
-            auraOfBlightIndicatorMeshRender.material.SetColor("_TintColor", new Color(125 / 255f, 156 / 255f, 42 / 255f));
+            auraOfBlightIndicatorMeshRender.material.SetColor("_TintColor", new Color(125f / 255f, 156f / 255f, 42f / 255f));
             networkObjDefs.Add(auraOfBlightIndicator);
             PrefabAPI.RegisterNetworkPrefab(auraOfBlightIndicator);
 
-            doubleTimeIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+            doubleTimeIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "doubleTimeIndicator");
 
             MeshRenderer doubleTimeIndicatorMeshRender = doubleTimeIndicator.gameObject.GetComponent<MeshRenderer>();
             if (!doubleTimeIndicatorMeshRender)
@@ -314,7 +319,7 @@ namespace ShiggyMod.Modules
                 Debug.Log("Failed to find Mesh renderer!");
             }
             doubleTimeIndicatorMeshRender.materials = warbannerArray;
-            doubleTimeIndicatorMeshRender.material.SetColor("_TintColor", new Color(247 / 255f, 222 / 255f, 27 / 255f));
+            doubleTimeIndicatorMeshRender.material.SetColor("_TintColor", new Color(247f / 255f, 222f / 255f, 27f / 255f));
             networkObjDefs.Add(doubleTimeIndicator);
             PrefabAPI.RegisterNetworkPrefab(doubleTimeIndicator);
 

@@ -491,7 +491,7 @@ namespace ShiggyMod.Modules.Survivors
                 if (characterBody.HasBuff(Buffs.theWorldBuff))
                 {
                     //energy cost
-                    float plusChaosflatCost = StaticValues.overclockEnergyCost - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                    float plusChaosflatCost = StaticValues.theWorldEnergyCost - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
                     if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
 
                     float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
@@ -1051,10 +1051,10 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     //radius increases overtime
                     overclockTimer += Time.deltaTime;
-                    float maxRadius = overclockTimer * StaticValues.overclockCoefficient;
-                    if (maxRadius > 250f)
+                    float maxRadius = overclockTimer * StaticValues.theWorldCoefficient;
+                    if (maxRadius > 400f)
                     {
-                        maxRadius = 250f;
+                        maxRadius = 400f;
                     }
 
 
@@ -1164,7 +1164,7 @@ namespace ShiggyMod.Modules.Survivors
                         searchOrigin = characterBody.corePosition,
                         searchDirection = UnityEngine.Random.onUnitSphere,
                         sortMode = BullseyeSearch.SortMode.Distance,
-                        maxDistanceFilter = 250f,
+                        maxDistanceFilter = StaticValues.theWorldEnergyMaxRadius,
                         maxAngleFilter = 360f
                     };
 
@@ -1223,10 +1223,6 @@ namespace ShiggyMod.Modules.Survivors
                 this.deathAuraIndicatorInstance.transform.localPosition = characterBody.corePosition;
 
             }
-            else
-            {
-                Debug.Log("null");
-            }
         }
 
         //overclock indicator
@@ -1237,7 +1233,7 @@ namespace ShiggyMod.Modules.Survivors
                 this.theWorldIndicatorInstance = Object.Instantiate<GameObject>(Assets.theWorldIndicator);
                 this.theWorldIndicatorInstance.SetActive(true);
 
-                this.theWorldIndicatorInstance.transform.localScale = Vector3.one * StaticValues.overclockCoefficient;
+                this.theWorldIndicatorInstance.transform.localScale = Vector3.one * StaticValues.theWorldCoefficient;
                 this.theWorldIndicatorInstance.transform.localPosition = characterBody.corePosition;
 
             }
