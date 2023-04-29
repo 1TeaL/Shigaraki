@@ -451,6 +451,26 @@ namespace ShiggyMod
                         damageInfo.damageType |= DamageType.PoisonOnHit;
                     }
 
+                    //one for all for one double damage and proc buff
+                    if (body.HasBuff(Modules.Buffs.OFAFOBuff))
+                    {
+                        if (damageInfo.damage > 0)
+                        {
+                            DamageInfo damageInfo2 = new DamageInfo();
+                            damageInfo2.damage = damageInfo.damage;
+                            damageInfo2.position = victimBody.corePosition;
+                            damageInfo2.force = Vector3.zero;
+                            damageInfo2.damageColorIndex = DamageColorIndex.Default;
+                            damageInfo2.crit = false;
+                            damageInfo2.attacker = body.gameObject;
+                            damageInfo2.inflictor = victimBody.gameObject;
+                            damageInfo2.damageType = damageInfo.damageType;
+                            damageInfo2.procCoefficient = damageInfo.procCoefficient;
+                            damageInfo2.procChainMask = default(ProcChainMask);
+                            victimBody.healthComponent.TakeDamage(damageInfo2);
+                        }
+                    }
+
                     //commando buff
                     if (body.HasBuff(Modules.Buffs.commandoBuff))
                     {
@@ -466,7 +486,6 @@ namespace ShiggyMod
                             damageInfo2.attacker = body.gameObject;
                             damageInfo2.inflictor = victimBody.gameObject;
                             damageInfo2.damageType = damageInfo.damageType;
-                            damageInfo2.procCoefficient = 1f;
                             damageInfo2.procChainMask = default(ProcChainMask);
                             victimBody.healthComponent.TakeDamage(damageInfo2);
                         }
@@ -805,6 +824,7 @@ namespace ShiggyMod
                     }
                 }
 
+                //shiggy double time kill buffs
                 if (damageReport.attackerBody.HasBuff(Buffs.doubleTimeBuff))
                 {
                     if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
@@ -842,6 +862,18 @@ namespace ShiggyMod
             {
                 CharacterBody attackerBody = report.attackerBody;
                 attackerBody.healthComponent.Heal(report.damageDealt * Modules.StaticValues.claydunestriderHealCoefficient, default(ProcChainMask), true);
+
+            }
+            if (!flag && report.attackerBody.HasBuff(Modules.Buffs.OFAFOBuff))
+            {
+                CharacterBody attackerBody = report.attackerBody;
+                attackerBody.healthComponent.Heal(report.damageDealt * Modules.StaticValues.OFAFOLifestealCoefficient, default(ProcChainMask), true);
+
+                EnergySystem energySystem = attackerBody.gameObject.GetComponent<EnergySystem>();
+                if (energySystem)
+                {
+                    energySystem.GainplusChaos(StaticValues.OFAFOEnergyGainCoefficient * report.damageDealt);
+                }
 
             }
 

@@ -48,6 +48,8 @@ namespace ShiggyMod.Modules.Survivors
         private float voidFormTimer;
         private float overclockTimer;
         private float deathAuraTimer;
+        private float OFAFOTimer;
+        private float OFAFOTimeMultiplier;
 
         private Ray downRay;
         public float maxTrackingDistance = 70f;
@@ -141,6 +143,7 @@ namespace ShiggyMod.Modules.Survivors
         private float stopwatch;
         private bool hasRemoved;
         private float stopwatch2;
+        private float theWorldTimer;
 
         public void Awake()
         {
@@ -380,17 +383,47 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (characterBody.hasEffectiveAuthority)
             {
+                //one for all for one buff
+                if (characterBody.HasBuff(Buffs.OFAFOBuff))
+                {
+                    //check energy if enough to use ability
+                    if(energySystem.currentplusChaos < energySystem.maxPlusChaos * StaticValues.OFAFOEnergyCostCoefficient)
+                    {
+                        characterBody.ApplyBuff(Buffs.OFAFOBuff.buffIndex, 0);
+                    }
+
+                    //doubling the speed for all timers- besides this one
+                    OFAFOTimeMultiplier = StaticValues.OFAFOETimeMultiplierCoefficient;
+
+                    if (OFAFOTimer < StaticValues.OFAFOThreshold)
+                    {
+                        OFAFOTimer += Time.fixedDeltaTime;
+                    }
+                    else if (OFAFOTimer >= StaticValues.OFAFOThreshold)
+                    {
+                        //health cost
+                        new SpendHealthNetworkRequest(characterBody.masterObjectId, StaticValues.OFAFOHealthCostCoefficient * characterBody.healthComponent.fullCombinedHealth);
+                        //energy cost
+                        float plusChaosflatCost = (StaticValues.OFAFOEnergyGainCoefficient * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+
+                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                        if (plusChaosCost < 0f) plusChaosCost = 0f;
+                        energySystem.SpendplusChaos(plusChaosCost);
+
+                    }
+                }
+                else
+                if (!characterBody.HasBuff(Buffs.OFAFOBuff))
+                {
+                    OFAFOTimeMultiplier = 1f;
+                }
+
+                //death aura buff
                 if (characterBody.HasBuff(Buffs.deathAuraBuff))
                 {
-                    //energy cost
-                    float plusChaosflatCost = StaticValues.deathAuraBuffEnergyCost - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
-                    if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
 
-                    float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                    if (plusChaosCost < 0f) plusChaosCost = 0f;
-                    energySystem.SpendplusChaos(plusChaosCost);
-
-                    if (energySystem.currentplusChaos > 1f)
+                    if (energySystem.currentplusChaos > StaticValues.deathAuraBuffEnergyCost)
                     {
                         //make the death aura indicator
                         if (!deathAuraIndicatorInstance)
@@ -400,10 +433,18 @@ namespace ShiggyMod.Modules.Survivors
                         //every 1 secs add a debuff to enemies and a buff stack to self, also drain energy
                         if (deathAuraTimer < StaticValues.deathAuraThreshold)
                         {
-                            deathAuraTimer += Time.fixedDeltaTime;
+                            deathAuraTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                         }
                         else if (deathAuraTimer >= StaticValues.deathAuraThreshold)
                         {
+                            //energy cost
+                            float plusChaosflatCost = StaticValues.deathAuraBuffEnergyCost - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                            if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+
+                            float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                            if (plusChaosCost < 0f) plusChaosCost = 0f;
+                            energySystem.SpendplusChaos(plusChaosCost);
+
                             deathAuraTimer = 0f;
 
                             //add buff to self
@@ -455,34 +496,6 @@ namespace ShiggyMod.Modules.Survivors
                         deathAuraIndicatorInstance.SetActive(false);
                         EntityState.Destroy(deathAuraIndicatorInstance.gameObject);
 
-                        BullseyeSearch search = new BullseyeSearch
-                        {
-
-                            teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-                            filterByLoS = false,
-                            searchOrigin = characterBody.corePosition,
-                            searchDirection = UnityEngine.Random.onUnitSphere,
-                            sortMode = BullseyeSearch.SortMode.Distance,
-                            maxDistanceFilter = StaticValues.deathAuraRadius * 2f + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff),
-                            maxAngleFilter = 360f
-                        };
-
-                        search.RefreshCandidates();
-                        search.FilterOutGameObject(characterBody.gameObject);
-
-                        List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-                        foreach (HurtBox singularTarget in target)
-                        {
-                            if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-                            {
-
-                                if(singularTarget.healthComponent.body.HasBuff(Buffs.deathAuraBuff))
-                                {
-                                    singularTarget.healthComponent.body.ApplyBuff(Buffs.deathAuraDebuff.buffIndex, 0);
-                                }
-
-                            }
-                        }
                     }
 
                 } 
@@ -490,13 +503,21 @@ namespace ShiggyMod.Modules.Survivors
                 //the world buff energy cost
                 if (characterBody.HasBuff(Buffs.theWorldBuff))
                 {
-                    //energy cost
-                    float plusChaosflatCost = StaticValues.theWorldEnergyCost - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
-                    if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+                    if (theWorldTimer < 1f)
+                    {
+                        theWorldTimer += Time.fixedDeltaTime;
+                    }
+                    else if (theWorldTimer >= 1f)
+                    {
+                        //energy cost
+                        float plusChaosflatCost = (StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
 
-                    float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                    if (plusChaosCost < 0f) plusChaosCost = 0f;
-                    energySystem.SpendplusChaos(plusChaosCost);
+                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                        if (plusChaosCost < 0f) plusChaosCost = 0f;
+                        energySystem.SpendplusChaos(plusChaosCost);
+
+                    }
                 }
 
 
@@ -505,7 +526,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     if (voidFormTimer < StaticValues.voidFormThreshold)
                     {
-                        voidFormTimer += Time.fixedDeltaTime;
+                        voidFormTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                     }
                     else if (voidFormTimer >= StaticValues.voidFormThreshold)
                     {
@@ -524,7 +545,7 @@ namespace ShiggyMod.Modules.Survivors
 
                     if (OFATimer < StaticValues.OFAThreshold)
                     {
-                        OFATimer += Time.fixedDeltaTime;
+                        OFATimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                     }
                     else if (OFATimer >= StaticValues.OFAThreshold)
                     {
@@ -657,7 +678,7 @@ namespace ShiggyMod.Modules.Survivors
                         if (anim.GetBool("isMoving"))
                         {
                             //while walking do blast attacks, scales with movespeed
-                            mechStanceTimer += Time.fixedDeltaTime;
+                            mechStanceTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                             if (mechStanceTimer >= StaticValues.mechStanceStepRate / characterBody.moveSpeed)
                             {
 
@@ -715,7 +736,7 @@ namespace ShiggyMod.Modules.Survivors
 
                     if (windshieldTimer < 1f)
                     {
-                        windshieldTimer += Time.fixedDeltaTime;
+                        windshieldTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                     }
                     if (windshieldTimer >= 1f)
                     {
@@ -771,7 +792,7 @@ namespace ShiggyMod.Modules.Survivors
                     }
                     else
                     {
-                        multTimer += Time.fixedDeltaTime;
+                        multTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
 
                     }
                 }
@@ -847,7 +868,7 @@ namespace ShiggyMod.Modules.Survivors
 
                         }
                     }
-                    else vagranttimer += Time.fixedDeltaTime;
+                    else vagranttimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                 }
 
 
@@ -1047,10 +1068,10 @@ namespace ShiggyMod.Modules.Survivors
             if (characterBody.HasBuff(Buffs.theWorldBuff))
             {
                 //check for energy- if none then remove buff
-                if (energySystem.currentplusChaos > 1f)
+                if (energySystem.currentplusChaos > StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos)
                 {
                     //radius increases overtime
-                    overclockTimer += Time.deltaTime;
+                    overclockTimer += Time.deltaTime * OFAFOTimeMultiplier;
                     float maxRadius = overclockTimer * StaticValues.theWorldCoefficient;
                     if (maxRadius > 400f)
                     {
@@ -1164,7 +1185,7 @@ namespace ShiggyMod.Modules.Survivors
                         searchOrigin = characterBody.corePosition,
                         searchDirection = UnityEngine.Random.onUnitSphere,
                         sortMode = BullseyeSearch.SortMode.Distance,
-                        maxDistanceFilter = StaticValues.theWorldEnergyMaxRadius,
+                        maxDistanceFilter = StaticValues.theWorldMaxRadius,
                         maxAngleFilter = 360f
                     };
 

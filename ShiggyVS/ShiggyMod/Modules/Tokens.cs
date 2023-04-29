@@ -361,7 +361,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Big Bang]</style>");
             LanguageAPI.Add(prefix + "OMNIBOOST_NAME", "Omniboost");
-            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>. " + 
+            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>. Stacks halve every {StaticValues.omniboostBuffTimer} seconds. " + 
                 Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Double Time]</style>");
             LanguageAPI.Add(prefix + "GACHA_NAME", "Gacha");
@@ -395,13 +395,15 @@ namespace ShiggyMod.Modules
 
             #region Ultimate Actives
             LanguageAPI.Add(prefix + "THEWORLD_NAME", "The World");
-            LanguageAPI.Add(prefix + "THEWORLD_DESCRIPTION", $"Break the rules of The World. <style=cIsUtility>Stop Time, preventing all enemies around you from moving and attacking. Projectiles are also frozen</style>. " + Helpers.Passive($"Drains plus chaos while active") +".");
+            LanguageAPI.Add(prefix + "THEWORLD_DESCRIPTION", $"Break the rules of The World. <style=cIsUtility>Stop Time, preventing all enemies around you from moving and attacking. Projectiles are also frozen</style>. " + Helpers.Passive($"Drains {100f * StaticValues.theWorldEnergyCost}% plus chaos every second") +".");
             LanguageAPI.Add(prefix + "EXTREMESPEED_NAME", "Extreme Speed");
             LanguageAPI.Add(prefix + "EXTREMESPEED_DESCRIPTION", $"<style=cIsDamage>Agile.</style> Instantaneously move at blinding speeds through enemies. After a delay, deal <style=cIsDamage>{StaticValues.extremeSpeedNumberOfHits}x{100f * StaticValues.extremeSpeedDamageCoefficient}% damage</style>. " +
                 $"Number of hits scales with attackspeed." + Environment.NewLine + Environment.NewLine +
                 $"<style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "DEATHAURA_NAME", "Death Aura");
-            LanguageAPI.Add(prefix + "DEATHAURA_DESCRIPTION", $"Become death itself, <style=cIsUtility> applying a stacking debuff to enemies and a stacking buff to yourself  every {StaticValues.deathAuraThreshold} second</style>. Each debuff stack increases <style=cIsDamage>DoT damage by {100f * StaticValues.deathAuraDebuffCoefficient}% while each buff stack increases your DoT damage by {100f* StaticValues.deathAuraBuffCoefficient}%</style>. " + Helpers.Passive($"Drains plus chaos while active") + ".");
+            LanguageAPI.Add(prefix + "DEATHAURA_DESCRIPTION", $"Become death itself, <style=cIsUtility> applying a stacking permanent debuff to enemies and a stacking buff to yourself  every {StaticValues.deathAuraThreshold} second</style>. Each debuff stack increases <style=cIsDamage>DoT damage by {100f * StaticValues.deathAuraDebuffCoefficient}% while each buff stack increases your DoT damage by {100f* StaticValues.deathAuraBuffCoefficient}%</style>. " + Helpers.Passive($"Drains {StaticValues.deathAuraBuffEnergyCost} plus chaos every second") + ".");
+            LanguageAPI.Add(prefix + "OFAFO_NAME", "One For All For One");
+            LanguageAPI.Add(prefix + "OFAFO_DESCRIPTION", $"Unlock the true power of One For All and All For One. <style=cIsUtility> Gain {StaticValues.OFAFOLifestealCoefficient * 100f}% lifesteal, {StaticValues.OFAFOEnergyGainCoefficient * 100f}% plus chaos every hit</style>. All attacks <style=cIsDamage> hit twice, dealing double the damage and proc</style>. " + Helpers.Passive($"Drains {StaticValues.OFAFOEnergyCostCoefficient}% MAX plus chaos every AND {StaticValues.OFAFOHealthCostCoefficient}% health every 0.5 seconds") + ".");
             #endregion
 
             #region Ultimate Passives

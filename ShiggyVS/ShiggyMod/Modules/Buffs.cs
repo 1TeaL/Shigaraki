@@ -79,6 +79,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef deathAuraBuff;
         internal static BuffDef reversalBuff;
         internal static BuffDef reversalBuffStacks;
+        internal static BuffDef OFAFOBuff;
 
         //ultimate debuffs
         internal static BuffDef theWorldDebuff;
@@ -103,8 +104,8 @@ namespace ShiggyMod.Modules
 
         internal static void RegisterBuffs()
         {
-
-            airwalkBuff = Buffs.AddNewBuff($"Fly Buff", Assets.jumpBuffIcon, Color.magenta, false, false);
+            
+            airwalkBuff = Buffs.AddNewBuff($"Air walk acceleration Buff", Assets.jumpBuffIcon, Color.magenta, false, false);
             beetleBuff = Buffs.AddNewBuff($"Strength Buff- <style=cIsDamage>Gain {StaticValues.beetleFlatDamage} base damage</style>. ", Assets.boostBuffIcon, new Color(0.67f, 0.87f, 0.93f), false, false);
             alphashieldonBuff = Buffs.AddNewBuff($"Alpha Construct Shield On- Gain a barrier that blocks the next hit. Recharges after {StaticValues.alphaconstructCooldown} seconds. ", Assets.alphashieldonBuffIcon, Color.magenta, false, false);
             alphashieldoffBuff = Buffs.AddNewBuff($"Alpha Construct Shield Off", Assets.alphashieldoffBuffIcon, Color.black, true, false);
@@ -150,34 +151,36 @@ namespace ShiggyMod.Modules
 
             eliteDebuff = Buffs.AddNewBuff($"eliteDebuff", Assets.critBuffIcon, Color.black, false, true);
 
-            bigbangBuff = Buffs.AddNewBuff($"bigbangBuff", Assets.orbreadyBuffIcon, new Color(0.67f, 0.87f, 0.93f), false, false);
-            wisperBuff = Buffs.AddNewBuff($"wisperBuff", Assets.multiplierBuffIcon, new Color(0.52f, 0.48f, 0.39f), false, false);
-            omniboostBuff = Buffs.AddNewBuff($"omniboost Buff", Assets.boostBuffIcon, Color.white, false, false);
-            omniboostBuffStacks = Buffs.AddNewBuff($"omniboost Buff stacks", Assets.boostBuffIcon, Color.gray, true, false);
-            omniboostDebuffStacks = Buffs.AddNewBuff($"omniboost Debuff stacks", Assets.boostBuffIcon, Color.black, true, true);
-            gachaBuff = Buffs.AddNewBuff($"gacha Buff", Assets.attackspeedBuffIcon, Color.yellow, true, false);
-            windShieldBuff = Buffs.AddNewBuff($"windShield Buff", Assets.shieldBuffIcon, Color.white, false, false);
-            stoneFormBuff = Buffs.AddNewBuff($"stoneForm Buff", Assets.shieldBuffIcon, Color.grey, false, false);
-            stoneFormStillBuff = Buffs.AddNewBuff($"stone Form Still Buff", Assets.skinBuffIcon, Color.grey, false, false);
-            mechStanceBuff = Buffs.AddNewBuff($"mech Stance Buff", Assets.ruinDebuffIcon, Color.yellow, false, false);
-            auraOfBlightBuff = Buffs.AddNewBuff($"Aura Of Poison Buff", Assets.bleedBuffIcon, Color.yellow, false, false);
-            barbedSpikesBuff = Buffs.AddNewBuff($"barbed Spikes Buff", Assets.spikyDebuffIcon, Color.grey, false, false);
-            ingrainBuff = Buffs.AddNewBuff($"ingrain Buff", Assets.medkitBuffIcon, Color.green, false, false);
-            limitBreakBuff = Buffs.AddNewBuff($"limit Break Buff", Assets.lightningBuffIcon, Color.black, false, false);
-            voidFormBuff = Buffs.AddNewBuff($"void form Buff", Assets.voidFogDebuffIcon, Color.magenta, false, false);
-            elementalFusionFireBuff = Buffs.AddNewBuff($"elemental Fusion Fire Buff", Assets.multiplierBuffIcon, Color.red, false, false);
-            elementalFusionFreezeBuff = Buffs.AddNewBuff($"elemental Fusion Freeze Buff", Assets.multiplierBuffIcon, Color.cyan, false, false);
-            elementalFusionShockBuff = Buffs.AddNewBuff($"elemental Fusion Shock Buff", Assets.multiplierBuffIcon, Color.yellow, false, false);
-            elementalFusionBuffStacks = Buffs.AddNewBuff($"elemental Fusion Buff Stacks", Assets.multiplierBuffIcon, Color.white, true, false);
-            doubleTimeBuff = Buffs.AddNewBuff($"double Time Buff", Assets.warcryBuffIcon, Color.white, false, false);
-            doubleTimeBuffStacks = Buffs.AddNewBuff($"double Time Buff Stacks", Assets.warcryBuffIcon, Color.yellow, true, false);
-            blindSensesBuff = Buffs.AddNewBuff($"blindSenses Buff", Assets.cloakBuffIcon, Color.green, false, false);
+            bigbangBuff = Buffs.AddNewBuff($"Big Bang Buff -Each hit on an enemy builds up an explosive charge. On the {StaticValues.bigbangBuffThreshold}th hit, an explosion occurs, dealing <style=cIsDamage>{100f * StaticValues.bigbangBuffHealthCoefficient}% of the enemy's max health</style>.", Assets.orbreadyBuffIcon, new Color(0.67f, 0.87f, 0.93f), false, false);
+            wisperBuff = Buffs.AddNewBuff($"Wisper Buff- Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient.", Assets.multiplierBuffIcon, new Color(0.52f, 0.48f, 0.39f), false, false);
+            omniboostBuff = Buffs.AddNewBuff($"Omniboost Buff- Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient + 1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>.", Assets.boostBuffIcon, Color.white, false, false);
+            omniboostBuffStacks = Buffs.AddNewBuff($"Omniboost Buff stacks", Assets.boostBuffIcon, Color.gray, true, false);
+            omniboostDebuffStacks = Buffs.AddNewBuff($"Omniboost Debuff stacks", Assets.boostBuffIcon, Color.black, true, true);
+            gachaBuff = Buffs.AddNewBuff($"Gacha Buff- Get a random item every <style=cIsUtility>{StaticValues.gachaBuffThreshold} seconds</style>.", Assets.attackspeedBuffIcon, Color.yellow, true, false);
+            windShieldBuff = Buffs.AddNewBuff($"WindShield Buff", Assets.shieldBuffIcon, Color.white, false, false);
+            stoneFormBuff = Buffs.AddNewBuff($"StoneForm Buff", Assets.shieldBuffIcon, Color.grey, false, false);
+            stoneFormStillBuff = Buffs.AddNewBuff($"Stone Form Buff- While still for {StaticValues.stoneFormWaitDuration} seconds, enter stone form. Gain <style=cIsUtility>{StaticValues.stoneFormBlockChance}% block chance and take no knockback</style>.", Assets.skinBuffIcon, Color.grey, false, false);
+            mechStanceBuff = Buffs.AddNewBuff($"Mech Stance Buff", Assets.ruinDebuffIcon, Color.yellow, false, false);
+            auraOfBlightBuff = Buffs.AddNewBuff($"Aura Of Blight Buff- Apply blight to enemies around you every second, dealing <style=cIsDamage>{StaticValues.auraOfBlightBuffDotDamage * 100f}% over {StaticValues.auraOfBlightBuffDotDuration} seconds</style>.", Assets.bleedBuffIcon, Color.yellow, false, false);
+            barbedSpikesBuff = Buffs.AddNewBuff($"Barbed Spikes Buff- Deal <style=cIsDamage>{StaticValues.barbedSpikesDamageCoefficient * 100f}% damage</style> to nearby enemies every {StaticValues.barbedSpikesBuffThreshold} seconds. " +
+                $"Damage increases the area of effect. ", Assets.spikyDebuffIcon, Color.grey, false, false);
+            ingrainBuff = Buffs.AddNewBuff($"Ingrain Buff- Gain health regen equivalent to <style=cIsHealing>{StaticValues.ingrainBuffHealthRegen * 100f}% of your max health</style>.", Assets.medkitBuffIcon, Color.green, false, false);
+            limitBreakBuff = Buffs.AddNewBuff($"Limit Break Buff- ", Assets.lightningBuffIcon, Color.black, false, false);
+            voidFormBuff = Buffs.AddNewBuff($"Void Form Buff", Assets.voidFogDebuffIcon, Color.magenta, false, false);
+            elementalFusionFireBuff = Buffs.AddNewBuff($"Elemental Fusion Fire Buff- Gain elemental power, allowing you to burn, freeze or shock enemies. Every {StaticValues.elementalFusionThreshold} hits cycle between <style=cIsDamage>burning, freezing or shocking</style>.", Assets.multiplierBuffIcon, Color.red, false, false);
+            elementalFusionFreezeBuff = Buffs.AddNewBuff($"Elemental Fusion Freeze Buff- Gain elemental power, allowing you to burn, freeze or shock enemies. Every {StaticValues.elementalFusionThreshold} hits cycle between <style=cIsDamage>burning, freezing or shocking</style>.", Assets.multiplierBuffIcon, Color.cyan, false, false);
+            elementalFusionShockBuff = Buffs.AddNewBuff($"Elemental Fusion Shock Buff- Gain elemental power, allowing you to burn, freeze or shock enemies. Every {StaticValues.elementalFusionThreshold} hits cycle between <style=cIsDamage>burning, freezing or shocking</style>.", Assets.multiplierBuffIcon, Color.yellow, false, false);
+            elementalFusionBuffStacks = Buffs.AddNewBuff($"Elemental Fusion Buff Stacks", Assets.multiplierBuffIcon, Color.white, true, false);
+            doubleTimeBuff = Buffs.AddNewBuff($"Double Time Buff- Perceive time at a heightened speed. Nearby enemies' <style=cIsUtility>movespeed and attackspeed are slowed down by {StaticValues.doubleTimeSlowCoefficient * 100f}%</style>. Killing enemies grant <style=cIsDamage>{StaticValues.doubleTimeCoefficient * 100f}% damage, attackspeed and movespeed</style> additively. " +
+                $"Stacks are halved every {StaticValues.doubleTimeThreshold} seconds. ", Assets.warcryBuffIcon, Color.white, false, false);
+            doubleTimeBuffStacks = Buffs.AddNewBuff($"Double Time Buff Stacks", Assets.warcryBuffIcon, Color.yellow, true, false);
+            blindSensesBuff = Buffs.AddNewBuff($"Blind Senses Buff- Gain the heightened senses of blindness. Gain <style=cIsUtility>{StaticValues.blindSensesBlockChance * 100f}% dodge chance</style>. <style=cIsUtility>Blocking an attack causes you to counterattack</style>, stunning and dealing <style=cIsDamage>{StaticValues.blindSensesDamageCoefficient * 100f}% of the damage</style> you would have taken to the attacker. Getting Tougher Times increases the chances of this counterattack independent of dodging as well.", Assets.cloakBuffIcon, Color.green, false, false);
             theWorldBuff = Buffs.AddNewBuff($"The World Buff", Assets.resonanceBuffIcon, Color.yellow, false, false);
             supernovaBuff = Buffs.AddNewBuff($"Supernova Buff Stacks- Absorb the damage you take, charging a supernova within you. When total damage is greater than <style=cIsUtility>{StaticValues.supernovaHealthThreshold* 100f}% of your MAX health</style>, unleash a colossal explosion, dealing <style=cIsDamage>{StaticValues.supernovaDamageCoefficient* 100f}% damage</style> in a large area around you. ", Assets.singularityBuffIcon, Color.cyan, true, false);
             deathAuraBuff = Buffs.AddNewBuff($"Death aura Buff", Assets.deathMarkDebuffIcon, Color.magenta, true, false);
             reversalBuff = Buffs.AddNewBuff($"Reversal Buff- Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you teleport to the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient* 100f}% damage</style>", Assets.sprintBuffIcon, Color.blue, false, false);
-            reversalBuffStacks = Buffs.AddNewBuff($"Reversal Buff stacks. ", Assets.sprintBuffIcon, Color.cyan, true, false);
-
+            reversalBuffStacks = Buffs.AddNewBuff($"Reversal Buff stacks", Assets.sprintBuffIcon, Color.cyan, true, false);
+            OFAFOBuff = Buffs.AddNewBuff($"One For All For One Buff", Assets.lightningBuffIcon, Color.black, false, false);
 
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff($"chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);

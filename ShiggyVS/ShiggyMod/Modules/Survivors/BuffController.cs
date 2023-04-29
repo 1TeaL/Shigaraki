@@ -23,7 +23,8 @@ using Object = UnityEngine.Object;
 namespace ShiggyMod.Modules.Survivors
 {
     public class BuffController : MonoBehaviour
-	{
+    {
+        private float OFAFOTimeMultiplier;
 
         public float AFOTimer;
         public float overloadingtimer;
@@ -274,12 +275,22 @@ namespace ShiggyMod.Modules.Survivors
             {
                 //Buff effects
 
+                //ofafo time multiplier- put it here only for shiggy, not for others
+                if (characterBody.HasBuff(Buffs.OFAFOBuff))
+                {
+                    OFAFOTimeMultiplier = StaticValues.OFAFOETimeMultiplierCoefficient;
+                }
+                else
+                if (!characterBody.HasBuff(Buffs.OFAFOBuff))
+                {
+                    OFAFOTimeMultiplier = 1f;
+                }
                 //reversal buff effect- moving buildup charge
                 if (characterBody.HasBuff(Buffs.reversalBuff))
                 {
                     if (characterBody.isSprinting)
                     {
-                        reversalTimer += Time.fixedDeltaTime;
+                        reversalTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                         if(reversalTimer >= StaticValues.reversalStepRate/characterBody.moveSpeed)
                         {
                             reversalTimer = 0f;
@@ -294,7 +305,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     if(doubleTimeTimer < 1f)
                     {
-                        doubleTimeTimer += Time.fixedDeltaTime;
+                        doubleTimeTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                     }
                     else if (doubleTimeTimer >= 1f)
                     {
@@ -339,7 +350,7 @@ namespace ShiggyMod.Modules.Survivors
 
                     if (barbedSpikesTimer < StaticValues.barbedSpikesBuffThreshold)
                     {
-                        barbedSpikesTimer += Time.fixedDeltaTime;
+                        barbedSpikesTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                     }
                     else if (barbedSpikesTimer >= StaticValues.barbedSpikesBuffThreshold)
                     {
@@ -399,7 +410,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     if(auraOfBlightTimer < StaticValues.auraOfBlightBuffThreshold)
                     {
-                        auraOfBlightTimer += Time.fixedDeltaTime;
+                        auraOfBlightTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                     }
                     else if (auraOfBlightTimer >= StaticValues.auraOfBlightBuffThreshold)
                     {
@@ -430,7 +441,7 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         if(gachaBuffThreshold < 1f)
                         {
-                            gachaBuffThreshold += Time.fixedDeltaTime;
+                            gachaBuffThreshold += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                         }
                         else if (gachaBuffThreshold >= 1f)
                         {
@@ -453,7 +464,7 @@ namespace ShiggyMod.Modules.Survivors
                         }, false);
                     }
                 }
-                //gacha buff timer
+                //omniboost buff expire timer
                 if (characterBody.HasBuff(Buffs.omniboostBuffStacks))
                 {
                     if (omniboostTimer < StaticValues.omniboostBuffTimer)
@@ -511,7 +522,7 @@ namespace ShiggyMod.Modules.Survivors
                         }
                         else
                         {
-                            overloadingtimer += Time.fixedDeltaTime;
+                            overloadingtimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                         }
                     }
                 }
@@ -544,7 +555,7 @@ namespace ShiggyMod.Modules.Survivors
                         }
                         else
                         {
-                            magmawormtimer += Time.fixedDeltaTime;
+                            magmawormtimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                         }
                     }
                 }
@@ -577,7 +588,7 @@ namespace ShiggyMod.Modules.Survivors
                             }
                             else
                             {
-                                roboballTimer += Time.fixedDeltaTime;
+                                roboballTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
 
                             }
                         }
@@ -608,7 +619,7 @@ namespace ShiggyMod.Modules.Survivors
                             }
                             else
                             {
-                                roboballTimer += Time.fixedDeltaTime;
+                                roboballTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
 
                             }
                         }
@@ -683,7 +694,7 @@ namespace ShiggyMod.Modules.Survivors
 
                             }
                         }
-                        else alphaconstructshieldtimer += Time.fixedDeltaTime;
+                        else alphaconstructshieldtimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                     }
 
                 }
@@ -717,7 +728,7 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         if(stoneFormTimer < StaticValues.stoneFormWaitDuration)
                         {
-                            stoneFormTimer += Time.fixedDeltaTime;
+                            stoneFormTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                         }
                         else if (stoneFormTimer >= StaticValues.stoneFormWaitDuration)
                         {
@@ -742,7 +753,7 @@ namespace ShiggyMod.Modules.Survivors
                         {
                             CreateMortarIndicator();
                         }
-                        mortarTimer += Time.fixedDeltaTime;
+                        mortarTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                         if (mortarTimer >= Modules.StaticValues.mortarbaseDuration / (characterBody.attackSpeed))
                         {
                             int hermitbuffcount = characterBody.GetBuffCount(Buffs.hermitcrabmortararmorBuff.buffIndex);
@@ -767,7 +778,7 @@ namespace ShiggyMod.Modules.Survivors
                         {
                             CreateVoidMortarIndicator();
                         }
-                        voidmortarTimer += Time.fixedDeltaTime;
+                        voidmortarTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                         if (voidmortarTimer >= Modules.StaticValues.voidmortarbaseDuration / (characterBody.armor / characterBody.baseArmor))
                         {
                             int voidbarnaclebuffcount = characterBody.GetBuffCount(Buffs.voidbarnaclemortarattackspeedBuff.buffIndex);
@@ -813,7 +824,7 @@ namespace ShiggyMod.Modules.Survivors
                         {
                             num /= characterBody.sprintingSpeedMultiplier;
                         }
-                        voidjailerTimer += Time.fixedDeltaTime;
+                        voidjailerTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                         if (voidjailerTimer > StaticValues.voidjailerInterval / (num / characterBody.baseMoveSpeed))
                         {
                             voidjailerTimer = 0f;
@@ -891,7 +902,7 @@ namespace ShiggyMod.Modules.Survivors
 
                     if (!characterBody.characterMotor.isGrounded)
                     {
-                        larvaTimer += Time.fixedDeltaTime;
+                        larvaTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                     }
                     if (characterBody.characterMotor.isGrounded && larvaTimer > 1f)
                     {

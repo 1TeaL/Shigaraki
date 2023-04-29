@@ -338,7 +338,7 @@ namespace ShiggyMod.Modules
         internal static float barbedSpikesProcCoefficient = 0.5f;
         internal static float barbedSpikesRadius = 7f;
 
-        internal static float ingrainBuffHealthRegen = 0.1f;
+        internal static float ingrainBuffHealthRegen = 0.05f;
 
         internal static float windSlashDamageCoefficient = 1f;
 
@@ -380,8 +380,8 @@ namespace ShiggyMod.Modules
         internal static float rapidPierceProcCoefficient = 1f;
 
         internal static float theWorldCoefficient = 15f;
-        internal static float theWorldEnergyCost = 1f;
-        internal static float theWorldEnergyMaxRadius = 400f;
+        internal static float theWorldEnergyCost = 0.1f;
+        internal static float theWorldMaxRadius = 400f;
 
         internal static float supernovaDamageCoefficient = 20f;
         internal static float supernovaRadius = 50f;
@@ -396,11 +396,11 @@ namespace ShiggyMod.Modules
         internal static float extremeSpeedForce = 20f;
 
         internal static float deathAuraThreshold = 1f;
-        internal static float deathAuraRadius = 20f;
+        internal static float deathAuraRadius = 15f;
         internal static float deathAuraRadiusStacks = 4f;
         internal static int deathAuraDuration = 3;
         internal static float deathAuraBuffCoefficient = 0.5f;
-        internal static float deathAuraBuffEnergyCost = 0.15f;
+        internal static float deathAuraBuffEnergyCost = 20f;
         internal static float deathAuraDebuffCoefficient = 0.2f;
 
         internal static float reversalStepRate = 150f;
@@ -408,6 +408,14 @@ namespace ShiggyMod.Modules
         internal static float reversalRadius = 15f;
         internal static float reversalDamageCoefficient = 1f;
         internal static float reversalProcCoefficient = 1f;
+
+        internal static float OFAFOHealthCostCoefficient = 0.1f;
+        internal static float OFAFOEnergyCostCoefficient = 0.1f;
+        internal static float OFAFOThreshold = 0.5f;
+        internal static float OFAFOLifestealCoefficient = 0.2f;
+        internal static float OFAFOEnergyGainCoefficient = 0.2f;
+        internal static float OFAFOETimeMultiplierCoefficient = 2f;
+
 
         public enum IndicatorType : uint
         {
