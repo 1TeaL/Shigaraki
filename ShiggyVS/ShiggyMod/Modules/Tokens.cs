@@ -407,6 +407,8 @@ namespace ShiggyMod.Modules
             #region Ultimate Passives
             LanguageAPI.Add(prefix + "SUPERNOVA_NAME", "Supernova");
             LanguageAPI.Add(prefix + "SUPERNOVA_DESCRIPTION", $"Absorb the damage you take, charging a supernova within you. When total damage is greater than <style=cIsUtility>{StaticValues.supernovaHealthThreshold* 100f}% of your MAX health</style>, unleash a colossal explosion, dealing <style=cIsDamage>{StaticValues.supernovaDamageCoefficient* 100f}% damage</style> in a large area around you. ");
+            LanguageAPI.Add(prefix + "REVERSAL_NAME", "Reversal");
+            LanguageAPI.Add(prefix + "REVERSAL_DESCRIPTION", $"Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you teleport to the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient* 100f}% damage</style>. ");
             #endregion
 
             #region Achievements

@@ -45,6 +45,7 @@ namespace ShiggyMod.Modules.Survivors
         private float barbedSpikesTimer;
         private float doubleTimeTimer;
         private float doubleTimeStacksTimer;
+        private float reversalTimer;
 
         private Ray downRay;
         public GameObject doubleTimeIndicatorInstance;
@@ -118,6 +119,7 @@ namespace ShiggyMod.Modules.Survivors
         public int captainitemcount;
         private DamageType damageType;
         private DamageType damageType2;
+
 
         public void Awake()
         {
@@ -271,6 +273,21 @@ namespace ShiggyMod.Modules.Survivors
 			if (characterBody.hasEffectiveAuthority)
             {
                 //Buff effects
+
+                //reversal buff effect- moving buildup charge
+                if (characterBody.HasBuff(Buffs.reversalBuff))
+                {
+                    if (characterBody.isSprinting)
+                    {
+                        reversalTimer += Time.fixedDeltaTime;
+                        if(reversalTimer >= StaticValues.reversalStepRate/characterBody.moveSpeed)
+                        {
+                            reversalTimer = 0f;
+                            int reversalBuffCount = characterBody.GetBuffCount(Buffs.reversalBuffStacks);
+                            characterBody.ApplyBuff(Buffs.reversalBuffStacks.buffIndex, reversalBuffCount + 1);
+                        }
+                    }
+                }
 
                 //double time slow effect
                 if(characterBody.HasBuff(Buffs.doubleTimeBuff))

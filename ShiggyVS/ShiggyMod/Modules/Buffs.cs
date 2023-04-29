@@ -76,6 +76,8 @@ namespace ShiggyMod.Modules
         internal static BuffDef theWorldBuff;
         internal static BuffDef supernovaBuff;
         internal static BuffDef deathAuraBuff;
+        internal static BuffDef reversalBuff;
+        internal static BuffDef reversalBuffStacks;
 
         //ultimate debuffs
         internal static BuffDef theWorldDebuff;
@@ -162,10 +164,12 @@ namespace ShiggyMod.Modules
             doubleTimeBuff = Buffs.AddNewBuff("doubleTime Buff", Assets.warcryBuffIcon, Color.white, false, false);
             doubleTimeBuffStacks = Buffs.AddNewBuff("double Time Buff Stacks", Assets.warcryBuffIcon, Color.yellow, true, false);
             blindSensesBuff = Buffs.AddNewBuff("blindSenses Buff", Assets.cloakBuffIcon, Color.green, false, false);
-            supernovaBuff = Buffs.AddNewBuff("supernova Buff Stacks", Assets.singularityBuffIcon, Color.cyan, true, false);
-            deathAuraBuff = Buffs.AddNewBuff("Death aura Buff", Assets.deathMarkDebuffIcon, Color.magenta, true, false);
-
             theWorldBuff = Buffs.AddNewBuff("The World Buff", Assets.resonanceBuffIcon, Color.yellow, false, false);
+            supernovaBuff = Buffs.AddNewBuff($"Supernova Buff Stacks- Absorb the damage you take, charging a supernova within you. When total damage is greater than <style=cIsUtility>{StaticValues.supernovaHealthThreshold* 100f}% of your MAX health</style>, unleash a colossal explosion, dealing <style=cIsDamage>{StaticValues.supernovaDamageCoefficient* 100f}% damage</style> in a large area around you. ", Assets.singularityBuffIcon, Color.cyan, true, false);
+            deathAuraBuff = Buffs.AddNewBuff("Death aura Buff", Assets.deathMarkDebuffIcon, Color.magenta, true, false);
+            reversalBuff = Buffs.AddNewBuff($"Reversal Buff- Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you teleport to the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient* 100f}% damage</style>", Assets.sprintBuffIcon, Color.blue, false, false);
+            reversalBuffStacks = Buffs.AddNewBuff($"Reversal Buff stacks. ", Assets.sprintBuffIcon, Color.cyan, true, false);
+
 
             //debuff
             grovetenderChainDebuff = Buffs.AddNewBuff("chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);

@@ -398,10 +398,16 @@ namespace ShiggyMod.Modules
         internal static float deathAuraThreshold = 1f;
         internal static float deathAuraRadius = 20f;
         internal static float deathAuraRadiusStacks = 4f;
-        internal static int deathAuraDuration= 3;
+        internal static int deathAuraDuration = 3;
         internal static float deathAuraBuffCoefficient = 0.5f;
         internal static float deathAuraBuffEnergyCost = 0.15f;
         internal static float deathAuraDebuffCoefficient = 0.2f;
+
+        internal static float reversalStepRate = 8f;
+
+        internal static float reversalRadius = 15f;
+        internal static float reversalDamageCoefficient = 1f;
+        internal static float reversalProcCoefficient = 1f;
 
         public enum IndicatorType : uint
         {

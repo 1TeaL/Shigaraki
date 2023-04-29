@@ -121,6 +121,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<DisableSlideStateMachine>();
             NetworkingAPI.RegisterMessageType<SetTheWorldFreezeOnBodyRequest>();
             NetworkingAPI.RegisterMessageType<TakeMeleeDamageForceRequest>();
+            NetworkingAPI.RegisterMessageType<ForceReversalState>();
 
 
 
@@ -439,8 +440,6 @@ namespace ShiggyMod
 
                 if (body && victimBody)
                 {
-
-
                     //impboss buff just incase
                     if (body.HasBuff(Buffs.impbossBuff))
                     {
@@ -934,6 +933,73 @@ namespace ShiggyMod
                     bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
                     if (!flag && damageInfo.damage > 0f && damageInfo.attacker.gameObject.GetComponent<CharacterBody>() != self.body)
                     {
+
+                        if (self.body.HasBuff(Buffs.reversalBuffStacks))
+                        {
+                            new ForceReversalState(self.body.masterObjectId, damageInfo.attacker.gameObject.GetComponent<CharacterBody>().masterObjectId).Send(NetworkDestination.Clients);
+                            damageInfo.force = Vector3.zero;
+                            damageInfo.rejected = true;
+                            //do counterattack as well
+
+                            if (self.body.HasBuff(Buffs.blindSensesBuff.buffIndex))
+                            {
+                                //fake calculating the chance to block for a bear
+                                if (self.body.inventory.GetItemCount(RoR2Content.Items.Bear) > 0 && Util.CheckRoll(Util.ConvertAmplificationPercentageIntoReductionPercentage(15f * (float)self.body.inventory.GetItemCount(RoR2Content.Items.Bear)), 0f, null))
+                                {
+                                    //blind senses damage 
+                                    LightningOrb lightningOrb = new LightningOrb();
+                                    lightningOrb.attacker = self.body.gameObject;
+                                    lightningOrb.bouncedObjects = null;
+                                    lightningOrb.bouncesRemaining = 0;
+                                    lightningOrb.damageCoefficientPerBounce = 1f;
+                                    lightningOrb.damageColorIndex = DamageColorIndex.Item;
+                                    lightningOrb.damageValue = damageInfo.damage * StaticValues.blindSensesDamageCoefficient;
+                                    lightningOrb.isCrit = self.body.RollCrit();
+                                    lightningOrb.lightningType = LightningOrb.LightningType.RazorWire;
+                                    lightningOrb.origin = self.body.corePosition;
+                                    lightningOrb.procChainMask = default(ProcChainMask);
+                                    lightningOrb.procChainMask.AddProc(ProcType.Thorns);
+                                    lightningOrb.procCoefficient = 1f;
+                                    lightningOrb.damageType = DamageType.Stun1s;
+                                    lightningOrb.range = 0f;
+                                    lightningOrb.teamIndex = self.body.teamComponent.teamIndex;
+                                    lightningOrb.target = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().mainHurtBox;
+                                    OrbManager.instance.AddOrb(lightningOrb);
+
+                                }
+                                //blind senses damage 
+                                LightningOrb lightningOrb2 = new LightningOrb();
+                                lightningOrb2.attacker = self.body.gameObject;
+                                lightningOrb2.bouncedObjects = null;
+                                lightningOrb2.bouncesRemaining = 0;
+                                lightningOrb2.damageCoefficientPerBounce = 1f;
+                                lightningOrb2.damageColorIndex = DamageColorIndex.Item;
+                                lightningOrb2.damageValue = damageInfo.damage * StaticValues.blindSensesDamageCoefficient;
+                                lightningOrb2.isCrit = self.body.RollCrit();
+                                lightningOrb2.lightningType = LightningOrb.LightningType.RazorWire;
+                                lightningOrb2.origin = self.body.corePosition;
+                                lightningOrb2.procChainMask = default(ProcChainMask);
+                                lightningOrb2.procChainMask.AddProc(ProcType.Thorns);
+                                lightningOrb2.procCoefficient = 1f;
+                                lightningOrb2.damageType = DamageType.Stun1s;
+                                lightningOrb2.range = 0f;
+                                lightningOrb2.teamIndex = self.body.teamComponent.teamIndex;
+                                lightningOrb2.target = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().mainHurtBox;
+                                OrbManager.instance.AddOrb(lightningOrb2);
+
+                                damageInfo.rejected = true;
+
+                                EffectData effectData = new EffectData
+                                {
+                                    origin = damageInfo.position,
+                                    rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
+                                };
+                                EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearEffectPrefab, effectData, true);
+                                
+                            }
+                        }
+
+
                         if (self.body.HasBuff(Buffs.blindSensesBuff.buffIndex))
                         {
                             //fake calculating the chance to block for a bear
@@ -993,6 +1059,7 @@ namespace ShiggyMod
                                 };
                                 EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearEffectPrefab, effectData, true);
                             }
+
 
                         }
 
