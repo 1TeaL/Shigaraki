@@ -93,8 +93,9 @@ If you enjoy my work, support me on Ko-fi!
     		- Stealing quirks now costs plus chaos. 
     		- Plus chaos regenerates over time, stock based items will increase the maximum, cooldown based items will cheapen costs. 
     		- Killing enemies will grant plus chaos.
-	- Added new ability- give quirk: Able to give passive quirks to allies- an ally is able to have one passive at a time. 
-	- 
+        - Added new ability- give quirk: Able to give passive quirks to allies- an ally is able to have one passive at a time. 
+        	- In addition, addded passive explanations to their buffs so allies can read them.
+		
 - 1.3.1
     - updated risk of option config for holdbuttonAFO, now it's a slider that goes from 0-10 instead of a % slider like for volume. DELETE YOUR CONFIGS!
 - 1.3.0
