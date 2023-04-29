@@ -132,11 +132,11 @@ namespace ShiggyMod.Modules
                 $"When you're below 50% health. damage can be reduced <style=cIsHealing>below zero and heal you</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Healing]</style>");
             LanguageAPI.Add(prefix + "MAGMAWORM_NAME", "Blazing Aura");
-            LanguageAPI.Add(prefix + "MAGMAWORM_DESCRIPTION", $"<style=cIsDamage>Burning.</style> Burn nearby enemies for <style=cIsDamage>{100 * StaticValues.magmawormCoefficient}% damage over {StaticValues.magmawormDuration} seconds</style>. " +
-                $"" + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Movespeed]</style>");
+            LanguageAPI.Add(prefix + "MAGMAWORM_DESCRIPTION", $"<style=cIsDamage>Burning.</style> Burn nearby enemies for <style=cIsDamage>{100 * StaticValues.magmawormCoefficient}% damage over {StaticValues.magmawormDuration} seconds</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Aura]</style>");
             LanguageAPI.Add(prefix + "OVERLOADINGWORM_NAME", "Lightning Aura");
-            LanguageAPI.Add(prefix + "OVERLOADINGWORM_DESCRIPTION", $"Summon lightning bolts on nearby enemies for <style=cIsDamage>{100 * StaticValues.overloadingCoefficient}% damage</style> every ({StaticValues.overloadingInterval}/Attackspeed) seconds. ");
+            LanguageAPI.Add(prefix + "OVERLOADINGWORM_DESCRIPTION", $"Summon lightning bolts on nearby enemies for <style=cIsDamage>{100 * StaticValues.overloadingCoefficient}% damage</style> every ({StaticValues.overloadingInterval}/Attackspeed) seconds. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Aura]</style>");
             LanguageAPI.Add(prefix + "VAGRANT_NAME", "Vagrant's Orb");
             LanguageAPI.Add(prefix + "VAGRANT_DESCRIPTION", $"When striking an enemy for <style=cIsDamage>{100 * StaticValues.vagrantdamageThreshold}% or more damage</style>, Create a nova Explosion that stuns and deals <style=cIsDamage>{100 * StaticValues.vagrantDamageCoefficient/3}% damage</style>. " +
                 $"This bonus attack has a cooldown of {StaticValues.vagrantCooldown} seconds.");

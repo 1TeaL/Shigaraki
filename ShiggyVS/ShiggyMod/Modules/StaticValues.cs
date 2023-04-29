@@ -403,7 +403,7 @@ namespace ShiggyMod.Modules
         internal static float deathAuraBuffEnergyCost = 0.15f;
         internal static float deathAuraDebuffCoefficient = 0.2f;
 
-        internal static float reversalStepRate = 8f;
+        internal static float reversalStepRate = 150f;
 
         internal static float reversalRadius = 15f;
         internal static float reversalDamageCoefficient = 1f;
