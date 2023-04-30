@@ -416,6 +416,17 @@ namespace ShiggyMod.Modules
         internal static float OFAFOEnergyGainCoefficient = 0.2f;
         internal static float OFAFOETimeMultiplierCoefficient = 2f;
 
+        internal static float xBeamerDamageCoefficient = 8f;
+        internal static float xBeamerProcCoefficient = 1f;
+        internal static float xBeamerBlastRadius = 5f;
+        internal static float xBeamerDuration = 3f;
+        internal static float xBeamerRadius = 0.5f;
+        internal static float xBeamerDistance = 200f;
+        internal static int xBeamerChargeCoefficient = 2;
+        internal static float xBeamerTickFrequency = 6f;
+        internal static float xBeamerEnergyCost = 0.5f;
+        internal static float xBeamerBaseEnergyCost = 30f;
+
 
         public enum IndicatorType : uint
         {

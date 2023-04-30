@@ -156,6 +156,7 @@ namespace ShiggyMod.Modules
         public static GameObject loaderOmniImpactLightningEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Loader/OmniImpactVFXLoaderLightning.prefab").WaitForCompletion();
         public static GameObject lightningNovaEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/LightningStakeNova");
         public static GameObject muzzleflashMageLightningLargePrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/MuzzleFlashes/MuzzleflashMageLightningLarge");
+        public static GameObject voidFiendBeamChargePrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamCharge.prefab");
 
 
         //game projectiles
@@ -174,6 +175,7 @@ namespace ShiggyMod.Modules
         internal static GameObject barbedSpikesIndicator;
         internal static GameObject auraOfBlightIndicator;
         internal static GameObject doubleTimeIndicator;
+        internal static GameObject xBeamerIndicator;
 
 
         //Shiggy Equipment Obj
@@ -271,7 +273,7 @@ namespace ShiggyMod.Modules
                 Debug.Log("Failed to find Mesh renderer!");
             }
             hermitCrabMortarIndicatorMeshRender.materials = warbannerArray;
-            hermitCrabMortarIndicatorMeshRender.material.SetColor("_TintColor", Color.blue);
+            hermitCrabMortarIndicatorMeshRender.material.SetColor("_TintColor", Color.yellow);
             networkObjDefs.Add(hermitCrabMortarIndicator);
             PrefabAPI.RegisterNetworkPrefab(hermitCrabMortarIndicator);
 
@@ -322,6 +324,18 @@ namespace ShiggyMod.Modules
             doubleTimeIndicatorMeshRender.material.SetColor("_TintColor", new Color(247f / 255f, 222f / 255f, 27f / 255f));
             networkObjDefs.Add(doubleTimeIndicator);
             PrefabAPI.RegisterNetworkPrefab(doubleTimeIndicator);
+
+            xBeamerIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "doubleTimeIndicator");
+
+            MeshRenderer xBeamerIndicatorMeshRender = xBeamerIndicator.gameObject.GetComponent<MeshRenderer>();
+            if (!xBeamerIndicatorMeshRender)
+            {
+                Debug.Log("Failed to find Mesh renderer!");
+            }
+            xBeamerIndicatorMeshRender.materials = warbannerArray;
+            xBeamerIndicatorMeshRender.material.SetColor("_TintColor", Color.yellow);
+            networkObjDefs.Add(xBeamerIndicator);
+            PrefabAPI.RegisterNetworkPrefab(xBeamerIndicator);
 
 
 

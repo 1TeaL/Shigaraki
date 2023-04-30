@@ -19,7 +19,7 @@ namespace ShiggyMod.SkillStates
         private float baseDurationBeforeBlast = 1.5f;
         private float durationBeforeBlast;
         public ShiggyController Shiggycon;
-        private DamageType damageType;
+        private DamageType damageType = DamageType.ClayGoo;
 
 
         private float radius = 5f;
@@ -42,14 +42,6 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             damageType = DamageType.ClayGoo;
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit | DamageType.ClayGoo;
-            }
-            if (base.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit | DamageType.ClayGoo;
-            }
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);

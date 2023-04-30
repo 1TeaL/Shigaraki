@@ -401,10 +401,11 @@ namespace ShiggyMod.Modules.Survivors
                     }
                     else if (OFAFOTimer >= StaticValues.OFAFOThreshold)
                     {
+                        OFAFOTimer = 0f;
                         //health cost
-                        new SpendHealthNetworkRequest(characterBody.masterObjectId, StaticValues.OFAFOHealthCostCoefficient * characterBody.healthComponent.fullCombinedHealth);
+                        new SpendHealthNetworkRequest(characterBody.masterObjectId, StaticValues.OFAFOHealthCostCoefficient * characterBody.healthComponent.fullCombinedHealth).Send (NetworkDestination.Clients);
                         //energy cost
-                        float plusChaosflatCost = (StaticValues.OFAFOEnergyGainCoefficient * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                        float plusChaosflatCost = (StaticValues.OFAFOEnergyCostCoefficient * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
                         if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
 
                         float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
@@ -438,7 +439,7 @@ namespace ShiggyMod.Modules.Survivors
                         else if (deathAuraTimer >= StaticValues.deathAuraThreshold)
                         {
                             //energy cost
-                            float plusChaosflatCost = StaticValues.deathAuraBuffEnergyCost - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                            float plusChaosflatCost = StaticValues.deathAuraBuffEnergyCost - (energySystem.costflatplusChaos);
                             if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
 
                             float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
@@ -510,7 +511,7 @@ namespace ShiggyMod.Modules.Survivors
                     else if (theWorldTimer >= 1f)
                     {
                         //energy cost
-                        float plusChaosflatCost = (StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                        float plusChaosflatCost = (StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
                         if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
 
                         float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;

@@ -64,6 +64,8 @@ namespace ShiggyMod.Modules.Survivors
             regenPlusChaos = maxPlusChaos * StaticValues.regenPlusChaosFraction;
             costmultiplierplusChaos = 1f;
             costflatplusChaos = 0f;
+            ifEnergyRegenAllowed = true;
+            ifEnergyUsed = false;
 
             //UI objects 
             CustomUIObject = UnityEngine.Object.Instantiate(Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("shiggyCustomUI"));
@@ -202,6 +204,10 @@ namespace ShiggyMod.Modules.Survivors
             if (currentplusChaos > maxPlusChaos)
             {
                 currentplusChaos = maxPlusChaos;
+            }
+            if (currentplusChaos < 0f)
+            {
+                currentplusChaos = 0f;
             }
 
             if (plusChaosNumber)

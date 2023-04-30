@@ -57,14 +57,6 @@ namespace ShiggyMod.SkillStates
             skillSwapped = false;
 
             AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
-            if (base.HasBuff(Modules.Buffs.impbossBuff))
-            {
-                damageType |= DamageType.BleedOnHit;
-            }
-            if (base.HasBuff(Modules.Buffs.acridBuff))
-            {
-                damageType |= DamageType.PoisonOnHit;
-            }
             this.stopwatch = 0f;
             this.entryDuration = baseEntryDuration / this.attackSpeedStat;
             this.flamethrowerDuration = baseFlamethrowerDuration;

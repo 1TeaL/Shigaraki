@@ -141,7 +141,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef extremeSpeedDef;
         internal static SkillDef deathAuraDef;
         internal static SkillDef OFAFODef;
-        internal static SkillDef energyDestructionWaveDef;
+        internal static SkillDef xBeamerDef;
         internal static SkillDef finalReleaseDef;
         internal static SkillDef weatherReportDef;
         internal static SkillDef wildCardDef;
@@ -2550,6 +2550,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            xBeamerDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "XBEAMER_NAME",
+                skillNameToken = prefix + "XBEAMER_NAME",
+                skillDescriptionToken = prefix + "XBEAMER_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.XBeamer)),
+                activationStateMachineName = "Body",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] {}
+
+            });
             #endregion
 
 
@@ -2888,16 +2913,17 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                 bulletlaserDef,
+                OFAFODef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                 aircannonDef,
+                xBeamerDef,
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
-                hermitcrabpassiveDef,
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);
