@@ -886,6 +886,37 @@ namespace ShiggyMod
             {
                 if (damageInfo != null && damageInfo.attacker && damageInfo.attacker.GetComponent<CharacterBody>())
                 {
+                    //gargoyle protection buff
+                    if (self.body.HasBuff(Buffs.gargoyleProtectionBuff))
+                    {
+                        //reduce damage and reflect that portion back
+                        damageInfo.damage -= damageInfo.damage * StaticValues.gargoyleProtectionDamageReductionCoefficient;
+
+                        DamageInfo damageInfo2 = new DamageInfo();
+                        damageInfo2.damage = damageInfo.damage * StaticValues.gargoyleProtectionDamageReductionCoefficient;
+                        damageInfo2.position = damageInfo.attacker.transform.position;
+                        damageInfo2.force = Vector3.zero;
+                        damageInfo2.damageColorIndex = DamageColorIndex.WeakPoint;
+                        damageInfo2.crit = false;
+                        damageInfo2.attacker = self.body.gameObject;
+                        damageInfo2.damageType = DamageType.BypassArmor;
+                        damageInfo2.procCoefficient = 0f;
+                        damageInfo2.procChainMask = default(ProcChainMask);
+                        damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.TakeDamage(damageInfo2);
+
+                        EffectData effectData = new EffectData
+                        {
+                            origin = damageInfo.position,
+                            rotation = Quaternion.identity,
+                        };
+                        EffectManager.SpawnEffect(Modules.Assets.mushrumSporeImpactPrefab, effectData, true);
+                        EffectData effectData2 = new EffectData
+                        {
+                            origin = damageInfo.attacker.transform.position,
+                            rotation = Quaternion.identity,
+                        };
+                        EffectManager.SpawnEffect(Modules.Assets.mushrumSporeImpactPrefab, effectData2, true);
+                    }
 
                     //death aura buff and debuff
                     if (self.body.HasBuff(Buffs.deathAuraDebuff))

@@ -405,7 +405,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "OFAFO_NAME", "One For All For One");
             LanguageAPI.Add(prefix + "OFAFO_DESCRIPTION", $"Unlock the true power of One For All and All For One. <style=cIsUtility> Gain {StaticValues.OFAFOLifestealCoefficient * 100f}% lifesteal, {StaticValues.OFAFOEnergyGainCoefficient * 100f}% plus chaos every hit and every passive or buff effect interval is halved</style>. All attacks <style=cIsDamage> hit twice, dealing double the damage and proc</style>. " + Helpers.Passive($"Drains {StaticValues.OFAFOEnergyCostCoefficient}% MAX plus chaos every AND {StaticValues.OFAFOHealthCostCoefficient}% health every {StaticValues.OFAFOThreshold} seconds") + ".");
             LanguageAPI.Add(prefix + "XBEAMER_NAME", "X Beamer");
-            LanguageAPI.Add(prefix + "XBEAMER_DESCRIPTION", $"Charge a beam of concentrated energy while holding the button. On release, fire it, dealing <style=cIsDamage> {StaticValues.xBeamerDamageCoefficient * 100f}% damage minimum, increasing based on charge time</style>. " + Helpers.Passive($"Drains plus chaos every second") + ".");
+            LanguageAPI.Add(prefix + "XBEAMER_DESCRIPTION", $"Charge a beam of concentrated energy while holding the button. On release, fire it, dealing <style=cIsDamage> {StaticValues.xBeamerDamageCoefficient * 100f}% damage minimum, increasing based on charge time</style>. " + Helpers.Passive($"Costs {StaticValues.xBeamerBaseEnergyCost} plus chaos initially. Drains plus chaos every second") + ".");
             #endregion
 
             #region Ultimate Passives
@@ -415,6 +415,8 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "REVERSAL_DESCRIPTION", $"Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you teleport to the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient* 100f}% damage</style>. ");
             LanguageAPI.Add(prefix + "MACHINEFORM_NAME", "Machine Form");
             LanguageAPI.Add(prefix + "MACHINEFORM_DESCRIPTION", $"Materialize machinery around yourself, passively shooting missiles and bullets to nearby enemies, dealing <style=cIsDamage>{StaticValues.machineFormDamageCoefficient* 100f}% damage</style>. ");
+            LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_NAME", "Gargoyle Protection");
+            LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_DESCRIPTION", $"Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. ");
             #endregion
 
             #region Achievements

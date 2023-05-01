@@ -81,6 +81,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef reversalBuffStacks;
         internal static BuffDef OFAFOBuff;
         internal static BuffDef machineFormBuff;
+        internal static BuffDef gargoyleProtectionBuff;
 
         //ultimate debuffs
         internal static BuffDef theWorldDebuff;
@@ -169,6 +170,7 @@ namespace ShiggyMod.Modules
             reversalBuff = Buffs.AddNewBuff($"Reversal Buff- Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you teleport to the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient * 100f}% damage</style>", Assets.sprintBuffIcon, Color.blue, false, false);
             reversalBuffStacks = Buffs.AddNewBuff($"Reversal Buff stacks", Assets.sprintBuffIcon, Color.cyan, true, false);
             machineFormBuff = Buffs.AddNewBuff($"Machine Form Buff- Materialize machinery around yourself, passively shooting missiles and bullets to nearby enemies, dealing <style=cIsDamage>{StaticValues.machineFormDamageCoefficient * 100f}% damage</style>. ", Assets.resonanceBuffIcon, Color.blue, false, false);
+            gargoyleProtectionBuff = Buffs.AddNewBuff($"Gargoyle Protection Buff- Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>.</style>. ", Assets.resonanceBuffIcon, Color.blue, false, false);
 
 
             //shiggy buffs

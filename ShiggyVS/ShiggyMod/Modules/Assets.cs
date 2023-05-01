@@ -158,6 +158,7 @@ namespace ShiggyMod.Modules
         public static GameObject muzzleflashMageLightningLargePrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/MuzzleFlashes/MuzzleflashMageLightningLarge");
         public static GameObject voidFiendBeamChargePrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamCharge.prefab");
         public static GameObject multRebarTracerPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Toolbot/TracerToolbotRebar.prefab");
+        public static GameObject mushrumSporeImpactPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/MiniMushroom/SporeGrenadeGasImpact.prefab");
 
 
         //game projectiles

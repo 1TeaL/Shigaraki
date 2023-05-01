@@ -431,6 +431,8 @@ namespace ShiggyMod.Modules
         internal static float machineFormDamageCoefficient = 1f;
         internal static float machineFormRadius = 50f;
 
+        internal static float gargoyleProtectionDamageReductionCoefficient = 0.3f;
+
 
         public enum IndicatorType : uint
         {

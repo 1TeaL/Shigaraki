@@ -151,7 +151,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef supernovaPassiveDef;
         internal static SkillDef reversalPassiveDef;
         internal static SkillDef machineFormPassiveDef;
-        internal static SkillDef gargoylePassiveDef;
+        internal static SkillDef gargoyleProtectionPassiveDef;
         internal static SkillDef decayAwakenedPassiveDef;
 
 
@@ -2912,6 +2912,31 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "MACHINEFORM_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MachineFormPassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
+            gargoyleProtectionPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "GARGOYLEPROTECTION_NAME",
+                skillNameToken = prefix + "GARGOYLEPROTECTION_NAME",
+                skillDescriptionToken = prefix + "GARGOYLEPROTECTION_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.GargoyleProtectionPassive)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
