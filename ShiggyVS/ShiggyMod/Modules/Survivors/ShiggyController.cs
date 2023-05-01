@@ -20,6 +20,8 @@ using IL.RoR2.Achievements.Bandit2;
 using RoR2.Items;
 using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
+using static UnityEngine.ParticleSystem.PlaybackState;
+using EntityStates.VoidMegaCrab.BackWeapon;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -383,6 +385,8 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (characterBody.hasEffectiveAuthority)
             {
+
+
                 //one for all for one buff
                 if (characterBody.HasBuff(Buffs.OFAFOBuff))
                 {

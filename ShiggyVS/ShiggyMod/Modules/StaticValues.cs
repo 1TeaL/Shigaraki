@@ -427,6 +427,10 @@ namespace ShiggyMod.Modules
         internal static float xBeamerEnergyCost = 0.5f;
         internal static float xBeamerBaseEnergyCost = 30f;
 
+        internal static float machineFormThreshold = 0.5f;
+        internal static float machineFormDamageCoefficient = 1f;
+        internal static float machineFormRadius = 50f;
+
 
         public enum IndicatorType : uint
         {

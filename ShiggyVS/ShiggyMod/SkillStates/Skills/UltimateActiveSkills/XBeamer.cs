@@ -100,7 +100,7 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             //find shooting direction from the beginning, animation to link up too
-            startPosition = FindModelChild(this.muzzleStringR).position + aimRay.direction;
+            startPosition = FindModelChild(this.muzzleStringR).position + characterDirection.forward;
             endPosition = FindModelChild(this.muzzleStringR).position + aimRay.direction * StaticValues.xBeamerDistance;
 
             Transform modelTransform = base.GetModelTransform();

@@ -19,6 +19,7 @@ using System;
 using ShiggyMod.SkillStates;
 using On.EntityStates.Huntress;
 using Object = UnityEngine.Object;
+using EntityStates.VoidMegaCrab.BackWeapon;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -47,6 +48,7 @@ namespace ShiggyMod.Modules.Survivors
         private float doubleTimeTimer;
         private float doubleTimeStacksTimer;
         private float reversalTimer;
+        private float machineFormTimer;
 
         private Ray downRay;
         public GameObject doubleTimeIndicatorInstance;
@@ -285,6 +287,106 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     OFAFOTimeMultiplier = 1f;
                 }
+
+
+                //machine form buff
+                if (characterBody.HasBuff(Buffs.machineFormBuff))
+                {
+                    if (machineFormTimer < StaticValues.machineFormThreshold)
+                    {
+                        machineFormTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+                    }
+                    else if (machineFormTimer >= StaticValues.machineFormThreshold)
+                    {
+                        //shoot missiles here
+                        Ray aimRay = characterBody.inputBank.GetAimRay();
+                        EffectManager.SpawnEffect(FireVoidMissiles.muzzleEffectPrefab, new EffectData
+                        {
+                            origin = characterBody.corePosition,
+                            scale = 1f,
+                            rotation = Quaternion.LookRotation(aimRay.direction)
+                        }, false);
+
+                        ProjectileManager.instance.FireProjectile(
+                            FireVoidMissiles.projectilePrefab, //prefab
+                            aimRay.origin, //position
+                            Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
+                            characterBody.gameObject, //owner
+                            characterBody.damage * StaticValues.machineFormDamageCoefficient, //damage
+                            100f, //force
+                            characterBody.RollCrit(), //crit
+                            DamageColorIndex.Default, //damage color
+                            null, //target
+                            -1); //speed }} 
+
+                        ProjectileManager.instance.FireProjectile(
+                            FireVoidMissiles.projectilePrefab, //prefab
+                            aimRay.origin, //position
+                            Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
+                            characterBody.gameObject, //owner
+                            characterBody.damage * StaticValues.machineFormDamageCoefficient, //damage
+                            100f, //force
+                            characterBody.RollCrit(), //crit
+                            DamageColorIndex.Default, //damage color
+                            null, //target
+                            -1); //speed }} 
+
+                        //shoot bullet to closest target
+                        BullseyeSearch search = new BullseyeSearch
+                        {
+
+                            teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                            filterByLoS = true,
+                            searchOrigin = characterBody.corePosition,
+                            searchDirection = UnityEngine.Random.onUnitSphere,
+                            sortMode = BullseyeSearch.SortMode.Distance,
+                            maxDistanceFilter = StaticValues.machineFormRadius,
+                            maxAngleFilter = 360f
+                        };
+
+                        search.RefreshCandidates();
+                        search.FilterOutGameObject(characterBody.gameObject);
+
+                        HurtBox target = search.GetResults().FirstOrDefault<HurtBox>();
+                        if (target.healthComponent && target.healthComponent.body)
+                        {
+                            var bulletAttack = new BulletAttack
+                            {
+                                bulletCount = 1,
+                                aimVector = target.transform.position - aimRay.origin,
+                                origin = aimRay.origin,
+                                damage = characterBody.damage * StaticValues.machineFormDamageCoefficient,
+                                damageColorIndex = DamageColorIndex.Default,
+                                damageType = DamageType.Generic,
+                                falloffModel = BulletAttack.FalloffModel.None,
+                                maxDistance = StaticValues.machineFormRadius,
+                                force = 100f,
+                                hitMask = LayerIndex.CommonMasks.bullet,
+                                minSpread = 0f,
+                                maxSpread = 0f,
+                                isCrit = characterBody.RollCrit(),
+                                owner = characterBody.gameObject,
+                                smartCollision = false,
+                                procChainMask = default(ProcChainMask),
+                                procCoefficient = 1f,
+                                radius = 1f,
+                                sniper = false,
+                                stopperMask = LayerIndex.world.mask,
+                                weapon = null,
+                                tracerEffectPrefab = Assets.multRebarTracerPrefab,
+                                spreadPitchScale = 0f,
+                                spreadYawScale = 0f,
+                                queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+                                hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,
+
+                            };
+                            bulletAttack.Fire();
+
+                        }
+                        
+                    }
+                }
+
                 //reversal buff effect- moving buildup charge
                 if (characterBody.HasBuff(Buffs.reversalBuff))
                 {

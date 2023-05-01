@@ -2905,6 +2905,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { }
 
             });
+            machineFormPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "MACHINEFORM_NAME",
+                skillNameToken = prefix + "MACHINEFORM_NAME",
+                skillDescriptionToken = prefix + "MACHINEFORM_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.MachineFormPassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
             #endregion
 
             #region Chosen Skills
@@ -2914,6 +2939,7 @@ namespace ShiggyMod.Modules.Survivors
             {
                 bulletlaserDef,
                 OFAFODef,
+                machineFormPassiveDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
@@ -2924,6 +2950,7 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                 multiplierDef,
+                reversalPassiveDef,
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);
