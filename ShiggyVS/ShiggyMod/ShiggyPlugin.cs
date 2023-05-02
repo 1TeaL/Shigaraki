@@ -66,7 +66,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "1.3.1";
+        public const string MODVERSION = "2.0.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -201,6 +201,11 @@ namespace ShiggyMod
                     //add freeze to all blast attacks
                     self.damageType |= DamageType.Shock5s;
                 }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.decayAwakenedBuff))
+                {
+                    //add decay to all blast attacks
+                    self.AddModdedDamageType(Damage.shiggyDecay);
+                }
             }
             return orig(self);
         }
@@ -235,6 +240,11 @@ namespace ShiggyMod
                 {
                     //add freeze to all bullet attacks
                     self.damageType |= DamageType.Shock5s;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.decayAwakenedBuff))
+                {
+                    //add decay to all bullet attacks
+                    self.AddModdedDamageType(Damage.shiggyDecay);
                 }
             }
 
@@ -275,6 +285,11 @@ namespace ShiggyMod
                 {
                     //add freeze to all overlap attacks
                     self.damageType |= DamageType.Shock5s;
+                }
+                if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.decayAwakenedBuff))
+                {
+                    //add decay to all overlap attacks
+                    self.AddModdedDamageType(Damage.shiggyDecay);
                 }
             }
             return orig(self, hitResults);
@@ -452,6 +467,11 @@ namespace ShiggyMod
                     if (body.HasBuff(Buffs.acridBuff))
                     {
                         damageInfo.damageType |= DamageType.PoisonOnHit;
+                    }
+                    //decay awakened buff just incase
+                    if (body.HasBuff(Buffs.decayAwakenedBuff))
+                    {
+                        DamageAPI.AddModdedDamageType(damageInfo, Damage.shiggyDecay);
                     }
 
                     //final release buff stacks

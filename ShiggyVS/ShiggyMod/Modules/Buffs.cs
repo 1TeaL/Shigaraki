@@ -84,6 +84,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef gargoyleProtectionBuff;
         internal static BuffDef finalReleaseBuff;
         internal static BuffDef weatherReportBuff;
+        internal static BuffDef decayAwakenedBuff;
 
         //ultimate debuffs
         internal static BuffDef theWorldDebuff;
@@ -173,7 +174,8 @@ namespace ShiggyMod.Modules
             reversalBuffStacks = Buffs.AddNewBuff($"Reversal Buff stacks", Assets.sprintBuffIcon, Color.cyan, true, false);
             machineFormBuff = Buffs.AddNewBuff($"Machine Form Buff- Materialize machinery around yourself, passively shooting missiles and bullets to nearby enemies, dealing <style=cIsDamage>{StaticValues.machineFormDamageCoefficient * 100f}% damage</style>. ", Assets.resonanceBuffIcon, Color.blue, false, false);
             gargoyleProtectionBuff = Buffs.AddNewBuff($"Gargoyle Protection Buff- Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. ", Assets.resonanceBuffIcon, Color.blue, false, false);
-            weatherReportBuff = Buffs.AddNewBuff($"Weather Report Buff- Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient * 100f}%</style>. ", Assets.resonanceBuffIcon, Color.blue, false, false);
+            weatherReportBuff = Buffs.AddNewBuff($"Weather Report Buff- Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient * 100f}%</style>. ", Assets.spikeBuffIcon, Color.white, false, false);
+            decayAwakenedBuff = Buffs.AddNewBuff($"Weather Report Buff- Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient * 100f}%</style>. ", Assets.decayBuffIcon, Color.white, false, false);
 
 
             //shiggy buffs
