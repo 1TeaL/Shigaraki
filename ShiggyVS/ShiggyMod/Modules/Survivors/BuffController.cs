@@ -49,6 +49,7 @@ namespace ShiggyMod.Modules.Survivors
         private float doubleTimeStacksTimer;
         private float reversalTimer;
         private float machineFormTimer;
+        private float weatherReportTimer;
 
         private Ray downRay;
         public GameObject doubleTimeIndicatorInstance;
@@ -56,6 +57,7 @@ namespace ShiggyMod.Modules.Survivors
 		public GameObject mortarIndicatorInstance;
         public GameObject voidmortarIndicatorInstance;
         public GameObject barbedSpikesIndicatorInstance;
+        private GameObject weatherReportIndicatorInstance;
 
         public HurtBox Target;
 
@@ -265,6 +267,11 @@ namespace ShiggyMod.Modules.Survivors
                 doubleTimeIndicatorInstance.SetActive(false);
                 EntityState.Destroy(doubleTimeIndicatorInstance.gameObject);
             }
+            if (weatherReportIndicatorInstance)
+            {
+                weatherReportIndicatorInstance.SetActive(false);
+                EntityState.Destroy(weatherReportIndicatorInstance.gameObject);
+            }
             if (mushroomWard) EntityState.Destroy (mushroomWard.gameObject);
             if (magmawormWard) EntityState.Destroy(magmawormWard);
 
@@ -288,6 +295,201 @@ namespace ShiggyMod.Modules.Survivors
                     OFAFOTimeMultiplier = 1f;
                 }
 
+                //weather report buff
+                if (characterBody.HasBuff(Buffs.weatherReportBuff))
+                {
+                    if (!weatherReportIndicatorInstance)
+                    {
+                        CreateWeatherReportIndicator();
+                    }
+                    if (weatherReportTimer < StaticValues.weatherReportThreshold)
+                    {
+                        weatherReportTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+                    }
+                    else if (weatherReportTimer >= StaticValues.weatherReportThreshold)
+                    {
+                        weatherReportTimer = 0f;
+
+                        //randomly hit enemies with different effects
+                        BullseyeSearch search = new BullseyeSearch
+                        {
+
+                            teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                            filterByLoS = false,
+                            searchOrigin = characterBody.corePosition,
+                            searchDirection = UnityEngine.Random.onUnitSphere,
+                            sortMode = BullseyeSearch.SortMode.Distance,
+                            maxDistanceFilter = StaticValues.weatherReportRadius,
+                            maxAngleFilter = 360f
+                        };
+
+                        search.RefreshCandidates();
+                        search.FilterOutGameObject(characterBody.gameObject);
+
+                        List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                        foreach (HurtBox singularTarget in target)
+                        {
+                            if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                            {
+                                int random = UnityEngine.Random.RandomRangeInt(0, 4);
+
+                                switch (random)
+                                {
+                                    case 0:
+                                        //overloading worm lightning strike
+
+                                        ProcChainMask procChainMask1 = default(ProcChainMask);
+                                        procChainMask1.AddProc(ProcType.LightningStrikeOnHit);
+
+                                        OrbManager.instance.AddOrb(new SimpleLightningStrikeOrb
+                                        {
+                                            attacker = characterBody.gameObject,
+                                            damageColorIndex = DamageColorIndex.Default,
+                                            damageValue = characterBody.damage * Modules.StaticValues.weatherReportDamageCoefficient,
+                                            damageType = DamageType.Shock5s,
+                                            origin = characterBody.corePosition,
+                                            procChainMask = procChainMask1,
+                                            procCoefficient = 1f,
+                                            isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
+                                            teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
+                                            target = singularTarget,
+
+                                        });
+                                        break;
+                                    case 1:
+                                        //kjaro band fire tornado
+
+                                        ProcChainMask procChainMask5 = default(ProcChainMask);
+                                        procChainMask5.AddProc(ProcType.Rings);
+                                        GameObject gameObject = LegacyResourcesAPI.Load<GameObject>("Prefabs/Projectiles/FireTornado");
+                                        float resetInterval = gameObject.GetComponent<ProjectileOverlapAttack>().resetInterval;
+                                        float lifetime = gameObject.GetComponent<ProjectileSimple>().lifetime;
+                                        float damageCoefficient9 = StaticValues.weatherReportDamageCoefficient;
+                                        float damage3 = Util.OnHitProcDamage(characterBody.damage, characterBody.damage, damageCoefficient9) / lifetime * resetInterval;
+                                        float speedOverride = 0f;
+                                        Quaternion rotation2 = Quaternion.identity;
+                                        Vector3 vector = singularTarget.transform.position - characterBody.inputBank.aimOrigin;
+                                        vector.y = 0f;
+                                        if (vector != Vector3.zero)
+                                        {
+                                            speedOverride = -1f;
+                                            rotation2 = Util.QuaternionSafeLookRotation(vector, Vector3.up);
+                                        }
+                                        ProjectileManager.instance.FireProjectile(new FireProjectileInfo
+                                        {
+                                            damage = damage3,
+                                            crit = characterBody.RollCrit(),
+                                            damageColorIndex = DamageColorIndex.Default,
+                                            position = singularTarget.transform.position,
+                                            procChainMask = procChainMask5,
+                                            force = 0f,
+                                            owner = characterBody.gameObject,
+                                            projectilePrefab = gameObject,
+                                            rotation = rotation2,
+                                            speedOverride = speedOverride,
+                                            target = null
+                                        });
+
+                                        break;
+                                    case 2:
+                                        //runald band ice explosion
+                                        ProcChainMask procChainMask4 = default(ProcChainMask);
+                                        procChainMask4.AddProc(ProcType.Rings);
+                                        DamageInfo damageInfo2 = new DamageInfo
+                                        {
+                                            damage = characterBody.damage * StaticValues.weatherReportDamageCoefficient,
+                                            damageColorIndex = DamageColorIndex.Default,
+                                            damageType = DamageType.Freeze2s,
+                                            attacker = characterBody.gameObject,
+                                            crit = characterBody.RollCrit(),
+                                            force = Vector3.zero,
+                                            inflictor = null,
+                                            position = singularTarget.transform.position,
+                                            procChainMask = procChainMask4,
+                                            procCoefficient = 1f
+                                        };
+                                        EffectManager.SimpleImpactEffect(LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/ImpactEffects/IceRingExplosion"), singularTarget.transform.position, Vector3.up, true);
+                                        characterBody.ApplyBuff(RoR2Content.Buffs.Slow80.buffIndex, 1, 5);
+                                        characterBody.healthComponent.TakeDamage(damageInfo2);
+
+                                        break;
+                                    case 3:
+                                        //stone titan fist projectile? otherwise just do a knock up
+                                        EffectManager.SpawnEffect(Assets.stonetitanFistEffect, new EffectData
+                                        {
+                                            origin = singularTarget.transform.position,
+                                            scale = 1f,
+                                            rotation = Quaternion.identity,
+
+                                        }, true);
+
+
+                                        FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
+                                        fireProjectileInfo.projectilePrefab = Assets.stonetitanFistProj;
+                                        fireProjectileInfo.position = singularTarget.transform.position;
+                                        fireProjectileInfo.rotation = Quaternion.identity;
+                                        fireProjectileInfo.owner = characterBody.gameObject;
+                                        fireProjectileInfo.damage = characterBody.damage * StaticValues.weatherReportDamageCoefficient;
+                                        fireProjectileInfo.force = 2000f;
+                                        fireProjectileInfo.crit = characterBody.RollCrit();
+                                        fireProjectileInfo.fuseOverride = 0.5f;
+                                        ProjectileManager.instance.FireProjectile(fireProjectileInfo);
+
+                                        break;
+                                    case 4:
+                                        //gravitational force down
+                                        float Weight = 1f;
+                                        if (singularTarget.healthComponent.body.characterMotor)
+                                        {
+                                            Weight = singularTarget.healthComponent.body.characterMotor.mass;
+                                        }
+                                        else if (singularTarget.healthComponent.body.rigidbody)
+                                        {
+                                            Weight = singularTarget.healthComponent.body.rigidbody.mass;
+                                        }
+                                        DamageInfo damageInfo = new DamageInfo
+                                        {
+                                            attacker = characterBody.gameObject,
+                                            inflictor = characterBody.gameObject,
+                                            damage = characterBody.damage * StaticValues.weatherReportDamageCoefficient,
+                                            position = singularTarget.transform.position,
+                                            procCoefficient = 1f,
+                                            damageType = DamageType.Generic,
+                                            crit = characterBody.RollCrit(),
+
+                                        };
+
+                                        singularTarget.healthComponent.TakeDamageForce(Vector3.down * 100f * (Weight), true, true);
+                                        singularTarget.healthComponent.TakeDamage(damageInfo);
+                                        GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
+
+
+                                        EffectManager.SpawnEffect(Assets.voidjailerEffect, new EffectData
+                                        {
+                                            origin = singularTarget.transform.position,
+                                            scale = 1f,
+                                            rotation = Quaternion.LookRotation(Vector3.down),
+
+                                        }, true);
+                                        break;
+
+
+                                }
+                            }
+
+
+                        }
+                    }
+                }                
+                else if (!characterBody.HasBuff(Buffs.weatherReportBuff))
+                {
+                    if (weatherReportIndicatorInstance)
+                    {
+                        weatherReportIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(weatherReportIndicatorInstance.gameObject);
+                    }
+                   
+                }
 
                 //machine form buff
                 if (characterBody.HasBuff(Buffs.machineFormBuff))
@@ -1099,6 +1301,7 @@ namespace ShiggyMod.Modules.Survivors
 
 		}
 
+
         public void ApplyDoubleTimeDebuff()
         {
             BullseyeSearch search = new BullseyeSearch
@@ -1283,6 +1486,12 @@ namespace ShiggyMod.Modules.Survivors
 
         public void UpdateIndicator()
         {
+            //weather report indicator
+            if (this.weatherReportIndicatorInstance)
+            {
+                this.weatherReportIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.weatherReportRadius;
+                this.weatherReportIndicatorInstance.transform.localPosition = characterBody.corePosition;
+            }
             if (this.barbedSpikesIndicatorInstance)
             {
                 this.barbedSpikesIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.barbedSpikesRadius * (characterBody.damage / characterBody.baseDamage);
@@ -1307,6 +1516,21 @@ namespace ShiggyMod.Modules.Survivors
             {
                 this.auraOfBlightIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.auraOfBlightBuffRadius;
                 this.auraOfBlightIndicatorInstance.transform.localPosition = characterBody.corePosition;
+            }
+        }
+
+
+        //weather report Indicator 
+        private void CreateWeatherReportIndicator()
+        {
+            if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
+            {
+                this.weatherReportIndicatorInstance = Object.Instantiate<GameObject>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab);
+                this.weatherReportIndicatorInstance.SetActive(true);
+
+                this.weatherReportIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.weatherReportRadius;
+                this.weatherReportIndicatorInstance.transform.localPosition = characterBody.corePosition;
+
             }
         }
 

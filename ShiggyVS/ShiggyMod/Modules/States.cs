@@ -143,6 +143,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(BlindSensesPassive));
             entityStates.Add(typeof(SupernovaPassive));
             entityStates.Add(typeof(ReversalPassive));
+            entityStates.Add(typeof(WeatherReportPassive));
         }
     }
 }

@@ -390,12 +390,12 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (characterBody.hasEffectiveAuthority)
             {
-                
+
                 //one for all for one buff
                 if (characterBody.HasBuff(Buffs.OFAFOBuff))
                 {
                     //check energy if enough to use ability
-                    if(energySystem.currentplusChaos < energySystem.maxPlusChaos * StaticValues.OFAFOEnergyCostCoefficient)
+                    if (energySystem.currentplusChaos < energySystem.maxPlusChaos * StaticValues.OFAFOEnergyCostCoefficient)
                     {
                         characterBody.ApplyBuff(Buffs.OFAFOBuff.buffIndex, 0);
                     }
@@ -411,7 +411,7 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         OFAFOTimer = 0f;
                         //health cost
-                        new SpendHealthNetworkRequest(characterBody.masterObjectId, StaticValues.OFAFOHealthCostCoefficient * characterBody.healthComponent.fullCombinedHealth).Send (NetworkDestination.Clients);
+                        new SpendHealthNetworkRequest(characterBody.masterObjectId, StaticValues.OFAFOHealthCostCoefficient * characterBody.healthComponent.fullCombinedHealth).Send(NetworkDestination.Clients);
                         //energy cost
                         float plusChaosflatCost = (StaticValues.OFAFOEnergyCostCoefficient * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
                         if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
@@ -496,19 +496,19 @@ namespace ShiggyMod.Modules.Survivors
                         characterBody.ApplyBuff(Buffs.deathAuraBuff.buffIndex, 0);
 
                     }
-                        
+
                 }
                 else if (!characterBody.HasBuff(Buffs.deathAuraBuff))
                 {
 
-                    if(deathAuraIndicatorInstance)
+                    if (deathAuraIndicatorInstance)
                     {
                         deathAuraIndicatorInstance.SetActive(false);
                         EntityState.Destroy(deathAuraIndicatorInstance.gameObject);
 
                     }
 
-                } 
+                }
 
                 //the world buff energy cost
                 if (characterBody.HasBuff(Buffs.theWorldBuff))
@@ -907,15 +907,9 @@ namespace ShiggyMod.Modules.Survivors
                     }
                 }
                 else jellyfishtimer += Time.fixedDeltaTime;
+                
             }
-        }
-
-
-
-
-
-
-    
+        }    
 
 
 
@@ -1131,6 +1125,7 @@ namespace ShiggyMod.Modules.Survivors
 
         private void IndicatorUpdater()
         {
+
             //death aura indicator
             if (this.deathAuraIndicatorInstance)
             {

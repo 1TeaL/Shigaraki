@@ -438,7 +438,6 @@ namespace ShiggyMod.Modules
         internal static float finalReleaseTapSpeed = 0.5f;
         internal static float finalReleaseThreshold = 2f;
         internal static float finalReleaseDamageCoefficient= 1f;
-        internal static float finalReleaseMugetsuInterval = 0.2f;
         internal static float finalReleaseProcCoefficient = 0.2f;
         internal static float finalReleaseDamagePerStackCoefficient = 1f;
         internal static float finalReleaseForceCoefficient = 200f;
@@ -446,9 +445,14 @@ namespace ShiggyMod.Modules
         internal static float finalReleaseRadiusPerStackCoefficient = 2f;
         internal static int finalReleaseCountIncrement = 50;
 
+        internal static float finalReleaseMugetsuInterval = 0.2f;
+
         internal static float shunpoDuration = 0.3f;
         internal static float shunpoSpeedCoefficient = 5f;
 
+        internal static float weatherReportThreshold = 3f;
+        internal static float weatherReportRadius = 80f;
+        internal static float weatherReportDamageCoefficient = 2f;
 
 
         public enum IndicatorType : uint

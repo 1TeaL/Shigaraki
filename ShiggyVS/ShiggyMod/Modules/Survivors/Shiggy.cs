@@ -143,7 +143,6 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef OFAFODef;
         internal static SkillDef xBeamerDef;
         internal static SkillDef finalReleaseDef;
-        internal static SkillDef weatherReportDef;
         internal static SkillDef wildCardDef;
         internal static SkillDef lightAndDarknessDef;
 
@@ -152,6 +151,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef reversalPassiveDef;
         internal static SkillDef machineFormPassiveDef;
         internal static SkillDef gargoyleProtectionPassiveDef;
+        internal static SkillDef weatherReportPassiveDef;
         internal static SkillDef decayAwakenedPassiveDef;
 
 
@@ -2962,6 +2962,31 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "GARGOYLEPROTECTION_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.GargoyleProtectionPassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
+            weatherReportPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "WEATHERREPORT_NAME",
+                skillNameToken = prefix + "WEATHERREPORT_NAME",
+                skillDescriptionToken = prefix + "WEATHERREPORT_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.WeatherReportPassive)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,

@@ -419,6 +419,8 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "MACHINEFORM_DESCRIPTION", $"Generate machinery around yourself, passively shooting missiles and bullets to nearby enemies, dealing <style=cIsDamage>{StaticValues.machineFormDamageCoefficient* 100f}% damage</style>. ");
             LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_NAME", "Gargoyle Protection");
             LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_DESCRIPTION", $"Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. ");
+            LanguageAPI.Add(prefix + "WEATHERREPORT_NAME", "Weather Report");
+            LanguageAPI.Add(prefix + "WEATHERREPORT_DESCRIPTION", $"Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient* 100f}%</style>. ");
             #endregion
 
             #region Achievements
