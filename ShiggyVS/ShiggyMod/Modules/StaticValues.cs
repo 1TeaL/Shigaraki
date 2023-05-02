@@ -16,6 +16,7 @@ namespace ShiggyMod.Modules
         internal static float regenPlusChaosRate = 8f;
         internal static float basePlusChaosGain = 1f;
         internal static float killPlusChaosGain = 0.1f;
+        internal static float minimumCostFlatPlusChaosSpend = 0.01f;
         internal static float costFlatPlusChaosSpend = 5f;
         internal static float costFlatContantlyDrainingCoefficient = 0.005f;
         internal static float regenPlusChaosFraction = 0.025f;
@@ -432,6 +433,22 @@ namespace ShiggyMod.Modules
         internal static float machineFormRadius = 50f;
 
         internal static float gargoyleProtectionDamageReductionCoefficient = 0.3f;
+
+        internal static float finalReleaseEnergyCost = 0.2f;
+        internal static float finalReleaseTapSpeed = 0.5f;
+        internal static float finalReleaseThreshold = 2f;
+        internal static float finalReleaseDamageCoefficient= 1f;
+        internal static float finalReleaseMugetsuInterval = 0.2f;
+        internal static float finalReleaseProcCoefficient = 0.2f;
+        internal static float finalReleaseDamagePerStackCoefficient = 1f;
+        internal static float finalReleaseForceCoefficient = 200f;
+        internal static float finalReleaseBaseRadius = 20f;
+        internal static float finalReleaseRadiusPerStackCoefficient = 2f;
+        internal static int finalReleaseCountIncrement = 50;
+
+        internal static float shunpoDuration = 0.3f;
+        internal static float shunpoSpeedCoefficient = 5f;
+
 
 
         public enum IndicatorType : uint

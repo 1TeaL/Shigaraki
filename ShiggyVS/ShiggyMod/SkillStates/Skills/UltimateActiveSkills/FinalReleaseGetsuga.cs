@@ -10,8 +10,7 @@ using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
-    //merc + air cannon
-    public class WindSlash : BaseSkillState
+    public class FinalReleaseGetsuga : BaseSkillState
     {
         public float baseDuration = 0.6f;
         public float duration;
@@ -21,7 +20,7 @@ namespace ShiggyMod.SkillStates
 
         private string muzzleString;
         private Animator animator;
-        private float damageCoefficient = Modules.StaticValues.windSlashDamageCoefficient;
+        private float damageCoefficient = Modules.StaticValues.finalReleaseDamageCoefficient;
         private float force = 1f;
         private float speedOverride = -1f;
 
@@ -30,9 +29,10 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
             duration = baseDuration / attackSpeedStat;
-
+            
+            //play animation with right hand
             base.characterBody.SetAimTimer(this.duration);
-            this.muzzleString = "LHand";
+            this.muzzleString = "RHand";
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             this.animator = base.GetModelAnimator();
@@ -61,10 +61,6 @@ namespace ShiggyMod.SkillStates
             if (isAuthority)
             {
 
-                //var mercProjectileUpdated = mercProjectile;
-                //DamageAPI.ModdedDamageTypeHolderComponent damageTypeComponent = mercProjectileUpdated.AddComponent<DamageAPI.ModdedDamageTypeHolderComponent>();
-                //damageTypeComponent.Add(Damage.shiggyDecay);
-
                 ProjectileManager.instance.FireProjectile(
                     mercProjectile, //prefab
                     aimRay.origin, //position
@@ -77,18 +73,6 @@ namespace ShiggyMod.SkillStates
                     null, //target
                     speedOverride); //speed }
 
-
-                //ProjectileManager.instance.FireProjectile(
-                //    FireFireball.projectilePrefab, //prefab
-                //    FindModelChild(this.muzzleString).position, //position
-                //    Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
-                //    base.gameObject, //owner
-                //    0f, //damage
-                //    0f, //force
-                //    Util.CheckRoll(this.critStat, base.characterBody.master), //crit
-                //    DamageColorIndex.Default, //damage color
-                //    null, //target
-                //    speedOverride); //speed }
             }
 
         }
@@ -117,7 +101,7 @@ namespace ShiggyMod.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.PrioritySkill;
+            return InterruptPriority.Frozen;
         }
 
     }

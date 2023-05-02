@@ -122,6 +122,9 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<SetTheWorldFreezeOnBodyRequest>();
             NetworkingAPI.RegisterMessageType<TakeMeleeDamageForceRequest>();
             NetworkingAPI.RegisterMessageType<ForceReversalState>();
+            NetworkingAPI.RegisterMessageType<SetShunpoStateMachine>();
+            NetworkingAPI.RegisterMessageType<SetMugetsuStateMachine>();
+            NetworkingAPI.RegisterMessageType<SetGetsugaStateMachine>();
 
 
 

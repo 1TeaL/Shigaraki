@@ -244,7 +244,7 @@ namespace ShiggyMod.SkillStates
                     }
                     //energy cost
                     float plusChaosflatCost = (StaticValues.xBeamerEnergyCost) - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
-                    if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+                    if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                     float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                     if (plusChaosCost < 0f) plusChaosCost = 0f;

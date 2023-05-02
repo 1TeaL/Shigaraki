@@ -82,6 +82,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef OFAFOBuff;
         internal static BuffDef machineFormBuff;
         internal static BuffDef gargoyleProtectionBuff;
+        internal static BuffDef finalReleaseBuff;
 
         //ultimate debuffs
         internal static BuffDef theWorldDebuff;
@@ -186,6 +187,7 @@ namespace ShiggyMod.Modules
             voidFormBuff = Buffs.AddNewBuff($"Void Form Buff", Assets.voidFogDebuffIcon, Color.magenta, false, false);
             theWorldBuff = Buffs.AddNewBuff($"The World Buff", Assets.resonanceBuffIcon, Color.yellow, false, false);
             OFAFOBuff = Buffs.AddNewBuff($"One For All For One Buff", Assets.lightningBuffIcon, Color.black, false, false);
+            finalReleaseBuff = Buffs.AddNewBuff($"Final Release Buff", Assets.mercExposeIcon, Color.white, true, false);
 
             //debuffs
             grovetenderChainDebuff = Buffs.AddNewBuff($"chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);

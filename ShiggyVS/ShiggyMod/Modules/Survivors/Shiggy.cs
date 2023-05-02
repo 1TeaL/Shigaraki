@@ -2575,6 +2575,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] {}
 
             });
+            finalReleaseDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "FINALRELEASE_NAME",
+                skillNameToken = prefix + "FINALRELEASE_NAME",
+                skillDescriptionToken = prefix + "FINALRELEASE_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.FinalRelease)),
+                activationStateMachineName = "Body",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
             #endregion
 
 
@@ -2971,6 +2996,7 @@ namespace ShiggyMod.Modules.Survivors
             {
                 aircannonDef,
                 xBeamerDef,
+                finalReleaseDef,
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {

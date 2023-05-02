@@ -125,6 +125,9 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(DeathAura));
             entityStates.Add(typeof(OneForAllForOne));
             entityStates.Add(typeof(XBeamer));
+            entityStates.Add(typeof(FinalRelease));
+            entityStates.Add(typeof(FinalReleaseShunpo));
+            entityStates.Add(typeof(FinalReleaseMugetsu));
 
             //synergy passive skills
             entityStates.Add(typeof(BigBangPassive));

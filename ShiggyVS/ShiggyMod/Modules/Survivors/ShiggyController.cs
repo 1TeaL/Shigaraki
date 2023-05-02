@@ -22,6 +22,7 @@ using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
 using static UnityEngine.ParticleSystem.PlaybackState;
 using EntityStates.VoidMegaCrab.BackWeapon;
+using RiskOfOptions.Components.Panel;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -51,7 +52,11 @@ namespace ShiggyMod.Modules.Survivors
         private float overclockTimer;
         private float deathAuraTimer;
         private float OFAFOTimer;
-        private float OFAFOTimeMultiplier;
+        public float OFAFOTimeMultiplier;
+        private float finalReleaseTimer;
+        private float lastTapTime;
+        private float tapSpeed = StaticValues.finalReleaseTapSpeed;
+        private bool doubleTap;
 
         private Ray downRay;
         public float maxTrackingDistance = 70f;
@@ -385,8 +390,7 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (characterBody.hasEffectiveAuthority)
             {
-
-
+                
                 //one for all for one buff
                 if (characterBody.HasBuff(Buffs.OFAFOBuff))
                 {
@@ -410,7 +414,7 @@ namespace ShiggyMod.Modules.Survivors
                         new SpendHealthNetworkRequest(characterBody.masterObjectId, StaticValues.OFAFOHealthCostCoefficient * characterBody.healthComponent.fullCombinedHealth).Send (NetworkDestination.Clients);
                         //energy cost
                         float plusChaosflatCost = (StaticValues.OFAFOEnergyCostCoefficient * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
-                        if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                         float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                         if (plusChaosCost < 0f) plusChaosCost = 0f;
@@ -423,6 +427,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     OFAFOTimeMultiplier = 1f;
                 }
+
 
                 //death aura buff
                 if (characterBody.HasBuff(Buffs.deathAuraBuff))
@@ -444,7 +449,7 @@ namespace ShiggyMod.Modules.Survivors
                         {
                             //energy cost
                             float plusChaosflatCost = StaticValues.deathAuraBuffEnergyCost - (energySystem.costflatplusChaos);
-                            if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+                            if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                             float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                             if (plusChaosCost < 0f) plusChaosCost = 0f;
@@ -516,7 +521,7 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         //energy cost
                         float plusChaosflatCost = (StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
-                        if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                         float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                         if (plusChaosCost < 0f) plusChaosCost = 0f;
@@ -575,7 +580,7 @@ namespace ShiggyMod.Modules.Survivors
                             {
                                 //constantly draining energy cost for air walk
                                 float plusChaosflatCost = StaticValues.airwalkEnergyFraction - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
-                                if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+                                if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                                 float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                                 if (plusChaosCost < 0f) plusChaosCost = 0f;
@@ -918,6 +923,69 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Update()
         {
+
+            //final release buff
+            if (characterBody.HasBuff(Buffs.finalReleaseBuff))
+            {
+                if(energySystem.currentplusChaos < 1f)
+                {
+                    new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                }
+                //energy cost
+                float plusChaosflatCost = (StaticValues.finalReleaseEnergyCost) - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                if (plusChaosCost < 0f) plusChaosCost = 0f;
+                energySystem.SpendplusChaos(plusChaosCost);
+
+                //double tap to shunpo
+                if (inputBank.jump.down)
+                {
+                    lastTapTime = Time.time;
+                }
+                if(inputBank.jump.down && ((Time.time - lastTapTime) < tapSpeed || doubleTap))
+                {
+                    doubleTap = true;
+                }
+                else
+                {
+                    doubleTap = false;
+                }
+                
+                if(doubleTap)
+                {
+                    new SetShunpoStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                }
+
+                //fire a getsuga tenshou if holding a button down
+                if (finalReleaseTimer >= 0f)
+                {
+                    finalReleaseTimer -= Time.deltaTime * OFAFOTimeMultiplier;
+                }
+                if (finalReleaseTimer < 0f)
+                {
+
+                    if (characterBody.inputBank.skill1.down
+                                            | characterBody.inputBank.skill2.down
+                                            | characterBody.inputBank.skill3.down
+                                            | characterBody.inputBank.skill4.down
+                                            | extrainputBankTest.extraSkill1.down
+                                            | extrainputBankTest.extraSkill2.down
+                                            | extrainputBankTest.extraSkill3.down
+                                            | extrainputBankTest.extraSkill4.down)
+                    {
+                        finalReleaseTimer += StaticValues.finalReleaseThreshold / characterBody.attackSpeed;
+
+
+                        new SetGetsugaStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+
+                    }
+                }
+                
+            }
+
+
             //update indicator
             IndicatorUpdater();
 
@@ -1007,6 +1075,7 @@ namespace ShiggyMod.Modules.Survivors
                 stopwatch2 = 0f;
             } 
         }
+
 
         //      private void UpdateIndicator()
         //{
