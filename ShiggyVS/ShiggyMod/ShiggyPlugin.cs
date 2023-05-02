@@ -454,6 +454,17 @@ namespace ShiggyMod
                         damageInfo.damageType |= DamageType.PoisonOnHit;
                     }
 
+                    //final release buff stacks
+                    if (body.HasBuff(Buffs.finalReleaseBuff))
+                    {
+                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            int finalReleaseCount = body.GetBuffCount(Buffs.finalReleaseBuff);
+                            body.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, finalReleaseCount + 1);
+                        }
+
+                    }
+
                     //one for all for one double damage and proc buff
                     if (body.HasBuff(Modules.Buffs.OFAFOBuff))
                     {
