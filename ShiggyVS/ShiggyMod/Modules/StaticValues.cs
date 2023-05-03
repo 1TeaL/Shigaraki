@@ -465,6 +465,21 @@ namespace ShiggyMod.Modules
         internal static float blastingZoneDebuffInterval = 0.5f;
         internal static float blastingZoneRadius= 10f;
 
+        internal static float wildcardRangeGlobal = 500f;
+        internal static int wildcardDuration = 15;
+        internal static float wildcardTeleportRange = 50f;
+        internal static float wildcardSpeedCoefficient = 10f;
+        internal static float wildcardDamageCoefficient = 10f;
+
+        internal static float lightFormEnergyCost = 10f;
+        internal static float lightFormBonusDamage = 0.2f;
+        internal static float darkFormEnergyGain = 10f;
+        internal static float darkFormBonusDamage = 0.2f;
+        internal static float FormThreshold = 1f;
+        internal static float lightAndDarknessRange = 20f;
+        internal static float lightAndDarknessRangeAddition = 2f;
+        internal static float lightAndDarknessBonusDamage = 0.2f;
+
         public enum IndicatorType : uint
         {
             PASSIVE = 1,

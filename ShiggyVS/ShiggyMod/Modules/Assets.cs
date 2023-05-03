@@ -40,6 +40,7 @@ namespace ShiggyMod.Modules
         public static GameObject VoidFiendBeamTracer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
 
         //buffs
+        public static Sprite lunarRootIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;
         public static Sprite strongerBurnIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/StrengthenBurn/bdStrongerBurn.asset").WaitForCompletion().iconSprite;
         public static Sprite mercExposeIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Merc/bdMercExpose.asset").WaitForCompletion().iconSprite;
         public static Sprite deathMarkDebuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/DeathMark/bdDeathMark.asset").WaitForCompletion().iconSprite;
@@ -83,8 +84,10 @@ namespace ShiggyMod.Modules
 
         //own material
         public static Material multiplierShieldBuffMat;
+        public static Material lightFormBuffMat;
+        public static Material deathAuraBuffMat;
         public static Material limitBreakBuffMat; //need to clone multiplier buff and have different colour or have diff anim
-        public static Material voidFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/DLC1/VoidSurvivor/matVoidBlinkBodyOverlay.mat").WaitForCompletion();
+        public static Material voidFormBuffMat;
 
         //own effects
         public static GameObject decayattackEffect;
@@ -166,6 +169,9 @@ namespace ShiggyMod.Modules
         public static GameObject magmaWormOrbExplosionPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/MagmaWorm/MagmaOrbExplosion.prefab");
         public static GameObject magmaWormImpactExplosionPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/MagmaWorm/MagmaWormImpactExplosion.prefab");
         public static GameObject strongerBurnEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/DLC1/StrengthenBurn/StrongerBurnEffect.prefab");
+        public static GameObject muzzleflashScavSackPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Scav/MuzzleflashScavSack.prefab");
+        public static GameObject tracerHuntressSnipePrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Huntress/TracerHuntressSnipe.prefab");
+        public static GameObject tracerToolbotRebarPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Toolbot/TracerToolbotRebar.prefab");
 
 
         //game projectiles
@@ -359,7 +365,15 @@ namespace ShiggyMod.Modules
             alphaconstructShieldBuffMat = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
             alphaconstructShieldBuffMat.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
 
-            
+            //death aura effect
+            deathAuraBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/Base/Croco/matCrocoBiteDiseased.mat").WaitForCompletion();
+
+            //light form effect
+            lightFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/Base/Common/matFlashWhite.mat").WaitForCompletion();
+
+
+            //void form buff?
+            voidFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/DLC1/VoidSurvivor/matVoidBlinkBodyOverlay.mat").WaitForCompletion();
 
             //xiconstruct beam effect
             beam = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("XiConstructBeam");

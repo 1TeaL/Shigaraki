@@ -2626,6 +2626,56 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { }
 
             });
+            wildCardDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "WILDCARD_NAME",
+                skillNameToken = prefix + "WILDCARD_NAME",
+                skillDescriptionToken = prefix + "WILDCARD_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.WildCard)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 60f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
+            wildCardDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "LIGHTANDDARKNESS_NAME",
+                skillNameToken = prefix + "LIGHTANDDARKNESS_NAME",
+                skillDescriptionToken = prefix + "LIGHTANDDARKNESS_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.LightAndDarkness)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 30f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
             #endregion
 
 
@@ -3066,6 +3116,7 @@ namespace ShiggyMod.Modules.Survivors
                 bulletlaserDef,
                 OFAFODef,
                 machineFormPassiveDef,
+                lightAndDarknessDef,
 
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
@@ -3078,6 +3129,7 @@ namespace ShiggyMod.Modules.Survivors
             {
                 multiplierDef,
                 reversalPassiveDef,
+                wildCardDef,
             });
             Modules.Skills.AddFirstExtraSkill(bodyPrefab, emptySkillDef);
             Modules.Skills.AddSecondExtraSkill(bodyPrefab, emptySkillDef);

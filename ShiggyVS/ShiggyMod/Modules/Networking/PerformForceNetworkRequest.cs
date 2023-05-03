@@ -158,6 +158,15 @@ namespace ShiggyMod.Modules.Networking
                                 rotation = Quaternion.LookRotation(singularTarget.transform.position - origin),
 
                             }, true);
+
+                            Vector3 position = singularTarget.transform.position;
+                            Vector3 start = origin;
+                            EffectData effectData = new EffectData
+                            {
+                                origin = position,
+                                start = start
+                            };
+                            EffectManager.SpawnEffect(Modules.Assets.tracerHuntressSnipePrefab, effectData, true);
                         }
                     }
                 }

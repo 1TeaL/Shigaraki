@@ -85,12 +85,22 @@ namespace ShiggyMod.Modules
         internal static BuffDef finalReleaseBuff;
         internal static BuffDef weatherReportBuff;
         internal static BuffDef decayAwakenedBuff;
+        internal static BuffDef wildcardSpeedBuff;
+        internal static BuffDef wildcardSlowBuff;
+        internal static BuffDef wildcardDamageBuff;
+        internal static BuffDef wildcardNoProjectileBuff;
+        internal static BuffDef lightFormBuff;
+        internal static BuffDef darknessFormBuff;
+        internal static BuffDef lightAndDarknessFormBuff;
 
         //ultimate debuffs
         internal static BuffDef theWorldDebuff;
         internal static BuffDef extremeSpeedHitsDebuff;
         internal static BuffDef deathAuraDebuff;
         internal static BuffDef blastingZoneBurnDebuff;
+        internal static BuffDef lightFormDebuff;
+        internal static BuffDef darknessFormDebuff;
+        internal static BuffDef lightAndDarknessFormDebuff;
 
         //survivor buffs
         internal static BuffDef acridBuff;
@@ -179,6 +189,7 @@ namespace ShiggyMod.Modules
             decayAwakenedBuff = Buffs.AddNewBuff($"Weather Report Buff- Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient * 100f}%</style>. ", Assets.decayBuffIcon, Color.white, false, false);
 
 
+
             //shiggy buffs
             airwalkBuff = Buffs.AddNewBuff($"Air walk acceleration Buff", Assets.jumpBuffIcon, Color.magenta, false, false);
             multiplierBuff = Buffs.AddNewBuff($"Multiplier Buff", Assets.multiplierBuffIcon, Color.magenta, false, false);
@@ -193,6 +204,15 @@ namespace ShiggyMod.Modules
             theWorldBuff = Buffs.AddNewBuff($"The World Buff", Assets.resonanceBuffIcon, Color.yellow, false, false);
             OFAFOBuff = Buffs.AddNewBuff($"One For All For One Buff", Assets.lightningBuffIcon, Color.black, false, false);
             finalReleaseBuff = Buffs.AddNewBuff($"Final Release Buff", Assets.mercExposeIcon, Color.white, true, false);
+            lightFormBuff = Buffs.AddNewBuff($"Light Form Buff", Assets.lunarRootIcon, Color.white, false, false);
+            darknessFormBuff = Buffs.AddNewBuff($"Darkness Form Buff", Assets.lunarRootIcon, Color.black, false, false);
+            lightAndDarknessFormBuff = Buffs.AddNewBuff($"Light And Darkness Form Buff", Assets.lunarRootIcon, Color.magenta, true, false);
+
+            //wild card buffs
+            wildcardSpeedBuff = Buffs.AddNewBuff($"Wildcard Speed Buff- Move {StaticValues.wildcardSpeedCoefficient}x faster. ", Assets.speedBuffIcon, Color.white, false, false);
+            wildcardSlowBuff = Buffs.AddNewBuff($"Wildcard Slow Buff- Move {StaticValues.wildcardSpeedCoefficient}x slower. ", Assets.tarBuffIcon, Color.white, false, false);
+            wildcardDamageBuff = Buffs.AddNewBuff($"Wildcard Damage Buff- Deal {StaticValues.wildcardDamageCoefficient}x damage. ", Assets.boostBuffIcon, Color.white, false, false);
+            wildcardNoProjectileBuff = Buffs.AddNewBuff($"Wildcard No Projectile Buff- Destroy all projectiles. ", Assets.cloakBuffIcon, Color.white, false, false);
 
             //debuffs
             grovetenderChainDebuff = Buffs.AddNewBuff($"chainDebuff", Assets.tarBuffIcon, Color.blue, false, true);
@@ -204,6 +224,9 @@ namespace ShiggyMod.Modules
             decayDebuff = Buffs.AddNewBuff($"decay Debuff", Assets.decayBuffIcon, Color.magenta, true, true);
             eliteDebuff = Buffs.AddNewBuff($"eliteDebuff", Assets.critBuffIcon, Color.black, false, true);
             blastingZoneBurnDebuff = Buffs.AddNewBuff($"Blaze debuff", Assets.strongerBurnIcon, Color.red, true, true);
+            lightFormDebuff = Buffs.AddNewBuff($"Light Form Debuff", Assets.crippleBuffIcon, Color.white, false, true);
+            darknessFormDebuff = Buffs.AddNewBuff($"Darkness Form Debuff", Assets.crippleBuffIcon, Color.black, false, true);
+            lightAndDarknessFormDebuff = Buffs.AddNewBuff($"Light And Darkness Form Debuff", Assets.crippleBuffIcon, Color.magenta, false, true);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>($"RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

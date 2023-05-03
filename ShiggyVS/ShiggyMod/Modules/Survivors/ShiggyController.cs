@@ -57,6 +57,7 @@ namespace ShiggyMod.Modules.Survivors
         private float lastTapTime;
         private float tapSpeed = StaticValues.finalReleaseTapSpeed;
         private bool doubleTap;
+        private float formTimer;
 
         private Ray downRay;
         public float maxTrackingDistance = 70f;
@@ -390,6 +391,56 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (characterBody.hasEffectiveAuthority)
             {
+                //light buff
+                if (characterBody.HasBuff(Buffs.lightFormBuff))
+                {
+                    if(formTimer < StaticValues.FormThreshold)
+                    {
+                        formTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+
+                    }
+                    else if (formTimer >= StaticValues.FormThreshold)
+                    {
+                        formTimer = 0f;
+                        //energy cost
+                        float plusChaosflatCost = (StaticValues.lightFormEnergyCost) - (energySystem.costflatplusChaos);
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                        if (plusChaosCost < 0f) plusChaosCost = 0f;
+                        energySystem.SpendplusChaos(plusChaosCost);
+                    }
+                    //remove buff at 0
+                    if (energySystem.currentplusChaos <= 0f)
+                    {
+                        characterBody.ApplyBuff(Buffs.lightFormBuff.buffIndex, 0);
+                    }
+                }
+                //darkness buff
+                if (characterBody.HasBuff(Buffs.darknessFormBuff))
+                {
+                    if (formTimer < StaticValues.FormThreshold)
+                    {
+                        formTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+
+                    }
+                    else if (formTimer >= StaticValues.FormThreshold)
+                    {
+                        formTimer = 0f;
+                        //energy gain
+                        energySystem.GainplusChaos(StaticValues.darkFormEnergyGain);
+                    }
+                    //remove buff at max
+                    if(energySystem.currentplusChaos >= energySystem.maxPlusChaos)
+                    {
+                        characterBody.ApplyBuff(Buffs.darknessFormBuff.buffIndex, 0);
+                    }
+                }
+                if (characterBody.HasBuff(Buffs.lightAndDarknessFormBuff))
+                {
+                    //force energy constantly in the middle constantly
+                    energySystem.currentplusChaos = energySystem.maxPlusChaos / 2f;
+                }
 
                 //one for all for one buff
                 if (characterBody.HasBuff(Buffs.OFAFOBuff))
@@ -426,6 +477,26 @@ namespace ShiggyMod.Modules.Survivors
                 if (!characterBody.HasBuff(Buffs.OFAFOBuff))
                 {
                     OFAFOTimeMultiplier = 1f;
+                }
+
+                //wildcard no projectile buff
+                if(characterBody.HasBuff(Buffs.wildcardNoProjectileBuff))
+                {
+                    //destroy projectile 
+                    Collider[] array = Physics.OverlapSphere(characterBody.corePosition, StaticValues.wildcardRangeGlobal, LayerIndex.projectile.mask);
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        ProjectileController component = array[i].GetComponent<ProjectileController>();
+                        if (component)
+                        {
+                            EffectData effectData = new EffectData();
+                            effectData.origin = component.transform.position;
+                            effectData.scale = 1f;
+                            EffectManager.SpawnEffect(EntityStates.BeetleMonster.HeadbuttState.hitEffectPrefab, effectData, true);
+                            Object.Destroy(component.gameObject);
+                            
+                        }
+                    }
                 }
 
 
@@ -921,7 +992,7 @@ namespace ShiggyMod.Modules.Survivors
             //final release buff
             if (characterBody.HasBuff(Buffs.finalReleaseBuff))
             {
-                if(energySystem.currentplusChaos < 1f)
+                if(energySystem.currentplusChaos <= 0f)
                 {
                     new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
                 }
@@ -1229,7 +1300,7 @@ namespace ShiggyMod.Modules.Survivors
 
 
                 }
-                else if (energySystem.currentplusChaos <= 1f)
+                else if (energySystem.currentplusChaos <= 0f)
                 {
                     characterBody.ApplyBuff(Buffs.theWorldBuff.buffIndex, 0);
                 }

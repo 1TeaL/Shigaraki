@@ -438,7 +438,6 @@ namespace ShiggyMod
                         args.moveSpeedMultAdd -= StaticValues.doubleTimeSlowCoefficient;
                     }
 
-
                 }
             }
             
@@ -918,38 +917,135 @@ namespace ShiggyMod
 
             if (self)
             {
-                if (damageInfo != null && damageInfo.attacker && damageInfo.attacker.GetComponent<CharacterBody>())
+                var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                if (damageInfo != null && damageInfo.attacker && attackerBody)
                 {
-                    //gargoyle protection buff
-                    if (self.body.HasBuff(Buffs.gargoyleProtectionBuff))
+                    //light form debuff application
+                    if (attackerBody.HasBuff(Buffs.lightFormBuff))
                     {
-                        //reduce damage and reflect that portion back
-                        damageInfo.damage -= damageInfo.damage * StaticValues.gargoyleProtectionDamageReductionCoefficient;
+                        int lightcount = self.body.GetBuffCount(Buffs.lightFormDebuff);
+                        self.body.ApplyBuff(Buffs.lightFormDebuff.buffIndex, lightcount + 1);
+                    }
+                    //darkness form debuff application
+                    if (attackerBody.HasBuff(Buffs.darknessFormBuff))
+                    {
+                        int darkcount = self.body.GetBuffCount(Buffs.darknessFormDebuff);
+                        self.body.ApplyBuff(Buffs.darknessFormDebuff.buffIndex, darkcount + 1);
+                    }
+                    //light form debuff effect
+                    if (self.body.HasBuff(Buffs.lightFormDebuff))
+                    {
+                        int lightcount = self.body.GetBuffCount(Buffs.lightFormDebuff);
+                        LightningOrb lightningOrb = new LightningOrb();
+                        lightningOrb.lightningType = LightningOrb.LightningType.MageLightning;
+                        lightningOrb.damageValue = damageInfo.damage;
+                        lightningOrb.isCrit = attackerBody.RollCrit();
+                        lightningOrb.teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject);
+                        lightningOrb.attacker = base.gameObject;
+                        lightningOrb.procCoefficient = damageInfo.procCoefficient;
+                        lightningOrb.bouncesRemaining = lightcount;
+                        lightningOrb.speed = 60f;
+                        lightningOrb.bouncedObjects = new List<HealthComponent>();
+                        lightningOrb.range = 60f;
+                        lightningOrb.damageCoefficientPerBounce = (1f + StaticValues.lightFormBonusDamage);
 
-                        DamageInfo damageInfo2 = new DamageInfo();
-                        damageInfo2.damage = damageInfo.damage * StaticValues.gargoyleProtectionDamageReductionCoefficient;
-                        damageInfo2.position = damageInfo.attacker.transform.position;
-                        damageInfo2.force = Vector3.zero;
-                        damageInfo2.damageColorIndex = DamageColorIndex.WeakPoint;
-                        damageInfo2.crit = false;
-                        damageInfo2.attacker = self.body.gameObject;
-                        damageInfo2.damageType = DamageType.BypassArmor;
-                        damageInfo2.procCoefficient = 0f;
-                        damageInfo2.procChainMask = default(ProcChainMask);
-                        damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.TakeDamage(damageInfo2);
+                        HurtBox hurtBox = self.body.mainHurtBox;
+                        if (hurtBox)
+                        {
+                            lightningOrb.origin = transform.position;
+                            lightningOrb.target = hurtBox;
+                            OrbManager.instance.AddOrb(lightningOrb);
+                        }
+                    }
+                    //darkness form debuff effect
+                    if (self.body.HasBuff(Buffs.darknessFormDebuff))
+                    {
+                        int darkcount = self.body.GetBuffCount(Buffs.darknessFormDebuff);
+                        damageInfo.damage *= (1 + darkcount * StaticValues.darkFormBonusDamage);
+                    }
+                    //light and darkness form debuff application
+                    if (attackerBody.HasBuff(Buffs.lightAndDarknessFormBuff))
+                    {
+                        int buffcount = self.body.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
+                        self.body.ApplyBuff(Buffs.lightAndDarknessFormDebuff.buffIndex, buffcount + 1);
+                    }
+                    //light and darkness form debuff effect
+                    if (self.body.HasBuff(Buffs.lightAndDarknessFormDebuff))
+                    {
+                        damageInfo.damage += (1f * StaticValues.lightAndDarknessBonusDamage);
+                        int buffcount = self.body.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
+                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            BullseyeSearch search = new BullseyeSearch
+                            {
 
-                        EffectData effectData = new EffectData
-                        {
-                            origin = damageInfo.position,
-                            rotation = Quaternion.identity,
-                        };
-                        EffectManager.SpawnEffect(Modules.Assets.mushrumSporeImpactPrefab, effectData, true);
-                        EffectData effectData2 = new EffectData
-                        {
-                            origin = damageInfo.attacker.transform.position,
-                            rotation = Quaternion.identity,
-                        };
-                        EffectManager.SpawnEffect(Modules.Assets.mushrumSporeImpactPrefab, effectData2, true);
+                                teamMaskFilter = TeamMask.GetEnemyTeams(attackerBody.teamComponent.teamIndex),
+                                filterByLoS = false,
+                                searchOrigin = damageInfo.position,
+                                searchDirection = UnityEngine.Random.onUnitSphere,
+                                sortMode = BullseyeSearch.SortMode.Distance,
+                                maxDistanceFilter = StaticValues.lightAndDarknessRange + buffcount * StaticValues.lightAndDarknessRangeAddition,
+                                maxAngleFilter = 360f
+                            };
+
+                            search.RefreshCandidates();
+                            search.FilterOutGameObject(attackerBody.gameObject);
+
+                            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                            foreach (HurtBox singularTarget in target)
+                            {
+                                if (singularTarget)
+                                {
+                                    Vector3 a = singularTarget.transform.position - damageInfo.position;
+                                    float magnitude = a.magnitude;
+                                    Vector3 vector = a / magnitude;
+                                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                                    {
+                                        float Weight = 1f;
+                                        if (singularTarget.healthComponent.body.characterMotor)
+                                        {
+                                            Weight = singularTarget.healthComponent.body.characterMotor.mass;
+                                        }
+                                        else if (singularTarget.healthComponent.body.rigidbody)
+                                        {
+                                            Weight = singularTarget.healthComponent.body.rigidbody.mass;
+                                        }
+                                        Vector3 a2 = vector;
+                                        float d = Trajectory.CalculateInitialYSpeedForHeight(Mathf.Abs(StaticValues.voidjailerminpullDistance - magnitude)) * Mathf.Sign(StaticValues.voidjailerminpullDistance - magnitude);
+                                        a2 *= d;
+                                        a2.y = StaticValues.voidjailerpullLiftVelocity;
+                                        DamageInfo damageInfo2 = new DamageInfo
+                                        {
+                                            attacker = base.gameObject,
+                                            damage = damageInfo.damage,
+                                            position = singularTarget.transform.position,
+                                            procCoefficient = damageInfo.procCoefficient,
+                                            damageType = damageInfo.damageType,
+
+                                        };
+                                        int singularTargetbuffcount = singularTarget.healthComponent.body.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
+                                        singularTarget.healthComponent.body.ApplyBuff(Buffs.lightAndDarknessFormBuff.buffIndex, singularTargetbuffcount + 1);
+
+                                        singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);
+                                        singularTarget.healthComponent.TakeDamage(damageInfo);
+                                        GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
+
+
+
+                                        Vector3 position = singularTarget.transform.position;
+                                        Vector3 start = damageInfo.position;
+                                        EffectData effectData = new EffectData
+                                        {
+                                            origin = position,
+                                            start = start
+                                        };
+                                        EffectManager.SpawnEffect(Modules.Assets.tracerToolbotRebarPrefab, effectData, true);
+
+                                    }
+                                }
+                            }
+                        }
+                        
                     }
 
                     //death aura buff and debuff
@@ -960,29 +1056,29 @@ namespace ShiggyMod
                             damageInfo.damage *= (1 + self.body.GetBuffCount(Buffs.deathAuraDebuff) * StaticValues.deathAuraDebuffCoefficient);
                         }
                     }
-                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.deathAuraBuff))
+                    if (attackerBody.HasBuff(Buffs.deathAuraBuff))
                     {
                         if (damageInfo.damageType == DamageType.DoT)
                         {
-                            damageInfo.damage *= (1 + damageInfo.attacker.GetComponent<CharacterBody>().GetBuffCount(Buffs.deathAuraBuff) * StaticValues.deathAuraBuffCoefficient);
+                            damageInfo.damage *= (1 + attackerBody.GetBuffCount(Buffs.deathAuraBuff) * StaticValues.deathAuraBuffCoefficient);
                         }
                     }
 
 
                     //loader passive
-                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Modules.Buffs.loaderBuff))
+                    if (attackerBody.HasBuff(Modules.Buffs.loaderBuff))
                     {
-                        damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.AddBarrierAuthority(damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth * StaticValues.loaderBarrierGainCoefficient);
+                        attackerBody.healthComponent.AddBarrierAuthority(attackerBody.healthComponent.fullCombinedHealth * StaticValues.loaderBarrierGainCoefficient);
                     }
 
                     //limit break buff health cost
-                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.limitBreakBuff))
+                    if (attackerBody.HasBuff(Buffs.limitBreakBuff))
                     {
                         if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                         {
                             Debug.Log("deal damage to self");
                             DamageInfo damageInfo2 = new DamageInfo();
-                            damageInfo2.damage = StaticValues.limitBreakHealthCostCoefficient * damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.fullCombinedHealth;
+                            damageInfo2.damage = StaticValues.limitBreakHealthCostCoefficient * attackerBody.healthComponent.fullCombinedHealth;
                             damageInfo2.position = damageInfo.attacker.transform.position;
                             damageInfo2.force = Vector3.zero;
                             damageInfo2.damageColorIndex = DamageColorIndex.WeakPoint;
@@ -992,12 +1088,12 @@ namespace ShiggyMod
                             damageInfo2.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
                             damageInfo2.procCoefficient = 0f;
                             damageInfo2.procChainMask = default(ProcChainMask);
-                            damageInfo.attacker.GetComponent<CharacterBody>().healthComponent.TakeDamage(damageInfo2);
+                            attackerBody.healthComponent.TakeDamage(damageInfo2);
                         }
                     }
 
                     //multiplier spend energy
-                    if (damageInfo.attacker.GetComponent<CharacterBody>().HasBuff(Buffs.multiplierBuff))
+                    if (attackerBody.HasBuff(Buffs.multiplierBuff))
                     {
 
                         if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
@@ -1013,7 +1109,7 @@ namespace ShiggyMod
 
                                 if (energySys.currentplusChaos < plusChaosCost)
                                 {
-                                    damageInfo.attacker.GetComponent<CharacterBody>().ApplyBuff(Buffs.multiplierBuff.buffIndex, 0);
+                                    attackerBody.ApplyBuff(Buffs.multiplierBuff.buffIndex, 0);
                                     energySys.TriggerGlow(0.3f, 0.3f, Color.black);
                                 }
                                 else if (energySys.currentplusChaos >= plusChaosCost)
@@ -1030,6 +1126,38 @@ namespace ShiggyMod
                     bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
                     if (!flag && damageInfo.damage > 0f && damageInfo.attacker.gameObject.GetComponent<CharacterBody>() != self.body)
                     {
+                        //gargoyle protection buff
+                        if (self.body.HasBuff(Buffs.gargoyleProtectionBuff))
+                        {
+                            //reduce damage and reflect that portion back
+                            damageInfo.damage -= damageInfo.damage * StaticValues.gargoyleProtectionDamageReductionCoefficient;
+
+                            DamageInfo damageInfo2 = new DamageInfo();
+                            damageInfo2.damage = damageInfo.damage * StaticValues.gargoyleProtectionDamageReductionCoefficient;
+                            damageInfo2.position = damageInfo.attacker.transform.position;
+                            damageInfo2.force = Vector3.zero;
+                            damageInfo2.damageColorIndex = DamageColorIndex.WeakPoint;
+                            damageInfo2.crit = false;
+                            damageInfo2.attacker = self.body.gameObject;
+                            damageInfo2.damageType = DamageType.BypassArmor;
+                            damageInfo2.procCoefficient = 0f;
+                            damageInfo2.procChainMask = default(ProcChainMask);
+                            attackerBody.healthComponent.TakeDamage(damageInfo2);
+
+                            EffectData effectData = new EffectData
+                            {
+                                origin = damageInfo.position,
+                                rotation = Quaternion.identity,
+                            };
+                            EffectManager.SpawnEffect(Modules.Assets.mushrumSporeImpactPrefab, effectData, true);
+                            EffectData effectData2 = new EffectData
+                            {
+                                origin = damageInfo.attacker.transform.position,
+                                rotation = Quaternion.identity,
+                            };
+                            EffectManager.SpawnEffect(Modules.Assets.mushrumSporeImpactPrefab, effectData2, true);
+                        }
+
 
                         if (self.body.HasBuff(Buffs.reversalBuffStacks))
                         {
@@ -1356,7 +1484,7 @@ namespace ShiggyMod
                     }
                     //expunge damage bonus
                     bool expunge = (damageInfo.damageType & DamageType.BypassArmor) > 0;
-                    if (expunge && damageInfo.attacker.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                    if (expunge && attackerBody.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
                     {
                         //deal bonus damage based on number of debuffs
                         int debuffCount = 0;
@@ -1446,13 +1574,24 @@ namespace ShiggyMod
             {
                 orig.Invoke(self);
 
+                //wildcard buffs
+                if (self.HasBuff(Buffs.wildcardDamageBuff))
+                {
+                    self.damage *= StaticValues.wildcardDamageCoefficient;
+                }
+                if (self.HasBuff(Buffs.wildcardSpeedBuff))
+                {
+                    self.moveSpeed *= StaticValues.wildcardSpeedCoefficient;
+                }
+                if (self.HasBuff(Buffs.wildcardSlowBuff))
+                {
+                    self.moveSpeed /= StaticValues.wildcardSpeedCoefficient;
+                }
                 //overclock debuff
                 if (self.HasBuff(Buffs.theWorldDebuff))
                 {
                     self.attackSpeed *= 0f;
                     self.moveSpeed *= 0f;
-
-
                 }
                 //limiter removal buff
                 if (self.HasBuff(Buffs.limitBreakBuff))
@@ -1549,10 +1688,13 @@ namespace ShiggyMod
                 {
                     this.OverlayFunction(Modules.Assets.alphaconstructShieldBuffMat, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
                     this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
-                    this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.limitBreakBuff), self);
+                    this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.limitBreakBuff), self);//need to make new mat
                     this.OverlayFunction(Modules.Assets.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.voidFormBuff), self);
                     this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.deathAuraBuff), self);
-                    this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.deathAuraDebuff), self);
+                    this.OverlayFunction(Modules.Assets.deathAuraBuffMat, self.body.HasBuff(Modules.Buffs.deathAuraDebuff), self); //need new mat
+                    this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.darknessFormBuff), self);
+                    this.OverlayFunction(Modules.Assets.lightFormBuffMat, self.body.HasBuff(Modules.Buffs.lightFormBuff), self);
+                    this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.lightAndDarknessFormBuff), self);//need new mat
                 }
             }
         }
