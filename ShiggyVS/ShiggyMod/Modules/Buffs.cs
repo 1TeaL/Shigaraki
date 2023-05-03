@@ -90,6 +90,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef theWorldDebuff;
         internal static BuffDef extremeSpeedHitsDebuff;
         internal static BuffDef deathAuraDebuff;
+        internal static BuffDef blastingZoneBurnDebuff;
 
         //survivor buffs
         internal static BuffDef acridBuff;
@@ -202,6 +203,7 @@ namespace ShiggyMod.Modules
             deathAuraDebuff = Buffs.AddNewBuff($"Death aura Debuff", Assets.deathMarkDebuffIcon, Color.black, true, true);
             decayDebuff = Buffs.AddNewBuff($"decay Debuff", Assets.decayBuffIcon, Color.magenta, true, true);
             eliteDebuff = Buffs.AddNewBuff($"eliteDebuff", Assets.critBuffIcon, Color.black, false, true);
+            blastingZoneBurnDebuff = Buffs.AddNewBuff($"Blaze debuff", Assets.strongerBurnIcon, Color.red, true, true);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>($"RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;

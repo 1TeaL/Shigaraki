@@ -128,6 +128,8 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(FinalRelease));
             entityStates.Add(typeof(FinalReleaseShunpo));
             entityStates.Add(typeof(FinalReleaseMugetsu));
+            entityStates.Add(typeof(BlastingZone));
+            entityStates.Add(typeof(BlastingZoneBurnComponent));
 
             //synergy passive skills
             entityStates.Add(typeof(BigBangPassive));

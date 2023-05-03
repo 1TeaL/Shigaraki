@@ -454,6 +454,16 @@ namespace ShiggyMod.Modules
         internal static float weatherReportRadius = 80f;
         internal static float weatherReportDamageCoefficient = 2f;
 
+        internal static float blastingZoneProcCoefficient = 0.5f;
+        internal static float blastingZoneDamageCoefficient = 2f;
+        internal static float blastingZoneRangeAddition = 15f;
+        internal static int blastingZoneDebuffStackApplication = 6;
+        internal static float blastingZoneDebuffDamagePerStack = 0.01f;
+        internal static float blastingZoneWindup = 0.5f;
+        internal static float blastingZoneInterval = 0.1f;
+        internal static int blastingZoneTotalHits = 10;
+        internal static float blastingZoneDebuffInterval = 0.5f;
+        internal static float blastingZoneRadius= 10f;
 
         public enum IndicatorType : uint
         {

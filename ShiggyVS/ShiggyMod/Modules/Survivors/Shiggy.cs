@@ -143,6 +143,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef OFAFODef;
         internal static SkillDef xBeamerDef;
         internal static SkillDef finalReleaseDef;
+        internal static SkillDef blastingZoneDef;
         internal static SkillDef wildCardDef;
         internal static SkillDef lightAndDarknessDef;
 
@@ -2600,6 +2601,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { }
 
             });
+            blastingZoneDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "BLASTINGZONE_NAME",
+                skillNameToken = prefix + "BLASTINGZONE_NAME",
+                skillDescriptionToken = prefix + "BLASTINGZONE_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("bulletlaser"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BlastingZone)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
             #endregion
 
 
@@ -3005,7 +3031,7 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { }
 
             });
-            weatherReportPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            decayAwakenedPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "DECAYAWAKENED_NAME",
                 skillNameToken = prefix + "DECAYAWAKENED_NAME",

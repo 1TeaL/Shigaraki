@@ -40,6 +40,7 @@ namespace ShiggyMod.Modules
         public static GameObject VoidFiendBeamTracer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
 
         //buffs
+        public static Sprite strongerBurnIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/StrengthenBurn/bdStrongerBurn.asset").WaitForCompletion().iconSprite;
         public static Sprite mercExposeIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Merc/bdMercExpose.asset").WaitForCompletion().iconSprite;
         public static Sprite deathMarkDebuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/DeathMark/bdDeathMark.asset").WaitForCompletion().iconSprite;
         public static Sprite singularityBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/ElementalRingVoid/bdElementalRingVoidReady.asset").WaitForCompletion().iconSprite;
@@ -162,6 +163,9 @@ namespace ShiggyMod.Modules
         public static GameObject mushrumSporeImpactPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/MiniMushroom/SporeGrenadeGasImpact.prefab");
         public static GameObject mercOmnimpactVFXPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Merc/OmniImpactVFXSlashMerc.prefab");
         public static GameObject mercOmnimpactVFXEvisPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Merc/OmniImpactVFXSlashMercEvis.prefab");
+        public static GameObject magmaWormOrbExplosionPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/MagmaWorm/MagmaOrbExplosion.prefab");
+        public static GameObject magmaWormImpactExplosionPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/MagmaWorm/MagmaWormImpactExplosion.prefab");
+        public static GameObject strongerBurnEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/DLC1/StrengthenBurn/StrongerBurnEffect.prefab");
 
 
         //game projectiles
