@@ -16,6 +16,8 @@ namespace ShiggyMod.SkillStates
 {
     public class BeetleQueenSummon : BaseSkillState
     {
+
+
         public float baseDuration = 1f;
         public float duration;
         public ShiggyController Shiggycon;
@@ -41,7 +43,7 @@ namespace ShiggyMod.SkillStates
 
         public void Summon()
         {
-            Debug.Log("randomsurvivor " + randomSurvivor);
+            //Debug.Log("randomsurvivor " + randomSurvivor);
 
             switch (randomSurvivor)
             {
@@ -84,6 +86,11 @@ namespace ShiggyMod.SkillStates
                 case 13:
                         new SpawnBodyNetworkRequest(characterBody.masterObjectId, "VoidSurvivorBody", "VoidSurvivorMonsterMaster").Send(NetworkDestination.Clients);
                     break;
+                //case 14:
+                //    //summon deku if he exists otherwise commando
+                //    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CommandoBody", "CommandoMonsterMaster").Send(NetworkDestination.Clients);
+                //    break;
+                    
 
             }
         }

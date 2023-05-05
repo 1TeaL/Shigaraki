@@ -94,6 +94,7 @@ namespace ShiggyMod.SkillStates
                 if (base.fixedAge >= num)
                 {
                     this.outer.SetNextStateToMain();
+                    return;
                 }
             }
 

@@ -16,6 +16,7 @@ using EntityStates.ScavMonster;
 
 namespace ShiggyMod.SkillStates
 {
+    //gacha + refresh
     public class WildCard : Skill
     {
         //Refresh + gacha
@@ -31,7 +32,8 @@ namespace ShiggyMod.SkillStates
             //play animation and maybe particles? maybe snap fingers idk?
 
             Ray aimRay = base.GetAimRay();
-            EffectManager.SpawnEffect(Assets.muzzleflashScavSackPrefab, new EffectData
+            PlayCrossfade("RightArm, Override", "RightArmDetonate", "Attack.playbackRate", duration, 0.1f);
+            EffectManager.SpawnEffect(EntityStates.LunarGolem.ChargeTwinShot.effectPrefab, new EffectData
             {
                 origin = FindModelChild(muzzleString).position,
                 scale = 1f,

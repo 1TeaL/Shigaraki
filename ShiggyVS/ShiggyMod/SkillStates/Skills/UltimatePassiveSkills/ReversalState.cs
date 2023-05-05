@@ -23,7 +23,9 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
 
             Ray aimRay = base.GetAimRay();
-            characterBody.characterMotor.Motor.SetPosition(enemycharBody.corePosition + aimRay.direction * StaticValues.reversalRadius/2f);
+            Vector3 tpPosition = (enemycharBody.corePosition - characterBody.corePosition).normalized * 2f;
+            tpPosition.y = 0;
+            characterBody.characterMotor.Motor.SetPosition(tpPosition);
 
 
         }

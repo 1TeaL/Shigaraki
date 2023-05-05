@@ -448,250 +448,235 @@ namespace ShiggyMod
         {
             orig.Invoke(self, damageInfo, victim);
 
-            var attacker = damageInfo.attacker;
-            if (attacker)
-            {
-                var body = attacker.GetComponent<CharacterBody>();
+                var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
                 var victimBody = victim.GetComponent<CharacterBody>();
 
 
-                if (body && victimBody)
+            if (attackerBody && victimBody)
+            {
+                //impboss buff just incase
+                if (attackerBody.HasBuff(Buffs.impbossBuff))
                 {
-                    //impboss buff just incase
-                    if (body.HasBuff(Buffs.impbossBuff))
+                    damageInfo.damageType |= DamageType.BleedOnHit;
+                }
+                //acrid buff just incase
+                if (attackerBody.HasBuff(Buffs.acridBuff))
+                {
+                    damageInfo.damageType |= DamageType.PoisonOnHit;
+                }
+                //decay awakened buff just incase
+                if (attackerBody.HasBuff(Buffs.decayAwakenedBuff))
+                {
+                    DamageAPI.AddModdedDamageType(damageInfo, Damage.shiggyDecay);
+                }
+
+                //final release buff stacks
+                if (attackerBody.HasBuff(Buffs.finalReleaseBuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                     {
-                        damageInfo.damageType |= DamageType.BleedOnHit;
-                    }
-                    //acrid buff just incase
-                    if (body.HasBuff(Buffs.acridBuff))
-                    {
-                        damageInfo.damageType |= DamageType.PoisonOnHit;
-                    }
-                    //decay awakened buff just incase
-                    if (body.HasBuff(Buffs.decayAwakenedBuff))
-                    {
-                        DamageAPI.AddModdedDamageType(damageInfo, Damage.shiggyDecay);
+                        int finalReleaseCount = attackerBody.GetBuffCount(Buffs.finalReleaseBuff);
+                        attackerBody.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, finalReleaseCount + 1);
                     }
 
-                    //final release buff stacks
-                    if (body.HasBuff(Buffs.finalReleaseBuff))
-                    {
-                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
-                        {
-                            int finalReleaseCount = body.GetBuffCount(Buffs.finalReleaseBuff);
-                            body.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, finalReleaseCount + 1);
-                        }
+                }
 
+                //disable this for now- not really needed
+                ////one for all for one double damage and proc buff
+                //if (body.HasBuff(Modules.Buffs.OFAFOBuff) && victimBody.baseNameToken != ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                //{
+                //    if (damageInfo.damage > 0)
+                //    {
+                //        DamageInfo damageInfo2 = new DamageInfo();
+                //        damageInfo2.damage = damageInfo.damage;
+                //        damageInfo2.position = victimBody.corePosition;
+                //        damageInfo2.force = Vector3.zero;
+                //        damageInfo2.damageColorIndex = DamageColorIndex.Default;
+                //        damageInfo2.crit = false;
+                //        damageInfo2.attacker = body.gameObject;
+                //        damageInfo2.inflictor = victimBody.gameObject;
+                //        damageInfo2.damageType = damageInfo.damageType;
+                //        damageInfo2.procCoefficient = damageInfo.procCoefficient;
+                //        damageInfo2.procChainMask = default(ProcChainMask);
+                //        victimBody.healthComponent.TakeDamage(damageInfo2);
+                //    }
+                //}
+
+                //commando buff
+                if (attackerBody.HasBuff(Modules.Buffs.commandoBuff))
+                {
+                    if(damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        DamageInfo damageInfo2 = new DamageInfo();
+                        damageInfo2.damage = damageInfo.damage * StaticValues.commandoDamageMultiplier;
+                        damageInfo2.position = victimBody.corePosition;
+                        damageInfo2.force = Vector3.zero;
+                        damageInfo2.procCoefficient = StaticValues.commandoProcCoefficient;
+                        damageInfo2.damageColorIndex = DamageColorIndex.Default;
+                        damageInfo2.crit = false;
+                        damageInfo2.attacker = attackerBody.gameObject;
+                        damageInfo2.inflictor = victimBody.gameObject;
+                        damageInfo2.damageType = damageInfo.damageType;
+                        damageInfo2.procChainMask = default(ProcChainMask);
+                        victimBody.healthComponent.TakeDamage(damageInfo2);
                     }
+                }
 
-                    //one for all for one double damage and proc buff
-                    if (body.HasBuff(Modules.Buffs.OFAFOBuff))
+                //vagrant buff
+                if (attackerBody.HasBuff(Modules.Buffs.vagrantBuff) && !victimBody.HasBuff(Modules.Buffs.vagrantdisableBuff))
+                {
+                    if (damageInfo.damage / attackerBody.damage >= StaticValues.vagrantdamageThreshold)
                     {
-                        if (damageInfo.damage > 0)
-                        {
-                            DamageInfo damageInfo2 = new DamageInfo();
-                            damageInfo2.damage = damageInfo.damage;
-                            damageInfo2.position = victimBody.corePosition;
-                            damageInfo2.force = Vector3.zero;
-                            damageInfo2.damageColorIndex = DamageColorIndex.Default;
-                            damageInfo2.crit = false;
-                            damageInfo2.attacker = body.gameObject;
-                            damageInfo2.inflictor = victimBody.gameObject;
-                            damageInfo2.damageType = damageInfo.damageType;
-                            damageInfo2.procCoefficient = damageInfo.procCoefficient;
-                            damageInfo2.procChainMask = default(ProcChainMask);
-                            victimBody.healthComponent.TakeDamage(damageInfo2);
-                        }
-                    }
-
-                    //commando buff
-                    if (body.HasBuff(Modules.Buffs.commandoBuff))
-                    {
-                        if(damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
-                        {
-                            DamageInfo damageInfo2 = new DamageInfo();
-                            damageInfo2.damage = damageInfo.damage * StaticValues.commandoDamageMultiplier;
-                            damageInfo2.position = victimBody.corePosition;
-                            damageInfo2.force = Vector3.zero;
-                            damageInfo2.procCoefficient = StaticValues.commandoProcCoefficient;
-                            damageInfo2.damageColorIndex = DamageColorIndex.Default;
-                            damageInfo2.crit = false;
-                            damageInfo2.attacker = body.gameObject;
-                            damageInfo2.inflictor = victimBody.gameObject;
-                            damageInfo2.damageType = damageInfo.damageType;
-                            damageInfo2.procChainMask = default(ProcChainMask);
-                            victimBody.healthComponent.TakeDamage(damageInfo2);
-                        }
-                    }
-
-                    //vagrant buff
-                    if (body.HasBuff(Modules.Buffs.vagrantBuff) && !victimBody.HasBuff(Modules.Buffs.vagrantdisableBuff))
-                    {
-                        if (damageInfo.damage / body.damage >= StaticValues.vagrantdamageThreshold)
-                        {
-                            body.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex, 0);
-                            body.ApplyBuff(Buffs.vagrantdisableBuff.buffIndex, StaticValues.vagrantCooldown);
-                            victimBody.AddTimedBuffAuthority(Buffs.vagrantDebuff.buffIndex, StaticValues.vagrantCooldown);
-                            Util.PlaySound(JellyNova.novaSoundString, base.gameObject);
+                        attackerBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex, 0);
+                        attackerBody.ApplyBuff(Buffs.vagrantdisableBuff.buffIndex, StaticValues.vagrantCooldown);
+                        victimBody.AddTimedBuffAuthority(Buffs.vagrantDebuff.buffIndex, StaticValues.vagrantCooldown);
+                        Util.PlaySound(JellyNova.novaSoundString, base.gameObject);
                             
-                            if (JellyNova.novaEffectPrefab)
-                            {
-                                EffectManager.SpawnEffect(JellyNova.novaEffectPrefab, new EffectData
-                                {
-                                    origin = victimBody.transform.position,
-                                    scale = StaticValues.vagrantRadius * body.attackSpeed/3
-                                }, true);
-                            }
-                            new BlastAttack
-                            {
-                                crit = false,
-                                attacker = damageInfo.attacker.gameObject,
-                                teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
-                                falloffModel = BlastAttack.FalloffModel.None,
-                                baseDamage = body.damage * StaticValues.vagrantDamageCoefficient * body.attackSpeed / 3,
-                                damageType = DamageType.Stun1s,
-                                damageColorIndex = DamageColorIndex.Default,
-                                baseForce = 0,
-                                position = victimBody.transform.position,
-                                radius = StaticValues.vagrantRadius * body.attackSpeed / 3,
-                                procCoefficient = 1f,
-                                attackerFiltering = AttackerFiltering.NeverHitSelf,
-                            }.Fire();
-                            
-
-                        }
-                    }
-                    //tar buff
-                    if (body.HasBuff(Modules.Buffs.claydunestriderBuff))
-                    {
-                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        if (JellyNova.novaEffectPrefab)
                         {
-                            damageInfo.damageType |= DamageType.ClayGoo;
-                        }
-                    }
-                    if (body.HasBuff(Modules.Buffs.greaterwispBuff))
-                    {
-                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient != 0f)
-                        {
-                            EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                            EffectManager.SpawnEffect(JellyNova.novaEffectPrefab, new EffectData
                             {
                                 origin = victimBody.transform.position,
-                                scale = StaticValues.greaterwispballRadius,
-                                rotation = Util.QuaternionSafeLookRotation(damageInfo.force)
+                                scale = StaticValues.vagrantRadius * attackerBody.attackSpeed/3
                             }, true);
-                            new BlastAttack
-                            {
-                                crit = false,
-                                attacker = damageInfo.attacker.gameObject,
-                                teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
-                                falloffModel = BlastAttack.FalloffModel.None,
-                                baseDamage = damageInfo.damage * StaticValues.greaterwispballDamageCoefficient,
-                                damageType = damageInfo.damageType,
-                                damageColorIndex = DamageColorIndex.Default,
-                                baseForce = 0,
-                                procChainMask = damageInfo.procChainMask,
-                                position = victimBody.transform.position,
-                                radius = StaticValues.greaterwispballRadius,
-                                procCoefficient = 0f,
-                                attackerFiltering = AttackerFiltering.NeverHitSelf,
-                            }.Fire();
+                        }
+                        new BlastAttack
+                        {
+                            crit = false,
+                            attacker = attackerBody.gameObject,
+                            teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject),
+                            falloffModel = BlastAttack.FalloffModel.None,
+                            baseDamage = attackerBody.damage * StaticValues.vagrantDamageCoefficient * attackerBody.attackSpeed / 3,
+                            damageType = DamageType.Stun1s,
+                            damageColorIndex = DamageColorIndex.Default,
+                            baseForce = 0,
+                            position = victimBody.transform.position,
+                            radius = StaticValues.vagrantRadius * attackerBody.attackSpeed / 3,
+                            procCoefficient = 1f,
+                            attackerFiltering = AttackerFiltering.NeverHitSelf,
+                        }.Fire();
                             
-                        }
+
                     }
-
-                    //elemntal fusion cycling stacks
-                    if (body.HasBuff(Buffs.elementalFusionFireBuff)
-                        | body.HasBuff(Buffs.elementalFusionFreezeBuff)
-                        | body.HasBuff(Buffs.elementalFusionShockBuff))
+                }
+                //tar buff
+                if (attackerBody.HasBuff(Modules.Buffs.claydunestriderBuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                     {
-                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        damageInfo.damageType |= DamageType.ClayGoo;
+                    }
+                }
+                if (attackerBody.HasBuff(Modules.Buffs.greaterwispBuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient != 0f)
+                    {
+                        EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
                         {
-                            //deal ignite, freeze, or shock damage type every 5 hits
-                            var elementalBuffCount = body.GetBuffCount(Buffs.elementalFusionBuffStacks);
+                            origin = victimBody.transform.position,
+                            scale = StaticValues.greaterwispballRadius,
+                            rotation = Util.QuaternionSafeLookRotation(damageInfo.force)
+                        }, true);
+                        new BlastAttack
+                        {
+                            crit = false,
+                            attacker = attackerBody.gameObject,
+                            teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject),
+                            falloffModel = BlastAttack.FalloffModel.None,
+                            baseDamage = damageInfo.damage * StaticValues.greaterwispballDamageCoefficient,
+                            damageType = damageInfo.damageType,
+                            damageColorIndex = DamageColorIndex.Default,
+                            baseForce = 0,
+                            procChainMask = damageInfo.procChainMask,
+                            position = victimBody.transform.position,
+                            radius = StaticValues.greaterwispballRadius,
+                            procCoefficient = 0f,
+                            attackerFiltering = AttackerFiltering.NeverHitSelf,
+                        }.Fire();
+                            
+                    }
+                }
 
-                            if (elementalBuffCount < StaticValues.elementalFusionThreshold)
-                            {
-                                body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, elementalBuffCount + 1);
+                //elemntal fusion cycling stacks
+                if (attackerBody.HasBuff(Buffs.elementalFusionFireBuff)
+                    | attackerBody.HasBuff(Buffs.elementalFusionFreezeBuff)
+                    | attackerBody.HasBuff(Buffs.elementalFusionShockBuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        //deal ignite, freeze, or shock damage type every 5 hits
+                        var elementalBuffCount = attackerBody.GetBuffCount(Buffs.elementalFusionBuffStacks);
+
+                        if (elementalBuffCount < StaticValues.elementalFusionThreshold)
+                        {
+                            attackerBody.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, elementalBuffCount + 1);
                                                                 
-                            }
-                            else if (elementalBuffCount >= StaticValues.elementalFusionThreshold && victimBody)
+                        }
+                        else if (elementalBuffCount >= StaticValues.elementalFusionThreshold && victimBody)
+                        {
+                            if (attackerBody.HasBuff(Buffs.elementalFusionFireBuff))
                             {
-                                if (body.HasBuff(Buffs.elementalFusionFireBuff))
+
+                                attackerBody.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 0);
+                                attackerBody.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 1);
+                                attackerBody.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
+
+                                EffectManager.SpawnEffect(Modules.Assets.artificerFireMuzzleEffect, new EffectData
                                 {
+                                    origin = attackerBody.corePosition,
+                                    scale = 1f,
+                                    rotation = Quaternion.identity,
+                                }, false);
 
-                                    body.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 0);
-                                    body.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 1);
-                                    body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
+                            }
+                            else if (attackerBody.HasBuff(Buffs.elementalFusionFreezeBuff))
+                            {
+                                attackerBody.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 0);
+                                attackerBody.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 1);
+                                attackerBody.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
 
-                                    EffectManager.SpawnEffect(Modules.Assets.artificerFireMuzzleEffect, new EffectData
-                                    {
-                                        origin = body.corePosition,
-                                        scale = 1f,
-                                        rotation = Quaternion.identity,
-                                    }, false);
-
-                                }
-                                else if (body.HasBuff(Buffs.elementalFusionFreezeBuff))
+                                EffectManager.SpawnEffect(Modules.Assets.artificerIceMuzzleEffect, new EffectData
                                 {
-                                    body.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 0);
-                                    body.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 1);
-                                    body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
+                                    origin = attackerBody.corePosition,
+                                    scale = 1f,
+                                    rotation = Quaternion.identity,
+                                }, false);
+                            }
+                            else if (attackerBody.HasBuff(Buffs.elementalFusionShockBuff))
+                            {
+                                attackerBody.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 0);
+                                attackerBody.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 1);
+                                attackerBody.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
 
-                                    EffectManager.SpawnEffect(Modules.Assets.artificerIceMuzzleEffect, new EffectData
-                                    {
-                                        origin = body.corePosition,
-                                        scale = 1f,
-                                        rotation = Quaternion.identity,
-                                    }, false);
-                                }
-                                else if (body.HasBuff(Buffs.elementalFusionShockBuff))
+                                EffectManager.SpawnEffect(Modules.Assets.artificerLightningMuzzleEffect, new EffectData
                                 {
-                                    body.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 0);
-                                    body.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 1);
-                                    body.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
-
-                                    EffectManager.SpawnEffect(Modules.Assets.artificerLightningMuzzleEffect, new EffectData
-                                    {
-                                        origin = body.corePosition,
-                                        scale = 1f,
-                                        rotation = Quaternion.identity,
-                                    }, false);
-                                }
+                                    origin = attackerBody.corePosition,
+                                    scale = 1f,
+                                    rotation = Quaternion.identity,
+                                }, false);
                             }
                         }
-
                     }
 
+                }
 
-                    //omniboost buff stacks
-                    if (body.HasBuff(Buffs.omniboostBuff))
+
+                //omniboost buff stacks
+                if (attackerBody.HasBuff(Buffs.omniboostBuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                     {
-                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        //add a debuff stack to the enemy, after 3 stacks gain your own buff stack
+                        var omnidebuffCount = victimBody.GetBuffCount(Buffs.omniboostDebuffStacks);
+                        if (omnidebuffCount < StaticValues.omniboostNumberOfHits)
                         {
-                            //add a debuff stack to the enemy, after 3 stacks gain your own buff stack
-                            var omnidebuffCount = victimBody.GetBuffCount(Buffs.omniboostDebuffStacks);
-                            if (omnidebuffCount < StaticValues.omniboostNumberOfHits)
-                            {
-                                victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, omnidebuffCount + 1);
-                                omnidebuffCount++;
+                            victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, omnidebuffCount + 1);
+                            omnidebuffCount++;
 
-                                if (omnidebuffCount >= StaticValues.omniboostNumberOfHits)
-                                {
-                                    var omniBuffCount = body.GetBuffCount(Buffs.omniboostBuffStacks);
-                                    body.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
-                                    victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
-
-                                    EffectManager.SpawnEffect(EntityStates.Wisp1Monster.FireEmbers.hitEffectPrefab, new EffectData
-                                    {
-                                        origin = victimBody.transform.position,
-                                        scale = 1f
-                                    }, false);
-                                }
-                            }
-                            else if (omnidebuffCount >= StaticValues.omniboostNumberOfHits)
+                            if (omnidebuffCount >= StaticValues.omniboostNumberOfHits)
                             {
-                                var omniBuffCount = body.GetBuffCount(Buffs.omniboostBuffStacks);
-                                body.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
+                                var omniBuffCount = attackerBody.GetBuffCount(Buffs.omniboostBuffStacks);
+                                attackerBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
                                 victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
 
                                 EffectManager.SpawnEffect(EntityStates.Wisp1Monster.FireEmbers.hitEffectPrefab, new EffectData
@@ -701,49 +686,34 @@ namespace ShiggyMod
                                 }, false);
                             }
                         }
+                        else if (omnidebuffCount >= StaticValues.omniboostNumberOfHits)
+                        {
+                            var omniBuffCount = attackerBody.GetBuffCount(Buffs.omniboostBuffStacks);
+                            attackerBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniBuffCount + 1);
+                            victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
+
+                            EffectManager.SpawnEffect(EntityStates.Wisp1Monster.FireEmbers.hitEffectPrefab, new EffectData
+                            {
+                                origin = victimBody.transform.position,
+                                scale = 1f
+                            }, false);
+                        }
+                    }
                             
 
-                    }
-                    //bigbang buff
-                    if (body.HasBuff(Modules.Buffs.bigbangBuff))
-                    {
+                }
+                //bigbang buff
+                if (attackerBody.HasBuff(Modules.Buffs.bigbangBuff))
+                {
 
-                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        int bigbangCount = victimBody.GetBuffCount(Modules.Buffs.bigbangDebuff);
+                        if (bigbangCount < StaticValues.bigbangBuffThreshold)
                         {
-                            int bigbangCount = victimBody.GetBuffCount(Modules.Buffs.bigbangDebuff);
-                            if (bigbangCount < StaticValues.bigbangBuffThreshold)
-                            {
-                                victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, bigbangCount + 1);
-                                bigbangCount++;
-                                if (bigbangCount >= StaticValues.bigbangBuffThreshold)
-                                {
-                                    victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, 0);
-                                    if (EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab)
-                                    {
-                                        EffectManager.SpawnEffect(EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab, new EffectData
-                                        {
-                                            origin = victimBody.transform.position,
-                                            scale = StaticValues.bigbangBuffRadius * body.attackSpeed / 3
-                                        }, true);
-                                    }
-                                    new BlastAttack
-                                    {
-                                        crit = false,
-                                        attacker = damageInfo.attacker.gameObject,
-                                        teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
-                                        falloffModel = BlastAttack.FalloffModel.None,
-                                        baseDamage = victimBody.healthComponent.fullCombinedHealth * StaticValues.bigbangBuffHealthCoefficient,
-                                        damageType = DamageType.Stun1s,
-                                        damageColorIndex = DamageColorIndex.Default,
-                                        baseForce = 0,
-                                        position = victimBody.transform.position,
-                                        radius = StaticValues.bigbangBuffRadius * body.attackSpeed / 3,
-                                        procCoefficient = 0f,
-                                        attackerFiltering = AttackerFiltering.NeverHitSelf,
-                                    }.Fire();
-                                }
-                            }
-                            else if (bigbangCount >= StaticValues.bigbangBuffThreshold)
+                            victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, bigbangCount + 1);
+                            bigbangCount++;
+                            if (bigbangCount >= StaticValues.bigbangBuffThreshold)
                             {
                                 victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, 0);
                                 if (EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab)
@@ -751,54 +721,258 @@ namespace ShiggyMod
                                     EffectManager.SpawnEffect(EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab, new EffectData
                                     {
                                         origin = victimBody.transform.position,
-                                        scale = StaticValues.bigbangBuffRadius * body.attackSpeed / 3
+                                        scale = StaticValues.bigbangBuffRadius * attackerBody.attackSpeed / 3
                                     }, true);
                                 }
                                 new BlastAttack
                                 {
                                     crit = false,
-                                    attacker = damageInfo.attacker.gameObject,
-                                    teamIndex = TeamComponent.GetObjectTeam(damageInfo.attacker.gameObject),
+                                    attacker = attackerBody.gameObject,
+                                    teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject),
                                     falloffModel = BlastAttack.FalloffModel.None,
                                     baseDamage = victimBody.healthComponent.fullCombinedHealth * StaticValues.bigbangBuffHealthCoefficient,
                                     damageType = DamageType.Stun1s,
                                     damageColorIndex = DamageColorIndex.Default,
                                     baseForce = 0,
                                     position = victimBody.transform.position,
-                                    radius = StaticValues.bigbangBuffRadius * body.attackSpeed / 3,
+                                    radius = StaticValues.bigbangBuffRadius * attackerBody.attackSpeed / 3,
                                     procCoefficient = 0f,
                                     attackerFiltering = AttackerFiltering.NeverHitSelf,
                                 }.Fire();
                             }
-                        }                        
-                    }
-
-                    //wisper buff
-                    if (body.HasBuff(Buffs.wisperBuff))
-                    {
-                        if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
+                        }
+                        else if (bigbangCount >= StaticValues.bigbangBuffThreshold)
                         {
-                            DevilOrb devilOrb = new DevilOrb
+                            victimBody.ApplyBuff(Buffs.bigbangDebuff.buffIndex, 0);
+                            if (EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab)
                             {
-                                origin = body.corePosition,
-                                damageValue = body.damage * StaticValues.wisperBuffDamageCoefficient,
-                                teamIndex = body.teamComponent.teamIndex,
-                                attacker = body.gameObject,
-                                damageColorIndex = DamageColorIndex.Item,
-                                scale = 1f,
-                                effectType = DevilOrb.EffectType.Wisp,
+                                EffectManager.SpawnEffect(EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab, new EffectData
+                                {
+                                    origin = victimBody.transform.position,
+                                    scale = StaticValues.bigbangBuffRadius * attackerBody.attackSpeed / 3
+                                }, true);
+                            }
+                            new BlastAttack
+                            {
+                                crit = false,
+                                attacker = attackerBody.gameObject,
+                                teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject),
+                                falloffModel = BlastAttack.FalloffModel.None,
+                                baseDamage = victimBody.healthComponent.fullCombinedHealth * StaticValues.bigbangBuffHealthCoefficient,
+                                damageType = DamageType.Stun1s,
+                                damageColorIndex = DamageColorIndex.Default,
+                                baseForce = 0,
+                                position = victimBody.transform.position,
+                                radius = StaticValues.bigbangBuffRadius * attackerBody.attackSpeed / 3,
                                 procCoefficient = 0f,
-                            };
-                            if (devilOrb.target = victimBody.mainHurtBox)
+                                attackerFiltering = AttackerFiltering.NeverHitSelf,
+                            }.Fire();
+                        }
+                    }                        
+                }
+
+                //wisper buff
+                if (attackerBody.HasBuff(Buffs.wisperBuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
+                    {
+                        DevilOrb devilOrb = new DevilOrb
+                        {
+                            origin = attackerBody.corePosition,
+                            damageValue = attackerBody.damage * StaticValues.wisperBuffDamageCoefficient,
+                            teamIndex = attackerBody.teamComponent.teamIndex,
+                            attacker = attackerBody.gameObject,
+                            damageColorIndex = DamageColorIndex.Item,
+                            scale = 1f,
+                            effectType = DevilOrb.EffectType.Wisp,
+                            procCoefficient = 0f,
+                        };
+                        if (devilOrb.target = victimBody.mainHurtBox)
+                        {
+                            devilOrb.isCrit = Util.CheckRoll(attackerBody.crit, attackerBody.master);
+                            OrbManager.instance.AddOrb(devilOrb);
+                        }
+                    }
+                }
+
+                //light form debuff application
+                if (attackerBody.HasBuff(Buffs.lightFormBuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        int lightcount = victimBody.GetBuffCount(Buffs.lightFormDebuff);
+                        victimBody.ApplyBuff(Buffs.lightFormDebuff.buffIndex, lightcount + 1);
+
+                    }
+                }
+                //darkness form debuff application
+                if (attackerBody.HasBuff(Buffs.darknessFormBuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        int darkcount = victimBody.GetBuffCount(Buffs.darknessFormDebuff);
+                        victimBody.ApplyBuff(Buffs.darknessFormDebuff.buffIndex, darkcount + 1);
+
+                    }
+                }
+
+                //light form debuff effect
+                if (victimBody.HasBuff(Buffs.lightFormDebuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        int lightcount2 = victimBody.GetBuffCount(Buffs.lightFormDebuff);
+                        LightningOrb lightningOrb = new LightningOrb();
+                        lightningOrb.lightningType = LightningOrb.LightningType.MageLightning;
+                        lightningOrb.damageValue = damageInfo.damage;
+                        lightningOrb.isCrit = attackerBody.RollCrit();
+                        lightningOrb.teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject);
+                        lightningOrb.attacker = base.gameObject;
+                        lightningOrb.procCoefficient = damageInfo.procCoefficient;
+                        lightningOrb.bouncesRemaining = lightcount2;
+                        lightningOrb.speed = 60f;
+                        lightningOrb.bouncedObjects = new List<HealthComponent>();
+                        lightningOrb.range = 60f;
+                        lightningOrb.damageCoefficientPerBounce = (1f + StaticValues.lightFormBonusDamage);
+
+                        HurtBox hurtBox = victimBody.mainHurtBox;
+                        if (hurtBox)
+                        {
+                            lightningOrb.origin = transform.position;
+                            lightningOrb.target = hurtBox;
+                            OrbManager.instance.AddOrb(lightningOrb);
+                        }
+
+                    }
+                }
+
+                //darkness form debuff effect
+                if (victimBody.HasBuff(Buffs.darknessFormDebuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        int darkcount = victimBody.GetBuffCount(Buffs.darknessFormDebuff);
+                        damageInfo.damage *= (1 + darkcount * StaticValues.darkFormBonusDamage);
+
+                    }
+                }
+                //light and darkness form debuff application
+                if (attackerBody.HasBuff(Buffs.lightAndDarknessFormBuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        int buffcount = victimBody.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
+                        victimBody.ApplyBuff(Buffs.lightAndDarknessFormDebuff.buffIndex, buffcount + 1);
+
+                    }
+                }
+                //light and darkness form debuff effect
+                if (victimBody.HasBuff(Buffs.lightAndDarknessFormDebuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        damageInfo.damage += (1f * StaticValues.lightAndDarknessBonusDamage);
+                        int buffcount = victimBody.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
+                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            BullseyeSearch search = new BullseyeSearch
                             {
-                                devilOrb.isCrit = Util.CheckRoll(body.crit, body.master);
-                                OrbManager.instance.AddOrb(devilOrb);
+
+                                teamMaskFilter = TeamMask.GetEnemyTeams(attackerBody.teamComponent.teamIndex),
+                                filterByLoS = false,
+                                searchOrigin = damageInfo.position,
+                                searchDirection = UnityEngine.Random.onUnitSphere,
+                                sortMode = BullseyeSearch.SortMode.Distance,
+                                maxDistanceFilter = StaticValues.lightAndDarknessRange + buffcount * StaticValues.lightAndDarknessRangeAddition,
+                                maxAngleFilter = 360f
+                            };
+
+                            search.RefreshCandidates();
+                            search.FilterOutGameObject(attackerBody.gameObject);
+
+                            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                            foreach (HurtBox singularTarget in target)
+                            {
+                                if (singularTarget)
+                                {
+                                    Vector3 a = singularTarget.transform.position - damageInfo.position;
+                                    float magnitude = a.magnitude;
+                                    Vector3 vector = a / magnitude;
+                                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                                    {
+                                        float Weight = 1f;
+                                        if (singularTarget.healthComponent.body.characterMotor)
+                                        {
+                                            Weight = singularTarget.healthComponent.body.characterMotor.mass;
+                                        }
+                                        else if (singularTarget.healthComponent.body.rigidbody)
+                                        {
+                                            Weight = singularTarget.healthComponent.body.rigidbody.mass;
+                                        }
+                                        Vector3 a2 = vector;
+                                        float d = Trajectory.CalculateInitialYSpeedForHeight(Mathf.Abs(StaticValues.voidjailerminpullDistance - magnitude)) * Mathf.Sign(StaticValues.voidjailerminpullDistance - magnitude);
+                                        a2 *= d;
+                                        a2.y = StaticValues.voidjailerpullLiftVelocity;
+                                        DamageInfo damageInfo2 = new DamageInfo
+                                        {
+                                            attacker = base.gameObject,
+                                            damage = damageInfo.damage,
+                                            position = singularTarget.transform.position,
+                                            procCoefficient = damageInfo.procCoefficient,
+                                            damageType = damageInfo.damageType,
+
+                                        };
+                                        int singularTargetbuffcount = singularTarget.healthComponent.body.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
+                                        singularTarget.healthComponent.body.ApplyBuff(Buffs.lightAndDarknessFormBuff.buffIndex, singularTargetbuffcount + 1);
+
+                                        singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);
+                                        singularTarget.healthComponent.TakeDamage(damageInfo);
+                                        GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
+
+
+
+                                        Vector3 position = singularTarget.transform.position;
+                                        Vector3 start = damageInfo.position;
+                                        EffectData effectData = new EffectData
+                                        {
+                                            origin = position,
+                                            start = start
+                                        };
+                                        EffectManager.SpawnEffect(Modules.Assets.railgunnerSnipeLightTracerEffect, effectData, true);
+
+                                    }
+                                }
                             }
                         }
                     }
+                    
 
                 }
+
+                //limit break buff health cost
+                if (attackerBody.HasBuff(Buffs.limitBreakBuff))
+                {
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    {
+                        //Debug.Log("deal damage to self");
+                        DamageInfo damageInfo2 = new DamageInfo();
+                        damageInfo2.damage = StaticValues.limitBreakHealthCostCoefficient * attackerBody.healthComponent.fullCombinedHealth;
+                        damageInfo2.position = damageInfo.attacker.transform.position;
+                        damageInfo2.force = Vector3.zero;
+                        damageInfo2.damageColorIndex = DamageColorIndex.WeakPoint;
+                        damageInfo2.crit = false;
+                        damageInfo2.attacker = null;
+                        damageInfo2.inflictor = null;
+                        damageInfo2.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
+                        damageInfo2.procCoefficient = 0f;
+                        damageInfo2.procChainMask = default(ProcChainMask);
+                        attackerBody.healthComponent.TakeDamage(damageInfo2);
+
+                    }
+                    
+                }
             }
+            
         }
 
         private void CharacterBody_OnDeathStart(On.RoR2.CharacterBody.orig_OnDeathStart orig, CharacterBody self)
@@ -910,6 +1084,13 @@ namespace ShiggyMod
 
             }
 
+            //loader passive
+            if (!flag && report.attackerBody.HasBuff(Modules.Buffs.loaderBuff))
+            {
+                CharacterBody attackerBody = report.attackerBody;
+                attackerBody.healthComponent.AddBarrierAuthority(report.damageDealt * StaticValues.loaderBarrierGainCoefficient);
+            }
+
         }
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
@@ -917,136 +1098,12 @@ namespace ShiggyMod
 
             if (self)
             {
+                orig.Invoke(self, damageInfo);
+
                 var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-                if (damageInfo != null && damageInfo.attacker && attackerBody)
+                if (damageInfo != null && attackerBody)
                 {
-                    //light form debuff application
-                    if (attackerBody.HasBuff(Buffs.lightFormBuff))
-                    {
-                        int lightcount = self.body.GetBuffCount(Buffs.lightFormDebuff);
-                        self.body.ApplyBuff(Buffs.lightFormDebuff.buffIndex, lightcount + 1);
-                    }
-                    //darkness form debuff application
-                    if (attackerBody.HasBuff(Buffs.darknessFormBuff))
-                    {
-                        int darkcount = self.body.GetBuffCount(Buffs.darknessFormDebuff);
-                        self.body.ApplyBuff(Buffs.darknessFormDebuff.buffIndex, darkcount + 1);
-                    }
-                    //light form debuff effect
-                    if (self.body.HasBuff(Buffs.lightFormDebuff))
-                    {
-                        int lightcount = self.body.GetBuffCount(Buffs.lightFormDebuff);
-                        LightningOrb lightningOrb = new LightningOrb();
-                        lightningOrb.lightningType = LightningOrb.LightningType.MageLightning;
-                        lightningOrb.damageValue = damageInfo.damage;
-                        lightningOrb.isCrit = attackerBody.RollCrit();
-                        lightningOrb.teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject);
-                        lightningOrb.attacker = base.gameObject;
-                        lightningOrb.procCoefficient = damageInfo.procCoefficient;
-                        lightningOrb.bouncesRemaining = lightcount;
-                        lightningOrb.speed = 60f;
-                        lightningOrb.bouncedObjects = new List<HealthComponent>();
-                        lightningOrb.range = 60f;
-                        lightningOrb.damageCoefficientPerBounce = (1f + StaticValues.lightFormBonusDamage);
-
-                        HurtBox hurtBox = self.body.mainHurtBox;
-                        if (hurtBox)
-                        {
-                            lightningOrb.origin = transform.position;
-                            lightningOrb.target = hurtBox;
-                            OrbManager.instance.AddOrb(lightningOrb);
-                        }
-                    }
-                    //darkness form debuff effect
-                    if (self.body.HasBuff(Buffs.darknessFormDebuff))
-                    {
-                        int darkcount = self.body.GetBuffCount(Buffs.darknessFormDebuff);
-                        damageInfo.damage *= (1 + darkcount * StaticValues.darkFormBonusDamage);
-                    }
-                    //light and darkness form debuff application
-                    if (attackerBody.HasBuff(Buffs.lightAndDarknessFormBuff))
-                    {
-                        int buffcount = self.body.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
-                        self.body.ApplyBuff(Buffs.lightAndDarknessFormDebuff.buffIndex, buffcount + 1);
-                    }
-                    //light and darkness form debuff effect
-                    if (self.body.HasBuff(Buffs.lightAndDarknessFormDebuff))
-                    {
-                        damageInfo.damage += (1f * StaticValues.lightAndDarknessBonusDamage);
-                        int buffcount = self.body.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
-                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
-                        {
-                            BullseyeSearch search = new BullseyeSearch
-                            {
-
-                                teamMaskFilter = TeamMask.GetEnemyTeams(attackerBody.teamComponent.teamIndex),
-                                filterByLoS = false,
-                                searchOrigin = damageInfo.position,
-                                searchDirection = UnityEngine.Random.onUnitSphere,
-                                sortMode = BullseyeSearch.SortMode.Distance,
-                                maxDistanceFilter = StaticValues.lightAndDarknessRange + buffcount * StaticValues.lightAndDarknessRangeAddition,
-                                maxAngleFilter = 360f
-                            };
-
-                            search.RefreshCandidates();
-                            search.FilterOutGameObject(attackerBody.gameObject);
-
-                            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-                            foreach (HurtBox singularTarget in target)
-                            {
-                                if (singularTarget)
-                                {
-                                    Vector3 a = singularTarget.transform.position - damageInfo.position;
-                                    float magnitude = a.magnitude;
-                                    Vector3 vector = a / magnitude;
-                                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-                                    {
-                                        float Weight = 1f;
-                                        if (singularTarget.healthComponent.body.characterMotor)
-                                        {
-                                            Weight = singularTarget.healthComponent.body.characterMotor.mass;
-                                        }
-                                        else if (singularTarget.healthComponent.body.rigidbody)
-                                        {
-                                            Weight = singularTarget.healthComponent.body.rigidbody.mass;
-                                        }
-                                        Vector3 a2 = vector;
-                                        float d = Trajectory.CalculateInitialYSpeedForHeight(Mathf.Abs(StaticValues.voidjailerminpullDistance - magnitude)) * Mathf.Sign(StaticValues.voidjailerminpullDistance - magnitude);
-                                        a2 *= d;
-                                        a2.y = StaticValues.voidjailerpullLiftVelocity;
-                                        DamageInfo damageInfo2 = new DamageInfo
-                                        {
-                                            attacker = base.gameObject,
-                                            damage = damageInfo.damage,
-                                            position = singularTarget.transform.position,
-                                            procCoefficient = damageInfo.procCoefficient,
-                                            damageType = damageInfo.damageType,
-
-                                        };
-                                        int singularTargetbuffcount = singularTarget.healthComponent.body.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
-                                        singularTarget.healthComponent.body.ApplyBuff(Buffs.lightAndDarknessFormBuff.buffIndex, singularTargetbuffcount + 1);
-
-                                        singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);
-                                        singularTarget.healthComponent.TakeDamage(damageInfo);
-                                        GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
-
-
-
-                                        Vector3 position = singularTarget.transform.position;
-                                        Vector3 start = damageInfo.position;
-                                        EffectData effectData = new EffectData
-                                        {
-                                            origin = position,
-                                            start = start
-                                        };
-                                        EffectManager.SpawnEffect(Modules.Assets.tracerToolbotRebarPrefab, effectData, true);
-
-                                    }
-                                }
-                            }
-                        }
-                        
-                    }
+                    
 
                     //death aura buff and debuff
                     if (self.body.HasBuff(Buffs.deathAuraDebuff))
@@ -1064,33 +1121,6 @@ namespace ShiggyMod
                         }
                     }
 
-
-                    //loader passive
-                    if (attackerBody.HasBuff(Modules.Buffs.loaderBuff))
-                    {
-                        attackerBody.healthComponent.AddBarrierAuthority(attackerBody.healthComponent.fullCombinedHealth * StaticValues.loaderBarrierGainCoefficient);
-                    }
-
-                    //limit break buff health cost
-                    if (attackerBody.HasBuff(Buffs.limitBreakBuff))
-                    {
-                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
-                        {
-                            Debug.Log("deal damage to self");
-                            DamageInfo damageInfo2 = new DamageInfo();
-                            damageInfo2.damage = StaticValues.limitBreakHealthCostCoefficient * attackerBody.healthComponent.fullCombinedHealth;
-                            damageInfo2.position = damageInfo.attacker.transform.position;
-                            damageInfo2.force = Vector3.zero;
-                            damageInfo2.damageColorIndex = DamageColorIndex.WeakPoint;
-                            damageInfo2.crit = false;
-                            damageInfo2.attacker = null;
-                            damageInfo2.inflictor = null;
-                            damageInfo2.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
-                            damageInfo2.procCoefficient = 0f;
-                            damageInfo2.procChainMask = default(ProcChainMask);
-                            attackerBody.healthComponent.TakeDamage(damageInfo2);
-                        }
-                    }
 
                     //multiplier spend energy
                     if (attackerBody.HasBuff(Buffs.multiplierBuff))
@@ -1119,13 +1149,166 @@ namespace ShiggyMod
                                 }
                             }
                         }
+                    }                    
+
+
+                    //supernova stacks self damage but dont check attacker
+                    if (self.body.HasBuff(Modules.Buffs.supernovaBuff.buffIndex))
+                    {
+                        
+                        int currentStacks = self.body.GetBuffCount(Buffs.supernovaBuff.buffIndex) - 1;
+                        int damageDealt = Mathf.RoundToInt(damageInfo.damage);
+
+                        int buffTotal = (damageDealt) + currentStacks;
+
+                  
+
+                        if(buffTotal < Mathf.RoundToInt(StaticValues.supernovaHealthThreshold * self.body.healthComponent.fullCombinedHealth))
+                        {
+                            self.body.ApplyBuff(Modules.Buffs.supernovaBuff.buffIndex, buffTotal);
+                        }
+                        else if (buffTotal >= Mathf.RoundToInt(StaticValues.supernovaHealthThreshold * self.body.healthComponent.fullCombinedHealth))
+                        {
+                            self.body.ApplyBuff(Modules.Buffs.supernovaBuff.buffIndex, 1);
+
+                            Vector3 position = self.body.transform.position;
+                            Util.PlaySound(FireMegaNova.novaSoundString, self.body.gameObject);
+                            EffectManager.SpawnEffect(FireMegaNova.novaEffectPrefab, new EffectData
+                            {
+                                origin = position,
+                                scale = StaticValues.supernovaRadius,
+                                rotation = Quaternion.LookRotation(self.transform.position)
+
+                            }, true);
+
+                            Transform modelTransform = self.body.gameObject.GetComponent<ModelLocator>().modelTransform;
+                            if (modelTransform)
+                            {
+                                TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                                temporaryOverlay.duration = 3f;
+                                temporaryOverlay.animateShaderAlpha = true;
+                                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                                temporaryOverlay.destroyComponentOnEnd = true;
+                                temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matVagrantEnergized");
+                                temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
+                            }
+                            new BlastAttack
+                            {
+                                attacker = self.body.gameObject,
+                                baseDamage = self.body.damage* StaticValues.supernovaDamageCoefficient,
+                                baseForce = FireMegaNova.novaForce,
+                                bonusForce = Vector3.zero,
+                                attackerFiltering = AttackerFiltering.NeverHitSelf,
+                                crit = self.body.RollCrit(),
+                                damageColorIndex = DamageColorIndex.Default,
+                                damageType = DamageType.Generic,
+                                falloffModel = BlastAttack.FalloffModel.None,
+                                inflictor = self.body.gameObject,
+                                position = position,
+                                procChainMask = default(ProcChainMask),
+                                procCoefficient = StaticValues.supernovaProcCoefficient,
+                                radius = StaticValues.supernovaRadius,
+                                losType = BlastAttack.LoSType.NearestHit,
+                                teamIndex = self.body.teamComponent.teamIndex,
+                                impactEffect = EffectCatalog.FindEffectIndexFromPrefab(FireMegaNova.novaImpactEffectPrefab)
+                            }.Fire();
+                            
+                        }
                     }
 
+                    //expunge damage bonus
+                    bool expunge = (damageInfo.damageType & DamageType.BypassArmor) > 0;
+                    if (expunge && attackerBody.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                    {
+                        //deal bonus damage based on number of debuffs
+                        int debuffCount = 0;
+                        DotController d = DotController.FindDotController(self.gameObject);
+
+                        foreach (BuffIndex buffType in BuffCatalog.debuffBuffIndices)
+                        {
+                            if (self.body.HasBuff(buffType))
+                            {
+                                debuffCount++;
+                            }
+                        }
+
+                        DotController dotController = DotController.FindDotController(self.gameObject);
+                        if (dotController)
+                        {
+                            for (DotController.DotIndex dotIndex = DotController.DotIndex.Bleed; dotIndex < DotController.DotIndex.Count; dotIndex++)
+                            {
+                                if (dotController.HasDotActive(dotIndex))
+                                {
+                                    debuffCount++;
+                                }
+                            }
+                        }
+
+                        if (self.body.HasBuff(Buffs.decayDebuff))
+                        {
+                            debuffCount++;
+                        }
+
+                        //Debug.Log(debuffCount + "debuffcount");
+                        float buffDamage = 0f;
+                        float buffBaseDamage = damageInfo.damage * StaticValues.expungeDamageMultiplier;
+                        buffDamage = buffBaseDamage * debuffCount;
+                        damageInfo.damage += buffDamage;
+                    }
+
+                    //expose
+                    if (self.body.HasBuff(RoR2Content.Buffs.MercExpose) && attackerBody.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                    {
+                        self.body.RemoveBuff(RoR2Content.Buffs.MercExpose);
+                        float num2 = attackerBody.damage * Modules.StaticValues.exposeDamageCoefficient;
+                        damageInfo.damage += num2;
+                        SkillLocator skillLocator = attackerBody.skillLocator;
+                        if (skillLocator)
+                        {
+                            skillLocator.DeductCooldownFromAllSkillsServer(1f);
+                        }
+                        EffectManager.SimpleImpactEffect(HealthComponent.AssetReferences.mercExposeConsumeEffectPrefab, damageInfo.position, Vector3.up, true);
+                    }
+
+                    //decay modded damage type to apply decay
+                    if (DamageAPI.HasModdedDamageType(damageInfo, Modules.Damage.shiggyDecay) && attackerBody.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                    {
+                        int decayBuffCount = self.body.GetBuffCount(Buffs.decayDebuff);
+                        InflictDotInfo info = new InflictDotInfo();
+                        info.attackerObject = damageInfo.attacker.gameObject;
+                        info.victimObject = self.gameObject;
+                        info.duration = Modules.StaticValues.decayDamageTimer;
+                        info.dotIndex = Modules.Dots.decayDot;
+
+
+                        DotController.InflictDot(ref info);
+
+
+                        DecayEffectController controller = self.gameObject.GetComponent<DecayEffectController>();
+                        if (!controller)
+                        {
+                            controller = self.gameObject.AddComponent<DecayEffectController>();
+                            controller.attackerBody = attackerBody;
+                        }
+
+                    }
 
                     //for self damage
                     bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
-                    if (!flag && damageInfo.damage > 0f && damageInfo.attacker.gameObject.GetComponent<CharacterBody>() != self.body)
+                    if (!flag && damageInfo.damage > 0f && attackerBody != self.body)
                     {
+                        //jellyfish heal stacks
+                        if (self.body.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
+                        {
+                            int currentStacks = self.body.GetBuffCount(Buffs.jellyfishHealStacksBuff.buffIndex) - 1;
+                            int damageDealt = Mathf.RoundToInt(damageInfo.damage);
+
+                            int buffTotal = (damageDealt) / 2 + currentStacks;
+
+
+                            self.body.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, buffTotal);
+
+                        }
                         //gargoyle protection buff
                         if (self.body.HasBuff(Buffs.gargoyleProtectionBuff))
                         {
@@ -1158,40 +1341,16 @@ namespace ShiggyMod
                             EffectManager.SpawnEffect(Modules.Assets.mushrumSporeImpactPrefab, effectData2, true);
                         }
 
-
+                        //reversal effect
                         if (self.body.HasBuff(Buffs.reversalBuffStacks))
                         {
-                            new ForceReversalState(self.body.masterObjectId, damageInfo.attacker.gameObject.GetComponent<CharacterBody>().masterObjectId).Send(NetworkDestination.Clients);
+                            new ForceReversalState(self.body.masterObjectId, attackerBody.masterObjectId).Send(NetworkDestination.Server);
                             damageInfo.force = Vector3.zero;
                             damageInfo.rejected = true;
                             //do counterattack as well
 
                             if (self.body.HasBuff(Buffs.blindSensesBuff.buffIndex))
                             {
-                                //fake calculating the chance to block for a bear
-                                if (self.body.inventory.GetItemCount(RoR2Content.Items.Bear) > 0 && Util.CheckRoll(Util.ConvertAmplificationPercentageIntoReductionPercentage(15f * (float)self.body.inventory.GetItemCount(RoR2Content.Items.Bear)), 0f, null))
-                                {
-                                    //blind senses damage 
-                                    LightningOrb lightningOrb = new LightningOrb();
-                                    lightningOrb.attacker = self.body.gameObject;
-                                    lightningOrb.bouncedObjects = null;
-                                    lightningOrb.bouncesRemaining = 0;
-                                    lightningOrb.damageCoefficientPerBounce = 1f;
-                                    lightningOrb.damageColorIndex = DamageColorIndex.Item;
-                                    lightningOrb.damageValue = damageInfo.damage * StaticValues.blindSensesDamageCoefficient;
-                                    lightningOrb.isCrit = self.body.RollCrit();
-                                    lightningOrb.lightningType = LightningOrb.LightningType.RazorWire;
-                                    lightningOrb.origin = self.body.corePosition;
-                                    lightningOrb.procChainMask = default(ProcChainMask);
-                                    lightningOrb.procChainMask.AddProc(ProcType.Thorns);
-                                    lightningOrb.procCoefficient = 1f;
-                                    lightningOrb.damageType = DamageType.Stun1s;
-                                    lightningOrb.range = 0f;
-                                    lightningOrb.teamIndex = self.body.teamComponent.teamIndex;
-                                    lightningOrb.target = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().mainHurtBox;
-                                    OrbManager.instance.AddOrb(lightningOrb);
-
-                                }
                                 //blind senses damage 
                                 LightningOrb lightningOrb2 = new LightningOrb();
                                 lightningOrb2.attacker = self.body.gameObject;
@@ -1212,7 +1371,6 @@ namespace ShiggyMod
                                 lightningOrb2.target = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().mainHurtBox;
                                 OrbManager.instance.AddOrb(lightningOrb2);
 
-                                damageInfo.rejected = true;
 
                                 EffectData effectData = new EffectData
                                 {
@@ -1220,39 +1378,15 @@ namespace ShiggyMod
                                     rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
                                 };
                                 EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearEffectPrefab, effectData, true);
-                                
+
                             }
                         }
 
-
+                        //blind senses buff
                         if (self.body.HasBuff(Buffs.blindSensesBuff.buffIndex))
                         {
-                            //fake calculating the chance to block for a bear
-                            if (self.body.inventory.GetItemCount(RoR2Content.Items.Bear) > 0 && Util.CheckRoll(Util.ConvertAmplificationPercentageIntoReductionPercentage(15f * (float)self.body.inventory.GetItemCount(RoR2Content.Items.Bear)), 0f, null))
-                            {
-                                //blind senses damage 
-                                LightningOrb lightningOrb = new LightningOrb();
-                                lightningOrb.attacker = self.body.gameObject;
-                                lightningOrb.bouncedObjects = null;
-                                lightningOrb.bouncesRemaining = 0;
-                                lightningOrb.damageCoefficientPerBounce = 1f;
-                                lightningOrb.damageColorIndex = DamageColorIndex.Item;
-                                lightningOrb.damageValue = damageInfo.damage * StaticValues.blindSensesDamageCoefficient;
-                                lightningOrb.isCrit = self.body.RollCrit();
-                                lightningOrb.lightningType = LightningOrb.LightningType.RazorWire;
-                                lightningOrb.origin = self.body.corePosition;
-                                lightningOrb.procChainMask = default(ProcChainMask);
-                                lightningOrb.procChainMask.AddProc(ProcType.Thorns);
-                                lightningOrb.procCoefficient = 1f;
-                                lightningOrb.damageType = DamageType.Stun1s;
-                                lightningOrb.range = 0f;
-                                lightningOrb.teamIndex = self.body.teamComponent.teamIndex;
-                                lightningOrb.target = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().mainHurtBox;
-                                OrbManager.instance.AddOrb(lightningOrb);
-                                
-                            }
 
-                            if (Util.CheckRoll(StaticValues.blindSensesBlockChance, self.body.master))
+                            if (Util.CheckRoll(StaticValues.blindSensesBlockChance + Util.ConvertAmplificationPercentageIntoReductionPercentage(StaticValues.blindSensesBlockChance * (float)self.body.inventory.GetItemCount(RoR2Content.Items.Bear)), self.body.master))
                             {
 
                                 //blind senses damage 
@@ -1364,7 +1498,7 @@ namespace ShiggyMod
                             damageInfo.rejected = true;
                             self.body.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 0);
                             self.body.ApplyBuff(Modules.Buffs.alphashieldoffBuff.buffIndex, StaticValues.alphaconstructCooldown);
-                            
+
 
                         }
                         //spike buff
@@ -1401,169 +1535,15 @@ namespace ShiggyMod
                                 rotation = Quaternion.LookRotation(self.transform.position)
 
                             }, true);
-                                                     
-                        }               
-                    }
 
-
-                    //supernova stacks
-                    if (self.body.HasBuff(Modules.Buffs.supernovaBuff.buffIndex))
-                    {
-                        
-                        int currentStacks = self.body.GetBuffCount(Buffs.supernovaBuff.buffIndex) - 1;
-                        int damageDealt = Mathf.RoundToInt(damageInfo.damage);
-
-                        int buffTotal = (damageDealt) + currentStacks;
-
-                  
-
-                        if(buffTotal < Mathf.RoundToInt(StaticValues.supernovaHealthThreshold * self.body.healthComponent.fullCombinedHealth))
-                        {
-                            self.body.ApplyBuff(Modules.Buffs.supernovaBuff.buffIndex, buffTotal);
                         }
-                        else if (buffTotal >= Mathf.RoundToInt(StaticValues.supernovaHealthThreshold * self.body.healthComponent.fullCombinedHealth))
-                        {
-                            self.body.ApplyBuff(Modules.Buffs.supernovaBuff.buffIndex, 1);
-
-                            Vector3 position = self.body.transform.position;
-                            Util.PlaySound(FireMegaNova.novaSoundString, self.body.gameObject);
-                            EffectManager.SpawnEffect(FireMegaNova.novaEffectPrefab, new EffectData
-                            {
-                                origin = position,
-                                scale = StaticValues.supernovaRadius,
-                                rotation = Quaternion.LookRotation(self.transform.position)
-
-                            }, true);
-
-                            Transform modelTransform = self.body.gameObject.GetComponent<ModelLocator>().modelTransform;
-                            if (modelTransform)
-                            {
-                                TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                                temporaryOverlay.duration = 3f;
-                                temporaryOverlay.animateShaderAlpha = true;
-                                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
-                                temporaryOverlay.destroyComponentOnEnd = true;
-                                temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matVagrantEnergized");
-                                temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
-                            }
-                            new BlastAttack
-                            {
-                                attacker = self.body.gameObject,
-                                baseDamage = self.body.damage* StaticValues.supernovaDamageCoefficient,
-                                baseForce = FireMegaNova.novaForce,
-                                bonusForce = Vector3.zero,
-                                attackerFiltering = AttackerFiltering.NeverHitSelf,
-                                crit = self.body.RollCrit(),
-                                damageColorIndex = DamageColorIndex.Default,
-                                damageType = DamageType.Generic,
-                                falloffModel = BlastAttack.FalloffModel.None,
-                                inflictor = self.body.gameObject,
-                                position = position,
-                                procChainMask = default(ProcChainMask),
-                                procCoefficient = StaticValues.supernovaProcCoefficient,
-                                radius = StaticValues.supernovaRadius,
-                                losType = BlastAttack.LoSType.NearestHit,
-                                teamIndex = self.body.teamComponent.teamIndex,
-                                impactEffect = EffectCatalog.FindEffectIndexFromPrefab(FireMegaNova.novaImpactEffectPrefab)
-                            }.Fire();
-                            
-                        }
-                    }
-
-                    //jellyfish heal stacks
-                    if (self.body.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
-                    {
-                        int currentStacks = self.body.GetBuffCount(Buffs.jellyfishHealStacksBuff.buffIndex) - 1;
-                        int damageDealt = Mathf.RoundToInt(damageInfo.damage);
-
-                        int buffTotal = (damageDealt) / 2 + currentStacks;
-
-
-                        self.body.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, buffTotal);                       
-
-                    }
-                    //expunge damage bonus
-                    bool expunge = (damageInfo.damageType & DamageType.BypassArmor) > 0;
-                    if (expunge && attackerBody.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-                    {
-                        //deal bonus damage based on number of debuffs
-                        int debuffCount = 0;
-                        DotController d = DotController.FindDotController(self.gameObject);
-
-                        foreach (BuffIndex buffType in BuffCatalog.debuffBuffIndices)
-                        {
-                            if (self.body.HasBuff(buffType))
-                            {
-                                debuffCount++;
-                            }
-                        }
-
-                        DotController dotController = DotController.FindDotController(self.gameObject);
-                        if (dotController)
-                        {
-                            for (DotController.DotIndex dotIndex = DotController.DotIndex.Bleed; dotIndex < DotController.DotIndex.Count; dotIndex++)
-                            {
-                                if (dotController.HasDotActive(dotIndex))
-                                {
-                                    debuffCount++;
-                                }
-                            }
-                        }
-
-                        if (self.body.HasBuff(Buffs.decayDebuff))
-                        {
-                            debuffCount++;
-                        }
-
-                        Debug.Log(debuffCount + "debuffcount");
-                        float buffDamage = 0f;
-                        float buffBaseDamage = damageInfo.damage * StaticValues.expungeDamageMultiplier;
-                        buffDamage = buffBaseDamage * debuffCount;
-                        damageInfo.damage += buffDamage;
-                    }
-
-                    //expose
-                    if (self.body.HasBuff(RoR2Content.Buffs.MercExpose) && damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-                    {
-                        self.body.RemoveBuff(RoR2Content.Buffs.MercExpose);
-                        float num2 = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().damage * Modules.StaticValues.exposeDamageCoefficient;
-                        damageInfo.damage += num2;
-                        SkillLocator skillLocator = damageInfo.attacker.gameObject.GetComponent<CharacterBody>().skillLocator;
-                        if (skillLocator)
-                        {
-                            skillLocator.DeductCooldownFromAllSkillsServer(1f);
-                        }
-                        EffectManager.SimpleImpactEffect(HealthComponent.AssetReferences.mercExposeConsumeEffectPrefab, damageInfo.position, Vector3.up, true);
-                    }
-
-                    //decay modded damage type to apply decay
-                    if (DamageAPI.HasModdedDamageType(damageInfo, Modules.Damage.shiggyDecay) && damageInfo.attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-                    {
-                        int decayBuffCount = self.body.GetBuffCount(Buffs.decayDebuff);
-                        InflictDotInfo info = new InflictDotInfo();
-                        info.attackerObject = damageInfo.attacker.gameObject;
-                        info.victimObject = self.gameObject;
-                        info.duration = Modules.StaticValues.decayDamageTimer;
-                        info.dotIndex = Modules.Dots.decayDot;
-
-
-                        DotController.InflictDot(ref info);
-
-
-                        DecayEffectController controller = self.gameObject.GetComponent<DecayEffectController>();
-                        if (!controller)
-                        {
-                            controller = self.gameObject.AddComponent<DecayEffectController>();
-                            controller.attackerBody = damageInfo.attacker.gameObject.GetComponent<CharacterBody>();
-                        }
-
                     }
 
                 }
 
             }
 
-            orig.Invoke(self, damageInfo);
+            //orig.Invoke(self, damageInfo);
 
         }
 

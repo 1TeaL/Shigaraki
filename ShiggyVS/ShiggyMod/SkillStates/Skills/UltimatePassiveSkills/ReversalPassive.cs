@@ -19,7 +19,7 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             if (NetworkServer.active)
             {
-                characterBody.ApplyBuff(Modules.Buffs.reversalBuffStacks.buffIndex, 1);
+                characterBody.ApplyBuff(Modules.Buffs.reversalBuff.buffIndex, 1);
             }
         }
 

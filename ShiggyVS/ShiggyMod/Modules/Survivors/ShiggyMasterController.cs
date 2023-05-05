@@ -52,7 +52,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool bronzongballDef;
 		public bool clayapothecarymortarDef;
 		public bool claytemplarminigunDef;
-		public bool greaterwispballDef;
+		public bool greaterWispBuffDef;
 		public bool impblinkDef;
 		public bool jellyfishHealDef;
 		public bool lemurianfireballDef;
@@ -117,7 +117,7 @@ namespace ShiggyMod.Modules.Survivors
 			bronzongballDef = false;
 			clayapothecarymortarDef = false;
 			claytemplarminigunDef = false;
-			greaterwispballDef = false;
+			greaterWispBuffDef = false;
 			impblinkDef = false;
 			jellyfishHealDef = false;
 			lemurianfireballDef = false;
@@ -213,7 +213,7 @@ namespace ShiggyMod.Modules.Survivors
 			bronzongballDef = false;
 			clayapothecarymortarDef = false;
 			claytemplarminigunDef = false;
-			greaterwispballDef = false;
+			greaterWispBuffDef = false;
 			impblinkDef = false;
 			jellyfishHealDef = false;
 			lemurianfireballDef = false;

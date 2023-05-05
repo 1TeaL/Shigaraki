@@ -9,6 +9,7 @@ namespace ShiggyMod.Modules
     public static class Config
     {
         public static ConfigEntry<bool> retainLoadout;
+        public static ConfigEntry<bool> allowAllSkills;
         public static ConfigEntry<float> holdButtonAFO;
         public static ConfigEntry<KeyboardShortcut> AFOHotkey { get; set; }
         public static ConfigEntry<KeyboardShortcut> RemoveHotkey { get; set; }
@@ -20,6 +21,8 @@ namespace ShiggyMod.Modules
 
             AFOHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "AFO Key", new KeyboardShortcut(UnityEngine.KeyCode.F), "Keybinding for AFO");
             RemoveHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Remove Quirk Key", new KeyboardShortcut(UnityEngine.KeyCode.V), "Keybinding for Remove Quirk");
+
+            allowAllSkills = ShiggyPlugin.instance.Config.Bind("General", "Allow all skils to be picked", false, "Should you be allowed to pick all skills in the loadout menu. AFO functionality is not disabled.");
         }
 
         // this helper automatically makes config entries for disabling survivors
@@ -42,6 +45,8 @@ namespace ShiggyMod.Modules
                 RemoveHotkey));
             ModSettingsManager.AddOption(new CheckBoxOption(
                 retainLoadout));
+            ModSettingsManager.AddOption(new CheckBoxOption(
+                allowAllSkills));
             ModSettingsManager.AddOption(new StepSliderOption(
                 holdButtonAFO, new StepSliderConfig() { min = 0, max = 10, increment = 1f }));
             ModSettingsManager.SetModDescription("Shigaraki Mod");

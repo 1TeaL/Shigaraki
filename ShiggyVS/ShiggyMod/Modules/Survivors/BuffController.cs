@@ -103,7 +103,7 @@ namespace ShiggyMod.Modules.Survivors
 		public bool bronzongballDef;
 		public bool clayapothecarymortarDef;
 		public bool claytemplarminigunDef;
-		public bool greaterwispballDef;
+		public bool greaterWispBuffDef;
 		public bool impblinkDef;
 		public bool jellyfishHealDef;
 		public bool lemurianfireballDef;
@@ -161,7 +161,7 @@ namespace ShiggyMod.Modules.Survivors
 			bronzongballDef = false;
 			clayapothecarymortarDef = false;
 			claytemplarminigunDef = false;
-			greaterwispballDef = false;
+			greaterWispBuffDef = false;
 			impblinkDef = false;
 			jellyfishHealDef = false;
 			lemurianfireballDef = false;
@@ -219,7 +219,7 @@ namespace ShiggyMod.Modules.Survivors
 			bronzongballDef = false;
 			clayapothecarymortarDef = false;
 			claytemplarminigunDef = false;
-			greaterwispballDef = false;
+			greaterWispBuffDef = false;
 			impblinkDef = false;
 			jellyfishHealDef = false;
 			lemurianfireballDef = false;
@@ -287,7 +287,7 @@ namespace ShiggyMod.Modules.Survivors
                 //ofafo time multiplier- put it here only for shiggy, not for others
                 if (characterBody.HasBuff(Buffs.OFAFOBuff))
                 {
-                    OFAFOTimeMultiplier = StaticValues.OFAFOETimeMultiplierCoefficient;
+                    OFAFOTimeMultiplier = StaticValues.OFAFOTimeMultiplierCoefficient;
                 }
                 else
                 if (!characterBody.HasBuff(Buffs.OFAFOBuff))
@@ -500,6 +500,7 @@ namespace ShiggyMod.Modules.Survivors
                     }
                     else if (machineFormTimer >= StaticValues.machineFormThreshold)
                     {
+                        machineFormTimer = 0f;
                         //shoot missiles here
                         Ray aimRay = characterBody.inputBank.GetAimRay();
                         EffectManager.SpawnEffect(FireVoidMissiles.muzzleEffectPrefab, new EffectData
@@ -549,42 +550,47 @@ namespace ShiggyMod.Modules.Survivors
                         search.RefreshCandidates();
                         search.FilterOutGameObject(characterBody.gameObject);
 
-                        HurtBox target = search.GetResults().FirstOrDefault<HurtBox>();
-                        if (target.healthComponent && target.healthComponent.body)
+
+                        List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                        foreach (HurtBox singularTarget in target)
                         {
-                            var bulletAttack = new BulletAttack
+                            if (singularTarget.healthComponent && singularTarget.healthComponent.body)
                             {
-                                bulletCount = 1,
-                                aimVector = target.transform.position - aimRay.origin,
-                                origin = aimRay.origin,
-                                damage = characterBody.damage * StaticValues.machineFormDamageCoefficient,
-                                damageColorIndex = DamageColorIndex.Default,
-                                damageType = DamageType.Generic,
-                                falloffModel = BulletAttack.FalloffModel.None,
-                                maxDistance = StaticValues.machineFormRadius,
-                                force = 100f,
-                                hitMask = LayerIndex.CommonMasks.bullet,
-                                minSpread = 0f,
-                                maxSpread = 0f,
-                                isCrit = characterBody.RollCrit(),
-                                owner = characterBody.gameObject,
-                                smartCollision = false,
-                                procChainMask = default(ProcChainMask),
-                                procCoefficient = 1f,
-                                radius = 1f,
-                                sniper = false,
-                                stopperMask = LayerIndex.world.mask,
-                                weapon = null,
-                                tracerEffectPrefab = Assets.multRebarTracerPrefab,
-                                spreadPitchScale = 0f,
-                                spreadYawScale = 0f,
-                                queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                                hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,
+                                var bulletAttack = new BulletAttack
+                                {
+                                    bulletCount = 1,
+                                    aimVector = singularTarget.transform.position - characterBody.corePosition,
+                                    origin = characterBody.corePosition,
+                                    damage = characterBody.damage * StaticValues.machineFormDamageCoefficient,
+                                    damageColorIndex = DamageColorIndex.Default,
+                                    damageType = DamageType.Generic,
+                                    falloffModel = BulletAttack.FalloffModel.None,
+                                    maxDistance = StaticValues.machineFormRadius,
+                                    force = 100f,
+                                    hitMask = LayerIndex.CommonMasks.bullet,
+                                    minSpread = 0f,
+                                    maxSpread = 0f,
+                                    isCrit = characterBody.RollCrit(),
+                                    owner = characterBody.gameObject,
+                                    smartCollision = false,
+                                    procChainMask = default(ProcChainMask),
+                                    procCoefficient = 1f,
+                                    radius = 1f,
+                                    sniper = false,
+                                    stopperMask = LayerIndex.world.mask,
+                                    weapon = null,
+                                    tracerEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.tracerEffectPrefab,
+                                    spreadPitchScale = 0f,
+                                    spreadYawScale = 0f,
+                                    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+                                    hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,
 
-                            };
-                            bulletAttack.Fire();
+                                };
+                                bulletAttack.Fire();
 
-                        }
+                            }
+                        }                         
+                                               
                         
                     }
                 }

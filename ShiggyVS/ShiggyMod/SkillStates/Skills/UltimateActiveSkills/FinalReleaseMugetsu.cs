@@ -19,11 +19,14 @@ namespace ShiggyMod.SkillStates
         public ShiggyController Shiggycon;
         private float finalReleaseMugetsuTimer = 0f;
         private int currentReleaseCount = 0;
+        private int finalReleaseCount;
 
         public override void OnEnter()
         {
             base.OnEnter();
             //play animation and maybe particles?
+            finalReleaseCount = characterBody.GetBuffCount(Buffs.finalReleaseBuff);
+            characterBody.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, 0);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -34,7 +37,6 @@ namespace ShiggyMod.SkillStates
             base.FixedUpdate();
 
             //do mugetsu if no energy- need to put this in the skill as well
-            int finalReleaseCount = characterBody.GetBuffCount(Buffs.finalReleaseBuff);
 
             if (finalReleaseMugetsuTimer >= 0f)
             {
@@ -70,16 +72,21 @@ namespace ShiggyMod.SkillStates
                         origin = characterBody.corePosition,
                         scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
                     }, true);
-                    EffectManager.SpawnEffect(Assets.mercOmnimpactVFXPrefab, new EffectData
+                    EffectManager.SpawnEffect(EntityStates.VagrantMonster.ExplosionAttack.novaEffectPrefab, new EffectData
                     {
                         origin = characterBody.corePosition,
                         scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
                     }, true);
-                    EffectManager.SpawnEffect(Assets.mercOmnimpactVFXEvisPrefab, new EffectData
-                    {
-                        origin = characterBody.corePosition,
-                        scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
-                    }, true);
+                    //EffectManager.SpawnEffect(Assets.mercOmnimpactVFXPrefab, new EffectData
+                    //{
+                    //    origin = characterBody.corePosition,
+                    //    scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
+                    //}, true);
+                    //EffectManager.SpawnEffect(Assets.mercOmnimpactVFXEvisPrefab, new EffectData
+                    //{
+                    //    origin = characterBody.corePosition,
+                    //    scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
+                    //}, true);
 
                     finalReleaseMugetsuTimer += StaticValues.finalReleaseMugetsuInterval;
                     currentReleaseCount += StaticValues.finalReleaseCountIncrement;
@@ -102,26 +109,26 @@ namespace ShiggyMod.SkillStates
                     blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
                     blastAttack.Fire();
 
-                    EffectManager.SpawnEffect(Assets.mercOmnimpactVFXPrefab, new EffectData
-                    {
-                        origin = characterBody.corePosition,
-                        scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
-                    }, true);
-                    EffectManager.SpawnEffect(Assets.mercOmnimpactVFXEvisPrefab, new EffectData
-                    {
-                        origin = characterBody.corePosition,
-                        scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
-                    }, true);
-                    EffectManager.SpawnEffect(EntityStates.Merc.GroundLight.comboSwingEffectPrefab, new EffectData
-                    {
-                        origin = characterBody.corePosition,
-                        scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
-                    }, true);
-                    EffectManager.SpawnEffect(EntityStates.Merc.GroundLight.finisherHitEffectPrefab, new EffectData
-                    {
-                        origin = characterBody.corePosition,
-                        scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
-                    }, true);
+                    //EffectManager.SpawnEffect(Assets.mercOmnimpactVFXPrefab, new EffectData
+                    //{
+                    //    origin = characterBody.corePosition,
+                    //    scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
+                    //}, true);
+                    //EffectManager.SpawnEffect(Assets.mercOmnimpactVFXEvisPrefab, new EffectData
+                    //{
+                    //    origin = characterBody.corePosition,
+                    //    scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
+                    //}, true);
+                    //EffectManager.SpawnEffect(EntityStates.Merc.GroundLight.comboSwingEffectPrefab, new EffectData
+                    //{
+                    //    origin = characterBody.corePosition,
+                    //    scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
+                    //}, true);
+                    //EffectManager.SpawnEffect(EntityStates.Merc.GroundLight.finisherHitEffectPrefab, new EffectData
+                    //{
+                    //    origin = characterBody.corePosition,
+                    //    scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
+                    //}, true);
                     EffectManager.SpawnEffect(EntityStates.VagrantMonster.FireMegaNova.novaEffectPrefab, new EffectData
                     {
                         origin = characterBody.corePosition,
@@ -130,7 +137,6 @@ namespace ShiggyMod.SkillStates
 
 
                     currentReleaseCount = 0;
-                    characterBody.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, 0);
                     this.outer.SetNextStateToMain();
                     return;
 

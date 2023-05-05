@@ -53,6 +53,7 @@ namespace ShiggyMod.Modules.Networking
                 CharacterBody charBody = charMaster.GetBody();
 
                 GameObject monsterMaster = PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/" + masterName), masterName + bodyName, true);
+                monsterMaster = MasterCatalog.FindMasterPrefab(bodyName);
                 //var monsterMaster = MasterCatalog.FindMasterPrefab(bodyName);
                 //var bodyGameObject = Object.Instantiate(monsterMaster.gameObject, charBody.transform.position + charBody.characterDirection.forward * 2f, Quaternion.identity);
                 //var master = bodyGameObject.GetComponent<CharacterMaster>();

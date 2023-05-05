@@ -164,14 +164,13 @@ namespace ShiggyMod.Modules
         public static GameObject voidFiendBeamChargePrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamCharge.prefab");
         public static GameObject multRebarTracerPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Toolbot/TracerToolbotRebar.prefab");
         public static GameObject mushrumSporeImpactPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/MiniMushroom/SporeGrenadeGasImpact.prefab");
-        public static GameObject mercOmnimpactVFXPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Merc/OmniImpactVFXSlashMerc.prefab");
-        public static GameObject mercOmnimpactVFXEvisPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Merc/OmniImpactVFXSlashMercEvis.prefab");
+        //public static GameObject mercOmnimpactVFXPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Merc/OmniImpactVFXSlashMerc.prefab");
+        //public static GameObject mercOmnimpactVFXEvisPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Merc/OmniImpactVFXSlashMercEvis.prefab");
         public static GameObject magmaWormOrbExplosionPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/MagmaWorm/MagmaOrbExplosion.prefab");
         public static GameObject magmaWormImpactExplosionPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/MagmaWorm/MagmaWormImpactExplosion.prefab");
         public static GameObject strongerBurnEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/DLC1/StrengthenBurn/StrongerBurnEffect.prefab");
         public static GameObject muzzleflashScavSackPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Scav/MuzzleflashScavSack.prefab");
         public static GameObject tracerHuntressSnipePrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Huntress/TracerHuntressSnipe.prefab");
-        public static GameObject tracerToolbotRebarPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("RoR2/Base/Toolbot/TracerToolbotRebar.prefab");
 
 
         //game projectiles

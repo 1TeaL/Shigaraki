@@ -44,7 +44,6 @@ namespace ShiggyMod.SkillStates
         private ChildLocator childLocator;
         private string muzzleStringR = "RHand";
         private string muzzleStringL = "LHand";
-        private bool isCrit;
         public LoopSoundDef loopSoundDef = Modules.Assets.xiconstructsound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
         private GameObject RchargeVfxInstance;
@@ -108,10 +107,6 @@ namespace ShiggyMod.SkillStates
             {
                 this.childLocator = modelTransform.GetComponent<ChildLocator>();
             }
-            if (base.isAuthority && base.characterBody)
-            {
-                this.isCrit = Util.CheckRoll(this.critStat, base.characterBody.master);
-            }
             //stop character from moving while charging
             characterBody.characterMotor.velocity = Vector3.zero;
             characterBody.characterMotor.disableAirControlUntilCollision = true;
@@ -135,6 +130,10 @@ namespace ShiggyMod.SkillStates
                 this.areaIndicator.SetActive(true);
                 this.areaIndicator.transform.localScale = Vector3.one * this.radius;
                 this.areaIndicator.transform.localPosition = childLocator.FindChild(this.muzzleStringR).position;
+            }
+            if (this.loopSoundDef)
+            {
+                this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
             }
         }
 
@@ -195,6 +194,9 @@ namespace ShiggyMod.SkillStates
             {
                 Ray aimRay = base.GetAimRay();
 
+
+                base.characterBody.AddSpreadBloom(1f);
+                base.AddRecoil(-1f, -2f, -0.5f, 0.5f);
                 var bulletAttack = new BulletAttack
                 {
                     owner = base.gameObject,
@@ -206,7 +208,7 @@ namespace ShiggyMod.SkillStates
                     force = force,
                     muzzleName = muzzleStringR,
                     hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,// find good one SpinBeamAttack.beamImpactEffectPrefab too strong
-                    isCrit = this.isCrit,
+                    isCrit = characterBody.RollCrit(),
                     radius = 4f,
                     falloffModel = BulletAttack.FalloffModel.None,
                     stopperMask = LayerIndex.world.mask,

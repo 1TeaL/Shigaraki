@@ -117,6 +117,13 @@ namespace ShiggyMod.Modules
                 };
             }
         }
+        internal static void AddFirstExtraSkills(GameObject targetPrefab, params SkillDef[] skillDefs)
+        {
+            foreach (SkillDef i in skillDefs)
+            {
+                AddFirstExtraSkill(targetPrefab, i);
+            }
+        }
 
         internal static void AddSecondExtraSkill(GameObject targetPrefab, SkillDef skillDef)
         {
@@ -135,6 +142,13 @@ namespace ShiggyMod.Modules
             }
         }
 
+        internal static void AddSecondExtraSkills(GameObject targetPrefab, params SkillDef[] skillDefs)
+        {
+            foreach (SkillDef i in skillDefs)
+            {
+                AddSecondExtraSkill(targetPrefab, i);
+            }
+        }
         internal static void AddThirdExtraSkill(GameObject targetPrefab, SkillDef skillDef)
         {
             ExtraSkillLocator skillLocator = targetPrefab.GetComponent<ExtraSkillLocator>();
@@ -149,6 +163,14 @@ namespace ShiggyMod.Modules
                     unlockableName = "",
                     viewableNode = new ViewablesCatalog.Node(skillDef.skillNameToken, false, null)
                 };
+            }
+        }
+
+        internal static void AddThirdExtraSkills(GameObject targetPrefab, params SkillDef[] skillDefs)
+        {
+            foreach (SkillDef i in skillDefs)
+            {
+                AddThirdExtraSkill(targetPrefab, i);
             }
         }
 
@@ -169,6 +191,14 @@ namespace ShiggyMod.Modules
             }
         }
 
+        internal static void AddFourthExtraSkills(GameObject targetPrefab, params SkillDef[] skillDefs)
+        {
+            foreach (SkillDef i in skillDefs)
+            {
+                AddFourthExtraSkill(targetPrefab, i);
+            }
+        }
+
         // this could all be a lot cleaner but at least it's simple and easy to work with
         internal static void AddPrimarySkill(GameObject targetPrefab, SkillDef skillDef)
         {
@@ -182,6 +212,13 @@ namespace ShiggyMod.Modules
                 skillDef = skillDef,
                 viewableNode = new ViewablesCatalog.Node(skillDef.skillNameToken, false, null)
             };
+        }
+        internal static void AddPrimarySkills(GameObject targetPrefab, params SkillDef[] skillDefs)
+        {
+            foreach (SkillDef i in skillDefs)
+            {
+                AddPrimarySkill(targetPrefab, i);
+            }
         }
 
         internal static void AddSecondarySkill(GameObject targetPrefab, SkillDef skillDef)

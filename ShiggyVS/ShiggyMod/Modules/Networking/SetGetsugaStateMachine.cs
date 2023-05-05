@@ -71,7 +71,7 @@ namespace ShiggyMod.Modules.Networking
             {
                 if (stateMachine.customName == "Weapon")
                 {
-                    stateMachine.SetState(new FinalReleaseShunpo());
+                    stateMachine.SetState(new FinalReleaseGetsuga());
                     return;
                 }
             }

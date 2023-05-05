@@ -12,7 +12,7 @@ namespace ShiggyMod.Modules.Networking
     public class ForceReversalState : INetMessage
     {
         //network
-        NetworkInstanceId IDNet;
+        NetworkInstanceId netID;
         NetworkInstanceId enemyNetID;
 
         //don't network
@@ -25,25 +25,25 @@ namespace ShiggyMod.Modules.Networking
 
         public ForceReversalState(NetworkInstanceId netID, NetworkInstanceId enemyNetID)
         {
-            this.IDNet = IDNet;
+            this.netID = netID;
             this.enemyNetID = enemyNetID;       
         }
 
         public void Deserialize(NetworkReader reader)
         {
             enemyNetID = reader.ReadNetworkId();
-            IDNet = reader.ReadNetworkId();
+            netID = reader.ReadNetworkId();
         }
         public void Serialize(NetworkWriter writer)
         {
             writer.Write(enemyNetID);
-            writer.Write(IDNet);
+            writer.Write(netID);
         }
         public void OnReceived()
         {
             if (NetworkServer.active)
             {
-                GameObject masterobj = Util.FindNetworkObject(IDNet);
+                GameObject masterobj = Util.FindNetworkObject(netID);
                 if (!masterobj)
                 {
                     Debug.Log("masterobj not found");

@@ -57,7 +57,7 @@ namespace ShiggyMod.Modules.Networking
                 damageInfo.force = Vector3.zero;
                 damageInfo.damageColorIndex = DamageColorIndex.WeakPoint;
                 damageInfo.crit = false;
-                damageInfo.attacker = null;
+                damageInfo.attacker = bodyObj;
                 damageInfo.inflictor = null;
                 damageInfo.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
                 damageInfo.procCoefficient = 0f;

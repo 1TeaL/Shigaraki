@@ -54,9 +54,8 @@ namespace ShiggyMod.Modules.Survivors
         private float OFAFOTimer;
         public float OFAFOTimeMultiplier;
         private float finalReleaseTimer;
-        private float lastTapTime;
-        private float tapSpeed = StaticValues.finalReleaseTapSpeed;
-        private bool doubleTap;
+        private float buttonCooler;
+        private int buttonCount;
         private float formTimer;
 
         private Ray downRay;
@@ -112,7 +111,7 @@ namespace ShiggyMod.Modules.Survivors
         public bool bronzongballDef;
         public bool clayapothecarymortarDef;
         public bool claytemplarminigunDef;
-        public bool greaterwispballDef;
+        public bool greaterWispBuffDef;
         public bool impblinkDef;
         public bool jellyfishHealDef;
         public bool lemurianfireballDef;
@@ -195,7 +194,7 @@ namespace ShiggyMod.Modules.Survivors
             bronzongballDef = false;
             clayapothecarymortarDef = false;
             claytemplarminigunDef = false;
-            greaterwispballDef = false;
+            greaterWispBuffDef = false;
             impblinkDef = false;
             jellyfishHealDef = false;
             lemurianfireballDef = false;
@@ -277,7 +276,7 @@ namespace ShiggyMod.Modules.Survivors
             bronzongballDef = false;
             clayapothecarymortarDef = false;
             claytemplarminigunDef = false;
-            greaterwispballDef = false;
+            greaterWispBuffDef = false;
             impblinkDef = false;
             jellyfishHealDef = false;
             lemurianfireballDef = false;
@@ -391,6 +390,45 @@ namespace ShiggyMod.Modules.Survivors
             }
             if (characterBody.hasEffectiveAuthority)
             {
+
+
+                //one for all for one buff
+                if (characterBody.HasBuff(Buffs.OFAFOBuff))
+                {
+                    //check energy if enough to use ability
+                    if (energySystem.currentplusChaos <=  0f)
+                    {
+                        characterBody.ApplyBuff(Buffs.OFAFOBuff.buffIndex, 0);
+                    }
+
+                    //doubling the speed for all timers- besides this one
+                    OFAFOTimeMultiplier = StaticValues.OFAFOTimeMultiplierCoefficient;
+
+                    if (OFAFOTimer < StaticValues.OFAFOThreshold)
+                    {
+                        OFAFOTimer += Time.fixedDeltaTime;
+                    }
+                    else if (OFAFOTimer >= StaticValues.OFAFOThreshold)
+                    {
+                        OFAFOTimer = 0f;
+                        //health cost
+                        new SpendHealthNetworkRequest(characterBody.masterObjectId, StaticValues.OFAFOHealthCostCoefficient * characterBody.healthComponent.fullCombinedHealth).Send(NetworkDestination.Clients);
+                        //energy cost
+                        float plusChaosflatCost = (StaticValues.OFAFOEnergyCostCoefficient * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                        if (plusChaosCost < 0f) plusChaosCost = 0f;
+                        energySystem.SpendplusChaos(plusChaosCost);
+
+                    }
+                }
+                else
+                if (!characterBody.HasBuff(Buffs.OFAFOBuff))
+                {
+                    OFAFOTimeMultiplier = 1f;
+                }
+
                 //light buff
                 if (characterBody.HasBuff(Buffs.lightFormBuff))
                 {
@@ -440,43 +478,6 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     //force energy constantly in the middle constantly
                     energySystem.currentplusChaos = energySystem.maxPlusChaos / 2f;
-                }
-
-                //one for all for one buff
-                if (characterBody.HasBuff(Buffs.OFAFOBuff))
-                {
-                    //check energy if enough to use ability
-                    if (energySystem.currentplusChaos < energySystem.maxPlusChaos * StaticValues.OFAFOEnergyCostCoefficient)
-                    {
-                        characterBody.ApplyBuff(Buffs.OFAFOBuff.buffIndex, 0);
-                    }
-
-                    //doubling the speed for all timers- besides this one
-                    OFAFOTimeMultiplier = StaticValues.OFAFOETimeMultiplierCoefficient;
-
-                    if (OFAFOTimer < StaticValues.OFAFOThreshold)
-                    {
-                        OFAFOTimer += Time.fixedDeltaTime;
-                    }
-                    else if (OFAFOTimer >= StaticValues.OFAFOThreshold)
-                    {
-                        OFAFOTimer = 0f;
-                        //health cost
-                        new SpendHealthNetworkRequest(characterBody.masterObjectId, StaticValues.OFAFOHealthCostCoefficient * characterBody.healthComponent.fullCombinedHealth).Send(NetworkDestination.Clients);
-                        //energy cost
-                        float plusChaosflatCost = (StaticValues.OFAFOEnergyCostCoefficient * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
-                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
-
-                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                        if (plusChaosCost < 0f) plusChaosCost = 0f;
-                        energySystem.SpendplusChaos(plusChaosCost);
-
-                    }
-                }
-                else
-                if (!characterBody.HasBuff(Buffs.OFAFOBuff))
-                {
-                    OFAFOTimeMultiplier = 1f;
                 }
 
                 //wildcard no projectile buff
@@ -994,39 +995,39 @@ namespace ShiggyMod.Modules.Survivors
             {
                 if(energySystem.currentplusChaos <= 0f)
                 {
+                    Debug.Log("mugetsu");
                     new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
                 }
-                //energy cost
-                float plusChaosflatCost = (StaticValues.finalReleaseEnergyCost) - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
-                if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
-                float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                if (plusChaosCost < 0f) plusChaosCost = 0f;
-                energySystem.SpendplusChaos(plusChaosCost);
+                //sprint to shunpo
+                if (buttonCooler >= 0f)
+                {
+                    finalReleaseTimer -= Time.deltaTime * OFAFOTimeMultiplier * characterBody.attackSpeed;
 
-                //double tap to shunpo
-                if (inputBank.jump.down)
-                {
-                    lastTapTime = Time.time;
                 }
-                if(inputBank.jump.down && ((Time.time - lastTapTime) < tapSpeed || doubleTap))
+                if (buttonCooler < 0f)
                 {
-                    doubleTap = true;
+                    if (inputBank.sprint.down)
+                    {
+                        float plusChaosflatCost = (StaticValues.finalReleaseEnergyCost) - (energySystem.costflatplusChaos);
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                        if (plusChaosCost < 0f) plusChaosCost = 0f;
+                        energySystem.SpendplusChaos(plusChaosCost);
+
+                        new SetShunpoStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                        buttonCooler += StaticValues.finalReleaseThreshold;
+
+                    }
                 }
-                else
-                {
-                    doubleTap = false;
-                }
-                
-                if(doubleTap)
-                {
-                    new SetShunpoStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
-                }
+
+
 
                 //fire a getsuga tenshou if holding a button down
                 if (finalReleaseTimer >= 0f)
                 {
-                    finalReleaseTimer -= Time.deltaTime * OFAFOTimeMultiplier;
+                    finalReleaseTimer -= Time.deltaTime * OFAFOTimeMultiplier * characterBody.attackSpeed;
                 }
                 if (finalReleaseTimer < 0f)
                 {
@@ -1040,11 +1041,45 @@ namespace ShiggyMod.Modules.Survivors
                                             | extrainputBankTest.extraSkill3.down
                                             | extrainputBankTest.extraSkill4.down)
                     {
+
+                        //energy cost
+                        float plusChaosflatCost = (StaticValues.finalReleaseEnergyCost) - (energySystem.costflatplusChaos);
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                        if (plusChaosCost < 0f) plusChaosCost = 0f;
+                        energySystem.SpendplusChaos(plusChaosCost);
+
                         finalReleaseTimer += StaticValues.finalReleaseThreshold / characterBody.attackSpeed;
 
 
-                        new SetGetsugaStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                        Debug.Log("getsuga");
+                        //new SetGetsugaStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
 
+                        Ray aimRay = characterBody.inputBank.GetAimRay();
+
+                        EffectManager.SpawnEffect(EntityStates.Merc.GroundLight.comboSwingEffectPrefab, new EffectData
+                        {
+                            origin = child.FindChild("RHand").position,
+                            scale = 1f,
+                            rotation = Quaternion.LookRotation(aimRay.direction),
+
+                        }, true);
+
+
+                        ProjectileManager.instance.FireProjectile(
+                            Modules.Assets.mercWindProj, //prefab
+                            aimRay.origin, //position
+                            Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
+                            base.gameObject, //owner
+                            characterBody.damage* StaticValues.finalReleaseDamageCoefficient, //damage
+                            200f, //force
+                            characterBody.RollCrit(), //crit
+                            DamageColorIndex.Default, //damage color
+                            null, //target
+                            -1); //speed }
+
+                        
                     }
                 }
                 
@@ -1536,13 +1571,13 @@ namespace ShiggyMod.Modules.Survivors
 				}
 			}
 
-            if (StaticValues.baseQuirkSkillDef.ContainsKey(newbodyPrefab.name))
+            if (StaticValues.bodyNameToSkillDef.ContainsKey(newbodyPrefab.name))
             {
-                RoR2.Skills.SkillDef skillDef = StaticValues.baseQuirkSkillDef[newbodyPrefab.name];
+                RoR2.Skills.SkillDef skillDef = StaticValues.bodyNameToSkillDef[newbodyPrefab.name];
 
 
                 Shiggymastercon.writeToAFOSkillList(skillDef, 0);
-                Chat.AddMessage(StaticValues.baseQuirkSkillString[skillDef]);
+                Chat.AddMessage(StaticValues.baseQuirkSkillString[skillDef.skillName]);
 
                 //var skilldef = Dictionary(alphaconstruct)
                 
@@ -1666,7 +1701,7 @@ namespace ShiggyMod.Modules.Survivors
                 
             //    Chat.AddMessage("<style=cIsUtility>Spirit Boost Quirk</style> Get!");
 
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.greaterwispballDef, 0);
+            //    Shiggymastercon.writeToAFOSkillList(Shiggy.greaterWispBuffDef, 0);
             //}
             //if (newbodyPrefab.name == "HermitCrabBody")
             //{
@@ -2189,7 +2224,7 @@ namespace ShiggyMod.Modules.Survivors
         //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.greaterwispballDef, GenericSkill.SkillOverridePriority.Contextual);
+        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.jellyfishHealDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -2228,7 +2263,7 @@ namespace ShiggyMod.Modules.Survivors
         //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.greaterwispballDef, GenericSkill.SkillOverridePriority.Contextual);
+        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.jellyfishHealDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -2268,7 +2303,7 @@ namespace ShiggyMod.Modules.Survivors
         //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.greaterwispballDef, GenericSkill.SkillOverridePriority.Contextual);
+        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.jellyfishHealDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -2308,7 +2343,7 @@ namespace ShiggyMod.Modules.Survivors
         //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.greaterwispballDef, GenericSkill.SkillOverridePriority.Contextual);
+        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.jellyfishHealDef, GenericSkill.SkillOverridePriority.Contextual);
         //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
