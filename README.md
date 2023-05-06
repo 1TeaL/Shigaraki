@@ -63,6 +63,7 @@ If you enjoy my work, support me on Ko-fi!
     		- ``I CAN NOW SAY SHIGARAKI HAS 100+ SKILLS/PASSIVES!``
     		- By grabbing the specific pair of a skill while having the skill in your skill slots, you will automatically get the synergised skill. If you had the synergised skill's pair in your skill slots it will automatically get the ultimate skill as well.
         - Also to accommodate synergies, Shigaraki can only have 1 of each skill, no more duplicates. This means that after getting the ultimate or synergised version, you won't get that version if you try and steal someone's quirk and get the tier below.
+        - A new Config option is added to allow all skills to be chosen in the loadout if you'd prefer to build Shigaraki from the beginning (I can't speak much on balance but why not). All for One functionality is still present if you'd like to use it. 
     	- Added a plus chaos meter
     		- Shigaraki starts with 100. 
     		- Leveling up increases the max by 10.
