@@ -434,6 +434,7 @@ namespace ShiggyMod.Modules
 
         internal static float gargoyleProtectionDamageReductionCoefficient = 0.3f;
 
+        internal static float finalReleaseInitialEnergyRequirement = 50f;
         internal static float finalReleaseEnergyCost = 10f;
         internal static float finalReleaseTapSpeed = 0.5f;
         internal static float finalReleaseThreshold = 1f;
@@ -495,7 +496,7 @@ namespace ShiggyMod.Modules
         public static Dictionary<string, skillType> skillDict;
         public static Dictionary<string, RoR2.Skills.SkillDef> skillNameToSkillDef;
         public static Dictionary<string, RoR2.Skills.SkillDef> bodyNameToSkillDef;
-        public static Dictionary<string, string> baseQuirkSkillString;
+        public static Dictionary<string, string> quirkStringToInfoString;
         public static Dictionary<string, RoR2.BuffIndex> passiveToBuff;
         public static Dictionary<string, RoR2.Skills.SkillDef> baseSkillPair;
         public static Dictionary<string, RoR2.Skills.SkillDef> baseSkillUpgrade;
@@ -604,6 +605,7 @@ namespace ShiggyMod.Modules
 
             skillNameToSkillDef = new Dictionary<string, RoR2.Skills.SkillDef>
             {
+                //base skillname to skilldef
                 { Survivors.Shiggy.railgunnercryoDef.skillName, Survivors.Shiggy.railgunnercryoDef},
                 { Survivors.Shiggy.lunarwispminigunDef.skillName, Survivors.Shiggy.lunarwispminigunDef},
 
@@ -692,7 +694,8 @@ namespace ShiggyMod.Modules
 
                 { Survivors.Shiggy.voiddevastatorhomingDef.skillName, Survivors.Shiggy.voiddevastatorhomingDef},
                 { Survivors.Shiggy.huntressattackDef.skillName, Survivors.Shiggy.huntressattackDef},
-
+                
+                //synergy skillname to skilldef
                 { Survivors.Shiggy.bulletlaserDef.skillName, Survivors.Shiggy.bulletlaserDef},
                 { Survivors.Shiggy.stonegolemlaserDef.skillName, Survivors.Shiggy.stonegolemlaserDef},
 
@@ -740,6 +743,37 @@ namespace ShiggyMod.Modules
 
                 { Survivors.Shiggy.doubleTimePassiveDef.skillName, Survivors.Shiggy.doubleTimePassiveDef},
                 { Survivors.Shiggy.omniboostPassiveDef.skillName, Survivors.Shiggy.omniboostPassiveDef},
+
+                //ultimate skillname to skilldef
+                { Survivors.Shiggy.lightAndDarknessDef.skillName, Survivors.Shiggy.lightAndDarknessDef},
+
+                { Survivors.Shiggy.wildCardDef.skillName, Survivors.Shiggy.wildCardDef},
+
+                { Survivors.Shiggy.blastingZoneDef.skillName, Survivors.Shiggy.blastingZoneDef},
+
+                { Survivors.Shiggy.decayAwakenedPassiveDef.skillName, Survivors.Shiggy.decayAwakenedPassiveDef},
+
+                { Survivors.Shiggy.weatherReportPassiveDef.skillName, Survivors.Shiggy.weatherReportPassiveDef},
+
+                { Survivors.Shiggy.finalReleaseDef.skillName, Survivors.Shiggy.finalReleaseDef},
+
+                { Survivors.Shiggy.gargoyleProtectionPassiveDef.skillName, Survivors.Shiggy.gargoyleProtectionPassiveDef},
+
+                { Survivors.Shiggy.machineFormPassiveDef.skillName, Survivors.Shiggy.machineFormPassiveDef},
+
+                { Survivors.Shiggy.xBeamerDef.skillName, Survivors.Shiggy.xBeamerDef},
+
+                { Survivors.Shiggy.OFAFODef.skillName, Survivors.Shiggy.OFAFODef},
+
+                { Survivors.Shiggy.reversalPassiveDef.skillName, Survivors.Shiggy.reversalPassiveDef},
+
+                { Survivors.Shiggy.deathAuraDef.skillName, Survivors.Shiggy.deathAuraDef},
+
+                { Survivors.Shiggy.extremeSpeedDef.skillName, Survivors.Shiggy.extremeSpeedDef},
+
+                { Survivors.Shiggy.supernovaPassiveDef.skillName, Survivors.Shiggy.supernovaPassiveDef},
+
+                { Survivors.Shiggy.theWorldDef.skillName, Survivors.Shiggy.theWorldDef},
             };
 
             baseSkillUpgrade = new Dictionary<string, RoR2.Skills.SkillDef>
@@ -973,63 +1007,115 @@ namespace ShiggyMod.Modules
             };
 
 
-            baseQuirkSkillString = new Dictionary<string, string>
+            quirkStringToInfoString = new Dictionary<string, string>
             {
-                { Survivors.Shiggy.alphacontructpassiveDef.skillName, "<style=cIsUtility>Barrier Quirk</style> Get!" },
-                { Survivors.Shiggy.beetlepassiveDef.skillName, "<style=cIsUtility>Strength Boost Quirk</style> Get!" },
-                { Survivors.Shiggy.pestpassiveDef.skillName, "<style=cIsUtility>Jump Boost Quirk</style> Get!" },
-                { Survivors.Shiggy.verminpassiveDef.skillName, "<style=cIsUtility>Super Speed Quirk</style> Get!" },
-                { Survivors.Shiggy.guppassiveDef.skillName, "<style=cIsUtility>Spiky Body Quirk</style> Get!" },
-                { Survivors.Shiggy.hermitcrabpassiveDef.skillName, "<style=cIsUtility>Mortar Quirk</style> Get!" },
-                { Survivors.Shiggy.larvapassiveDef.skillName, "<style=cIsUtility>Acid Jump Quirk</style> Get!" },
-                { Survivors.Shiggy.lesserwisppassiveDef.skillName, "<style=cIsUtility>Ranged Boost Quirk</style> Get!" },
-                { Survivors.Shiggy.lunarexploderpassiveDef.skillName, "<style=cIsUtility>Lunar Aura Quirk</style> Get!" },
-                { Survivors.Shiggy.minimushrumpassiveDef.skillName, "<style=cIsUtility>Healing Aura Quirk</style> Get!" },
-                { Survivors.Shiggy.roboballminibpassiveDef.skillName, "<style=cIsUtility>Solus Boost Quirk</style> Get!" },
-                { Survivors.Shiggy.voidbarnaclepassiveDef.skillName, "<style=cIsUtility>Void Mortar Quirk</style> Get!" },
-                { Survivors.Shiggy.voidjailerpassiveDef.skillName, "<style=cIsUtility>Gravity Quirk</style> Get!" },
-                { Survivors.Shiggy.impbosspassiveDef.skillName, "<style=cIsUtility>Bleed Quirk</style> Get!" },
-                { Survivors.Shiggy.stonetitanpassiveDef.skillName, "<style=cIsUtility>Stone Skin Quirk</style> Get!" },
-                { Survivors.Shiggy.vagrantpassiveDef.skillName, "<style=cIsUtility>Vagrant's Orb Quirk</style> Get!" },
-                { Survivors.Shiggy.magmawormpassiveDef.skillName, "<style=cIsUtility>Blazing Aura Quirk</style> Get!" },
-                { Survivors.Shiggy.overloadingwormpassiveDef.skillName, "<style=cIsUtility>Lightning Aura Quirk</style> Get!" },
-                { Survivors.Shiggy.scavengerthqwibDef.skillName, "<style=cIsUtility>Throw Thqwibs Quirk</style> Get!" },
-                { Survivors.Shiggy.captainpassiveDef.skillName, "<style=cIsUtility>Defensive Microbots Quirk</style> Get!" },
-                { Survivors.Shiggy.commandopassiveDef.skillName, "<style=cIsUtility>Double Tap Quirk</style> Get!" },
-                { Survivors.Shiggy.acridpassiveDef.skillName, "<style=cIsUtility>Poison Quirk</style> Get!" },
-                { Survivors.Shiggy.loaderpassiveDef.skillName, "<style=cIsUtility>Scrap Barrier Quirk</style> Get!" },
-
-                { Survivors.Shiggy.alloyvultureWindBlastDef.skillName, "<style=cIsUtility>Flight Quirk</style> Get!" },
-                { Survivors.Shiggy.beetleguardslamDef.skillName, "<style=cIsUtility>Beetle Armor Quirk</style> Get!" },
-                { Survivors.Shiggy.bisonchargeDef.skillName, "<style=cIsUtility>Charging Quirk</style> Get!" },
-                { Survivors.Shiggy.bronzongballDef.skillName, "<style=cIsUtility>Spiked Ball Control Quirk</style> Get!" },
-                { Survivors.Shiggy.clayapothecarymortarDef.skillName, "<style=cIsUtility>Clay AirStrike Quirk</style> Get!" },
-                { Survivors.Shiggy.claytemplarminigunDef.skillName, "<style=cIsUtility>Clay Minigun Quirk</style> Get!" },
-                { Survivors.Shiggy.elderlemurianfireblastDef.skillName, "<style=cIsUtility>Fire Blast Quirk</style> Get!" },
-                { Survivors.Shiggy.greaterWispBuffDef.skillName, "<style=cIsUtility>Spirit Boost Quirk</style> Get!" },
-                { Survivors.Shiggy.impblinkDef.skillName, "<style=cIsUtility>Blink Quirk</style> Get!" },
-                { Survivors.Shiggy.jellyfishHealDef.skillName, "<style=cIsUtility>Nova Explosion Quirk</style> Get!" },
-                { Survivors.Shiggy.lemurianfireballDef.skillName, "<style=cIsUtility>Fireball Quirk</style> Get!" },
-                { Survivors.Shiggy.lunargolemSlideDef.skillName, "<style=cIsUtility>Slide Reset Quirk</style> Get!" },
-                { Survivors.Shiggy.lunarwispminigunDef.skillName, "<style=cIsUtility>Lunar Minigun Quirk</style> Get!" },
-                { Survivors.Shiggy.parentteleportDef.skillName, "<style=cIsUtility>Teleport Quirk</style> Get!" },
-                { Survivors.Shiggy.stonegolemlaserDef.skillName, "<style=cIsUtility>Laser Quirk</style> Get!" },
-                { Survivors.Shiggy.voidreaverportalDef.skillName, "<style=cIsUtility>Nullifier Artillery Quirk</style> Get!" },
-                { Survivors.Shiggy.beetlequeenSummonDef.skillName, "<style=cIsUtility>Acid Shotgun Quirk</style> Get!" },
-                { Survivors.Shiggy.claydunestriderbuffDef.skillName, "<style=cIsUtility>Tar Boost Quirk</style> Get!" },
-                { Survivors.Shiggy.grandparentsunDef.skillName, "<style=cIsUtility>Solar Flare Quirk</style> Get!" },
-                { Survivors.Shiggy.soluscontrolunityknockupDef.skillName, "<style=cIsUtility>Anti Gravity Quirk</style> Get!" },
-                { Survivors.Shiggy.xiconstructbeamDef.skillName, "<style=cIsUtility>Beam Quirk</style> Get!" },
-                { Survivors.Shiggy.voiddevastatorhomingDef.skillName, "<style=cIsUtility>Void Missiles Quirk</style> Get!" },
-                { Survivors.Shiggy.banditlightsoutDef.skillName, "<style=cIsUtility>Lights Out Quirk</style> Get!" },
-                { Survivors.Shiggy.engiturretDef.skillName, "<style=cIsUtility>Turret Quirk</style> Get!" },
-                { Survivors.Shiggy.huntressattackDef.skillName, "<style=cIsUtility>Flurry Quirk</style> Get!" },
-                { Survivors.Shiggy.artificerflamethrowerDef.skillName, "<style=cIsUtility>Elementality Quirk</style> Get!" },
-                { Survivors.Shiggy.mercdashDef.skillName, "<style=cIsUtility>Eviscerate Quirk</style> Get!" },
-                { Survivors.Shiggy.multbuffDef.skillName, "<style=cIsUtility>Power Stance Quirk</style> Get!" },
-                { Survivors.Shiggy.rexmortarDef.skillName, "<style=cIsUtility>Seed Barrage Quirk</style> Get!" },
-                { Survivors.Shiggy.railgunnercryoDef.skillName, "<style=cIsUtility>Cryocharged Railgun Quirk</style> Get!" },
-                { Survivors.Shiggy.voidfiendcleanseDef.skillName, "<style=cIsUtility>Cleanse Quirk</style> Get!" }
+                //passive skill to info
+                { Survivors.Shiggy.alphacontructpassiveDef.skillName, "<style=cIsUtility>Barrier Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.beetlepassiveDef.skillName, "<style=cIsUtility>Strength Boost Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.pestpassiveDef.skillName, "<style=cIsUtility>Jump Boost Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.verminpassiveDef.skillName, "<style=cIsUtility>Super Speed Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.guppassiveDef.skillName, "<style=cIsUtility>Spiky Body Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.hermitcrabpassiveDef.skillName, "<style=cIsUtility>Mortar Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.larvapassiveDef.skillName, "<style=cIsUtility>Acid Jump Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.lesserwisppassiveDef.skillName, "<style=cIsUtility>Haste Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.lunarexploderpassiveDef.skillName, "<style=cIsUtility>Lunar Barrier Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.minimushrumpassiveDef.skillName, "<style=cIsUtility>Healing Aura Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.roboballminibpassiveDef.skillName, "<style=cIsUtility>Solus Boost Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.voidbarnaclepassiveDef.skillName, "<style=cIsUtility>Void Mortar Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.voidjailerpassiveDef.skillName, "<style=cIsUtility>Gravity Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.impbosspassiveDef.skillName, "<style=cIsUtility>Bleed Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.stonetitanpassiveDef.skillName, "<style=cIsUtility>Stone Skin Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.vagrantpassiveDef.skillName, "<style=cIsUtility>Vagrant's Orb Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.magmawormpassiveDef.skillName, "<style=cIsUtility>Blazing Aura Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.overloadingwormpassiveDef.skillName, "<style=cIsUtility>Lightning Aura Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.captainpassiveDef.skillName, "<style=cIsUtility>Defensive Microbots Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.commandopassiveDef.skillName, "<style=cIsUtility>Double Tap Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.acridpassiveDef.skillName, "<style=cIsUtility>Poison Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.loaderpassiveDef.skillName, "<style=cIsUtility>Scrap Barrier Quirk</style> Get! (Passive)" },
+                //synergy passive to info
+                { Survivors.Shiggy.bigBangPassiveDef.skillName, "<style=cIsUtility>Big Bang Synergy</style> Gained! (Passive)" },
+                { Survivors.Shiggy.wisperPassiveDef.skillName, "<style=cIsUtility>Wisper Synergy</style> Gained! (Passive)" },
+                { Survivors.Shiggy.omniboostPassiveDef.skillName, "<style=cIsUtility>Omniboost Synergy</style> Gained! (Passive)" },
+                { Survivors.Shiggy.gachaPassiveDef.skillName, "<style=cIsUtility>Gacha Synergy</style> Gained! (Passive)" },
+                { Survivors.Shiggy.stoneFormPassiveDef.skillName, "<style=cIsUtility>Stone Form Synergy</style> Gained! (Passive)" },
+                { Survivors.Shiggy.auraOfBlightPassiveDef.skillName, "<style=cIsUtility>Aura Of Blight Synergy</style> Gained! (Passive)" },
+                { Survivors.Shiggy.barbedSpikesPassiveDef.skillName, "<style=cIsUtility>Barbed Spikes Synergy</style> Gained! (Passive)" },
+                { Survivors.Shiggy.ingrainPassiveDef.skillName, "<style=cIsUtility>Ingrain Synergy</style> Gained! (Passive)" },
+                { Survivors.Shiggy.elementalFusionPassiveDef.skillName, "<style=cIsUtility>Elemental Fusion Synergy</style> Gained! (Passive)" },
+                { Survivors.Shiggy.doubleTimePassiveDef.skillName, "<style=cIsUtility>Double Time Synergy</style> Gained! (Passive)" },
+                { Survivors.Shiggy.blindSensesPassiveDef.skillName, "<style=cIsUtility>Blind Sense Synergy</style> Gained! (Passive)" },
+                //ultimate passive skill to info                
+                { Survivors.Shiggy.supernovaPassiveDef.skillName, "<style=cIsUtility>Supernova Ultimate Synergy</style> Created! (Passive)" },
+                { Survivors.Shiggy.reversalPassiveDef.skillName, "<style=cIsUtility>Reversal Ultimate Synergy</style> Created! (Passive)" },
+                { Survivors.Shiggy.machineFormPassiveDef.skillName, "<style=cIsUtility>Machine Form Ultimate Synergy</style> Created! (Passive)" },
+                { Survivors.Shiggy.gargoyleProtectionPassiveDef.skillName, "<style=cIsUtility>Gargoyle Protection Ultimate Synergy</style> Created! (Passive)" },
+                { Survivors.Shiggy.weatherReportPassiveDef.skillName, "<style=cIsUtility>Weather Report Ultimate Synergy</style> Created! (Passive)" },
+                { Survivors.Shiggy.decayAwakenedPassiveDef.skillName, "<style=cIsUtility>Decay Awakened Ultimate Synergy</style> Created! (Passive)" },
+                
+                //active skill to info
+                { Survivors.Shiggy.alloyvultureWindBlastDef.skillName, "<style=cIsUtility>Wind Blast Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.beetleguardslamDef.skillName, "<style=cIsUtility>Fast Drop Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.bisonchargeDef.skillName, "<style=cIsUtility>Charging Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.bronzongballDef.skillName, "<style=cIsUtility>Spiked Ball Control Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.clayapothecarymortarDef.skillName, "<style=cIsUtility>Clay AirStrike Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.claytemplarminigunDef.skillName, "<style=cIsUtility>Clay Minigun Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.elderlemurianfireblastDef.skillName, "<style=cIsUtility>Fire Blast Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.greaterWispBuffDef.skillName, "<style=cIsUtility>Spirit Boost Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.impblinkDef.skillName, "<style=cIsUtility>Blink Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.jellyfishHealDef.skillName, "<style=cIsUtility>Regenerate Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.lemurianfireballDef.skillName, "<style=cIsUtility>Fireball Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.lunargolemSlideDef.skillName, "<style=cIsUtility>Slide Reset Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.lunarwispminigunDef.skillName, "<style=cIsUtility>Lunar Minigun Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.parentteleportDef.skillName, "<style=cIsUtility>Teleport Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.stonegolemlaserDef.skillName, "<style=cIsUtility>Laser Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.voidreaverportalDef.skillName, "<style=cIsUtility>Nullifier Artillery Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.beetlequeenSummonDef.skillName, "<style=cIsUtility>Summon Ally Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.grandparentsunDef.skillName, "<style=cIsUtility>Solar Flare Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.grovetenderChainDef.skillName, "<style=cIsUtility>Chain Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.claydunestriderbuffDef.skillName, "<style=cIsUtility>Tar Boost Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.soluscontrolunityknockupDef.skillName, "<style=cIsUtility>Anti Gravity Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.xiconstructbeamDef.skillName, "<style=cIsUtility>Beam Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.voiddevastatorhomingDef.skillName, "<style=cIsUtility>Void Missiles Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.scavengerthqwibDef.skillName, "<style=cIsUtility>Throw Thqwibs Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.artificerflamethrowerDef.skillName, "<style=cIsUtility>Elementality Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.banditlightsoutDef.skillName, "<style=cIsUtility>Lights Out Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.engiturretDef.skillName, "<style=cIsUtility>Turret Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.huntressattackDef.skillName, "<style=cIsUtility>Flurry Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.mercdashDef.skillName, "<style=cIsUtility>Wind Assault Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.multbuffDef.skillName, "<style=cIsUtility>Power Stance Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.rexmortarDef.skillName, "<style=cIsUtility>Seed Barrage Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.railgunnercryoDef.skillName, "<style=cIsUtility>Cryocharged Railgun Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.voidfiendcleanseDef.skillName, "<style=cIsUtility>Cleanse Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.DekuOFADef.skillName, "<style=cIsUtility>One For All Quirk</style> Get!!! (Active)" },
+                //synergy active skill to info
+                { Survivors.Shiggy.sweepingBeamDef.skillName, "<style=cIsUtility>Sweeping Beam Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.blackholeGlaiveDef.skillName, "<style=cIsUtility>Blackhole Glaive Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.gravitationalDownforceDef.skillName, "<style=cIsUtility>Gravitational Downforce Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.windShieldDef.skillName, "<style=cIsUtility>Wind Shield Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.genesisDef.skillName, "<style=cIsUtility>Genesis Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.refreshDef.skillName, "<style=cIsUtility>Refresh Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.expungeDef.skillName, "<style=cIsUtility>Expunge Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.shadowClawDef.skillName, "<style=cIsUtility>Shadow Claw Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.orbitalStrikeDef.skillName, "<style=cIsUtility>Orbital Strike Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.thunderclapDef.skillName, "<style=cIsUtility>Thunderclap Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.blastBurnDef.skillName, "<style=cIsUtility>Blast Burn Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.barrierJellyDef.skillName, "<style=cIsUtility>Barrier Jelly Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.mechStanceDef.skillName, "<style=cIsUtility>Mech Stance Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.windSlashDef.skillName, "<style=cIsUtility>Wind Slash Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.limitBreakDef.skillName, "<style=cIsUtility>Limit Break Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.voidFormDef.skillName, "<style=cIsUtility>Void Form Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.decayPlusUltraDef.skillName, "<style=cIsUtility>Decay Plus Ultra Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.machPunchDef.skillName, "<style=cIsUtility>Mach Punch Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.rapidPierceDef.skillName, "<style=cIsUtility>Rapid Pierce Synergy</style> Gained! (Active)" },
+                //ultimate active skill to info
+                { Survivors.Shiggy.theWorldDef.skillName, "<style=cIsUtility>The World Ultimate Synergy</style> Created! (Active)" },
+                { Survivors.Shiggy.extremeSpeedDef.skillName, "<style=cIsUtility>Extreme Speed Ultimate Synergy</style> Created! (Active)" },
+                { Survivors.Shiggy.deathAuraDef.skillName, "<style=cIsUtility>Death Aura Ultimate Synergy</style> Created! (Active)" },
+                { Survivors.Shiggy.OFAFODef.skillName, "<style=cIsUtility>One For All For One Synergy</style> Created!!! (Active)" },
+                { Survivors.Shiggy.xBeamerDef.skillName, "<style=cIsUtility>x Beamer Ultimate Synergy</style> Created! (Active)" },
+                { Survivors.Shiggy.finalReleaseDef.skillName, "<style=cIsUtility>Final Release Ultimate Synergy</style> Created! (Active)" },
+                { Survivors.Shiggy.wildCardDef.skillName, "<style=cIsUtility>Wild Card Ultimate Synergy</style> Created! (Active)" },
+                { Survivors.Shiggy.lightAndDarknessDef.skillName, "<style=cIsUtility>Light And Darkness Ultimate Synergy</style> Created! (Active)" },
             };
 
 

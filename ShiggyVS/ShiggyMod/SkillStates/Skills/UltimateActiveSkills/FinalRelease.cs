@@ -22,43 +22,45 @@ namespace ShiggyMod.SkillStates
         public float duration;
         private string muzzleString = "RHand";
         private GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
+        private EnergySystem energySystem;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            //play bankai animation- maybe the number one instrumentals? particles too like as if you're holding zangetsu
-
             Ray aimRay = base.GetAimRay();
-            EffectManager.SpawnEffect(EntityStates.Merc.Uppercut.swingEffectPrefab, new EffectData
+            //play bankai animation- maybe the number one instrumentals? particles too like as if you're holding zangetsu
+            energySystem = base.gameObject.GetComponent<EnergySystem>(); 
+            //check minimum energy requirement so we don't get back to back mugetsu. 
+            if(energySystem.currentplusChaos < StaticValues.finalReleaseInitialEnergyRequirement)
             {
-                origin = FindModelChild(muzzleString).position,
-                scale = 1f,
-                rotation = Quaternion.LookRotation(aimRay.direction),
-
-            }, true);
-            EffectManager.SpawnEffect(EntityStates.Merc.WhirlwindAir.swingEffectPrefab, new EffectData
-            {
-                origin = FindModelChild(muzzleString).position,
-                scale = 1f,
-                rotation = Quaternion.LookRotation(aimRay.direction),
-
-            }, true);
-            //EffectManager.SpawnEffect(Assets.commandoOmniExplosionVFXEffect, new EffectData
-            //{
-            //    origin = muzz,
-            //    scale = 1f,
-            //    rotation = Quaternion.identity,
-
-            //}, true);
-            if (!characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
-            {
-                characterBody.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, 1);
+                if (characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
+                {
+                    new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                }
+                this.outer.SetNextStateToMain();
+                return;
             }
-            else
-            if (characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
+            else if (energySystem.currentplusChaos >= StaticValues.finalReleaseInitialEnergyRequirement)
             {
-                new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                EffectManager.SpawnEffect(EntityStates.Vulture.Weapon.FireWindblade.muzzleEffectPrefab, new EffectData
+                {
+                    origin = FindModelChild(muzzleString).position,
+                    scale = 1f,
+                    rotation = Quaternion.identity,
+
+                }, true);
+                if (!characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
+                {
+                    characterBody.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, 1);
+                }
+                else
+                if (characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
+                {
+                    new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                }
+
             }
+
 
 
         }

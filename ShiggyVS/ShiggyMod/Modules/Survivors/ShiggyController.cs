@@ -302,6 +302,21 @@ namespace ShiggyMod.Modules.Survivors
             hasExtra2 = false;
             hasExtra3 = false;
             hasExtra4 = false;
+
+
+            //write starting skills to the skill list for shiggymaster
+            if (characterBody.skillLocator)
+            {
+                Shiggymastercon.writeToSkillList(characterBody.skillLocator.primary.skillDef, 0);
+                Shiggymastercon.writeToSkillList(characterBody.skillLocator.secondary.skillDef, 1);
+                Shiggymastercon.writeToSkillList(characterBody.skillLocator.utility.skillDef, 2);
+                Shiggymastercon.writeToSkillList(characterBody.skillLocator.special.skillDef, 3);
+
+                Shiggymastercon.writeToSkillList(extraskillLocator.extraFirst.skillDef, 0);
+                Shiggymastercon.writeToSkillList(extraskillLocator.extraSecond.skillDef, 0);
+                Shiggymastercon.writeToSkillList(extraskillLocator.extraThird.skillDef, 0);
+                Shiggymastercon.writeToSkillList(extraskillLocator.extraFourth.skillDef, 0);
+            }
         }
 
 
@@ -1002,13 +1017,14 @@ namespace ShiggyMod.Modules.Survivors
                 //sprint to shunpo
                 if (buttonCooler >= 0f)
                 {
-                    finalReleaseTimer -= Time.deltaTime * OFAFOTimeMultiplier * characterBody.attackSpeed;
+                    buttonCooler -= Time.deltaTime * OFAFOTimeMultiplier * characterBody.attackSpeed;
 
                 }
                 if (buttonCooler < 0f)
                 {
-                    if (inputBank.sprint.down)
+                    if (inputBank.sprint.justPressed)
                     {
+                        //energy cost- same as getsuga
                         float plusChaosflatCost = (StaticValues.finalReleaseEnergyCost) - (energySystem.costflatplusChaos);
                         if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
@@ -1050,7 +1066,7 @@ namespace ShiggyMod.Modules.Survivors
                         if (plusChaosCost < 0f) plusChaosCost = 0f;
                         energySystem.SpendplusChaos(plusChaosCost);
 
-                        finalReleaseTimer += StaticValues.finalReleaseThreshold / characterBody.attackSpeed;
+                        finalReleaseTimer += StaticValues.finalReleaseThreshold;
 
 
                         Debug.Log("getsuga");
@@ -1058,7 +1074,7 @@ namespace ShiggyMod.Modules.Survivors
 
                         Ray aimRay = characterBody.inputBank.GetAimRay();
 
-                        EffectManager.SpawnEffect(EntityStates.Merc.GroundLight.comboSwingEffectPrefab, new EffectData
+                        EffectManager.SpawnEffect(EntityStates.Vulture.Weapon.FireWindblade.muzzleEffectPrefab, new EffectData
                         {
                             origin = child.FindChild("RHand").position,
                             scale = 1f,
@@ -1094,6 +1110,8 @@ namespace ShiggyMod.Modules.Survivors
                 informAFOToPlayers = true;
                 Chat.AddMessage($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
                 + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.");
+                energySystem.quirkGetInformation($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
+                + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.", 5f);
             }
 
 
@@ -1114,7 +1132,7 @@ namespace ShiggyMod.Modules.Survivors
 
                     }
 
-                    Debug.Log(hasStolen + "hasstolen");
+                    //Debug.Log(hasStolen + "hasstolen");
 
                 }
                 else if (Config.AFOHotkey.Value.IsUp() && characterBody.hasEffectiveAuthority)
@@ -1136,6 +1154,7 @@ namespace ShiggyMod.Modules.Survivors
 
                     //choose what quirk to remove
                     Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
+                    energySystem.quirkGetInformation("<style=cIsUtility>Choose which Quirk to Remove</style>", 1f);
                     //unset skills but not to unwrite the skilllist
                     //RemovePrimary();
                     //RemoveSecondary();
@@ -1156,7 +1175,7 @@ namespace ShiggyMod.Modules.Survivors
                     extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggymastercon.skillListToOverrideOnRespawn[7], GenericSkill.SkillOverridePriority.Contextual);
 
 
-                    //override skills to choosdef
+                    //override skills to removedef
                     characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
                     characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
                     characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -1176,58 +1195,6 @@ namespace ShiggyMod.Modules.Survivors
             } 
         }
 
-
-        //      private void UpdateIndicator()
-        //{
-        //	if (this.mortarIndicatorInstance)
-        //	{
-        //		float maxDistance = 250f;
-
-        //		this.downRay = new Ray
-        //		{
-        //			direction = Vector3.down,
-        //			origin = base.transform.position
-        //		};
-
-        //		RaycastHit raycastHit;
-        //		if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
-        //		{
-        //			this.mortarIndicatorInstance.transform.position = raycastHit.point;
-        //			this.mortarIndicatorInstance.transform.up = raycastHit.normal;
-        //			mortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.mortarRadius * (characterBody.armor/characterBody.baseArmor);
-
-        //		}
-        //	}
-        //	if (this.voidmortarIndicatorInstance)
-        //	{
-        //		float maxDistance = 250f;
-
-        //		this.downRay = new Ray
-        //		{
-        //			direction = Vector3.down,
-        //			origin = base.transform.position
-        //		};
-
-        //		RaycastHit raycastHit;
-        //		if (Physics.Raycast(this.downRay, out raycastHit, maxDistance, LayerIndex.world.mask))
-        //		{
-        //			this.voidmortarIndicatorInstance.transform.position = raycastHit.point;
-        //			this.voidmortarIndicatorInstance.transform.up = raycastHit.normal;
-        //			voidmortarIndicatorInstance.localScale = Vector3.one * Modules.StaticValues.voidmortarRadius * characterBody.attackSpeed;
-
-        //		}
-        //	}
-        //}
-        //hermit crab mortar
-        //private void CreateMortarIndicator()
-        //{
-        //	if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
-        //	{
-        //		this.downRay = new Ray
-        //		{
-        //			direction = Vector3.down,
-        //			origin = base.transform.position
-        //		};
 
         private void IndicatorUpdater()
         {
@@ -1449,46 +1416,6 @@ namespace ShiggyMod.Modules.Survivors
 			this.trackingTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
 		}
 
-		//overloading orb
-		//private void OverloadingFire()
-		//{
-		//	Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
-		//	BullseyeSearch search = new BullseyeSearch
-		//	{
-
-		//		teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-		//		filterByLoS = false,
-		//		searchOrigin = characterBody.corePosition,
-		//		searchDirection = UnityEngine.Random.onUnitSphere,
-		//		sortMode = BullseyeSearch.SortMode.Distance,
-		//		maxDistanceFilter = StaticValues.overloadingRadius,
-		//		maxAngleFilter = 360f
-		//	};
-
-		//	search.RefreshCandidates();
-		//	search.FilterOutGameObject(characterBody.gameObject);
-
-		//	HurtBox target = this.search.GetResults().FirstOrDefault<HurtBox>();
-		//	ProcChainMask procChainMask1 = default(ProcChainMask);
-		//	procChainMask1.AddProc(ProcType.LightningStrikeOnHit);
-
-		//	OrbManager.instance.AddOrb(new SimpleLightningStrikeOrb
-		//	{
-		//		attacker = characterBody.gameObject,
-		//		damageColorIndex = DamageColorIndex.Item,
-		//		damageValue = characterBody.damage * Modules.StaticValues.overloadingCoefficient,
-		//		origin = characterBody.corePosition,
-		//		procChainMask = procChainMask1,
-		//		procCoefficient = 1f,
-		//		isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
-		//		teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
-		//		target = target,
-
-		//	});
-
-		//}
-
-        //drop equipment elite
         public void dropEquipment(EquipmentDef def)
         {
             if (characterBody.hasEffectiveAuthority)
@@ -1574,512 +1501,73 @@ namespace ShiggyMod.Modules.Survivors
             if (StaticValues.bodyNameToSkillDef.ContainsKey(newbodyPrefab.name))
             {
                 RoR2.Skills.SkillDef skillDef = StaticValues.bodyNameToSkillDef[newbodyPrefab.name];
+                RoR2.Skills.SkillDef skillDefUpgrade = StaticValues.baseSkillUpgrade[skillDef.name];
+                RoR2.Skills.SkillDef skillDefUltimate = StaticValues.synergySkillUpgrade[skillDefUpgrade.name];
 
+                bool canBaseSkillTake = false;
+                bool canSynergyUpgrade = false;
+                bool canUltimateUpgrade = false;
+                if(Shiggymastercon.SearchSkillSlotsForQuirks(skillDef, characterBody))
+                {
+                    canBaseSkillTake = false;
+                }
+                else
+                {
+                    canBaseSkillTake = true;
+                }
 
-                Shiggymastercon.writeToAFOSkillList(skillDef, 0);
-                Chat.AddMessage(StaticValues.baseQuirkSkillString[skillDef.skillName]);
+                if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.baseSkillPair[skillDef.name], characterBody))
+                {
+                    if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUpgrade, characterBody))
+                    {
+                        canSynergyUpgrade = false;
+                    }
+                    else
+                    {
+                        canSynergyUpgrade = true;
+                    }
+                }
+                if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.synergySkillPair[skillDefUpgrade.name], characterBody))
+                {
+                    if(Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUltimate, characterBody))
+                    {
+                        canUltimateUpgrade = false;
+                    }
+                    else
+                    {
+                        canUltimateUpgrade = true;
+                    }
+                }
+                if (canUltimateUpgrade)
+                {
+                    Shiggymastercon.writeToAFOSkillList(skillDefUltimate, 0);
+                    Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDefUltimate.skillName]);
+                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDefUltimate.skillName], 1f);
 
-                //var skilldef = Dictionary(alphaconstruct)
-                
+                }
+                else if (canSynergyUpgrade)
+                {
+                    Shiggymastercon.writeToAFOSkillList(skillDefUpgrade, 0);
+                    Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDefUpgrade.skillName]);
+                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDefUpgrade.skillName], 1f);
+                }
+                else if (canBaseSkillTake)
+                {
+                    Shiggymastercon.writeToAFOSkillList(skillDef, 0);
+                    Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDef.skillName]);
+                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDef.skillName], 1f);
 
-                
-                //if(checked for special(skilldef, Dictionary upgradecheck, secondaryupgrade check1, secondaryupgrade check 2)
+                }
+                else
+                {
+                    Shiggymastercon.storedAFOSkill[0] = null;
+                }
 
-                //{
-                //    Shiggymastercon.writeToAFOSkillList(supersynergy skill, 0);
-                //    Chat.AddMessage("super synergy skill get");
-                //}
-                //else if(isquirkhave(dictionary(skilldef))
-                //{
-                //    Shiggymastercon.writeToAFOSkillList(Dictionary of skilldef to upgraded skill, 0);
-                //    Chat.AddMessage(Dictionary upgraded skill to gainupgradedquirkstring);
-
-                //}
-                //else
-                //{
-                //    Shiggymastercon.writeToAFOSkillList(skilldef, 0);
-                //    Chat.AddMessage(Dictionary skilldef to gainquirkstring);
-                //}
             }
-            //if (newbodyPrefab.name == "MinorConstructBody" | newbodyPrefab.name == "MinorConstructOnKillBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Barrier Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.alphacontructpassiveDef, 0);
-
-            //    characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "BeetleBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Strength Boost Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.beetlepassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.beetleBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "BeetleGuardBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Beetle Armor Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.beetleguardslamDef, 0);
-            //}
-            //if (newbodyPrefab.name == "BisonBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Charging Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.bisonchargeDef, 0);
-            //}
-            //if (newbodyPrefab.name == "FlyingVerminBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Jump Boost Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.pestpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.pestjumpBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "VerminBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Super Speed Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.verminpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.verminsprintBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "BellBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Spiked Ball Control Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.bronzongballDef, 0);
-            //}
-            //if (newbodyPrefab.name == "ClayGrenadierBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Clay AirStrike Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.clayapothecarymortarDef, 0);
-            //}
-            //if (newbodyPrefab.name == "ClayBruiserBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Clay Minigun Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.claytemplarminigunDef, 0);
-            //}
-            //if (newbodyPrefab.name == "LemurianBruiserBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Fire Blast Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.elderlemurianfireblastDef, 0);
-            //}
-            //if (newbodyPrefab.name == "GupBody" | newbodyPrefab.name == "GipBody" | newbodyPrefab.name == "GeepBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Spiky Body Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.guppassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.gupspikeBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "GreaterWispBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Spirit Boost Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.greaterWispBuffDef, 0);
-            //}
-            //if (newbodyPrefab.name == "HermitCrabBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Mortar Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.hermitcrabpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortarBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "ImpBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Blink Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.impblinkDef, 0);
-            //}
-            //if (newbodyPrefab.name == "JellyfishBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Nova Explosion Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.jellyfishHealDef, 0);
-            //}
-            //if (newbodyPrefab.name == "AcidLarvaBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Acid Jump Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.larvapassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.larvajumpBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "LemurianBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Fireball Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.lemurianfireballDef, 0);
-            //}
-            //if (newbodyPrefab.name == "WispBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Ranged Boost Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.lesserwisppassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.lesserwispBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "LunarExploderBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Lunar Aura Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.lunarexploderpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.lunarexploderBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "LunarGolemBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Slide Reset Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.lunargolemSlideDef, 0);
-            //}
-            //if (newbodyPrefab.name == "LunarWispBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Lunar Minigun Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.lunarwispminigunDef, 0);
-            //}
-            //if (newbodyPrefab.name == "MiniMushroomBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Healing Aura Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.minimushrumpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.minimushrumBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "ParentBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Teleport Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.parentteleportDef, 0);
-            //}
-            //if (newbodyPrefab.name == "RoboBallMiniBody" | newbodyPrefab.name == "RoboBallGreenBuddyBody" | newbodyPrefab.name == "RoboBallRedBuddyBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Solus Boost Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.roboballminibpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.roboballminiBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "GolemBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Laser Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.stonegolemlaserDef, 0);
-            //}
-            //if (newbodyPrefab.name == "VoidBarnacleBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Void Mortar Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.voidbarnaclepassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "VoidJailerBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Gravity Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.voidjailerpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.voidjailerBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "NullifierBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Nullifier Artillery Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.voidreaverportalDef, 0);
-            //}
-            //if (newbodyPrefab.name == "BeetleQueen2Body")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Acid Shotgun Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.beetlequeenSummonDef, 0);
-            //}
-            //if (newbodyPrefab.name == "ImpBossBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Bleed Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.impbosspassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.impbossBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "TitanBody" | newbodyPrefab.name == "TitanGoldBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Stone Skin Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.stonetitanpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.stonetitanBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "GrandParentBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Solar Flare Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.grandparentsunDef, 0);
-            //}
-            //if (newbodyPrefab.name == "GravekeeperBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Hook Shotgun Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.grovetenderChainDef, 0);
-            //}
-            //if (newbodyPrefab.name == "VagrantBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Vagrant's Orb Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.vagrantpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "MagmaWormBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Blazing Aura Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.magmawormpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.magmawormBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "ElectricWormBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Lightning Aura Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.overloadingwormpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.overloadingwormBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "ClayBossBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Tar Boost Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.claydunestriderbuffDef, 0);
-            //}
-            //if (newbodyPrefab.name == "RoboBallBossBody" | newbodyPrefab.name == "SuperRoboBallBossBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Anti Gravity Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.soluscontrolunityknockupDef, 0);
-            //}
-            //if (newbodyPrefab.name == "MegaConstructBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Beam Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.xiconstructbeamDef, 0);
-            //}
-            //if (newbodyPrefab.name == "VoidMegaCrabBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Void Missiles Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.voiddevastatorhomingDef, 0);
-            //}
-            //if (newbodyPrefab.name == "ScavBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.scavengerthqwibDef, 0);
-            //}
-
-            //if (newbodyPrefab.name == "Bandit2Body")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Lights Out Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.banditlightsoutDef, 0);
-            //}
-
-            //if (newbodyPrefab.name == "CaptainBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Defensive Microbots Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.captainpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.captainBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "CommandoBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Double Tap Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.commandopassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.commandoBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "CrocoBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Poison Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.acridpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.acridBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "EngiBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Turret Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.engiturretDef, 0);
-            //}
-            ////if (newbodyPrefab.name == "HereticBody")
-            ////{
-
-            ////    
-            ////    Chat.AddMessage("<style=cIsUtility>Throw Thqwibs Quirk</style> Get!");
-
-            ////    Shiggymastercon.writeToAFOSkillList(Shiggy.scavengerthqwibDef, 0);
-            ////    RemovePrimary();
-            ////    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
-            ////}
-            //if (newbodyPrefab.name == "HuntressBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Flurry Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.huntressattackDef, 0);
-            //}
-            //if (newbodyPrefab.name == "LoaderBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Scrap Barrier Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.loaderpassiveDef, 0);
-            //    characterBody.ApplyBuff(Modules.Buffs.loaderBuff.buffIndex);
-            //}
-            //if (newbodyPrefab.name == "MageBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Elementality Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.artificerflamethrowerDef, 0);
-            //}
-            //if (newbodyPrefab.name == "MercBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Eviscerate Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.mercdashDef, 0);
-            //}
-            //if (newbodyPrefab.name == "ToolbotBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Power Stance Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.multbuffDef, 0);
-            //}
-            //if (newbodyPrefab.name == "TreebotBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Seed Barrage Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.rexmortarDef, 0);
-            //}
-            //if (newbodyPrefab.name == "RailgunnerBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Cryocharged Railgun Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.railgunnercryoDef, 0);
-            //}
-            //if (newbodyPrefab.name == "VoidSurvivorBody")
-            //{
-
-                
-            //    Chat.AddMessage("<style=cIsUtility>Cleanse Quirk</style> Get!");
-
-            //    Shiggymastercon.writeToAFOSkillList(Shiggy.voidfiendcleanseDef, 0);
-            //}
+            
             if (Shiggymastercon.storedAFOSkill[0] != null)
             {
                 //override skills to choosdef
-                //RemovePrimary();
-                //RemoveSecondary();
-                //RemoveUtility();
-                //RemoveSpecial();
-                //RemoveExtra1();
-                //RemoveExtra2();
-                //RemoveExtra3();
-                //RemoveExtra4();
-
 
                 characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggymastercon.skillListToOverrideOnRespawn[0], GenericSkill.SkillOverridePriority.Contextual);
                 characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggymastercon.skillListToOverrideOnRespawn[1], GenericSkill.SkillOverridePriority.Contextual);
@@ -2103,352 +1591,14 @@ namespace ShiggyMod.Modules.Survivors
             else if (Shiggymastercon.storedAFOSkill[0] == null)
             {
                 Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
+                energySystem.quirkGetInformation("No Quirk to <style=cIsUtility>Steal!</style>", 1f);
             }
             
         }
 
 
-        //public void RemoveExtra1()
-        //{
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.acridpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.commandopassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.captainpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggy.loaderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-
-        //}
-
-        //public void RemoveExtra2()
-        //{
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.acridpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.commandopassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.captainpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggy.loaderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-
-        //}
-
-        //public void RemoveExtra3()
-        //{
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.acridpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.commandopassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.captainpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggy.loaderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-
-        //}
-
-        //public void RemoveExtra4()
-        //{
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.alphacontructpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.beetlepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.pestpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.verminpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.guppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.hermitcrabpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.larvapassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.lesserwisppassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.lunarexploderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.minimushrumpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.roboballminibpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.voidbarnaclepassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.voidjailerpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.impbosspassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.stonetitanpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.magmawormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.overloadingwormpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.vagrantpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.acridpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.commandopassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.captainpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggy.loaderpassiveDef, GenericSkill.SkillOverridePriority.Contextual);
-
-        //}
-
-        //public void RemovePrimary()
-        //{
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.alloyvultureWindBlastDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.jellyfishHealDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.lunargolemSlideDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetlequeenSummonDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.grovetenderChainDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.claydunestriderbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.elderlemurianfireblastDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.banditlightsoutDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.engiturretDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.huntressattackDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.mercdashDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.railgunnercryoDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.rexmortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidfiendcleanseDef, GenericSkill.SkillOverridePriority.Contextual);
-
-        //}
-        //public void RemoveSecondary()
-        //{
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.alloyvultureWindBlastDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.jellyfishHealDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.lunargolemSlideDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.beetlequeenSummonDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grovetenderChainDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.claydunestriderbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.elderlemurianfireblastDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.banditlightsoutDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.engiturretDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.huntressattackDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.mercdashDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.railgunnercryoDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.rexmortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voidfiendcleanseDef, GenericSkill.SkillOverridePriority.Contextual);
-
-        //}
-
-        //public void RemoveUtility()
-        //{
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.alloyvultureWindBlastDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.jellyfishHealDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.lunargolemSlideDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.beetlequeenSummonDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.grovetenderChainDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.claydunestriderbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.elderlemurianfireblastDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.banditlightsoutDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.engiturretDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.huntressattackDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.mercdashDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.railgunnercryoDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.rexmortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.voidfiendcleanseDef, GenericSkill.SkillOverridePriority.Contextual);
-
-        //}
-
-        //public void RemoveSpecial()
-        //{
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.alloyvultureWindBlastDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.jellyfishHealDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.lemurianfireballDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.lunargolemSlideDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.beetlequeenSummonDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.grovetenderChainDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.claydunestriderbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.soluscontrolunityknockupDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.xiconstructbeamDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.voiddevastatorhomingDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.scavengerthqwibDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.elderlemurianfireblastDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.artificerflamethrowerDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.artificericewallDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.artificerlightningorbDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.banditlightsoutDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.engiturretDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.huntressattackDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.mercdashDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.multbuffDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.railgunnercryoDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.rexmortarDef, GenericSkill.SkillOverridePriority.Contextual);
-        //    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.voidfiendcleanseDef, GenericSkill.SkillOverridePriority.Contextual);
-
-        //}
-
-
-
     }
 
-
-
-
-    //mortar orb
- //   public class MortarOrb : Orb
-	//{
-	//	public override void Begin()
-	//	{
-	//		base.duration = 0.5f;
-	//		EffectData effectData = new EffectData
-	//		{
-	//			origin = this.origin,
-	//			genericFloat = base.duration
-	//		};
-	//		effectData.SetHurtBoxReference(this.target);
- //           GameObject effectPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/OrbEffects/SquidOrbEffect");
- //           EffectManager.SpawnEffect(effectPrefab, effectData, true);
-	//	}
-	//	public HurtBox PickNextTarget(Vector3 position, float range)
-	//	{
-	//		BullseyeSearch bullseyeSearch = new BullseyeSearch();
-	//		bullseyeSearch.searchOrigin = position;
-	//		bullseyeSearch.searchDirection = Vector3.zero;
-	//		bullseyeSearch.teamMaskFilter = TeamMask.allButNeutral;
-	//		bullseyeSearch.teamMaskFilter.RemoveTeam(this.teamIndex);
-	//		bullseyeSearch.filterByLoS = false;
-	//		bullseyeSearch.sortMode = BullseyeSearch.SortMode.Distance;
-	//		bullseyeSearch.maxDistanceFilter = range;
-	//		bullseyeSearch.RefreshCandidates();
-	//		List<HurtBox> list = bullseyeSearch.GetResults().ToList<HurtBox>();
-	//		if (list.Count <= 0)
-	//		{
-	//			return null;
-	//		}
-	//		return list[UnityEngine.Random.Range(0, list.Count)];
-	//	}
-	//	public override void OnArrival()
-	//	{
-	//		if (this.target)
-	//		{
-	//			HealthComponent healthComponent = this.target.healthComponent;
-	//			if (healthComponent)
-	//			{
-	//				DamageInfo damageInfo = new DamageInfo
-	//				{
-	//					damage = this.damageValue,
-	//					attacker = this.attacker,
-	//					inflictor = null,
-	//					force = Vector3.zero,
-	//					crit = this.isCrit,
-	//					procChainMask = this.procChainMask,
-	//					procCoefficient = this.procCoefficient,
-	//					position = this.target.transform.position,
-	//					damageColorIndex = this.damageColorIndex
-	//				};
-	//				healthComponent.TakeDamage(damageInfo);
-	//				GlobalEventManager.instance.OnHitEnemy(damageInfo, healthComponent.gameObject);
-	//				GlobalEventManager.instance.OnHitAll(damageInfo, healthComponent.gameObject);
-	//			}
-	//		}
-	//	}
-
-	//	public float damageValue;
-	//	public GameObject attacker;
-	//	public TeamIndex teamIndex;
-	//	public bool isCrit;
-	//	public ProcChainMask procChainMask;
-	//	public float procCoefficient = 1f;
-	//	public DamageColorIndex damageColorIndex;
-	//}
 
 
 }

@@ -111,6 +111,10 @@ namespace ShiggyMod.SkillStates
             characterBody.characterMotor.velocity = Vector3.zero;
             characterBody.characterMotor.disableAirControlUntilCollision = true;
             characterBody.characterMotor.useGravity = false;
+            if (base.characterMotor)
+            {
+                base.characterMotor.enabled = false;
+            }
 
 
             //effects
@@ -171,6 +175,11 @@ namespace ShiggyMod.SkillStates
             base.OnExit();
             characterBody.characterMotor.disableAirControlUntilCollision = false;
             characterBody.characterMotor.useGravity = true;
+            if (base.characterMotor)
+            {
+                base.characterMotor.enabled = true;
+            }
+
             if (this.RchargeVfxInstance)
             {
                 EntityState.Destroy(this.RchargeVfxInstance);

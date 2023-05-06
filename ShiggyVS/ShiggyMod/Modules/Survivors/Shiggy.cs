@@ -3985,6 +3985,7 @@ namespace ShiggyMod.Modules.Survivors
                 Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
                 {
                     bulletlaserDef,
+                    blastingZoneDef
 
                 });
                 Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]

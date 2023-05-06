@@ -394,403 +394,48 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             //check passive
 
-            if (SearchQuirksForBuffs(Shiggy.alphacontructpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
+			foreach (KeyValuePair<string, BuffIndex> entry in StaticValues.passiveToBuff)
+			{
+				if (StaticValues.skillDict[entry.Key] == StaticValues.skillType.PASSIVE)
                 {
-                    characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
+                    if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[entry.Key], characterBody))
+                    {
+                        characterBody.ApplyBuff(StaticValues.passiveToBuff[entry.Key], 1);
+                    }
+                    else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[entry.Key], characterBody))
+                    {
+                        characterBody.ApplyBuff(StaticValues.passiveToBuff[entry.Key], 0);
+                    }
 
                 }
             }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.alphashieldonBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 0);
-                }
 
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.beetlepassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.beetleBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.beetleBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.beetleBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.guppassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.gupspikeBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.gupspikeBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.gupspikeBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.larvapassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.larvajumpBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.larvajumpBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.larvajumpBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.lesserwisppassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.lesserwispBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.lesserwispBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.lesserwispBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.lunarexploderpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.lunarexploderBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.lunarexploderBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.lunarexploderBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.hermitcrabpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortarBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.hermitcrabmortarBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.hermitcrabmortarBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.pestpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.pestjumpBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.pestjumpBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.pestjumpBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.verminpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.verminsprintBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.verminsprintBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.verminsprintBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.minimushrumpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.minimushrumBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.minimushrumBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.minimushrumBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.roboballminibpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.roboballminiBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.roboballminiBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.roboballminiBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.voidbarnaclepassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.voidbarnaclemortarBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.voidjailerpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.voidjailerBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.voidjailerBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.voidjailerBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.impbosspassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.impbossBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.impbossBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.impbossBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.stonetitanpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.stonetitanBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.stonetitanBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.stonetitanBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.magmawormpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.magmawormBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.magmawormBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.magmawormBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.overloadingwormpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.overloadingwormBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.overloadingwormBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.overloadingwormBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.vagrantpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.vagrantBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex, 0);
-                }
-
-            }
-
-
-
-            if (SearchQuirksForBuffs(Shiggy.acridpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.acridBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.acridBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.acridBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.commandopassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.commandoBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.commandoBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.commandoBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.captainpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.captainBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.captainBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.captainBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.loaderpassiveDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.loaderBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.loaderBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.loaderBuff.buffIndex, 0);
-                }
-
-            }
-
-            if (SearchQuirksForBuffs(Shiggy.jellyfishHealDef, characterBody))
-            {
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex);
-
-                }
-            }
-            else
-            {
-                if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.jellyfishHealStacksBuff))
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, 0);
-                }
-
-            }
-
-            //foreach (KeyValuePair<string, SkillDef> skill in Modules.StaticValues.baseQuirkSkillDef)
-            //{
-
-            //}
+   //         SkillDef primarySkill = characterBody.skillLocator.primary.skillDef;
+   //         string primaryName = characterBody.skillLocator.primary.skillDef.name;
+			//if (StaticValues.skillDict[primaryName] == StaticValues.skillType.PASSIVE)
+			//{
+			//	if(SearchQuirksForBuffs(primarySkill, characterBody))
+   //             {
+   //                 characterBody.ApplyBuff(StaticValues.passiveToBuff[primaryName], 1);
+   //             }
+			//}
+
+   //         if (SearchQuirksForBuffs(StaticValues.b, characterBody))
+   //         {
+   //             if (NetworkServer.active)
+   //             {
+   //                 characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
+
+   //             }
+   //         }
+   //         else
+   //         {
+   //             if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.alphashieldonBuff))
+   //             {
+   //                 characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 0);
+   //             }
+
+   //         }
         }
         //public bool IsQuirkHave(string skillName, CharacterBody characterBody)
         //{
@@ -806,7 +451,7 @@ namespace ShiggyMod.Modules.Survivors
         //        && characterBody.skillLocator.special.skillNameToken != prefix + skillName);
         //}
 
-        public bool SearchQuirksForBuffs(SkillDef skillDef, CharacterBody characterBody)
+        public bool SearchSkillSlotsForQuirks(SkillDef skillDef, CharacterBody characterBody)
         {
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
 

@@ -23,6 +23,8 @@ namespace ShiggyMod.SkillStates
         private float slideDuration;
         private float jumpDuration;
         private ExtraSkillLocator extraskillLocator;
+        private CharacterModel characterModel;
+        private HurtBoxGroup hurtboxGroup;
 
         public override void OnEnter()
         {
@@ -48,6 +50,17 @@ namespace ShiggyMod.SkillStates
                 return;
             }
 
+            if (this.characterModel)
+            {
+                this.characterModel.invisibilityCount++;
+            }
+            if (this.hurtboxGroup)
+            {
+                HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
+                int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter + 1;
+                hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
+            }
+            this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
 
 
         }
@@ -61,15 +74,25 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
-            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             base.OnExit();
+            this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
+            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
+            if (this.characterModel)
+            {
+                this.characterModel.invisibilityCount--;
+            }
+            if (this.hurtboxGroup)
+            {
+                HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
+                int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter - 1;
+                hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
+            }
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
             if (base.isAuthority)
             {
                 float num = this.startedStateGrounded ? slideDuration : jumpDuration;
