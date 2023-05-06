@@ -56,7 +56,29 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
-- 2.0.0- THE SYNERGY UPDATE!
+- 2.0.0- THE SYNERGY UPDATE!    
+    - New mechanics 
+    	- Quirks can now SYNERGISE, creating a BRAND NEW SKILL/PASSIVE!
+    		- With 60 base quirks, that makes 30 synergised quirks, which can also combine to make 15 ultimate quirks! 
+    		- ``I CAN NOW SAY SHIGARAKI HAS 100+ SKILLS/PASSIVES!``
+    		- By grabbing the specific pair of a skill while having the skill in your skill slots, you will automatically get the synergised skill. If you had the synergised skill's pair in your skill slots it will automatically get the ultimate skill as well.
+        - Also to accommodate synergies, Shigaraki can only have 1 of each skill, no more duplicates. This means that after getting the ultimate or synergised version, you won't get that version if you try and steal someone's quirk and get the tier below.
+    	- Added a plus chaos meter
+    		- Shigaraki starts with 100. 
+    		- Leveling up increases the max by 10.
+    		- Getting stock based items increase the max as well (back-up magazines: 10, afterburners: 30, lysates: 15)
+    		- Getting cooldown reduction items decrease the cost (alien head: 25% reduction, purity: 5 flat reduction) 
+    		- Stealing quirks now costs 50 plus chaos. 
+    		- Plus chaos regenerates over time, killing enemies gains 10% of max. 
+    	- Added ability for Shigaraki to trigger expose- reducing cooldowns by 1 and dealing 350% bonus damage like mercenary. 
+    		- Killing enemies will grant plus chaos.
+        - Added new ability- give quirk: Able to give passive quirks to allies- an ally is able to have one passive at a time. 
+        	- In addition, addded passive explanations to their buffs so allies can read them.
+    - Changes
+    	- Made it so the extra [information] under each skill is more relevant to what character's quirk you'll need to get the synergised quirk.
+    	- Along with this, all icons are now changed to have the main character on the top left and the paired character on the bottom right to let players know who to look out for. Also, synergised skills will show both characters and the corresponding pair needed to get the ultimate skill. 
+    	- Right handed and Left handed skills concept is scrapped. It was an arbitrary way of listing which skills could be held with others. Certain skills may still be animated with one hand or the other but more animations will attempt to involve both. 
+    	- In general, skills will be able to be used in conjuction in a way that makes sense like base survivors. (Eg. you can use a buffing skill alongside an attacking skill- although ideas like being able to hold both the clay templar and lunar wisp minigun skills together will still be there).
     - Reworked Skills
     	- Decay: Instead of a slam it's a swipe in front of you, less janky in general.
     	- Decay DoT: 
@@ -87,14 +109,7 @@ If you enjoy my work, support me on Ko-fi!
     - Bug fixes
     	- Bullet laser correctly has a proc coefficient of 0.4 instead of 1. 
     	- Double tap correctly has a proc coefficient of 1 instead of 0. 
-    - New mechanics
-    	- Added ability for Shigaraki to trigger expose- reducing cooldowns by 1 and dealing 350% bonus damage like mercenary.
-    	- Added a plus chaos meter
-    		- Stealing quirks now costs plus chaos. 
-    		- Plus chaos regenerates over time, stock based items will increase the maximum, cooldown based items will cheapen costs. 
-    		- Killing enemies will grant plus chaos.
-        - Added new ability- give quirk: Able to give passive quirks to allies- an ally is able to have one passive at a time. 
-        	- In addition, addded passive explanations to their buffs so allies can read them.
+
 		
 - 1.3.1
     - updated risk of option config for holdbuttonAFO, now it's a slider that goes from 0-10 instead of a % slider like for volume. DELETE YOUR CONFIGS!
