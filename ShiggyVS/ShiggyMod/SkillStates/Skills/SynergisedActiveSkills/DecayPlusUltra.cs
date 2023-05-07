@@ -74,6 +74,13 @@ namespace ShiggyMod.SkillStates
                     rotation = Quaternion.identity,
 
                 }, true);
+                EffectManager.SpawnEffect(EntityStates.JellyfishMonster.JellyNova.novaEffectPrefab, new EffectData
+                {
+                    origin = characterBody.corePosition,
+                    scale = radius,
+                    rotation = Quaternion.identity,
+
+                }, true);
 
                 new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.decayPlusUltraHealthCostCoefficient).Send(NetworkDestination.Clients);
                 BlastAttack.Result result = blastAttack.Fire();
