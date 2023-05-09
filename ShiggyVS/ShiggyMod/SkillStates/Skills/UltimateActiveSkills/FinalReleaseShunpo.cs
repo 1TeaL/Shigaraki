@@ -43,7 +43,10 @@ namespace ShiggyMod.SkillStates
             if (!this.startedStateGrounded)
             {
                 //need better animation
-                this.PlayAnimation("Body", "Jump");
+                base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+                base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", slideDuration, 0.05f);
+                //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+                AkSoundEngine.PostEvent("ShiggySlide", base.gameObject);
                 Vector3 velocity = base.characterMotor.velocity;
                 velocity.y = base.characterBody.jumpPower;
                 base.characterMotor.velocity = velocity;
@@ -76,7 +79,6 @@ namespace ShiggyMod.SkillStates
         {
             base.OnExit();
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
-            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             if (this.characterModel)
             {
                 this.characterModel.invisibilityCount--;

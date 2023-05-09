@@ -44,7 +44,7 @@ namespace ShiggyMod.SkillStates
             
             PlayCrossfade("RightArm, Override", "RightArmDetonate", "Attack.playbackRate", duration, 0.1f);
             Transform modelTransform = base.GetModelTransform();
-            //AkSoundEngine.PostEvent(2085946697, base.gameObject);
+            //AkSoundEngine.PostEvent("ShiggyExplosion", base.gameObject);
             this.soundID = Util.PlaySound(JellyNova.chargingSoundString, base.gameObject);
             
             

@@ -69,7 +69,7 @@ namespace ShiggyMod.Modules.Networking
 
             foreach (EntityStateMachine stateMachine in stateMachines)
             {
-                if (stateMachine.customName == "Weapon")
+                if (stateMachine.customName == "Slide")
                 {
                     stateMachine.SetState(new FinalReleaseGetsuga());
                     return;

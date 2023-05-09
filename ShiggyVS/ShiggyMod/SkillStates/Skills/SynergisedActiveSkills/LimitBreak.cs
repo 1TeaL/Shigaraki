@@ -21,6 +21,10 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
 
             //play animation, also need to play particles in controller
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.PlayCrossfade("FullBody, Override", "FullBodyUnleash", "Attack.playbackRate", duration, 0.05f);
+            //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            //AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
             EffectManager.SpawnEffect(Assets.multCryoExplosionEffect, new EffectData
             {
                 origin = base.transform.position,

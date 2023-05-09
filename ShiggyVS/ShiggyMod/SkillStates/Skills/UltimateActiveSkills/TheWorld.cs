@@ -35,6 +35,10 @@ namespace ShiggyMod.SkillStates
 
             }, true);
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.PlayCrossfade("FullBody, Override", "FullBodyTheWorld", "Attack.playbackRate", duration, 0.05f);
+            //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            //AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
 
         }
         public override void OnExit()

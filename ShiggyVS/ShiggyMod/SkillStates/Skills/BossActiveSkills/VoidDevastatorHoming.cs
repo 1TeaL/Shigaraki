@@ -45,9 +45,11 @@ namespace ShiggyMod.SkillStates
             //    EffectManager.SimpleMuzzleFlash(FireVoidMissiles.muzzleEffectPrefab, base.gameObject, MuzzleString, false);
             //}
 
-            AkSoundEngine.PostEvent(3660048432, base.gameObject);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
         }

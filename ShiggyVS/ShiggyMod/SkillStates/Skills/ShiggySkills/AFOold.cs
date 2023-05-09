@@ -208,7 +208,7 @@ namespace ShiggyMod.SkillStates
             var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
             GameObject newbodyPrefab = BodyCatalog.FindBodyPrefab(name);
 
-            AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
+            AkSoundEngine.PostEvent("ShiggyAFO", characterBody.gameObject);
 
             if (hurtBox.healthComponent.body.isElite)
             {

@@ -39,10 +39,12 @@ namespace ShiggyMod.SkillStates
 			Util.PlaySound(FireLaser.attackSoundString, base.gameObject);
 			string text = "LHand";
 
-			base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-			PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
-			AkSoundEngine.PostEvent(3660048432, base.gameObject);
-			if (FireLaser.effectPrefab)
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+			//base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+			base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+			AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            if (FireLaser.effectPrefab)
 			{
 				EffectManager.SimpleMuzzleFlash(FireLaser.effectPrefab, base.gameObject, text, false);
 			}

@@ -40,7 +40,11 @@ namespace ShiggyMod.SkillStates
             damageType = DamageType.Stun1s;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayAnimation("FullBody, Override", "Slam", "Attack.playbackRate", fireTime * 2f);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            //PlayAnimation("FullBody, Override", "Slam", "Attack.playbackRate", fireTime * 2f);
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             if (Shiggycon && base.isAuthority)
@@ -93,7 +97,7 @@ namespace ShiggyMod.SkillStates
             Vector3 latestposition = base.transform.position;
             if (base.fixedAge > this.fireTime && !hasFired && base.isAuthority)
             {
-                AkSoundEngine.PostEvent(4108468048, base.gameObject);
+                AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
                 hasFired = true;
                 blastAttack.position = latestposition;
                 EffectManager.SpawnEffect(Modules.Assets.parentslamEffect, new EffectData

@@ -24,6 +24,7 @@ namespace ShiggyMod.Modules
         internal static float afterburnerGain = 30f;
         internal static float lysateGain = 15f;
         internal const float airwalkEnergyFraction = 0.1f;
+        internal const float AFOEnergyCost = 50f;
 
 
         internal const float vulturePushRange = 70f;
@@ -408,6 +409,8 @@ namespace ShiggyMod.Modules
 
         internal static float reversalRadius = 15f;
         internal static float reversalDamageCoefficient = 1f;
+        internal static float reversalDuration = 0.5f;
+        internal static float reversalSpeedCoefficient = 2f;
         internal static float reversalProcCoefficient = 1f;
 
         internal static float OFAFOHealthCostCoefficient = 0.2f;

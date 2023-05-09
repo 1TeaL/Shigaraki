@@ -55,10 +55,11 @@ namespace ShiggyMod.SkillStates
                 this.animator = modelTransform.GetComponent<Animator>();
             }
 
-            //this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration / 2, 0.1f);
-            //PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration/2, 0.1f);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
 
             Util.PlayAttackSpeedSound(ThrowGlaive.attackSoundString, base.gameObject, this.attackSpeedStat);
             if (Shiggycon && base.isAuthority)

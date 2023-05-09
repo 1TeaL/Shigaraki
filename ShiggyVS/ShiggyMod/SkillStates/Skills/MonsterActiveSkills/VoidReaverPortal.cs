@@ -43,7 +43,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmDetonate", "Attack.playbackRate", duration, 0.1f);
-            AkSoundEngine.PostEvent(2085946697, base.gameObject);
+            AkSoundEngine.PostEvent("ShiggyExplosion", base.gameObject);
         }
 
         public void PortalFire()

@@ -13,7 +13,7 @@ namespace ShiggyMod.SkillStates
     //merc + air cannon
     public class WindSlash : BaseSkillState
     {
-        public float baseDuration = 0.6f;
+        public float baseDuration = 0.8f;
         public float duration;
         public ShiggyController Shiggycon;
 
@@ -34,12 +34,14 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "LHand";
             Shiggycon = gameObject.GetComponent<ShiggyController>();
+            Shiggycon.boolswordAura= true;
 
             this.animator = base.GetModelAnimator();
-            //this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration / 2, 0.1f);
-            //PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration/2, 0.1f);
+            //int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "RArmGetsuga", "Attack.playbackRate", duration, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
 
 
             FireWind();
@@ -96,6 +98,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            Shiggycon.boolswordAura = false;
             this.animator.SetBool("false", true);
             //PlayCrossfade("RightArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
             PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);

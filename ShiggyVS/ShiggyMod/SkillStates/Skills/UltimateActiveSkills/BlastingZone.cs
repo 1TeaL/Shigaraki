@@ -42,8 +42,17 @@ namespace ShiggyMod.SkillStates
 
             //play squall blasting zone animation?
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("FullBody, Override", "StLouis45", "Attack.playbackRate", StaticValues.blastingZoneWindup, 0.01f);
+            base.PlayCrossfade("FullBody, Override", "FullBodyMugetsu", "Attack.playbackRate", StaticValues.blastingZoneWindup, 0.05f);
+            //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
 
+            EffectManager.SpawnEffect(Modules.Assets.blastingZoneEffect, new EffectData
+            {
+                origin = FindModelChild("BlastingZonePosition").position,
+                scale = 1f,
+                rotation = Quaternion.identity,
+
+            }, true);
 
             blastAttack = new BlastAttack();
             blastAttack.radius = blastRadius;

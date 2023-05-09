@@ -28,6 +28,12 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
+
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.PlayCrossfade("FullBody, Override", "FullBodyBankai" , "Attack.playbackRate", duration, 0.05f);
+            //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            //AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+
             //play bankai animation- maybe the number one instrumentals? particles too like as if you're holding zangetsu
             energySystem = base.gameObject.GetComponent<EnergySystem>(); 
             //check minimum energy requirement so we don't get back to back mugetsu. 

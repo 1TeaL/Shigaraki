@@ -95,7 +95,9 @@ namespace ShiggyMod.SkillStates
 
             //animation with right arm in front like tsuna from hitman reborn doing the blast
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            //PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", entryDuration, 0.1f);
+            base.PlayCrossfade("FullBody, Override", "FullBodyXBurner", "Attack.playbackRate", entryDuration, 0.05f);
+            //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             //find shooting direction from the beginning, animation to link up too
@@ -193,8 +195,8 @@ namespace ShiggyMod.SkillStates
                 Destroy(laserEffect);
             }
             LoopSoundManager.StopSoundLoopLocal(this.loopPtr);
-            PlayCrossfade("LeftArm, Override", "Empty", "Attack.playbackRate", 0.1f, 0.1f);
-            
+            base.PlayCrossfade("FullBody, Override", "BufferEmpty", "Attack.playbackRate", 0.05f, 0.05f);
+
         }
         private void FireBeam()
         {
@@ -239,6 +241,7 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
+            base.PlayCrossfade("FullBody, Override", "FullBodyXBurner", "Attack.playbackRate", entryDuration, 0.05f);
             switch (state)
             {
                 case BeamState.CHARGE:

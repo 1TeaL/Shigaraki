@@ -171,7 +171,7 @@ namespace ShiggyMod.SkillStates
 					blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
                     Util.PlaySound(EntityStates.Bison.Headbutt.attackSoundString, base.gameObject);
 
-					AkSoundEngine.PostEvent(4108468048, base.gameObject);
+					AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
 					
 					
 					if (blastAttack.Fire().hitCount > 0)

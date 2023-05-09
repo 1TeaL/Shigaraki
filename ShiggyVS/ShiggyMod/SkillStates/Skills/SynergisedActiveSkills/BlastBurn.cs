@@ -29,6 +29,11 @@ namespace ShiggyMod.SkillStates
             fireInterval = StaticValues.blastBurnBaseInterval / attackSpeedStat;
             radius = StaticValues.blastBurnStartRadius;
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
 
             Ray aimRay = base.GetAimRay();
 
@@ -87,6 +92,9 @@ namespace ShiggyMod.SkillStates
                     blastAttack.position = aimRay.origin;
                     blastAttack.Fire();
                     EffectManager.SimpleMuzzleFlash(FireFireball.effectPrefab, base.gameObject, muzzleString, false);
+                    int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+                    //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
+                    base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
 
                     //increment radius size after each attack
                     radius += StaticValues.blastBurnIncrementRadius;

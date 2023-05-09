@@ -42,7 +42,10 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(1f);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            AkSoundEngine.PostEvent(3660048432, base.gameObject);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
             this.muzzleString = "RHand";
 
 
@@ -56,7 +59,11 @@ namespace ShiggyMod.SkillStates
         }
          public void Fire()
         {
-            PlayCrossfade("LeftArm, Override", "LeftArmPunch","Attack.playbackRate", fireInterval, 0.1f);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
 
             base.characterBody.AddSpreadBloom(1f);
             base.AddRecoil(-1f , 2f, -0.5f , 0.5f);

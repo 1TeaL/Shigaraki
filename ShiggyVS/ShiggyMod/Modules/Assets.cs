@@ -93,6 +93,11 @@ namespace ShiggyMod.Modules
         public static GameObject decayattackEffect;
         public static GameObject decaybuffEffect;
         public static GameObject decayspreadEffect;
+        internal static GameObject AFOLineRenderer;
+        public static GameObject blastingZoneEffect;
+        //melee swing
+        internal static GameObject shiggySwingEffect;
+        internal static GameObject shiggyHitImpactEffect;
 
 
         //game effects
@@ -244,6 +249,13 @@ namespace ShiggyMod.Modules
                 return;
             }
 
+            //sword swing
+            shiggySwingEffect = Assets.LoadEffect("SwingEffect", true);
+            shiggyHitImpactEffect = Assets.LoadEffect("ImpactEffect");
+            blastingZoneEffect = Assets.LoadEffect("BlastingZoneSword", true);
+
+            //AFO effects
+            AFOLineRenderer = mainAssetBundle.LoadAsset<GameObject>("LineRendererAFO");
 
             //warbanner material setup
             Material warbannerMat = Addressables.LoadAssetAsync<Material>(key: "RoR2/Base/WardOnLevel/matWarbannerSphereIndicator.mat").WaitForCompletion();

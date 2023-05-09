@@ -17,7 +17,7 @@ namespace ShiggyMod.SkillStates
 
             //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
 
-            this.hitboxName = "AroundHitbox";
+            this.hitboxName = "DecayHitbox";
 
             this.damageCoefficient = Modules.StaticValues.decayattackDamageCoefficient;
             this.procCoefficient = 1f;
@@ -34,14 +34,32 @@ namespace ShiggyMod.SkillStates
             this.swingSoundString = "ShiggyMelee";
             this.hitSoundString = "ShiggyMelee";
             this.muzzleString = "RHand";
-            this.swingEffectPrefab = Modules.Assets.decayspreadEffect;
-            this.hitEffectPrefab = Modules.Assets.decayspreadEffect;
+            this.swingEffectPrefab = Modules.Assets.shiggySwingEffect;
+            this.hitEffectPrefab = Modules.Assets.shiggyHitImpactEffect;
 
             this.impactSound = Modules.Assets.decayHitSoundEffect.index;
 
             base.OnEnter();
 
         }
+
+
+        private string ChooseAnimationString()
+        {
+            string returnVal = "Swing1";
+            switch (this.swingIndex)
+            {
+                case 0:
+                    returnVal = "Swing1";
+                    break;
+                case 1:
+                    returnVal = "Swing2";
+                    break;
+            }
+
+            return returnVal;
+        }
+
 
         //public override void OnExit()
         //{
@@ -76,10 +94,10 @@ namespace ShiggyMod.SkillStates
         //}
 
 
-        //protected override void PlayAttackAnimation()
-        //{
-        //    base.PlayAttackAnimation();
-        //}
+        protected override void PlayAttackAnimation()
+        {
+            base.PlayAttackAnimation();
+        }
 
         //protected override void PlaySwingEffect()
         //{
@@ -94,9 +112,9 @@ namespace ShiggyMod.SkillStates
 
         protected override void SetNextState()
         {
-            //int index = this.swingIndex;
-            //if (index == 0) index = 1;
-            //else index = 0;
+            int index = this.swingIndex;
+            if (index == 0) index = 1;
+            else index = 0;
 
             this.outer.SetNextState(new Decay
             {

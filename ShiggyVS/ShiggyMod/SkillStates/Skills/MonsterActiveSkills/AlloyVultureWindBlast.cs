@@ -22,8 +22,13 @@ namespace ShiggyMod.SkillStates
             if(pushRange < Modules.StaticValues.vulturePushRange) 
             {
                 pushRange = Modules.StaticValues.vulturePushRange;
-            } 
+            }
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
             AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
 
             new PerformForceNetworkRequest(characterBody.masterObjectId, base.GetAimRay().origin - GetAimRay().direction, base.GetAimRay().direction, pushRange, pushRange, characterBody.damage * Modules.StaticValues.vultureDamageCoefficient, Modules.StaticValues.vulturePushAngle, true).Send(NetworkDestination.Clients);

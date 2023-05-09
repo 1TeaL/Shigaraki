@@ -37,22 +37,44 @@ using ShiggyMod.Modules.Networking;
 
 namespace ShiggyMod
 {
+    //neeed this!
+    [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.bepis.r2api.sound", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.bepis.r2api.language", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.bepis.r2api.prefab", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.bepis.r2api.networking", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.bepis.r2api.recalculatestats", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.bepis.r2api.damagetype", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.bepis.r2api.dot", BepInDependency.DependencyFlags.HardDependency)]
+
+    //don't need 
+    //[BepInDependency("com.bepis.r2api.loadout", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.artifactcode", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.commandhelper", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.content_management", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.damagetype", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.deployable", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.difficulty", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.director", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.dot", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.elites", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.items", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.lobbyconfig", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.orb", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.lobbyconfig", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.recalculatestats", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.sceneasset", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.tempvisualeffect", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.unlockable", BepInDependency.DependencyFlags.HardDependency)]
+
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.KingEnderBrine.ExtraSkillSlots", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
-    [R2APISubmoduleDependency(new string[]
-    {
-        "PrefabAPI",
-        "LanguageAPI",
-        "SoundAPI",
-        "DotAPI",
-        "RecalculateStatsAPI",
-        "NetworkingAPI",
-    })]
 
+    
     public class ShiggyPlugin : BaseUnityPlugin
     {
         // if you don't change these you're giving permission to deprecate the mod-
@@ -125,6 +147,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<SetShunpoStateMachine>();
             NetworkingAPI.RegisterMessageType<SetMugetsuStateMachine>();
             NetworkingAPI.RegisterMessageType<SetGetsugaStateMachine>();
+            NetworkingAPI.RegisterMessageType<ForceGiveQuirkState>();
 
 
 
@@ -985,7 +1008,7 @@ namespace ShiggyMod
                 {
                     var shiggycon = self.gameObject.GetComponent<ShiggyController>();
                     
-                    AkSoundEngine.PostEvent(2108803202, self.gameObject);
+                    AkSoundEngine.PostEvent("ShiggyDeath", self.gameObject);
                 }
                 var buffcon = self.gameObject.GetComponent<BuffController>();
                 if (buffcon)
@@ -1641,11 +1664,11 @@ namespace ShiggyMod
                 }
                 if (dekuFound)
                 {
-                    AkSoundEngine.PostEvent(2848575038, self.gameObject);
+                    AkSoundEngine.PostEvent("ShiggyDekuCollab", self.gameObject);
                 }
                 else
                 {
-                    AkSoundEngine.PostEvent(1896314350, self.gameObject);
+                    AkSoundEngine.PostEvent("ShiggyEntrance", self.gameObject);
                 }
             }
             //if (gameObject.name.Contains("DekuDisplay"))

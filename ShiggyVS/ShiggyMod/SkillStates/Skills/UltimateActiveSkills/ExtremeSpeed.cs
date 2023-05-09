@@ -46,11 +46,12 @@ namespace ShiggyMod.SkillStates
             }
 
             base.characterMotor.velocity = Vector3.zero;
-			base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-			base.PlayAnimation("FullBody, Override", "SmashChargeAttack", "Attack.playbackRate", 1f);
-			//Util.PlaySound(FireMegaNova.novaSoundString, base.gameObject);
-			//EffectManager.SimpleMuzzleFlash(this.muzzlePrefab, base.gameObject, this.lMuzzleString, false);
-			EffectManager.SimpleMuzzleFlash(this.blastEffectPrefab, base.gameObject, this.muzzleString, false);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", duration, 0.05f);
+            //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            //Util.PlaySound(FireMegaNova.novaSoundString, base.gameObject);
+            EffectManager.SimpleMuzzleFlash(this.blastEffectPrefab, base.gameObject, this.muzzleString, false);
 			
 			Vector3 startPos = characterBody.transform.position;
 			Ray aimRay = base.GetAimRay();

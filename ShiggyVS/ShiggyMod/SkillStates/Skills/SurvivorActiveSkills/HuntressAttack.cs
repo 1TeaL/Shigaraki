@@ -47,9 +47,12 @@ namespace ShiggyMod.SkillStates
                 base.characterBody.SetAimTimer(this.duration + 1f);
             }
             damageType = DamageType.Generic;
-            
+
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration, 0.1f);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
             Transform modelTransform = base.GetModelTransform();

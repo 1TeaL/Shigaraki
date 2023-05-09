@@ -23,6 +23,7 @@ using Object = UnityEngine.Object;
 using static UnityEngine.ParticleSystem.PlaybackState;
 using EntityStates.VoidMegaCrab.BackWeapon;
 using RiskOfOptions.Components.Panel;
+using Unity.Baselib.LowLevel;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -147,16 +148,46 @@ namespace ShiggyMod.Modules.Survivors
         //AFO
         private bool informAFOToPlayers;
         private bool hasStolen;
-        private float stopwatch;
+        private float stealQuirkStopwatch;
         private bool hasRemoved;
-        private float stopwatch2;
+        private float removeQuirkStopwatch;
         private float theWorldTimer;
+        private float giveQuirkStopwatch;
+
+        //Particles
+        public ParticleSystem RARM;
+        public ParticleSystem LARM;
+        public ParticleSystem OFA;
+        public ParticleSystem FINALRELEASEAURA;
+        public ParticleSystem SWORDAURA;
+
+        //particle bools
+        public bool boolenoughEnergyAura;
+        public bool booloneForAllAura;
+        public bool boolfinalReleaseAura;
+        public bool boolswordAura;
 
         public void Awake()
         {
 
             child = GetComponentInChildren<ChildLocator>();
             anim = GetComponentInChildren<Animator>();
+
+
+            if (child)
+            {
+                LARM = child.FindChild("lArmAura").GetComponent<ParticleSystem>();
+                RARM = child.FindChild("rArmAura").GetComponent<ParticleSystem>();
+                OFA = child.FindChild("OFAlightning").GetComponent<ParticleSystem>();
+                FINALRELEASEAURA = child.FindChild("finalReleaseAura").GetComponent<ParticleSystem>();
+                SWORDAURA = child.FindChild("WindSword").GetComponent<ParticleSystem>();
+            }
+
+            LARM.Stop();
+            RARM.Stop();
+            OFA.Stop();
+            FINALRELEASEAURA.Stop();
+            SWORDAURA.Stop();
 
             indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator"));
             passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
@@ -1004,7 +1035,80 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Update()
         {
+            //particle effects
+            //arm aura
+            if(boolenoughEnergyAura || energySystem.currentplusChaos > StaticValues.AFOEnergyCost)
+            {
+                if (LARM.isStopped)
+                {
+                    LARM.Play();
+                }
+                if (RARM.isStopped)
+                {
+                    RARM.Play();
+                }
 
+            }
+            else
+            {
+                if (LARM.isPlaying)
+                {
+                    LARM.Stop();
+                }
+                if (RARM.isPlaying)
+                {
+                    RARM.Stop();
+                }
+            }
+
+            //sword aura
+            if(boolswordAura || characterBody.HasBuff(Buffs.finalReleaseBuff))
+            {
+                if (SWORDAURA.isStopped)
+                {
+                    SWORDAURA.Play();
+                }
+            }
+            else if (!boolswordAura && !characterBody.HasBuff(Buffs.finalReleaseBuff))
+            {
+                if (SWORDAURA.isPlaying)
+                {
+                    SWORDAURA.Stop();
+                }
+
+            }
+            //final release aura
+            if (characterBody.HasBuff(Buffs.finalReleaseBuff))
+            {
+                if (FINALRELEASEAURA.isStopped)
+                {
+                    FINALRELEASEAURA.Play();
+                }
+
+            }
+            else if (!characterBody.HasBuff(Buffs.finalReleaseBuff))
+            {
+
+                if (FINALRELEASEAURA.isPlaying)
+                {
+                    FINALRELEASEAURA.Stop();
+                }
+            }
+            //OFA aura
+            if(booloneForAllAura || characterBody.HasBuff(Buffs.OFABuff) || characterBody.HasBuff(Buffs.OFAFOBuff) || characterBody.HasBuff(Buffs.limitBreakBuff))
+            {
+                if (OFA.isStopped)
+                {
+                    OFA.Play();
+                }
+            }
+            else if (!booloneForAllAura && !characterBody.HasBuff(Buffs.OFABuff) && !characterBody.HasBuff(Buffs.OFAFOBuff) && !characterBody.HasBuff(Buffs.limitBreakBuff))
+            {
+                if(OFA.isPlaying)
+                {
+                    OFA.Stop();
+                }
+            }
             //final release buff
             if (characterBody.HasBuff(Buffs.finalReleaseBuff))
             {
@@ -1070,7 +1174,7 @@ namespace ShiggyMod.Modules.Survivors
 
 
                         Debug.Log("getsuga");
-                        //new SetGetsugaStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                        new SetGetsugaStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
 
                         Ray aimRay = characterBody.inputBank.GetAimRay();
 
@@ -1083,17 +1187,17 @@ namespace ShiggyMod.Modules.Survivors
                         }, true);
 
 
-                        ProjectileManager.instance.FireProjectile(
-                            Modules.Assets.mercWindProj, //prefab
-                            aimRay.origin, //position
-                            Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
-                            base.gameObject, //owner
-                            characterBody.damage* StaticValues.finalReleaseDamageCoefficient, //damage
-                            200f, //force
-                            characterBody.RollCrit(), //crit
-                            DamageColorIndex.Default, //damage color
-                            null, //target
-                            -1); //speed }
+                        //ProjectileManager.instance.FireProjectile(
+                        //    Modules.Assets.mercWindProj, //prefab
+                        //    aimRay.origin, //position
+                        //    Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
+                        //    base.gameObject, //owner
+                        //    characterBody.damage* StaticValues.finalReleaseDamageCoefficient, //damage
+                        //    200f, //force
+                        //    characterBody.RollCrit(), //crit
+                        //    DamageColorIndex.Default, //damage color
+                        //    null, //target
+                        //    -1); //speed }
 
                         
                     }
@@ -1121,14 +1225,33 @@ namespace ShiggyMod.Modules.Survivors
             {
                 if (Config.AFOHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
                 {
-                    stopwatch += Time.deltaTime;
-                    if (!this.hasStolen && stopwatch > Config.holdButtonAFO.Value)
+                    stealQuirkStopwatch += Time.deltaTime;
+                    if (!this.hasStolen && stealQuirkStopwatch > Config.holdButtonAFO.Value)
                     {
-                        hasStolen = true;
-                        Debug.Log("Target");
-                        Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
-                        AkSoundEngine.PostEvent(1719197672, this.gameObject);
-                        StealQuirk(trackingTarget);
+
+                        //energy cost
+                        float plusChaosflatCost = (StaticValues.AFOEnergyCost) - (energySystem.costflatplusChaos);
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                        if (plusChaosCost < 0f) plusChaosCost = 0f;
+
+                        if (energySystem.currentplusChaos < plusChaosCost)
+                        {
+                            Chat.AddMessage($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>");
+                            energySystem.quirkGetInformation($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>", 1f);
+                        }
+                        else if (energySystem.currentplusChaos >= plusChaosCost)
+                        {
+                            energySystem.SpendplusChaos(plusChaosCost);
+                               
+                            hasStolen = true;
+                            Debug.Log("Target");
+                            Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
+                            AkSoundEngine.PostEvent("ShiggyAFO", this.gameObject);
+                            StealQuirk(trackingTarget);
+
+                        }
 
                     }
 
@@ -1139,7 +1262,43 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     hasStolen = false;
                     hasQuirk = false;
-                    stopwatch = 0f;
+                    stealQuirkStopwatch = 0f;
+                }
+
+                if (Config.AFOGiveHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
+                {
+                    giveQuirkStopwatch += Time.deltaTime;
+                    if (!this.hasStolen && giveQuirkStopwatch > Config.holdButtonAFO.Value)
+                    {
+
+                        //energy cost
+                        float plusChaosflatCost = (StaticValues.AFOEnergyCost) - (energySystem.costflatplusChaos);
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                        if (plusChaosCost < 0f) plusChaosCost = 0f;
+
+                        if (energySystem.currentplusChaos < plusChaosCost)
+                        {
+                            Chat.AddMessage($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>");
+                            energySystem.quirkGetInformation($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>", 1f);
+                        }
+                        else if (energySystem.currentplusChaos >= plusChaosCost)
+                        {
+                            energySystem.SpendplusChaos(plusChaosCost);
+
+                            hasStolen = true;
+                            Debug.Log("Target");
+                            Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
+                            AkSoundEngine.PostEvent("ShiggyAFO", this.gameObject);
+                            GiveQuirk(trackingTarget);
+
+                        }
+
+                    }
+
+                    //Debug.Log(hasStolen + "hasstolen");
+
                 }
             }
             
@@ -1147,8 +1306,8 @@ namespace ShiggyMod.Modules.Survivors
             if (Config.RemoveHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
             {
 
-                stopwatch2 += Time.deltaTime;
-                if (!this.hasRemoved && stopwatch2 > Config.holdButtonAFO.Value)
+                removeQuirkStopwatch += Time.deltaTime;
+                if (!this.hasRemoved && removeQuirkStopwatch > Config.holdButtonAFO.Value)
                 {
                     hasRemoved = true;
 
@@ -1191,7 +1350,7 @@ namespace ShiggyMod.Modules.Survivors
             else if (Config.RemoveHotkey.Value.IsUp())
             {
                 hasRemoved = false;
-                stopwatch2 = 0f;
+                removeQuirkStopwatch = 0f;
             } 
         }
 
@@ -1427,6 +1586,41 @@ namespace ShiggyMod.Modules.Survivors
         }
 
         //steal quirk code
+        private void GiveQuirk(HurtBox hurtBox)
+        {
+            AFOEffectController AFOCon = hurtBox.healthComponent.body.gameObject.AddComponent<AFOEffectController>();
+            AFOCon.attackerBody = characterBody;
+            AFOCon.RHandChild = child.FindChild("RHand").transform;
+
+            Chat.AddMessage("<style=cIsUtility>Choose a Passive Quirk to Give</style>");
+            energySystem.quirkGetInformation("<style=cIsUtility>Choose a Passive Quirk to Give</style>", 1f);
+
+
+            var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
+            GameObject newbodyPrefab = BodyCatalog.FindBodyPrefab(name);
+            new ForceGiveQuirkState(characterBody.masterObjectId, hurtBox.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
+
+            //characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggymastercon.skillListToOverrideOnRespawn[0], GenericSkill.SkillOverridePriority.Contextual);
+            //characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggymastercon.skillListToOverrideOnRespawn[1], GenericSkill.SkillOverridePriority.Contextual);
+            //characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggymastercon.skillListToOverrideOnRespawn[2], GenericSkill.SkillOverridePriority.Contextual);
+            //characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggymastercon.skillListToOverrideOnRespawn[3], GenericSkill.SkillOverridePriority.Contextual);
+            //extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggymastercon.skillListToOverrideOnRespawn[4], GenericSkill.SkillOverridePriority.Contextual);
+            //extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggymastercon.skillListToOverrideOnRespawn[5], GenericSkill.SkillOverridePriority.Contextual);
+            //extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggymastercon.skillListToOverrideOnRespawn[6], GenericSkill.SkillOverridePriority.Contextual);
+            //extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggymastercon.skillListToOverrideOnRespawn[7], GenericSkill.SkillOverridePriority.Contextual);
+
+            //characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.giveDef, GenericSkill.SkillOverridePriority.Contextual);
+            //characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.giveDef, GenericSkill.SkillOverridePriority.Contextual);
+            //characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.giveDef, GenericSkill.SkillOverridePriority.Contextual);
+            //characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.giveDef, GenericSkill.SkillOverridePriority.Contextual);
+
+            //extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.giveDef, GenericSkill.SkillOverridePriority.Contextual);
+            //extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.giveDef, GenericSkill.SkillOverridePriority.Contextual);
+            //extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.giveDef, GenericSkill.SkillOverridePriority.Contextual);
+            //extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.giveDef, GenericSkill.SkillOverridePriority.Contextual);
+
+        }
+        //steal quirk code
         private void StealQuirk(HurtBox hurtBox)
         {
             var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
@@ -1434,8 +1628,9 @@ namespace ShiggyMod.Modules.Survivors
 
             Debug.Log(name + "name");
             Debug.Log(newbodyPrefab + "newbodyprefab");
-            //AkSoundEngine.PostEvent(3192656820, characterBody.gameObject);
+            //AkSoundEngine.PostEvent("ShiggyAFO", characterBody.gameObject);
 
+            
 
             //elite aspects
             if (hurtBox.healthComponent.body.isElite)
@@ -1500,6 +1695,11 @@ namespace ShiggyMod.Modules.Survivors
 
             if (StaticValues.bodyNameToSkillDef.ContainsKey(newbodyPrefab.name))
             {
+                AFOEffectController AFOCon = hurtBox.healthComponent.body.gameObject.AddComponent<AFOEffectController>();
+                AFOCon.attackerBody = characterBody;
+                AFOCon.RHandChild = child.FindChild("RHand").transform;
+
+
                 RoR2.Skills.SkillDef skillDef = StaticValues.bodyNameToSkillDef[newbodyPrefab.name];
                 RoR2.Skills.SkillDef skillDefUpgrade = StaticValues.baseSkillUpgrade[skillDef.name];
                 RoR2.Skills.SkillDef skillDefUltimate = StaticValues.synergySkillUpgrade[skillDefUpgrade.name];

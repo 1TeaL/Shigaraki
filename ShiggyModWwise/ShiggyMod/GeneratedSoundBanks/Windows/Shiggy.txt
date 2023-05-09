@@ -1,13 +1,22 @@
 Event	ID	Name			Wwise Object Path	Notes
 	356992735	ShiggyAirCannon			\Default Work Unit\ShiggyAirCannon	
+	1479078104	ShiggyOFAGet			\Default Work Unit\ShiggyOFAGet	
 	1896314350	ShiggyEntrance			\Default Work Unit\ShiggyEntrance	
+	2081783768	ShiggyBankai			\Default Work Unit\ShiggyBankai	
 	2085946697	ShiggyExplosion			\Default Work Unit\ShiggyExplosion	
 	2108803202	ShiggyDeath			\Default Work Unit\ShiggyDeath	
+	2186207816	ShiggyGetsuga			\Default Work Unit\ShiggyGetsuga	
 	2422625683	ShiggySlide			\Default Work Unit\ShiggySlide	
+	2706453904	ShiggyHitSFX			\Default Work Unit\ShiggyHitSFX	
+	2758295745	ShiggyStrongAttack			\Default Work Unit\ShiggyStrongAttack	
+	2767207246	ShiggyLimitBreak			\Default Work Unit\ShiggyLimitBreak	
 	2848575038	ShiggyDekuCollab			\Default Work Unit\ShiggyDekuCollab	
+	2925200724	ShiggyOFA			\Default Work Unit\ShiggyOFA	
 	3192656820	ShiggyAFO			\Default Work Unit\ShiggyAFO	
 	3660048432	ShiggyAttack			\Default Work Unit\ShiggyAttack	
+	3733455623	ShiggyTheWorld			\Default Work Unit\ShiggyTheWorld	
 	4108468048	ShiggyMelee			\Default Work Unit\ShiggyMelee	
+	4115673742	ShiggyDriveForm			\Default Work Unit\ShiggyDriveForm	
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	3673881719	Volume_SFX			\Default Work Unit\Volume_SFX	
@@ -21,7 +30,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	99312034	0000000000000001 (5)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000001 (5)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyAttack\0000000000000001 (5)		14488
 	102655079	0000000000000000 (9)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000000 (9)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Entrance\ShiggyEntrance\0000000000000000 (9)		16953
 	175387214	0000000000000014	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000014_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\DekuCollab\ShiggyDekuCollab\0000000000000014		48629
-	181664772	000000000000000e	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000000e_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\DekuCollab\ShiggyDekuCollab\000000000000000e		34233
+	181664772	000000000000000e	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000000e_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\000000000000000e		34233
 	188799084	000000000000004e [1]	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000004e [1]_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyAirCannon\000000000000004e [1]		23125
 	194972262	aircannon wind	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\aircannon wind_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyAirCannon\aircannon wind		14984
 	199160016	0000000000000041 [1]	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000041 [1]_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggySlide\0000000000000041 [1]		5394
@@ -38,7 +47,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	324721484	death gameover2	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\death gameover2_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\death gameover2		25451
 	329282471	000000000000000a	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000000a_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Entrance\ShiggyEntrance\000000000000000a		40133
 	333068833	000000000000000a (3)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000000a (3)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Entrance\ShiggyEntrance\000000000000000a (3)		26822
-	367081072	0000000000000002 (4)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000002 (4)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\0000000000000002 (4)		10517
+	367081072	0000000000000002 (4)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000002 (4)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyAttack\0000000000000002 (4)		10517
 	391539909	butsubusu attack	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\butsubusu attack_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyAttack\butsubusu attack		15027
 	392692930	game entrance	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\game entrance_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Entrance\ShiggyEntrance\game entrance		25439
 	408079690	000000000000000d	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000000d_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\000000000000000d		44400
@@ -67,24 +76,34 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	649782710	0000000000000013	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000013_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\DekuCollab\ShiggyDekuCollab\0000000000000013		30029
 	704219332	0000000000000001 (4)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000001 (4)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Entrance\ShiggyEntrance\0000000000000001 (4)		10166
 	725948295	death strong	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\death strong_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\death strong		19627
+	731672971	theWorldSFX	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\theWorldSFX_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\TheWorld\ShiggyTheWorld\theWorldSFX		45267
 	754321419	0000000000000001 (3)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000001 (3)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\0000000000000001 (3)		21837
+	762313697	smashpunch3	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\smashpunch3_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\HitSFX\ShiggyHitSFX\smashpunch3		13423
 	785388496	entrance gameover	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\entrance gameover_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Entrance\ShiggyEntrance\entrance gameover		21551
+	790462649	smashpunchKO	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\smashpunchKO_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\StrongAttacks\ShiggyStrongAttack\smashpunchKO		25822
+	791357397	star platinum3	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\star platinum3_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\StrongAttacks\ShiggyStrongAttack\star platinum3		21721
 	805419587	Bites the Dust Sound Effects Only	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\Bites the Dust Sound Effects Only_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyExplosion\Bites the Dust Sound Effects Only		4617
 	812354305	death guah	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\death guah_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\death guah		9785
 	813714145	0000000000000054 [1]	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000054 [1]_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyAFO\0000000000000054 [1]		9757
 	848279979	checkmate death	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\checkmate death_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\checkmate death		19182
+	849815317	king crimson 2 (1)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\king crimson 2 (1)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\StrongAttacks\ShiggyStrongAttack\king crimson 2 (1)		49489
 	851262434	0000000000000053 [1]	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000053 [1]_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyAirCannon\0000000000000053 [1]		17957
 	883631834	000000000000000a (1)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000000a (1)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Entrance\ShiggyEntrance\000000000000000a (1)		36938
 	898596964	0000000000000001	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000001_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\0000000000000001		31380
 	918063896	000000000000000c	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000000c_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\DekuCollab\ShiggyDekuCollab\000000000000000c		44567
+	926210678	smashpunch2	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\smashpunch2_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\HitSFX\ShiggyHitSFX\smashpunch2		8094
+	943154425	star platinum3 (1)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\star platinum3 (1)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\StrongAttacks\ShiggyStrongAttack\star platinum3 (1)		47134
 	950782130	death hurt	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\death hurt_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\death hurt		31119
 	959316541	000000000000001b	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000001b_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Entrance\ShiggyEntrance\000000000000001b		37658
+	987519617	star platinum 1	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\star platinum 1_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\StrongAttacks\ShiggyStrongAttack\star platinum 1		25985
 	990754506	0000000000000006 (3)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000006 (3)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Entrance\ShiggyEntrance\0000000000000006 (3)		25024
 	993437681	death guah3	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\death guah3_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\death guah3		11622
 	1001321095	death pinch	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\death pinch_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\death pinch		19354
-	1005306592	Silent	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000003f [1]_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggySlide\Silent		4731
+	1005306592	Silent	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\000000000000003f [1]_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyExplosion\Silent		4731
 	1019073357	0000000000000002 (5)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000002 (5)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyAttack\0000000000000002 (5)		7382
 	1024931971	quick voice attack	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\quick voice attack_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Skills\ShiggyAttack\quick voice attack		3117
+	1029649039	smashpunch1	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\smashpunch1_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\HitSFX\ShiggyHitSFX\smashpunch1		5623
+	1038537274	smashKO	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\smashKO_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\StrongAttacks\ShiggyStrongAttack\smashKO		18165
 	1039527667	death ah	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\death ah_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\death ah		38311
 	1040287584	0000000000000000 (5)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000000 (5)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Entrance\ShiggyEntrance\0000000000000000 (5)		11004
 	1044333995	0000000000000001 (2)	F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\.cache\Windows\SFX\0000000000000001 (2)_3F75BDB9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Master Mixxer\Sfx Mixxer\Death\ShiggyDeath\0000000000000001 (2)		17139

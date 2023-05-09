@@ -150,7 +150,7 @@ namespace ShiggyMod.SkillStates
 
             if (base.isAuthority)
             {
-                AkSoundEngine.PostEvent(4108468048, base.gameObject);
+                AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
                 Ray aimRay = base.GetAimRay();
                 
                 base.characterMotor.velocity *= 0.1f;

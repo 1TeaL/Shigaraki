@@ -9,6 +9,8 @@ using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
 using R2API.Networking;
 using static UnityEngine.ParticleSystem.PlaybackState;
+using EntityStates.Merc;
+using EntityStates.Commando;
 
 namespace ShiggyMod.SkillStates
 {
@@ -17,6 +19,14 @@ namespace ShiggyMod.SkillStates
 
         public CharacterBody enemycharBody;
         private BlastAttack blastAttack;
+        private Vector3 forwardDirection;
+        private float baseslideDuration = StaticValues.reversalDuration;
+        private float basejumpDuration = StaticValues.reversalDuration / 2f;
+        private float slideDuration;
+        private float jumpDuration;
+        private bool startedStateGrounded;
+        private CharacterModel characterModel;
+        private HurtBoxGroup hurtboxGroup;
 
         public override void OnEnter()
         {
@@ -28,22 +38,89 @@ namespace ShiggyMod.SkillStates
             characterBody.characterMotor.Motor.SetPosition(tpPosition);
 
 
+            base.characterDirection.forward = (enemycharBody.corePosition - characterBody.corePosition);
+            
+            if (base.characterMotor)
+            {
+                this.startedStateGrounded = base.characterMotor.isGrounded;
+            }
+            if (!this.startedStateGrounded)
+            {
+                Vector3 velocity = base.characterMotor.velocity;
+                velocity.y = base.characterBody.jumpPower;
+                base.characterMotor.velocity = velocity;
+                return;
+            }
+
+            if (this.characterModel)
+            {
+                this.characterModel.invisibilityCount++;
+            }
+            if (this.hurtboxGroup)
+            {
+                HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
+                int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter + 1;
+                hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
+            }
+            this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
+        }
+
+        private void CreateBlinkEffect(Vector3 origin)
+        {
+            EffectData effectData = new EffectData();
+            effectData.rotation = Util.QuaternionSafeLookRotation(this.forwardDirection);
+            effectData.origin = origin;
+            EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, false);
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if(base.fixedAge > 0.5f)
+            if (base.isAuthority)
             {
-                this.outer.SetNextStateToMain();
-                return;
+                float num = this.startedStateGrounded ? slideDuration : jumpDuration;
+                if (base.inputBank && base.characterDirection)
+                {
+                    base.characterDirection.moveVector = base.inputBank.moveVector;
+                    this.forwardDirection = base.characterDirection.forward;
+                }
+                if (base.characterMotor)
+                {
+                    float num2;
+                    if (this.startedStateGrounded)
+                    {
+                        num2 = SlideState.forwardSpeedCoefficientCurve.Evaluate(base.fixedAge / num);
+                    }
+                    else
+                    {
+                        num2 = SlideState.jumpforwardSpeedCoefficientCurve.Evaluate(base.fixedAge / num);
+                    }
+                    base.characterMotor.rootMotion += num2 * this.moveSpeedStat * attackSpeedStat * this.forwardDirection * Time.fixedDeltaTime * StaticValues.reversalSpeedCoefficient;
+                }
+                if (base.fixedAge >= num)
+                {
+                    this.outer.SetNextStateToMain();
+                    return;
+                }
             }
         }
 
         public override void OnExit()
         {
             base.OnExit();
+
+            this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
+            if (this.characterModel)
+            {
+                this.characterModel.invisibilityCount--;
+            }
+            if (this.hurtboxGroup)
+            {
+                HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
+                int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter - 1;
+                hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
+            }
 
             Ray aimRay = base.GetAimRay();
 

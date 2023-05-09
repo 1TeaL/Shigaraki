@@ -11,7 +11,7 @@
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="1010675052" Language="SFX" Hash="4160562437">
+		<SoundBank Id="1010675052" Language="SFX" Hash="3500305009">
 			<ObjectPath>\SoundBanks\Default Work Unit\Shiggy</ObjectPath>
 			<ShortName>Shiggy</ShortName>
 			<Path>Shiggy.bnk</Path>
@@ -113,6 +113,18 @@
 						<File Id="1024931971" Language="SFX">
 							<ShortName>quick voice attack.wav</ShortName>
 							<Path>SFX\quick voice attack_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2081783768" Name="ShiggyBankai" ObjectPath="\Events\Default Work Unit\ShiggyBankai">
+					<IncludedMemoryFiles>
+						<File Id="199160016" Language="SFX">
+							<ShortName>0000000000000041 [1].wav</ShortName>
+							<Path>SFX\0000000000000041 [1]_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1005306592" Language="SFX">
+							<ShortName>000000000000003f [1].wav</ShortName>
+							<Path>SFX\000000000000003f [1]_3F75BDB9.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -224,6 +236,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="4115673742" Name="ShiggyDriveForm" ObjectPath="\Events\Default Work Unit\ShiggyDriveForm"/>
 				<Event Id="1896314350" Name="ShiggyEntrance" ObjectPath="\Events\Default Work Unit\ShiggyEntrance">
 					<IncludedMemoryFiles>
 						<File Id="21175313" Language="SFX">
@@ -356,6 +369,24 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="2186207816" Name="ShiggyGetsuga" ObjectPath="\Events\Default Work Unit\ShiggyGetsuga"/>
+				<Event Id="2706453904" Name="ShiggyHitSFX" ObjectPath="\Events\Default Work Unit\ShiggyHitSFX">
+					<IncludedMemoryFiles>
+						<File Id="762313697" Language="SFX">
+							<ShortName>smashpunch3.wav</ShortName>
+							<Path>SFX\smashpunch3_3F75BDB9.wem</Path>
+						</File>
+						<File Id="926210678" Language="SFX">
+							<ShortName>smashpunch2.wav</ShortName>
+							<Path>SFX\smashpunch2_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1029649039" Language="SFX">
+							<ShortName>smashpunch1.wav</ShortName>
+							<Path>SFX\smashpunch1_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2767207246" Name="ShiggyLimitBreak" ObjectPath="\Events\Default Work Unit\ShiggyLimitBreak"/>
 				<Event Id="4108468048" Name="ShiggyMelee" ObjectPath="\Events\Default Work Unit\ShiggyMelee">
 					<IncludedMemoryFiles>
 						<File Id="34899993" Language="SFX">
@@ -372,6 +403,8 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="2925200724" Name="ShiggyOFA" ObjectPath="\Events\Default Work Unit\ShiggyOFA"/>
+				<Event Id="1479078104" Name="ShiggyOFAGet" ObjectPath="\Events\Default Work Unit\ShiggyOFAGet"/>
 				<Event Id="2422625683" Name="ShiggySlide" ObjectPath="\Events\Default Work Unit\ShiggySlide">
 					<IncludedMemoryFiles>
 						<File Id="199160016" Language="SFX">
@@ -381,6 +414,42 @@
 						<File Id="1005306592" Language="SFX">
 							<ShortName>000000000000003f [1].wav</ShortName>
 							<Path>SFX\000000000000003f [1]_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2758295745" Name="ShiggyStrongAttack" ObjectPath="\Events\Default Work Unit\ShiggyStrongAttack">
+					<IncludedMemoryFiles>
+						<File Id="790462649" Language="SFX">
+							<ShortName>smashpunchKO.wav</ShortName>
+							<Path>SFX\smashpunchKO_3F75BDB9.wem</Path>
+						</File>
+						<File Id="791357397" Language="SFX">
+							<ShortName>star platinum3.wav</ShortName>
+							<Path>SFX\star platinum3_3F75BDB9.wem</Path>
+						</File>
+						<File Id="849815317" Language="SFX">
+							<ShortName>king crimson 2 (1).wav</ShortName>
+							<Path>SFX\king crimson 2 (1)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="943154425" Language="SFX">
+							<ShortName>star platinum3 (1).wav</ShortName>
+							<Path>SFX\star platinum3 (1)_3F75BDB9.wem</Path>
+						</File>
+						<File Id="987519617" Language="SFX">
+							<ShortName>star platinum 1.wav</ShortName>
+							<Path>SFX\star platinum 1_3F75BDB9.wem</Path>
+						</File>
+						<File Id="1038537274" Language="SFX">
+							<ShortName>smashKO.wav</ShortName>
+							<Path>SFX\smashKO_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3733455623" Name="ShiggyTheWorld" ObjectPath="\Events\Default Work Unit\ShiggyTheWorld">
+					<IncludedMemoryFiles>
+						<File Id="731672971" Language="SFX">
+							<ShortName>theWorldSFX.wav</ShortName>
+							<Path>SFX\theWorldSFX_3F75BDB9.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>

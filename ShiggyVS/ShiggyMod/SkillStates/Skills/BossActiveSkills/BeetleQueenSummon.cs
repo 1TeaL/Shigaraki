@@ -28,15 +28,24 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
+            duration = baseDuration / attackSpeedStat;
             base.characterBody.SetAimTimer(this.duration);
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             //check if client able to summon dlc survivors
 
-            randomSurvivor = UnityEngine.Random.RandomRangeInt(1, 13);
+            randomSurvivor = UnityEngine.Random.RandomRangeInt(0, 12);
 
             Summon();
+
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+
+
 
 
         }
@@ -83,7 +92,7 @@ namespace ShiggyMod.SkillStates
                 case 12:
                         new SpawnBodyNetworkRequest(characterBody.masterObjectId, "RailgunnerBody", "RailgunnerMonsterMaster").Send(NetworkDestination.Clients);
                     break;
-                case 13:
+                case 0:
                         new SpawnBodyNetworkRequest(characterBody.masterObjectId, "VoidSurvivorBody", "VoidSurvivorMonsterMaster").Send(NetworkDestination.Clients);
                     break;
                 //case 14:
