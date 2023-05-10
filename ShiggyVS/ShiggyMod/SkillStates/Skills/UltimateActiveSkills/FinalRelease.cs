@@ -18,58 +18,84 @@ namespace ShiggyMod.SkillStates
     public class FinalRelease : Skill
     {
         //wind shield + wind slash
-        public float baseDuration = 0.5f;
+        public float baseDuration = 1f;
         public float duration;
         private string muzzleString = "RHand";
         private GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
         private EnergySystem energySystem;
+        private ShiggyController shiggyCon;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            duration = baseDuration;
+            shiggyCon = base.gameObject.GetComponent<ShiggyController>();
             Ray aimRay = base.GetAimRay();
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayCrossfade("FullBody, Override", "FullBodyBankai" , "Attack.playbackRate", duration, 0.05f);
+            base.PlayAnimation("FullBody, Override", "FullBodyBankai", "Attack.playbackRate", duration);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            //AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
-
-            //play bankai animation- maybe the number one instrumentals? particles too like as if you're holding zangetsu
             energySystem = base.gameObject.GetComponent<EnergySystem>(); 
             //check minimum energy requirement so we don't get back to back mugetsu. 
             if(energySystem.currentplusChaos < StaticValues.finalReleaseInitialEnergyRequirement)
             {
+                energySystem.TriggerGlow(0.3f, 0.3f, Color.black);
                 if (characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
                 {
                     new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                    if (base.isAuthority)
+                    {
+                        Shiggycon.StopFinalReleaseLoop();
+                    }
                 }
                 this.outer.SetNextStateToMain();
                 return;
             }
             else if (energySystem.currentplusChaos >= StaticValues.finalReleaseInitialEnergyRequirement)
             {
-                EffectManager.SpawnEffect(EntityStates.Vulture.Weapon.FireWindblade.muzzleEffectPrefab, new EffectData
+
+                characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 1);
+                if (!characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
                 {
-                    origin = FindModelChild(muzzleString).position,
+                    characterBody.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, 1);
+                    if(base.isAuthority)
+                    {
+                        shiggyCon.PlayFinalReleaseLoop();
+                    }
+                }
+                else if (characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
+                {
+                    new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                    if (base.isAuthority)
+                    {
+                        Shiggycon.StopFinalReleaseLoop();
+                    }
+                }
+
+                EffectManager.SpawnEffect(Modules.Assets.finalReleasePulseEffect, new EffectData
+                {
+                    origin = characterBody.footPosition,
                     scale = 1f,
                     rotation = Quaternion.identity,
 
                 }, true);
-                if (!characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
-                {
-                    characterBody.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, 1);
-                }
-                else
-                if (characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
-                {
-                    new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
-                }
 
             }
 
 
 
         }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            if(base.fixedAge> duration)
+            {
+                this.outer.SetNextStateToMain();
+                return;
+            }
+        }
+
         public override void OnExit()
         {
             base.OnExit();

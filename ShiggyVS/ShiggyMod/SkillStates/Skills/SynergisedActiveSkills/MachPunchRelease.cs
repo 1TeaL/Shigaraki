@@ -34,7 +34,6 @@ namespace ShiggyMod.SkillStates
             int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
 			//base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
 			base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", 0.5f, 0.05f);
-			AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
             //Util.PlaySound(FireMegaNova.novaSoundString, base.gameObject);
             AkSoundEngine.PostEvent(3289116818, this.gameObject);
 			//EffectManager.SimpleMuzzleFlash(this.muzzlePrefab, base.gameObject, this.lMuzzleString, false);
@@ -107,8 +106,9 @@ namespace ShiggyMod.SkillStates
 		protected virtual void OnHitEnemyAuthority()
 		{
 			Ray aimRay = base.GetAimRay();
+            AkSoundEngine.PostEvent("ShiggyStrongAttack", base.gameObject);
 
-			EffectData effectData = new EffectData
+            EffectData effectData = new EffectData
 			{
 				scale = this.radius,
 				origin = base.characterBody.corePosition,

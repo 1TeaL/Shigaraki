@@ -224,8 +224,8 @@ namespace ShiggyMod.Modules
             decayDebuff = Buffs.AddNewBuff($"decay Debuff", Assets.decayBuffIcon, Color.magenta, true, true);
             eliteDebuff = Buffs.AddNewBuff($"eliteDebuff", Assets.critBuffIcon, Color.black, false, true);
             blastingZoneBurnDebuff = Buffs.AddNewBuff($"Blaze debuff", Assets.strongerBurnIcon, Color.red, true, true);
-            lightFormDebuff = Buffs.AddNewBuff($"Light Form Debuff", Assets.crippleBuffIcon, Color.white, false, true);
-            darknessFormDebuff = Buffs.AddNewBuff($"Darkness Form Debuff", Assets.crippleBuffIcon, Color.black, false, true);
+            lightFormDebuff = Buffs.AddNewBuff($"Light Form Debuff", Assets.crippleBuffIcon, Color.white, true, true);
+            darknessFormDebuff = Buffs.AddNewBuff($"Darkness Form Debuff", Assets.crippleBuffIcon, Color.black, true, true);
             lightAndDarknessFormDebuff = Buffs.AddNewBuff($"Light And Darkness Form Debuff", Assets.crippleBuffIcon, Color.magenta, false, true);
 
 

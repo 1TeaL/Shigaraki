@@ -11,6 +11,7 @@ using R2API.Networking;
 using static UnityEngine.ParticleSystem.PlaybackState;
 using EntityStates.Merc;
 using EntityStates.Commando;
+using EntityStates.Huntress;
 
 namespace ShiggyMod.SkillStates
 {
@@ -31,6 +32,9 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            slideDuration = baseslideDuration / attackSpeedStat;
+            basejumpDuration= basejumpDuration / attackSpeedStat;
+
 
             Ray aimRay = base.GetAimRay();
             Vector3 tpPosition = (enemycharBody.corePosition - characterBody.corePosition).normalized * 2f;
@@ -63,6 +67,7 @@ namespace ShiggyMod.SkillStates
                 hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
             }
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
+            Util.PlaySound(BaseBeginArrowBarrage.blinkSoundString, base.gameObject);
         }
 
         private void CreateBlinkEffect(Vector3 origin)
@@ -137,7 +142,7 @@ namespace ShiggyMod.SkillStates
             blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
             blastAttack.damageType = DamageType.Freeze2s;
             blastAttack.attackerFiltering = AttackerFiltering.Default;
-            blastAttack.Fire();
+            blastAttack.Fire(); 
 
             EffectManager.SpawnEffect(EntityStates.JellyfishMonster.JellyNova.novaEffectPrefab, new EffectData
             {

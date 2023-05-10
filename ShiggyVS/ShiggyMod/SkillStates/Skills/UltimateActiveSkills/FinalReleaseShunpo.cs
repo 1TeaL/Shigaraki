@@ -32,6 +32,11 @@ namespace ShiggyMod.SkillStates
             this.slideDuration = this.baseslideDuration / this.attackSpeedStat;
             this.jumpDuration = this.basejumpDuration / this.attackSpeedStat;
 
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", slideDuration, 0.05f);
+            //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            //AkSoundEngine.PostEvent("ShiggySlide", base.gameObject);
+
             if (base.inputBank && base.characterDirection)
             {
                 base.characterDirection.forward = ((base.inputBank.moveVector == Vector3.zero) ? base.characterDirection.forward : base.inputBank.moveVector).normalized;
@@ -42,11 +47,6 @@ namespace ShiggyMod.SkillStates
             }
             if (!this.startedStateGrounded)
             {
-                //need better animation
-                base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-                base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", slideDuration, 0.05f);
-                //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-                AkSoundEngine.PostEvent("ShiggySlide", base.gameObject);
                 Vector3 velocity = base.characterMotor.velocity;
                 velocity.y = base.characterBody.jumpPower;
                 base.characterMotor.velocity = velocity;
@@ -65,6 +65,7 @@ namespace ShiggyMod.SkillStates
             }
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
 
+            Util.PlaySound(Assaulter2.endSoundString, base.gameObject);
 
         }
         private void CreateBlinkEffect(Vector3 origin)

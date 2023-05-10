@@ -50,8 +50,11 @@ namespace ShiggyMod.SkillStates
             {
                 //need better animation
                 base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-                base.PlayCrossfade("FullBody, Override", "", "Attack.playbackRate", slideDuration, 0.05f);
-                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+                base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", slideDuration, 0.05f);
+                if (base.isAuthority)
+                {
+                    AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+                }
                 Vector3 velocity = base.characterMotor.velocity;
                 velocity.y = base.characterBody.jumpPower;
                 base.characterMotor.velocity = velocity;

@@ -39,7 +39,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("LeftArm, Override", "LArmGetsuga", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            AkSoundEngine.PostEvent("ShiggyGetsuga", base.gameObject);
 
 
             FireWind();
@@ -49,9 +49,9 @@ namespace ShiggyMod.SkillStates
         {
             Ray aimRay = base.GetAimRay();
 
-            EffectManager.SpawnEffect(EntityStates.Merc.Uppercut.swingEffectPrefab, new EffectData
+            EffectManager.SpawnEffect(Modules.Assets.shiggySwingEffect, new EffectData
             {
-                origin = FindModelChild(muzzleString).position,
+                origin = FindModelChild("Swing1").position,
                 scale = 1f,
                 rotation = Quaternion.LookRotation(aimRay.direction),
 

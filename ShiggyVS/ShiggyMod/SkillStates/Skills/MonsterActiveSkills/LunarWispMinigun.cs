@@ -48,7 +48,10 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 
             PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             baseBulletCount = 3;

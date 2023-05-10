@@ -19,6 +19,7 @@ namespace ShiggyMod.Modules.Survivors
         public Image plusChaosMeterGlowBackground;
         public HGTextMeshProUGUI plusChaosNumber;
         public HGTextMeshProUGUI quirkGetUI;
+        private bool informAFOToPlayers;
         public string quirkGetString;
         public float quirkGetStopwatch;
 
@@ -243,12 +244,25 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Update()
         {
+
+            if (!informAFOToPlayers)
+            {
+                informAFOToPlayers = true;
+                Chat.AddMessage($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
+                + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.");
+                quirkGetInformation($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
+                + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.", 5f);
+            }
+
             if (quirkGetUI)
             {
                 if(quirkGetStopwatch <= 0f)
                 {
                     quirkGetStopwatch = 0f;
-                    quirkGetUI.enabled = false;
+                    if(quirkGetUI.enabled = true)
+                    {
+                        quirkGetUI.enabled = false;
+                    }
                 }
                 else
                 {

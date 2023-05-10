@@ -90,7 +90,7 @@ namespace ShiggyMod.SkillStates.BaseStates
         protected virtual void PlayAttackAnimation()
         {
             //update animations one day
-            base.PlayCrossfade("Gesture, Override", "RArmSwipe" + (1 + swingIndex), "Slash.playbackRate", this.duration/2f, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "RArmSwipe" + (1 + swingIndex), "Attack.playbackRate", this.duration/2f, 0.05f);
             //base.PlayCrossfade("FullBody, Override", "Slam" , "Slash.playbackRate", this.duration/2, 0.05f);
         }
 

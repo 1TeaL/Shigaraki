@@ -20,11 +20,12 @@ namespace ShiggyMod.SkillStates
         private float finalReleaseMugetsuTimer = 0f;
         private int currentReleaseCount = 0;
         private int finalReleaseCount;
-        public float duration = 2f;
+        public float duration = 1f;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
             //play animation and maybe particles?
             finalReleaseCount = characterBody.GetBuffCount(Buffs.finalReleaseBuff);
             characterBody.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, 0);
@@ -32,8 +33,8 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "FullBodyMugetsu", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
-            Shiggycon = gameObject.GetComponent<ShiggyController>();
+            
+            AkSoundEngine.PostEvent("ShiggyBankaiMugetsu", base.gameObject);
 
             //animation to last as long as duration before damage
         }
@@ -142,6 +143,13 @@ namespace ShiggyMod.SkillStates
                             scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
                         }, true);
 
+                        EffectManager.SpawnEffect(Modules.Assets.finalReleasePulseEffect, new EffectData
+                        {
+                            origin = characterBody.footPosition,
+                            scale = 1f,
+                            rotation = Quaternion.identity,
+
+                        }, true);
 
                         currentReleaseCount = 0;
                         this.outer.SetNextStateToMain();

@@ -42,11 +42,12 @@ namespace ShiggyMod.SkillStates
 					{
 						currentNumber += 1;
 						timer -= interval;
-						new TakeMeleeDamageForceRequest(charbody.masterObjectId, Vector3.up, StaticValues.extremeSpeedForce / 2f, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
+                        AkSoundEngine.PostEvent("ShiggyHitSFX", charbody.gameObject);
+                        new TakeMeleeDamageForceRequest(charbody.masterObjectId, Vector3.up, StaticValues.extremeSpeedForce / 2f, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
 					}
 					else if (currentNumber == numberOfHits)
 					{
-						AkSoundEngine.PostEvent("impactsfx", charbody.gameObject);
+						AkSoundEngine.PostEvent("ShiggyStrongAttack", charbody.gameObject);
 						currentNumber += 1;
 						new TakeMeleeDamageForceRequest(charbody.masterObjectId, Vector3.down, StaticValues.extremeSpeedForce, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
 					}

@@ -57,14 +57,12 @@ namespace ShiggyMod.SkillStates
         public enum BeamState
         {
             CHARGE,
-            BEGIN,
             ACTIVE,
 
         }
         private BeamState state;
         private float stopwatch;
         private float activeStopwatch;
-        private float animationTimer;
         private bool playWindupAnimation;
 
         public override void OnEnter()
@@ -95,9 +93,12 @@ namespace ShiggyMod.SkillStates
 
             //animation with right arm in front like tsuna from hitman reborn doing the blast
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayCrossfade("FullBody, Override", "FullBodyXBurner", "Attack.playbackRate", entryDuration, 0.05f);
+            base.PlayAnimation("FullBody, Override", "FullBodyXBurner", "Attack.playbackRate", entryDuration);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             //find shooting direction from the beginning, animation to link up too
@@ -130,13 +131,13 @@ namespace ShiggyMod.SkillStates
                 this.LchargeVfxInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.VoidJailer.Capture.chargeVfxPrefab, FindModelChild(this.muzzleStringL).position, Util.QuaternionSafeLookRotation(aimRay.direction));
                 this.LchargeVfxInstance.transform.parent = FindModelChild(this.muzzleStringL).transform;
             }
-            if(Assets.xBeamerIndicator)
-            {
-                this.areaIndicator = Object.Instantiate<GameObject>(Assets.xBeamerIndicator);
-                this.areaIndicator.SetActive(true);
-                this.areaIndicator.transform.localScale = Vector3.one * this.radius;
-                this.areaIndicator.transform.localPosition = childLocator.FindChild(this.muzzleStringR).position;
-            }
+            //if(Assets.xBeamerIndicator)
+            //{
+            //    this.areaIndicator = Object.Instantiate<GameObject>(Assets.xBeamerIndicator);
+            //    this.areaIndicator.SetActive(true);
+            //    this.areaIndicator.transform.localScale = Vector3.one * this.radius;
+            //    this.areaIndicator.transform.localPosition = childLocator.FindChild(this.muzzleStringR).position;
+            //}
             if (this.loopSoundDef)
             {
                 this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
@@ -150,7 +151,7 @@ namespace ShiggyMod.SkillStates
             {
                 laserEffectEndTransform.position = endPosition;
             }
-            IndicatorUpdator();
+            //IndicatorUpdator();
         }
 
         public void IndicatorUpdator()
@@ -168,7 +169,7 @@ namespace ShiggyMod.SkillStates
             this.chargePercent = base.fixedAge / StaticValues.xBeamerChargeCoefficient;
             this.damageMult = Modules.StaticValues.xBeamerDamageCoefficient + StaticValues.xBeamerChargeCoefficient * (this.chargePercent * Modules.StaticValues.xBeamerDamageCoefficient);
             this.radius = (this.baseRadius * this.damageMult + 10f) / 4f;
-            this.areaIndicator.transform.localPosition = FindModelChild(this.muzzleStringR).position;
+            //this.areaIndicator.transform.localPosition = FindModelChild(this.muzzleStringR).position;
             tickDamageCoefficient = damageMult / beamDuration;
         }
 
@@ -254,7 +255,7 @@ namespace ShiggyMod.SkillStates
                     }
                     if (!base.IsKeyDownAuthority())
                     {
-                        state = BeamState.BEGIN;
+                        state = BeamState.ACTIVE;
                     }
                     //energy cost
                     float plusChaosflatCost = (StaticValues.xBeamerEnergyCost) - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
@@ -265,29 +266,29 @@ namespace ShiggyMod.SkillStates
                     energySystem.SpendplusChaos(plusChaosCost);
                     if (energySystem.currentplusChaos < 1f)
                     {
-                        state = BeamState.BEGIN;
-                    }
-
-                    break;
-                case BeamState.BEGIN:
-                    //play animation here, once done go to next state
-                    if (!playWindupAnimation)
-                    {
-                        playWindupAnimation = true;
-                        //play animation once
-                    }
-
-                    animationTimer += Time.fixedDeltaTime;
-                    if (animationTimer > 0.2f)
-                    {
                         state = BeamState.ACTIVE;
-                        if (areaIndicator)
-                        {
-                            this.areaIndicator.SetActive(false);
-                            EntityState.Destroy(this.areaIndicator);
-                        }
                     }
+
                     break;
+                //case BeamState.BEGIN:
+                //    //play animation here, once done go to next state
+                //    if (!playWindupAnimation)
+                //    {
+                //        playWindupAnimation = true;
+                //        //play animation once- update no real animation to play i suppose
+                //    }
+
+                //    //animationTimer += Time.fixedDeltaTime;
+                //    //if (animationTimer > 0.2f)
+                //    //{
+                //    //    state = BeamState.ACTIVE;
+                //    //    //if (areaIndicator)
+                //    //    //{
+                //    //    //    this.areaIndicator.SetActive(false);
+                //    //    //    EntityState.Destroy(this.areaIndicator);
+                //    //    //}
+                //    //}
+                //    break;
                 case BeamState.ACTIVE:
 
                     if (!laserEffect)

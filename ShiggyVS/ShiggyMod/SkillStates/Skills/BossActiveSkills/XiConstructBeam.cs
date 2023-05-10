@@ -48,7 +48,10 @@ namespace ShiggyMod.SkillStates
             this.animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration, 0.1f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            }
 
             EffectManager.SimpleMuzzleFlash(Modules.Assets.xiconstructbeamEffect, base.gameObject, muzzleString, false);
             if (this.loopSoundDef)

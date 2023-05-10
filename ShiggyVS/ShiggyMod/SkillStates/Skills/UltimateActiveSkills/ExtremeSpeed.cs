@@ -49,8 +49,12 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            }
             //Util.PlaySound(FireMegaNova.novaSoundString, base.gameObject);
+            Util.PlaySound(EvisDash.endSoundString, base.gameObject);
             EffectManager.SimpleMuzzleFlash(this.blastEffectPrefab, base.gameObject, this.muzzleString, false);
 			
 			Vector3 startPos = characterBody.transform.position;

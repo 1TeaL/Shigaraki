@@ -11,7 +11,7 @@
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="1010675052" Language="SFX" Hash="3500305009">
+		<SoundBank Id="1010675052" Language="SFX" Hash="2386052541">
 			<ObjectPath>\SoundBanks\Default Work Unit\Shiggy</ObjectPath>
 			<ShortName>Shiggy</ShortName>
 			<Path>Shiggy.bnk</Path>
@@ -118,13 +118,25 @@
 				</Event>
 				<Event Id="2081783768" Name="ShiggyBankai" ObjectPath="\Events\Default Work Unit\ShiggyBankai">
 					<IncludedMemoryFiles>
-						<File Id="199160016" Language="SFX">
-							<ShortName>0000000000000041 [1].wav</ShortName>
-							<Path>SFX\0000000000000041 [1]_3F75BDB9.wem</Path>
+						<File Id="626583249" Language="SFX">
+							<ShortName>bankaiSFX.wav</ShortName>
+							<Path>SFX\bankaiSFX_3F75BDB9.wem</Path>
 						</File>
-						<File Id="1005306592" Language="SFX">
-							<ShortName>000000000000003f [1].wav</ShortName>
-							<Path>SFX\000000000000003f [1]_3F75BDB9.wem</Path>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="83473710" Name="ShiggyBankaiMugetsu" ObjectPath="\Events\Default Work Unit\ShiggyBankaiMugetsu">
+					<IncludedMemoryFiles>
+						<File Id="818441791" Language="SFX">
+							<ShortName>numberOneMugetsu.wav</ShortName>
+							<Path>SFX\numberOneMugetsu_68A11ABF.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2995104409" Name="ShiggyBankaiMusic" ObjectPath="\Events\Default Work Unit\ShiggyBankaiMusic">
+					<IncludedMemoryFiles>
+						<File Id="919411603" Language="SFX">
+							<ShortName>Number One - Bankai.wav</ShortName>
+							<Path>SFX\Number One - Bankai_5E495791.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -236,7 +248,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="4115673742" Name="ShiggyDriveForm" ObjectPath="\Events\Default Work Unit\ShiggyDriveForm"/>
+				<Event Id="4115673742" Name="ShiggyDriveForm" ObjectPath="\Events\Default Work Unit\ShiggyDriveForm">
+					<IncludedMemoryFiles>
+						<File Id="638926936" Language="SFX">
+							<ShortName>driveFormSFX.wav</ShortName>
+							<Path>SFX\driveFormSFX_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="1896314350" Name="ShiggyEntrance" ObjectPath="\Events\Default Work Unit\ShiggyEntrance">
 					<IncludedMemoryFiles>
 						<File Id="21175313" Language="SFX">
@@ -369,7 +388,26 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2186207816" Name="ShiggyGetsuga" ObjectPath="\Events\Default Work Unit\ShiggyGetsuga"/>
+				<Event Id="3868047258" Name="ShiggyGacha" ObjectPath="\Events\Default Work Unit\ShiggyGacha">
+					<IncludedMemoryFiles>
+						<File Id="613692281" Language="SFX">
+							<ShortName>Kingdom Hearts Sound Effects ｜ Item Get.wav</ShortName>
+							<Path>SFX\Kingdom Hearts Sound Effects ｜ Item Get_F799F1A1.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2186207816" Name="ShiggyGetsuga" ObjectPath="\Events\Default Work Unit\ShiggyGetsuga">
+					<IncludedMemoryFiles>
+						<File Id="315630095" Language="SFX">
+							<ShortName>kaioken1SFX.wav</ShortName>
+							<Path>SFX\kaioken1SFX_3F75BDB9.wem</Path>
+						</File>
+						<File Id="943857757" Language="SFX">
+							<ShortName>kaioken2SFX.wav</ShortName>
+							<Path>SFX\kaioken2SFX_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2706453904" Name="ShiggyHitSFX" ObjectPath="\Events\Default Work Unit\ShiggyHitSFX">
 					<IncludedMemoryFiles>
 						<File Id="762313697" Language="SFX">
@@ -386,7 +424,18 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2767207246" Name="ShiggyLimitBreak" ObjectPath="\Events\Default Work Unit\ShiggyLimitBreak"/>
+				<Event Id="2767207246" Name="ShiggyLimitBreak" ObjectPath="\Events\Default Work Unit\ShiggyLimitBreak">
+					<IncludedMemoryFiles>
+						<File Id="315630095" Language="SFX">
+							<ShortName>kaioken1SFX.wav</ShortName>
+							<Path>SFX\kaioken1SFX_3F75BDB9.wem</Path>
+						</File>
+						<File Id="943857757" Language="SFX">
+							<ShortName>kaioken2SFX.wav</ShortName>
+							<Path>SFX\kaioken2SFX_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="4108468048" Name="ShiggyMelee" ObjectPath="\Events\Default Work Unit\ShiggyMelee">
 					<IncludedMemoryFiles>
 						<File Id="34899993" Language="SFX">
@@ -403,8 +452,62 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2925200724" Name="ShiggyOFA" ObjectPath="\Events\Default Work Unit\ShiggyOFA"/>
-				<Event Id="1479078104" Name="ShiggyOFAGet" ObjectPath="\Events\Default Work Unit\ShiggyOFAGet"/>
+				<Event Id="2925200724" Name="ShiggyOFA" ObjectPath="\Events\Default Work Unit\ShiggyOFA">
+					<IncludedMemoryFiles>
+						<File Id="21175313" Language="SFX">
+							<ShortName>laugh3 entrance.wav</ShortName>
+							<Path>SFX\laugh3 entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="36562380" Language="SFX">
+							<ShortName>laugh4 entrance.wav</ShortName>
+							<Path>SFX\laugh4 entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="66113836" Language="SFX">
+							<ShortName>SePl01_00000004.wav</ShortName>
+							<Path>SFX\SePl01_00000004_3F75BDB9.wem</Path>
+						</File>
+						<File Id="222536735" Language="SFX">
+							<ShortName>plusultra entrance.wav</ShortName>
+							<Path>SFX\plusultra entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="222656126" Language="SFX">
+							<ShortName>sara ni entrance.wav</ShortName>
+							<Path>SFX\sara ni entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="230693410" Language="SFX">
+							<ShortName>SePl01_00000006.wav</ShortName>
+							<Path>SFX\SePl01_00000006_3F75BDB9.wem</Path>
+						</File>
+						<File Id="468977366" Language="SFX">
+							<ShortName>laugh2 entrance.wav</ShortName>
+							<Path>SFX\laugh2 entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="483549763" Language="SFX">
+							<ShortName>laugh entrance.wav</ShortName>
+							<Path>SFX\laugh entrance_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1479078104" Name="ShiggyOFAGet" ObjectPath="\Events\Default Work Unit\ShiggyOFAGet">
+					<IncludedMemoryFiles>
+						<File Id="21175313" Language="SFX">
+							<ShortName>laugh3 entrance.wav</ShortName>
+							<Path>SFX\laugh3 entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="36562380" Language="SFX">
+							<ShortName>laugh4 entrance.wav</ShortName>
+							<Path>SFX\laugh4 entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="468977366" Language="SFX">
+							<ShortName>laugh2 entrance.wav</ShortName>
+							<Path>SFX\laugh2 entrance_3F75BDB9.wem</Path>
+						</File>
+						<File Id="483549763" Language="SFX">
+							<ShortName>laugh entrance.wav</ShortName>
+							<Path>SFX\laugh entrance_3F75BDB9.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2422625683" Name="ShiggySlide" ObjectPath="\Events\Default Work Unit\ShiggySlide">
 					<IncludedMemoryFiles>
 						<File Id="199160016" Language="SFX">

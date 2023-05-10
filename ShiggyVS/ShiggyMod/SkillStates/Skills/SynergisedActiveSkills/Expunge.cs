@@ -37,7 +37,10 @@ namespace ShiggyMod.SkillStates
             int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
             base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            }
 
             Ray aimRay = base.GetAimRay();
 
@@ -55,6 +58,12 @@ namespace ShiggyMod.SkillStates
             blastAttack.damageType |= DamageType.BypassArmor;
             blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
+
+        }
+
+        protected virtual void OnHitEnemyAuthority()
+        {
+            AkSoundEngine.PostEvent("ShiggyStrongAttack", base.gameObject);
 
         }
 
@@ -81,7 +90,10 @@ namespace ShiggyMod.SkillStates
                 }, true);
 
                 blastAttack.position = aimRay.origin + aimRay.direction * radius;
-                blastAttack.Fire();
+                if (blastAttack.Fire().hitCount > 0)
+                {
+                    this.OnHitEnemyAuthority();
+                }
             }
 
             if(base.fixedAge > duration)

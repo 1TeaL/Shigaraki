@@ -49,7 +49,7 @@
       <HintPath>bin\Debug\netstandard2.0\MMHOOK_RoR2.dll</HintPath>
     </Reference>
     <Reference Include="RiskOfOptions">
-      <HintPath>bin\Debug\netstandard2.0\RiskOfOptions.dll</HintPath>
+      <HintPath>..\libs\RiskOfOptions.dll</HintPath>
     </Reference>
     <Reference Include="ScrollableLobbyUI">
       <HintPath>bin\Debug\netstandard2.0\ScrollableLobbyUI.dll</HintPath>

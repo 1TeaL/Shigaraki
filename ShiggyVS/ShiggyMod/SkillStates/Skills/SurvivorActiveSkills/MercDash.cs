@@ -19,7 +19,7 @@ namespace ShiggyMod.SkillStates
     public class MercDash : BaseSkillState
 
     {
-
+        public ShiggyController shiggyCon;
         protected string hitboxName = "AroundHitbox";
 
         protected DamageType damageType = DamageType.ApplyMercExpose;
@@ -38,7 +38,7 @@ namespace ShiggyMod.SkillStates
         protected string muzzleString = "SwingCenter";
         protected GameObject swingEffectPrefab;
         protected GameObject hitEffectPrefab;
-        protected NetworkSoundEventIndex impactSound;
+        protected NetworkSoundEventIndex impactSound = Modules.Assets.hitSoundEffect.index;
 
         public float duration;
         private bool hasFired;
@@ -68,6 +68,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            shiggyCon = base.gameObject.GetComponent<ShiggyController>();
             this.duration = this.baseDuration / this.attackSpeedStat;
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
@@ -77,7 +78,10 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            }
 
             HitBoxGroup hitBoxGroup = null;
             Transform modelTransform = base.GetModelTransform();
@@ -130,8 +134,9 @@ namespace ShiggyMod.SkillStates
             {
                 base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
             }
-            
-            Util.PlaySound(EvisDash.beginSoundString, base.gameObject);
+
+            Util.PlaySound(Assaulter2.endSoundString, base.gameObject);
+            shiggyCon.boolswordAuraL = true;
             
         }
 
@@ -162,6 +167,7 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
+            shiggyCon.boolswordAuraR = false;
             if (!this.hasFired) this.FireAttack();
 
             base.OnExit();
@@ -171,7 +177,6 @@ namespace ShiggyMod.SkillStates
             }
             base.characterMotor.velocity *= speedCoefficientOnExit;
             base.SmallHop(base.characterMotor, 1f);
-            Util.PlaySound(Assaulter2.endSoundString, base.gameObject);
             //Util.PlaySound(EvisDash.endSoundString, base.gameObject);
             //this.PlayAnimation("FullBody, Override", "EvisLoopExit");
             base.gameObject.layer = LayerIndex.defaultLayer.intVal;

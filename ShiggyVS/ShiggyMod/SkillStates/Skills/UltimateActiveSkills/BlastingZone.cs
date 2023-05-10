@@ -26,6 +26,7 @@ namespace ShiggyMod.SkillStates
         public Vector3 directionExtension;
         public float interval;
         public int currentHits = 0;
+        public int totalHits;
 
         public override void OnEnter()
         {
@@ -34,6 +35,7 @@ namespace ShiggyMod.SkillStates
             //hasFired = false;
             theSpot = aimRay.origin + range * aimRay.direction;
             directionExtension = aimRay.direction * rangeaddition;
+            totalHits = (int)(StaticValues.blastingZoneTotalHits * attackSpeedStat);
             base.StartAimMode(1f, true);
 
             base.characterMotor.disableAirControlUntilCollision = false;
@@ -44,13 +46,15 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "FullBodyMugetsu", "Attack.playbackRate", StaticValues.blastingZoneWindup, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            }
 
             EffectManager.SpawnEffect(Modules.Assets.blastingZoneEffect, new EffectData
             {
-                origin = FindModelChild("BlastingZonePosition").position,
+                origin = characterBody.corePosition,
                 scale = 1f,
-                rotation = Quaternion.identity,
 
             }, true);
 
@@ -73,8 +77,10 @@ namespace ShiggyMod.SkillStates
         {
             foreach (BlastAttack.HitPoint hitpoint in result.hitPoints)
             {
+                AkSoundEngine.PostEvent("ShiggyStrongAttack", hitpoint.hurtBox.gameObject);
                 //apply debuff to enemies hit
-                hitpoint.hurtBox.healthComponent.body.ApplyBuff(Buffs.blastingZoneBurnDebuff.buffIndex, StaticValues.blastingZoneDebuffStackApplication);
+                int blazeCount = hitpoint.hurtBox.healthComponent.body.GetBuffCount(Buffs.blastingZoneBurnDebuff);
+                hitpoint.hurtBox.healthComponent.body.ApplyBuff(Buffs.blastingZoneBurnDebuff.buffIndex, blazeCount + StaticValues.blastingZoneDebuffStackApplication);
                 BlastingZoneBurnComponent blazCon = hitpoint.hurtBox.healthComponent.body.gameObject.GetComponent<BlastingZoneBurnComponent>();
                 if (!blazCon)
                 {
@@ -107,7 +113,7 @@ namespace ShiggyMod.SkillStates
                 else if (interval >= StaticValues.blastingZoneInterval / attackSpeedStat)
                 {
                     interval = 0f;
-                    if(currentHits < StaticValues.blastingZoneTotalHits)
+                    if(currentHits < totalHits)
                     {
                         currentHits++;
                         blastAttack.position = theSpot;
@@ -119,14 +125,7 @@ namespace ShiggyMod.SkillStates
                             this.OnHitEnemyAuthority(result);
                         }
                         //test which one to use
-                        EffectManager.SpawnEffect(Modules.Assets.magmaWormOrbExplosionPrefab, new EffectData
-                        {
-                            origin = theSpot,
-                            scale = blastRadius,
-                            rotation = Util.QuaternionSafeLookRotation(aimRay.direction)
-
-                        }, true);
-                        EffectManager.SpawnEffect(Modules.Assets.magmaWormImpactExplosionPrefab, new EffectData
+                        EffectManager.SpawnEffect(Modules.Assets.elderlemurianexplosionEffect, new EffectData
                         {
                             origin = theSpot,
                             scale = blastRadius,
@@ -134,7 +133,7 @@ namespace ShiggyMod.SkillStates
 
                         }, true);
                     }
-                    else if (currentHits >= StaticValues.blastingZoneTotalHits)
+                    else if (currentHits >= totalHits)
                     {
                         this.outer.SetNextStateToMain();
                         return;

@@ -24,6 +24,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            duration= baseDuration;
             //play animation and maybe particles?
 
             Ray aimRay = base.GetAimRay();
@@ -34,12 +35,22 @@ namespace ShiggyMod.SkillStates
                 rotation = Quaternion.LookRotation(aimRay.direction),
 
             }, true);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "FullBodyTheWorld", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            //AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            AkSoundEngine.PostEvent("ShiggyTheWorld", base.gameObject);
 
+        }
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            if(base.fixedAge > duration)
+            {
+                this.outer.SetNextStateToMain();
+                return;
+            }
         }
         public override void OnExit()
         {

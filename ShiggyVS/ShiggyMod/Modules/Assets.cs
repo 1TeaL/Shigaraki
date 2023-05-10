@@ -22,7 +22,8 @@ namespace ShiggyMod.Modules
         internal static List<GameObject> networkObjDefs = new List<GameObject>();
 
         // networked hit sounds
-        internal static NetworkSoundEventDef decayHitSoundEffect;
+        internal static NetworkSoundEventDef hitSoundEffect;
+        internal static NetworkSoundEventDef strongHitSoundEffect;
 
         // lists of assets to add to contentpack
         internal static List<NetworkSoundEventDef> networkSoundEventDefs = new List<NetworkSoundEventDef>();
@@ -84,6 +85,8 @@ namespace ShiggyMod.Modules
 
         //own material
         public static Material multiplierShieldBuffMat;
+        public static Material limitBreakMat;
+        public static Material lightAndDarknessMat;
         public static Material lightFormBuffMat;
         public static Material deathAuraBuffMat;
         public static Material limitBreakBuffMat; //need to clone multiplier buff and have different colour or have diff anim
@@ -95,6 +98,7 @@ namespace ShiggyMod.Modules
         public static GameObject decayspreadEffect;
         internal static GameObject AFOLineRenderer;
         public static GameObject blastingZoneEffect;
+        public static GameObject finalReleasePulseEffect;
         //melee swing
         internal static GameObject shiggySwingEffect;
         internal static GameObject shiggyHitImpactEffect;
@@ -252,8 +256,9 @@ namespace ShiggyMod.Modules
             //sword swing
             shiggySwingEffect = Assets.LoadEffect("SwingEffect", true);
             shiggyHitImpactEffect = Assets.LoadEffect("ImpactEffect");
+            //own effects
             blastingZoneEffect = Assets.LoadEffect("BlastingZoneSword", true);
-
+            finalReleasePulseEffect = Assets.LoadEffect("finalReleasePulse", true);
             //AFO effects
             AFOLineRenderer = mainAssetBundle.LoadAsset<GameObject>("LineRendererAFO");
 
@@ -370,30 +375,34 @@ namespace ShiggyMod.Modules
             decayattackEffect = LoadEffect("DecayAttack");
             decaybuffEffect = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DecayBuff");
             decayspreadEffect = LoadEffect("DecaySpread");
-            decayHitSoundEffect = CreateNetworkSoundEventDef("ShiggyMelee");
+            //sounds
+            hitSoundEffect = CreateNetworkSoundEventDef("ShiggyHitSFX");
+            strongHitSoundEffect = CreateNetworkSoundEventDef("ShiggyStrongAttack");
 
-            //alpha shield effect
-            alphaconstructShieldBuffMat = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
-            alphaconstructShieldBuffMat.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
-
-            //death aura effect
-            deathAuraBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/Base/Croco/matCrocoBiteDiseased.mat").WaitForCompletion();
-
-            //light form effect
-            lightFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/Base/Common/matFlashWhite.mat").WaitForCompletion();
-
-
-            //void form buff?
-            voidFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/DLC1/VoidSurvivor/matVoidBlinkBodyOverlay.mat").WaitForCompletion();
 
             //xiconstruct beam effect
             beam = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("XiConstructBeam");
             beam.AddComponent<NetworkIdentity>();
             networkObjDefs.Add(beam);
 
+            //materials
+            //alpha shield effect
+            alphaconstructShieldBuffMat = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
+            alphaconstructShieldBuffMat.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
+
+
             //multiplier effect
             multiplierShieldBuffMat = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
-            limitBreakBuffMat = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
+            //limit break
+            limitBreakBuffMat = mainAssetBundle.LoadAsset<Material>("LimitBreakMat");
+            //void form
+            voidFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/DLC1/VoidSurvivor/matVoidBlinkBodyOverlay.mat").WaitForCompletion();
+            //death aura effect
+            deathAuraBuffMat = mainAssetBundle.LoadAsset<Material>("DeathAuraMat");
+            //light form effect
+            lightFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/Base/Common/matFlashWhite.mat").WaitForCompletion();
+            //light form effect
+            lightAndDarknessMat = mainAssetBundle.LoadAsset<Material>("LightAndDarknessMat");
 
 
             PopulateEffects();

@@ -88,52 +88,7 @@ namespace ShiggyMod.Modules.Survivors
 
         private ExtraInputBankTest extrainputBankTest;
         private ExtraSkillLocator extraskillLocator;
-        public bool alphacontructpassiveDef;
-        public bool beetlepassiveDef;
-        public bool pestpassiveDef;
-        public bool verminpassiveDef;
-        public bool guppassiveDef;
-        public bool hermitcrabpassiveDef;
-        public bool larvapassiveDef;
-        public bool lesserwisppassiveDef;
-        public bool lunarexploderpassiveDef;
-        public bool minimushrumpassiveDef;
-        public bool roboballminibpassiveDef;
-        public bool voidbarnaclepassiveDef;
-        public bool voidjailerpassiveDef;
-        public bool impbosspassiveDef;
-        public bool stonetitanpassiveDef;
-        public bool magmawormpassiveDef;
-        public bool overloadingwormpassiveDef;
 
-        public bool alloyvultureWindBlastDef;
-        public bool beetleguardslamDef;
-        public bool bisonchargeDef;
-        public bool bronzongballDef;
-        public bool clayapothecarymortarDef;
-        public bool claytemplarminigunDef;
-        public bool greaterWispBuffDef;
-        public bool impblinkDef;
-        public bool jellyfishHealDef;
-        public bool lemurianfireballDef;
-        public bool lunargolemshotsDef;
-        public bool lunarwispminigunDef;
-        public bool parentteleportDef;
-        public bool stonegolemlaserDef;
-        public bool voidreaverportalDef;
-        public bool beetlequeenSummonDef;
-        public bool grandparentsunDef;
-        public bool grovetenderChainDef;
-        public bool claydunestriderbuffDef;
-        public bool soluscontrolunityknockupDef;
-        public bool xiconstructbeamDef;
-        public bool voiddevastatorhomingDef;
-        public bool scavengerthqwibDef;
-
-        public bool hasExtra1;
-        public bool hasExtra2;
-        public bool hasExtra3;
-        public bool hasExtra4;
         public bool hasQuirk;
         public float quirkTimer;
 
@@ -146,7 +101,6 @@ namespace ShiggyMod.Modules.Survivors
         private float greaterwispTimer;
 
         //AFO
-        private bool informAFOToPlayers;
         private bool hasStolen;
         private float stealQuirkStopwatch;
         private bool hasRemoved;
@@ -159,13 +113,18 @@ namespace ShiggyMod.Modules.Survivors
         public ParticleSystem LARM;
         public ParticleSystem OFA;
         public ParticleSystem FINALRELEASEAURA;
-        public ParticleSystem SWORDAURA;
+        public ParticleSystem SWORDAURAL;
+        public ParticleSystem SWORDAURAR;
 
         //particle bools
         public bool boolenoughEnergyAura;
         public bool booloneForAllAura;
         public bool boolfinalReleaseAura;
-        public bool boolswordAura;
+        public bool boolswordAuraL;
+        public bool boolswordAuraR;
+
+        //final release loop sound
+        public uint finalReleaseLoopID;
 
         public void Awake()
         {
@@ -180,14 +139,16 @@ namespace ShiggyMod.Modules.Survivors
                 RARM = child.FindChild("rArmAura").GetComponent<ParticleSystem>();
                 OFA = child.FindChild("OFAlightning").GetComponent<ParticleSystem>();
                 FINALRELEASEAURA = child.FindChild("finalReleaseAura").GetComponent<ParticleSystem>();
-                SWORDAURA = child.FindChild("WindSword").GetComponent<ParticleSystem>();
+                SWORDAURAL = child.FindChild("WindSwordL").GetComponent<ParticleSystem>();
+                SWORDAURAR = child.FindChild("WindSwordR").GetComponent<ParticleSystem>();
             }
 
             LARM.Stop();
             RARM.Stop();
             OFA.Stop();
             FINALRELEASEAURA.Stop();
-            SWORDAURA.Stop();
+            SWORDAURAL.Stop();
+            SWORDAURAR.Stop();
 
             indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator"));
             passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
@@ -198,60 +159,9 @@ namespace ShiggyMod.Modules.Survivors
             larvabuffGiven = false;
             verminjumpbuffGiven = false;
 
-            alphacontructpassiveDef = false;
-            beetlepassiveDef = false;
-            pestpassiveDef = false;
-            verminpassiveDef = false;
-            guppassiveDef = false;
-            hermitcrabpassiveDef = false;
-            larvapassiveDef = false;
-            lesserwisppassiveDef = false;
-            lunarexploderpassiveDef = false;
-            minimushrumpassiveDef = false;
-            roboballminibpassiveDef = false;
-            voidbarnaclepassiveDef = false;
-            voidjailerpassiveDef = false;
 
-
-            impbosspassiveDef = false;
-            stonetitanpassiveDef = false;
-            magmawormpassiveDef = false;
-            overloadingwormpassiveDef = false;
-
-
-            alloyvultureWindBlastDef = false;
-            beetleguardslamDef = false;
-            bisonchargeDef = false;
-            bronzongballDef = false;
-            clayapothecarymortarDef = false;
-            claytemplarminigunDef = false;
-            greaterWispBuffDef = false;
-            impblinkDef = false;
-            jellyfishHealDef = false;
-            lemurianfireballDef = false;
-            lunargolemshotsDef = false;
-            lunarwispminigunDef = false;
-            parentteleportDef = false;
-            stonegolemlaserDef = false;
-            voidreaverportalDef = false;
-
-            beetlequeenSummonDef = false;
-            grovetenderChainDef = false;
-            grandparentsunDef = false;
-            claydunestriderbuffDef = false;
-            soluscontrolunityknockupDef = false;
-            xiconstructbeamDef = false;
-            voiddevastatorhomingDef = false;
-            scavengerthqwibDef = false;
-
-            hasQuirk = false;
-            hasExtra1 = false;
-            hasExtra2 = false;
-            hasExtra3 = false;
-            hasExtra4 = false;
-
-            informAFOToPlayers = false;
             hasStolen = false;
+            hasQuirk = false;
 
         }
 
@@ -281,59 +191,10 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
 
-            alphacontructpassiveDef = false;
-            beetlepassiveDef = false;
-            pestpassiveDef = false;
-            verminpassiveDef = false;
-            guppassiveDef = false;
-            hermitcrabpassiveDef = false;
-            larvapassiveDef = false;
-            lesserwisppassiveDef = false;
-            lunarexploderpassiveDef = false;
-            minimushrumpassiveDef = false;
-            roboballminibpassiveDef = false;
-            voidbarnaclepassiveDef = false;
-            voidjailerpassiveDef = false;
+           
 
-            impbosspassiveDef = false;
-            stonetitanpassiveDef = false;
-            magmawormpassiveDef = false;
-            overloadingwormpassiveDef = false;
-
-
-            alloyvultureWindBlastDef = false;
-            beetleguardslamDef = false;
-            bisonchargeDef = false;
-            bronzongballDef = false;
-            clayapothecarymortarDef = false;
-            claytemplarminigunDef = false;
-            greaterWispBuffDef = false;
-            impblinkDef = false;
-            jellyfishHealDef = false;
-            lemurianfireballDef = false;
-            lunargolemshotsDef = false;
-            lunarwispminigunDef = false;
-            parentteleportDef = false;
-            stonegolemlaserDef = false;
-            voidreaverportalDef = false;
-
-            beetlequeenSummonDef = false;
-            grovetenderChainDef = false;
-            grandparentsunDef = false;
-            claydunestriderbuffDef = false;
-            soluscontrolunityknockupDef = false;
-            xiconstructbeamDef = false;
-            voiddevastatorhomingDef = false;
-            scavengerthqwibDef = false;
-
-            informAFOToPlayers = false;
             hasStolen = false;
             hasQuirk = false;
-            hasExtra1 = false;
-            hasExtra2 = false;
-            hasExtra3 = false;
-            hasExtra4 = false;
-
 
             //write starting skills to the skill list for shiggymaster
             if (characterBody.skillLocator)
@@ -371,8 +232,20 @@ namespace ShiggyMod.Modules.Survivors
             this.activeindicator.active = false;
         }
 
+        public void PlayFinalReleaseLoop()
+        {            
+            finalReleaseLoopID = AkSoundEngine.PostEvent("ShiggyBankaiMusic", characterBody.gameObject);
+            
+        }
+        public void StopFinalReleaseLoop()
+        {
+            AkSoundEngine.StopPlayingID(finalReleaseLoopID);
+
+        }
+
         public void OnDestroy()
         {
+            StopFinalReleaseLoop();
             if (theWorldIndicatorInstance)
             {
                 theWorldIndicatorInstance.SetActive(false);
@@ -1061,23 +934,39 @@ namespace ShiggyMod.Modules.Survivors
                 }
             }
 
-            //sword aura
-            if(boolswordAura || characterBody.HasBuff(Buffs.finalReleaseBuff))
+            //sword aura L
+            if(boolswordAuraL || characterBody.HasBuff(Buffs.finalReleaseBuff))
             {
-                if (SWORDAURA.isStopped)
+                if (SWORDAURAL.isStopped)
                 {
-                    SWORDAURA.Play();
+                    SWORDAURAL.Play();
                 }
             }
-            else if (!boolswordAura && !characterBody.HasBuff(Buffs.finalReleaseBuff))
+            else if (!boolswordAuraL && !characterBody.HasBuff(Buffs.finalReleaseBuff))
             {
-                if (SWORDAURA.isPlaying)
+                if (SWORDAURAL.isPlaying)
                 {
-                    SWORDAURA.Stop();
+                    SWORDAURAL.Stop();
                 }
 
             }
-            //final release aura
+            //sword aura R
+            if (boolswordAuraR || characterBody.HasBuff(Buffs.finalReleaseBuff))
+            {
+                if (SWORDAURAR.isStopped)
+                {
+                    SWORDAURAR.Play();
+                }
+            }
+            else if (!boolswordAuraR && !characterBody.HasBuff(Buffs.finalReleaseBuff))
+            {
+                if (SWORDAURAR.isPlaying)
+                {
+                    SWORDAURAR.Stop();
+                }
+
+            }
+            //final release aura and music
             if (characterBody.HasBuff(Buffs.finalReleaseBuff))
             {
                 if (FINALRELEASEAURA.isStopped)
@@ -1088,7 +977,6 @@ namespace ShiggyMod.Modules.Survivors
             }
             else if (!characterBody.HasBuff(Buffs.finalReleaseBuff))
             {
-
                 if (FINALRELEASEAURA.isPlaying)
                 {
                     FINALRELEASEAURA.Stop();
@@ -1112,7 +1000,7 @@ namespace ShiggyMod.Modules.Survivors
             //final release buff
             if (characterBody.HasBuff(Buffs.finalReleaseBuff))
             {
-                if(energySystem.currentplusChaos <= 0f)
+                if (energySystem.currentplusChaos <= 0f)
                 {
                     Debug.Log("mugetsu");
                     new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
@@ -1209,14 +1097,6 @@ namespace ShiggyMod.Modules.Survivors
             //update indicator
             IndicatorUpdater();
 
-            if (!informAFOToPlayers)
-            {
-                informAFOToPlayers = true;
-                Chat.AddMessage($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.");
-                energySystem.quirkGetInformation($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.", 5f);
-            }
 
 
             //steal quirk
@@ -1248,7 +1128,6 @@ namespace ShiggyMod.Modules.Survivors
                             hasStolen = true;
                             Debug.Log("Target");
                             Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
-                            AkSoundEngine.PostEvent("ShiggyAFO", this.gameObject);
                             StealQuirk(trackingTarget);
 
                         }
@@ -1630,6 +1509,14 @@ namespace ShiggyMod.Modules.Survivors
             Debug.Log(newbodyPrefab + "newbodyprefab");
             //AkSoundEngine.PostEvent("ShiggyAFO", characterBody.gameObject);
 
+            if(name == "DekuBody")
+            {
+                AkSoundEngine.PostEvent("ShiggyOFAGet", base.gameObject);
+            }
+            else
+            {
+                AkSoundEngine.PostEvent("ShiggyAFO", this.gameObject);
+            }
             
 
             //elite aspects
@@ -1693,7 +1580,7 @@ namespace ShiggyMod.Modules.Survivors
 				}
 			}
 
-            if (StaticValues.bodyNameToSkillDef.ContainsKey(newbodyPrefab.name))
+            if (StaticValues.bodyNameToSkillDef.ContainsKey(name))
             {
                 AFOEffectController AFOCon = hurtBox.healthComponent.body.gameObject.AddComponent<AFOEffectController>();
                 AFOCon.attackerBody = characterBody;
@@ -1764,6 +1651,10 @@ namespace ShiggyMod.Modules.Survivors
                 }
 
             }
+            else
+            {
+                Shiggymastercon.storedAFOSkill[0] = null;
+            }
             
             if (Shiggymastercon.storedAFOSkill[0] != null)
             {
@@ -1795,6 +1686,7 @@ namespace ShiggyMod.Modules.Survivors
             }
             
         }
+
 
 
     }

@@ -22,6 +22,7 @@ namespace ShiggyMod.SkillStates
 
             //play animation?
 
+            AkSoundEngine.PostEvent("ShiggyGacha", base.gameObject);
             EffectManager.SpawnEffect(Assets.lunarGolemSmokeEffect, new EffectData
             {
                 origin = base.transform.position,

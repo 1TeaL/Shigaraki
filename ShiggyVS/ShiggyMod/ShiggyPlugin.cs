@@ -7,7 +7,6 @@ using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
 using ShiggyMod.SkillStates;
 using EntityStates;
-using R2API;
 using R2API.Networking;
 using R2API.Utils;
 using RoR2;
@@ -29,6 +28,7 @@ using RoR2.Items;
 using R2API.Networking.Interfaces;
 using EntityStates.VagrantMonster;
 using ShiggyMod.Modules.Networking;
+using R2API;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -67,7 +67,6 @@ namespace ShiggyMod
     //[BepInDependency("com.bepis.r2api.tempvisualeffect", BepInDependency.DependencyFlags.HardDependency)]
     //[BepInDependency("com.bepis.r2api.unlockable", BepInDependency.DependencyFlags.HardDependency)]
 
-    [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.KingEnderBrine.ExtraSkillSlots", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.rune580.riskofoptions", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.weliveinasociety.CustomEmotesAPI", BepInDependency.DependencyFlags.SoftDependency)]
@@ -148,6 +147,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<SetMugetsuStateMachine>();
             NetworkingAPI.RegisterMessageType<SetGetsugaStateMachine>();
             NetworkingAPI.RegisterMessageType<ForceGiveQuirkState>();
+            NetworkingAPI.RegisterMessageType<OrbDamageRequest>();
 
 
 
@@ -844,41 +844,10 @@ namespace ShiggyMod
                 {
                     if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                     {
-                        int lightcount2 = victimBody.GetBuffCount(Buffs.lightFormDebuff);
-                        LightningOrb lightningOrb = new LightningOrb();
-                        lightningOrb.lightningType = LightningOrb.LightningType.MageLightning;
-                        lightningOrb.damageValue = damageInfo.damage;
-                        lightningOrb.isCrit = attackerBody.RollCrit();
-                        lightningOrb.teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject);
-                        lightningOrb.attacker = base.gameObject;
-                        lightningOrb.procCoefficient = damageInfo.procCoefficient;
-                        lightningOrb.bouncesRemaining = lightcount2;
-                        lightningOrb.speed = 60f;
-                        lightningOrb.bouncedObjects = new List<HealthComponent>();
-                        lightningOrb.range = 60f;
-                        lightningOrb.damageCoefficientPerBounce = (1f + StaticValues.lightFormBonusDamage);
-
-                        HurtBox hurtBox = victimBody.mainHurtBox;
-                        if (hurtBox)
-                        {
-                            lightningOrb.origin = transform.position;
-                            lightningOrb.target = hurtBox;
-                            OrbManager.instance.AddOrb(lightningOrb);
-                        }
-
+                        new OrbDamageRequest(victimBody.masterObjectId, damageInfo.damage, attackerBody.masterObjectId).Send(NetworkDestination.Clients);
                     }
                 }
 
-                //darkness form debuff effect
-                if (victimBody.HasBuff(Buffs.darknessFormDebuff))
-                {
-                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
-                    {
-                        int darkcount = victimBody.GetBuffCount(Buffs.darknessFormDebuff);
-                        damageInfo.damage *= (1 + darkcount * StaticValues.darkFormBonusDamage);
-
-                    }
-                }
                 //light and darkness form debuff application
                 if (attackerBody.HasBuff(Buffs.lightAndDarknessFormBuff))
                 {
@@ -959,7 +928,7 @@ namespace ShiggyMod
                                         EffectData effectData = new EffectData
                                         {
                                             origin = position,
-                                            start = start
+                                            start = start,                                           
                                         };
                                         EffectManager.SpawnEffect(Modules.Assets.railgunnerSnipeLightTracerEffect, effectData, true);
 
@@ -1277,6 +1246,19 @@ namespace ShiggyMod
                         float buffBaseDamage = damageInfo.damage * StaticValues.expungeDamageMultiplier;
                         buffDamage = buffBaseDamage * debuffCount;
                         damageInfo.damage += buffDamage;
+                    }
+
+
+                    //darkness form debuff effect
+                    if (self.body.HasBuff(Buffs.darknessFormDebuff))
+                    {
+                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            int darkcount = self.body.GetBuffCount(Buffs.darknessFormDebuff);
+                            float darknum = attackerBody.damage * Modules.StaticValues.darkFormBonusDamage * darkcount;
+                            damageInfo.damage += darknum;
+
+                        }
                     }
 
                     //expose
@@ -1691,13 +1673,13 @@ namespace ShiggyMod
                 {
                     this.OverlayFunction(Modules.Assets.alphaconstructShieldBuffMat, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
                     this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
-                    this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.limitBreakBuff), self);//need to make new mat
+                    this.OverlayFunction(Modules.Assets.limitBreakBuffMat, self.body.HasBuff(Modules.Buffs.limitBreakBuff), self);
                     this.OverlayFunction(Modules.Assets.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.voidFormBuff), self);
                     this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.deathAuraBuff), self);
-                    this.OverlayFunction(Modules.Assets.deathAuraBuffMat, self.body.HasBuff(Modules.Buffs.deathAuraDebuff), self); //need new mat
+                    this.OverlayFunction(Modules.Assets.deathAuraBuffMat, self.body.HasBuff(Modules.Buffs.deathAuraDebuff), self); 
                     this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.darknessFormBuff), self);
                     this.OverlayFunction(Modules.Assets.lightFormBuffMat, self.body.HasBuff(Modules.Buffs.lightFormBuff), self);
-                    this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.lightAndDarknessFormBuff), self);//need new mat
+                    this.OverlayFunction(Modules.Assets.lightAndDarknessMat, self.body.HasBuff(Modules.Buffs.lightAndDarknessFormBuff), self);
                 }
             }
         }

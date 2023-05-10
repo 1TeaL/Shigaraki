@@ -45,8 +45,11 @@ namespace ShiggyMod.SkillStates
             
             base.AddRecoil(-3f * recoilAmplitude, -4f * recoilAmplitude, -0.5f * recoilAmplitude, 0.5f * recoilAmplitude);
 
-            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            PlayCrossfade("LeftArm, Override", "LHandFingerGun", "Attack.playbackRate", duration, 0.1f);
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            }
             damageType = DamageType.Freeze2s;
             
             if (effectPrefab)

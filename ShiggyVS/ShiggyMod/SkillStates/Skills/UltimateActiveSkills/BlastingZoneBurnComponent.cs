@@ -27,19 +27,19 @@ namespace ShiggyMod.SkillStates
 
         public void ApplyBurn()
         {
-            //halve stacks each pulse
+            //decrease stacks each pulse
             int debuffCount = charBody.GetBuffCount(Buffs.blastingZoneBurnDebuff);
-            int debuffDecreaseAmount = Mathf.RoundToInt(debuffCount / 2f);
+            int debuffDecreaseAmount = debuffCount - StaticValues.blastingZoneDebuffStackRemoval;
 
-            if(debuffCount - debuffDecreaseAmount < 0)
+            if(debuffDecreaseAmount < 0)
             {
-                debuffDecreaseAmount = debuffCount;
+                debuffDecreaseAmount = 0;
             }
 
             new BlastingZoneDebuffDamageRequest(charBody.masterObjectId, charBody.healthComponent.fullCombinedHealth * Modules.StaticValues.blastingZoneDebuffDamagePerStack * debuffCount);
 
-            charBody.ApplyBuff(Buffs.blastingZoneBurnDebuff.buffIndex, debuffCount - debuffDecreaseAmount);
-            EffectManager.SpawnEffect(Modules.Assets.strongerBurnEffectPrefab, new EffectData
+            charBody.ApplyBuff(Buffs.blastingZoneBurnDebuff.buffIndex, debuffDecreaseAmount);
+            EffectManager.SpawnEffect(EntityStates.LemurianMonster.FireFireball.effectPrefab, new EffectData
             {
                 origin = charBody.corePosition,
                 scale = 1f,

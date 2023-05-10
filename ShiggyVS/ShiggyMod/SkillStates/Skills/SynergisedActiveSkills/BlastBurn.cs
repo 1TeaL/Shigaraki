@@ -33,7 +33,10 @@ namespace ShiggyMod.SkillStates
             int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
             base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            }
 
             Ray aimRay = base.GetAimRay();
 

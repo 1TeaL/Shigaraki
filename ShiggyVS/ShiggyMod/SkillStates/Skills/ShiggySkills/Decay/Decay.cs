@@ -21,7 +21,7 @@ namespace ShiggyMod.SkillStates
 
             this.damageCoefficient = Modules.StaticValues.decayattackDamageCoefficient;
             this.procCoefficient = 1f;
-            this.pushForce = 100f;
+            this.pushForce = 0f;
             this.damageType = DamageType.Generic;
             this.baseDuration = 1f;
             this.attackStartTime = 0.2f;
@@ -32,12 +32,12 @@ namespace ShiggyMod.SkillStates
             this.hitHopVelocity = 7f;
 
             this.swingSoundString = "ShiggyMelee";
-            this.hitSoundString = "ShiggyMelee";
-            this.muzzleString = "RHand";
+            this.hitSoundString = "";
+            this.muzzleString = ChooseAnimationString();
             this.swingEffectPrefab = Modules.Assets.shiggySwingEffect;
             this.hitEffectPrefab = Modules.Assets.shiggyHitImpactEffect;
 
-            this.impactSound = Modules.Assets.decayHitSoundEffect.index;
+            this.impactSound = Modules.Assets.hitSoundEffect.index;
 
             base.OnEnter();
 
@@ -99,16 +99,16 @@ namespace ShiggyMod.SkillStates
             base.PlayAttackAnimation();
         }
 
-        //protected override void PlaySwingEffect()
-        //{
-        //    base.PlaySwingEffect();
-        //}
+        protected override void PlaySwingEffect()
+        {
+            base.PlaySwingEffect();
+        }
 
-        //protected override void OnHitEnemyAuthority()
-        //{
-        //    base.OnHitEnemyAuthority();
+        protected override void OnHitEnemyAuthority()
+        {
+            base.OnHitEnemyAuthority();
 
-        //}
+        }
 
         protected override void SetNextState()
         {
@@ -118,6 +118,7 @@ namespace ShiggyMod.SkillStates
 
             this.outer.SetNextState(new Decay
             {
+                swingIndex = index,
             });
         }
 

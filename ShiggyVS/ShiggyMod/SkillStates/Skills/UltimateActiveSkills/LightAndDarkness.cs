@@ -65,9 +65,9 @@ namespace ShiggyMod.SkillStates
 
             //play animation and maybe particles? drive form sounds?
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayCrossfade("FullBody, Override", "FullBodyUnleash", "Attack.playbackRate", duration, 0.05f);
+            base.PlayAnimation("FullBody, Override", "FullBodyUnleash", "Attack.playbackRate", duration);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            AkSoundEngine.PostEvent("ShiggyDriveForm", base.gameObject);
 
             Ray aimRay = base.GetAimRay();
             EffectManager.SpawnEffect(Assets.engiShieldEffect, new EffectData

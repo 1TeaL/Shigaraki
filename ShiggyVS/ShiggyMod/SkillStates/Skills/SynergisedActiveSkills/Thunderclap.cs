@@ -42,7 +42,7 @@ namespace ShiggyMod.SkillStates
         protected string muzzleString = "SwingCenter";
         protected GameObject swingEffectPrefab;
         protected GameObject hitEffectPrefab;
-        protected NetworkSoundEventIndex impactSound;
+        protected NetworkSoundEventIndex impactSound = Assets.hitSoundEffect.index;
 
         private float preDashTimer;
         public float duration;
@@ -84,7 +84,10 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            }
 
             HitBoxGroup hitBoxGroup = null;
             Transform modelTransform = base.GetModelTransform();
@@ -137,8 +140,6 @@ namespace ShiggyMod.SkillStates
                 base.characterBody.AddBuff(RoR2Content.Buffs.HiddenInvincibility);
             }
 
-            Util.PlaySound(Evis.beginSoundString, base.gameObject);
-            Util.PlaySound(EvisDash.beginSoundString, base.gameObject);
 
             //blast attack for end 
             blastAttack = new BlastAttack();
@@ -156,6 +157,7 @@ namespace ShiggyMod.SkillStates
 
             DamageAPI.AddModdedDamageType(blastAttack, Damage.shiggyDecay);
 
+            Util.PlaySound(EvisDash.endSoundString, base.gameObject);
         }
 
         private void CreateBlinkEffect(Vector3 origin)
@@ -186,7 +188,6 @@ namespace ShiggyMod.SkillStates
             }, true);
 
             base.characterMotor.velocity *= speedCoefficientOnExit;
-            //Util.PlaySound(EvisDash.endSoundString, base.gameObject);
             Util.PlaySound(Assaulter2.endSoundString, base.gameObject);
             //this.PlayAnimation("FullBody, Override", "EvisLoopExit");
             base.gameObject.layer = LayerIndex.defaultLayer.intVal;
