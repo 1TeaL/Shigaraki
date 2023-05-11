@@ -35,7 +35,7 @@ namespace ShiggyMod.SkillStates
                 rotation = Quaternion.LookRotation(aimRay.direction),
 
             }, true);
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 1);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "FullBodyTheWorld", "Attack.playbackRate", duration, 0.05f);

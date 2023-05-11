@@ -38,7 +38,6 @@ namespace ShiggyMod.SkillStates
 
             new BlastingZoneDebuffDamageRequest(attackerBody.masterObjectId, charBody.masterObjectId, charBody.healthComponent.fullCombinedHealth * Modules.StaticValues.blastingZoneDebuffDamagePerStack * debuffCount).Send (NetworkDestination.Clients);
 
-            charBody.ApplyBuff(Buffs.blastingZoneBurnDebuff.buffIndex, debuffDecreaseAmount);
             EffectManager.SpawnEffect(EntityStates.LemurianMonster.FireFireball.effectPrefab, new EffectData
             {
                 origin = charBody.corePosition + charBody.characterDirection.forward,
@@ -46,33 +45,28 @@ namespace ShiggyMod.SkillStates
                 rotation = Quaternion.identity
 
             }, true);
+            charBody.ApplyBuff(Buffs.blastingZoneBurnDebuff.buffIndex, debuffDecreaseAmount);
+            Destroy(this);
         }
 
         public void FixedUpdate()
         {
-            timer += Time.fixedDeltaTime;
-            if (timer > Modules.StaticValues.blastingZoneDebuffInterval)
+            if (charBody.HasBuff(Modules.Buffs.blastingZoneBurnDebuff))
             {
-                timer = 0;
-                //burn self, minus one stack
-                if (charBody.HasBuff(Modules.Buffs.blastingZoneBurnDebuff))
+                timer += Time.fixedDeltaTime;
+                if (timer > Modules.StaticValues.blastingZoneDebuffInterval)
                 {
+                    timer = 0;
+                    //burn self, minus one stack)
+
                     ApplyBurn();
+
                 }
-                else
-                {
-                    Destroy(this);
-                }
+
             }
-            if (charBody)
-            {
-                //If buff isn't present, destroy the effect and self.
-                if (!charBody.HasBuff(Modules.Buffs.blastingZoneBurnDebuff))
-                {
-                    Destroy(this);
-                }
-            }
-            else if (!charBody)
+            else
+            //If buff isn't present, destroy the effect and self.
+            if (!charBody.HasBuff(Modules.Buffs.blastingZoneBurnDebuff))
             {
                 Destroy(this);
             }

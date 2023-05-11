@@ -351,7 +351,7 @@ namespace ShiggyMod.Modules.Survivors
                                             procChainMask = procChainMask1,
                                             procCoefficient = 1f,
                                             isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
-                                            teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
+                                            teamIndex = characterBody.GetComponent<TeamComponent>().teamIndex,
                                             target = singularTarget,
 
                                         });

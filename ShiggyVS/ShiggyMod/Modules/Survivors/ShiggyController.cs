@@ -1004,6 +1004,7 @@ namespace ShiggyMod.Modules.Survivors
                 if (energySystem.currentplusChaos <= 0f)
                 {
                     Debug.Log("mugetsu");
+                    StopFinalReleaseLoop();
                     new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
                 }
 

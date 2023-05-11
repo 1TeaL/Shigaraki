@@ -459,7 +459,7 @@ namespace ShiggyMod.Modules
                 + Environment.NewLine
                 + Environment.NewLine
             + $"<style=cKeywordName>Air Walk</style>"
-                + "<style=cIsUtility>Holding jump in the air after 0.5 seconds let's him Float, flying up or slowing his descent while using a skill</style>."
+                + "<style=cIsUtility>Holding jump in the air after 0.5 seconds let's him fly, ascending for up to 3 seconds or slowing his descent while using a skill</style>."
                 + Helpers.Passive(" Drains plus ultra"));
             #endregion
             #endregion
