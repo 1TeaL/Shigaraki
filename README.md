@@ -724,14 +724,49 @@ Shigaraki can sprint in any direction and has a double jump.
 </thead>
 <tbody>
   <tr>
-    <td></td>
-    <td><img src="" width="256" ></td>
-    <td><img src=""></td>
+    <td>The World</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/TheWorld.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/20d3c2a0-24e5-4341-9ae8-36474542965e"></td>
   </tr>
   <tr>
-    <td></td>
-    <td><img src="" width="256" ></td>
-    <td><img src=""></td>
+    <td>Extreme Speed</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/ExtremeSpeed.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/73871ac0-8ae3-4a09-8e01-9d4dc382cdd0"></td>
+  </tr>
+  <tr>
+    <td>Death Aura</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/DeathAura.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/c60ebe30-a116-400c-b575-cdb7cb828c26"></td>
+  </tr>
+  <tr>
+    <td>One For All For One</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/OneForAllForOne.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/8d052de9-8dfa-494b-b36b-45536fe93438"></td>
+  </tr>
+  <tr>
+    <td>X Beamer</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/XBeamer.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/3ab7ef7f-3acf-48e2-8111-3af97b314f3f"></td>
+  </tr>
+  <tr>
+    <td>Final Release</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/FinalRelease.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/3e6afd33-fb37-4cb6-b21a-23f4063228ea"></td>
+  </tr>
+  <tr>
+    <td>Blasting Zone</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BlastingZone.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/de446fa8-97f7-4717-b4d9-cb9782412d43"></td>
+  </tr>
+  <tr>
+    <td>Wild Card</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/WildCard.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/33f73285-06f6-4708-83cb-8553a9cdc821"></td>
+  </tr>
+  <tr>
+    <td>Light And Darkness</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/LightAndDarkness.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/0349003a-5618-48e2-9560-76299538fd16"></td>
   </tr>
 </tbody>
 </table>
