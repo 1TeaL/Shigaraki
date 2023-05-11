@@ -643,6 +643,73 @@ Shigaraki can sprint in any direction and has a double jump.
 </details>
 
 	
+### Synergy Passives
+
+<details>
+<summary>Click to expand synergy passives</summary>	
+<table>
+<thead>
+  <tr>
+    <th>Quirk</th>
+    <th>Icon</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Big Bang</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BigBang.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/6916edd7-d089-40fa-8ba3-8c21cca3b5fd"></td>
+  </tr>
+  <tr>
+    <td>Wisper</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Wisper.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/7c0b1702-b459-4b54-b7c2-08ef3dd5658a"></td>
+  </tr>
+  <tr>
+    <td>Omniboost</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Omniboost.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/9d13e6ba-9d6f-4673-9278-c33461cfb12a"></td>
+  </tr>
+  <tr>
+    <td>Gacha</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Gacha.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/59737b09-8720-4a7e-a22e-db64d479b4fd"></td>
+  </tr>
+  <tr>
+    <td>Stone Form</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/StoneForm.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/d888da24-869f-4b51-9768-d95ac6c92e1d"></td>
+  </tr>
+  <tr>
+    <td>Aura Of Blight</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/AuraOfBlight.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/254b9077-b72b-45dd-9824-0621aee751fd"></td>
+  </tr>
+  <tr>
+    <td>Barbed Spikes</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BarbedSpikes.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/634b51bc-d435-44b2-b56b-a9fe014d5b66"></td>
+  </tr>
+  <tr>
+    <td>Ingrain</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Ingrain.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/e7422797-279b-4fef-8ca2-16cad757ee5b"></td>
+  </tr>
+  <tr>
+    <td>Double Time</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/DoubleTime.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/87164301-536f-4cfa-aeb3-f445855f4ddd"></td>
+  </tr>
+  <tr>
+    <td>Blind Senses</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BlindSenses.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/c1a1a333-6b40-467e-a9b3-531437d0d472"></td>
+  </tr>
+</tbody>
+</table>
+</details>
+	
 ### Ultimate Actives
 
 <details>
