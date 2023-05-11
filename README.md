@@ -153,6 +153,9 @@ All [Melee]/Overlap attacks attacks Decay, which decreases the enemies' movespee
 Shigaraki can sprint in any direction and has a double jump.
 
 ### Base Skills
+
+<details>
+<summary>Click to expand base skills</summary>	
 <table>
 <thead>
   <tr>
@@ -194,8 +197,12 @@ Shigaraki can sprint in any direction and has a double jump.
   </tr>
 </tbody>
 </table>
+</details>
 
 ### Quirk Actives
+
+<details>
+<summary>Click to expand base actives</summary>	
 <table>
 <thead>
   <tr>
@@ -388,16 +395,307 @@ Shigaraki can sprint in any direction and has a double jump.
   </tr>
 </tbody>
 </table>
+</details>
 
 ### Quirk Passives
 
+<details>
+<summary>Click to expand base passives</summary>	
+<table>
+<thead>
+  <tr>
+    <th>Quirk</th>
+    <th>Icon</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Barrier</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Alpha_Construct.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/ef357abb-4701-4977-948c-0345282f3604"></td>
+  </tr>
+  <tr>
+    <td>Strength Boost</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Beetle.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/db4db6e5-a93e-4634-9de4-92d533ce5672"></td>
+  </tr>
+  <tr>
+    <td>Jump Boost</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Blind_Pest.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/f798ede9-2f28-4b00-9f4d-b0e20a0fc6dd"></td>
+  </tr>
+  <tr>
+    <td>Super Speed</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Blind_Vermin.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/7184fd02-d366-4ac9-9308-83f58ced65ea"></td>
+  </tr>
+  <tr>
+    <td>Spiky Body</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Gup.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/dd7974a7-f9da-4aa0-9177-2c9618a5578e"></td>
+  </tr>
+  <tr>
+    <td>Mortar</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Hermit_Crab.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/90604021-91a5-4b60-9f72-51906a25b7b7"></td>
+  </tr>
+  <tr>
+    <td>Acid Jump</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Larva.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/98b4c3c3-5e08-41f9-807c-173c3236da1d"></td>
+  </tr>
+  <tr>
+    <td>Haste</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Lesser_Wisp.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/4414c0f0-7c40-4f44-b4af-f2aa8d590736"></td>
+  </tr>
+  <tr>
+    <td>Lunar Barrier</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Lunar_Exploder.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/4f829eb0-2e5a-48a1-bc98-5981a74448bd"></td>
+  </tr>
+  <tr>
+    <td>Healing Aura</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Mini_Mushrum.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/16bbe7da-9e14-43d3-b28f-a2da8289b4e1"></td>
+  </tr>
+  <tr>
+    <td>Solus Boost</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Solus_Probe.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/7e75b5db-4dad-48ba-a16d-9a9fcdf2f7d8"></td>
+  </tr>
+  <tr>
+    <td>Void Mortar</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Void_Barnacle.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/932ca55c-2cdf-4c98-81a4-60f3c31174e0"></td>
+  </tr>
+  <tr>
+    <td>Gravity</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Void_Jailer.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/53c020c7-51dd-4e4a-9e8b-ac6cdbc905df"></td>
+  </tr>
+  <tr>
+    <td>Bleed</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Imp_Overlord.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/102c2a3a-2a0c-4439-95cc-ec25e82f202e"></td>
+  </tr>
+  <tr>
+    <td>Stone Skin</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Stone_Titan.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/b81b4fc1-0977-4404-8eac-b6a0731c2e03"></td>
+  </tr>
+  <tr>
+    <td>Blazing Aura</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Magma_Worm.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/102556a2-ae3f-463c-b071-c7e8e1724ef4"></td>
+  </tr>
+  <tr>
+    <td>Lightning Aura</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Overloading_Worm.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/b06db688-0df0-4ef6-bd5b-5cab0413464c"></td>
+  </tr>
+  <tr>
+    <td>Vagrant's Orb</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Wandering_Vagrant.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/fd9244d0-5dcc-44f3-af97-aeef0f9cec0e"></td>
+  </tr>
+  <tr>
+    <td>Poison</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Acrid.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/333cc819-2242-48ec-91af-a4e8e42093af"></td>
+  </tr>
+  <tr>
+    <td>Double Tap</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Commando.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/986ed68e-d714-430f-9589-de35cdae981c"></td>
+  </tr>
+  <tr>
+    <td>Defensive Microbots</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Captain.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/2de8abd1-a166-4b41-a167-3fb9fb031d90"></td>
+  </tr>
+  <tr>
+    <td>Scrap Barrier</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Loader.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/d0a9c072-539a-4be0-98b8-c03c839747f6"></td>
+  </tr>
+</tbody>
+</table>
+</details>
+
 ### Synergy Actives
 
-### Synergy Passives 
+<details>
+<summary>Click to expand synergy actives</summary>	
+<table>
+<thead>
+  <tr>
+    <th>Quirk</th>
+    <th>Icon</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Sweeping Beam</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/SweepingBeam.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/c6e957d8-73e1-43d2-a04c-b775b59c3288"></td>
+  </tr>
+  <tr>
+    <td>Blackhole Glaive</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BlackholeGlaive.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/aaaf8d33-9f38-46a9-8980-4dc1b4affa93"></td>
+  </tr>
+  <tr>
+    <td>Gravitational Downforce</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/GravitationalDownforce.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/f9572275-69da-49f3-bfdf-d4b8b8142d7f"></td>
+  </tr>
+  <tr>
+    <td>Wind Shield</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/WindShield.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/cb1487fe-b16d-4745-bf80-01d3ef3064f9"></td>
+  </tr>
+  <tr>
+    <td>Genesis</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Genesis.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/6e8b4ffc-0a39-42df-8e2d-11397582c86e"></td>
+  </tr>
+  <tr>
+    <td>Refresh</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Refresh.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/1cf9758a-f384-4884-8d78-9dd7ec04964f"></td>
+  </tr>
+  <tr>
+    <td>Expunge</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Expunge.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/cea4a457-b33e-45e1-bf61-4e6eaba9330c"></td>
+  </tr>
+  <tr>
+    <td>Shadow Claw</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/ShadowClaw.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/fee8a053-d3e2-4efd-92f7-d32dce1ffac5"></td>
+  </tr>
+  <tr>
+    <td>Orbital Strike</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/OrbitalStrike.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/bc3044ee-28bb-4683-a2c9-d20b6640b7ee"></td>
+  </tr>
+  <tr>
+    <td>Thunderclap</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/ThunderClap.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/352aa28a-6035-4b6d-95d2-c6a6aafd83e2"></td>
+  </tr>
+  <tr>
+    <td>Blast Burn</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BlastBurn.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/7342948a-4885-41f9-892b-4690762893a6"></td>
+  </tr>
+  <tr>
+    <td>Barrier Jelly</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BarrierJelly.jpg?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/582d6c1f-4e36-449e-95f9-4fa57c450222"></td>
+  </tr>
+  <tr>
+    <td>Mech Stance</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/MechStance.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/ebc4a8a3-8f9f-455d-ab68-ef6c086bbdbc"></td>
+  </tr>
+  <tr>
+    <td>Wind Slash</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/WindSlash.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/de9925fe-b68e-4e6c-9c2a-2f23f2d67f6e"></td>
+  </tr>
+  <tr>
+    <td>Limit Break</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/LimitBreak.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/6c5dcc2c-3cb3-4619-b19e-af397aa33c85"></td>
+  </tr>
+  <tr>
+    <td>Void Form</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/VoidForm.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/2809d190-1f92-4559-a7b0-72aaeceeaeb4"></td>
+  </tr>
+  <tr>
+    <td>Elemental Fusion</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/ElementalFusion.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/49657047-ef82-4d32-88da-6cff2fdc48fe"></td>
+  </tr>
+  <tr>
+    <td>Decay Plus Ultra</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/DecayPlusUltra.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/5a93a38b-64d1-4dff-a2b8-d57712a6ac89"></td>
+  </tr>
+  <tr>
+    <td>Mach Punch</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/MachPunch.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/48e2dd0c-b965-474f-ad0c-dc14234297a6"></td>
+  </tr>
+  <tr>
+    <td>Rapid Pierce</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/RapidPierce.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/e1d3b32e-57ef-49f1-99aa-698c63afe737"></td>
+  </tr>
+ 
+</tbody>
+</table>
+</details>
 
+	
 ### Ultimate Actives
 
+<details>
+<summary>Click to expand ultimate actives</summary>	
+<table>
+<thead>
+  <tr>
+    <th>Quirk</th>
+    <th>Icon</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td></td>
+    <td><img src="" width="256" ></td>
+    <td><img src=""></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><img src="" width="256" ></td>
+    <td><img src=""></td>
+  </tr>
+</tbody>
+</table>
+</details>
+
 ### Ultimate Passives
+
+<details>
+<summary>Click to expand ultimate passives</summary>	
+<table>
+<thead>
+  <tr>
+    <th>Quirk</th>
+    <th>Icon</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td></td>
+    <td><img src="" width="256" ></td>
+    <td><img src=""></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><img src="" width="256" ></td>
+    <td><img src=""></td>
+  </tr>
+</tbody>
+</table>
+</details>
 
 ## Numbers
 ##### Armor = 10 + 0.5 per level
@@ -511,6 +809,7 @@ rest of changelog on github.
 
 ## Credits
 ##### HenryMod for the template.
+##### Mr.Bones for supplying base shigaraki skill icons.
  
 <details>
 <summary>Click to expand for OG pictures:</summary>
