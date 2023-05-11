@@ -1192,7 +1192,7 @@ namespace ShiggyMod.Modules.Survivors
 
                     //choose what quirk to remove
                     Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
-                    energySystem.quirkGetInformation("<style=cIsUtility>Choose which Quirk to Remove</style>", 1f);
+                    energySystem.quirkGetInformation("<style=cIsUtility>Choose which Quirk to Remove</style>", 2f);
                     //unset skills but not to unwrite the skilllist
                     //RemovePrimary();
                     //RemoveSecondary();
@@ -1472,7 +1472,7 @@ namespace ShiggyMod.Modules.Survivors
             AFOCon.RHandChild = child.FindChild("RHand").transform;
 
             Chat.AddMessage("<style=cIsUtility>Choose a Passive Quirk to Give</style>");
-            energySystem.quirkGetInformation("<style=cIsUtility>Choose a Passive Quirk to Give</style>", 1f);
+            energySystem.quirkGetInformation("<style=cIsUtility>Choose a Passive Quirk to Give</style>", 2f);
 
 
             var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
@@ -1632,20 +1632,20 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     Shiggymastercon.writeToAFOSkillList(skillDefUltimate, 0);
                     Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDefUltimate.skillName]);
-                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDefUltimate.skillName], 1f);
+                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDefUltimate.skillName], 2f);
 
                 }
                 else if (canSynergyUpgrade)
                 {
                     Shiggymastercon.writeToAFOSkillList(skillDefUpgrade, 0);
                     Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDefUpgrade.skillName]);
-                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDefUpgrade.skillName], 1f);
+                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDefUpgrade.skillName], 2f);
                 }
                 else if (canBaseSkillTake)
                 {
                     Shiggymastercon.writeToAFOSkillList(skillDef, 0);
                     Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDef.skillName]);
-                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDef.skillName], 1f);
+                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDef.skillName], 2f);
 
                 }
                 else
@@ -1685,7 +1685,7 @@ namespace ShiggyMod.Modules.Survivors
             else if (Shiggymastercon.storedAFOSkill[0] == null)
             {
                 Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
-                energySystem.quirkGetInformation("No Quirk to <style=cIsUtility>Steal!</style>", 1f);
+                energySystem.quirkGetInformation("No Quirk to <style=cIsUtility>Steal!</style>", 2f);
 
                 //refund energy
                 float plusChaosflatCost = (StaticValues.AFOEnergyCost) - (energySystem.costflatplusChaos);

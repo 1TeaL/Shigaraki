@@ -80,7 +80,9 @@ namespace ShiggyMod.Modules.Survivors
             //setup the UI element for the min/max
             plusChaosNumber = this.CreateLabel(CustomUIObject.transform, "plusChaosNumber", $"{(int)currentplusChaos} / {maxPlusChaos}", new Vector2(0, -110), 24f, new Color(0.92f, 0.12f, 0.8f));
 
+            //ui element for information below the energy
             quirkGetUI = this.CreateLabel(CustomUIObject.transform, "quirkGetString", quirkGetString, new Vector2(0, -220), 24f, Color.white);
+            quirkGetUI.SetText(quirkGetString);
             quirkGetUI.enabled = true;
 
 
@@ -245,18 +247,20 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Update()
         {
-            Debug.Log(quirkGetUI.isActiveAndEnabled + "quirkGetUI.isActiveAndEnabled");
-            Debug.Log(quirkGetUI.enabled + "quirkGetUI.enabled");
+            Debug.Log(quirkGetString+ "quirkgetstring");
 
             if (quirkGetUI.isActiveAndEnabled)
             {
+                quirkGetUI.SetText(quirkGetString);
                 if (!informAFOToPlayers)
                 {
                     informAFOToPlayers = true;
                     Chat.AddMessage($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                    + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.");
+                    + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
+                    $" Press the [{Config.AFOGiveHotkey.Value}] key to <style=cIsUtility>give passive quirks</style>.");
                     quirkGetInformation($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                    + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.", 5f);
+                    + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
+                    $" Press the [{Config.AFOGiveHotkey.Value}] key to <style=cIsUtility>give passive quirks</style>.", 5f);
                 }
 
                 if (quirkGetStopwatch > 0f)

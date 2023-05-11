@@ -135,7 +135,7 @@ namespace ShiggyMod.SkillStates
             else
             {
                 Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 1f);
+                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
 
         }
@@ -156,7 +156,7 @@ namespace ShiggyMod.SkillStates
             else
             {
                 Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 1f);
+                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
         protected virtual void GiveSkill3()
@@ -176,7 +176,7 @@ namespace ShiggyMod.SkillStates
             else
             {
                 Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 1f);
+                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
         protected virtual void GiveSkill4()
@@ -196,7 +196,7 @@ namespace ShiggyMod.SkillStates
             else
             {
                 Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 1f);
+                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
         protected virtual void GiveExtraSkill1()
@@ -216,7 +216,7 @@ namespace ShiggyMod.SkillStates
             else
             {
                 Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 1f);
+                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
         protected virtual void GiveExtraSkill2()
@@ -236,7 +236,7 @@ namespace ShiggyMod.SkillStates
             else
             {
                 Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 1f);
+                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
         protected virtual void GiveExtraSkill3()
@@ -256,7 +256,7 @@ namespace ShiggyMod.SkillStates
             else
             {
                 Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 1f);
+                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
         protected virtual void GiveExtraSkill4()
@@ -276,7 +276,7 @@ namespace ShiggyMod.SkillStates
             else
             {
                 Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 1f);
+                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
 
