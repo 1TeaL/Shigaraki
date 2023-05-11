@@ -653,7 +653,10 @@ rest of changelog on github.
 
 ## Credits
 ##### HenryMod for the template.
-  
+ 
+<details>
+<summary>Click to expand for OG pictures:</summary>
+
 ## OG Pictures
 ![128x128Icon](https://user-images.githubusercontent.com/93917577/168004591-39480a52-c7fe-4962-997f-cd9460bb4d4a.png)
 ![Character Select](https://github.com/1TeaL/Shigaraki/assets/93917577/5682234e-9b60-489d-9f36-2a35f060fa0e)
@@ -876,7 +879,7 @@ rest of changelog on github.
 ![DeathAura](https://github.com/1TeaL/Shigaraki/assets/93917577/67a38706-a0ec-4fbc-b3f5-636a2dee4c47)
 
 
-
+</details>
 
 
 
