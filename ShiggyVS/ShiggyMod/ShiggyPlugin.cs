@@ -27,7 +27,6 @@ using System;
 using RoR2.Items;
 using R2API.Networking.Interfaces;
 using EntityStates.VagrantMonster;
-using ShiggyMod.Modules.Networking;
 using R2API;
 
 #pragma warning disable CS0618 // Type or member is obsolete
