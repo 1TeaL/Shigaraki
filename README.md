@@ -126,7 +126,11 @@ If you enjoy my work, support me on Ko-fi!
     - More/Improved animations.
     - Icons for base skills?
 
-<img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/5682234e-9b60-489d-9f36-2a35f060fa0e">
+<img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/5682234e-9b60-489d-9f36-2a35f060fa0e" height ="256" >
+<img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/3637a749-4066-4f01-80f9-3f104461d53c" height ="256" >
+<img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/4052cff0-8a47-432d-9d0f-8957d1c5c0f6" height ="256" >
+<img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/10f18a9e-0339-461d-ab08-a306477a4767" height ="256" >
+<img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/4f6287ea-6d40-46d8-bd1d-d302919573fe" height ="256" >
 
 ## Known Issues
     
@@ -939,6 +943,10 @@ rest of changelog on github.
 ## OG Pictures
 ![128x128Icon](https://user-images.githubusercontent.com/93917577/168004591-39480a52-c7fe-4962-997f-cd9460bb4d4a.png)
 ![Character Select](https://github.com/1TeaL/Shigaraki/assets/93917577/5682234e-9b60-489d-9f36-2a35f060fa0e)
+![BlastingZonePic](https://github.com/1TeaL/Shigaraki/assets/93917577/4052cff0-8a47-432d-9d0f-8957d1c5c0f6)
+![FinalReleaseGetsugaPic](https://github.com/1TeaL/Shigaraki/assets/93917577/10f18a9e-0339-461d-ab08-a306477a4767)
+![TheWorldPic](https://github.com/1TeaL/Shigaraki/assets/93917577/4f6287ea-6d40-46d8-bd1d-d302919573fe)
+![AFOStealPic](https://github.com/1TeaL/Shigaraki/assets/93917577/3637a749-4066-4f01-80f9-3f104461d53c)
 
 ![Passive](https://github.com/1TeaL/Shigaraki/assets/93917577/07984117-9535-4e63-af1b-7b5e1367a3b3)
 
