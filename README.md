@@ -66,7 +66,7 @@ If you enjoy my work, support me on Ko-fi!
     - New mechanics 
     	- Quirks can now SYNERGISE, creating a BRAND NEW SKILL/PASSIVE!
     		- With 60 base quirks, that makes 30 synergised quirks, which can also combine to make 15 ultimate quirks! 
-    		- ``I CAN NOW SAY SHIGARAKI HAS 100+ SKILLS/PASSIVES!``
+    		- ``I CAN NOW SAY SHIGARAKI HAS 100+ SKILLS/PASSIVES!!``
     		- By grabbing the specific pair of a skill while having the skill in your skill slots, you will automatically get the synergised skill. If you had the synergised skill's pair in your skill slots it will automatically get the ultimate skill as well.
         - Also to accommodate synergies, Shigaraki can only have 1 of each skill, no more duplicates. This means that after getting the ultimate or synergised version, you won't get that version if you try and steal someone's quirk and get the tier below.
         - ``A new Config option is added to allow all skills to be chosen in the loadout if you'd prefer to build Shigaraki from the beginning (I can't speak much on balance but why not). All for One functionality is still present if you'd like to use it. You'll need to restart the game to see changes.`` 
@@ -82,6 +82,8 @@ If you enjoy my work, support me on Ko-fi!
         - Added new ability- give quirk: Able to give passive quirks to allies- an ally is able to have one passive at a time. 
         	- In addition, addded passive explanations to their buffs so allies can read them.
     - Changes    	 
+    	- Added proper description...(sorry Ditto)
+    	- Cleaned up explanations of skills, removed redundant information like Agile. 
     	- Made it so the extra [information] under each skill is more relevant to what character's quirk you'll need to get the synergised quirk.
     	- Along with this, all base skill icons are now changed to have the main character on the top left and the paired character on the bottom right to let players know who to look out for (In the future they may simply just have a new icon itself).
     	- Right handed and Left handed skills concept is scrapped. It was an arbitrary way of listing which skills could be held with others. Certain skills may still be animated with one hand or the other but more animations will attempt to involve both. 
@@ -92,7 +94,7 @@ If you enjoy my work, support me on Ko-fi!
     		- It no longer reapplies to the user, it now properly recognizes you are the attacker of the enemy's hit so you'll see their health bars properly.
     		- Damage now scales off of your damage instead of the enemy's damage, dealing the higher of 100% damage or 0.5% of the enemy's max health per second per stack.
     		- The instakill threshold has changed from 50-> 100 stacks- this is due to this update providing more ways to stack decay.
-    		- All overlap attacks will apply decay (Including projectiles that have cause them *cough* Wind Slash *cough*). 
+    		- All overlap attacks will apply decay (Including projectiles that have them *cough* Wind Slash *cough*). 
     	- Beetle: Strength boost now gives flat 5 damage, no melee bonus.
     	- Lesser wisp: Ranged boost changed to Haste-> gives flat 0.5 attack speed, no ranged bonus.
     	- Lunar exploder: Lunar aura changed to Lunar barrier-> gives shield equal to 25% of max health.
@@ -118,15 +120,13 @@ If you enjoy my work, support me on Ko-fi!
     	- Double tap correctly has a proc coefficient of 1 instead of 0. 
     	- Remove skill now properly works for all skills.
 
-		
-
 
 - Next update(s)
     - Bug fixes. 
-    - More/Improved animations?
-    - Icons for base skills.
+    - More/Improved animations.
+    - Icons for base skills?
 
-<img src= "https://user-images.githubusercontent.com/93917577/179202355-c5eb5011-4295-4093-9c96-d84132bcbb05.PNG">
+<img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/5682234e-9b60-489d-9f36-2a35f060fa0e">
 
 ## Known Issues
     
@@ -134,7 +134,7 @@ If you enjoy my work, support me on Ko-fi!
 ## Overview
     He is initially weak with low base damage, aim to get passive quirks to increase his power.
     All For One can grab elite equipment from elites. 
-    Different quirks builds his playstyle, such as focusing on procs, high damage, buffs, 
+    Different quirks builds his playstyle, such as focusing on procs, high damage, buffs, debuffs, defensive, mobility, utility, it's up to you.
 	
 
 ## Skills
@@ -786,14 +786,34 @@ Shigaraki can sprint in any direction and has a double jump.
 </thead>
 <tbody>
   <tr>
-    <td></td>
+    <td>Supernova</td>
     <td><img src="" width="256" ></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/d458ef84-0da6-431e-9eda-639b4302f72b"></td>
   </tr>
   <tr>
-    <td></td>
-    <td><img src="" width="256" ></td>
-    <td><img src=""></td>
+    <td>Reversal</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Reversal.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/a91f8b0f-c769-47f1-a59a-773c36fdcdb0"></td>
+  </tr>
+  <tr>
+    <td>Machine Form</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/MachineForm.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/ae3b9ae1-8f60-4325-924f-a32a8be5f76e"></td>
+  </tr>
+  <tr>
+    <td>Gargoyle Protection</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/GargoyleProtection.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/764a4d17-57f0-4b33-a3f6-de66be349214"></td>
+  </tr>
+  <tr>
+    <td>Weather Report</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/WeatherReport.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/2e4884f3-86fa-4733-b46e-3fd1239191be"></td>
+  </tr>
+  <tr>
+    <td>Decay Awakened</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/DecayAwakened.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/947f59fc-573c-43a6-91bd-a9be388bccc2"></td>
   </tr>
 </tbody>
 </table>
