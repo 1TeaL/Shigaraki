@@ -76,7 +76,7 @@ namespace ShiggyMod.Modules.Networking
                 int lightcount2 = enemycharBody.GetBuffCount(Buffs.lightFormDebuff);
                 LightningOrb lightningOrb = new LightningOrb();
                 lightningOrb.lightningType = LightningOrb.LightningType.Ukulele;
-                lightningOrb.damageValue = damage;
+                lightningOrb.damageValue = damage * StaticValues.lightFormBonusDamage;
                 lightningOrb.isCrit = charcharBody.RollCrit();
                 lightningOrb.teamIndex = TeamComponent.GetObjectTeam(charcharBody.gameObject);
                 lightningOrb.attacker = charbodyObj;
@@ -84,8 +84,9 @@ namespace ShiggyMod.Modules.Networking
                 lightningOrb.bouncesRemaining = lightcount2;
                 lightningOrb.speed = 30f;
                 lightningOrb.bouncedObjects = new List<HealthComponent>();
+                lightningOrb.canBounceOnSameTarget = false;
                 lightningOrb.range = 40f;
-                lightningOrb.damageCoefficientPerBounce = (1f + StaticValues.lightFormBonusDamage);
+                lightningOrb.damageCoefficientPerBounce = (1f + StaticValues.lightFormBonusDamage * lightcount2);
 
                 HurtBox hurtBox = enemycharBody.mainHurtBox;
                 if (hurtBox)

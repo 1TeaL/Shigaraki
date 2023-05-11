@@ -105,7 +105,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -1308,6 +1308,24 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
+          value: 0.0000010612421
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.32754534
+          value: 0.0054750443
+          inSlope: Infinity
+          outSlope: Infinity
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 1
+        - serializedVersion: 3
+          time: 0.3909577
           value: 1
           inSlope: 0
           outSlope: 0
@@ -1316,14 +1334,23 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.16223416
-          value: -0.000000063329935
+          time: 0.45743495
+          value: 1
+          inSlope: Infinity
+          outSlope: Infinity
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 1
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.47074786
+          value: -0.0000014868565
           inSlope: 0
           outSlope: 0
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
@@ -4798,7 +4825,7 @@ ParticleSystemRenderer:
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 1
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0

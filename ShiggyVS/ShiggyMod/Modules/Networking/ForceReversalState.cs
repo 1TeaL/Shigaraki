@@ -13,7 +13,7 @@ namespace ShiggyMod.Modules.Networking
     {
         //network
         NetworkInstanceId netID;
-        NetworkInstanceId enemyNetID;
+        Vector3 enemyPos;
 
         //don't network
         private GameObject bodyObj;
@@ -23,20 +23,20 @@ namespace ShiggyMod.Modules.Networking
 
         }
 
-        public ForceReversalState(NetworkInstanceId netID, NetworkInstanceId enemyNetID)
+        public ForceReversalState(NetworkInstanceId netID, Vector3 enemyPos)
         {
             this.netID = netID;
-            this.enemyNetID = enemyNetID;       
+            this.enemyPos = enemyPos;       
         }
 
         public void Deserialize(NetworkReader reader)
         {
-            enemyNetID = reader.ReadNetworkId();
+            enemyPos = reader.ReadVector3();
             netID = reader.ReadNetworkId();
         }
         public void Serialize(NetworkWriter writer)
         {
-            writer.Write(enemyNetID);
+            writer.Write(enemyPos);
             writer.Write(netID);
         }
         public void OnReceived()
@@ -62,11 +62,6 @@ namespace ShiggyMod.Modules.Networking
                     return;
                 }
 
-                GameObject enemymasterobject = Util.FindNetworkObject(enemyNetID);
-                CharacterMaster enemycharMaster = enemymasterobject.GetComponent<CharacterMaster>();
-                CharacterBody enemycharBody = enemycharMaster.GetBody();
-                bodyObj = enemycharBody.gameObject;
-
 
                 EntityStateMachine[] statemachines = charbodyobj.GetComponents<EntityStateMachine>();
                 foreach (EntityStateMachine statemachine in statemachines)
@@ -75,7 +70,7 @@ namespace ShiggyMod.Modules.Networking
                     {
                         statemachine.SetState(new ReversalState
                         {
-                            enemycharBody = enemycharBody,
+                            enemyPos = enemyPos,
                         });
                     }
                 }

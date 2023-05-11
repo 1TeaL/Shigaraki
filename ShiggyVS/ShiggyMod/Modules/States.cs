@@ -23,6 +23,7 @@ namespace ShiggyMod.Modules
             entityStates.Add(typeof(ChooseSkill));
             entityStates.Add(typeof(RemoveSkill));
             entityStates.Add(typeof(EmptySkill));
+            entityStates.Add(typeof(GiveSkill));
 
             //active skills
             entityStates.Add(typeof(AlloyVultureWindBlast));

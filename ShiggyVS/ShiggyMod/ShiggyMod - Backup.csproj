@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Deku.bnk" />
+    <None Remove="Deku1.bnk" />
+    <None Remove="DekuAssetBundle" />
+    <None Remove="DelikuBank.bnk" />
+    <None Remove="Shiggy.bnk" />
+    <None Remove="ShiggyAssetBundle" />
+    <None Remove="Modules\Survivors\DekuHenryDeku.cs~RF6221a098.TMP" />
+    <None Remove="SkillStates\Skills\MonsterPassiveSkills\LunarExploder.cs~RF19a1c105.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Shiggy.bnk" />
+    <EmbeddedResource Include="shiggyassetbundle" />
+  </ItemGroup>
+	
+  <ItemGroup>
+	<PackageReference Include="BepInEx.Analyzers" Version="1.0.*">
+		<PrivateAssets>all</PrivateAssets>
+		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="BepInEx.Core" Version="5.4.21" />
+	<PackageReference Include="RiskOfRain2.GameLibs" Version="1.2.3.1-r.0" />
+	<PackageReference Include="UnityEngine.Modules" Version="2019.4.26" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Reference Include="CustomEmotesAPI">
+      <HintPath>bin\Debug\netstandard2.0\CustomEmotesAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="ExtraSkillSlots">
+      <HintPath>bin\Debug\netstandard2.0\ExtraSkillSlots.dll</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_RoR2">
+      <HintPath>bin\Debug\netstandard2.0\MMHOOK_RoR2.dll</HintPath>
+    </Reference>
+    <Reference Include="RiskOfOptions">
+      <HintPath>..\libs\RiskOfOptions.dll</HintPath>
+    </Reference>
+    <Reference Include="ScrollableLobbyUI">
+      <HintPath>bin\Debug\netstandard2.0\ScrollableLobbyUI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

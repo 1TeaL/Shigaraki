@@ -24,6 +24,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            duration = baseDuration;
             //play differnt animation and maybe particles?
 
             Ray aimRay = base.GetAimRay();

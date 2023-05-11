@@ -130,7 +130,7 @@ namespace ShiggyMod.SkillStates
                     enemycharBody.gameObject.AddComponent<BuffController>();
 
                 }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.name], 1);
+                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
             }
             else
             {
@@ -151,7 +151,7 @@ namespace ShiggyMod.SkillStates
                     enemycharBody.gameObject.AddComponent<BuffController>();
 
                 }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.name], 1);
+                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
             }
             else
             {
@@ -171,7 +171,7 @@ namespace ShiggyMod.SkillStates
                     enemycharBody.gameObject.AddComponent<BuffController>();
 
                 }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.name], 1);
+                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
             }
             else
             {
@@ -191,7 +191,7 @@ namespace ShiggyMod.SkillStates
                     enemycharBody.gameObject.AddComponent<BuffController>();
 
                 }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.name], 1);
+                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
             }
             else
             {
@@ -211,7 +211,7 @@ namespace ShiggyMod.SkillStates
                     enemycharBody.gameObject.AddComponent<BuffController>();
 
                 }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.name], 1);
+                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
             }
             else
             {
@@ -231,7 +231,7 @@ namespace ShiggyMod.SkillStates
                     enemycharBody.gameObject.AddComponent<BuffController>();
 
                 }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.name], 1);
+                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
             }
             else
             {
@@ -251,7 +251,7 @@ namespace ShiggyMod.SkillStates
                     enemycharBody.gameObject.AddComponent<BuffController>();
 
                 }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.name], 1);
+                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
             }
             else
             {
@@ -271,7 +271,7 @@ namespace ShiggyMod.SkillStates
                     enemycharBody.gameObject.AddComponent<BuffController>();
 
                 }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.name], 1);
+                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
             }
             else
             {

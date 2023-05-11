@@ -63,7 +63,6 @@ namespace ShiggyMod.SkillStates
 
             if (base.fixedAge >= this.fireTime && !hasFired)
             {
-                PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", fireTime, 0.1f);
                 hasFired = true;
 
                 Ray aimRay = base.GetAimRay();

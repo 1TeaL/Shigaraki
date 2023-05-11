@@ -17,7 +17,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-
+            duration = 1f;
             Ray aimRay = base.GetAimRay();
 
             //play animation, also need to play particles in controller

@@ -34,7 +34,7 @@ namespace ShiggyMod.SkillStates
         private Transform modelTransform;
         private GameObject chargeInstance;
         private bool hasFiredBlast;
-        private float healthCostFraction = 0.05f;
+        private float healthCostFraction = Modules.StaticValues.clayapothecarymortarHealthCostCoefficient;
         private BlastAttack attack;
 
         public override void OnEnter()
@@ -115,7 +115,7 @@ namespace ShiggyMod.SkillStates
 					damageInfo.force = Vector3.zero;
 					damageInfo.damageColorIndex = DamageColorIndex.Default;
 					damageInfo.crit = false;
-					damageInfo.attacker = null;
+					damageInfo.attacker = characterBody.gameObject;
 					damageInfo.inflictor = null;
 					damageInfo.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
 					damageInfo.procCoefficient = 0f;

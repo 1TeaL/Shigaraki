@@ -36,12 +36,12 @@ namespace ShiggyMod.SkillStates
                 debuffDecreaseAmount = 0;
             }
 
-            new BlastingZoneDebuffDamageRequest(charBody.masterObjectId, charBody.healthComponent.fullCombinedHealth * Modules.StaticValues.blastingZoneDebuffDamagePerStack * debuffCount);
+            new BlastingZoneDebuffDamageRequest(attackerBody.masterObjectId, charBody.masterObjectId, charBody.healthComponent.fullCombinedHealth * Modules.StaticValues.blastingZoneDebuffDamagePerStack * debuffCount).Send (NetworkDestination.Clients);
 
             charBody.ApplyBuff(Buffs.blastingZoneBurnDebuff.buffIndex, debuffDecreaseAmount);
             EffectManager.SpawnEffect(EntityStates.LemurianMonster.FireFireball.effectPrefab, new EffectData
             {
-                origin = charBody.corePosition,
+                origin = charBody.corePosition + charBody.characterDirection.forward,
                 scale = 1f,
                 rotation = Quaternion.identity
 
@@ -55,7 +55,14 @@ namespace ShiggyMod.SkillStates
             {
                 timer = 0;
                 //burn self, minus one stack
-                ApplyBurn();
+                if (charBody.HasBuff(Modules.Buffs.blastingZoneBurnDebuff))
+                {
+                    ApplyBurn();
+                }
+                else
+                {
+                    Destroy(this);
+                }
             }
             if (charBody)
             {

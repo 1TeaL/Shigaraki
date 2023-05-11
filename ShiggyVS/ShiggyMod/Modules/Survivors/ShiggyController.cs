@@ -204,10 +204,10 @@ namespace ShiggyMod.Modules.Survivors
                 Shiggymastercon.writeToSkillList(characterBody.skillLocator.utility.skillDef, 2);
                 Shiggymastercon.writeToSkillList(characterBody.skillLocator.special.skillDef, 3);
 
-                Shiggymastercon.writeToSkillList(extraskillLocator.extraFirst.skillDef, 0);
-                Shiggymastercon.writeToSkillList(extraskillLocator.extraSecond.skillDef, 0);
-                Shiggymastercon.writeToSkillList(extraskillLocator.extraThird.skillDef, 0);
-                Shiggymastercon.writeToSkillList(extraskillLocator.extraFourth.skillDef, 0);
+                Shiggymastercon.writeToSkillList(extraskillLocator.extraFirst.skillDef, 4);
+                Shiggymastercon.writeToSkillList(extraskillLocator.extraSecond.skillDef, 5);
+                Shiggymastercon.writeToSkillList(extraskillLocator.extraThird.skillDef, 6);
+                Shiggymastercon.writeToSkillList(extraskillLocator.extraFourth.skillDef, 7);
             }
         }
 
@@ -1511,11 +1511,11 @@ namespace ShiggyMod.Modules.Survivors
 
             if(name == "DekuBody")
             {
-                AkSoundEngine.PostEvent("ShiggyOFAGet", base.gameObject);
+                AkSoundEngine.PostEvent("ShiggyOFAGet", characterBody.gameObject);
             }
             else
             {
-                AkSoundEngine.PostEvent("ShiggyAFO", this.gameObject);
+                AkSoundEngine.PostEvent("ShiggyAFO", characterBody.gameObject);
             }
             
 
@@ -1587,9 +1587,12 @@ namespace ShiggyMod.Modules.Survivors
                 AFOCon.RHandChild = child.FindChild("RHand").transform;
 
 
-                RoR2.Skills.SkillDef skillDef = StaticValues.bodyNameToSkillDef[newbodyPrefab.name];
-                RoR2.Skills.SkillDef skillDefUpgrade = StaticValues.baseSkillUpgrade[skillDef.name];
-                RoR2.Skills.SkillDef skillDefUltimate = StaticValues.synergySkillUpgrade[skillDefUpgrade.name];
+                RoR2.Skills.SkillDef skillDef = StaticValues.bodyNameToSkillDef[name];
+                Debug.Log(skillDef + "skillDef");
+                RoR2.Skills.SkillDef skillDefUpgrade = StaticValues.baseSkillUpgrade[skillDef.skillName];
+                Debug.Log(skillDefUpgrade + "skillDefUpgrade");
+                RoR2.Skills.SkillDef skillDefUltimate = StaticValues.synergySkillUpgrade[skillDefUpgrade.skillName];
+                Debug.Log(skillDefUltimate + "skillDefUltimate");
 
                 bool canBaseSkillTake = false;
                 bool canSynergyUpgrade = false;
@@ -1603,7 +1606,7 @@ namespace ShiggyMod.Modules.Survivors
                     canBaseSkillTake = true;
                 }
 
-                if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.baseSkillPair[skillDef.name], characterBody))
+                if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.baseSkillPair[skillDef.skillName], characterBody))
                 {
                     if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUpgrade, characterBody))
                     {
@@ -1614,7 +1617,7 @@ namespace ShiggyMod.Modules.Survivors
                         canSynergyUpgrade = true;
                     }
                 }
-                if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.synergySkillPair[skillDefUpgrade.name], characterBody))
+                if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.synergySkillPair[skillDefUpgrade.skillName], characterBody))
                 {
                     if(Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUltimate, characterBody))
                     {
@@ -1683,6 +1686,14 @@ namespace ShiggyMod.Modules.Survivors
             {
                 Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
                 energySystem.quirkGetInformation("No Quirk to <style=cIsUtility>Steal!</style>", 1f);
+
+                //refund energy
+                float plusChaosflatCost = (StaticValues.AFOEnergyCost) - (energySystem.costflatplusChaos);
+                if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                if (plusChaosCost < 0f) plusChaosCost = 0f;
+                energySystem.GainplusChaos(plusChaosCost);
             }
             
         }

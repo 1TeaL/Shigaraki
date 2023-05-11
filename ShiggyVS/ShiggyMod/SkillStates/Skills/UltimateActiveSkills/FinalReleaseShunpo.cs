@@ -19,7 +19,7 @@ namespace ShiggyMod.SkillStates
 
         private Vector3 forwardDirection;
         private float baseslideDuration = StaticValues.shunpoDuration;
-        private float basejumpDuration = StaticValues.shunpoDuration / 2f;
+        private float basejumpDuration = StaticValues.shunpoDuration;
         private float slideDuration;
         private float jumpDuration;
         private ExtraSkillLocator extraskillLocator;

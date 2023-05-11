@@ -1,7 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Bootstrap;
-using ShiggyMod.Equipment;
-using ShiggyMod.Items;
+//using ShiggyMod.Equipment;
+//using ShiggyMod.Items;
 using ShiggyMod.Modules;
 //using ShiggyMod.Modules.Networking;
 using ShiggyMod.Modules.Survivors;
@@ -148,6 +148,8 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<SetGetsugaStateMachine>();
             NetworkingAPI.RegisterMessageType<ForceGiveQuirkState>();
             NetworkingAPI.RegisterMessageType<OrbDamageRequest>();
+            NetworkingAPI.RegisterMessageType<LightAndDarknessPullRequest>();
+            NetworkingAPI.RegisterMessageType<BlastingZoneDebuffDamageRequest>();
 
 
 
@@ -528,7 +530,7 @@ namespace ShiggyMod
                 //commando buff
                 if (attackerBody.HasBuff(Modules.Buffs.commandoBuff))
                 {
-                    if(damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    if(damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
                     {
                         DamageInfo damageInfo2 = new DamageInfo();
                         damageInfo2.damage = damageInfo.damage * StaticValues.commandoDamageMultiplier;
@@ -548,7 +550,7 @@ namespace ShiggyMod
                 //vagrant buff
                 if (attackerBody.HasBuff(Modules.Buffs.vagrantBuff) && !victimBody.HasBuff(Modules.Buffs.vagrantdisableBuff))
                 {
-                    if (damageInfo.damage / attackerBody.damage >= StaticValues.vagrantdamageThreshold)
+                    if (damageInfo.damage / attackerBody.damage >= StaticValues.vagrantdamageThreshold && damageInfo.procCoefficient > 0f)
                     {
                         attackerBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex, 0);
                         attackerBody.ApplyBuff(Buffs.vagrantdisableBuff.buffIndex, StaticValues.vagrantCooldown);
@@ -625,7 +627,7 @@ namespace ShiggyMod
                     | attackerBody.HasBuff(Buffs.elementalFusionFreezeBuff)
                     | attackerBody.HasBuff(Buffs.elementalFusionShockBuff))
                 {
-                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
                     {
                         //deal ignite, freeze, or shock damage type every 5 hits
                         var elementalBuffCount = attackerBody.GetBuffCount(Buffs.elementalFusionBuffStacks);
@@ -687,7 +689,7 @@ namespace ShiggyMod
                 //omniboost buff stacks
                 if (attackerBody.HasBuff(Buffs.omniboostBuff))
                 {
-                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
                     {
                         //add a debuff stack to the enemy, after 3 stacks gain your own buff stack
                         var omnidebuffCount = victimBody.GetBuffCount(Buffs.omniboostDebuffStacks);
@@ -729,7 +731,7 @@ namespace ShiggyMod
                 if (attackerBody.HasBuff(Modules.Buffs.bigbangBuff))
                 {
 
-                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
                     {
                         int bigbangCount = victimBody.GetBuffCount(Modules.Buffs.bigbangDebuff);
                         if (bigbangCount < StaticValues.bigbangBuffThreshold)
@@ -821,7 +823,7 @@ namespace ShiggyMod
                 //light form debuff application
                 if (attackerBody.HasBuff(Buffs.lightFormBuff))
                 {
-                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
                     {
                         int lightcount = victimBody.GetBuffCount(Buffs.lightFormDebuff);
                         victimBody.ApplyBuff(Buffs.lightFormDebuff.buffIndex, lightcount + 1);
@@ -831,7 +833,7 @@ namespace ShiggyMod
                 //darkness form debuff application
                 if (attackerBody.HasBuff(Buffs.darknessFormBuff))
                 {
-                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
                     {
                         int darkcount = victimBody.GetBuffCount(Buffs.darknessFormDebuff);
                         victimBody.ApplyBuff(Buffs.darknessFormDebuff.buffIndex, darkcount + 1);
@@ -842,7 +844,7 @@ namespace ShiggyMod
                 //light form debuff effect
                 if (victimBody.HasBuff(Buffs.lightFormDebuff))
                 {
-                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
                     {
                         new OrbDamageRequest(victimBody.masterObjectId, damageInfo.damage, attackerBody.masterObjectId).Send(NetworkDestination.Clients);
                     }
@@ -851,7 +853,7 @@ namespace ShiggyMod
                 //light and darkness form debuff application
                 if (attackerBody.HasBuff(Buffs.lightAndDarknessFormBuff))
                 {
-                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
                     {
                         int buffcount = victimBody.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
                         victimBody.ApplyBuff(Buffs.lightAndDarknessFormDebuff.buffIndex, buffcount + 1);
@@ -861,83 +863,12 @@ namespace ShiggyMod
                 //light and darkness form debuff effect
                 if (victimBody.HasBuff(Buffs.lightAndDarknessFormDebuff))
                 {
-                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                    if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient > 0f)
                     {
-                        damageInfo.damage += (1f * StaticValues.lightAndDarknessBonusDamage);
                         int buffcount = victimBody.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
-                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
-                        {
-                            BullseyeSearch search = new BullseyeSearch
-                            {
-
-                                teamMaskFilter = TeamMask.GetEnemyTeams(attackerBody.teamComponent.teamIndex),
-                                filterByLoS = false,
-                                searchOrigin = damageInfo.position,
-                                searchDirection = UnityEngine.Random.onUnitSphere,
-                                sortMode = BullseyeSearch.SortMode.Distance,
-                                maxDistanceFilter = StaticValues.lightAndDarknessRange + buffcount * StaticValues.lightAndDarknessRangeAddition,
-                                maxAngleFilter = 360f
-                            };
-
-                            search.RefreshCandidates();
-                            search.FilterOutGameObject(attackerBody.gameObject);
-
-                            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-                            foreach (HurtBox singularTarget in target)
-                            {
-                                if (singularTarget)
-                                {
-                                    Vector3 a = singularTarget.transform.position - damageInfo.position;
-                                    float magnitude = a.magnitude;
-                                    Vector3 vector = a / magnitude;
-                                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-                                    {
-                                        float Weight = 1f;
-                                        if (singularTarget.healthComponent.body.characterMotor)
-                                        {
-                                            Weight = singularTarget.healthComponent.body.characterMotor.mass;
-                                        }
-                                        else if (singularTarget.healthComponent.body.rigidbody)
-                                        {
-                                            Weight = singularTarget.healthComponent.body.rigidbody.mass;
-                                        }
-                                        Vector3 a2 = vector;
-                                        float d = Trajectory.CalculateInitialYSpeedForHeight(Mathf.Abs(StaticValues.voidjailerminpullDistance - magnitude)) * Mathf.Sign(StaticValues.voidjailerminpullDistance - magnitude);
-                                        a2 *= d;
-                                        a2.y = StaticValues.voidjailerpullLiftVelocity;
-                                        DamageInfo damageInfo2 = new DamageInfo
-                                        {
-                                            attacker = base.gameObject,
-                                            damage = damageInfo.damage,
-                                            position = singularTarget.transform.position,
-                                            procCoefficient = damageInfo.procCoefficient,
-                                            damageType = damageInfo.damageType,
-
-                                        };
-                                        int singularTargetbuffcount = singularTarget.healthComponent.body.GetBuffCount(Buffs.lightAndDarknessFormDebuff);
-                                        singularTarget.healthComponent.body.ApplyBuff(Buffs.lightAndDarknessFormBuff.buffIndex, singularTargetbuffcount + 1);
-
-                                        singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);
-                                        singularTarget.healthComponent.TakeDamage(damageInfo);
-                                        GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
-
-
-
-                                        Vector3 position = singularTarget.transform.position;
-                                        Vector3 start = damageInfo.position;
-                                        EffectData effectData = new EffectData
-                                        {
-                                            origin = position,
-                                            start = start,                                           
-                                        };
-                                        EffectManager.SpawnEffect(Modules.Assets.railgunnerSnipeLightTracerEffect, effectData, true);
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
+                        new LightAndDarknessPullRequest(attackerBody.masterObjectId, victimBody.corePosition, Vector3.up, StaticValues.lightAndDarknessRange + StaticValues.lightAndDarknessRangeAddition * buffcount, 0f, damageInfo.damage * (StaticValues.lightAndDarknessBonusDamage * buffcount), 360f, true).Send(NetworkDestination.Clients);
+                        
+                    }                   
 
                 }
 
@@ -1090,7 +1021,7 @@ namespace ShiggyMod
 
             if (self)
             {
-                orig.Invoke(self, damageInfo);
+                //orig.Invoke(self, damageInfo);
 
                 var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
                 if (damageInfo != null && attackerBody)
@@ -1252,11 +1183,23 @@ namespace ShiggyMod
                     //darkness form debuff effect
                     if (self.body.HasBuff(Buffs.darknessFormDebuff))
                     {
-                        if ((damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        if (damageInfo.damageType != DamageType.DoT && damageInfo.procCoefficient > 0f)
                         {
                             int darkcount = self.body.GetBuffCount(Buffs.darknessFormDebuff);
-                            float darknum = attackerBody.damage * Modules.StaticValues.darkFormBonusDamage * darkcount;
+                            float darknum = damageInfo.damage * Modules.StaticValues.darkFormBonusDamage * darkcount;
                             damageInfo.damage += darknum;
+
+                            //DamageInfo darkDamage = new DamageInfo();
+                            //darkDamage.damage = darknum;
+                            //darkDamage.position = self.body.transform.position;
+                            //darkDamage.force = Vector3.zero;
+                            //darkDamage.damageColorIndex = DamageColorIndex.WeakPoint;
+                            //darkDamage.crit = false;
+                            //darkDamage.attacker = attackerBody.gameObject;
+                            //darkDamage.damageType = DamageType.Generic;
+                            //darkDamage.procCoefficient = 0f;
+                            //darkDamage.procChainMask = default(ProcChainMask);
+                            //self.body.healthComponent.TakeDamage(darkDamage);
 
                         }
                     }
@@ -1349,7 +1292,7 @@ namespace ShiggyMod
                         //reversal effect
                         if (self.body.HasBuff(Buffs.reversalBuffStacks))
                         {
-                            new ForceReversalState(self.body.masterObjectId, attackerBody.masterObjectId).Send(NetworkDestination.Server);
+                            new ForceReversalState(self.body.masterObjectId, attackerBody.transform.position).Send(NetworkDestination.Server);
                             damageInfo.force = Vector3.zero;
                             damageInfo.rejected = true;
                             //do counterattack as well
@@ -1548,7 +1491,7 @@ namespace ShiggyMod
 
             }
 
-            //orig.Invoke(self, damageInfo);
+            orig.Invoke(self, damageInfo);
 
         }
 
@@ -1680,6 +1623,7 @@ namespace ShiggyMod
                     this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.darknessFormBuff), self);
                     this.OverlayFunction(Modules.Assets.lightFormBuffMat, self.body.HasBuff(Modules.Buffs.lightFormBuff), self);
                     this.OverlayFunction(Modules.Assets.lightAndDarknessMat, self.body.HasBuff(Modules.Buffs.lightAndDarknessFormBuff), self);
+                    this.OverlayFunction(Modules.Assets.blastingZoneBurnMat, self.body.HasBuff(Modules.Buffs.blastingZoneBurnDebuff), self);
                 }
             }
         }

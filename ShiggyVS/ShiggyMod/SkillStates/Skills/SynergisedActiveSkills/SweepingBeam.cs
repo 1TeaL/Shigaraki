@@ -48,7 +48,7 @@ namespace ShiggyMod.SkillStates
             {
                 AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
             }
-            this.muzzleString = "LHand";
+            this.muzzleString = "RHand";
             EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
             EffectManager.SimpleMuzzleFlash(Modules.Assets.voidfiendblinkmuzzleEffect, base.gameObject, this.muzzleString, false);
 
@@ -59,7 +59,6 @@ namespace ShiggyMod.SkillStates
             totalBullets = Modules.StaticValues.sweepingBeamTotalBullets;
             fireTime = duration / totalBullets;
 
-            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", fireTime, 0.1f);
 
 
             direction = (Quaternion.Euler(0f, -maxAngle/2f, 0f) * aimRay.direction).normalized;

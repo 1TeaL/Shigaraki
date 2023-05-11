@@ -150,7 +150,7 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (base.isAuthority && base.IsKeyDownAuthority())
+            if (base.isAuthority)
             {
                 if (inputBank.skill1.down)
                 {

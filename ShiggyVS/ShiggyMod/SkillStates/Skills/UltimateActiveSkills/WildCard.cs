@@ -29,6 +29,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            duration= baseDuration;
             //play animation and maybe particles? maybe snap fingers idk?
 
             Ray aimRay = base.GetAimRay();

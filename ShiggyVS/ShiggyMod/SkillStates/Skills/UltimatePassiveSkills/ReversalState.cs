@@ -18,7 +18,7 @@ namespace ShiggyMod.SkillStates
     public class ReversalState : BaseSkillState
     {
 
-        public CharacterBody enemycharBody;
+        public Vector3 enemyPos;
         private BlastAttack blastAttack;
         private Vector3 forwardDirection;
         private float baseslideDuration = StaticValues.reversalDuration;
@@ -37,13 +37,10 @@ namespace ShiggyMod.SkillStates
 
 
             Ray aimRay = base.GetAimRay();
-            Vector3 tpPosition = (enemycharBody.corePosition - characterBody.corePosition).normalized * 2f;
-            tpPosition.y = 0;
-            characterBody.characterMotor.Motor.SetPosition(tpPosition);
 
+            forwardDirection = (characterBody.corePosition - enemyPos).normalized;
+            characterDirection.forward = forwardDirection; 
 
-            base.characterDirection.forward = (enemycharBody.corePosition - characterBody.corePosition);
-            
             if (base.characterMotor)
             {
                 this.startedStateGrounded = base.characterMotor.isGrounded;
@@ -56,10 +53,6 @@ namespace ShiggyMod.SkillStates
                 return;
             }
 
-            if (this.characterModel)
-            {
-                this.characterModel.invisibilityCount++;
-            }
             if (this.hurtboxGroup)
             {
                 HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
@@ -85,11 +78,11 @@ namespace ShiggyMod.SkillStates
             if (base.isAuthority)
             {
                 float num = this.startedStateGrounded ? slideDuration : jumpDuration;
-                if (base.inputBank && base.characterDirection)
-                {
-                    base.characterDirection.moveVector = base.inputBank.moveVector;
-                    this.forwardDirection = base.characterDirection.forward;
-                }
+                //if (base.inputBank && base.characterDirection)
+                //{
+                //    base.characterDirection.moveVector = base.inputBank.moveVector;
+                //    this.forwardDirection = base.characterDirection.forward;
+                //}
                 if (base.characterMotor)
                 {
                     float num2;
@@ -101,7 +94,7 @@ namespace ShiggyMod.SkillStates
                     {
                         num2 = SlideState.jumpforwardSpeedCoefficientCurve.Evaluate(base.fixedAge / num);
                     }
-                    base.characterMotor.rootMotion += num2 * this.moveSpeedStat * attackSpeedStat * this.forwardDirection * Time.fixedDeltaTime * StaticValues.reversalSpeedCoefficient;
+                    base.characterMotor.rootMotion += num2 * this.forwardDirection * Time.fixedDeltaTime * StaticValues.reversalSpeedCoefficient;
                 }
                 if (base.fixedAge >= num)
                 {
@@ -116,10 +109,7 @@ namespace ShiggyMod.SkillStates
             base.OnExit();
 
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
-            if (this.characterModel)
-            {
-                this.characterModel.invisibilityCount--;
-            }
+            
             if (this.hurtboxGroup)
             {
                 HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
@@ -132,7 +122,7 @@ namespace ShiggyMod.SkillStates
             blastAttack = new BlastAttack();
             blastAttack.radius = StaticValues.reversalRadius;
             blastAttack.procCoefficient = StaticValues.reversalProcCoefficient;
-            blastAttack.position = enemycharBody.corePosition;
+            blastAttack.position = enemyPos;
             blastAttack.attacker = base.gameObject;
             blastAttack.crit = Util.CheckRoll(characterBody.crit, characterBody.master);
             blastAttack.baseDamage = characterBody.damage * Modules.StaticValues.reversalDamageCoefficient;
@@ -146,7 +136,7 @@ namespace ShiggyMod.SkillStates
 
             EffectManager.SpawnEffect(EntityStates.JellyfishMonster.JellyNova.novaEffectPrefab, new EffectData
             {
-                origin = enemycharBody.corePosition,
+                origin = enemyPos,
                 scale = StaticValues.reversalRadius,
 
             }, true);

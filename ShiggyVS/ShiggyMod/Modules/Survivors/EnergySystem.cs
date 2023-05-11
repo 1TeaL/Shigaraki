@@ -81,7 +81,8 @@ namespace ShiggyMod.Modules.Survivors
             plusChaosNumber = this.CreateLabel(CustomUIObject.transform, "plusChaosNumber", $"{(int)currentplusChaos} / {maxPlusChaos}", new Vector2(0, -110), 24f, new Color(0.92f, 0.12f, 0.8f));
 
             quirkGetUI = this.CreateLabel(CustomUIObject.transform, "quirkGetString", quirkGetString, new Vector2(0, -220), 24f, Color.white);
-            
+            quirkGetUI.enabled = true;
+
 
             // Start timer on 1f to turn off the timer.
             state = GlowState.STOP;
@@ -105,43 +106,11 @@ namespace ShiggyMod.Modules.Survivors
         //Creates the label.
         private HGTextMeshProUGUI CreateLabel(Transform parent, string name, string text, Vector2 position, float textScale, Color color)
         {
-            //GameObject gameObject = new GameObject(name);
-            //gameObject.transform.parent = parent;
-            //gameObject.AddComponent<CanvasRenderer>();
-            //RectTransform rectTransform = gameObject.AddComponent<RectTransform>();
-            //HGTextMeshProUGUI hgtextMeshProUGUI = gameObject.AddComponent<HGTextMeshProUGUI>();
-            //hgtextMeshProUGUI.enabled = true;
-            //hgtextMeshProUGUI.text = text;
-            //hgtextMeshProUGUI.fontSize = textScale;
-            //hgtextMeshProUGUI.color = Color.white;
-            //hgtextMeshProUGUI.alignment = TextAlignmentOptions.Center;
-            //hgtextMeshProUGUI.enableWordWrapping = false;
-            //rectTransform.localPosition = Vector2.zero;
-            //rectTransform.anchorMin = Vector2.zero;
-            //rectTransform.anchorMax = Vector2.one;
-            //rectTransform.localScale = Vector3.one;
-            //rectTransform.sizeDelta = Vector2.zero;
-            //rectTransform.anchoredPosition = position;
-            //return hgtextMeshProUGUI;
-
-            GameObject textObj;
-            if (!parent)
-            {
-                CustomUIObject = new GameObject(name);
-                textObj = CustomUIObject;
-                Canvas canvas = textObj.AddComponent<Canvas>();
-                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            }
-            else
-            {
-                textObj = new GameObject(name);
-                textObj.transform.parent = parent;
-
-            }
-
-            textObj.AddComponent<CanvasRenderer>();
-            RectTransform rectTransform = textObj.AddComponent<RectTransform>();
-            HGTextMeshProUGUI hgtextMeshProUGUI = textObj.AddComponent<HGTextMeshProUGUI>();
+            GameObject gameObject = new GameObject(name);
+            gameObject.transform.parent = parent;
+            gameObject.AddComponent<CanvasRenderer>();
+            RectTransform rectTransform = gameObject.AddComponent<RectTransform>();
+            HGTextMeshProUGUI hgtextMeshProUGUI = gameObject.AddComponent<HGTextMeshProUGUI>();
             hgtextMeshProUGUI.enabled = true;
             hgtextMeshProUGUI.text = text;
             hgtextMeshProUGUI.fontSize = textScale;
@@ -155,6 +124,38 @@ namespace ShiggyMod.Modules.Survivors
             rectTransform.sizeDelta = Vector2.zero;
             rectTransform.anchoredPosition = position;
             return hgtextMeshProUGUI;
+
+            //GameObject textObj;
+            //if (!parent)
+            //{
+            //    CustomUIObject = new GameObject(name);
+            //    textObj = CustomUIObject;
+            //    Canvas canvas = textObj.AddComponent<Canvas>();
+            //    canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            //}
+            //else
+            //{
+            //    textObj = new GameObject(name);
+            //    textObj.transform.parent = parent;
+
+            //}
+
+            //textObj.AddComponent<CanvasRenderer>();
+            //RectTransform rectTransform = textObj.AddComponent<RectTransform>();
+            //HGTextMeshProUGUI hgtextMeshProUGUI = textObj.AddComponent<HGTextMeshProUGUI>();
+            //hgtextMeshProUGUI.enabled = true;
+            //hgtextMeshProUGUI.text = text;
+            //hgtextMeshProUGUI.fontSize = textScale;
+            //hgtextMeshProUGUI.color = color;
+            //hgtextMeshProUGUI.alignment = TextAlignmentOptions.Center;
+            //hgtextMeshProUGUI.enableWordWrapping = false;
+            //rectTransform.localPosition = Vector2.zero;
+            //rectTransform.anchorMin = Vector2.zero;
+            //rectTransform.anchorMax = Vector2.one;
+            //rectTransform.localScale = Vector3.one;
+            //rectTransform.sizeDelta = Vector2.zero;
+            //rectTransform.anchoredPosition = position;
+            //return hgtextMeshProUGUI;
         }
 
         private void CalculateEnergyStats()
@@ -244,29 +245,27 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Update()
         {
+            Debug.Log(quirkGetUI.isActiveAndEnabled + "quirkGetUI.isActiveAndEnabled");
+            Debug.Log(quirkGetUI.enabled + "quirkGetUI.enabled");
 
-            if (!informAFOToPlayers)
+            if (quirkGetUI.isActiveAndEnabled)
             {
-                informAFOToPlayers = true;
-                Chat.AddMessage($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.");
-                quirkGetInformation($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.", 5f);
-            }
-
-            if (quirkGetUI)
-            {
-                if(quirkGetStopwatch <= 0f)
+                if (!informAFOToPlayers)
                 {
-                    quirkGetStopwatch = 0f;
-                    if(quirkGetUI.enabled = true)
-                    {
-                        quirkGetUI.enabled = false;
-                    }
+                    informAFOToPlayers = true;
+                    Chat.AddMessage($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
+                    + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.");
+                    quirkGetInformation($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
+                    + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>.", 5f);
                 }
-                else
+
+                if (quirkGetStopwatch > 0f)
                 {
                     quirkGetStopwatch -= Time.deltaTime;
+                }
+                else if (quirkGetStopwatch <= 0f)
+                {
+                    quirkGetString = "";
                 }
             }
 

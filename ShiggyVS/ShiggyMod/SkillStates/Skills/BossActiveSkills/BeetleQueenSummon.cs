@@ -56,6 +56,9 @@ namespace ShiggyMod.SkillStates
 
             switch (randomSurvivor)
             {
+                case 0:
+                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "VoidSurvivorBody", "VoidSurvivorMonsterMaster").Send(NetworkDestination.Clients);
+                    break;
                 case 1:
                     new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CommandoBody", "CommandoMonsterMaster").Send(NetworkDestination.Clients);
                     break;
@@ -91,9 +94,6 @@ namespace ShiggyMod.SkillStates
                     break;
                 case 12:
                         new SpawnBodyNetworkRequest(characterBody.masterObjectId, "RailgunnerBody", "RailgunnerMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 0:
-                        new SpawnBodyNetworkRequest(characterBody.masterObjectId, "VoidSurvivorBody", "VoidSurvivorMonsterMaster").Send(NetworkDestination.Clients);
                     break;
                 //case 14:
                 //    //summon deku if he exists otherwise commando

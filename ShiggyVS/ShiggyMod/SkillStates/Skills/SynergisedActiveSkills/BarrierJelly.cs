@@ -17,6 +17,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            duration = 0.5f;
 
             Ray aimRay = base.GetAimRay();
 

@@ -10,12 +10,14 @@ using R2API.Networking;
 using System;
 using ShiggyMod.Modules;
 using R2API.Utils;
+using ShiggyMod.Modules.Survivors;
 
 namespace ShiggyMod.SkillStates
 {
     public class BlastingZone : BaseSkillState
     {
         //Orbital strike + blast burn
+        public ShiggyController shiggyCon;
         public static float blastRadius = StaticValues.blastingZoneRadius;
 
         public float range = StaticValues.blastingZoneRadius;
@@ -37,11 +39,13 @@ namespace ShiggyMod.SkillStates
             directionExtension = aimRay.direction * rangeaddition;
             totalHits = (int)(StaticValues.blastingZoneTotalHits * attackSpeedStat);
             base.StartAimMode(1f, true);
+            characterDirection.forward = aimRay.direction;
 
             base.characterMotor.disableAirControlUntilCollision = false;
 
             //create a giant blade of energy particle?
-
+            shiggyCon = base.gameObject.GetComponent<ShiggyController>();
+            shiggyCon.boolswordAuraR = true;
             //play squall blasting zone animation?
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "FullBodyMugetsu", "Attack.playbackRate", StaticValues.blastingZoneWindup, 0.05f);
@@ -55,6 +59,7 @@ namespace ShiggyMod.SkillStates
             {
                 origin = characterBody.corePosition,
                 scale = 1f,
+                rotation= Util.QuaternionSafeLookRotation(characterDirection.forward),
 
             }, true);
 
@@ -95,6 +100,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            shiggyCon.boolswordAuraR = false;
         }
 
         public override void FixedUpdate()

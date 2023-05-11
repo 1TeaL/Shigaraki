@@ -82,6 +82,7 @@ namespace ShiggyMod.Modules
         //game material
         //public static Material alphaconstructShieldBuffMat = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
         public static Material alphaconstructShieldBuffMat;
+        public static Material blastingZoneBurnMat;
 
         //own material
         public static Material multiplierShieldBuffMat;
@@ -389,6 +390,7 @@ namespace ShiggyMod.Modules
             //alpha shield effect
             alphaconstructShieldBuffMat = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
             alphaconstructShieldBuffMat.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
+            blastingZoneBurnMat = Addressables.LoadAssetAsync<Material>("RoR2/Base/BurnNearby/matHelfireIgniteEffectFlare.mat").WaitForCompletion();
 
 
             //multiplier effect

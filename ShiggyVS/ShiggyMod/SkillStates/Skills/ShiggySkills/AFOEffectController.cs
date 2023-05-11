@@ -21,7 +21,7 @@ namespace ShiggyMod.SkillStates
         {
             charBody = gameObject.GetComponent<CharacterBody>();
 
-
+            MakeLine();
         }
 
         //blackwhip line renderer effect

@@ -9,21 +9,14 @@ namespace ShiggyMod.SkillStates
 {
     public class Multiplier : BaseSkillState
     {
-        public float baseDuration = 0.1f;
+        public float baseDuration = 0.5f;
         public float duration;
         public ShiggyController Shiggycon;
-        private DamageType damageType;
-
-
-        private float radius = 15f;
-        private float damageCoefficient = 1f;
-        private float procCoefficient = 1f;
-        private float force = 1f;
-        private float speedOverride =1f;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            duration= baseDuration;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
@@ -68,6 +61,7 @@ namespace ShiggyMod.SkillStates
 
         }
 
+
         public override void OnExit()
         {
             base.OnExit();
@@ -77,7 +71,6 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
 
 
             if (base.fixedAge >= this.duration && base.isAuthority)

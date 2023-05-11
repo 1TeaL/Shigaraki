@@ -146,6 +146,7 @@ namespace ShiggyMod.Modules
         internal const float bronzongballProcCoefficient = 1f;
 
         internal const float clayapothecarymortarDamageCoefficient = 2f;
+        internal const float clayapothecarymortarHealthCostCoefficient = 0.05f;
         internal const float clayapothecarymortarProcCoefficient = 0.5f;
 
         internal const float claytemplarminigunDamageCoefficient = 0.3f;
@@ -234,7 +235,7 @@ namespace ShiggyMod.Modules
 
         internal const float rexDamageCoefficient = 4f;
         internal const float rexProcCoefficient = 1f;
-        internal const float rexHealthCost = 0.1f;
+        internal const float rexHealthCost = 0.05f;
 
         internal const float railgunnerDamageCoefficient = 15f;
         internal const float railgunnerProcCoefficient = 2f;
@@ -410,7 +411,7 @@ namespace ShiggyMod.Modules
         internal static float reversalRadius = 15f;
         internal static float reversalDamageCoefficient = 1f;
         internal static float reversalDuration = 0.5f;
-        internal static float reversalSpeedCoefficient = 2f;
+        internal static float reversalSpeedCoefficient = 10f;
         internal static float reversalProcCoefficient = 1f;
 
         internal static float OFAFOHealthCostCoefficient = 0.2f;
@@ -467,7 +468,7 @@ namespace ShiggyMod.Modules
         internal static float blastingZoneWindup = 0.5f;
         internal static float blastingZoneInterval = 0.1f;
         internal static int blastingZoneTotalHits = 6;
-        internal static float blastingZoneDebuffInterval = 0.5f;
+        internal static float blastingZoneDebuffInterval = 1f;
         internal static float blastingZoneRadius= 10f;
 
         internal static float wildcardRangeGlobal = 500f;
@@ -479,7 +480,7 @@ namespace ShiggyMod.Modules
         internal static float lightFormEnergyCost = 10f;
         internal static float lightFormBonusDamage = 0.2f;
         internal static float darkFormEnergyGain = 10f;
-        internal static float darkFormBonusDamage = 0.2f;
+        internal static float darkFormBonusDamage = 0.5f;
         internal static float FormThreshold = 1f;
         internal static float lightAndDarknessRange = 20f;
         internal static float lightAndDarknessRangeAddition = 2f;
@@ -501,7 +502,7 @@ namespace ShiggyMod.Modules
         public static Dictionary<string, RoR2.Skills.SkillDef> skillNameToSkillDef;
         public static Dictionary<string, RoR2.Skills.SkillDef> bodyNameToSkillDef;
         public static Dictionary<string, string> quirkStringToInfoString;
-        public static Dictionary<string, RoR2.BuffIndex> passiveToBuff;
+        public static Dictionary<string, RoR2.BuffDef> passiveToBuff;
         public static Dictionary<string, RoR2.Skills.SkillDef> baseSkillPair;
         public static Dictionary<string, RoR2.Skills.SkillDef> baseSkillUpgrade;
         public static Dictionary<string, RoR2.Skills.SkillDef> synergySkillPair;
@@ -968,46 +969,46 @@ namespace ShiggyMod.Modules
             };
 
             
-            passiveToBuff = new Dictionary<string, RoR2.BuffIndex>
+            passiveToBuff = new Dictionary<string, RoR2.BuffDef>
             {
-                { Survivors.Shiggy.alphacontructpassiveDef.skillName, Buffs.alphashieldonBuff.buffIndex },
-                { Survivors.Shiggy.beetlepassiveDef.skillName, Buffs.beetleBuff.buffIndex },
-                { Survivors.Shiggy.pestpassiveDef.skillName, Buffs.pestjumpBuff.buffIndex },
-                { Survivors.Shiggy.verminpassiveDef.skillName, Buffs.verminsprintBuff.buffIndex },
-                { Survivors.Shiggy.guppassiveDef.skillName, Buffs.gupspikeBuff.buffIndex },
-                { Survivors.Shiggy.hermitcrabpassiveDef.skillName, Buffs.hermitcrabmortarBuff.buffIndex },
-                { Survivors.Shiggy.larvapassiveDef.skillName, Buffs.larvajumpBuff.buffIndex },
-                { Survivors.Shiggy.lesserwisppassiveDef.skillName, Buffs.lesserwispBuff.buffIndex },
-                { Survivors.Shiggy.lunarexploderpassiveDef.skillName, Buffs.lunarexploderBuff.buffIndex },
-                { Survivors.Shiggy.minimushrumpassiveDef.skillName, Buffs.minimushrumBuff.buffIndex },
-                { Survivors.Shiggy.roboballminibpassiveDef.skillName, Buffs.roboballminiBuff.buffIndex },
-                { Survivors.Shiggy.voidbarnaclepassiveDef.skillName, Buffs.voidbarnaclemortarBuff.buffIndex },
-                { Survivors.Shiggy.voidjailerpassiveDef.skillName, Buffs.voidjailerBuff.buffIndex },
-                { Survivors.Shiggy.impbosspassiveDef.skillName, Buffs.impbossBuff.buffIndex },
-                { Survivors.Shiggy.stonetitanpassiveDef.skillName, Buffs.stonetitanBuff.buffIndex },
-                { Survivors.Shiggy.vagrantpassiveDef.skillName, Buffs.vagrantBuff.buffIndex },
-                { Survivors.Shiggy.magmawormpassiveDef.skillName, Buffs.magmawormBuff.buffIndex },
-                { Survivors.Shiggy.overloadingwormpassiveDef.skillName, Buffs.overloadingwormBuff.buffIndex },
-                { Survivors.Shiggy.captainpassiveDef.skillName, Buffs.captainBuff.buffIndex },
-                { Survivors.Shiggy.commandopassiveDef.skillName, Buffs.commandoBuff.buffIndex },
-                { Survivors.Shiggy.acridpassiveDef.skillName, Buffs.acridBuff.buffIndex },
-                { Survivors.Shiggy.loaderpassiveDef.skillName, Buffs.loaderBuff.buffIndex },
-                { Survivors.Shiggy.bigBangPassiveDef.skillName, Buffs.bigbangBuff.buffIndex },
-                { Survivors.Shiggy.wisperPassiveDef.skillName, Buffs.wisperBuff.buffIndex },
-                { Survivors.Shiggy.omniboostPassiveDef.skillName, Buffs.omniboostBuff.buffIndex },
-                { Survivors.Shiggy.gachaPassiveDef.skillName, Buffs.gachaBuff.buffIndex },
-                { Survivors.Shiggy.stoneFormPassiveDef.skillName, Buffs.stoneFormBuff.buffIndex },
-                { Survivors.Shiggy.auraOfBlightPassiveDef.skillName, Buffs.auraOfBlightBuff.buffIndex },
-                { Survivors.Shiggy.barbedSpikesPassiveDef.skillName, Buffs.barbedSpikesBuff.buffIndex },
-                { Survivors.Shiggy.ingrainPassiveDef.skillName, Buffs.ingrainBuff.buffIndex },
-                { Survivors.Shiggy.doubleTimePassiveDef.skillName, Buffs.doubleTimeBuff.buffIndex },
-                { Survivors.Shiggy.blindSensesPassiveDef.skillName, Buffs.blindSensesBuff.buffIndex },
-                { Survivors.Shiggy.supernovaPassiveDef.skillName, Buffs.supernovaBuff.buffIndex },
-                { Survivors.Shiggy.reversalPassiveDef.skillName, Buffs.reversalBuff.buffIndex },
-                { Survivors.Shiggy.machineFormPassiveDef.skillName, Buffs.machineFormBuff.buffIndex },
-                { Survivors.Shiggy.gargoyleProtectionPassiveDef.skillName, Buffs.gargoyleProtectionBuff.buffIndex },
-                { Survivors.Shiggy.weatherReportPassiveDef.skillName, Buffs.weatherReportBuff.buffIndex },
-                { Survivors.Shiggy.decayAwakenedPassiveDef.skillName, Buffs.decayAwakenedBuff.buffIndex },
+                { Survivors.Shiggy.alphacontructpassiveDef.skillName, Buffs.alphashieldonBuff },
+                { Survivors.Shiggy.beetlepassiveDef.skillName, Buffs.beetleBuff},
+                { Survivors.Shiggy.pestpassiveDef.skillName, Buffs.pestjumpBuff},
+                { Survivors.Shiggy.verminpassiveDef.skillName, Buffs.verminsprintBuff},
+                { Survivors.Shiggy.guppassiveDef.skillName, Buffs.gupspikeBuff},
+                { Survivors.Shiggy.hermitcrabpassiveDef.skillName, Buffs.hermitcrabmortarBuff},
+                { Survivors.Shiggy.larvapassiveDef.skillName, Buffs.larvajumpBuff},
+                { Survivors.Shiggy.lesserwisppassiveDef.skillName, Buffs.lesserwispBuff},
+                { Survivors.Shiggy.lunarexploderpassiveDef.skillName, Buffs.lunarexploderBuff},
+                { Survivors.Shiggy.minimushrumpassiveDef.skillName, Buffs.minimushrumBuff},
+                { Survivors.Shiggy.roboballminibpassiveDef.skillName, Buffs.roboballminiBuff},
+                { Survivors.Shiggy.voidbarnaclepassiveDef.skillName, Buffs.voidbarnaclemortarBuff},
+                { Survivors.Shiggy.voidjailerpassiveDef.skillName, Buffs.voidjailerBuff},
+                { Survivors.Shiggy.impbosspassiveDef.skillName, Buffs.impbossBuff},
+                { Survivors.Shiggy.stonetitanpassiveDef.skillName, Buffs.stonetitanBuff},
+                { Survivors.Shiggy.vagrantpassiveDef.skillName, Buffs.vagrantBuff},
+                { Survivors.Shiggy.magmawormpassiveDef.skillName, Buffs.magmawormBuff},
+                { Survivors.Shiggy.overloadingwormpassiveDef.skillName, Buffs.overloadingwormBuff},
+                { Survivors.Shiggy.captainpassiveDef.skillName, Buffs.captainBuff},
+                { Survivors.Shiggy.commandopassiveDef.skillName, Buffs.commandoBuff},
+                { Survivors.Shiggy.acridpassiveDef.skillName, Buffs.acridBuff},
+                { Survivors.Shiggy.loaderpassiveDef.skillName, Buffs.loaderBuff},
+                { Survivors.Shiggy.bigBangPassiveDef.skillName, Buffs.bigbangBuff},
+                { Survivors.Shiggy.wisperPassiveDef.skillName, Buffs.wisperBuff},
+                { Survivors.Shiggy.omniboostPassiveDef.skillName, Buffs.omniboostBuff},
+                { Survivors.Shiggy.gachaPassiveDef.skillName, Buffs.gachaBuff},
+                { Survivors.Shiggy.stoneFormPassiveDef.skillName, Buffs.stoneFormBuff},
+                { Survivors.Shiggy.auraOfBlightPassiveDef.skillName, Buffs.auraOfBlightBuff},
+                { Survivors.Shiggy.barbedSpikesPassiveDef.skillName, Buffs.barbedSpikesBuff},
+                { Survivors.Shiggy.ingrainPassiveDef.skillName, Buffs.ingrainBuff},
+                { Survivors.Shiggy.doubleTimePassiveDef.skillName, Buffs.doubleTimeBuff},
+                { Survivors.Shiggy.blindSensesPassiveDef.skillName, Buffs.blindSensesBuff},
+                { Survivors.Shiggy.supernovaPassiveDef.skillName, Buffs.supernovaBuff},
+                { Survivors.Shiggy.reversalPassiveDef.skillName, Buffs.reversalBuff},
+                { Survivors.Shiggy.machineFormPassiveDef.skillName, Buffs.machineFormBuff},
+                { Survivors.Shiggy.gargoyleProtectionPassiveDef.skillName, Buffs.gargoyleProtectionBuff},
+                { Survivors.Shiggy.weatherReportPassiveDef.skillName, Buffs.weatherReportBuff},
+                { Survivors.Shiggy.decayAwakenedPassiveDef.skillName, Buffs.decayAwakenedBuff},
             };
 
 

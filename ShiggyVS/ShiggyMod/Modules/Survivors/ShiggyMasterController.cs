@@ -391,24 +391,34 @@ namespace ShiggyMod.Modules.Survivors
 
         public void CheckQuirksForBuffs(CharacterBody characterBody)
         {
-            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             //check passive
 
-			foreach (KeyValuePair<string, BuffIndex> entry in StaticValues.passiveToBuff)
+			foreach (var skillname in StaticValues.passiveToBuff)
 			{
-				if (StaticValues.skillDict[entry.Key] == StaticValues.skillType.PASSIVE)
-                {
-                    if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[entry.Key], characterBody))
-                    {
-                        characterBody.ApplyBuff(StaticValues.passiveToBuff[entry.Key], 1);
-                    }
-                    else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[entry.Key], characterBody))
-                    {
-                        characterBody.ApplyBuff(StaticValues.passiveToBuff[entry.Key], 0);
-                    }
 
+                if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
+                {
+                    characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 1);
+                }
+                else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
+                {
+                    characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 0);
                 }
             }
+
+			//foreach (KeyValuePair<string, BuffDef> entry in StaticValues.passiveToBuff)
+			//{
+   //             if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[entry.Key], characterBody))
+   //             {
+   //                 characterBody.ApplyBuff(StaticValues.passiveToBuff[entry.Key].buffIndex, 1);
+   //             }
+   //             else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[entry.Key], characterBody))
+   //             {
+   //                 characterBody.ApplyBuff(StaticValues.passiveToBuff[entry.Key].buffIndex, 0);
+   //             }
+
+                
+   //         }
 
    //         SkillDef primarySkill = characterBody.skillLocator.primary.skillDef;
    //         string primaryName = characterBody.skillLocator.primary.skillDef.name;

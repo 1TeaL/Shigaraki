@@ -181,7 +181,7 @@ namespace ShiggyMod.Modules
             blindSensesBuff = Buffs.AddNewBuff($"Blind Senses Buff- Gain the heightened senses of blindness. Gain <style=cIsUtility>{StaticValues.blindSensesBlockChance * 100f}% dodge chance</style>. <style=cIsUtility>Blocking an attack causes you to counterattack</style>, stunning and dealing <style=cIsDamage>{StaticValues.blindSensesDamageCoefficient * 100f}% of the damage</style> you would have taken to the attacker. Getting Tougher Times increases the chances of this counterattack independent of dodging as well.", Assets.cloakBuffIcon, Color.green, false, false);
             supernovaBuff = Buffs.AddNewBuff($"Supernova Buff Stacks- Absorb the damage you take, charging a supernova within you. When total damage is greater than <style=cIsUtility>{StaticValues.supernovaHealthThreshold * 100f}% of your MAX health</style>, unleash a colossal explosion, dealing <style=cIsDamage>{StaticValues.supernovaDamageCoefficient * 100f}% damage</style> in a large area around you. ", Assets.singularityBuffIcon, Color.cyan, true, false);
             deathAuraBuff = Buffs.AddNewBuff($"Death aura Buff", Assets.deathMarkDebuffIcon, Color.magenta, true, false);
-            reversalBuff = Buffs.AddNewBuff($"Reversal Buff- Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you teleport to the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient * 100f}% damage</style>", Assets.sprintBuffIcon, Color.blue, false, false);
+            reversalBuff = Buffs.AddNewBuff($"Reversal Buff- Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you dash away from the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient * 100f}% damage</style>.", Assets.sprintBuffIcon, Color.blue, false, false);
             reversalBuffStacks = Buffs.AddNewBuff($"Reversal Buff stacks", Assets.sprintBuffIcon, Color.cyan, true, false);
             machineFormBuff = Buffs.AddNewBuff($"Machine Form Buff- Materialize machinery around yourself, passively shooting missiles and bullets to nearby enemies, dealing <style=cIsDamage>{StaticValues.machineFormDamageCoefficient * 100f}% damage</style>. ", Assets.resonanceBuffIcon, Color.blue, false, false);
             gargoyleProtectionBuff = Buffs.AddNewBuff($"Gargoyle Protection Buff- Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. ", Assets.resonanceBuffIcon, Color.blue, false, false);
@@ -226,7 +226,7 @@ namespace ShiggyMod.Modules
             blastingZoneBurnDebuff = Buffs.AddNewBuff($"Blaze debuff", Assets.strongerBurnIcon, Color.red, true, true);
             lightFormDebuff = Buffs.AddNewBuff($"Light Form Debuff", Assets.crippleBuffIcon, Color.white, true, true);
             darknessFormDebuff = Buffs.AddNewBuff($"Darkness Form Debuff", Assets.crippleBuffIcon, Color.black, true, true);
-            lightAndDarknessFormDebuff = Buffs.AddNewBuff($"Light And Darkness Form Debuff", Assets.crippleBuffIcon, Color.magenta, false, true);
+            lightAndDarknessFormDebuff = Buffs.AddNewBuff($"Light And Darkness Form Debuff", Assets.crippleBuffIcon, Color.magenta, true, true);
 
 
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>($"RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;
