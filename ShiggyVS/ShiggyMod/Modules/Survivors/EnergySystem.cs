@@ -247,7 +247,7 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Update()
         {
-            Debug.Log(quirkGetString+ "quirkgetstring");
+            //Debug.Log(quirkGetString+ "quirkgetstring");
 
             if (quirkGetUI.isActiveAndEnabled)
             {

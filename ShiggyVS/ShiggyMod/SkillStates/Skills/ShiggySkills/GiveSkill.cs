@@ -29,10 +29,11 @@ namespace ShiggyMod.SkillStates
             Shiggymastercon = characterBody.master.gameObject.GetComponent<ShiggyMasterController>();
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
+            enemycharBody = Shiggycon.giveQuirkBody;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmPull", "Attack.playbackRate", 0.5f, 0.1f);
-                      
+                     
 
         }
 
