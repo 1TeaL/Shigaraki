@@ -86,11 +86,10 @@ namespace ShiggyMod.Modules
 
         //own material
         public static Material multiplierShieldBuffMat;
-        public static Material limitBreakMat;
         public static Material lightAndDarknessMat;
         public static Material lightFormBuffMat;
         public static Material deathAuraBuffMat;
-        public static Material limitBreakBuffMat; //need to clone multiplier buff and have different colour or have diff anim
+        public static Material limitBreakBuffMat; 
         public static Material voidFormBuffMat;
 
         //own effects

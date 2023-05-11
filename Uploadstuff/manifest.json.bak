@@ -1,0 +1,10 @@
+{
+    "name": "ShigarakiMod",
+    "version_number": "1.3.1",
+    "website_url": "https://github.com/1TeaL/Shigaraki",
+    "description": "Go Beyond... 1.3.0 - All for One input reworked! F to steal and V to remove, risk of options support! Bugfixes, multiplayer improvements 1.3.1- slight option change- DELETE YOUR CONFIGS!", 
+    "dependencies": [
+         "tristanmcpherson-R2API-4.3.5",
+         "KingEnderBrine-ExtraSkillSlots-1.5.1"
+    ]
+}

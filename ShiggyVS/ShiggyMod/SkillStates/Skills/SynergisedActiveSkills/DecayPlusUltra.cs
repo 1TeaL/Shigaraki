@@ -12,6 +12,7 @@ using System;
 using R2API;
 using ShiggyMod.Modules.Networking;
 using R2API.Networking.Interfaces;
+using static RoR2.BlastAttack;
 
 namespace ShiggyMod.SkillStates
 {
@@ -54,7 +55,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
             base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
                 AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
@@ -75,6 +76,13 @@ namespace ShiggyMod.SkillStates
             {
                 hasFired = true;
                 Ray aimRay = base.GetAimRay();
+                EffectManager.SpawnEffect(Assets.decayattackEffect, new EffectData
+                {
+                    origin = characterBody.footPosition,
+                    scale = 1f,
+                    rotation = Quaternion.identity,
+
+                }, true);
                 EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
                 {
                     origin = characterBody.corePosition,
@@ -114,7 +122,7 @@ namespace ShiggyMod.SkillStates
             {
                 //play effect
 
-                EffectManager.SpawnEffect(Assets.decayattackEffect, new EffectData
+                EffectManager.SpawnEffect(Assets.shiggyHitImpactEffect, new EffectData
                 {
                     origin = hitpoint.hurtBox.transform.position,
                     scale = 1f,
