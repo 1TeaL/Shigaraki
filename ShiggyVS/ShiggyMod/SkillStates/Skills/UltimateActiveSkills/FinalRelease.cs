@@ -33,13 +33,11 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayAnimation("FullBody, Override", "FullBodyBankai", "Attack.playbackRate", duration);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             energySystem = base.gameObject.GetComponent<EnergySystem>(); 
             //check minimum energy requirement so we don't get back to back mugetsu. 
             if(energySystem.currentplusChaos < StaticValues.finalReleaseInitialEnergyRequirement)
             {
-                energySystem.TriggerGlow(0.3f, 0.3f, Color.black);
                 if (characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
                 {
                     new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
@@ -47,6 +45,11 @@ namespace ShiggyMod.SkillStates
                     {
                         Shiggycon.StopFinalReleaseLoop();
                     }
+                }
+                else
+                {
+                    energySystem.TriggerGlow(0.3f, 0.3f, Color.black);
+                    energySystem.quirkGetInformation($"<style=cIsUtility>Need minimum of{StaticValues.finalReleaseInitialEnergyRequirement} Plus Chaos to enter Final Release</style>", 1f);
                 }
                 this.outer.SetNextStateToMain();
                 return;
@@ -57,6 +60,7 @@ namespace ShiggyMod.SkillStates
                 characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 1);
                 if (!characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
                 {
+                    base.PlayAnimation("FullBody, Override", "FullBodyBankai", "Attack.playbackRate", duration);
                     characterBody.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, 1);
                     if(base.isAuthority)
                     {

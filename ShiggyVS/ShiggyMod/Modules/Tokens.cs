@@ -18,6 +18,7 @@ namespace ShiggyMod.Modules
             desc = desc + "< ! > The Plus Chaos Meter in the middle increases naturally and by killing enemies, it is used for All For One and certain skills." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Some quirks are passive buffs, while others are active skills." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Try out all the quirks and craft your ultimate build!" + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > Aim to get a mixture of base skills, synergy skills and ultimate skills as they aren't necessarily direct upgrades. For example, the Beetle Queen's Summon Ally quirk allows you to summon the base survivors, providing you more quirks." + Environment.NewLine + Environment.NewLine;
 
 
 
@@ -215,7 +216,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VOIDREAVER_DESCRIPTION", $"Hold the button down to constantly summon nullifier bombs on the target, dealing <style=cIsDamage>{100f * StaticValues.voidreaverDamageCoefficient}% damage per bomb</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Captain]</style>");
             LanguageAPI.Add(prefix + "BEETLEQUEEN_NAME", "Summon Ally");
-            LanguageAPI.Add(prefix + "BEETLEQUEEN_DESCRIPTION", $"Summon a Survivor that <style=cIsUtility>inherits all your items</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "BEETLEQUEEN_DESCRIPTION", $"Summon a Base Survivor that <style=cIsUtility>inherits all your items</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Scavenger]</style>");
             LanguageAPI.Add(prefix + "GRANDPARENT_NAME", "Solar Flare");
             LanguageAPI.Add(prefix + "GRANDPARENT_DESCRIPTION", $"Hold the button to summon a miniature sun. Sprinting or letting go of the button cancels the skill. " + Environment.NewLine + Environment.NewLine +
@@ -338,7 +339,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[Blackhole Glaive (Huntress/Void Devastator)]</style>");
             LanguageAPI.Add(prefix + "WINDSLASH_NAME", "Wind Slash");
             LanguageAPI.Add(prefix + "WINDSLASH_DESCRIPTION", $"Fire a wind of blades that deals <style=cIsDamage>8x{100f * StaticValues.windSlashDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Wind Shield (Alloy Vultre/Engineer)]</style>");
+                $"<style=cSub>[Wind Shield (Alloy Vulture/Engineer)]</style>");
             LanguageAPI.Add(prefix + "LIMITBREAK_NAME", "Limit Break");
             LanguageAPI.Add(prefix + "LIMITBREAK_DESCRIPTION", $"Break your limits, boosting Damage by {StaticValues.limitBreakCoefficient}x multiplicatively, " + Helpers.Damage($"taking {100f * StaticValues.limitBreakHealthCostCoefficient}% of MAX health as damage every time you hit an enemy") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Void Form (Void Barnacle/Void Fiend)]</style>");

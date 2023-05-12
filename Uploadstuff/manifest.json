@@ -1,8 +1,8 @@
 {
     "name": "ShigarakiMod",
-    "version_number": "2.0.0",
+    "version_number": "2.0.1",
     "website_url": "https://github.com/1TeaL/Shigaraki",
-    "description": "Go Beyond... 2.0.0 - THE SYNERGY UPDATE! 100+ SKILLS/PASSIVES!", 
+    "description": "Go Beyond... 2.0.0 - THE SYNERGY UPDATE! 100+ SKILLS/PASSIVES! 2.0.1- bug fixes", 
     "dependencies": [
          "RiskofThunder-R2API_Core-5.0.6",
          "RiskofThunder-R2API_Sound-1.0.0",

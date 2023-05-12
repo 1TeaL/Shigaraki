@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 637897081
+CRC: 946575364
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 62ef2edb527b43ce05f4963157443808
+    Hash: 442df883242c157ea58bd44c343134ad
   TypeTreeHash:
     serializedVersion: 2
     Hash: 0fd395b12ed0144087605f3c409917cb
@@ -137,6 +137,7 @@ Assets:
 - Assets/Shigaraki/GUI/SynergyAndUltimate/StoneForm.png
 - Assets/Shigaraki/Animations/Walk.anim
 - Assets/Shigaraki/GUI/BaseSkills/Huntress.jpg
+- Assets/Shigaraki/Animations/FullBodySlam.anim
 - Assets/Shigaraki/Animations/FloatRight.anim
 - Assets/Shigaraki/GUI/BaseSkills/Grandparent.jpg
 - Assets/Shigaraki/Import/Armature_Running.anim

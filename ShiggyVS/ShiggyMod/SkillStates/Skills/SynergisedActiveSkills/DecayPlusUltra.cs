@@ -53,9 +53,7 @@ namespace ShiggyMod.SkillStates
             DamageAPI.AddModdedDamageType(blastAttack, Damage.shiggyDecay);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
-            base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayAnimation("FullBody, Override", "FullBodySlam", "Attack.playbackRate", duration);
             if (base.isAuthority)
             {
                 AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
@@ -80,7 +78,7 @@ namespace ShiggyMod.SkillStates
                 {
                     origin = characterBody.footPosition,
                     scale = 1f,
-                    rotation = Quaternion.identity,
+                    rotation = Util.QuaternionSafeLookRotation(Vector3.up),
 
                 }, true);
                 EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData

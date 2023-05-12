@@ -892,6 +892,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.commandopassiveDef.skillName, Survivors.Shiggy.roboballminibpassiveDef},
 
                 { Survivors.Shiggy.rexmortarDef.skillName, Survivors.Shiggy.decayDef},
+                { Survivors.Shiggy.decayDef.skillName, Survivors.Shiggy.rexmortarDef},
 
                 { Survivors.Shiggy.grandparentsunDef.skillName, Survivors.Shiggy.artificerflamethrowerDef},
                 { Survivors.Shiggy.artificerflamethrowerDef.skillName, Survivors.Shiggy.grandparentsunDef},
@@ -907,6 +908,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.DekuOFADef.skillName, Survivors.Shiggy.multiplierDef},
 
                 { Survivors.Shiggy.aircannonDef.skillName, Survivors.Shiggy.mercdashDef},
+                { Survivors.Shiggy.mercdashDef.skillName, Survivors.Shiggy.aircannonDef},
 
                 { Survivors.Shiggy.claydunestriderbuffDef.skillName, Survivors.Shiggy.minimushrumpassiveDef},
                 { Survivors.Shiggy.minimushrumpassiveDef.skillName, Survivors.Shiggy.claydunestriderbuffDef},

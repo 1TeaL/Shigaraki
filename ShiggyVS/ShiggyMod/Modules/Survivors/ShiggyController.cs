@@ -101,6 +101,7 @@ namespace ShiggyMod.Modules.Survivors
         private float greaterwispTimer;
 
         //AFO
+        private bool saveSkills;
         private bool hasStolen;
         private float stealQuirkStopwatch;
         private bool hasRemoved;
@@ -197,19 +198,7 @@ namespace ShiggyMod.Modules.Survivors
             hasStolen = false;
             hasQuirk = false;
 
-            //write starting skills to the skill list for shiggymaster
-            if (characterBody.skillLocator)
-            {
-                Shiggymastercon.writeToSkillList(characterBody.skillLocator.primary.skillDef, 0);
-                Shiggymastercon.writeToSkillList(characterBody.skillLocator.secondary.skillDef, 1);
-                Shiggymastercon.writeToSkillList(characterBody.skillLocator.utility.skillDef, 2);
-                Shiggymastercon.writeToSkillList(characterBody.skillLocator.special.skillDef, 3);
 
-                Shiggymastercon.writeToSkillList(extraskillLocator.extraFirst.skillDef, 4);
-                Shiggymastercon.writeToSkillList(extraskillLocator.extraSecond.skillDef, 5);
-                Shiggymastercon.writeToSkillList(extraskillLocator.extraThird.skillDef, 6);
-                Shiggymastercon.writeToSkillList(extraskillLocator.extraFourth.skillDef, 7);
-            }
         }
 
 
@@ -911,6 +900,37 @@ namespace ShiggyMod.Modules.Survivors
         {
             //particle effects
             //arm aura
+            if (characterBody.hasEffectiveAuthority && !saveSkills)
+            {
+                saveSkills = true;
+                //write starting skills to the skill list for shiggymaster
+                if (characterBody.skillLocator)
+                {
+                    Shiggymastercon.writeToSkillList(characterBody.skillLocator.primary.skillDef, 0);
+                    Shiggymastercon.writeToSkillList(characterBody.skillLocator.secondary.skillDef, 1);
+                    Shiggymastercon.writeToSkillList(characterBody.skillLocator.utility.skillDef, 2);
+                    Shiggymastercon.writeToSkillList(characterBody.skillLocator.special.skillDef, 3);
+
+                }
+                if (extraskillLocator)
+                {
+                    Shiggymastercon.writeToSkillList(extraskillLocator.extraFirst.skillDef, 4);
+                    Shiggymastercon.writeToSkillList(extraskillLocator.extraSecond.skillDef, 5);
+                    Shiggymastercon.writeToSkillList(extraskillLocator.extraThird.skillDef, 6);
+                    Shiggymastercon.writeToSkillList(extraskillLocator.extraFourth.skillDef, 7);
+                }
+
+                Debug.Log(Shiggymastercon.skillListToOverrideOnRespawn[0].skillName + "skill1");
+                Debug.Log(Shiggymastercon.skillListToOverrideOnRespawn[1].skillName + "skill2");
+                Debug.Log(Shiggymastercon.skillListToOverrideOnRespawn[2].skillName + "skill3");
+                Debug.Log(Shiggymastercon.skillListToOverrideOnRespawn[3].skillName + "skill4");
+                Debug.Log(Shiggymastercon.skillListToOverrideOnRespawn[4].skillName + "skill5");
+                Debug.Log(Shiggymastercon.skillListToOverrideOnRespawn[5].skillName + "skill6");
+                Debug.Log(Shiggymastercon.skillListToOverrideOnRespawn[6].skillName + "skill7");
+                Debug.Log(Shiggymastercon.skillListToOverrideOnRespawn[7].skillName + "skill8");
+            }
+
+
             if(boolenoughEnergyAura || energySystem.currentplusChaos > StaticValues.AFOEnergyCost)
             {
                 if (LARM.isStopped)
@@ -1003,7 +1023,7 @@ namespace ShiggyMod.Modules.Survivors
             {
                 if (energySystem.currentplusChaos <= 0f)
                 {
-                    Debug.Log("mugetsu");
+                    //Debug.Log("mugetsu");
                     StopFinalReleaseLoop();
                     new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
                 }
@@ -1591,11 +1611,11 @@ namespace ShiggyMod.Modules.Survivors
 
 
                 RoR2.Skills.SkillDef skillDef = StaticValues.bodyNameToSkillDef[name];
-                Debug.Log(skillDef + "skillDef");
+                Debug.Log(skillDef.skillName + "skillDef");
                 RoR2.Skills.SkillDef skillDefUpgrade = StaticValues.baseSkillUpgrade[skillDef.skillName];
-                Debug.Log(skillDefUpgrade + "skillDefUpgrade");
+                Debug.Log(skillDefUpgrade.skillName + "skillDefUpgrade");
                 RoR2.Skills.SkillDef skillDefUltimate = StaticValues.synergySkillUpgrade[skillDefUpgrade.skillName];
-                Debug.Log(skillDefUltimate + "skillDefUltimate");
+                Debug.Log(skillDefUltimate.skillName + "skillDefUltimate");
 
                 bool canBaseSkillTake = false;
                 bool canSynergyUpgrade = false;
@@ -1611,25 +1631,35 @@ namespace ShiggyMod.Modules.Survivors
 
                 if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.baseSkillPair[skillDef.skillName], characterBody))
                 {
-                    if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUpgrade, characterBody))
+                    canSynergyUpgrade = true;
+                    
+                }
+                if(canSynergyUpgrade)
+                {
+                    if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.synergySkillPair[skillDefUpgrade.skillName], characterBody))
+                    {
+                        if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUltimate, characterBody))
+                        {
+                            canUltimateUpgrade = false;
+                        }
+                        else
+                        {
+                            canUltimateUpgrade = true;
+                            canBaseSkillTake = false;
+                            canSynergyUpgrade = false;
+                        }
+                    }
+                    else if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUpgrade, characterBody))
                     {
                         canSynergyUpgrade = false;
                     }
                     else
                     {
                         canSynergyUpgrade = true;
-                    }
-                }
-                if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.synergySkillPair[skillDefUpgrade.skillName], characterBody))
-                {
-                    if(Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUltimate, characterBody))
-                    {
+                        canBaseSkillTake = false;
                         canUltimateUpgrade = false;
                     }
-                    else
-                    {
-                        canUltimateUpgrade = true;
-                    }
+
                 }
                 if (canUltimateUpgrade)
                 {
