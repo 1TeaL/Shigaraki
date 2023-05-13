@@ -70,7 +70,7 @@ If you enjoy my work, support me on Ko-fi!
     	- Grandparent sun was not reliably working- attempted to fix it.
     	- ?Fixed omniboost not removing stacks.
     - Changes
-    	- Changed Grandparent sun to centre on Shigaraki instead of a target you're looking at. Also changed it to drain 10 plus chaos per second instead and lowered to cooldown from 30 seconds -> 5 seconds.
+    	- Changed Grandparent sun to centre on Shigaraki instead of a target you're looking at. Also changed it to drain 10 plus chaos per second instead and lowered to cooldown from 30 seconds -> 5 seconds. Added new animation for it as well.
     	- Allowed air walk height gain to be infinite only if you're not holding any direction.
     	- Added Decay's impact effect on more skills like extreme speed.
 - 2.0.1- Bug Fixes/Changes    
