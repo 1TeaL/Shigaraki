@@ -24,6 +24,7 @@ namespace ShiggyMod.Modules
         internal static float afterburnerGain = 30f;
         internal static float lysateGain = 15f;
         internal const float airwalkEnergyFraction = 0.1f;
+        internal const float airwalkThreshold = 3f;
         internal const float AFOEnergyCost = 50f;
 
 
@@ -241,6 +242,8 @@ namespace ShiggyMod.Modules
         internal const float railgunnerProcCoefficient = 2f;
 
         internal const float loaderBarrierGainCoefficient = 0.01f;
+
+        internal const float grandparentSunEnergyCost = 10f;
 
         //synergy skills
         internal const float sweepingBeamDamageCoefficient = 1f;
@@ -485,6 +488,7 @@ namespace ShiggyMod.Modules
         internal static float lightAndDarknessRange = 20f;
         internal static float lightAndDarknessRangeAddition = 2f;
         internal static float lightAndDarknessBonusDamage = 0.2f;
+        
 
         public enum IndicatorType : uint
         {

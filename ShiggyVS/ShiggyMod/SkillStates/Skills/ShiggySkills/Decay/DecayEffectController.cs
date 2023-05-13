@@ -14,35 +14,17 @@ namespace ShiggyMod.SkillStates
         public CharacterBody attackerBody;
         private GameObject effectObj = Modules.Assets.decaybuffEffect;
         public float timer;
-        public TeamMask sameTeam = new TeamMask();
 
         public void Start()
         {
-            sameTeam.AddTeam(TeamIndex.Monster);
-            effectObj = Instantiate(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity);
             charBody = gameObject.GetComponent<CharacterBody>();
+            effectObj = UnityEngine.Object.Instantiate(Modules.Assets.decaybuffEffect, charBody.corePosition, Quaternion.identity);
+            effectObj.transform.parent = charBody.gameObject.transform;
             //effectObj = EffectManager.SimpleEffect(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity, true);
 
 
-            //EffectData effectData = new EffectData
-            //{
-            //    origin = base.transform.position,
-            //    rootObject = charBody.gameObject,
-            //};
-            //effectData.SetNetworkedObjectReference(base.gameObject);
-            //EffectManager.SpawnEffect(effectObj, effectData, true);
-
-
         }
 
-        public void Update()
-        {
-            //Handle transform of effectObj
-            if (effectObj)
-            {
-                effectObj.transform.position = this.transform.position;
-            }
-        }
        
         public void ApplyDoT()
         {
@@ -114,14 +96,6 @@ namespace ShiggyMod.SkillStates
 
         public void FixedUpdate()
         {
-            timer += Time.fixedDeltaTime;
-            if (timer > Modules.StaticValues.decayadditionalTimer)
-            {
-                //Debug.Log("ApplyingDoTfromController");
-                timer = 0;
-                ApplyDoT();
-                //ApplyDotToSelf();
-            }
             if (charBody)
             {
                 //If buff isn't present, destroy the effect and self.
@@ -129,6 +103,15 @@ namespace ShiggyMod.SkillStates
                 {
                     Destroy(effectObj);
                     Destroy(this);
+                }
+
+                timer += Time.fixedDeltaTime;
+                if (timer > Modules.StaticValues.decayadditionalTimer)
+                {
+                    //Debug.Log("ApplyingDoTfromController");
+                    timer = 0;
+                    ApplyDoT();
+                    //ApplyDotToSelf();
                 }
             }
             else if (!charBody)

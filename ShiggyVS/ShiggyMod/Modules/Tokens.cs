@@ -219,7 +219,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BEETLEQUEEN_DESCRIPTION", $"Summon a Base Survivor that <style=cIsUtility>inherits all your items</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Scavenger]</style>");
             LanguageAPI.Add(prefix + "GRANDPARENT_NAME", "Solar Flare");
-            LanguageAPI.Add(prefix + "GRANDPARENT_DESCRIPTION", $"Hold the button to summon a miniature sun. Sprinting or letting go of the button cancels the skill. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "GRANDPARENT_DESCRIPTION", $"Hold the button to summon a miniature sun. Sprinting or letting go of the button cancels the skill. " + Helpers.Passive($"Drains {StaticValues.grandparentSunEnergyCost} plus chaos every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Artificer]</style>");
             LanguageAPI.Add(prefix + "GROVETENDER_NAME", "Chain");
             LanguageAPI.Add(prefix + "GROVETENDER_DESCRIPTION", $"<style=cIsUtility>Chain</style> nearby enemies for <style=cIsUtility>{StaticValues.grovetenderDuration} seconds, gathering them in front of you and immobilising them</style>. " + Environment.NewLine + Environment.NewLine +
@@ -460,7 +460,7 @@ namespace ShiggyMod.Modules
                 + Environment.NewLine
                 + Environment.NewLine
             + $"<style=cKeywordName>Air Walk</style>"
-                + "<style=cIsUtility>Holding jump in the air after 0.5 seconds let's him fly, ascending for up to 3 seconds or slowing his descent while using a skill</style>."
+                + "<style=cIsUtility>Holding jump in the air after 0.5 seconds let's him fly, ascending for up to 3 seconds or slowing his descent while using a skill. After 3 seconds he can still ascend but can't be moving in a direction as well</style>."
                 + Helpers.Passive(" Drains plus ultra"));
             #endregion
             #endregion

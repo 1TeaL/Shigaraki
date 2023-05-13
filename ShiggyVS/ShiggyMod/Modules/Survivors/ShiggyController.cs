@@ -568,58 +568,122 @@ namespace ShiggyMod.Modules.Survivors
                                 energySystem.SpendplusChaos(plusChaosCost);
                                 characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 1);
 
-                                //if falling down
-                                if (characterBody.characterMotor.velocity.y < 0)
+                                //before air walk timer runs out, can rise regardless besides while using a skill
+                                if (airwalkTimer < StaticValues.airwalkThreshold)
                                 {
                                     if (characterBody.inputBank.skill1.down
-                                        | characterBody.inputBank.skill2.down
-                                        | characterBody.inputBank.skill3.down
-                                        | characterBody.inputBank.skill4.down
-                                        | extrainputBankTest.extraSkill1.down
-                                        | extrainputBankTest.extraSkill2.down
-                                        | extrainputBankTest.extraSkill3.down
-                                        | extrainputBankTest.extraSkill4.down)
+                                    | characterBody.inputBank.skill2.down
+                                    | characterBody.inputBank.skill3.down
+                                    | characterBody.inputBank.skill4.down
+                                    | extrainputBankTest.extraSkill1.down
+                                    | extrainputBankTest.extraSkill2.down
+                                    | extrainputBankTest.extraSkill3.down
+                                    | extrainputBankTest.extraSkill4.down)
                                     {
                                         characterBody.characterMotor.velocity.y = 0f;
                                     }
                                     else
                                     {
-                                        if (airwalkTimer < 3f)
-                                        {
-                                            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                                        }
-                                        else
-                                        {
-                                            characterBody.characterMotor.velocity.y = 0f;
-                                        }
+                                        characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
                                     }
                                 }
-                                //if rising up
-                                else if (characterBody.characterMotor.velocity.y >= 0)
+                                //after airwalk timer, need to ensure not holding any skill or any move direction to rise
+                                else if (airwalkTimer >= StaticValues.airwalkThreshold)
                                 {
                                     if (characterBody.inputBank.skill1.down
-                                        | characterBody.inputBank.skill2.down
-                                        | characterBody.inputBank.skill3.down
-                                        | characterBody.inputBank.skill4.down
-                                        | extrainputBankTest.extraSkill1.down
-                                        | extrainputBankTest.extraSkill2.down
-                                        | extrainputBankTest.extraSkill3.down
-                                        | extrainputBankTest.extraSkill4.down)
+                                    | characterBody.inputBank.skill2.down
+                                    | characterBody.inputBank.skill3.down
+                                    | characterBody.inputBank.skill4.down
+                                    | extrainputBankTest.extraSkill1.down
+                                    | extrainputBankTest.extraSkill2.down
+                                    | extrainputBankTest.extraSkill3.down
+                                    | extrainputBankTest.extraSkill4.down)
                                     {
                                         characterBody.characterMotor.velocity.y = 0f;
                                     }
+
+                                    if (characterBody.inputBank.moveVector == Vector3.zero)
+                                    {
+                                        characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                    }
                                     else
                                     {
-                                        if (airwalkTimer < 3f)
-                                        {
-                                            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                                        }
-                                        else
-                                        {
-                                            characterBody.characterMotor.velocity.y = 0f;
-                                        }
+                                        characterBody.characterMotor.velocity.y = 0f;
                                     }
                                 }
+
+
+                                ////if falling down
+                                //if (characterBody.characterMotor.velocity.y < 0)
+                                //{
+                                //    if (characterBody.inputBank.skill1.down
+                                //        | characterBody.inputBank.skill2.down
+                                //        | characterBody.inputBank.skill3.down
+                                //        | characterBody.inputBank.skill4.down
+                                //        | extrainputBankTest.extraSkill1.down
+                                //        | extrainputBankTest.extraSkill2.down
+                                //        | extrainputBankTest.extraSkill3.down
+                                //        | extrainputBankTest.extraSkill4.down)
+                                //    {
+                                //        characterBody.characterMotor.velocity.y = 0f;
+                                //    }
+                                //    else
+                                //    {
+                                //        if (airwalkTimer < 3f)
+                                //        {
+                                //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                //        }
+                                //        else
+                                //        {
+                                //            characterBody.characterMotor.velocity.y = 0f;
+                                //        }
+                                //    }
+                                //}
+                                ////if rising up
+                                //else if (characterBody.characterMotor.velocity.y >= 0)
+                                //{
+                                //    if (airwalkTimer < 3f)
+                                //    {
+                                //        if (characterBody.inputBank.skill1.down
+                                //        | characterBody.inputBank.skill2.down
+                                //        | characterBody.inputBank.skill3.down
+                                //        | characterBody.inputBank.skill4.down
+                                //        | extrainputBankTest.extraSkill1.down
+                                //        | extrainputBankTest.extraSkill2.down
+                                //        | extrainputBankTest.extraSkill3.down
+                                //        | extrainputBankTest.extraSkill4.down)
+                                //        {
+                                //            characterBody.characterMotor.velocity.y = 0f;
+                                //        }
+                                //        else
+                                //        {
+                                //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                //        }
+                                //    }
+                                //    else
+                                //    {
+                                //        if (characterBody.inputBank.skill1.down
+                                //        | characterBody.inputBank.skill2.down
+                                //        | characterBody.inputBank.skill3.down
+                                //        | characterBody.inputBank.skill4.down
+                                //        | extrainputBankTest.extraSkill1.down
+                                //        | extrainputBankTest.extraSkill2.down
+                                //        | extrainputBankTest.extraSkill3.down
+                                //        | extrainputBankTest.extraSkill4.down)
+                                //        {
+                                //            characterBody.characterMotor.velocity.y = 0f;
+                                //        }
+
+                                //        if(characterBody.inputBank.moveVector == Vector3.zero)
+                                //        {
+                                //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                //        }
+                                //        else
+                                //        {
+                                //            characterBody.characterMotor.velocity.y = 0f;
+                                //        }                                       
+                                //    }
+                                //}
 
                             }
 

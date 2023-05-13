@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 946575364
+CRC: 2638229734
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 442df883242c157ea58bd44c343134ad
+    Hash: df966d61c8f932755869391cee53b48e
   TypeTreeHash:
     serializedVersion: 2
     Hash: 0fd395b12ed0144087605f3c409917cb
@@ -148,6 +148,7 @@ Assets:
 - Assets/Shigaraki/GUI/SynergyAndUltimate/Reversal.png
 - Assets/Shigaraki/GUI/SynergyAndUltimate/BlindSenses.png
 - Assets/Shigaraki/Assets/Material/EmptyMat.mat
+- Assets/Shigaraki/Animations/ConstantFullBodyTheWorld.anim
 - Assets/Shigaraki/Animations/LHandPointDown.anim
 - Assets/Shigaraki/Animations/FullBodyMugetsu.anim
 - Assets/Shigaraki/GUI/BaseSkills/Solus_Probe.jpg

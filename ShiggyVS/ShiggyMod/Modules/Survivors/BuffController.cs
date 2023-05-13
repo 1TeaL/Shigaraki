@@ -785,7 +785,13 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         omniboostTimer = 0f;
                         int omniboostBuffcount = characterBody.GetBuffCount(Buffs.omniboostBuffStacks);
-                        characterBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, Mathf.RoundToInt(omniboostBuffcount/2));
+                        int halfStacks = Mathf.RoundToInt(omniboostBuffcount / 2);
+                        if(omniboostBuffcount == halfStacks)
+                        {
+                            halfStacks = 0;
+                        }
+                        Debug.Log("setting stacks of omnibooost to " + halfStacks);
+                        characterBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, halfStacks);
 
                     }
                 }

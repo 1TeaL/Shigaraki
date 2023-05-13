@@ -44,13 +44,27 @@ namespace ShiggyMod.SkillStates
 						timer -= interval;
                         AkSoundEngine.PostEvent("ShiggyHitSFX", charbody.gameObject);
                         new TakeMeleeDamageForceRequest(charbody.masterObjectId, Vector3.up, StaticValues.extremeSpeedForce / 2f, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
-					}
+                        EffectManager.SpawnEffect(Modules.Assets.shiggyHitImpactEffect, new EffectData
+                        {
+                            origin = charbody.corePosition,
+                            scale = 1f,
+                            rotation = Quaternion.identity
+
+                        }, true);
+                    }
 					else if (currentNumber == numberOfHits)
 					{
 						AkSoundEngine.PostEvent("ShiggyStrongAttack", charbody.gameObject);
 						currentNumber += 1;
 						new TakeMeleeDamageForceRequest(charbody.masterObjectId, Vector3.down, StaticValues.extremeSpeedForce, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
-					}
+                        EffectManager.SpawnEffect(Modules.Assets.shiggyHitImpactEffect, new EffectData
+                        {
+                            origin = charbody.corePosition,
+                            scale = 1f,
+                            rotation = Quaternion.identity
+
+                        }, true);
+                    }
 					else if (currentNumber > numberOfHits)
 					{
 

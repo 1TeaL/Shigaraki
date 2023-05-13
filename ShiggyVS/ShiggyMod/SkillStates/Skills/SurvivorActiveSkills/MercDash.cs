@@ -35,9 +35,9 @@ namespace ShiggyMod.SkillStates
 
         protected string swingSoundString = "";
         protected string hitSoundString = "";
-        protected string muzzleString = "SwingCenter";
-        protected GameObject swingEffectPrefab;
-        protected GameObject hitEffectPrefab;
+        protected string muzzleString = "Swing1";
+        protected GameObject swingEffectPrefab = Modules.Assets.shiggySwingEffect;
+        protected GameObject hitEffectPrefab = Modules.Assets.shiggyHitImpactEffect;
         protected NetworkSoundEventIndex impactSound = Modules.Assets.hitSoundEffect.index;
 
         public float duration;

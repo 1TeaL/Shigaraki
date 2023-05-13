@@ -62,6 +62,17 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.0.2- Bug Fixes/Changes    
+    - Bug Fixes
+    	- Fixed Decay debuff causing some errors, also fixed the decay awakened to only work on shigaraki.
+    	- Fixed issues with taking fall damage that was affecting everyone.
+    	- Fixed Tar boost (clay dunestrider) and Spirit boost (Greater wisp) buffs giving 8 buff stacks instead of 8 second durations.
+    	- Grandparent sun was not reliably working- attempted to fix it.
+    	- ?Fixed omniboost not removing stacks.
+    - Changes
+    	- Changed Grandparent sun to centre on Shigaraki instead of a target you're looking at. Also changed it to drain 10 plus chaos per second instead and lowered to cooldown from 30 seconds -> 5 seconds. Added new animation for it as well.
+    	- Allowed air walk height gain to be infinite only if you're not holding any direction.
+    	- Added Decay's impact effect on more skills like extreme speed.
 - 2.0.1- Bug Fixes/Changes    
     - Bug Fixes
     	- Fixed quirks not upgrading properly.
@@ -134,6 +145,7 @@ If you enjoy my work, support me on Ko-fi!
     - Bug fixes. 
     - More/Improved animations.
     - Icons for base skills?
+    - Reworking some base skills to be more in line with the Synergy update's ideas.
 
 <img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/5682234e-9b60-489d-9f36-2a35f060fa0e" height ="256" >
 <img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/3637a749-4066-4f01-80f9-3f104461d53c" height ="256" >
@@ -162,7 +174,7 @@ Shigaraki can give passive quirks to enemies by pressing the C key by default, t
 
 Actives(Circle Indicator) replace main skills and Passives(Square indicator) replace extra skills.
 
-Shigaraki has Air Walk as well- by holding jump in the air after 0.5 seconds, it allows him to fly, ascending for up to 3 seconds or slowing his descent thereafter or while using a skill (Drains plus ultra). 
+Shigaraki has Air Walk as well- by holding jump in the air after 0.5 seconds, it allows him to fly, ascending for up to 3 seconds or slowing his descent thereafter or while using a skill (Drains plus ultra). After 3 seconds he can still ascend but can't be moving in a direction.
 All [Melee]/Overlap attacks attacks Decay, which decreases the enemies' movespeed and attackspeed as well as instakilling them at 100 stacks (except for Teleporter Bosses).
 
 Shigaraki can sprint in any direction and has a double jump.

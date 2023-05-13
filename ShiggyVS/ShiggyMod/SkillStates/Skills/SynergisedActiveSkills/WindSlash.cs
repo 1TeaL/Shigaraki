@@ -55,9 +55,9 @@ namespace ShiggyMod.SkillStates
         {
             Ray aimRay = base.GetAimRay();
 
-            EffectManager.SpawnEffect(EntityStates.Merc.Uppercut.swingEffectPrefab, new EffectData
+            EffectManager.SpawnEffect(Modules.Assets.shiggySwingEffect, new EffectData
             {
-                origin = FindModelChild(muzzleString).position,
+                origin = FindModelChild("Swing2").position,
                 scale = 1f,
                 rotation = Quaternion.LookRotation(aimRay.direction),
 
