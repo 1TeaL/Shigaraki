@@ -173,7 +173,7 @@ Shigaraki can give passive quirks to enemies by pressing the C key by default, t
 
 Actives(Circle Indicator) replace main skills and Passives(Square indicator) replace extra skills.
 
-Shigaraki has Air Walk as well- by holding jump in the air after 0.5 seconds, it allows him to fly, ascending for up to 3 seconds or slowing his descent thereafter or while using a skill (Drains plus ultra). 
+Shigaraki has Air Walk as well- by holding jump in the air after 0.5 seconds, it allows him to fly, ascending for up to 3 seconds or slowing his descent thereafter or while using a skill (Drains plus ultra). After 3 seconds he can still ascend but can't be moving in a direction.
 All [Melee]/Overlap attacks attacks Decay, which decreases the enemies' movespeed and attackspeed as well as instakilling them at 100 stacks (except for Teleporter Bosses).
 
 Shigaraki can sprint in any direction and has a double jump.
