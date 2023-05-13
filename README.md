@@ -134,6 +134,7 @@ If you enjoy my work, support me on Ko-fi!
     - Bug fixes. 
     - More/Improved animations.
     - Icons for base skills?
+    - Reworking some base skills.
 
 <img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/5682234e-9b60-489d-9f36-2a35f060fa0e" height ="256" >
 <img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/3637a749-4066-4f01-80f9-3f104461d53c" height ="256" >
