@@ -1405,7 +1405,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "STONEGOLEM_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Stone_Golem"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.StoneGolemLaserCharge)),
-                activationStateMachineName = "weapon",
+                activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 12f,
                 beginSkillCooldownOnSkillEnd = true,

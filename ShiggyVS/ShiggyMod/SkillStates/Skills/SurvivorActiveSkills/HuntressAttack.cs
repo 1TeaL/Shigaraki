@@ -65,11 +65,12 @@ namespace ShiggyMod.SkillStates
                 this.animator = modelTransform.GetComponent<Animator>();
             }
             Util.PlayAttackSpeedSound(EntityStates.Huntress.HuntressWeapon.IdleTracking.attackSoundString, base.gameObject, this.attackSpeedStat);
-            if (Shiggycon && base.isAuthority)
+            
+
+            if(Shiggycon.trackingTarget.teamIndex == TeamIndex.Monster)
             {
                 Target = Shiggycon.GetTrackingTarget();
             }
-
             if (!Target)
             {
                 return;

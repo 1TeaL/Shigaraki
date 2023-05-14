@@ -86,7 +86,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "2.0.2";
+        public const string MODVERSION = "2.0.3";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -1620,6 +1620,7 @@ namespace ShiggyMod
                     this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
                     this.OverlayFunction(Modules.Assets.limitBreakBuffMat, self.body.HasBuff(Modules.Buffs.limitBreakBuff), self);
                     this.OverlayFunction(Modules.Assets.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.voidFormBuff), self);
+                    this.OverlayFunction(Modules.Assets.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.decayDebuff), self);
                     this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.deathAuraBuff), self);
                     this.OverlayFunction(Modules.Assets.deathAuraBuffMat, self.body.HasBuff(Modules.Buffs.deathAuraDebuff), self); 
                     this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.darknessFormBuff), self);

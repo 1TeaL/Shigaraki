@@ -37,19 +37,18 @@ namespace ShiggyMod.SkillStates
 			base.GetModelAnimator();
 			Transform modelTransform = base.GetModelTransform();
 			Util.PlaySound(FireLaser.attackSoundString, base.gameObject);
-			string text = "LHand";
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
 			//base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-			base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+			base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", 0.5f, 0.05f);
             if (base.isAuthority)
             {
                 AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
             }
             if (FireLaser.effectPrefab)
 			{
-				EffectManager.SimpleMuzzleFlash(FireLaser.effectPrefab, base.gameObject, text, false);
+				EffectManager.SimpleMuzzleFlash(FireLaser.effectPrefab, base.gameObject, "RHand", false);
 			}
 			if (base.isAuthority)
 			{
@@ -79,7 +78,7 @@ namespace ShiggyMod.SkillStates
 					ChildLocator component = modelTransform.GetComponent<ChildLocator>();
 					if (component)
 					{
-						int childIndex = component.FindChildIndex(text);
+						int childIndex = component.FindChildIndex("RHand");
 						if (FireLaser.tracerEffectPrefab)
 						{
 							EffectData effectData = new EffectData
@@ -101,8 +100,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-			//PlayCrossfade("RightArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
-			PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
+
 		}
 
 

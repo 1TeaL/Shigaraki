@@ -66,7 +66,7 @@ namespace ShiggyMod.Modules.Survivors
         private Indicator indicator;
         private Indicator passiveindicator;
         private Indicator activeindicator;
-        private HurtBox trackingTarget;
+        public HurtBox trackingTarget;
         public HurtBox Target;
 
         private CharacterBody characterBody;

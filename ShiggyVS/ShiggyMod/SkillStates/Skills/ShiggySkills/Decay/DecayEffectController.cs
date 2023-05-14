@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using System.Linq;
+using HG;
 
 namespace ShiggyMod.SkillStates
 {
@@ -18,10 +19,17 @@ namespace ShiggyMod.SkillStates
         public void Start()
         {
             charBody = gameObject.GetComponent<CharacterBody>();
-            effectObj = UnityEngine.Object.Instantiate(Modules.Assets.decaybuffEffect, charBody.corePosition, Quaternion.identity);
-            effectObj.transform.parent = charBody.gameObject.transform;
+            //effectObj = UnityEngine.Object.Instantiate(Modules.Assets.decaybuffEffect, charBody.corePosition, Quaternion.identity);
+            //effectObj.transform.parent = charBody.gameObject.transform;
             //effectObj = EffectManager.SimpleEffect(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity, true);
 
+            EffectManager.SpawnEffect(Modules.Assets.decaybuffEffect, new EffectData
+            {
+                origin = charBody.corePosition,
+                scale = 1f,
+                rotation = Quaternion.identity,
+
+            }, true);
 
         }
 
@@ -73,6 +81,13 @@ namespace ShiggyMod.SkillStates
                         controller = singularTarget.gameObject.AddComponent<DecayEffectController>();
                         controller.attackerBody = attackerBody;
                     }
+                    EffectManager.SpawnEffect(Modules.Assets.decaybuffEffect, new EffectData
+                    {
+                        origin = singularTarget.healthComponent.body.corePosition,
+                        scale = 1f,
+                        rotation = Quaternion.identity,
+
+                    }, true);
                 }
             }
         }
@@ -112,6 +127,13 @@ namespace ShiggyMod.SkillStates
                     timer = 0;
                     ApplyDoT();
                     //ApplyDotToSelf();
+                    EffectManager.SpawnEffect(Modules.Assets.decaybuffEffect, new EffectData
+                    {
+                        origin = charBody.corePosition,
+                        scale = 1f,
+                        rotation = Quaternion.identity,
+
+                    }, true);
                 }
             }
             else if (!charBody)

@@ -43,9 +43,9 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
 
 			base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-			PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration, 0.1f);
+            PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration, 0.05f);
 
-			float[] source = new float[]
+            float[] source = new float[]
 			{
 				this.attackSpeedStat,
 				4f
@@ -153,7 +153,7 @@ namespace ShiggyMod.SkillStates
 			bool flag = base.IsKeyDownAuthority();
 			if (flag)
 			{
-				PlayAnimation("LeftArm, Override", "RightArmOut", "Attack.playbackRate", duration);
+				PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
 				this.chargePercent = base.fixedAge / this.maxCharge;
 				this.damageCoefficient = (Modules.StaticValues.stonegolemDamageCoefficient + 1f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoefficient));
 				this.radius = (this.baseRadius * this.damageCoefficient + 20f) / 4f;
