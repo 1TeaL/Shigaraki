@@ -62,6 +62,13 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.0.3- Bug Fixes/Changes    
+    - Bug Fixes
+    	- Fixed Stone Golem Laser's quirk cooldown from not decreasing.
+    	- Prevented Huntress's Flurry quirk and Blackhole glaive quirk from attacking allies.
+    - Changes
+    	- Noted bug that sometimes quirks don't combine.
+    	- Improved effects for Decay debuff.
 - 2.0.2- Bug Fixes/Changes    
     - Bug Fixes
     	- Fixed Decay debuff causing some errors, also fixed the decay awakened to only work on shigaraki.
@@ -154,7 +161,7 @@ If you enjoy my work, support me on Ko-fi!
 <img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/4f6287ea-6d40-46d8-bd1d-d302919573fe" height ="256" >
 
 ## Known Issues
-
+    Sometimes quirks don't combine.
 ## Overview
     He is initially weak with low base damage, aim to get passive quirks to increase his power.
     All For One can grab elite equipment from elites. 
