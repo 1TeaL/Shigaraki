@@ -116,37 +116,51 @@ namespace ShiggyMod.SkillStates
         protected virtual void RemoveSkill2()
         {
             Shiggymastercon.writeToSkillList(null, 1);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void RemoveSkill3()
         {
             Shiggymastercon.writeToSkillList(null, 2);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void RemoveSkill4()
         {
             Shiggymastercon.writeToSkillList(null, 3);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void RemoveExtraSkill1()
         {
             Shiggymastercon.writeToSkillList(null, 4);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void RemoveExtraSkill2()
         {
             Shiggymastercon.writeToSkillList(null, 5);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void RemoveExtraSkill3()
         {
             Shiggymastercon.writeToSkillList(null, 6);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void RemoveExtraSkill4()
         {
             Shiggymastercon.writeToSkillList(null, 7);
+            this.outer.SetNextStateToMain();
+            return;
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if (base.isAuthority && base.IsKeyDownAuthority())
+            if (base.isAuthority)
             {
                 if (inputBank.skill1.down)
                 {
@@ -188,8 +202,6 @@ namespace ShiggyMod.SkillStates
                     RemoveExtraSkill4();
 
                 }
-                this.outer.SetNextStateToMain();
-                return;
             }
         }
 

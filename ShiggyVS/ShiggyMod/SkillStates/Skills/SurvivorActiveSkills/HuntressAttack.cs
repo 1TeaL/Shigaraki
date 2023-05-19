@@ -67,7 +67,7 @@ namespace ShiggyMod.SkillStates
             Util.PlayAttackSpeedSound(EntityStates.Huntress.HuntressWeapon.IdleTracking.attackSoundString, base.gameObject, this.attackSpeedStat);
 
 
-            if (Shiggycon.trackingTarget.teamIndex == TeamIndex.Monster || Shiggycon.trackingTarget.teamIndex == TeamIndex.Neutral)
+            if (Shiggycon.trackingTarget.teamIndex == TeamIndex.Monster || Shiggycon.trackingTarget.teamIndex == TeamIndex.Neutral || Shiggycon.trackingTarget.teamIndex == TeamIndex.Void)
             {
                 Target = Shiggycon.GetTrackingTarget();
             }

@@ -116,34 +116,50 @@ namespace ShiggyMod.SkillStates
         protected virtual void AddSkill1()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 0);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void AddSkill2()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 1);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void AddSkill3()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 2);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void AddSkill4()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 3);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void AddExtraSkill1()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 4);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void AddExtraSkill2()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 5);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void AddExtraSkill3()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 6);
+            this.outer.SetNextStateToMain();
+            return;
         }
         protected virtual void AddExtraSkill4()
         {
             Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 7);
+            this.outer.SetNextStateToMain();
+            return;
         }
 
         public override void FixedUpdate()
@@ -192,8 +208,6 @@ namespace ShiggyMod.SkillStates
                     AddExtraSkill4();
 
                 }
-                this.outer.SetNextStateToMain();
-                return;
             }
         }
 
