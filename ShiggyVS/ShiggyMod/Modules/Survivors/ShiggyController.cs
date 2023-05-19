@@ -1192,7 +1192,7 @@ namespace ShiggyMod.Modules.Survivors
                 if (Config.AFOHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
                 {
                     stealQuirkStopwatch += Time.deltaTime;
-                    if (!this.hasStolen && stealQuirkStopwatch > Config.holdButtonAFO.Value)
+                    if (!this.hasStolen && stealQuirkStopwatch > Config.holdButtonAFO.Value && Shiggymastercon.storedAFOSkill[0] == null)
                     {
 
                         //energy cost
@@ -1684,17 +1684,10 @@ namespace ShiggyMod.Modules.Survivors
                 bool canBaseSkillTake = false;
                 bool canSynergyUpgrade = false;
                 bool canUltimateUpgrade = false;
-                if(Shiggymastercon.SearchSkillSlotsForQuirks(skillDef, characterBody))
-                {
-                    canBaseSkillTake = false;
-                }
-                else
-                {
-                    canBaseSkillTake = true;
-                }
 
                 if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.baseSkillPair[skillDef.skillName], characterBody))
                 {
+                    //check if you can upgrade the skill in the first place
                     canSynergyUpgrade = true;
                     
                 }
@@ -1702,31 +1695,71 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.synergySkillPair[skillDefUpgrade.skillName], characterBody))
                     {
+                        //check if you own the ultimate skill arleady
                         if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUltimate, characterBody))
                         {
                             canUltimateUpgrade = false;
+                            //if you already have the ultimate check if you can grab the synergy
+                            if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUpgrade, characterBody))
+                            {
+                                canSynergyUpgrade = false;
+                                //if you already have the synergy check if you can grab the base
+                                if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDef, characterBody))
+                                {
+                                    canBaseSkillTake = false;
+                                }
+                                else
+                                {
+                                    canBaseSkillTake = true;
+                                }
+                            }
+                            else
+                            {
+                                canSynergyUpgrade = true;
+                            }
                         }
                         else
                         {
                             canUltimateUpgrade = true;
-                            canBaseSkillTake = false;
-                            canSynergyUpgrade = false;
                         }
                     }
+                    //if you can't get the ultimate skill check if you can still get the synergy
                     else if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUpgrade, characterBody))
                     {
                         canSynergyUpgrade = false;
+                        //if you already have the synergy check if you can grab the base
+                        if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDef, characterBody))
+                        {
+                            canBaseSkillTake = false;
+                        }
+                        else
+                        {
+                            canBaseSkillTake = true;
+                        }
                     }
                     else
                     {
                         canSynergyUpgrade = true;
-                        canBaseSkillTake = false;
-                        canUltimateUpgrade = false;
                     }
 
                 }
+                else
+                {
+
+                    if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDef, characterBody))
+                    {
+                        canBaseSkillTake = false;
+                    }
+                    else
+                    {
+                        canBaseSkillTake = true;
+                    }
+                }
+
                 if (canUltimateUpgrade)
                 {
+                    canBaseSkillTake = false;
+                    canSynergyUpgrade = false;
                     Shiggymastercon.writeToAFOSkillList(skillDefUltimate, 0);
                     Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDefUltimate.skillName]);
                     energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDefUltimate.skillName], 2f);
@@ -1734,6 +1767,7 @@ namespace ShiggyMod.Modules.Survivors
                 }
                 else if (canSynergyUpgrade)
                 {
+                    canBaseSkillTake = false;
                     Shiggymastercon.writeToAFOSkillList(skillDefUpgrade, 0);
                     Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDefUpgrade.skillName]);
                     energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDefUpgrade.skillName], 2f);

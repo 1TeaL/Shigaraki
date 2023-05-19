@@ -49,7 +49,7 @@ namespace ShiggyMod.SkillStates
                 else
                 {
                     energySystem.TriggerGlow(0.3f, 0.3f, Color.black);
-                    energySystem.quirkGetInformation($"<style=cIsUtility>Need minimum of{StaticValues.finalReleaseInitialEnergyRequirement} Plus Chaos to enter Final Release</style>", 1f);
+                    energySystem.quirkGetInformation($"<style=cIsUtility>Need minimum of {StaticValues.finalReleaseInitialEnergyRequirement} Plus Chaos to enter Final Release</style>", 1f);
                 }
                 this.outer.SetNextStateToMain();
                 return;

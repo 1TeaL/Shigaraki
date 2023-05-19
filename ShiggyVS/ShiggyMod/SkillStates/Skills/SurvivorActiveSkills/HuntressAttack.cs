@@ -57,7 +57,7 @@ namespace ShiggyMod.SkillStates
                 AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
             }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
             Transform modelTransform = base.GetModelTransform();
             if (modelTransform)
             {
@@ -65,9 +65,9 @@ namespace ShiggyMod.SkillStates
                 this.animator = modelTransform.GetComponent<Animator>();
             }
             Util.PlayAttackSpeedSound(EntityStates.Huntress.HuntressWeapon.IdleTracking.attackSoundString, base.gameObject, this.attackSpeedStat);
-            
 
-            if(Shiggycon.trackingTarget.teamIndex == TeamIndex.Monster)
+
+            if (Shiggycon.trackingTarget.teamIndex == TeamIndex.Monster || Shiggycon.trackingTarget.teamIndex == TeamIndex.Neutral)
             {
                 Target = Shiggycon.GetTrackingTarget();
             }

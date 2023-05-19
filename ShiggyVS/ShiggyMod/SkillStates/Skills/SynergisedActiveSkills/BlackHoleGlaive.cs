@@ -67,7 +67,7 @@ namespace ShiggyMod.SkillStates
             Util.PlayAttackSpeedSound(ThrowGlaive.attackSoundString, base.gameObject, this.attackSpeedStat);
 
 
-            if (Shiggycon.trackingTarget.teamIndex == TeamIndex.Monster)
+            if (Shiggycon.trackingTarget.teamIndex == TeamIndex.Monster || Shiggycon.trackingTarget.teamIndex == TeamIndex.Neutral || Shiggycon.trackingTarget.teamIndex == TeamIndex.Void)
             {
                 Target = Shiggycon.GetTrackingTarget();
             }
