@@ -62,6 +62,11 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.0.4- Bug Fixes/Changes    
+    - Bug Fixes
+    	- Allowed Huntress's Flurry quirk and Blackhole glaive quirk to damage neutral targets as well such as eggs.
+    	- Further improved All For One logistics, there were issues where it would grab the base quirk instead of the upgraded one. 
+    	- Fixed typo with Final Release minimum plus chaos requirement. 
 - 2.0.3- Bug Fixes/Changes    
     - Bug Fixes
     	- Fixed Stone Golem Laser's quirk cooldown from not decreasing.
