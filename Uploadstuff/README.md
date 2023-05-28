@@ -62,6 +62,11 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.0.5- Bug Fixes/Changes    
+    - Bug Fixes
+    	- Allowed Huntress's Flurry quirk and Blackhole glaive quirk to damage void targets as well.
+    - Changes
+    	- Omniboost has been changed to simply reduce the number of stacks by 1 every second. There has been some weird bugs with halving it's stacks every 6 seconds for some reason.
 - 2.0.4- Bug Fixes/Changes    
     - Bug Fixes
     	- Allowed Huntress's Flurry quirk and Blackhole glaive quirk to damage neutral targets as well such as eggs.
@@ -167,7 +172,6 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Known Issues
     Sometimes quirks don't combine.
-
 ## Overview
     He is initially weak with low base damage, aim to get passive quirks to increase his power.
     All For One can grab elite equipment from elites. 
@@ -708,7 +712,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Omniboost</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Omniboost.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/9d13e6ba-9d6f-4673-9278-c33461cfb12a"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/e8da2eae-a852-4f08-b5c5-3c06cb2e9111"></td>
   </tr>
   <tr>
     <td>Gacha</td>
@@ -866,3 +870,5 @@ Shigaraki can sprint in any direction and has a double jump.
 ##### Movespeed = 7
 
 These stats are prone to change.
+
+rest of changelog on github.

@@ -366,7 +366,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Big Bang (Greater Wisp/Grovetender)]</style>");
             LanguageAPI.Add(prefix + "OMNIBOOST_NAME", "Omniboost");
-            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>. Stacks halve every {StaticValues.omniboostBuffTimer} seconds. " + 
+            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>. Stacks decrease by 1 every {StaticValues.omniboostBuffTimer} second. " + 
                 Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Double Time (Solus Probe/Commando)]</style>");
             LanguageAPI.Add(prefix + "GACHA_NAME", "Gacha");
