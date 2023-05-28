@@ -62,6 +62,11 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.0.5- Bug Fixes/Changes    
+    - Bug Fixes
+    	- Allowed Huntress's Flurry quirk and Blackhole glaive quirk to damage void targets as well.
+    - Changes
+    	- Omniboost has been changed to simply reduce the number of stacks by 1 every second. There has been some weird bugs with halving it's stacks every 6 seconds for some reason.
 - 2.0.4- Bug Fixes/Changes    
     - Bug Fixes
     	- Allowed Huntress's Flurry quirk and Blackhole glaive quirk to damage neutral targets as well such as eggs.
@@ -707,7 +712,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Omniboost</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Omniboost.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/9d13e6ba-9d6f-4673-9278-c33461cfb12a"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/e8da2eae-a852-4f08-b5c5-3c06cb2e9111"></td>
   </tr>
   <tr>
     <td>Gacha</td>
@@ -1015,7 +1020,7 @@ rest of changelog on github.
 ![Scrap Barrier](https://github.com/1TeaL/Shigaraki/assets/93917577/d0a9c072-539a-4be0-98b8-c03c839747f6)
 ![Big Bang](https://github.com/1TeaL/Shigaraki/assets/93917577/6916edd7-d089-40fa-8ba3-8c21cca3b5fd)
 ![Wisper](https://github.com/1TeaL/Shigaraki/assets/93917577/7c0b1702-b459-4b54-b7c2-08ef3dd5658a)
-![Omniboost](https://github.com/1TeaL/Shigaraki/assets/93917577/9d13e6ba-9d6f-4673-9278-c33461cfb12a)
+![Omniboost](https://github.com/1TeaL/Shigaraki/assets/93917577/e8da2eae-a852-4f08-b5c5-3c06cb2e9111)
 ![Gacha](https://github.com/1TeaL/Shigaraki/assets/93917577/59737b09-8720-4a7e-a22e-db64d479b4fd)
 ![Stone Form](https://github.com/1TeaL/Shigaraki/assets/93917577/d888da24-869f-4b51-9768-d95ac6c92e1d)
 ![Aura Of Blight](https://github.com/1TeaL/Shigaraki/assets/93917577/254b9077-b72b-45dd-9824-0621aee751fd)
