@@ -287,7 +287,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[Void Barnacle]</style>");
             LanguageAPI.Add(prefix + "DEKUOFA_NAME", "OFA 100%");
             LanguageAPI.Add(prefix + "DEKUOFA_DESCRIPTION", $"Go beyond your limits, boosting Damage, Attackspeed, Armor and Movespeed by {100f *(1 + StaticValues.OFACoefficient)}% additively, " + Helpers.Damage($"taking {100f * StaticValues.OFAHealthCostCoefficient}% of CURRENT health as damage every second") + "." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Multiplier]</style>");
+                $"<style=cSub>[Multiplier] [Deku/Newt]</style>");
             #endregion
 
             #region Synergised Active
@@ -400,44 +400,59 @@ namespace ShiggyMod.Modules
 
             #region Ultimate Actives
             LanguageAPI.Add(prefix + "THEWORLD_NAME", "The World");
-            LanguageAPI.Add(prefix + "THEWORLD_DESCRIPTION", $"Break the rules of The World. <style=cIsUtility>Stop Time, preventing all enemies around you from moving and attacking. Projectiles are also frozen</style>. " + Helpers.Passive($"Drains {100f * StaticValues.theWorldEnergyCost}% plus chaos every second") +".");
+            LanguageAPI.Add(prefix + "THEWORLD_DESCRIPTION", $"Break the rules of The World. <style=cIsUtility>Stop Time, preventing all enemies around you from moving and attacking. Projectiles are also frozen</style>. " + Helpers.Passive($"Drains {100f * StaticValues.theWorldEnergyCost}% plus chaos every second") +"." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Double Time] [Omniboost]</style>");
             LanguageAPI.Add(prefix + "EXTREMESPEED_NAME", "Extreme Speed");
             LanguageAPI.Add(prefix + "EXTREMESPEED_DESCRIPTION", $"Instantaneously move at blinding speeds through enemies. After a delay, deal <style=cIsDamage>{StaticValues.extremeSpeedNumberOfHits}x{100f * StaticValues.extremeSpeedDamageCoefficient}% damage</style>. " +
-                $"Number of hits scales with attackspeed.");
+                $"Number of hits scales with attackspeed." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Mach Punch] [Thunderclap]</style>");
             LanguageAPI.Add(prefix + "DEATHAURA_NAME", "Death Aura");
-            LanguageAPI.Add(prefix + "DEATHAURA_DESCRIPTION", $"Become death itself, <style=cIsUtility> applying a stacking permanent debuff to enemies and a stacking buff to yourself  every {StaticValues.deathAuraThreshold} second</style>. Each debuff stack increases <style=cIsDamage>DoT damage by {100f * StaticValues.deathAuraDebuffCoefficient}% while each buff stack increases your DoT damage by {100f* StaticValues.deathAuraBuffCoefficient}%</style>. " + Helpers.Passive($"Drains {StaticValues.deathAuraBuffEnergyCost} plus chaos every second") + ".");
+            LanguageAPI.Add(prefix + "DEATHAURA_DESCRIPTION", $"Become death itself, <style=cIsUtility> applying a stacking permanent debuff to enemies and a stacking buff to yourself  every {StaticValues.deathAuraThreshold} second</style>. Each debuff stack increases <style=cIsDamage>DoT damage by {100f * StaticValues.deathAuraDebuffCoefficient}% while each buff stack increases your DoT damage by {100f* StaticValues.deathAuraBuffCoefficient}%</style>. " + Helpers.Passive($"Drains {StaticValues.deathAuraBuffEnergyCost} plus chaos every second") + "." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Barbed Spikes] [Expunge]</style>");
             LanguageAPI.Add(prefix + "OFAFO_NAME", "One For All For One");
-            LanguageAPI.Add(prefix + "OFAFO_DESCRIPTION", $"Unlock the true power of One For All and All For One. <style=cIsUtility> Gain {StaticValues.OFAFOLifestealCoefficient * 100f}% lifesteal, {StaticValues.OFAFOEnergyGainCoefficient * 100f}% plus chaos every hit and every passive or buff effect interval is halved</style>. " + Helpers.Passive($"Drains {StaticValues.OFAFOEnergyCostCoefficient}% MAX plus chaos AND {StaticValues.OFAFOHealthCostCoefficient}% health every second") + ".");
+            LanguageAPI.Add(prefix + "OFAFO_DESCRIPTION", $"Unlock the true power of One For All and All For One. <style=cIsUtility> Gain {StaticValues.OFAFOLifestealCoefficient * 100f}% lifesteal, {StaticValues.OFAFOEnergyGainCoefficient * 100f}% plus chaos every hit and every passive or buff effect interval is halved</style>. " + Helpers.Passive($"Drains {StaticValues.OFAFOEnergyCostCoefficient}% MAX plus chaos AND {StaticValues.OFAFOHealthCostCoefficient}% health every second") + "." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Limit Break] [Void Form]</style>");
             LanguageAPI.Add(prefix + "XBEAMER_NAME", "X Beamer");
-            LanguageAPI.Add(prefix + "XBEAMER_DESCRIPTION", $"Charge a beam of concentrated energy while holding the button. On release, fire it, dealing <style=cIsDamage> {StaticValues.xBeamerDamageCoefficient * 100f}% damage minimum, increasing based on charge time</style>. " + Helpers.Passive($"Costs {StaticValues.xBeamerBaseEnergyCost} plus chaos initially. Drains plus chaos every second") + ".");
+            LanguageAPI.Add(prefix + "XBEAMER_DESCRIPTION", $"Charge a beam of concentrated energy while holding the button. On release, fire it, dealing <style=cIsDamage> {StaticValues.xBeamerDamageCoefficient * 100f}% damage minimum, increasing based on charge time</style>. " + Helpers.Passive($"Costs {StaticValues.xBeamerBaseEnergyCost} plus chaos initially. Drains plus chaos every second") + "." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Rapid Pierce] [Sweeping Beam]</style>");
             LanguageAPI.Add(prefix + "FINALRELEASE_NAME", "Final Release");
             LanguageAPI.Add(prefix + "FINALRELEASE_DESCRIPTION", $"Materialize a spirit of wind. During this state, holding down any skill button will fire blades of wind dealing <style=cIsDamage>8x{100f * StaticValues.finalReleaseDamageCoefficient}% damage</style>. <style=cIsUtility>Activating sprint will cause you to dash in the direction you're moving</style>. Every enemy hit generates final release stacks. Attackspeed increases the rate of using both wind blades and dash. " + Environment.NewLine +
                 $"Upon running out of energy or deactivating the skill, release multiple blasts of wind around you, dealing <style=cIsDamage> {StaticValues.finalReleaseDamagePerStackCoefficient * 100f}% damage per stack</style>. The radius also increases based on the number of stacks. The number of blasts are based off threshold increments of {StaticValues.finalReleaseCountIncrement}buff stacks. Each blast will be larger and deal more damage than the previous one. " + Environment.NewLine +
-                Helpers.Passive($"Drains {StaticValues.finalReleaseEnergyCost} plus chaos each use of abilities") + ".");
+                Helpers.Passive($"Drains {StaticValues.finalReleaseEnergyCost} plus chaos each use of abilities") + "." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Wind Shield] [Wind Slash]</style>");
             LanguageAPI.Add(prefix + "BLASTINGZONE_NAME", "Blasting Zone");
-            LanguageAPI.Add(prefix + "BLASTINGZONE_DESCRIPTION", $"Create a blade of energy and slam it down, hitting enemies in a line in front of you. Each blast deals <style=cIsDamage>{StaticValues.blastingZoneDamageCoefficient* 100f}% damage and applies {StaticValues.blastingZoneDebuffStackApplication} blaze debuff stacks</style>. Afflicted enemies take <style=cIsDamage>{StaticValues.blastingZoneDebuffDamagePerStack}% of their max HP per stack every {StaticValues.blastingZoneDebuffInterval} seconds, halving the number of stacks each pulse</style>. ");
+            LanguageAPI.Add(prefix + "BLASTINGZONE_DESCRIPTION", $"Create a blade of energy and slam it down, hitting enemies in a line in front of you. Each blast deals <style=cIsDamage>{StaticValues.blastingZoneDamageCoefficient* 100f}% damage and applies {StaticValues.blastingZoneDebuffStackApplication} blaze debuff stacks</style>. Afflicted enemies take <style=cIsDamage>{StaticValues.blastingZoneDebuffDamagePerStack}% of their max HP per stack every {StaticValues.blastingZoneDebuffInterval} seconds, halving the number of stacks each pulse</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Orbital Strike] [Blast Burn]</style>");
             LanguageAPI.Add(prefix + "WILDCARD_NAME", "Wild Card");
-            LanguageAPI.Add(prefix + "WILDCARD_DESCRIPTION", $"Pull out a card. <style=cIsUtility>A random effect will apply to everyone</style>. These include altering speed, damage, teleporting, healing, taking damage, activating glowing meteorite, gaining a random item. ");
+            LanguageAPI.Add(prefix + "WILDCARD_DESCRIPTION", $"Pull out a card. <style=cIsUtility>A random effect will apply to everyone</style>. These include altering speed, damage, teleporting, healing, taking damage, activating glowing meteorite, gaining a random item. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Refresh] [Gacha]</style>");
             LanguageAPI.Add(prefix + "LIGHTANDDARKNESS_NAME", "Light And Darkness");
             LanguageAPI.Add(prefix + "LIGHTANDDARKNESS_DESCRIPTION", $"Attempt to control the light and darkness in your heart. Based on your current energy, transform into <style=cIsUtility>Light Form, Darkness Form, or Light And Darkness Form</style>. " +
                 $"Attacking in Light Form <style=cIsDamage>applies the light debuff, and hitting enemies with it will chain {StaticValues.lightFormBonusDamage * 100f}% of the damage to nearby enemies, with the bounce damage increasing by {StaticValues.lightFormBonusDamage * 100f}% damage per stack</style>. " + Environment.NewLine +
                 $"Attacking in Dark Form <style=cIsDamage>applies the darkness debuff, and hitting enemies with it will deal {StaticValues.darkFormBonusDamage * 100f}% extra damage per stack</style>. " + Environment.NewLine +
-                $"Attacking in Light And Darkness Form <style=cIsDamage>applies the light and darkness debuff, and hitting enemies with it will deal {StaticValues.lightAndDarknessBonusDamage* 100f}% of the damage and pull nearby enemies to them, increasing by {StaticValues.lightAndDarknessBonusDamage* 100f}% damage as well as pull range increasing per stack</style>. " + Environment.NewLine + Helpers.Passive($"Light Form constantly drains {StaticValues.lightFormEnergyCost} plus chaos every second, darkness form instead gains {StaticValues.darkFormEnergyGain} energy every second. Light And Darkness equalizes your energy- constantly setting it to 50%") + ".");
+                $"Attacking in Light And Darkness Form <style=cIsDamage>applies the light and darkness debuff, and hitting enemies with it will deal {StaticValues.lightAndDarknessBonusDamage* 100f}% of the damage and pull nearby enemies to them, increasing by {StaticValues.lightAndDarknessBonusDamage* 100f}% damage as well as pull range increasing per stack</style>. " + Environment.NewLine + Helpers.Passive($"Light Form constantly drains {StaticValues.lightFormEnergyCost} plus chaos every second, darkness form instead gains {StaticValues.darkFormEnergyGain} energy every second. Light And Darkness equalizes your energy- constantly setting it to 50%") + "." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Shadow Claw] [Genesis]</style>");
             #endregion
 
             #region Ultimate Passives
             LanguageAPI.Add(prefix + "SUPERNOVA_NAME", "Supernova");
-            LanguageAPI.Add(prefix + "SUPERNOVA_DESCRIPTION", $"Absorb the damage you take, charging a supernova within you. When total damage is greater than <style=cIsUtility>{StaticValues.supernovaHealthThreshold* 100f}% of your MAX health</style>, unleash a colossal explosion, dealing <style=cIsDamage>{StaticValues.supernovaDamageCoefficient* 100f}% damage</style> in a large area around you. ");
+            LanguageAPI.Add(prefix + "SUPERNOVA_DESCRIPTION", $"Absorb the damage you take, charging a supernova within you. When total damage is greater than <style=cIsUtility>{StaticValues.supernovaHealthThreshold* 100f}% of your MAX health</style>, unleash a colossal explosion, dealing <style=cIsDamage>{StaticValues.supernovaDamageCoefficient* 100f}% damage</style> in a large area around you. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Big Bang] [Wisper]</style>");
             LanguageAPI.Add(prefix + "REVERSAL_NAME", "Reversal");
-            LanguageAPI.Add(prefix + "REVERSAL_DESCRIPTION", $"Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you dash away from the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient* 100f}% damage</style>. ");
+            LanguageAPI.Add(prefix + "REVERSAL_DESCRIPTION", $"Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you dash away from the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient* 100f}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Barrier Jelly] [Blind Senses]</style>");
             LanguageAPI.Add(prefix + "MACHINEFORM_NAME", "Machine Form");
-            LanguageAPI.Add(prefix + "MACHINEFORM_DESCRIPTION", $"Generate machinery around yourself, passively shooting missiles and bullets to nearby enemies, dealing <style=cIsDamage>{StaticValues.machineFormDamageCoefficient* 100f}% damage</style>. ");
+            LanguageAPI.Add(prefix + "MACHINEFORM_DESCRIPTION", $"Generate machinery around yourself, passively shooting missiles and bullets to nearby enemies, dealing <style=cIsDamage>{StaticValues.machineFormDamageCoefficient* 100f}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Blackhole Glaive] [Mech Stance]</style>");
             LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_NAME", "Gargoyle Protection");
-            LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_DESCRIPTION", $"Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. ");
+            LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_DESCRIPTION", $"Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Ingrain] [Stone Form]</style>");
             LanguageAPI.Add(prefix + "WEATHERREPORT_NAME", "Weather Report");
-            LanguageAPI.Add(prefix + "WEATHERREPORT_DESCRIPTION", $"Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient* 100f}%</style>. ");
+            LanguageAPI.Add(prefix + "WEATHERREPORT_DESCRIPTION", $"Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient* 100f}%</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Gravitational Downforce] [Elemental Fusion]</style>");
             LanguageAPI.Add(prefix + "DECAYAWAKENED_NAME", "Decay Awakened");
-            LanguageAPI.Add(prefix + "DECAYAWAKENED_DESCRIPTION", $"Awaken Decay's original power. All attacks now <style=cIsDamage>apply Decay</style>. ");
+            LanguageAPI.Add(prefix + "DECAYAWAKENED_DESCRIPTION", $"Awaken Decay's original power. All attacks now <style=cIsDamage>apply Decay</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Decay Plus Ultra] [Aura Of Blight]</style>");
             #endregion
 
             #region Achievements

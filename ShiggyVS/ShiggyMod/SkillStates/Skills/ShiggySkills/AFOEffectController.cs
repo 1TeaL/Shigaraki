@@ -24,7 +24,7 @@ namespace ShiggyMod.SkillStates
             MakeLine();
         }
 
-        //blackwhip line renderer effect
+        //afo line renderer effect
         public void MakeLine()
         {
             if (!AFOLineEffect)

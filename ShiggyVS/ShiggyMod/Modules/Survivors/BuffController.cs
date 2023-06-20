@@ -779,13 +779,12 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     if (omniboostTimer < StaticValues.omniboostBuffTimer)
                     {
-                        omniboostTimer += Time.fixedDeltaTime;
+                        omniboostTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                     }
                     else if (omniboostTimer >= StaticValues.omniboostBuffTimer)
                     {
                         omniboostTimer = 0f;
-                        int omniboostBuffcount = characterBody.GetBuffCount(Buffs.omniboostBuffStacks);
-                        characterBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, omniboostBuffcount-1);
+                        characterBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, characterBody.GetBuffCount(Buffs.omniboostBuffStacks) - 1);
 
                     }
                 }
@@ -1014,7 +1013,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     if(stoneformStillbuffTimer < 1f)
                     {
-                        stoneformStillbuffTimer += Time.fixedDeltaTime;
+                        stoneformStillbuffTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                     }
                     else if (stoneformStillbuffTimer >= 1f)
                     {

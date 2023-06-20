@@ -1194,7 +1194,11 @@ namespace ShiggyMod.Modules
                 { "ToolbotBody", Survivors.Shiggy.multbuffDef },
                 { "TreebotBody", Survivors.Shiggy.rexmortarDef },
                 { "RailgunnerBody", Survivors.Shiggy.railgunnercryoDef },
-                { "VoidSurvivorBody", Survivors.Shiggy.voidfiendcleanseDef }
+                { "VoidSurvivorBody", Survivors.Shiggy.voidfiendcleanseDef },
+
+
+                { "DekuBody", Survivors.Shiggy.DekuOFADef },
+                { "ShopKeeperBody", Survivors.Shiggy.DekuOFADef }
             };
 
 
@@ -1379,7 +1383,9 @@ namespace ShiggyMod.Modules
                 { "TreebotBody", IndicatorType.ACTIVE },
                 { "RailgunnerBody", IndicatorType.ACTIVE },
                 { "VoidSurvivorBody", IndicatorType.ACTIVE },
-                { "DekuBody", IndicatorType.ACTIVE }
+
+                { "DekuBody", IndicatorType.ACTIVE },   
+                { "ShopKeeperBody", IndicatorType.ACTIVE }
             };
         }
     }
