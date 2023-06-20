@@ -62,101 +62,14 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
-- 2.0.5- Bug Fixes/Changes    
-    - Bug Fixes
-    	- Allowed Huntress's Flurry quirk and Blackhole glaive quirk to damage void targets as well.
-    - Changes
-    	- Omniboost has been changed to simply reduce the number of stacks by 1 every second. There has been some weird bugs with halving it's stacks every 6 seconds for some reason.
-- 2.0.4- Bug Fixes/Changes    
-    - Bug Fixes
-    	- Allowed Huntress's Flurry quirk and Blackhole glaive quirk to damage neutral targets as well such as eggs.
-    	- Further improved All For One logistics, there were issues where it would grab the base quirk instead of the upgraded one. 
-    	- Fixed typo with Final Release minimum plus chaos requirement. 
-- 2.0.3- Bug Fixes/Changes    
-    - Bug Fixes
-    	- Fixed Stone Golem Laser's quirk cooldown from not decreasing.
-    	- Prevented Huntress's Flurry quirk and Blackhole glaive quirk from attacking allies.
-    - Changes
-    	- Noted bug that sometimes quirks don't combine.
-    	- Improved effects for Decay debuff.
-- 2.0.2- Bug Fixes/Changes    
-    - Bug Fixes
-    	- Fixed Decay debuff causing some errors, also fixed the decay awakened to only work on shigaraki.
-    	- Fixed issues with taking fall damage that was affecting everyone.
-    	- Fixed Tar boost (clay dunestrider) and Spirit boost (Greater wisp) buffs giving 8 buff stacks instead of 8 second durations.
-    	- Grandparent sun was not reliably working- attempted to fix it.
-    	- ?Fixed omniboost not removing stacks.
-    - Changes
-    	- Changed Grandparent sun to centre on Shigaraki instead of a target you're looking at. Also changed it to drain 10 plus chaos per second instead and lowered to cooldown from 30 seconds -> 5 seconds. Added new animation for it as well.
-    	- Allowed air walk height gain to be infinite only if you're not holding any direction.
-    	- Added Decay's impact effect on more skills like extreme speed.
-- 2.0.1- Bug Fixes/Changes    
-    - Bug Fixes
-    	- Fixed quirks not upgrading properly.
-    	- Fixed logic with getting ultimate quirks, before you could get it as long as you had 3 of the required base quirks not 4 as intended.	
-    	- Fixed Decay Plus Ultra particle effect rotation. 
-    	- Fixed some typos.
-    - Changes
-    	- Added Decay Plus Ultra slamming animation.	
-    	- Added more tips such as using the beetle queen ability to summon survivors for their skills.
-- 2.0.0- THE SYNERGY UPDATE!    
-    - New mechanics 
-    	- Quirks can now SYNERGISE, creating a BRAND NEW SKILL/PASSIVE!
-    		- With 60 base quirks, that makes 30 synergised quirks, which can also combine to make 15 ultimate quirks! 
-    		- ``I CAN NOW SAY SHIGARAKI HAS 100+ SKILLS/PASSIVES!!``
-    		- By grabbing the specific pair of a skill while having the skill in your skill slots, you will automatically get the synergised skill. If you had the synergised skill's pair in your skill slots it will automatically get the ultimate skill as well.
-        - Also to accommodate synergies, Shigaraki can only have 1 of each skill, no more duplicates. This means that after getting the ultimate or synergised version, you won't get that version if you try and steal someone's quirk and get the tier below.
-        - ``A new Config option is added to allow all skills to be chosen in the loadout if you'd prefer to build Shigaraki from the beginning (I can't speak much on balance but why not). All for One functionality is still present if you'd like to use it. You'll need to restart the game to see changes.`` 
-    	- Added a plus chaos meter
-    		- Shigaraki starts with 100. 
-    		- Leveling up increases the max by 10.
-    		- Getting stock based items increase the max as well (back-up magazines: 10, afterburners: 30, lysates: 15)
-    		- Getting cooldown reduction items decrease the cost (alien head: 25% reduction, purity: 5 flat reduction) 
-    		- Stealing quirks now costs 50 plus chaos. 
-    		- Plus chaos regenerates over time, killing enemies gains 10% of max. 
-    	- Added ability for Shigaraki to trigger expose- reducing cooldowns by 1 and dealing 350% bonus damage like mercenary. 
-    		- Killing enemies will grant plus chaos.
-        - Added new ability- give quirk: Able to give passive quirks to allies- an ally is able to have one passive at a time. 
-        	- In addition, addded passive explanations to their buffs so allies can read them.
-    - Changes    	 
-    	- Added proper description...(sorry Ditto)
-    	- Cleaned up explanations of skills, removed redundant information like Agile. 
-    	- Made it so the extra [information] under each skill is more relevant to what character's quirk you'll need to get the synergised quirk.
-    	- Along with this, all base skill icons are now changed to have the main character on the top left and the paired character on the bottom right to let players know who to look out for (In the future they may simply just have a new icon itself).
-    	- Right handed and Left handed skills concept is scrapped. It was an arbitrary way of listing which skills could be held with others. Certain skills may still be animated with one hand or the other but more animations will attempt to involve both. 
-    	- In general, skills will be able to be used in conjuction in a way that makes sense like base survivors. (Eg. you can use a buffing skill alongside an attacking skill- although ideas like being able to hold both the clay templar and lunar wisp minigun skills together will still be there).
-    - Reworked Skills
-    	- Decay: Instead of a slam it's a swipe in front of you, less janky in general.
-    	- Decay DoT: 
-    		- It no longer reapplies to the user, it now properly recognizes you are the attacker of the enemy's hit so you'll see their health bars properly.
-    		- Damage now scales off of your damage instead of the enemy's damage, dealing the higher of 100% damage or 0.5% of the enemy's max health per second per stack.
-    		- The instakill threshold has changed from 50-> 100 stacks- this is due to this update providing more ways to stack decay.
-    		- All overlap attacks will apply decay (Including projectiles that have them *cough* Wind Slash *cough*). 
-    	- Beetle: Strength boost now gives flat 5 damage, no melee bonus.
-    	- Lesser wisp: Ranged boost changed to Haste-> gives flat 0.5 attack speed, no ranged bonus.
-    	- Lunar exploder: Lunar aura changed to Lunar barrier-> gives shield equal to 25% of max health.
-    	- Jellyfish: Nova explosion changed to Regenerate-> Store half the damage you take, activate skill to heal.
-    	- Beetle queen: Acid shotgun changed to Summon Ally-> Summon a survivor that inherits all your items (allows quirks to be taken from them too).
-    	- Mercenary: Eviscerate changed to Wind Assault-> Dash forward through enemies, applying expose.
-    	- Grovetender: Hook Shotgun changed to Chain-> Immobilize nearby enemies for 6 seconds.
-    	- Multiplier: 
-    		- changed to constant active that costs plus chaos meter per hit. 
-    		- Multiplier no longer triples projectiles and decay ticks anymore due to this. 
-    		- Multiplier also no longer triples Shigaraki's current damage passively, just the damage on-hit: Unintendedly would triple damage for DoTs without spending anything.
-    	- Loader: Scrap barrier-> Gain 1% of max hp as barrier on all hits- not just melee atacks and no more damage boost for melee attacks.
-    	- Vulture: Flight changed to Wind Blast-> Create a gust of wind, pushing enemies and stunning them for 200% damage.
-    - Balance Changes
-    	- No more melee and ranged arbitrary discrepancy between skills to streamline balance.
-    	- Cooldown changes for a lot of skills, longer in general to balance out how many skills able to be used along with item changes with the extraskill slots.
-    	- Damage and proc coefficient changes on a lot of skills.
-    	- Some changes below but not all:
-    		- Bullet laser correctly has a proc coefficient of 0.3 instead of 1 for each bullet. Now does 5x200% damage instead of 5x300%, as it was a lot stronger than other skills. 
-    		- Both Tar Boost and Spirit Boost has been changed to give 8 second buffs but are no longer stackable.
-    		- Bandit's skill Light's Out damage buffed from 300%-> 600%.
-    - Bug fixes
-    	- Double tap correctly has a proc coefficient of 1 instead of 0. 
-    	- Remove skill now properly works for all skills.
-
+- 2.1.0- Bug Fixes/Changes
+	- Bug Fixes
+  		- Defensive Microbots (Captain) icon fixed to P instead of A.
+		- Attempted to fix omniboost again?
+		- Fixed One For All not being able to be gotten from Deku.
+   	- Changes
+		- Added new method to obtain One For All- Bazaar's Newt. This enables a method for players who don't have Deku installed and/or don't have teammates to play him. It also keeps one for all behind a lunar coin cost. In addition, One For All's skill description also states that Deku and Newt are how this skill can be obtained for players' understanding.
+		- Added information to all ultimate skills on the synergy skill pair required for players' understanding. Not knowing which skills made what was a bit confusing.  	  
 
 - Next update(s)
     - Bug fixes. 
@@ -434,7 +347,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>One For All</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/OFA.jpg?raw=true"></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/80a802a6-d429-4eed-b5da-eaa56b86bb93"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/92a33849-879a-4a8f-8909-c880a2d0882b"></td>
   </tr>
 </tbody>
 </table>
@@ -555,7 +468,7 @@ Shigaraki can sprint in any direction and has a double jump.
   </tr>
   <tr>
     <td>Defensive Microbots</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Captain.jpg?raw=true"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/485dfcf1-0f7b-4877-81d8-5987daea1bff"></td>
     <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/2de8abd1-a166-4b41-a167-3fb9fb031d90"></td>
   </tr>
   <tr>
@@ -769,47 +682,47 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>The World</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/TheWorld.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/20d3c2a0-24e5-4341-9ae8-36474542965e"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/19293302-0f20-4ab2-b7da-347573ac1d0d"></td>
   </tr>
   <tr>
     <td>Extreme Speed</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/ExtremeSpeed.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/73871ac0-8ae3-4a09-8e01-9d4dc382cdd0"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/801f6457-9550-4c68-9104-c8f8a0526ce1"></td>
   </tr>
   <tr>
     <td>Death Aura</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/DeathAura.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/c60ebe30-a116-400c-b575-cdb7cb828c26"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/6c8f8040-2c28-4a99-b7d5-a81b5c5d542c"></td>
   </tr>
   <tr>
     <td>One For All For One</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/OneForAllForOne.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/8d052de9-8dfa-494b-b36b-45536fe93438"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/4f3dcf87-c82d-4800-a557-258b4d513f49"></td>
   </tr>
   <tr>
     <td>X Beamer</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/XBeamer.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/3ab7ef7f-3acf-48e2-8111-3af97b314f3f"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/b1355a62-d092-4f6b-bb75-b8a320fa13a2"></td>
   </tr>
   <tr>
     <td>Final Release</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/FinalRelease.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/3e6afd33-fb37-4cb6-b21a-23f4063228ea"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/f05a62da-2e38-4687-8fd6-99adc5ffc15d"></td>
   </tr>
   <tr>
     <td>Blasting Zone</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BlastingZone.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/de446fa8-97f7-4717-b4d9-cb9782412d43"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/989f32db-e2f6-41bc-b406-dcd66c78421a"></td>
   </tr>
   <tr>
     <td>Wild Card</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/WildCard.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/33f73285-06f6-4708-83cb-8553a9cdc821"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/1d47ff60-cfcb-4b4b-906c-1ae60b92a793"></td>
   </tr>
   <tr>
     <td>Light And Darkness</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/LightAndDarkness.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/0349003a-5618-48e2-9560-76299538fd16"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/6ae6cd06-3061-418a-9d6e-b5a6707125a2"></td>
   </tr>
 </tbody>
 </table>
@@ -830,33 +743,33 @@ Shigaraki can sprint in any direction and has a double jump.
 <tbody>
   <tr>
     <td>Supernova</td>
-    <td><img src="" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/d458ef84-0da6-431e-9eda-639b4302f72b"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/878eb0b8-0225-4975-9835-1f4fa7ce8abb" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/1b503b6f-2a94-4525-8df1-f2815914f48c"></td>
   </tr>
   <tr>
     <td>Reversal</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/Reversal.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/a91f8b0f-c769-47f1-a59a-773c36fdcdb0"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/32525579-dee4-46f9-a42e-59ebc1384288"></td>
   </tr>
   <tr>
     <td>Machine Form</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/MachineForm.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/ae3b9ae1-8f60-4325-924f-a32a8be5f76e"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/5e93fa2e-e8b5-44f8-be2f-8e2adf5e91b5"></td>
   </tr>
   <tr>
     <td>Gargoyle Protection</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/GargoyleProtection.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/764a4d17-57f0-4b33-a3f6-de66be349214"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/00e63d29-6c04-412e-9e5f-97b65b73cc31"></td>
   </tr>
   <tr>
     <td>Weather Report</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/WeatherReport.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/2e4884f3-86fa-4733-b46e-3fd1239191be"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/d54b4fba-2fa1-4e8f-af55-ddc635920d40"></td>
   </tr>
   <tr>
     <td>Decay Awakened</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/DecayAwakened.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/947f59fc-573c-43a6-91bd-a9be388bccc2"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/82d6ef70-6b1d-4acb-b78f-61c29c928c39"></td>
   </tr>
 </tbody>
 </table>
