@@ -56,7 +56,7 @@ namespace ShiggyMod.SkillStates
             base.PlayAnimation("FullBody, Override", "FullBodySlam", "Attack.playbackRate", duration);
             if (base.isAuthority)
             {
-                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
         }
 

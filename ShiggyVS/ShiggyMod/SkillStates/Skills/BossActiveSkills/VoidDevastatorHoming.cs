@@ -51,7 +51,7 @@ namespace ShiggyMod.SkillStates
             base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
-                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             

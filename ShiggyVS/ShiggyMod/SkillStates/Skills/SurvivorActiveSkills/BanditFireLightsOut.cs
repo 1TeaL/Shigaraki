@@ -42,7 +42,7 @@ namespace ShiggyMod.SkillStates
             PlayCrossfade("RightArm, Override", "RHandFingerGun", "Attack.playbackRate", duration, 0.1f);
             if (base.isAuthority)
             {
-                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
             Util.PlaySound(EntityStates.Bandit2.StealthMode.exitStealthSound, base.gameObject);
             damageType = DamageType.BonusToLowHealth | DamageType.ResetCooldownsOnKill;

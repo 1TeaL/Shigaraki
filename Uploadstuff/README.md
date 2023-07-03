@@ -4,7 +4,7 @@ Go Beyond, Plus Chaos!
 ## Shigaraki
 Adds Shigaraki from My Hero Academia, a multi-option survivor steal 'quirks' from enemies, gaining their abilites/skills.
 #### Multiplayer works (hopefully). CustomEmotesAPI compatibility. Risk of Options support.
-#### Message me on the Risk of Rain 2 Modding Discord if there are any issues- TeaL#5571.
+#### Message me on the Risk of Rain 2 Modding Discord if there are any issues- teal5571.
 #### <a href="https://ko-fi.com/tealpopcorn"><img src="https://user-images.githubusercontent.com/93917577/160220529-efed5020-90ac-467e-98f2-27b5c162d744.png"> </a>
 If you enjoy my work, support me on Ko-fi!
 ## Popcorn Factory
@@ -62,6 +62,12 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.1.1- Bug Fixes/Changes
+	- Bug Fixes
+  		- Fixed Shopkeeper/Newt All For One acquisition.
+    		- Fixed Thunderclap making Shigaraki stuck.
+   	- Changes
+		- Added new Config to allow voices to be played.
 - 2.1.0- Bug Fixes/Changes
 	- Bug Fixes
   		- Defensive Microbots (Captain) icon fixed to P instead of A.

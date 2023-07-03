@@ -86,7 +86,7 @@ namespace ShiggyMod.SkillStates
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
-                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); } 
             }
 
             HitBoxGroup hitBoxGroup = null;
@@ -158,6 +158,7 @@ namespace ShiggyMod.SkillStates
             DamageAPI.AddModdedDamageType(blastAttack, Damage.shiggyDecay);
 
             Util.PlaySound(EvisDash.endSoundString, base.gameObject);
+                this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
         }
 
         private void CreateBlinkEffect(Vector3 origin)
@@ -165,7 +166,7 @@ namespace ShiggyMod.SkillStates
             EffectData effectData = new EffectData();
             effectData.rotation = Util.QuaternionSafeLookRotation(this.forwardDirection);
             effectData.origin = origin;
-            EffectManager.SpawnEffect(Assets.teslaEffect, effectData, false);
+            EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, false);
         }
 
         public override void OnExit()
@@ -261,12 +262,12 @@ namespace ShiggyMod.SkillStates
             if (preDashTimer < duration * 1f)
             {
                 preDashTimer += Time.fixedDeltaTime;
-                this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
                 characterBody.characterMotor.velocity.y = 0f;
                 //play prestance anim here
             }
-            else if (preDashTimer >= duration * 2f)
+            else if (preDashTimer >= duration * 1f)
             {
+                this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
                 if (this.modelTransform)
                 {
                     TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();

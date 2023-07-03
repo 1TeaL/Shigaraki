@@ -46,7 +46,7 @@
 
 //            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 //            PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
-//            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+//            if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
 
 //        }
 //        private void FireSingleTarball(string targetMuzzle)

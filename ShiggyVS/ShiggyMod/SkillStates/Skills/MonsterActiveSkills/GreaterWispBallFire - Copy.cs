@@ -36,7 +36,7 @@
 //            hasFired = false;
 //            Ray aimRay = base.GetAimRay();
 //            base.characterBody.SetAimTimer(this.duration);
-//            AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+//            if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
 //            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 //            PlayCrossfade("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration, 0.1f);
 //            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);

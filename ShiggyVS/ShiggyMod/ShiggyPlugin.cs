@@ -86,7 +86,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "2.1.0";
+        public const string MODVERSION = "2.1.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -905,8 +905,11 @@ namespace ShiggyMod
                 if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
                 {
                     var shiggycon = self.gameObject.GetComponent<ShiggyController>();
-                    
-                    AkSoundEngine.PostEvent("ShiggyDeath", self.gameObject);
+
+                    if (Modules.Config.allowVoice.Value)
+                    {
+                        AkSoundEngine.PostEvent("ShiggyDeath", self.gameObject);
+                    }
                 }
                 var buffcon = self.gameObject.GetComponent<BuffController>();
                 if (buffcon)
@@ -1590,11 +1593,17 @@ namespace ShiggyMod
                 }
                 if (dekuFound)
                 {
-                    AkSoundEngine.PostEvent("ShiggyDekuCollab", self.gameObject);
+                    if (Modules.Config.allowVoice.Value)
+                    {
+                        AkSoundEngine.PostEvent("ShiggyDekuCollab", self.gameObject);
+                    }
                 }
                 else
                 {
-                    AkSoundEngine.PostEvent("ShiggyEntrance", self.gameObject);
+                    if (Modules.Config.allowVoice.Value) 
+                    { 
+                        AkSoundEngine.PostEvent("ShiggyEntrance", self.gameObject); 
+                    }
                 }
             }
             //if (gameObject.name.Contains("DekuDisplay"))

@@ -45,7 +45,7 @@ namespace ShiggyMod.SkillStates
             PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", fireTime, 0.1f);
             if (base.isAuthority)
             {
-                AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
             this.muzzleString = "LHand";
 

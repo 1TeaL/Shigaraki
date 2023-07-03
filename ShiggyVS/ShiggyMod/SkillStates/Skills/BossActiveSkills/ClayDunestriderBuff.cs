@@ -46,7 +46,7 @@ namespace ShiggyMod.SkillStates
                 rotation = Quaternion.LookRotation(-base.characterDirection.forward)
 
             }, false);
-            //AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject);
+            //if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
             base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);

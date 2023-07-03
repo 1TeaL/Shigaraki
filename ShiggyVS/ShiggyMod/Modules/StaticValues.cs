@@ -306,7 +306,7 @@ namespace ShiggyMod.Modules
         internal const float orbitalStrikeMaxDistance = 150f;
 
         internal const float thunderclapDamageCoefficient = 2f;
-        internal const float thunderclapRadius = 7f;
+        internal const float thunderclapRadius = 10f;
         internal const float thunderclapprocCoefficient = 1f;
         internal const float thunderclappushForce = 300f;
         public static Vector3 thunderclapbonusForce = Vector3.zero;
@@ -910,6 +910,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.beetlepassiveDef.skillName, Survivors.Shiggy.lesserwisppassiveDef},
 
                 { Survivors.Shiggy.DekuOFADef.skillName, Survivors.Shiggy.multiplierDef},
+                { Survivors.Shiggy.multiplierDef.skillName, Survivors.Shiggy.DekuOFADef},
 
                 { Survivors.Shiggy.aircannonDef.skillName, Survivors.Shiggy.mercdashDef},
                 { Survivors.Shiggy.mercdashDef.skillName, Survivors.Shiggy.aircannonDef},
@@ -1198,7 +1199,7 @@ namespace ShiggyMod.Modules
 
 
                 { "DekuBody", Survivors.Shiggy.DekuOFADef },
-                { "ShopKeeperBody", Survivors.Shiggy.DekuOFADef }
+                { "ShopkeeperBody", Survivors.Shiggy.DekuOFADef },
             };
 
 
@@ -1385,7 +1386,7 @@ namespace ShiggyMod.Modules
                 { "VoidSurvivorBody", IndicatorType.ACTIVE },
 
                 { "DekuBody", IndicatorType.ACTIVE },   
-                { "ShopKeeperBody", IndicatorType.ACTIVE }
+                { "ShopkeeperBody", IndicatorType.ACTIVE },
             };
         }
     }

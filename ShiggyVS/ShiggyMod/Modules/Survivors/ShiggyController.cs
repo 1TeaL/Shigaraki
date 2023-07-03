@@ -1255,7 +1255,10 @@ namespace ShiggyMod.Modules.Survivors
                             hasStolen = true;
                             Debug.Log("Target");
                             Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
-                            AkSoundEngine.PostEvent("ShiggyAFO", this.gameObject);
+                            if (Modules.Config.allowVoice.Value)
+                            {
+                                AkSoundEngine.PostEvent("ShiggyAFO", this.gameObject);
+                            }
                             GiveQuirk(trackingTarget);
 
                         }
@@ -1598,11 +1601,17 @@ namespace ShiggyMod.Modules.Survivors
 
             if(name == "DekuBody")
             {
-                AkSoundEngine.PostEvent("ShiggyOFAGet", characterBody.gameObject);
+                if (Modules.Config.allowVoice.Value)
+                {
+                    AkSoundEngine.PostEvent("ShiggyOFAGet", characterBody.gameObject);
+                }
             }
             else
             {
-                AkSoundEngine.PostEvent("ShiggyAFO", characterBody.gameObject);
+                if (Modules.Config.allowVoice.Value)
+                {
+                    AkSoundEngine.PostEvent("ShiggyAFO", characterBody.gameObject);
+                }
             }
             
 
