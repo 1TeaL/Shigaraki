@@ -62,6 +62,12 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.1.1- Bug Fixes/Changes
+	- Bug Fixes
+  		- Fixed Shopkeeper/Newt All For One acquisition.
+    		- Fixed Thunderclap making Shigaraki stuck.
+   	- Changes
+		- Added new Config to allow voices to be played.
 - 2.1.0- Bug Fixes/Changes
 	- Bug Fixes
   		- Defensive Microbots (Captain) icon fixed to P instead of A.
