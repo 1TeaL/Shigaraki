@@ -197,9 +197,9 @@ namespace ShiggyMod
         private BlastAttack.Result BlastAttack_Fire(On.RoR2.BlastAttack.orig_Fire orig, BlastAttack self)
         {
 
-            GameObject attacker = self.attacker;
-            if (attacker)
+            if (self.attacker)
             {
+                GameObject attacker = self.attacker;
                 if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.acridBuff))
                 {
                     //add poison to all blast attacks
@@ -237,9 +237,9 @@ namespace ShiggyMod
         private void BulletAttack_Fire(On.RoR2.BulletAttack.orig_Fire orig, BulletAttack self)
         {
             orig(self);
-            GameObject attacker = self.owner;
-            if (attacker)
+            if (self.owner)
             {
+                GameObject attacker = self.owner;
                 if (attacker.gameObject.GetComponent<CharacterBody>().HasBuff(Buffs.acridBuff))
                 {
                     //add poison to all bullet attacks
@@ -277,10 +277,10 @@ namespace ShiggyMod
         private bool OverlapAttack_Fire(On.RoR2.OverlapAttack.orig_Fire orig, OverlapAttack self, List<HurtBox> hitResults)
         {
 
-            GameObject attacker = self.attacker;
-            if (attacker)
+            if (self.attacker)
             {
-                if(attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                GameObject attacker = self.attacker;
+                if (attacker.gameObject.GetComponent<CharacterBody>().baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
                 {
                     //add decay to all overlap attacks
                     self.AddModdedDamageType(Damage.shiggyDecay);
@@ -472,11 +472,12 @@ namespace ShiggyMod
         {
             orig.Invoke(self, damageInfo, victim);
 
-            var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-            var victimBody = victim.GetComponent<CharacterBody>();
 
-            if (attackerBody && victimBody)
+            if (damageInfo.attacker.GetComponent<CharacterBody>() && victim.GetComponent<CharacterBody>())
             {
+
+                var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                var victimBody = victim.GetComponent<CharacterBody>();
                 //impboss buff just incase
                 if (attackerBody.HasBuff(Buffs.impbossBuff))
                 {

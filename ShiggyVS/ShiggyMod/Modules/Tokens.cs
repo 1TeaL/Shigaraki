@@ -312,7 +312,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[Gacha]</style>");
             LanguageAPI.Add(prefix + "EXPUNGE_NAME", "Expunge");
             LanguageAPI.Add(prefix + "EXPUNGE_DESCRIPTION", $"Expunge enemies in an area, dealing <style=cIsDamage>{100f * StaticValues.expungeDamageCoefficient}% damage, with each debuff increasing damage by {100f* StaticValues.expungeDamageMultiplier}%</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Orbital Spikes (Brass Contraption/Gup-Geep-Gip)]</style>");
+                $"<style=cSub>[Barbed Spikes (Brass Contraption/Gup-Geep-Gip)]</style>");
             LanguageAPI.Add(prefix + "SHADOWCLAW_NAME", "Shadow Claw");
             LanguageAPI.Add(prefix + "SHADOWCLAW_DESCRIPTION", $"<style=cIsDamage>Slayer.</style> <style=cIsUtility>Cloak yourself</style> while holding the button. " +
                 $"Release to claw nearby enemies for <style=cIsDamage>{StaticValues.shadowClawHits}x{100f * StaticValues.shadowClawDamageCoefficient}% damage</style>. " +

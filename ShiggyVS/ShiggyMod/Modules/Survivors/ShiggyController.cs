@@ -297,662 +297,666 @@ namespace ShiggyMod.Modules.Survivors
                 }
 
             }
-            if (characterBody.hasEffectiveAuthority)
+            if (characterBody)
             {
 
-
-                //one for all for one buff
-                if (characterBody.HasBuff(Buffs.OFAFOBuff))
+                if (characterBody.hasEffectiveAuthority)
                 {
-                    //check energy if enough to use ability
-                    if (energySystem.currentplusChaos <=  0f)
-                    {
-                        characterBody.ApplyBuff(Buffs.OFAFOBuff.buffIndex, 0);
-                    }
 
-                    //doubling the speed for all timers- besides this one
-                    OFAFOTimeMultiplier = StaticValues.OFAFOTimeMultiplierCoefficient;
 
-                    if (OFAFOTimer < StaticValues.OFAFOThreshold)
+                    //one for all for one buff
+                    if (characterBody.HasBuff(Buffs.OFAFOBuff))
                     {
-                        OFAFOTimer += Time.fixedDeltaTime;
-                    }
-                    else if (OFAFOTimer >= StaticValues.OFAFOThreshold)
-                    {
-                        OFAFOTimer = 0f;
-                        //health cost
-                        new SpendHealthNetworkRequest(characterBody.masterObjectId, StaticValues.OFAFOHealthCostCoefficient * characterBody.healthComponent.fullCombinedHealth).Send(NetworkDestination.Clients);
-                        //energy cost
-                        float plusChaosflatCost = (StaticValues.OFAFOEnergyCostCoefficient * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
-                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
-
-                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                        if (plusChaosCost < 0f) plusChaosCost = 0f;
-                        energySystem.SpendplusChaos(plusChaosCost);
-
-                    }
-                }
-                else
-                if (!characterBody.HasBuff(Buffs.OFAFOBuff))
-                {
-                    OFAFOTimeMultiplier = 1f;
-                }
-
-                //light buff
-                if (characterBody.HasBuff(Buffs.lightFormBuff))
-                {
-                    if(formTimer < StaticValues.FormThreshold)
-                    {
-                        formTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
-
-                    }
-                    else if (formTimer >= StaticValues.FormThreshold)
-                    {
-                        formTimer = 0f;
-                        //energy cost
-                        float plusChaosflatCost = (StaticValues.lightFormEnergyCost) - (energySystem.costflatplusChaos);
-                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
-
-                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                        if (plusChaosCost < 0f) plusChaosCost = 0f;
-                        energySystem.SpendplusChaos(plusChaosCost);
-                    }
-                    //remove buff at 0
-                    if (energySystem.currentplusChaos <= 0f)
-                    {
-                        characterBody.ApplyBuff(Buffs.lightFormBuff.buffIndex, 0);
-                    }
-                }
-                //darkness buff
-                if (characterBody.HasBuff(Buffs.darknessFormBuff))
-                {
-                    if (formTimer < StaticValues.FormThreshold)
-                    {
-                        formTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
-
-                    }
-                    else if (formTimer >= StaticValues.FormThreshold)
-                    {
-                        formTimer = 0f;
-                        //energy gain
-                        energySystem.GainplusChaos(StaticValues.darkFormEnergyGain);
-                    }
-                    //remove buff at max
-                    if(energySystem.currentplusChaos >= energySystem.maxPlusChaos)
-                    {
-                        characterBody.ApplyBuff(Buffs.darknessFormBuff.buffIndex, 0);
-                    }
-                }
-                if (characterBody.HasBuff(Buffs.lightAndDarknessFormBuff))
-                {
-                    //force energy constantly in the middle constantly
-                    energySystem.currentplusChaos = energySystem.maxPlusChaos / 2f;
-                }
-
-                //wildcard no projectile buff
-                if(characterBody.HasBuff(Buffs.wildcardNoProjectileBuff))
-                {
-                    //destroy projectile 
-                    Collider[] array = Physics.OverlapSphere(characterBody.corePosition, StaticValues.wildcardRangeGlobal, LayerIndex.projectile.mask);
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        ProjectileController component = array[i].GetComponent<ProjectileController>();
-                        if (component)
+                        //check energy if enough to use ability
+                        if (energySystem.currentplusChaos <= 0f)
                         {
-                            EffectData effectData = new EffectData();
-                            effectData.origin = component.transform.position;
-                            effectData.scale = 1f;
-                            EffectManager.SpawnEffect(EntityStates.BeetleMonster.HeadbuttState.hitEffectPrefab, effectData, true);
-                            Object.Destroy(component.gameObject);
-                            
+                            characterBody.ApplyBuff(Buffs.OFAFOBuff.buffIndex, 0);
                         }
-                    }
-                }
 
+                        //doubling the speed for all timers- besides this one
+                        OFAFOTimeMultiplier = StaticValues.OFAFOTimeMultiplierCoefficient;
 
-                //death aura buff
-                if (characterBody.HasBuff(Buffs.deathAuraBuff))
-                {
-
-                    if (energySystem.currentplusChaos > StaticValues.deathAuraBuffEnergyCost)
-                    {
-                        //make the death aura indicator
-                        if (!deathAuraIndicatorInstance)
+                        if (OFAFOTimer < StaticValues.OFAFOThreshold)
                         {
-                            CreateDeathAuraIndicator();
+                            OFAFOTimer += Time.fixedDeltaTime;
                         }
-                        //every 1 secs add a debuff to enemies and a buff stack to self, also drain energy
-                        if (deathAuraTimer < StaticValues.deathAuraThreshold)
+                        else if (OFAFOTimer >= StaticValues.OFAFOThreshold)
                         {
-                            deathAuraTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
-                        }
-                        else if (deathAuraTimer >= StaticValues.deathAuraThreshold)
-                        {
+                            OFAFOTimer = 0f;
+                            //health cost
+                            new SpendHealthNetworkRequest(characterBody.masterObjectId, StaticValues.OFAFOHealthCostCoefficient * characterBody.healthComponent.fullCombinedHealth).Send(NetworkDestination.Clients);
                             //energy cost
-                            float plusChaosflatCost = StaticValues.deathAuraBuffEnergyCost - (energySystem.costflatplusChaos);
+                            float plusChaosflatCost = (StaticValues.OFAFOEnergyCostCoefficient * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
                             if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                             float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                             if (plusChaosCost < 0f) plusChaosCost = 0f;
                             energySystem.SpendplusChaos(plusChaosCost);
 
-                            deathAuraTimer = 0f;
-
-                            //add buff to self
-                            int deathAuraBuffCount = characterBody.GetBuffCount(Buffs.deathAuraBuff);
-                            characterBody.ApplyBuff(Buffs.deathAuraBuff.buffIndex, deathAuraBuffCount + 1);
-
-                            BullseyeSearch search = new BullseyeSearch
-                            {
-
-                                teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-                                filterByLoS = false,
-                                searchOrigin = characterBody.corePosition,
-                                searchDirection = UnityEngine.Random.onUnitSphere,
-                                sortMode = BullseyeSearch.SortMode.Distance,
-                                maxDistanceFilter = StaticValues.deathAuraRadius + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff),
-                                maxAngleFilter = 360f
-                            };
-
-                            search.RefreshCandidates();
-                            search.FilterOutGameObject(characterBody.gameObject);
-
-                            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-                            foreach (HurtBox singularTarget in target)
-                            {
-                                if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-                                {
-                                    //add the debuff to all enemies
-                                    int deathAuraDebuffCount = 0;
-                                    deathAuraDebuffCount = singularTarget.healthComponent.body.GetBuffCount(Buffs.deathAuraDebuff);
-
-                                    singularTarget.healthComponent.body.ApplyBuff(Buffs.deathAuraDebuff.buffIndex, deathAuraDebuffCount + 1);
-
-                                }
-                            }
                         }
                     }
                     else
+                    if (!characterBody.HasBuff(Buffs.OFAFOBuff))
                     {
-                        characterBody.ApplyBuff(Buffs.deathAuraBuff.buffIndex, 0);
-
+                        OFAFOTimeMultiplier = 1f;
                     }
 
-                }
-                else if (!characterBody.HasBuff(Buffs.deathAuraBuff))
-                {
-
-                    if (deathAuraIndicatorInstance)
+                    //light buff
+                    if (characterBody.HasBuff(Buffs.lightFormBuff))
                     {
-                        deathAuraIndicatorInstance.SetActive(false);
-                        EntityState.Destroy(deathAuraIndicatorInstance.gameObject);
-
-                    }
-
-                }
-
-                //the world buff energy cost
-                if (characterBody.HasBuff(Buffs.theWorldBuff))
-                {
-                    if (theWorldTimer < 1f)
-                    {
-                        theWorldTimer += Time.fixedDeltaTime;
-                    }
-                    else if (theWorldTimer >= 1f)
-                    {
-                        //energy cost
-                        float plusChaosflatCost = (StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
-                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
-
-                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                        if (plusChaosCost < 0f) plusChaosCost = 0f;
-                        energySystem.SpendplusChaos(plusChaosCost);
-
-                    }
-                }
-
-
-                //void form buff
-                if (characterBody.HasBuff(Buffs.voidFormBuff))
-                {
-                    if (voidFormTimer < StaticValues.voidFormThreshold)
-                    {
-                        voidFormTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
-                    }
-                    else if (voidFormTimer >= StaticValues.voidFormThreshold)
-                    {
-                        voidFormTimer = 0f;
-                        //take damage every second based off current hp, cleanse self as well
-                        new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.voidFormHealthCostCoefficient).Send(NetworkDestination.Clients);
-
-                        Util.CleanseBody(characterBody, true, false, false, true, true, true);
-                    }
-                }
-
-                //OFA
-                if (characterBody.HasBuff(Buffs.OFABuff))
-                {
-                    //play ofa particles here
-
-                    if (OFATimer < StaticValues.OFAThreshold)
-                    {
-                        OFATimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
-                    }
-                    else if (OFATimer >= StaticValues.OFAThreshold)
-                    {
-                        OFATimer = 0f;
-                        //take damage every second based off current hp
-                        new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.OFAHealthCostCoefficient).Send(NetworkDestination.Clients);
-                    }
-                }
-
-
-                //moving buffs
-                //air walk
-                if (!characterBody.characterMotor.isGrounded)
-                {
-                    airwalkTimer += Time.fixedDeltaTime;
-                    //after 0.5 seconds start flying
-                    if (airwalkTimer > 0.5f)
-                    {
-                        if (energySystem.currentplusChaos > 1f)
+                        if (formTimer < StaticValues.FormThreshold)
                         {
-                            if (characterBody.inputBank.jump.down)
+                            formTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+
+                        }
+                        else if (formTimer >= StaticValues.FormThreshold)
+                        {
+                            formTimer = 0f;
+                            //energy cost
+                            float plusChaosflatCost = (StaticValues.lightFormEnergyCost) - (energySystem.costflatplusChaos);
+                            if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                            float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                            if (plusChaosCost < 0f) plusChaosCost = 0f;
+                            energySystem.SpendplusChaos(plusChaosCost);
+                        }
+                        //remove buff at 0
+                        if (energySystem.currentplusChaos <= 0f)
+                        {
+                            characterBody.ApplyBuff(Buffs.lightFormBuff.buffIndex, 0);
+                        }
+                    }
+                    //darkness buff
+                    if (characterBody.HasBuff(Buffs.darknessFormBuff))
+                    {
+                        if (formTimer < StaticValues.FormThreshold)
+                        {
+                            formTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+
+                        }
+                        else if (formTimer >= StaticValues.FormThreshold)
+                        {
+                            formTimer = 0f;
+                            //energy gain
+                            energySystem.GainplusChaos(StaticValues.darkFormEnergyGain);
+                        }
+                        //remove buff at max
+                        if (energySystem.currentplusChaos >= energySystem.maxPlusChaos)
+                        {
+                            characterBody.ApplyBuff(Buffs.darknessFormBuff.buffIndex, 0);
+                        }
+                    }
+                    if (characterBody.HasBuff(Buffs.lightAndDarknessFormBuff))
+                    {
+                        //force energy constantly in the middle constantly
+                        energySystem.currentplusChaos = energySystem.maxPlusChaos / 2f;
+                    }
+
+                    //wildcard no projectile buff
+                    if (characterBody.HasBuff(Buffs.wildcardNoProjectileBuff))
+                    {
+                        //destroy projectile 
+                        Collider[] array = Physics.OverlapSphere(characterBody.corePosition, StaticValues.wildcardRangeGlobal, LayerIndex.projectile.mask);
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            ProjectileController component = array[i].GetComponent<ProjectileController>();
+                            if (component)
                             {
-                                //constantly draining energy cost for air walk
-                                float plusChaosflatCost = StaticValues.airwalkEnergyFraction - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                                EffectData effectData = new EffectData();
+                                effectData.origin = component.transform.position;
+                                effectData.scale = 1f;
+                                EffectManager.SpawnEffect(EntityStates.BeetleMonster.HeadbuttState.hitEffectPrefab, effectData, true);
+                                Object.Destroy(component.gameObject);
+
+                            }
+                        }
+                    }
+
+
+                    //death aura buff
+                    if (characterBody.HasBuff(Buffs.deathAuraBuff))
+                    {
+
+                        if (energySystem.currentplusChaos > StaticValues.deathAuraBuffEnergyCost)
+                        {
+                            //make the death aura indicator
+                            if (!deathAuraIndicatorInstance)
+                            {
+                                CreateDeathAuraIndicator();
+                            }
+                            //every 1 secs add a debuff to enemies and a buff stack to self, also drain energy
+                            if (deathAuraTimer < StaticValues.deathAuraThreshold)
+                            {
+                                deathAuraTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+                            }
+                            else if (deathAuraTimer >= StaticValues.deathAuraThreshold)
+                            {
+                                //energy cost
+                                float plusChaosflatCost = StaticValues.deathAuraBuffEnergyCost - (energySystem.costflatplusChaos);
                                 if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                                 float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                                 if (plusChaosCost < 0f) plusChaosCost = 0f;
                                 energySystem.SpendplusChaos(plusChaosCost);
-                                characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 1);
 
-                                //before air walk timer runs out, can rise regardless besides while using a skill
-                                if (airwalkTimer < StaticValues.airwalkThreshold)
+                                deathAuraTimer = 0f;
+
+                                //add buff to self
+                                int deathAuraBuffCount = characterBody.GetBuffCount(Buffs.deathAuraBuff);
+                                characterBody.ApplyBuff(Buffs.deathAuraBuff.buffIndex, deathAuraBuffCount + 1);
+
+                                BullseyeSearch search = new BullseyeSearch
                                 {
-                                    if (characterBody.inputBank.skill1.down
-                                    | characterBody.inputBank.skill2.down
-                                    | characterBody.inputBank.skill3.down
-                                    | characterBody.inputBank.skill4.down
-                                    | extrainputBankTest.extraSkill1.down
-                                    | extrainputBankTest.extraSkill2.down
-                                    | extrainputBankTest.extraSkill3.down
-                                    | extrainputBankTest.extraSkill4.down)
+
+                                    teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                                    filterByLoS = false,
+                                    searchOrigin = characterBody.corePosition,
+                                    searchDirection = UnityEngine.Random.onUnitSphere,
+                                    sortMode = BullseyeSearch.SortMode.Distance,
+                                    maxDistanceFilter = StaticValues.deathAuraRadius + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff),
+                                    maxAngleFilter = 360f
+                                };
+
+                                search.RefreshCandidates();
+                                search.FilterOutGameObject(characterBody.gameObject);
+
+                                List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                                foreach (HurtBox singularTarget in target)
+                                {
+                                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
                                     {
-                                        characterBody.characterMotor.velocity.y = 0f;
-                                    }
-                                    else
-                                    {
-                                        characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                        //add the debuff to all enemies
+                                        int deathAuraDebuffCount = 0;
+                                        deathAuraDebuffCount = singularTarget.healthComponent.body.GetBuffCount(Buffs.deathAuraDebuff);
+
+                                        singularTarget.healthComponent.body.ApplyBuff(Buffs.deathAuraDebuff.buffIndex, deathAuraDebuffCount + 1);
+
                                     }
                                 }
-                                //after airwalk timer, need to ensure not holding any skill or any move direction to rise
-                                else if (airwalkTimer >= StaticValues.airwalkThreshold)
-                                {
-                                    if (characterBody.inputBank.skill1.down
-                                    | characterBody.inputBank.skill2.down
-                                    | characterBody.inputBank.skill3.down
-                                    | characterBody.inputBank.skill4.down
-                                    | extrainputBankTest.extraSkill1.down
-                                    | extrainputBankTest.extraSkill2.down
-                                    | extrainputBankTest.extraSkill3.down
-                                    | extrainputBankTest.extraSkill4.down)
-                                    {
-                                        characterBody.characterMotor.velocity.y = 0f;
-                                    }
-
-                                    if (characterBody.inputBank.moveVector == Vector3.zero)
-                                    {
-                                        characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                                    }
-                                    else
-                                    {
-                                        characterBody.characterMotor.velocity.y = 0f;
-                                    }
-                                }
-
-
-                                ////if falling down
-                                //if (characterBody.characterMotor.velocity.y < 0)
-                                //{
-                                //    if (characterBody.inputBank.skill1.down
-                                //        | characterBody.inputBank.skill2.down
-                                //        | characterBody.inputBank.skill3.down
-                                //        | characterBody.inputBank.skill4.down
-                                //        | extrainputBankTest.extraSkill1.down
-                                //        | extrainputBankTest.extraSkill2.down
-                                //        | extrainputBankTest.extraSkill3.down
-                                //        | extrainputBankTest.extraSkill4.down)
-                                //    {
-                                //        characterBody.characterMotor.velocity.y = 0f;
-                                //    }
-                                //    else
-                                //    {
-                                //        if (airwalkTimer < 3f)
-                                //        {
-                                //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                                //        }
-                                //        else
-                                //        {
-                                //            characterBody.characterMotor.velocity.y = 0f;
-                                //        }
-                                //    }
-                                //}
-                                ////if rising up
-                                //else if (characterBody.characterMotor.velocity.y >= 0)
-                                //{
-                                //    if (airwalkTimer < 3f)
-                                //    {
-                                //        if (characterBody.inputBank.skill1.down
-                                //        | characterBody.inputBank.skill2.down
-                                //        | characterBody.inputBank.skill3.down
-                                //        | characterBody.inputBank.skill4.down
-                                //        | extrainputBankTest.extraSkill1.down
-                                //        | extrainputBankTest.extraSkill2.down
-                                //        | extrainputBankTest.extraSkill3.down
-                                //        | extrainputBankTest.extraSkill4.down)
-                                //        {
-                                //            characterBody.characterMotor.velocity.y = 0f;
-                                //        }
-                                //        else
-                                //        {
-                                //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                                //        }
-                                //    }
-                                //    else
-                                //    {
-                                //        if (characterBody.inputBank.skill1.down
-                                //        | characterBody.inputBank.skill2.down
-                                //        | characterBody.inputBank.skill3.down
-                                //        | characterBody.inputBank.skill4.down
-                                //        | extrainputBankTest.extraSkill1.down
-                                //        | extrainputBankTest.extraSkill2.down
-                                //        | extrainputBankTest.extraSkill3.down
-                                //        | extrainputBankTest.extraSkill4.down)
-                                //        {
-                                //            characterBody.characterMotor.velocity.y = 0f;
-                                //        }
-
-                                //        if(characterBody.inputBank.moveVector == Vector3.zero)
-                                //        {
-                                //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                                //        }
-                                //        else
-                                //        {
-                                //            characterBody.characterMotor.velocity.y = 0f;
-                                //        }                                       
-                                //    }
-                                //}
-
-                            }
-
-                            //move in the direction you're moving at a normal speed
-                            if (characterBody.inputBank.moveVector != Vector3.zero)
-                            {
-                                //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
-                                characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
-                                //characterBody.characterMotor.disableAirControlUntilCollision = false;
-                            }
-
-
-                        }
-
-                    }
-                }
-                else if (characterBody.characterMotor.isGrounded)
-                {
-                    //remove airwalk buff when landed
-                    airwalkTimer = 0f;
-                    if (NetworkServer.active)
-                    {
-                        characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 0);
-                    }
-                }
-
-
-
-                //shiggy current damage
-                shiggyDamage = characterBody.damage;
-
-                //Buff effects
-
-                //mechstance buff
-                if (characterBody.HasBuff(Buffs.mechStanceBuff))
-                {
-                    if (characterBody.inputBank.jump.down)
-                    {
-                        if (characterBody.characterMotor.velocity.y > 2f)
-                        {
-                            characterBody.characterMotor.velocity.y = 0f;
-                        }
-                    }
-
-                    if (anim)
-                    {
-                        if (anim.GetBool("isMoving"))
-                        {
-                            //while walking do blast attacks, scales with movespeed
-                            mechStanceTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
-                            if (mechStanceTimer >= StaticValues.mechStanceStepRate / characterBody.moveSpeed)
-                            {
-
-                                EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
-                                {
-                                    origin = characterBody.footPosition,
-                                    scale = StaticValues.mechStanceRadius * (characterBody.moveSpeed / characterBody.baseMoveSpeed),
-                                }, true);
-
-                                BlastAttack blastAttack = new BlastAttack();
-                                blastAttack.radius = StaticValues.mechStanceRadius * (characterBody.moveSpeed / characterBody.baseMoveSpeed);
-                                blastAttack.procCoefficient = StaticValues.mechStanceProcCoefficient;
-                                blastAttack.position = characterBody.footPosition;
-                                blastAttack.attacker = characterBody.gameObject;
-                                blastAttack.crit = characterBody.RollCrit();
-                                blastAttack.baseDamage = characterBody.damage * StaticValues.mechStanceDamageCoefficient * (characterBody.moveSpeed / characterBody.baseMoveSpeed);
-                                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                                blastAttack.baseForce = 400f;
-                                blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-                                blastAttack.damageType = damageType;
-                                blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-                                blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
-
-                                blastAttack.Fire();
-                                mechStanceTimer = 0f;
-                            }
-                        }
-                    }
-
-
-                }
-
-                //windshield buff
-                if (characterBody.HasBuff(Buffs.windShieldBuff))
-                {
-                    Collider[] array = Physics.OverlapSphere(characterBody.transform.position, StaticValues.windShieldRadius, LayerIndex.projectile.mask);
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        ProjectileController component = array[i].GetComponent<ProjectileController>();
-                        if (component)
-                        {
-                            TeamComponent component2 = component.owner.GetComponent<TeamComponent>();
-                            if (component2 && component2.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
-                            {
-                                EffectData effectData = new EffectData();
-                                effectData.origin = component.transform.position;
-                                effectData.scale = 1f;
-                                EffectManager.SpawnEffect(EntityStates.Engi.EngiWeapon.FireSeekerGrenades.hitEffectPrefab, effectData, false);
-                                UnityEngine.Object.Destroy(array[i].gameObject);
-                                //Object.Destroy(component.gameObject);
-                            }
-                        }
-                    }
-
-
-                    if (windshieldTimer < 1f)
-                    {
-                        windshieldTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
-                    }
-                    if (windshieldTimer >= 1f)
-                    {
-                        windshieldTimer = 0f;
-                        new BlastAttack
-                        {
-                            crit = false,
-                            attacker = characterBody.gameObject,
-                            teamIndex = TeamComponent.GetObjectTeam(characterBody.gameObject),
-                            falloffModel = BlastAttack.FalloffModel.None,
-                            baseDamage = characterBody.damage * StaticValues.windShieldDamageCoefficient,
-                            damageType = DamageType.Stun1s,
-                            damageColorIndex = DamageColorIndex.Default,
-                            baseForce = 0,
-                            procChainMask = new ProcChainMask(),
-                            position = characterBody.transform.position,
-                            radius = StaticValues.windShieldRadius,
-                            procCoefficient = 0.001f,
-                            attackerFiltering = AttackerFiltering.NeverHitSelf,
-                        }.Fire();
-
-                        EffectManager.SpawnEffect(Modules.Assets.engiShieldEffect, new EffectData
-                        {
-                            origin = characterBody.transform.position,
-                            scale = StaticValues.windShieldRadius,
-                            rotation = Quaternion.LookRotation(characterBody.characterDirection.forward)
-
-                        }, false);
-                    }
-                }
-
-                //multbuff buff
-                if (characterBody.HasBuff(Modules.Buffs.multBuff))
-                {
-                    if (multTimer > 1f)
-                    {
-                        multTimer = 0f;
-                        EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
-                        {
-                            origin = child.FindChild("LHand").position,
-                            scale = 1f,
-                            rotation = Quaternion.LookRotation(characterBody.transform.position)
-
-                        }, false);
-
-                        EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
-                        {
-                            origin = child.FindChild("RHand").position,
-                            scale = 1f,
-                            rotation = Quaternion.LookRotation(characterBody.transform.position)
-
-                        }, false);
-                    }
-                    else
-                    {
-                        multTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
-
-                    }
-                }
-                //claydunestrider buff
-                if (characterBody.HasBuff(Modules.Buffs.claydunestriderBuff))
-                {
-                    if (clayDunestriderTimer > 1f)
-                    {
-                        clayDunestriderTimer = 0f;
-                        EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData
-                        {
-                            origin = characterBody.corePosition,
-                            scale = 1f,
-                            rotation = Quaternion.LookRotation(-characterBody.characterDirection.forward)
-
-                        }, false);
-                    }
-                    else
-                    {
-                        clayDunestriderTimer += Time.fixedDeltaTime;
-
-                    }
-                }
-                //Greaterwisp buff
-                if (characterBody.HasBuff(Modules.Buffs.greaterwispBuff))
-                {
-                    if (greaterwispTimer > 1f)
-                    {
-                        greaterwispTimer = 0f;
-                        EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
-                        {
-                            origin = child.FindChild("LHand").position,
-                            scale = 1f,
-                            rotation = Quaternion.LookRotation(characterBody.transform.position)
-
-                        }, false);
-
-                        EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
-                        {
-                            origin = child.FindChild("RHand").position,
-                            scale = 1f,
-                            rotation = Quaternion.LookRotation(characterBody.transform.position)
-
-                        }, false);
-                    }
-                    else
-                    {
-                        greaterwispTimer += Time.fixedDeltaTime;
-
-                    }
-                }
-
-
-
-                //vagrant disablebuff
-                if (characterBody.HasBuff(Modules.Buffs.vagrantdisableBuff.buffIndex))
-                {
-                    if (vagranttimer > 1f)
-                    {
-                        int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.vagrantdisableBuff.buffIndex);
-                        if (buffCountToApply > 1)
-                        {
-                            if (buffCountToApply >= 2)
-                            {
-                                characterBody.ApplyBuff(Modules.Buffs.vagrantdisableBuff.buffIndex, buffCountToApply - 1);
-                                vagranttimer = 0f;
                             }
                         }
                         else
                         {
-                            characterBody.ApplyBuff(Modules.Buffs.vagrantdisableBuff.buffIndex, 0);
-                            characterBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex, 1);
+                            characterBody.ApplyBuff(Buffs.deathAuraBuff.buffIndex, 0);
 
                         }
+
                     }
-                    else vagranttimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
-                }
-
-
-
-
-                //jellyfish heal buff
-                if (characterBody.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
-                {
-
-                    if (jellyfishtimer > 1f)
+                    else if (!characterBody.HasBuff(Buffs.deathAuraBuff))
                     {
-                        int jellyfishBuffCount = characterBody.GetBuffCount(Modules.Buffs.jellyfishHealStacksBuff.buffIndex);
-                        int jellyfishBuffCountToReduce = Mathf.RoundToInt(characterBody.maxHealth * (1 - StaticValues.JellyfishHealTickRate));
-                        int jellyfishBuffCountToApply = jellyfishBuffCount - jellyfishBuffCountToReduce;
-                        if (jellyfishBuffCountToApply < 2)
-                        {
-                            jellyfishBuffCountToApply = 2;
-                        }
-                        if (jellyfishBuffCount > 1)
-                        {
-                            if (jellyfishBuffCount >= 2)
 
-                                characterBody.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, jellyfishBuffCountToApply);
-                            jellyfishtimer = 0f;
+                        if (deathAuraIndicatorInstance)
+                        {
+                            deathAuraIndicatorInstance.SetActive(false);
+                            EntityState.Destroy(deathAuraIndicatorInstance.gameObject);
+
+                        }
+
+                    }
+
+                    //the world buff energy cost
+                    if (characterBody.HasBuff(Buffs.theWorldBuff))
+                    {
+                        if (theWorldTimer < 1f)
+                        {
+                            theWorldTimer += Time.fixedDeltaTime;
+                        }
+                        else if (theWorldTimer >= 1f)
+                        {
+                            //energy cost
+                            float plusChaosflatCost = (StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
+                            if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                            float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                            if (plusChaosCost < 0f) plusChaosCost = 0f;
+                            energySystem.SpendplusChaos(plusChaosCost);
+
                         }
                     }
+
+
+                    //void form buff
+                    if (characterBody.HasBuff(Buffs.voidFormBuff))
+                    {
+                        if (voidFormTimer < StaticValues.voidFormThreshold)
+                        {
+                            voidFormTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+                        }
+                        else if (voidFormTimer >= StaticValues.voidFormThreshold)
+                        {
+                            voidFormTimer = 0f;
+                            //take damage every second based off current hp, cleanse self as well
+                            new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.voidFormHealthCostCoefficient).Send(NetworkDestination.Clients);
+
+                            Util.CleanseBody(characterBody, true, false, false, true, true, true);
+                        }
+                    }
+
+                    //OFA
+                    if (characterBody.HasBuff(Buffs.OFABuff))
+                    {
+                        //play ofa particles here
+
+                        if (OFATimer < StaticValues.OFAThreshold)
+                        {
+                            OFATimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+                        }
+                        else if (OFATimer >= StaticValues.OFAThreshold)
+                        {
+                            OFATimer = 0f;
+                            //take damage every second based off current hp
+                            new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.OFAHealthCostCoefficient).Send(NetworkDestination.Clients);
+                        }
+                    }
+
+
+                    //moving buffs
+                    //air walk
+                    if (!characterBody.characterMotor.isGrounded)
+                    {
+                        airwalkTimer += Time.fixedDeltaTime;
+                        //after 0.5 seconds start flying
+                        if (airwalkTimer > 0.5f)
+                        {
+                            if (energySystem.currentplusChaos > 1f)
+                            {
+                                if (characterBody.inputBank.jump.down)
+                                {
+                                    //constantly draining energy cost for air walk
+                                    float plusChaosflatCost = StaticValues.airwalkEnergyFraction - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                                    if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                                    float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                                    if (plusChaosCost < 0f) plusChaosCost = 0f;
+                                    energySystem.SpendplusChaos(plusChaosCost);
+                                    characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 1);
+
+                                    //before air walk timer runs out, can rise regardless besides while using a skill
+                                    if (airwalkTimer < StaticValues.airwalkThreshold)
+                                    {
+                                        if (characterBody.inputBank.skill1.down
+                                        | characterBody.inputBank.skill2.down
+                                        | characterBody.inputBank.skill3.down
+                                        | characterBody.inputBank.skill4.down
+                                        | extrainputBankTest.extraSkill1.down
+                                        | extrainputBankTest.extraSkill2.down
+                                        | extrainputBankTest.extraSkill3.down
+                                        | extrainputBankTest.extraSkill4.down)
+                                        {
+                                            characterBody.characterMotor.velocity.y = 0f;
+                                        }
+                                        else
+                                        {
+                                            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                        }
+                                    }
+                                    //after airwalk timer, need to ensure not holding any skill or any move direction to rise
+                                    else if (airwalkTimer >= StaticValues.airwalkThreshold)
+                                    {
+                                        if (characterBody.inputBank.skill1.down
+                                        | characterBody.inputBank.skill2.down
+                                        | characterBody.inputBank.skill3.down
+                                        | characterBody.inputBank.skill4.down
+                                        | extrainputBankTest.extraSkill1.down
+                                        | extrainputBankTest.extraSkill2.down
+                                        | extrainputBankTest.extraSkill3.down
+                                        | extrainputBankTest.extraSkill4.down)
+                                        {
+                                            characterBody.characterMotor.velocity.y = 0f;
+                                        }
+
+                                        if (characterBody.inputBank.moveVector == Vector3.zero)
+                                        {
+                                            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                        }
+                                        else
+                                        {
+                                            characterBody.characterMotor.velocity.y = 0f;
+                                        }
+                                    }
+
+
+                                    ////if falling down
+                                    //if (characterBody.characterMotor.velocity.y < 0)
+                                    //{
+                                    //    if (characterBody.inputBank.skill1.down
+                                    //        | characterBody.inputBank.skill2.down
+                                    //        | characterBody.inputBank.skill3.down
+                                    //        | characterBody.inputBank.skill4.down
+                                    //        | extrainputBankTest.extraSkill1.down
+                                    //        | extrainputBankTest.extraSkill2.down
+                                    //        | extrainputBankTest.extraSkill3.down
+                                    //        | extrainputBankTest.extraSkill4.down)
+                                    //    {
+                                    //        characterBody.characterMotor.velocity.y = 0f;
+                                    //    }
+                                    //    else
+                                    //    {
+                                    //        if (airwalkTimer < 3f)
+                                    //        {
+                                    //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                    //        }
+                                    //        else
+                                    //        {
+                                    //            characterBody.characterMotor.velocity.y = 0f;
+                                    //        }
+                                    //    }
+                                    //}
+                                    ////if rising up
+                                    //else if (characterBody.characterMotor.velocity.y >= 0)
+                                    //{
+                                    //    if (airwalkTimer < 3f)
+                                    //    {
+                                    //        if (characterBody.inputBank.skill1.down
+                                    //        | characterBody.inputBank.skill2.down
+                                    //        | characterBody.inputBank.skill3.down
+                                    //        | characterBody.inputBank.skill4.down
+                                    //        | extrainputBankTest.extraSkill1.down
+                                    //        | extrainputBankTest.extraSkill2.down
+                                    //        | extrainputBankTest.extraSkill3.down
+                                    //        | extrainputBankTest.extraSkill4.down)
+                                    //        {
+                                    //            characterBody.characterMotor.velocity.y = 0f;
+                                    //        }
+                                    //        else
+                                    //        {
+                                    //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                    //        }
+                                    //    }
+                                    //    else
+                                    //    {
+                                    //        if (characterBody.inputBank.skill1.down
+                                    //        | characterBody.inputBank.skill2.down
+                                    //        | characterBody.inputBank.skill3.down
+                                    //        | characterBody.inputBank.skill4.down
+                                    //        | extrainputBankTest.extraSkill1.down
+                                    //        | extrainputBankTest.extraSkill2.down
+                                    //        | extrainputBankTest.extraSkill3.down
+                                    //        | extrainputBankTest.extraSkill4.down)
+                                    //        {
+                                    //            characterBody.characterMotor.velocity.y = 0f;
+                                    //        }
+
+                                    //        if(characterBody.inputBank.moveVector == Vector3.zero)
+                                    //        {
+                                    //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                    //        }
+                                    //        else
+                                    //        {
+                                    //            characterBody.characterMotor.velocity.y = 0f;
+                                    //        }                                       
+                                    //    }
+                                    //}
+
+                                }
+
+                                //move in the direction you're moving at a normal speed
+                                if (characterBody.inputBank.moveVector != Vector3.zero)
+                                {
+                                    //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
+                                    characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
+                                    //characterBody.characterMotor.disableAirControlUntilCollision = false;
+                                }
+
+
+                            }
+
+                        }
+                    }
+                    else if (characterBody.characterMotor.isGrounded)
+                    {
+                        //remove airwalk buff when landed
+                        airwalkTimer = 0f;
+                        if (NetworkServer.active)
+                        {
+                            characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 0);
+                        }
+                    }
+
+
+
+                    //shiggy current damage
+                    shiggyDamage = characterBody.damage;
+
+                    //Buff effects
+
+                    //mechstance buff
+                    if (characterBody.HasBuff(Buffs.mechStanceBuff))
+                    {
+                        if (characterBody.inputBank.jump.down)
+                        {
+                            if (characterBody.characterMotor.velocity.y > 2f)
+                            {
+                                characterBody.characterMotor.velocity.y = 0f;
+                            }
+                        }
+
+                        if (anim)
+                        {
+                            if (anim.GetBool("isMoving"))
+                            {
+                                //while walking do blast attacks, scales with movespeed
+                                mechStanceTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+                                if (mechStanceTimer >= StaticValues.mechStanceStepRate / characterBody.moveSpeed)
+                                {
+
+                                    EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
+                                    {
+                                        origin = characterBody.footPosition,
+                                        scale = StaticValues.mechStanceRadius * (characterBody.moveSpeed / characterBody.baseMoveSpeed),
+                                    }, true);
+
+                                    BlastAttack blastAttack = new BlastAttack();
+                                    blastAttack.radius = StaticValues.mechStanceRadius * (characterBody.moveSpeed / characterBody.baseMoveSpeed);
+                                    blastAttack.procCoefficient = StaticValues.mechStanceProcCoefficient;
+                                    blastAttack.position = characterBody.footPosition;
+                                    blastAttack.attacker = characterBody.gameObject;
+                                    blastAttack.crit = characterBody.RollCrit();
+                                    blastAttack.baseDamage = characterBody.damage * StaticValues.mechStanceDamageCoefficient * (characterBody.moveSpeed / characterBody.baseMoveSpeed);
+                                    blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                                    blastAttack.baseForce = 400f;
+                                    blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
+                                    blastAttack.damageType = damageType;
+                                    blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+                                    blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
+
+                                    blastAttack.Fire();
+                                    mechStanceTimer = 0f;
+                                }
+                            }
+                        }
+
+
+                    }
+
+                    //windshield buff
+                    if (characterBody.HasBuff(Buffs.windShieldBuff))
+                    {
+                        Collider[] array = Physics.OverlapSphere(characterBody.transform.position, StaticValues.windShieldRadius, LayerIndex.projectile.mask);
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            ProjectileController component = array[i].GetComponent<ProjectileController>();
+                            if (component)
+                            {
+                                TeamComponent component2 = component.owner.GetComponent<TeamComponent>();
+                                if (component2 && component2.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
+                                {
+                                    EffectData effectData = new EffectData();
+                                    effectData.origin = component.transform.position;
+                                    effectData.scale = 1f;
+                                    EffectManager.SpawnEffect(EntityStates.Engi.EngiWeapon.FireSeekerGrenades.hitEffectPrefab, effectData, false);
+                                    UnityEngine.Object.Destroy(array[i].gameObject);
+                                    //Object.Destroy(component.gameObject);
+                                }
+                            }
+                        }
+
+
+                        if (windshieldTimer < 1f)
+                        {
+                            windshieldTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+                        }
+                        if (windshieldTimer >= 1f)
+                        {
+                            windshieldTimer = 0f;
+                            new BlastAttack
+                            {
+                                crit = false,
+                                attacker = characterBody.gameObject,
+                                teamIndex = TeamComponent.GetObjectTeam(characterBody.gameObject),
+                                falloffModel = BlastAttack.FalloffModel.None,
+                                baseDamage = characterBody.damage * StaticValues.windShieldDamageCoefficient,
+                                damageType = DamageType.Stun1s,
+                                damageColorIndex = DamageColorIndex.Default,
+                                baseForce = 0,
+                                procChainMask = new ProcChainMask(),
+                                position = characterBody.transform.position,
+                                radius = StaticValues.windShieldRadius,
+                                procCoefficient = 0.001f,
+                                attackerFiltering = AttackerFiltering.NeverHitSelf,
+                            }.Fire();
+
+                            EffectManager.SpawnEffect(Modules.Assets.engiShieldEffect, new EffectData
+                            {
+                                origin = characterBody.transform.position,
+                                scale = StaticValues.windShieldRadius,
+                                rotation = Quaternion.LookRotation(characterBody.characterDirection.forward)
+
+                            }, false);
+                        }
+                    }
+
+                    //multbuff buff
+                    if (characterBody.HasBuff(Modules.Buffs.multBuff))
+                    {
+                        if (multTimer > 1f)
+                        {
+                            multTimer = 0f;
+                            EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
+                            {
+                                origin = child.FindChild("LHand").position,
+                                scale = 1f,
+                                rotation = Quaternion.LookRotation(characterBody.transform.position)
+
+                            }, false);
+
+                            EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
+                            {
+                                origin = child.FindChild("RHand").position,
+                                scale = 1f,
+                                rotation = Quaternion.LookRotation(characterBody.transform.position)
+
+                            }, false);
+                        }
+                        else
+                        {
+                            multTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+
+                        }
+                    }
+                    //claydunestrider buff
+                    if (characterBody.HasBuff(Modules.Buffs.claydunestriderBuff))
+                    {
+                        if (clayDunestriderTimer > 1f)
+                        {
+                            clayDunestriderTimer = 0f;
+                            EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData
+                            {
+                                origin = characterBody.corePosition,
+                                scale = 1f,
+                                rotation = Quaternion.LookRotation(-characterBody.characterDirection.forward)
+
+                            }, false);
+                        }
+                        else
+                        {
+                            clayDunestriderTimer += Time.fixedDeltaTime;
+
+                        }
+                    }
+                    //Greaterwisp buff
+                    if (characterBody.HasBuff(Modules.Buffs.greaterwispBuff))
+                    {
+                        if (greaterwispTimer > 1f)
+                        {
+                            greaterwispTimer = 0f;
+                            EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                            {
+                                origin = child.FindChild("LHand").position,
+                                scale = 1f,
+                                rotation = Quaternion.LookRotation(characterBody.transform.position)
+
+                            }, false);
+
+                            EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                            {
+                                origin = child.FindChild("RHand").position,
+                                scale = 1f,
+                                rotation = Quaternion.LookRotation(characterBody.transform.position)
+
+                            }, false);
+                        }
+                        else
+                        {
+                            greaterwispTimer += Time.fixedDeltaTime;
+
+                        }
+                    }
+
+
+
+                    //vagrant disablebuff
+                    if (characterBody.HasBuff(Modules.Buffs.vagrantdisableBuff.buffIndex))
+                    {
+                        if (vagranttimer > 1f)
+                        {
+                            int buffCountToApply = characterBody.GetBuffCount(Modules.Buffs.vagrantdisableBuff.buffIndex);
+                            if (buffCountToApply > 1)
+                            {
+                                if (buffCountToApply >= 2)
+                                {
+                                    characterBody.ApplyBuff(Modules.Buffs.vagrantdisableBuff.buffIndex, buffCountToApply - 1);
+                                    vagranttimer = 0f;
+                                }
+                            }
+                            else
+                            {
+                                characterBody.ApplyBuff(Modules.Buffs.vagrantdisableBuff.buffIndex, 0);
+                                characterBody.ApplyBuff(Modules.Buffs.vagrantBuff.buffIndex, 1);
+
+                            }
+                        }
+                        else vagranttimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+                    }
+
+
+
+
+                    //jellyfish heal buff
+                    if (characterBody.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
+                    {
+
+                        if (jellyfishtimer > 1f)
+                        {
+                            int jellyfishBuffCount = characterBody.GetBuffCount(Modules.Buffs.jellyfishHealStacksBuff.buffIndex);
+                            int jellyfishBuffCountToReduce = Mathf.RoundToInt(characterBody.maxHealth * (1 - StaticValues.JellyfishHealTickRate));
+                            int jellyfishBuffCountToApply = jellyfishBuffCount - jellyfishBuffCountToReduce;
+                            if (jellyfishBuffCountToApply < 2)
+                            {
+                                jellyfishBuffCountToApply = 2;
+                            }
+                            if (jellyfishBuffCount > 1)
+                            {
+                                if (jellyfishBuffCount >= 2)
+
+                                    characterBody.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, jellyfishBuffCountToApply);
+                                jellyfishtimer = 0f;
+                            }
+                        }
+                    }
+                    else jellyfishtimer += Time.fixedDeltaTime;
+
                 }
-                else jellyfishtimer += Time.fixedDeltaTime;
-                
             }
         }    
 
@@ -1329,6 +1333,7 @@ namespace ShiggyMod.Modules.Survivors
             //death aura indicator
             if (this.deathAuraIndicatorInstance)
             {
+                this.deathAuraIndicatorInstance.transform.parent = characterBody.transform;
                 this.deathAuraIndicatorInstance.transform.localScale = Vector3.one * (StaticValues.deathAuraRadius + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff));
                 this.deathAuraIndicatorInstance.transform.localPosition = characterBody.corePosition;
             }
@@ -1355,6 +1360,7 @@ namespace ShiggyMod.Modules.Survivors
                     }
                     if (this.theWorldIndicatorInstance)
                     {
+                        this.theWorldIndicatorInstance.transform.parent = characterBody.transform;
                         this.theWorldIndicatorInstance.transform.localScale = Vector3.one * maxRadius;
                         this.theWorldIndicatorInstance.transform.localPosition = characterBody.corePosition;
                     }
@@ -1509,6 +1515,7 @@ namespace ShiggyMod.Modules.Survivors
                 this.deathAuraIndicatorInstance = Object.Instantiate<GameObject>(Assets.deathAuraIndicator);
                 this.deathAuraIndicatorInstance.SetActive(true);
 
+                this.deathAuraIndicatorInstance.transform.parent = characterBody.transform;
                 this.deathAuraIndicatorInstance.transform.localScale = Vector3.one * (Modules.StaticValues.deathAuraRadius + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff));
                 this.deathAuraIndicatorInstance.transform.localPosition = characterBody.corePosition;
 
@@ -1523,6 +1530,7 @@ namespace ShiggyMod.Modules.Survivors
                 this.theWorldIndicatorInstance = Object.Instantiate<GameObject>(Assets.theWorldIndicator);
                 this.theWorldIndicatorInstance.SetActive(true);
 
+                this.theWorldIndicatorInstance.transform.parent = characterBody.transform;
                 this.theWorldIndicatorInstance.transform.localScale = Vector3.one * StaticValues.theWorldCoefficient;
                 this.theWorldIndicatorInstance.transform.localPosition = characterBody.corePosition;
 

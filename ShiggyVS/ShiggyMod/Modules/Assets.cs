@@ -271,6 +271,7 @@ namespace ShiggyMod.Modules
             //Creating spheres and adding the material to them
             sphereIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
             sphereIndicator.AddComponent<NetworkIdentity>();
+            PrefabAPI.RegisterNetworkPrefab(sphereIndicator);
 
             deathAuraIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "deathAuraIndicator");
 

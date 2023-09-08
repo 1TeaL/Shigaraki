@@ -1194,7 +1194,7 @@ namespace ShiggyMod.Modules
                 { "MercBody", Survivors.Shiggy.mercdashDef },
                 { "ToolbotBody", Survivors.Shiggy.multbuffDef },
                 { "TreebotBody", Survivors.Shiggy.rexmortarDef },
-                { "RailgunnerBody", Survivors.Shiggy.railgunnercryoDef },
+                { "RailgunnerBody", Survivors.Shiggy.railgunnercryoDef }, 
                 { "VoidSurvivorBody", Survivors.Shiggy.voidfiendcleanseDef },
 
 
