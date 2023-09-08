@@ -185,8 +185,8 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Start()
         {
-            characterMaster = gameObject.GetComponent<CharacterMaster>();
-            characterBody = characterMaster.GetBody();
+            characterBody = gameObject.GetComponent<CharacterBody>();
+            characterMaster = characterBody.master;
             inputBank = gameObject.GetComponent<InputBankTest>();
 
             extraskillLocator = gameObject.GetComponent<ExtraSkillLocator>();

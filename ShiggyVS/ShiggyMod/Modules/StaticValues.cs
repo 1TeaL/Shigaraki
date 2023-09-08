@@ -822,8 +822,8 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.claydunestriderbuffDef.skillName, Survivors.Shiggy.ingrainPassiveDef},
                 { Survivors.Shiggy.minimushrumpassiveDef.skillName, Survivors.Shiggy.ingrainPassiveDef},
 
-                { Survivors.Shiggy.bronzongballDef.skillName, Survivors.Shiggy.orbitalStrikeDef},
-                { Survivors.Shiggy.guppassiveDef.skillName, Survivors.Shiggy.orbitalStrikeDef},
+                { Survivors.Shiggy.bronzongballDef.skillName, Survivors.Shiggy.barbedSpikesPassiveDef},
+                { Survivors.Shiggy.guppassiveDef.skillName, Survivors.Shiggy.barbedSpikesPassiveDef},
 
                 { Survivors.Shiggy.acridpassiveDef.skillName, Survivors.Shiggy.auraOfBlightPassiveDef},
                 { Survivors.Shiggy.larvapassiveDef.skillName, Survivors.Shiggy.auraOfBlightPassiveDef},

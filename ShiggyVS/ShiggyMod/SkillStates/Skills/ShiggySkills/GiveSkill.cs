@@ -129,7 +129,7 @@ namespace ShiggyMod.SkillStates
                 if (!buffcon)
                 {
                     enemycharBody.gameObject.AddComponent<BuffController>();
-
+                    
                 }
                 enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
             }

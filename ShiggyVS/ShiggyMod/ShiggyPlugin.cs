@@ -877,18 +877,8 @@ namespace ShiggyMod
                     if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
                     {
                         //Debug.Log("deal damage to self");
-                        DamageInfo damageInfo2 = new DamageInfo();
-                        damageInfo2.damage = StaticValues.limitBreakHealthCostCoefficient * attackerBody.healthComponent.fullCombinedHealth;
-                        damageInfo2.position = damageInfo.attacker.transform.position;
-                        damageInfo2.force = Vector3.zero;
-                        damageInfo2.damageColorIndex = DamageColorIndex.WeakPoint;
-                        damageInfo2.crit = false;
-                        damageInfo2.attacker = null;
-                        damageInfo2.inflictor = null;
-                        damageInfo2.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
-                        damageInfo2.procCoefficient = 0f;
-                        damageInfo2.procChainMask = default(ProcChainMask);
-                        attackerBody.healthComponent.TakeDamage(damageInfo2);
+
+                        new SpendHealthNetworkRequest(attackerBody.masterObjectId, attackerBody.healthComponent.fullHealth * StaticValues.limitBreakHealthCostCoefficient).Send(NetworkDestination.Clients);
 
                     }
                     

@@ -167,7 +167,7 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
-            shiggyCon.boolswordAuraR = false;
+            shiggyCon.boolswordAuraL = false;
             if (!this.hasFired) this.FireAttack();
 
             base.OnExit();
