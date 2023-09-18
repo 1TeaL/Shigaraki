@@ -218,6 +218,7 @@ namespace ShiggyMod.Modules.Survivors
         {
             base.InitializeCharacter();
             bodyPrefab.AddComponent<ShiggyController>();
+            bodyPrefab.AddComponent<BuffController>();
         }
 
         internal override void InitializeUnlockables()

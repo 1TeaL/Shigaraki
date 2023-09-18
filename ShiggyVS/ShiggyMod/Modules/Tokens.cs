@@ -60,8 +60,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[Mercenary]</style>");
             LanguageAPI.Add(prefix + "MULTIPLIER_NAME", "Multiplier");
             LanguageAPI.Add(prefix + "MULTIPLIER_DESCRIPTION", $"<style=cIsDamage>Agile." +
-                $"</style> Boosts your next attack to deal <style=cIsDamage>{StaticValues.multiplierCoefficient}x damage</style>. " +
-                $"</style> Triples the number of projectiles, shots and decay stacks as well." + Environment.NewLine + Environment.NewLine +
+                $"</style> Boosts your next attack to deal <style=cIsDamage>{StaticValues.multiplierCoefficient}x damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[One For All]</style>");
             LanguageAPI.Add(prefix + "AFO_NAME", "All For One");
             LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>. " 

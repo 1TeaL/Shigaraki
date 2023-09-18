@@ -282,8 +282,8 @@ namespace ShiggyMod.Modules.Survivors
             if(characterBody != null)
             {
 
-                if (characterBody.hasEffectiveAuthority)
-                {
+                //if (characterBody.hasEffectiveAuthority)
+                //{
                     //Buff effects
 
                     //ofafo time multiplier- put it here only for shiggy, not for others
@@ -1259,7 +1259,7 @@ namespace ShiggyMod.Modules.Survivors
                     }
 
 
-                }
+                //}
             }
             
 

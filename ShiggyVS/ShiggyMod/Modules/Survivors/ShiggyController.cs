@@ -24,6 +24,7 @@ using static UnityEngine.ParticleSystem.PlaybackState;
 using EntityStates.VoidMegaCrab.BackWeapon;
 using RiskOfOptions.Components.Panel;
 using Unity.Baselib.LowLevel;
+using RoR2.CharacterAI;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -80,7 +81,6 @@ namespace ShiggyMod.Modules.Survivors
         public ShiggyMasterController Shiggymastercon;
         public ShiggyController Shiggycon;
         public EnergySystem energySystem;
-        public BuffController buffcon;
 
         public bool larvabuffGiven;
         public bool verminjumpbuffGiven;
@@ -177,11 +177,6 @@ namespace ShiggyMod.Modules.Survivors
             if (!energySystem)
             {
                 energySystem = gameObject.AddComponent<EnergySystem>();
-            }
-            buffcon = characterMaster.gameObject.GetComponent<BuffController>();
-            if (!buffcon)
-            {
-                buffcon = characterMaster.gameObject.AddComponent<BuffController>();
             }
 
             Shiggymastercon = characterMaster.gameObject.GetComponent<ShiggyMasterController>();
@@ -998,189 +993,192 @@ namespace ShiggyMod.Modules.Survivors
                 Debug.Log(Shiggymastercon.skillListToOverrideOnRespawn[7].skillName + "skill8");
             }
 
+            if (characterBody.hasEffectiveAuthority)
+            {
 
-            if(boolenoughEnergyAura || energySystem.currentplusChaos > StaticValues.AFOEnergyCost)
-            {
-                if (LARM.isStopped)
+                if (boolenoughEnergyAura || energySystem.currentplusChaos > StaticValues.AFOEnergyCost)
                 {
-                    LARM.Play();
-                }
-                if (RARM.isStopped)
-                {
-                    RARM.Play();
-                }
-
-            }
-            else
-            {
-                if (LARM.isPlaying)
-                {
-                    LARM.Stop();
-                }
-                if (RARM.isPlaying)
-                {
-                    RARM.Stop();
-                }
-            }
-
-            //sword aura L
-            if(boolswordAuraL || characterBody.HasBuff(Buffs.finalReleaseBuff))
-            {
-                if (SWORDAURAL.isStopped)
-                {
-                    SWORDAURAL.Play();
-                }
-            }
-            else if (!boolswordAuraL && !characterBody.HasBuff(Buffs.finalReleaseBuff))
-            {
-                if (SWORDAURAL.isPlaying)
-                {
-                    SWORDAURAL.Stop();
-                }
-
-            }
-            //sword aura R
-            if (boolswordAuraR || characterBody.HasBuff(Buffs.finalReleaseBuff))
-            {
-                if (SWORDAURAR.isStopped)
-                {
-                    SWORDAURAR.Play();
-                }
-            }
-            else if (!boolswordAuraR && !characterBody.HasBuff(Buffs.finalReleaseBuff))
-            {
-                if (SWORDAURAR.isPlaying)
-                {
-                    SWORDAURAR.Stop();
-                }
-
-            }
-            //final release aura and music
-            if (characterBody.HasBuff(Buffs.finalReleaseBuff))
-            {
-                if (FINALRELEASEAURA.isStopped)
-                {
-                    FINALRELEASEAURA.Play();
-                }
-
-            }
-            else if (!characterBody.HasBuff(Buffs.finalReleaseBuff))
-            {
-                if (FINALRELEASEAURA.isPlaying)
-                {
-                    FINALRELEASEAURA.Stop();
-                }
-            }
-            //OFA aura
-            if(booloneForAllAura || characterBody.HasBuff(Buffs.OFABuff) || characterBody.HasBuff(Buffs.OFAFOBuff) || characterBody.HasBuff(Buffs.limitBreakBuff))
-            {
-                if (OFA.isStopped)
-                {
-                    OFA.Play();
-                }
-            }
-            else if (!booloneForAllAura && !characterBody.HasBuff(Buffs.OFABuff) && !characterBody.HasBuff(Buffs.OFAFOBuff) && !characterBody.HasBuff(Buffs.limitBreakBuff))
-            {
-                if(OFA.isPlaying)
-                {
-                    OFA.Stop();
-                }
-            }
-            //final release buff
-            if (characterBody.HasBuff(Buffs.finalReleaseBuff))
-            {
-                if (energySystem.currentplusChaos <= 0f)
-                {
-                    //Debug.Log("mugetsu");
-                    StopFinalReleaseLoop();
-                    new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
-                }
-
-                //sprint to shunpo
-                if (buttonCooler >= 0f)
-                {
-                    buttonCooler -= Time.deltaTime * OFAFOTimeMultiplier * characterBody.attackSpeed;
-
-                }
-                if (buttonCooler < 0f)
-                {
-                    if (inputBank.sprint.justPressed)
+                    if (LARM.isStopped)
                     {
-                        //energy cost- same as getsuga
-                        float plusChaosflatCost = (StaticValues.finalReleaseEnergyCost) - (energySystem.costflatplusChaos);
-                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+                        LARM.Play();
+                    }
+                    if (RARM.isStopped)
+                    {
+                        RARM.Play();
+                    }
 
-                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                        if (plusChaosCost < 0f) plusChaosCost = 0f;
-                        energySystem.SpendplusChaos(plusChaosCost);
-
-                        new SetShunpoStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
-                        buttonCooler += StaticValues.finalReleaseThreshold;
-
+                }
+                else
+                {
+                    if (LARM.isPlaying)
+                    {
+                        LARM.Stop();
+                    }
+                    if (RARM.isPlaying)
+                    {
+                        RARM.Stop();
                     }
                 }
 
-
-
-                //fire a getsuga tenshou if holding a button down
-                if (finalReleaseTimer >= 0f)
+                //sword aura L
+                if (boolswordAuraL || characterBody.HasBuff(Buffs.finalReleaseBuff))
                 {
-                    finalReleaseTimer -= Time.deltaTime * OFAFOTimeMultiplier * characterBody.attackSpeed;
-                }
-                if (finalReleaseTimer < 0f)
-                {
-
-                    if (characterBody.inputBank.skill1.down
-                                            | characterBody.inputBank.skill2.down
-                                            | characterBody.inputBank.skill3.down
-                                            | characterBody.inputBank.skill4.down
-                                            | extrainputBankTest.extraSkill1.down
-                                            | extrainputBankTest.extraSkill2.down
-                                            | extrainputBankTest.extraSkill3.down
-                                            | extrainputBankTest.extraSkill4.down)
+                    if (SWORDAURAL.isStopped)
                     {
+                        SWORDAURAL.Play();
+                    }
+                }
+                else if (!boolswordAuraL && !characterBody.HasBuff(Buffs.finalReleaseBuff))
+                {
+                    if (SWORDAURAL.isPlaying)
+                    {
+                        SWORDAURAL.Stop();
+                    }
 
-                        //energy cost
-                        float plusChaosflatCost = (StaticValues.finalReleaseEnergyCost) - (energySystem.costflatplusChaos);
-                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+                }
+                //sword aura R
+                if (boolswordAuraR || characterBody.HasBuff(Buffs.finalReleaseBuff))
+                {
+                    if (SWORDAURAR.isStopped)
+                    {
+                        SWORDAURAR.Play();
+                    }
+                }
+                else if (!boolswordAuraR && !characterBody.HasBuff(Buffs.finalReleaseBuff))
+                {
+                    if (SWORDAURAR.isPlaying)
+                    {
+                        SWORDAURAR.Stop();
+                    }
 
-                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                        if (plusChaosCost < 0f) plusChaosCost = 0f;
-                        energySystem.SpendplusChaos(plusChaosCost);
+                }
+                //final release aura and music
+                if (characterBody.HasBuff(Buffs.finalReleaseBuff))
+                {
+                    if (FINALRELEASEAURA.isStopped)
+                    {
+                        FINALRELEASEAURA.Play();
+                    }
 
-                        finalReleaseTimer += StaticValues.finalReleaseThreshold;
+                }
+                else if (!characterBody.HasBuff(Buffs.finalReleaseBuff))
+                {
+                    if (FINALRELEASEAURA.isPlaying)
+                    {
+                        FINALRELEASEAURA.Stop();
+                    }
+                }
+                //OFA aura
+                if (booloneForAllAura || characterBody.HasBuff(Buffs.OFABuff) || characterBody.HasBuff(Buffs.OFAFOBuff) || characterBody.HasBuff(Buffs.limitBreakBuff))
+                {
+                    if (OFA.isStopped)
+                    {
+                        OFA.Play();
+                    }
+                }
+                else if (!booloneForAllAura && !characterBody.HasBuff(Buffs.OFABuff) && !characterBody.HasBuff(Buffs.OFAFOBuff) && !characterBody.HasBuff(Buffs.limitBreakBuff))
+                {
+                    if (OFA.isPlaying)
+                    {
+                        OFA.Stop();
+                    }
+                }
+                //final release buff
+                if (characterBody.HasBuff(Buffs.finalReleaseBuff))
+                {
+                    if (energySystem.currentplusChaos <= 0f)
+                    {
+                        //Debug.Log("mugetsu");
+                        StopFinalReleaseLoop();
+                        new SetMugetsuStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                    }
 
+                    //sprint to shunpo
+                    if (buttonCooler >= 0f)
+                    {
+                        buttonCooler -= Time.deltaTime * OFAFOTimeMultiplier * characterBody.attackSpeed;
 
-                        Debug.Log("getsuga");
-                        new SetGetsugaStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
-
-                        Ray aimRay = characterBody.inputBank.GetAimRay();
-
-                        EffectManager.SpawnEffect(EntityStates.Vulture.Weapon.FireWindblade.muzzleEffectPrefab, new EffectData
+                    }
+                    if (buttonCooler < 0f)
+                    {
+                        if (inputBank.sprint.justPressed)
                         {
-                            origin = child.FindChild("RHand").position,
-                            scale = 1f,
-                            rotation = Quaternion.LookRotation(aimRay.direction),
+                            //energy cost- same as getsuga
+                            float plusChaosflatCost = (StaticValues.finalReleaseEnergyCost) - (energySystem.costflatplusChaos);
+                            if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
-                        }, true);
+                            float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                            if (plusChaosCost < 0f) plusChaosCost = 0f;
+                            energySystem.SpendplusChaos(plusChaosCost);
 
+                            new SetShunpoStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                            buttonCooler += StaticValues.finalReleaseThreshold;
 
-                        //ProjectileManager.instance.FireProjectile(
-                        //    Modules.Assets.mercWindProj, //prefab
-                        //    aimRay.origin, //position
-                        //    Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
-                        //    base.gameObject, //owner
-                        //    characterBody.damage* StaticValues.finalReleaseDamageCoefficient, //damage
-                        //    200f, //force
-                        //    characterBody.RollCrit(), //crit
-                        //    DamageColorIndex.Default, //damage color
-                        //    null, //target
-                        //    -1); //speed }
-
-                        
+                        }
                     }
+
+
+
+                    //fire a getsuga tenshou if holding a button down
+                    if (finalReleaseTimer >= 0f)
+                    {
+                        finalReleaseTimer -= Time.deltaTime * OFAFOTimeMultiplier * characterBody.attackSpeed;
+                    }
+                    if (finalReleaseTimer < 0f)
+                    {
+
+                        if (characterBody.inputBank.skill1.down
+                                                | characterBody.inputBank.skill2.down
+                                                | characterBody.inputBank.skill3.down
+                                                | characterBody.inputBank.skill4.down
+                                                | extrainputBankTest.extraSkill1.down
+                                                | extrainputBankTest.extraSkill2.down
+                                                | extrainputBankTest.extraSkill3.down
+                                                | extrainputBankTest.extraSkill4.down)
+                        {
+
+                            //energy cost
+                            float plusChaosflatCost = (StaticValues.finalReleaseEnergyCost) - (energySystem.costflatplusChaos);
+                            if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+
+                            float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                            if (plusChaosCost < 0f) plusChaosCost = 0f;
+                            energySystem.SpendplusChaos(plusChaosCost);
+
+                            finalReleaseTimer += StaticValues.finalReleaseThreshold;
+
+
+                            Debug.Log("getsuga");
+                            new SetGetsugaStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+
+                            Ray aimRay = characterBody.inputBank.GetAimRay();
+
+                            EffectManager.SpawnEffect(EntityStates.Vulture.Weapon.FireWindblade.muzzleEffectPrefab, new EffectData
+                            {
+                                origin = child.FindChild("RHand").position,
+                                scale = 1f,
+                                rotation = Quaternion.LookRotation(aimRay.direction),
+
+                            }, true);
+
+
+                            //ProjectileManager.instance.FireProjectile(
+                            //    Modules.Assets.mercWindProj, //prefab
+                            //    aimRay.origin, //position
+                            //    Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
+                            //    base.gameObject, //owner
+                            //    characterBody.damage* StaticValues.finalReleaseDamageCoefficient, //damage
+                            //    200f, //force
+                            //    characterBody.RollCrit(), //crit
+                            //    DamageColorIndex.Default, //damage color
+                            //    null, //target
+                            //    -1); //speed }
+
+
+                        }
+                    }
+
                 }
-                
             }
 
 
@@ -1329,14 +1327,19 @@ namespace ShiggyMod.Modules.Survivors
 
         private void IndicatorUpdater()
         {
-
-            //death aura indicator
-            if (this.deathAuraIndicatorInstance)
+            if (characterBody.hasEffectiveAuthority)
             {
-                this.deathAuraIndicatorInstance.transform.parent = characterBody.transform;
-                this.deathAuraIndicatorInstance.transform.localScale = Vector3.one * (StaticValues.deathAuraRadius + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff));
-                this.deathAuraIndicatorInstance.transform.localPosition = characterBody.corePosition;
+                //death aura indicator
+                if (this.deathAuraIndicatorInstance)
+                {
+                    this.deathAuraIndicatorInstance.transform.parent = characterBody.transform;
+                    this.deathAuraIndicatorInstance.transform.localScale = Vector3.one * (StaticValues.deathAuraRadius + StaticValues.deathAuraRadiusStacks * characterBody.GetBuffCount(Buffs.deathAuraBuff));
+                    this.deathAuraIndicatorInstance.transform.localPosition = characterBody.corePosition;
+                }
             }
+
+
+            //the world indicator
 
             //the world indicator + more update stuff
             if (characterBody.HasBuff(Buffs.theWorldBuff))
@@ -1347,103 +1350,104 @@ namespace ShiggyMod.Modules.Survivors
                     //radius increases overtime
                     overclockTimer += Time.deltaTime * OFAFOTimeMultiplier;
                     float maxRadius = overclockTimer * StaticValues.theWorldCoefficient;
-                    if (maxRadius > 400f)
+                    if (maxRadius > StaticValues.theWorldMaxRadius)
                     {
-                        maxRadius = 400f;
+                        maxRadius = StaticValues.theWorldMaxRadius;
                     }
+                    if (characterBody.hasEffectiveAuthority)
+                    {
 
-
-                    //arrow rain prefab instance, expanding over time to indicate the radius
-                    if (!theWorldIndicatorInstance)
-                    {
-                        CreateTheWorldIndicator();
-                    }
-                    if (this.theWorldIndicatorInstance)
-                    {
-                        this.theWorldIndicatorInstance.transform.parent = characterBody.transform;
-                        this.theWorldIndicatorInstance.transform.localScale = Vector3.one * maxRadius;
-                        this.theWorldIndicatorInstance.transform.localPosition = characterBody.corePosition;
-                    }
-                    //freeze projectile 
-                    Collider[] array = Physics.OverlapSphere(characterBody.corePosition, maxRadius, LayerIndex.projectile.mask);
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        ProjectileController component = array[i].GetComponent<ProjectileController>();
-                        if (component)
+                        //arrow rain prefab instance, expanding over time to indicate the radius
+                        if (!theWorldIndicatorInstance)
                         {
-                            TeamComponent component2 = component.owner.GetComponent<TeamComponent>();
-                            if (component2 && component2.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
-                            {
-                                EffectData effectData = new EffectData();
-                                effectData.origin = component.transform.position;
-                                effectData.scale = 1f;
-                                EffectManager.SpawnEffect(EntityStates.BeetleMonster.HeadbuttState.hitEffectPrefab, effectData, false);
-                                //UnityEngine.Object.Destroy(array[i].gameObject);
-                                Object.Destroy(component.gameObject);
-                            }
+                            CreateTheWorldIndicator();
+                        }
+
+                        if (this.theWorldIndicatorInstance)
+                        {
+                            this.theWorldIndicatorInstance.transform.parent = characterBody.transform;
+                            this.theWorldIndicatorInstance.transform.localScale = Vector3.one * maxRadius;
+                            this.theWorldIndicatorInstance.transform.localPosition = Vector3.zero;
                         }
                     }
 
-                    //stop enemies from moving
-                    BullseyeSearch search = new BullseyeSearch
+                    if (characterBody.isServer)
                     {
-
-                        teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-                        filterByLoS = false,
-                        searchOrigin = characterBody.corePosition,
-                        searchDirection = UnityEngine.Random.onUnitSphere,
-                        sortMode = BullseyeSearch.SortMode.Distance,
-                        maxDistanceFilter = maxRadius,
-                        maxAngleFilter = 360f
-                    };
-
-                    search.RefreshCandidates();
-                    search.FilterOutGameObject(characterBody.gameObject);
-
-                    List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-                    foreach (HurtBox singularTarget in target)
-                    {
-                        if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                        //freeze projectile 
+                        Collider[] array = Physics.OverlapSphere(characterBody.corePosition, maxRadius, LayerIndex.projectile.mask);
+                        for (int i = 0; i < array.Length; i++)
                         {
-                            //stop time for all enemies within this radius
-                            if (!singularTarget.healthComponent.body.HasBuff(Buffs.theWorldDebuff))
+                            ProjectileController component = array[i].GetComponent<ProjectileController>();
+                            if (component)
                             {
-                                singularTarget.healthComponent.body.ApplyBuff(Buffs.theWorldDebuff.buffIndex, 1);
-
-                                new SetTheWorldFreezeOnBodyRequest(singularTarget.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
-
-                                SetStateOnHurt component = singularTarget.healthComponent.body.healthComponent.GetComponent<SetStateOnHurt>();
-                                bool flag = component == null;
-                                if (!flag)
+                                TeamComponent component2 = component.owner.GetComponent<TeamComponent>();
+                                if (component2 && component2.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
                                 {
-                                    bool canBeHitStunned = component.canBeFrozen;
-                                    if (canBeHitStunned)
-                                    {
-                                        component.SetFrozen(1);
-                                        bool flag2 = singularTarget.healthComponent.body.characterMotor;
-                                        if (flag2)
-                                        {
-                                            singularTarget.healthComponent.body.characterMotor.velocity = Vector3.zero;
-                                        }
-                                    }
+                                    EffectData effectData = new EffectData();
+                                    effectData.origin = component.transform.position;
+                                    effectData.scale = 1f;
+                                    EffectManager.SpawnEffect(EntityStates.BeetleMonster.HeadbuttState.hitEffectPrefab, effectData, false);
+                                    //UnityEngine.Object.Destroy(array[i].gameObject);
+                                    Object.Destroy(component.gameObject);
                                 }
                             }
                         }
 
-                        
+                        //stop enemies from moving
+                        BullseyeSearch search = new BullseyeSearch
+                        {
+
+                            teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                            filterByLoS = false,
+                            searchOrigin = characterBody.corePosition,
+                            searchDirection = UnityEngine.Random.onUnitSphere,
+                            sortMode = BullseyeSearch.SortMode.Distance,
+                            maxDistanceFilter = maxRadius,
+                            maxAngleFilter = 360f
+                        };
+
+                        search.RefreshCandidates();
+                        search.FilterOutGameObject(characterBody.gameObject);
+
+                        List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                        foreach (HurtBox singularTarget in target)
+                        {
+                            if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                            {
+                                //stop time for all enemies within this radius
+                                if (!singularTarget.healthComponent.body.HasBuff(Buffs.theWorldDebuff))
+                                {
+                                    singularTarget.healthComponent.body.ApplyBuff(Buffs.theWorldDebuff.buffIndex, 1);
+
+                                    new SetTheWorldFreezeOnBodyRequest(singularTarget.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
+
+
+                                    if (singularTarget.healthComponent.body.master)
+                                    {
+                                        singularTarget.healthComponent.body.master.enabled = false;
+                                        BaseAI[] aiComponents = singularTarget.healthComponent.body.master.aiComponents;
+                                        int num2 = aiComponents.Length;
+                                        for (int j = 0; j < num2; j++)
+                                        {
+                                            bool flag9 = aiComponents[j];
+                                            if (flag9)
+                                            {
+                                                aiComponents[j].enabled = false;
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+
+
+                        }
                     }
-
-
                 }
-                else if (energySystem.currentplusChaos <= 0f)
-                {
-                    characterBody.ApplyBuff(Buffs.theWorldBuff.buffIndex, 0);
-                }
-
-                
             }
-            else if (!characterBody.HasBuff(Buffs.theWorldBuff))
+            else if (energySystem.currentplusChaos < 1f || !characterBody.HasBuff(Buffs.theWorldBuff))
             {
+                characterBody.ApplyBuff(Buffs.theWorldBuff.buffIndex, 0);
                 //make sure to reset the timer and instance size 
                 overclockTimer = 0f;
                 if (this.theWorldIndicatorInstance)
@@ -1460,7 +1464,7 @@ namespace ShiggyMod.Modules.Survivors
                         searchOrigin = characterBody.corePosition,
                         searchDirection = UnityEngine.Random.onUnitSphere,
                         sortMode = BullseyeSearch.SortMode.Distance,
-                        maxDistanceFilter = StaticValues.theWorldMaxRadius,
+                        maxDistanceFilter = StaticValues.theWorldMaxRadius * 2f,
                         maxAngleFilter = 360f
                     };
 
@@ -1472,39 +1476,50 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         if (singularTarget.healthComponent && singularTarget.healthComponent.body)
                         {
-                            //stop time for all enemies within this radius
+                            //time o ugokidasu
                             if (singularTarget.healthComponent.body.HasBuff(Buffs.theWorldDebuff))
                             {
-                                singularTarget.healthComponent.body.ApplyBuff(Buffs.theWorldDebuff.buffIndex, 0);
-                            }
-                        }
-                    }
+                                try
+                                {
+                                    singularTarget.healthComponent.body.ApplyBuff(Buffs.theWorldDebuff.buffIndex, 0);
 
-                    //freeze projectile 
-                    Collider[] array = Physics.OverlapSphere(characterBody.corePosition, 250f, LayerIndex.projectile.mask);
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        ProjectileController component = array[i].GetComponent<ProjectileController>();
-                        if (component)
-                        {
-                            TeamComponent component2 = component.owner.GetComponent<TeamComponent>();
-                            if (component2 && component2.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
-                            {
-                                EffectData effectData = new EffectData();
-                                effectData.origin = component.transform.position;
-                                effectData.scale = 1f;
-                                EffectManager.SpawnEffect(EntityStates.BeetleMonster.HeadbuttState.hitEffectPrefab, effectData, false);
-                                //UnityEngine.Object.Destroy(array[i].gameObject);
-                                Object.Destroy(component.gameObject);
-                                component.enabled = false;
+
+                                    if (singularTarget.healthComponent.body.master)
+                                    {
+                                        singularTarget.healthComponent.body.master.enabled = true;
+                                        BaseAI[] aiComponents = singularTarget.healthComponent.body.master.aiComponents;
+                                        int num2 = aiComponents.Length;
+                                        for (int j = 0; j < num2; j++)
+                                        {
+                                            bool flag9 = aiComponents[j];
+                                            if (flag9)
+                                            {
+                                                aiComponents[j].enabled = true;
+                                            }
+                                        }
+                                    }
+
+                                    if (singularTarget.healthComponent.body.characterMotor)
+                                    {
+                                        singularTarget.healthComponent.body.characterMotor.enabled = true;
+                                    }
+                                    Animator animCom = singularTarget.healthComponent.body.modelLocator.modelTransform.GetComponent<Animator>();
+                                    if (animCom)
+                                    {
+                                        animCom.enabled = true;
+                                    }
+                                }
+                                catch
+                                {
+                                    Debug.LogWarning("failed to unstop everything");
+                                }
 
                             }
                         }
                     }
                 }
-
-
             }
+
         }
 
         //death Aura Indicator 
@@ -1532,7 +1547,7 @@ namespace ShiggyMod.Modules.Survivors
 
                 this.theWorldIndicatorInstance.transform.parent = characterBody.transform;
                 this.theWorldIndicatorInstance.transform.localScale = Vector3.one * StaticValues.theWorldCoefficient;
-                this.theWorldIndicatorInstance.transform.localPosition = characterBody.corePosition;
+                this.theWorldIndicatorInstance.transform.localPosition = Vector3.zero;
 
             }
         }

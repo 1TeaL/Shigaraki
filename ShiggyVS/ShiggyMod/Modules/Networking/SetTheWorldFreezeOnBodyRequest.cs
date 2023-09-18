@@ -69,11 +69,11 @@ namespace ShiggyMod.Modules.Networking
 
             foreach (EntityStateMachine stateMachine in stateMachines)
             {
-                if (stateMachine.customName == "Body")
-                {
+                //if (stateMachine.customName == "Body")
+                //{
                     stateMachine.SetState(new TheWorldFreeze());
                     return;
-                }
+                //}
             }
         }
     }

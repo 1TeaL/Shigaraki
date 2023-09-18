@@ -9,17 +9,17 @@ using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
 using R2API.Networking;
 using System;
+using System.ComponentModel;
 
 namespace ShiggyMod.SkillStates
 {
-    public class TheWorldFreeze : Skill
+    public class TheWorldFreeze : BaseSkillState
     {
         Animator animator;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            //play animation and maybe particles?
 
             animator = base.GetModelAnimator();
             if (animator)
@@ -61,7 +61,8 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            
+
+
             if (base.characterDirection)
             {
                 base.characterDirection.moveVector = base.characterDirection.forward;
