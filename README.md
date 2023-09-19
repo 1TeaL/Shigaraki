@@ -91,13 +91,14 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Known Issues
     Sometimes quirks don't combine.
+    Multiplayer has some issues with buff checks, sometimes occurring twice (taking damage twice, healing twice etc)
 ## Overview
     He is initially weak with low base damage, aim to get passive quirks to increase his power.
     All For One can grab elite equipment from elites. 
     Different quirks builds his playstyle, such as focusing on procs, high damage, buffs, debuffs, defensive, mobility, utility, it's up to you.
     It's good to have some base skills too as synergy and ultimate skills aren't usually direct upgrades.
     Beetle Queen's Summon Ally quirk allows you to get the base survivor's summoned and therefore be able to steal their quirks too. 
-	
+    https://miro.com/app/board/uXjVPKipCPA=/?share_link_id=782257375770 This is a Miro link to a visual of all the skills
 
 ## Skills
 ### Passive
