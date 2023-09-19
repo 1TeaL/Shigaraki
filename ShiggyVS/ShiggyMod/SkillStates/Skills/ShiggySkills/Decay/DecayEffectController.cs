@@ -81,13 +81,13 @@ namespace ShiggyMod.SkillStates
                         controller = singularTarget.gameObject.AddComponent<DecayEffectController>();
                         controller.attackerBody = attackerBody;
                     }
-                    EffectManager.SpawnEffect(Modules.Assets.decaybuffEffect, new EffectData
-                    {
-                        origin = singularTarget.healthComponent.body.corePosition,
-                        scale = 1f,
-                        rotation = Quaternion.identity,
+                    //EffectManager.SpawnEffect(Modules.Assets.decaybuffEffect, new EffectData
+                    //{
+                    //    origin = singularTarget.healthComponent.body.corePosition,
+                    //    scale = 1f,
+                    //    rotation = Quaternion.identity,
 
-                    }, true);
+                    //}, true);
                 }
             }
         }

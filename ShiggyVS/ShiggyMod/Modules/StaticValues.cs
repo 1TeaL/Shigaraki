@@ -249,6 +249,7 @@ namespace ShiggyMod.Modules
         internal const float sweepingBeamDamageCoefficient = 1f;
         internal const float sweepingBeamProcCoefficient = 0.2f;
         internal const uint sweepingBeamTotalBullets = 20;
+        internal const float sweepingBeamMaxAngle = 120f;
 
         internal const float blackholeGlaiveDamageCoefficient = 1.2f;
         internal const float blackholeGlaiveDamageCoefficientPerBounce = 1.2f;
@@ -292,7 +293,7 @@ namespace ShiggyMod.Modules
 
         internal const float expungeDamageCoefficient = 6f;
         internal const float expungeProcCoefficient = 1f;
-        internal const float expungeRadius = 7f;
+        internal const float expungeRadius = 50f;
         internal const float expungeDamageMultiplier = 1.5f;
 
         internal const float shadowClawDamageCoefficient = 3f;
@@ -319,6 +320,7 @@ namespace ShiggyMod.Modules
         internal const float thunderclapSpeedCoefficientOnExit = 0f;
 
         internal const float blastBurnDamageCoefficient = 2f;
+        internal const float blastBurnDamageCoefficientGain = 0.2f;
         internal const float blastBurnProcCoefficient = 0.3f;
         internal const float blastBurnStartRadius = 5f;
         internal const float blastBurnIncrementRadius = 1f;

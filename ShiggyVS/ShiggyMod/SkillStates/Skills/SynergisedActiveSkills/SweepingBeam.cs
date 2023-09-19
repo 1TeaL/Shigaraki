@@ -32,12 +32,12 @@ namespace ShiggyMod.SkillStates
 
         private Vector3 direction;
         private float stopwatch;
-        private float maxAngle = 120f;
+        private float maxAngle = StaticValues.sweepingBeamMaxAngle;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
+            this.duration = this.baseDuration;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
@@ -56,7 +56,7 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 
-            totalBullets = Modules.StaticValues.sweepingBeamTotalBullets;
+            totalBullets = (uint)(Modules.StaticValues.sweepingBeamTotalBullets * attackSpeedStat);
             fireTime = duration / totalBullets;
 
 

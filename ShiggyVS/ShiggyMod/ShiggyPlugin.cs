@@ -149,6 +149,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<OrbDamageRequest>();
             NetworkingAPI.RegisterMessageType<LightAndDarknessPullRequest>();
             NetworkingAPI.RegisterMessageType<BlastingZoneDebuffDamageRequest>();
+            NetworkingAPI.RegisterMessageType<ExpungeNetworkRequest>();
 
 
 
@@ -956,6 +957,17 @@ namespace ShiggyMod
                     }
                 }
 
+                //omniboost buff stacks halve on kill
+                if (damageReport.attackerBody.HasBuff(Buffs.omniboostBuffStacks))
+                {
+                    if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
+                    {
+                        int omniBoostBuffStacksBuffCount = damageReport.attackerBody.GetBuffCount(Buffs.omniboostBuffStacks);
+                        damageReport.attackerBody.ApplyBuff(Buffs.doubleTimeBuffStacks.buffIndex, omniBoostBuffStacksBuffCount/2);
+                    }
+                }
+
+
             }
         }
 
@@ -1011,6 +1023,8 @@ namespace ShiggyMod
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
             //orig(self, damageInfo);
+
+            orig(self, damageInfo);
 
             if (self)
             {
@@ -1133,47 +1147,12 @@ namespace ShiggyMod
                         }
 
                         //expunge damage bonus
-                        if (attackerBody.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
-                        {
-                            if (damageInfo.damageType == DamageType.BypassArmor)
-                            {
-                                //deal bonus damage based on number of debuffs
-                                int debuffCount = 0;
-                                DotController d = DotController.FindDotController(self.gameObject);
+                        //if (attackerBody.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                        //{
+                        //    if (damageInfo.damageType == DamageType.BypassArmor)
+                        //    {
 
-                                foreach (BuffIndex buffType in BuffCatalog.debuffBuffIndices)
-                                {
-                                    if (victimBody.HasBuff(buffType))
-                                    {
-                                        debuffCount++;
-                                    }
-                                }
-
-                                DotController dotController = DotController.FindDotController(self.gameObject);
-                                if (dotController)
-                                {
-                                    for (DotController.DotIndex dotIndex = DotController.DotIndex.Bleed; dotIndex < DotController.DotIndex.Count; dotIndex++)
-                                    {
-                                        if (dotController.HasDotActive(dotIndex))
-                                        {
-                                            debuffCount++;
-                                        }
-                                    }
-                                }
-
-                                if (victimBody.HasBuff(Buffs.decayDebuff))
-                                {
-                                    debuffCount++;
-                                }
-
-                                //Debug.Log(debuffCount + "debuffcount");
-                                float buffDamage = 0f;
-                                float buffBaseDamage = damageInfo.damage * StaticValues.expungeDamageMultiplier;
-                                buffDamage = buffBaseDamage * debuffCount;
-                                damageInfo.damage += buffDamage;
-                            }
-
-                        }
+                        //}
 
 
                         //darkness form debuff effect
@@ -1486,7 +1465,6 @@ namespace ShiggyMod
 
             }
 
-            orig(self, damageInfo);
 
         }
 

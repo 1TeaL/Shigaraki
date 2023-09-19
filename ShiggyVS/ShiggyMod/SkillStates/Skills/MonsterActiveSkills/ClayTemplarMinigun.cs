@@ -19,7 +19,7 @@ namespace ShiggyMod.SkillStates
 
         private float radius = 15f;
         private float damageCoefficient = Modules.StaticValues.claytemplarminigunDamageCoefficient;
-        private float procCoefficient = 0.05f;
+        private float procCoefficient = 0.1f;
         private float force = 1f;
         private float speedOverride = -1f;
         private string muzzleString;
@@ -114,7 +114,7 @@ namespace ShiggyMod.SkillStates
                 bulletCount = (uint)baseBulletCount,
                 aimVector = aimRay.direction,
                 origin = aimRay.origin,
-                damage = damageCoefficient,
+                damage = damageCoefficient * characterBody.damage,
                 damageColorIndex = DamageColorIndex.Default,
                 damageType = damageType,
                 falloffModel = BulletAttack.FalloffModel.None,

@@ -84,7 +84,7 @@ namespace ShiggyMod.Modules
 
             ProjectileController lemurianFireBallController = lemurianFireBall.GetComponent<ProjectileController>();
             lemurianFireBallController.rigidbody = lemurianFireballRigidbody;
-            lemurianFireBallController.rigidbody.useGravity = true;
+            lemurianFireBallController.rigidbody.useGravity = false;
             lemurianFireBallController.rigidbody.mass = 1f;
             lemurianFireBallController.procCoefficient = 1f;
             

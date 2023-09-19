@@ -126,7 +126,7 @@ namespace ShiggyMod.SkillStates
                 aimVector = aimRay.direction,
                 //origin = FindModelChild(this.muzzleString).transform.position,
                 origin = aimRay.origin,
-                damage = damageCoefficient,
+                damage = damageCoefficient * characterBody.damage,
                 damageColorIndex = DamageColorIndex.Default,
                 damageType = damageType,
                 falloffModel = BulletAttack.FalloffModel.None,

@@ -9,12 +9,13 @@ using RoR2.ExpansionManagement;
 using ExtraSkillSlots;
 using R2API.Networking;
 using System;
+using ShiggyMod.Modules.Networking;
+using R2API.Networking.Interfaces;
 
 namespace ShiggyMod.SkillStates
 {
     public class Expunge : BaseSkillState
     {
-        private BlastAttack blastAttack;
         public float fireTime;
         public bool hasFired = false;
         public float radius;
@@ -45,19 +46,6 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
 
 
-            blastAttack = new BlastAttack();
-            blastAttack.radius = radius;
-            blastAttack.procCoefficient = StaticValues.expungeProcCoefficient;
-            blastAttack.position = aimRay.origin + aimRay.direction * radius;
-            blastAttack.attacker = base.gameObject;
-            blastAttack.crit = characterBody.RollCrit();
-            blastAttack.baseDamage = damageStat* Modules.StaticValues.expungeDamageCoefficient;
-            blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-            blastAttack.baseForce = 400f;
-            blastAttack.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
-            blastAttack.damageType |= DamageType.BypassArmor;
-            blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-
 
         }
 
@@ -83,17 +71,14 @@ namespace ShiggyMod.SkillStates
                 Ray aimRay = base.GetAimRay();
                 EffectManager.SpawnEffect(Assets.impBossExplosionEffect, new EffectData
                 {
-                    origin = aimRay.origin + aimRay.direction * radius,
+                    origin = aimRay.origin,
                     scale = radius,
                     rotation = Quaternion.identity,
 
                 }, true);
 
-                blastAttack.position = aimRay.origin + aimRay.direction * radius;
-                if (blastAttack.Fire().hitCount > 0)
-                {
-                    this.OnHitEnemyAuthority();
-                }
+                new ExpungeNetworkRequest(characterBody.master.netId, Vector3.up, radius, characterBody.damage * StaticValues.expungeDamageCoefficient).Send(NetworkDestination.Clients);
+
             }
 
             if(base.fixedAge > duration)

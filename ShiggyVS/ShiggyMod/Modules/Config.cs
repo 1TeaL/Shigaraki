@@ -47,6 +47,8 @@ namespace ShiggyMod.Modules
                 AFOHotkey));
             ModSettingsManager.AddOption(new KeyBindOption(
                 RemoveHotkey));
+            ModSettingsManager.AddOption(new KeyBindOption(
+                AFOGiveHotkey));
             ModSettingsManager.AddOption(new CheckBoxOption(
                 retainLoadout));
             ModSettingsManager.AddOption(new CheckBoxOption(

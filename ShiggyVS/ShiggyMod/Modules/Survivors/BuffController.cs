@@ -669,20 +669,20 @@ namespace ShiggyMod.Modules.Survivors
         {
 
             //omniboost buff expire timer
-            if (characterBody.HasBuff(Buffs.omniboostBuffStacks))
-            {
-                if (omniboostTimer <= StaticValues.omniboostBuffTimer)
-                {
-                    omniboostTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
-                }
-                else if (omniboostTimer > StaticValues.omniboostBuffTimer)
-                {
-                    int buffCountToApply = characterBody.GetBuffCount(Buffs.omniboostBuffStacks.buffIndex);
-                    characterBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, buffCountToApply - 1);
-                    omniboostTimer = 0f;                    
+            //if (characterBody.HasBuff(Buffs.omniboostBuffStacks))
+            //{
+            //    if (omniboostTimer <= StaticValues.omniboostBuffTimer)
+            //    {
+            //        omniboostTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+            //    }
+            //    else if (omniboostTimer > StaticValues.omniboostBuffTimer)
+            //    {
+            //        int buffCountToApply = characterBody.GetBuffCount(Buffs.omniboostBuffStacks.buffIndex);
+            //        characterBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, buffCountToApply - 1);
+            //        omniboostTimer = 0f;                    
 
-                }
-            }
+            //    }
+            //}
         }
 
         public void CaptainBuff()
@@ -797,7 +797,8 @@ namespace ShiggyMod.Modules.Survivors
                         if (roboballTimer > 1f)
                         {
                             roboballTimer = 0f;
-                            characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex);
+                            int solusBuffCount = characterBody.GetBuffCount(Buffs.roboballminiattackspeedBuff.buffIndex);
+                            characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex, solusBuffCount + 1);
                         }
                         else
                         {
@@ -828,7 +829,8 @@ namespace ShiggyMod.Modules.Survivors
                         if (roboballTimer > 1f)
                         {
                             roboballTimer = 0f;
-                            characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex);
+                            int solusBuffCount = characterBody.GetBuffCount(Buffs.roboballminiattackspeedBuff.buffIndex);
+                            characterBody.ApplyBuff(Modules.Buffs.roboballminiattackspeedBuff.buffIndex, solusBuffCount + 1);
                         }
                         else
                         {

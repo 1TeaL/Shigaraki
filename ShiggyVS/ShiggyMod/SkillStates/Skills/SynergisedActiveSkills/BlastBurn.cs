@@ -20,6 +20,7 @@ namespace ShiggyMod.SkillStates
         public float fireInterval;
         public float stopwatch;
         public float radius;
+        private float damage;
         private string muzzleString = "RHand";
 
         private GameObject chargeVfxInstance;
@@ -39,7 +40,7 @@ namespace ShiggyMod.SkillStates
             }
 
             Ray aimRay = base.GetAimRay();
-
+            damage = characterBody.damage * StaticValues.blastBurnDamageCoefficient;
 
             blastAttack = new BlastAttack();
             blastAttack.radius = radius;
@@ -47,11 +48,11 @@ namespace ShiggyMod.SkillStates
             blastAttack.position = aimRay.origin;
             blastAttack.attacker = base.gameObject;
             blastAttack.crit = characterBody.RollCrit();
-            blastAttack.baseDamage = damageStat * Modules.StaticValues.blastBurnDamageCoefficient;
+            blastAttack.baseDamage = damage;
             blastAttack.falloffModel = BlastAttack.FalloffModel.None;
             blastAttack.baseForce = 400f;
             blastAttack.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
-            blastAttack.damageType |= DamageType.BypassArmor;
+            blastAttack.damageType = DamageType.IgniteOnHit;
             blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
             //play anim
@@ -92,6 +93,9 @@ namespace ShiggyMod.SkillStates
 
                     }, true);
 
+                    blastAttack.crit = characterBody.RollCrit();
+                    blastAttack.baseDamage = damage;
+                    blastAttack.radius = radius;
                     blastAttack.position = aimRay.origin;
                     blastAttack.Fire();
                     EffectManager.SimpleMuzzleFlash(FireFireball.effectPrefab, base.gameObject, muzzleString, false);
@@ -101,6 +105,9 @@ namespace ShiggyMod.SkillStates
 
                     //increment radius size after each attack
                     radius += StaticValues.blastBurnIncrementRadius;
+                    damage += characterBody.damage * StaticValues.blastBurnDamageCoefficientGain;
+
+
                 }
             }
             else if (!base.IsKeyDownAuthority())
