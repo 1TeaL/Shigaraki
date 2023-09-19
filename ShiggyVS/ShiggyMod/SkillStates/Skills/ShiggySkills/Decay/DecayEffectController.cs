@@ -23,13 +23,13 @@ namespace ShiggyMod.SkillStates
             //effectObj.transform.parent = charBody.gameObject.transform;
             //effectObj = EffectManager.SimpleEffect(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity, true);
 
-            EffectManager.SpawnEffect(Modules.Assets.decaybuffEffect, new EffectData
-            {
-                origin = charBody.corePosition,
-                scale = 1f,
-                rotation = Quaternion.identity,
+            //EffectManager.SpawnEffect(effectObj, new EffectData
+            //{
+            //    origin = charBody.corePosition,
+            //    scale = 1f,
+            //    rotation = Quaternion.identity,
 
-            }, true);
+            //}, true);
 
         }
 
@@ -127,13 +127,13 @@ namespace ShiggyMod.SkillStates
                     timer = 0;
                     ApplyDoT();
                     //ApplyDotToSelf();
-                    EffectManager.SpawnEffect(Modules.Assets.decaybuffEffect, new EffectData
-                    {
-                        origin = charBody.corePosition,
-                        scale = 1f,
-                        rotation = Quaternion.identity,
+                    //EffectManager.SpawnEffect(effectObj, new EffectData
+                    //{
+                    //    origin = charBody.corePosition,
+                    //    scale = 1f,
+                    //    rotation = Quaternion.identity,
 
-                    }, true);
+                    //}, true);
                 }
             }
             else if (!charBody)

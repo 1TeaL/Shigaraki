@@ -54,7 +54,8 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
+            //PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
+            PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
             damageType = DamageType.Generic;
             float[] source = new float[]
             {
@@ -72,15 +73,15 @@ namespace ShiggyMod.SkillStates
                 ChildLocator component = modelTransform.GetComponent<ChildLocator>();
                 if (component)
                 {
-                    Transform transform = base.FindModelChild("RHand");
+                    Transform transform = base.FindModelChild("LHand");
                     if (transform && ChargeMegaFireball.chargeEffectPrefab)
                     {
-                        this.chargeInstance = UnityEngine.Object.Instantiate<GameObject>(ChargeMegaFireball.chargeEffectPrefab, transform.position + characterDirection.forward * 2f, transform.rotation);
+                        this.chargeInstance = UnityEngine.Object.Instantiate<GameObject>(ChargeMegaFireball.chargeEffectPrefab, transform.position + characterDirection.forward + Vector3.up, transform.rotation);
                         this.chargeInstance.transform.parent = transform;
                         ScaleParticleSystemDuration component2 = this.chargeInstance.GetComponent<ScaleParticleSystemDuration>();
                         if (component2)
                         {
-                            component2.newDuration = maxCharge;
+                            component2.newDuration = 60f;
                         }
                     }
                 }
@@ -92,7 +93,7 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             Vector3 direction = aimRay.direction;
             aimRay.origin = base.characterBody.corePosition;
-            this.maxDistance = (1f + 4f * this.chargePercent) * this.baseDistance;
+            this.maxDistance = baseDistance;
             Physics.Raycast(aimRay.origin, aimRay.direction, out this.raycastHit, this.maxDistance);
             this.hitDis = this.raycastHit.distance;
             bool flag = this.hitDis < this.maxDistance && this.hitDis > 0f;
@@ -100,7 +101,7 @@ namespace ShiggyMod.SkillStates
             {
                 this.maxDistance = this.hitDis;
             }
-            this.damageMult = damageCoefficient + 2 * this.chargePercent * damageCoefficient;
+            this.damageMult = damageCoefficient + 4 * this.chargePercent * damageCoefficient;
             this.radius = (this.baseRadius * this.damageMult + 10f) / 4f;
             this.maxMoveVec = this.maxDistance * direction;
             this.areaIndicator.transform.localScale = Vector3.one * this.radius;
@@ -131,7 +132,7 @@ namespace ShiggyMod.SkillStates
             bool flag = base.IsKeyDownAuthority();
             if (flag)
             {
-                PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
+                PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
                 this.chargePercent = base.fixedAge / this.maxCharge;
                 this.IndicatorUpdator();
             }

@@ -92,7 +92,7 @@ namespace ShiggyMod.SkillStates
 
                 blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
 
-                Debug.Log(hitCount + "hitcount");
+                //Debug.Log(hitCount + "hitcount");
                 for (int i = 0; i < hitCount; i++)
                 {
                     if(blastAttack.Fire().hitCount > 0)

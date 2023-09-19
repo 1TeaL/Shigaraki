@@ -206,7 +206,7 @@ namespace ShiggyMod.Modules
             finalReleaseBuff = Buffs.AddNewBuff($"Final Release Buff", Assets.mercExposeIcon, Color.white, true, false);
             lightFormBuff = Buffs.AddNewBuff($"Light Form Buff", Assets.lunarRootIcon, Color.white, false, false);
             darknessFormBuff = Buffs.AddNewBuff($"Darkness Form Buff", Assets.lunarRootIcon, Color.black, false, false);
-            lightAndDarknessFormBuff = Buffs.AddNewBuff($"Light And Darkness Form Buff", Assets.lunarRootIcon, Color.magenta, true, false);
+            lightAndDarknessFormBuff = Buffs.AddNewBuff($"Light And Darkness Form Buff", Assets.lunarRootIcon, Color.magenta, false, false);
 
             //wild card buffs
             wildcardSpeedBuff = Buffs.AddNewBuff($"Wildcard Speed Buff- Move {StaticValues.wildcardSpeedCoefficient}x faster. ", Assets.speedBuffIcon, Color.white, false, false);

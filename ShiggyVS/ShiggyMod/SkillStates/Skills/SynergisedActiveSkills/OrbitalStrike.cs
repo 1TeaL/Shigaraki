@@ -12,6 +12,7 @@ using EmotesAPI;
 using System;
 using EntityStates.Huntress;
 using Object = UnityEngine.Object;
+using ExtraSkillSlots;
 
 namespace ShiggyMod.SkillStates
 {
@@ -37,6 +38,10 @@ namespace ShiggyMod.SkillStates
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
         private Ray aimRay;
 
+        private ExtraSkillLocator extraSkillLocator;
+        private ExtraInputBankTest extraInputBank;
+
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -45,7 +50,8 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+            extraSkillLocator = gameObject.GetComponent<ExtraSkillLocator>();
+            extraInputBank = gameObject.GetComponent<ExtraInputBankTest>();
 
             //EffectManager.SimpleMuzzleFlash(EntityStates.Captain.Weapon.SetupAirstrike, base.gameObject, muzzleName, false);
             Util.PlaySound(SetupAirstrike.enterSoundString, base.gameObject);
@@ -60,9 +66,10 @@ namespace ShiggyMod.SkillStates
             {
                 this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, SetupAirstrike.crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
             }
-            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
+            PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
 
             this.aimSphere = Object.Instantiate<GameObject>(ArrowRain.areaIndicatorPrefab);
+            aimSphere.SetActive(true);
 
         }
 
@@ -81,6 +88,7 @@ namespace ShiggyMod.SkillStates
             {
                 overrideRequest.Dispose();
             }
+            aimSphere.SetActive(false);
             EntityState.Destroy(this.aimSphere.gameObject);
         }
         private void Fire()
@@ -143,30 +151,71 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
-            if (base.fixedAge >= this.duration && !base.IsKeyDownAuthority())
+            base.characterBody.SetAimTimer(this.duration);
+            if (base.IsKeyDownAuthority())
             {
+                PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
+            }
+            else if (!base.IsKeyDownAuthority())
+            {
+                if (inputBank.skill1.justReleased && characterBody.skillLocator.primary.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
+                {
+                    ReleaseKey();
+                }
+                if (inputBank.skill2.justReleased && characterBody.skillLocator.secondary.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
+                {
+                    ReleaseKey();
+                }
+                if (inputBank.skill3.justReleased && characterBody.skillLocator.utility.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
+                {
+                    ReleaseKey();
+                }
+                if (inputBank.skill4.justReleased && characterBody.skillLocator.special.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
+                {
+                    ReleaseKey();
+                }
+                if (extraInputBank.extraSkill1.justReleased && extraSkillLocator.extraFirst.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
+                {
+                    ReleaseKey();
+                }
+                if (extraInputBank.extraSkill2.justReleased && extraSkillLocator.extraSecond.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
+                {
+                    ReleaseKey();
+                }
+                if (extraInputBank.extraSkill3.justReleased && extraSkillLocator.extraThird.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
+                {
+                    ReleaseKey();
+                }
+                if (extraInputBank.extraSkill4.justReleased && extraSkillLocator.extraFourth.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
+                {
+                    ReleaseKey();
+                }
+
                 durationAfterTimer += Time.fixedDeltaTime;
-                if(durationAfterTimer > duration / 2f)
+                if (durationAfterTimer > duration / 2f)
                 {
                     this.outer.SetNextStateToMain();
                     return;
 
                 }
-                if (!hasFired)
+            }
+        }
+        public void ReleaseKey()
+        {
+            if (!hasFired)
+            {
+                hasFired = true;
+                this.Fire();
+                base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+                int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+                base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+                //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+                if (base.isAuthority)
                 {
-                    hasFired = true;
-                    this.Fire();
-                    base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-                    int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
-                    //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-                    base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-                    if (base.isAuthority)
-                    {
-                        if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
-                    }
+                    if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
                 }
             }
+
         }
 
 

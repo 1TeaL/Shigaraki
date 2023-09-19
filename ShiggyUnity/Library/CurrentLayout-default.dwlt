@@ -47,7 +47,7 @@ MonoBehaviour:
   m_MinSize: {x: 504, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 1
-  controlID: 159
+  controlID: 79
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_MinSize: {x: 504, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 160
+  controlID: 80
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -765,19 +765,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Shigaraki/GUI/BaseSkills
+    - Assets/Shigaraki/Assets/Particle
   m_ViewMode: 1
   m_StartGridSize: 82
   m_LastFolders:
-  - Assets/Shigaraki/GUI/BaseSkills
+  - Assets/Shigaraki/Assets/Particle
   m_LastFoldersGridSize: 82
   m_LastProjectPath: F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyUnity
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 140}
-    m_SelectedIDs: a2420000
-    m_LastClickedID: 17058
+    m_SelectedIDs: 9c420000
+    m_LastClickedID: 17052
     m_ExpandedIDs: 00000000e8410000ea410000ec410000ee410000f0410000f2410000f4410000f6410000f8410000fa410000fc410000fe41000000420000024200000442000006420000084200000a4200000c4200000e42000010420000124200001442000016420000184200001a4200001c4200001e42000020420000224200002442000026420000284200002a4200002c4200002e42000030420000324200003442000036420000384200003a4200003c4200003e42000040420000424200004442000046420000484200004a4200004c4200004e42000050420000524200005442000056420000584200005a4200005c4200005e42000060420000624200006442000066420000684200006a4200006c4200006e42000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -929,9 +929,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 32430000
+      m_SelectedIDs: 68370000
       m_LastClickedID: 0
-      m_ExpandedIDs: 3cfbffff
+      m_ExpandedIDs: 7eecffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -991,9 +991,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.25211325, y: -3.7735105, z: -20.413057}
+    m_Target: {x: -5.097177, y: 0.9187602, z: -7.371006}
     speed: 2
-    m_Value: {x: -0.25211325, y: -3.7735105, z: -20.413057}
+    m_Value: {x: -5.097177, y: 0.9187602, z: -7.371006}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1039,13 +1039,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.0009111608, y: 0.99239725, z: -0.12299558, w: 0.00711174}
+    m_Target: {x: 0.007628396, y: -0.97501, z: 0.033956908, w: 0.21948916}
     speed: 2
-    m_Value: {x: 0.00091116084, y: 0.9923973, z: -0.122995585, w: 0.00711174}
+    m_Value: {x: 0.007628278, y: -0.9749949, z: 0.033956382, w: 0.21948576}
   m_Size:
-    m_Target: 12.388667
+    m_Target: 6.6124635
     speed: 2
-    m_Value: 12.388667
+    m_Value: 6.6124635
   m_Ortho:
     m_Target: 0
     speed: 2

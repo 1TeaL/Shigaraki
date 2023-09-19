@@ -374,8 +374,8 @@ namespace ShiggyMod.Modules
 
             //decay particle
             decayattackEffect = LoadEffect("DecayAttack");
-            decaybuffEffect = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DecayBuff");
-            //decaybuffEffect = LoadEffect("DecayBuff");
+            //decaybuffEffect = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DecayBuff");
+            decaybuffEffect = LoadEffect("DecayBuff");
             decayspreadEffect = LoadEffect("DecaySpread");
             //sounds
             hitSoundEffect = CreateNetworkSoundEventDef("ShiggyHitSFX");
