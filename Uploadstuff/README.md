@@ -62,6 +62,12 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.2.1- Bug Fixes/Changes
+	- Bug Fixes
+  		- Fixed some grammar mistakes with shadow claw and death aura.
+  		- Fixed Gacha not incrementing to 30 stacks properly.
+   	- Changes
+		- Changed Big Bang from every 5th hit dealing 20% of the enemy's max HP to 1000% of the hit's damage. 20% of the enemy's hp was pretty..busted. This keeps it still strong for slower attacks but for high attackspeed skills it still has power.
 - 2.2.0- 
 	- Overall this update aims to fix big bugs, changing a lot of skills, improve the descriptions of skills, and maybe the start of a better explanation for shigaraki. A Miro link has been attached (although not the best looking) to show a tree of Shigaraki's abilities and their combinations. Future guides and tutorials for the character to come along with more reworks and changes. 
 	- Bug Fixes

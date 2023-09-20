@@ -1205,6 +1205,7 @@ namespace ShiggyMod.Modules.Survivors
                     DoubleTime();
                     BarbedSpikes();
                     AuraOfBlight();
+                    GachaBuff();
                     OmniBoost();
                     CaptainBuff();
                     OverloadingWorm();
@@ -1215,6 +1216,7 @@ namespace ShiggyMod.Modules.Survivors
                     StoneForm();
                     StandingStill();
                     VerminJump();
+                    LarvaJump();
 
                 }
             }

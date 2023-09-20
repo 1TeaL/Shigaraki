@@ -260,7 +260,7 @@ namespace ShiggyMod.Modules
         internal const float blackholeGlaiveTravelSpeed = 30f;
 
         internal const int bigbangBuffThreshold = 5;
-        internal const float bigbangBuffHealthCoefficient = 0.2f;
+        internal const float bigbangBuffCoefficient = 10f;
         internal const float bigbangBuffRadius= 20f;
 
         internal const float wisperBuffDamageCoefficient = 2f;

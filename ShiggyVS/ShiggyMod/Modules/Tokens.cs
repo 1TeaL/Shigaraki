@@ -142,7 +142,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VAGRANT_NAME", "Vagrant's Orb");
             LanguageAPI.Add(prefix + "VAGRANT_DESCRIPTION", $"When striking an enemy for <style=cIsDamage>{100 * StaticValues.vagrantdamageThreshold}% or more damage</style>, Create a nova Explosion that stuns and deals <style=cIsDamage>{100 * StaticValues.vagrantDamageCoefficient/3}% damage</style>. " +
                 $"This bonus attack has a cooldown of {StaticValues.vagrantCooldown} seconds. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Clay Templar- Clay Minigun] to create [Wisper]</style>");
+                $"<style=cSub>Pairs with [Clay Templar- Clay Minigun] to create [Big Bang]</style>");
             LanguageAPI.Add(prefix + "ACRID_NAME", "Poison");
             LanguageAPI.Add(prefix + "ACRID_DESCRIPTION", $"Attacks apply <style=cIsHealth>Poison</style>. " +
                 $"" + Environment.NewLine + Environment.NewLine +
@@ -179,14 +179,14 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Pairs with [Xi Construct] to create [Genesis]</style>");
             LanguageAPI.Add(prefix + "TEMPLAR_NAME", "Clay Minigun");
             LanguageAPI.Add(prefix + "TEMPLAR_DESCRIPTION", $"Shoot a rapid hail of tar bullets, tarring and dealing <style=cIsDamage>{100f * StaticValues.claytemplarminigunDamageCoefficient}% damage per bullet</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Wandering Vagrant- Vagrant's Orb] to create [Wisper]</style>");
+                $"<style=cSub>Pairs with [Wandering Vagrant- Vagrant's Orb] to create [Big Bang]</style>");
             LanguageAPI.Add(prefix + "ELDERLEMURIAN_NAME", "Fire Blast");
             LanguageAPI.Add(prefix + "ELDERLEMURIAN_DESCRIPTION", $"<style=cIsDamage>Burning.</style> Hold the button down to charge a fire blast which, when released, deals <style=cIsDamage>{100f * StaticValues.elderlemurianfireblastDamageCoefficient}% damage</style> per hit. " +
                 $"Number of hits and radius scales with charge duration." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Lemurian- Fireball] to create [Blast Burn]</style>");
             LanguageAPI.Add(prefix + "GREATERWISP_NAME", "Spirit Boost");
             LanguageAPI.Add(prefix + "GREATERWISP_DESCRIPTION", $"For {StaticValues.greaterwispballbuffDuration} seconds, your attacks explode, dealing <style=cIsDamage>{100f * StaticValues.greaterwispballDamageCoefficient}% damage</style> of the attack. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Grovetender- Chain] to create [Big Bang]</style>");
+                $"<style=cSub>Pairs with [Grovetender- Chain] to create [Wisper]</style>");
             LanguageAPI.Add(prefix + "IMP_NAME", "Blink");
             LanguageAPI.Add(prefix + "IMP_DESCRIPTION", $"Blink a short distance away, scaling with movespeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Bandit- Lights out] to create [Shadow Claw]</style>");
@@ -222,7 +222,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Pairs with [Artificer- Elementality] to create [Elemental Fusion]</style>");
             LanguageAPI.Add(prefix + "GROVETENDER_NAME", "Chain");
             LanguageAPI.Add(prefix + "GROVETENDER_DESCRIPTION", $"<style=cIsUtility>Chain</style> nearby enemies for <style=cIsUtility>{StaticValues.grovetenderDuration} seconds, gathering them in front of you and immobilising them</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Greater Wisp- Spirit Boost] to create [Big Bang]</style>");
+                $"<style=cSub>Pairs with [Greater Wisp- Spirit Boost] to create [Wisper]</style>");
             LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_NAME", "Tar Boost");
             LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_DESCRIPTION", $"For the next {StaticValues.claydunestriderbuffDuration} seconds, your attacks <style=cIsDamage>Tar</style>, gain <style=cIsHealing>{100f * StaticValues.claydunestriderHealCoefficient}% Lifesteal</style> and <style=cIsUtility>{100f * (StaticValues.claydunestriderAttackSpeed-1f)}% attackspeed</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Mini Mushrum- Healing Aura] to create [Ingrain]</style>");
@@ -378,14 +378,14 @@ namespace ShiggyMod.Modules
 
             #region Synergised Passive
             LanguageAPI.Add(prefix + "BIGBANG_NAME", "Big Bang");
-            LanguageAPI.Add(prefix + "BIGBANG_DESCRIPTION", $"Each hit on an enemy builds up an explosive charge. On the {StaticValues.bigbangBuffThreshold}th hit, an explosion occurs, dealing <style=cIsDamage>{100f * StaticValues.bigbangBuffHealthCoefficient}% of the enemy's max health</style>. " + 
+            LanguageAPI.Add(prefix + "BIGBANG_DESCRIPTION", $"Each hit on an enemy builds up an explosive charge. On the {StaticValues.bigbangBuffThreshold}th hit, an explosion occurs, dealing <style=cIsDamage>{100f * StaticValues.bigbangBuffCoefficient}% of the hit's damage</style>. " + 
                 Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Greater Wisp/Grovetender]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Wisper (Wandering Vagrant/Clay Templar)] to create [Supernova]</style>");
+                $"<style=cSub>Get from [Wandering Vagrant/Clay Templar]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Wisper (Greater Wisp/Grovetender)] to create [Supernova]</style>");
             LanguageAPI.Add(prefix + "WISPER_NAME", "Wisper");
             LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Wandering Vagrant/Clay Templar]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Big Bang (Greater Wisp/Grovetender)] to create [Supernova]</style>");
+                $"<style=cSub>Get from [Greater Wisp/Grovetender]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Big Bang (Wandering Vagrant/Clay Templar)] to create [Supernova]</style>");
             LanguageAPI.Add(prefix + "OMNIBOOST_NAME", "Omniboost");
             LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>. Lose half your stacks on kill. " + 
                 Environment.NewLine + Environment.NewLine +

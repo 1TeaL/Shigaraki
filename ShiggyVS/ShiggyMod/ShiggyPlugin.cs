@@ -86,7 +86,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "2.2.0";
+        public const string MODVERSION = "2.2.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -754,7 +754,7 @@ namespace ShiggyMod
                                     attacker = attackerBody.gameObject,
                                     teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject),
                                     falloffModel = BlastAttack.FalloffModel.None,
-                                    baseDamage = victimBody.healthComponent.fullCombinedHealth * StaticValues.bigbangBuffHealthCoefficient,
+                                    baseDamage = damageInfo.damage * StaticValues.bigbangBuffCoefficient,
                                     damageType = DamageType.Stun1s,
                                     damageColorIndex = DamageColorIndex.Default,
                                     baseForce = 0,
@@ -782,7 +782,7 @@ namespace ShiggyMod
                                 attacker = attackerBody.gameObject,
                                 teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject),
                                 falloffModel = BlastAttack.FalloffModel.None,
-                                baseDamage = victimBody.healthComponent.fullCombinedHealth * StaticValues.bigbangBuffHealthCoefficient,
+                                baseDamage = damageInfo.damage * StaticValues.bigbangBuffCoefficient,
                                 damageType = DamageType.Stun1s,
                                 damageColorIndex = DamageColorIndex.Default,
                                 baseForce = 0,
