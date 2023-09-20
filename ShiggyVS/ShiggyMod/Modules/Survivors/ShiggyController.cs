@@ -932,7 +932,7 @@ namespace ShiggyMod.Modules.Survivors
                 if (jellyfishtimer > 1f)
                 {
                     int jellyfishBuffCount = characterBody.GetBuffCount(Modules.Buffs.jellyfishHealStacksBuff.buffIndex);
-                    int jellyfishBuffCountToReduce = Mathf.RoundToInt(characterBody.maxHealth * (StaticValues.JellyfishHealTickRate));
+                    int jellyfishBuffCountToReduce = Mathf.RoundToInt(characterBody.healthComponent.fullHealth * (StaticValues.JellyfishHealTickRate));
                     int jellyfishBuffCountToApply = jellyfishBuffCount - jellyfishBuffCountToReduce;
                     if (jellyfishBuffCountToApply < 2)
                     {

@@ -86,7 +86,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "2.1.1";
+        public const string MODVERSION = "2.2.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -473,8 +473,7 @@ namespace ShiggyMod
         {
             orig.Invoke(self, damageInfo, victim);
 
-
-            if (damageInfo.attacker.GetComponent<CharacterBody>() && victim.GetComponent<CharacterBody>())
+            if (damageInfo.attacker)
             {
 
                 var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();

@@ -323,7 +323,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "SHADOWCLAW_NAME", "Shadow Claw");
             LanguageAPI.Add(prefix + "SHADOWCLAW_DESCRIPTION", $"<style=cIsDamage>Slayer.</style> <style=cIsUtility>Cloak yourself</style> while holding the button. " +
                 $"Release to claw nearby enemies for <style=cIsDamage>{StaticValues.shadowClawHits}x{100f * StaticValues.shadowClawDamageCoefficient}% damage</style>. " +
-                $"Kills reset all your cooldowns. Staying cloaked gradually slows your movespeed." +
+                $"Kills reset all your cooldowns. Staying cloaked gradually slows your movespeed. " +
                 $"Attackspeed increases the number of attacks. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Bandit/Imp]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Genesis (Xi Construct/Clay Apothecary)] to create [Light and Darkness]</style>");
@@ -437,7 +437,7 @@ namespace ShiggyMod.Modules
                 $"Number of hits scales with attackspeed." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Mach Punch] [Thunderclap]</style>");
             LanguageAPI.Add(prefix + "DEATHAURA_NAME", "Death Aura");
-            LanguageAPI.Add(prefix + "DEATHAURA_DESCRIPTION", $"Become death itself, <style=cIsUtility> applying a stacking permanent debuff to enemies and a stacking buff to yourself  every {StaticValues.deathAuraThreshold} second</style>. Each debuff stack increases <style=cIsDamage>DoT damage by {100f * StaticValues.deathAuraDebuffCoefficient}% while each buff stack increases your DoT damage by {100f* StaticValues.deathAuraBuffCoefficient}%</style>. " + Helpers.Passive($"Drains {StaticValues.deathAuraBuffEnergyCost} plus chaos every second") + "." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "DEATHAURA_DESCRIPTION", $"Become death itself,<style=cIsUtility> applying a stacking permanent debuff to enemies and a stacking buff to yourself  every {StaticValues.deathAuraThreshold} second</style>. Each debuff stack increases <style=cIsDamage>DoT damage by {100f * StaticValues.deathAuraDebuffCoefficient}% while each buff stack increases your DoT damage by {100f* StaticValues.deathAuraBuffCoefficient}%</style>. " + Helpers.Passive($"Drains {StaticValues.deathAuraBuffEnergyCost} plus chaos every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Barbed Spikes] [Expunge]</style>");
             LanguageAPI.Add(prefix + "OFAFO_NAME", "One For All For One");
             LanguageAPI.Add(prefix + "OFAFO_DESCRIPTION", $"Unlock the true power of One For All and All For One. <style=cIsUtility> Gain {StaticValues.OFAFOLifestealCoefficient * 100f}% lifesteal, {StaticValues.OFAFOEnergyGainCoefficient * 100f}% plus chaos every hit and every passive or buff effect interval is halved</style>. " + Helpers.Passive($"Drains {StaticValues.OFAFOEnergyCostCoefficient}% MAX plus chaos AND {StaticValues.OFAFOHealthCostCoefficient}% health every second") + "." + Environment.NewLine + Environment.NewLine +
