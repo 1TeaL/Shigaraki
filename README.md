@@ -1,4 +1,4 @@
-# ShigarakiModRor2
+![image](https://github.com/1TeaL/Shigaraki/assets/93917577/e30fb3c3-dc5b-4bbb-9186-25053fd5ee24)# ShigarakiModRor2
 Shigaraki Tomura mod for Ror2
 Go Beyond, Plus Chaos!
 ## Shigaraki
@@ -62,6 +62,12 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.2.1- Bug Fixes/Changes
+	- Bug Fixes
+  		- Fixed some grammar mistakes with shadow claw and death aura.
+  		- Fixed Gacha not incrementing to 30 stacks properly.
+   	- Changes
+		- Changed Big Bang from every 5th hit dealing 20% of the enemy's max HP to 1000% of the hit's damage. 20% of the enemy's hp was pretty..busted. This keeps it still strong for slower attacks but for high attackspeed skills it still has power.
 - 2.2.0- 
 	- Overall this update aims to fix big bugs, changing a lot of skills, improve the descriptions of skills, and maybe the start of a better explanation for shigaraki. A Miro link has been attached (although not the best looking) to show a tree of Shigaraki's abilities and their combinations. Future guides and tutorials for the character to come along with more reworks and changes. 
 	- Bug Fixes
@@ -549,7 +555,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Shadow Claw</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/ShadowClaw.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/7580fd36-fcef-4e39-afff-86d060ac965a"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/4aa46278-cd6a-49a6-8aed-99673d6b4c03"></td>
   </tr>
   <tr>
     <td>Orbital Strike</td>
@@ -633,7 +639,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Big Bang</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BigBang.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/bc15883c-0f06-4739-9be1-5d31aef2575f"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/90f108ea-4c51-4095-a95c-fb7a10f28f45"></td>
   </tr>
   <tr>
     <td>Wisper</td>
@@ -710,7 +716,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Death Aura</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/DeathAura.png?raw=true" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007302643400785/image.png"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/cdc8ed14-bfa6-4ee0-a044-a51ee29eeef7"></td>
   </tr>
   <tr>
     <td>One For All For One</td>
@@ -1059,7 +1065,7 @@ rest of changelog on github.
 ![DefensiveMicrobots](https://github.com/1TeaL/Shigaraki/assets/93917577/d2e22b41-f977-4574-8d0b-3707cc4b7ea8)
 ![ScrapBarrier](https://github.com/1TeaL/Shigaraki/assets/93917577/de311eca-97b2-4fd9-8779-7b35b028a567)
 
-![BigBang](https://github.com/1TeaL/Shigaraki/assets/93917577/bc15883c-0f06-4739-9be1-5d31aef2575f)
+![BigBang](https://github.com/1TeaL/Shigaraki/assets/93917577/90f108ea-4c51-4095-a95c-fb7a10f28f45)
 ![Wisper](https://github.com/1TeaL/Shigaraki/assets/93917577/0a35bbdc-3250-4aee-aa91-e34a49065dda)
 ![Omniboost](https://github.com/1TeaL/Shigaraki/assets/93917577/8113eb88-c9a1-4272-9055-7332b5f87bee)
 ![Gacha](https://github.com/1TeaL/Shigaraki/assets/93917577/0d6d323e-747a-4b0e-8412-d16ea9e0da94)
@@ -1121,7 +1127,7 @@ rest of changelog on github.
 ![Genesis](https://github.com/1TeaL/Shigaraki/assets/93917577/4be012f2-e65f-4504-b2ef-67ccddabdd55)
 ![Refresh](https://github.com/1TeaL/Shigaraki/assets/93917577/d565a767-7444-4a44-beae-e39c42054f71)
 ![Expunge](https://github.com/1TeaL/Shigaraki/assets/93917577/fbf13ead-425b-4c0d-a34c-ded12e95d940)
-![ShadowClaw](https://github.com/1TeaL/Shigaraki/assets/93917577/7580fd36-fcef-4e39-afff-86d060ac965a)
+![ShadowClaw](https://github.com/1TeaL/Shigaraki/assets/93917577/4aa46278-cd6a-49a6-8aed-99673d6b4c03)
 ![OrbitalStrike](https://github.com/1TeaL/Shigaraki/assets/93917577/391e5457-9af1-424f-85c5-dbd3ca1fb074)
 ![Thunderclap](https://github.com/1TeaL/Shigaraki/assets/93917577/efd380ad-114f-4b6a-aef3-225262bcf918)
 ![BlastBurn](https://github.com/1TeaL/Shigaraki/assets/93917577/ad51135f-3ce7-408e-a5c7-8aceb972aa46)
@@ -1137,7 +1143,7 @@ rest of changelog on github.
 
 ![TheWorld](https://cdn.discordapp.com/attachments/399901440023330816/1154006981795913758/image.png)
 ![ExtremeSpeed](https://cdn.discordapp.com/attachments/399901440023330816/1154007163170197554/image.png)
-![DeathAura](https://cdn.discordapp.com/attachments/399901440023330816/1154007302643400785/image.png)
+![DeathAura](https://github.com/1TeaL/Shigaraki/assets/93917577/cdc8ed14-bfa6-4ee0-a044-a51ee29eeef7)
 ![OneForAllForOne](https://cdn.discordapp.com/attachments/399901440023330816/1154007389427728504/image.png)
 ![XBeamer](https://cdn.discordapp.com/attachments/399901440023330816/1154007536370995302/image.png)
 ![FinalRelease](https://cdn.discordapp.com/attachments/399901440023330816/1154007721524351017/image.png)
