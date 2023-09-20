@@ -1132,18 +1132,17 @@ rest of changelog on github.
 ![ElementalFusion](https://github.com/1TeaL/Shigaraki/assets/93917577/d2719c5e-d245-4b01-a97a-d168d5b41dfa)
 ![DecayPlusUltra](https://github.com/1TeaL/Shigaraki/assets/93917577/31b75bb8-69ea-4b06-8560-e421593e04a4)
 ![MachPunch](https://github.com/1TeaL/Shigaraki/assets/93917577/65ca0675-f7b9-419b-befe-d5c45e474685)
+![Rapid Pierce](https://cdn.discordapp.com/attachments/399901440023330816/1154006703466098769/image.png)
 
-![Rapid Pierce](https://github.com/1TeaL/Shigaraki/assets/93917577/e1d3b32e-57ef-49f1-99aa-698c63afe737)
-
-![The World](https://github.com/1TeaL/Shigaraki/assets/93917577/19293302-0f20-4ab2-b7da-347573ac1d0d)
-![Extreme Speed](https://github.com/1TeaL/Shigaraki/assets/93917577/801f6457-9550-4c68-9104-c8f8a0526ce1)
-![Death Aura](https://github.com/1TeaL/Shigaraki/assets/93917577/6c8f8040-2c28-4a99-b7d5-a81b5c5d542c)
-![One For All For One](https://github.com/1TeaL/Shigaraki/assets/93917577/4f3dcf87-c82d-4800-a557-258b4d513f49)
-![X Beamer](https://github.com/1TeaL/Shigaraki/assets/93917577/b1355a62-d092-4f6b-bb75-b8a320fa13a2)
-![Final Release](https://github.com/1TeaL/Shigaraki/assets/93917577/f05a62da-2e38-4687-8fd6-99adc5ffc15d)
-![Blasting Zone](https://github.com/1TeaL/Shigaraki/assets/93917577/989f32db-e2f6-41bc-b406-dcd66c78421a)
-![Wild Card](https://github.com/1TeaL/Shigaraki/assets/93917577/1d47ff60-cfcb-4b4b-906c-1ae60b92a793)
-![Light And Darkness](https://github.com/1TeaL/Shigaraki/assets/93917577/6ae6cd06-3061-418a-9d6e-b5a6707125a2)
+![TheWorld](https://cdn.discordapp.com/attachments/399901440023330816/1154006981795913758/image.png)
+![ExtremeSpeed](https://cdn.discordapp.com/attachments/399901440023330816/1154007163170197554/image.png)
+![DeathAura](https://cdn.discordapp.com/attachments/399901440023330816/1154007302643400785/image.png)
+![OneForAllForOne](https://cdn.discordapp.com/attachments/399901440023330816/1154007389427728504/image.png)
+![XBeamer](https://cdn.discordapp.com/attachments/399901440023330816/1154007536370995302/image.png)
+![FinalRelease](https://cdn.discordapp.com/attachments/399901440023330816/1154007721524351017/image.png)
+![BlastingZone](https://cdn.discordapp.com/attachments/399901440023330816/1154007882694676560/image.png)
+![WildCard](https://cdn.discordapp.com/attachments/399901440023330816/1154007801190957137/image.png)
+![LightAndDarkness](https://cdn.discordapp.com/attachments/399901440023330816/1154008055118315541/image.png)
 
 </details>
 
