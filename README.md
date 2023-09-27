@@ -1,5 +1,6 @@
-![image](https://github.com/1TeaL/Shigaraki/assets/93917577/e30fb3c3-dc5b-4bbb-9186-25053fd5ee24)# ShigarakiModRor2
-Shigaraki Tomura mod for Ror2
+# ShigarakiModRor2
+Shigaraki Tomura mod for Ror2 https://thunderstore.io/package/TeaL/ShigarakiMod/
+
 Go Beyond, Plus Chaos!
 ## Shigaraki
 Adds Shigaraki from My Hero Academia, a multi-option survivor steal 'quirks' from enemies, gaining their abilites/skills.
