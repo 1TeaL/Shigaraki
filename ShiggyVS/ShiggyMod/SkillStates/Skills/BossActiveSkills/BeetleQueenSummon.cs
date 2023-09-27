@@ -35,9 +35,12 @@ namespace ShiggyMod.SkillStates
 
             //check if client able to summon dlc survivors
 
-            randomSurvivor = UnityEngine.Random.RandomRangeInt(0, 12);
+            if (characterBody.hasAuthority)
+            {
+                randomSurvivor = UnityEngine.Random.RandomRangeInt(0, 12);
+            }
 
-            Summon();
+            Summon(randomSurvivor);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 
@@ -50,57 +53,60 @@ namespace ShiggyMod.SkillStates
 
         }
 
-        public void Summon()
+        public void Summon(int rand)
         {
             //Debug.Log("randomsurvivor " + randomSurvivor);
-
-            switch (randomSurvivor)
+            if(rand == 0)
             {
-                case 0:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "VoidSurvivorBody", "VoidSurvivorMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 1:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CommandoBody", "CommandoMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 2:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CrocoBody", "CrocoMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 3:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "MageBody", "MageMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 4:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "Bandit2Body", "Bandit2MonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 5:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CaptainBody", "CaptainMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 6:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "EngiBody", "EngiMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 7:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "HuntressBody", "HuntressMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 8:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "LoaderBody", "LoaderMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 9:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "ToolbotBody", "ToolbotMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 10:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "MercBody", "MercMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 11:
-                    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "TreebotBody", "TreebotMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                case 12:
-                        new SpawnBodyNetworkRequest(characterBody.masterObjectId, "RailgunnerBody", "RailgunnerMonsterMaster").Send(NetworkDestination.Clients);
-                    break;
-                //case 14:
-                //    //summon deku if he exists otherwise commando
-                //    new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CommandoBody", "CommandoMonsterMaster").Send(NetworkDestination.Clients);
-                //    break;
-                    
-
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "VoidSurvivorBody", "VoidSurvivorMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 1)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CommandoBody", "CommandoMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 2)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CrocoBody", "CrocoMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 3)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "MageBody", "MageMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 4)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "Bandit2Body", "Bandit2MonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 5)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CaptainBody", "CaptainMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 6)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "EngiBody", "EngiMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 7)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "HuntressBody", "HuntressMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 8)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "LoaderBody", "LoaderMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 9)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "ToolbotBody", "ToolbotMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 10)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "MercBody", "MercMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 11)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "TreebotBody", "TreebotMonsterMaster").Send(NetworkDestination.Clients);
+            }
+            if (rand == 12)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "RailgunnerBody", "RailgunnerMonsterMaster").Send(NetworkDestination.Clients);
             }
         }
 

@@ -951,10 +951,8 @@ namespace ShiggyMod.Modules.Survivors
 
         public void StandingStill()
         {
-
-
             //Standing still/not moving buffs
-            if (characterBody.GetNotMoving())
+            if (characterBody.moveSpeed == 0)
             {
                 //stoneform buff
                 if (characterBody.HasBuff(Modules.Buffs.stoneFormBuff.buffIndex))

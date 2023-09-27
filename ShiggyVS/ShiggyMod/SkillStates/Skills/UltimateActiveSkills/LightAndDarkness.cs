@@ -35,7 +35,16 @@ namespace ShiggyMod.SkillStates
             }
             else
             {
-                if (energySystem.currentplusChaos > energySystem.maxPlusChaos / 2f)
+                if (energySystem.currentplusChaos == energySystem.maxPlusChaos / 2f)
+                {
+                    characterBody.ApplyBuff(Buffs.lightFormBuff.buffIndex, 0);
+                    characterBody.ApplyBuff(Buffs.darknessFormBuff.buffIndex, 0);
+                    if (!characterBody.HasBuff(Buffs.lightAndDarknessFormBuff.buffIndex))
+                    {
+                        characterBody.ApplyBuff(Buffs.lightAndDarknessFormBuff.buffIndex, 1);
+                    }
+                }
+                else if (energySystem.currentplusChaos > energySystem.maxPlusChaos / 2f)
                 {
                     if (characterBody.HasBuff(Buffs.darknessFormBuff.buffIndex))
                     {
@@ -59,16 +68,6 @@ namespace ShiggyMod.SkillStates
                     else if (!characterBody.HasBuff(Buffs.lightFormBuff.buffIndex))
                     {
                         characterBody.ApplyBuff(Buffs.darknessFormBuff.buffIndex, 1);
-                    }
-                }
-                else
-                if (energySystem.currentplusChaos == energySystem.maxPlusChaos / 2f)
-                {
-                    characterBody.ApplyBuff(Buffs.lightFormBuff.buffIndex, 0);
-                    characterBody.ApplyBuff(Buffs.darknessFormBuff.buffIndex, 0);
-                    if (!characterBody.HasBuff(Buffs.lightAndDarknessFormBuff.buffIndex))
-                    {
-                        characterBody.ApplyBuff(Buffs.lightAndDarknessFormBuff.buffIndex, 1);
                     }
                 }
 
