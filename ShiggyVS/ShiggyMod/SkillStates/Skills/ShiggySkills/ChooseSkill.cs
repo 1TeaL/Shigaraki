@@ -6,6 +6,8 @@ using UnityEngine.Networking;
 using RoR2.Projectile;
 using ExtraSkillSlots;
 using R2API.Networking;
+using ShiggyMod.Modules;
+using RoR2.Skills;
 
 namespace ShiggyMod.SkillStates
 {
@@ -108,9 +110,41 @@ namespace ShiggyMod.SkillStates
                 extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
             }
 
-            Shiggymastercon.CheckQuirksForBuffs(characterBody);
+            CheckQuirksForBuffs(characterBody);
 
             Shiggymastercon.writeToAFOSkillList(null, 0);
+        }
+
+        public void CheckQuirksForBuffs(CharacterBody characterBody)
+        {
+            //check passive
+
+            foreach (var skillname in StaticValues.passiveToBuff)
+            {
+
+                if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
+                {
+                    characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 1);
+                }
+                else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
+                {
+                    characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 0);
+                }
+            }
+
+        }
+        public bool SearchSkillSlotsForQuirks(SkillDef skillDef, CharacterBody characterBody)
+        {
+            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+
+            return !(extraskillLocator.extraFirst.skillDef != skillDef
+                && extraskillLocator.extraSecond.skillDef != skillDef
+                && extraskillLocator.extraThird.skillDef != skillDef
+                && extraskillLocator.extraFourth.skillDef != skillDef
+                && characterBody.skillLocator.primary.skillDef != skillDef
+                && characterBody.skillLocator.secondary.skillDef != skillDef
+                && characterBody.skillLocator.utility.skillDef != skillDef
+                && characterBody.skillLocator.special.skillDef != skillDef);
         }
 
         protected virtual void AddSkill1()

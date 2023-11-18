@@ -79,6 +79,8 @@ namespace ShiggyMod.Modules.Survivors
 		public bool extra3given;
 		public bool extra4given;
 
+		private float checkQuirkTimer;
+
 		public SkillDef[] skillListToOverrideOnRespawn;
 		public SkillDef[] storedAFOSkill;
 
@@ -368,11 +370,11 @@ namespace ShiggyMod.Modules.Survivors
 
         public void FixedUpdate()
         {
-   //         if (characterMaster)
-   //         {
+			//         if (characterMaster)
+			//         {
 			//	self = characterMaster.GetBody();
-   //         }
-   //         if (self)
+			//         }
+			//         if (self)
 			//{
 			//	if (!self.gameObject.GetComponent<ExtraSkillLocator>())
 			//	{
@@ -380,86 +382,43 @@ namespace ShiggyMod.Modules.Survivors
 			//	}
 
 			//}
+			if (checkQuirkTimer < 1f)
+			{
+				checkQuirkTimer += Time.fixedDeltaTime;
+
+            }
+			else if (checkQuirkTimer >= 1f)
+            {
+                CheckQuirksForBuffs(self);
+				checkQuirkTimer = 0f;
+            }
 
 
-			if (!characterMaster.gameObject)
+            if (!characterMaster.gameObject)
 			{
 				Destroy(Shiggymastercon);
 			}
 		}
 
 
-        public void CheckQuirksForBuffs(CharacterBody characterBody)
-        {
-            //check passive
+		public void CheckQuirksForBuffs(CharacterBody characterBody)
+		{
+			//check passive
 
 			foreach (var skillname in StaticValues.passiveToBuff)
 			{
 
-                if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
-                {
-                    characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 1);
-                }
-                else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
-                {
-                    characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 0);
-                }
-            }
+				if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
+				{
+					characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 1);
+				}
+				else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
+				{
+					characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 0);
+				}
+			}
 
-			//foreach (KeyValuePair<string, BuffDef> entry in StaticValues.passiveToBuff)
-			//{
-   //             if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[entry.Key], characterBody))
-   //             {
-   //                 characterBody.ApplyBuff(StaticValues.passiveToBuff[entry.Key].buffIndex, 1);
-   //             }
-   //             else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[entry.Key], characterBody))
-   //             {
-   //                 characterBody.ApplyBuff(StaticValues.passiveToBuff[entry.Key].buffIndex, 0);
-   //             }
-
-                
-   //         }
-
-   //         SkillDef primarySkill = characterBody.skillLocator.primary.skillDef;
-   //         string primaryName = characterBody.skillLocator.primary.skillDef.name;
-			//if (StaticValues.skillDict[primaryName] == StaticValues.skillType.PASSIVE)
-			//{
-			//	if(SearchQuirksForBuffs(primarySkill, characterBody))
-   //             {
-   //                 characterBody.ApplyBuff(StaticValues.passiveToBuff[primaryName], 1);
-   //             }
-			//}
-
-   //         if (SearchQuirksForBuffs(StaticValues.b, characterBody))
-   //         {
-   //             if (NetworkServer.active)
-   //             {
-   //                 characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex);
-
-   //             }
-   //         }
-   //         else
-   //         {
-   //             if (NetworkServer.active && characterBody.HasBuff(Modules.Buffs.alphashieldonBuff))
-   //             {
-   //                 characterBody.ApplyBuff(Modules.Buffs.alphashieldonBuff.buffIndex, 0);
-   //             }
-
-   //         }
-        }
-        //public bool IsQuirkHave(string skillName, CharacterBody characterBody)
-        //{
-        //    extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
-
-        //    return !(extraskillLocator.extraFirst.skillNameToken != prefix + skillName
-        //        && extraskillLocator.extraSecond.skillNameToken != prefix + skillName
-        //        && extraskillLocator.extraThird.skillNameToken != prefix + skillName
-        //        && extraskillLocator.extraFourth.skillNameToken != prefix + skillName
-        //        && characterBody.skillLocator.primary.skillNameToken != prefix + skillName
-        //        && characterBody.skillLocator.secondary.skillNameToken != prefix + skillName
-        //        && characterBody.skillLocator.utility.skillNameToken != prefix + skillName
-        //        && characterBody.skillLocator.special.skillNameToken != prefix + skillName);
-        //}
+		}
 
         public bool SearchSkillSlotsForQuirks(SkillDef skillDef, CharacterBody characterBody)
         {

@@ -40,7 +40,7 @@ namespace ShiggyMod.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "All For One");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Steal quirks by looking at a target and pressing {Config.AFOHotkey.Value}. Remove them with {Config.RemoveHotkey.Value}. Give passive quirks to targets by pressing {Config.AFOGiveHotkey.Value}." + Environment.NewLine +
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"While standing still, steal quirks by looking at a target and pressing {Config.AFOHotkey.Value}. Remove them with {Config.RemoveHotkey.Value}. Give passive quirks to targets by pressing {Config.AFOGiveHotkey.Value}." + Environment.NewLine +
                 Helpers.Passive("[Plus Chaos Meter] [Decay] [Air Walk]") + Environment.NewLine +
                 "<style=cIsUtility>He has a double jump. He can sprint in any direction.</style>");
             #endregion
@@ -505,7 +505,7 @@ namespace ShiggyMod.Modules
                 + Environment.NewLine
                 + Environment.NewLine
             + $"<style=cKeywordName>Air Walk</style>"
-                + "<style=cIsUtility>Holding jump in the air after 0.5 seconds let's him fly, ascending for up to 3 seconds or slowing his descent while using a skill. After 3 seconds he can still ascend but can't be moving in a direction as well</style>."
+                + $"<style=cIsUtility>Holding jump in the air after 0.5 seconds let's him fly in the direction he's looking at</style>."
                 + Helpers.Passive(" Drains plus ultra"));
             #endregion
             #endregion

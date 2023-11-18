@@ -949,7 +949,7 @@ namespace ShiggyMod
                 //shiggy double time kill buffs
                 if (damageReport.attackerBody.HasBuff(Buffs.doubleTimeBuff))
                 {
-                    if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
+                    if (damageReport.damageInfo.damage > 0)
                     {
                         int doubleTimeStacksBuffCount = damageReport.attackerBody.GetBuffCount(Buffs.doubleTimeBuffStacks);
                         damageReport.attackerBody.ApplyBuff(Buffs.doubleTimeBuffStacks.buffIndex, doubleTimeStacksBuffCount + 1);
@@ -959,10 +959,10 @@ namespace ShiggyMod
                 //omniboost buff stacks halve on kill
                 if (damageReport.attackerBody.HasBuff(Buffs.omniboostBuffStacks))
                 {
-                    if (damageReport.damageInfo.damage > 0 && damageReport.attackerBody.hasEffectiveAuthority)
+                    if (damageReport.damageInfo.damage > 0)
                     {
                         int omniBoostBuffStacksBuffCount = damageReport.attackerBody.GetBuffCount(Buffs.omniboostBuffStacks);
-                        damageReport.attackerBody.ApplyBuff(Buffs.doubleTimeBuffStacks.buffIndex, omniBoostBuffStacksBuffCount/2);
+                        damageReport.attackerBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, Mathf.RoundToInt(omniBoostBuffStacksBuffCount/2));
                     }
                 }
 

@@ -255,7 +255,7 @@ namespace ShiggyMod.Modules.Survivors
                 if (!informAFOToPlayers)
                 {
                     informAFOToPlayers = true;
-                    Chat.AddMessage($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
+                    Chat.AddMessage($"While standing still, Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
                     + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
                     $" Press the [{Config.AFOGiveHotkey.Value}] key to <style=cIsUtility>give passive quirks</style>.");
                     quirkGetInformation($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."

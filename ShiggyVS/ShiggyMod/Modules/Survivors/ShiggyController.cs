@@ -49,6 +49,8 @@ namespace ShiggyMod.Modules.Survivors
         private float windshieldTimer;
         private float mechStanceTimer;
         private float airwalkTimer;
+        private float airwalkEnergyTimer;
+        //public bool flightExpired;
         private float OFATimer;
         private float voidFormTimer;
         private float overclockTimer;
@@ -537,141 +539,128 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         if (characterBody.inputBank.jump.down)
                         {
-                            //constantly draining energy cost for air walk
-                            float plusChaosflatCost = StaticValues.airwalkEnergyFraction - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                            //constantly draining energy cost for air walk - based off % of max energy
+                            float plusChaosflatCost = StaticValues.airwalkEnergyFraction * energySystem.maxPlusChaos - (energySystem.costflatplusChaos);
                             if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                             float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                             if (plusChaosCost < 0f) plusChaosCost = 0f;
-                            energySystem.SpendplusChaos(plusChaosCost);
+
+                            if(airwalkEnergyTimer < 1f)
+                            {
+                                airwalkEnergyTimer += Time.fixedDeltaTime;
+                            }
+                            else if (airwalkEnergyTimer >= 1f)
+                            {
+                                energySystem.SpendplusChaos(plusChaosCost);
+                                airwalkEnergyTimer = 0f;
+                            }
+
                             characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 1);
 
+
+
+                            Vector3 moveVector = inputBank.moveVector;
+                            Vector3 aimDirection = inputBank.aimDirection;
+                            Vector3 normalized = new Vector3(aimDirection.x, 0f, aimDirection.z).normalized;
+                            Vector3 up = base.transform.up;
+                            Vector3 normalized2 = Vector3.Cross(up, normalized).normalized;
+
+                            if (characterBody.inputBank.skill1.down
+                            | characterBody.inputBank.skill2.down
+                            | characterBody.inputBank.skill3.down
+                            | characterBody.inputBank.skill4.down
+                            | extrainputBankTest.extraSkill1.down
+                            | extrainputBankTest.extraSkill2.down
+                            | extrainputBankTest.extraSkill3.down
+                            | extrainputBankTest.extraSkill4.down)
+                            {
+                                characterBody.characterMotor.velocity.y = 0f;
+                                //flightExpired = false;
+                            }
+                            else
+                            {
+                                //flightExpired = true;
+                                //characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+
+                                //check if direction you're holding is your aim direction, then go in that direction, otherwise go up
+                                if (Vector3.Dot(inputBank.moveVector, normalized) >= 0.8f)
+                                {
+                                    characterBody.characterMotor.velocity = characterBody.inputBank.aimDirection * characterBody.moveSpeed;
+                                }
+                                else
+                                {
+                                    characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                }
+                            }
+
+                            //move in the direction you're moving at a normal speed when holding the jump button 
+                            if (characterBody.inputBank.moveVector != Vector3.zero)
+                            {
+                                //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
+                                characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
+                                //characterBody.characterMotor.disableAirControlUntilCollision = false;
+                            }
+
                             //before air walk timer runs out, can rise regardless besides while using a skill
-                            if (airwalkTimer <= StaticValues.airwalkThreshold)
-                            {
-                                if (characterBody.inputBank.skill1.down
-                                | characterBody.inputBank.skill2.down
-                                | characterBody.inputBank.skill3.down
-                                | characterBody.inputBank.skill4.down
-                                | extrainputBankTest.extraSkill1.down
-                                | extrainputBankTest.extraSkill2.down
-                                | extrainputBankTest.extraSkill3.down
-                                | extrainputBankTest.extraSkill4.down)
-                                {
-                                    characterBody.characterMotor.velocity.y = 0f;
-                                }
-                                else
-                                {
-                                    characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                                }
-                            }
-                            //after airwalk timer, need to ensure not holding any skill or any move direction to rise
-                            else if (airwalkTimer > StaticValues.airwalkThreshold)
-                            {
-                                if (characterBody.inputBank.skill1.down
-                                | characterBody.inputBank.skill2.down
-                                | characterBody.inputBank.skill3.down
-                                | characterBody.inputBank.skill4.down
-                                | extrainputBankTest.extraSkill1.down
-                                | extrainputBankTest.extraSkill2.down
-                                | extrainputBankTest.extraSkill3.down
-                                | extrainputBankTest.extraSkill4.down)
-                                {
-                                    characterBody.characterMotor.velocity.y = 0f;
-                                }
-
-                                if (characterBody.inputBank.moveVector == Vector3.zero)
-                                {
-                                    characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                                }
-                                else
-                                {
-                                    characterBody.characterMotor.velocity.y = 0f;
-                                }
-                            }
-
-
-                            ////if falling down
-                            //if (characterBody.characterMotor.velocity.y < 0)
+                            //if (airwalkTimer <= StaticValues.airwalkThreshold)
                             //{
+
                             //    if (characterBody.inputBank.skill1.down
-                            //        | characterBody.inputBank.skill2.down
-                            //        | characterBody.inputBank.skill3.down
-                            //        | characterBody.inputBank.skill4.down
-                            //        | extrainputBankTest.extraSkill1.down
-                            //        | extrainputBankTest.extraSkill2.down
-                            //        | extrainputBankTest.extraSkill3.down
-                            //        | extrainputBankTest.extraSkill4.down)
+                            //    | characterBody.inputBank.skill2.down
+                            //    | characterBody.inputBank.skill3.down
+                            //    | characterBody.inputBank.skill4.down
+                            //    | extrainputBankTest.extraSkill1.down
+                            //    | extrainputBankTest.extraSkill2.down
+                            //    | extrainputBankTest.extraSkill3.down
+                            //    | extrainputBankTest.extraSkill4.down)
+                            //    {
+                            //        characterBody.characterMotor.velocity.y = 0f;
+                            //        flightExpired = false;
+                            //    }
+                            //    else
+                            //    {
+                            //        flightExpired = true;
+                            //        //characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                            //        characterBody.characterMotor.velocity = characterBody.inputBank.aimDirection * characterBody.moveSpeed;
+                            //    }
+                            //}
+                            //after airwalk timer, need to ensure not holding any skill or any move direction to rise
+                            //else if (airwalkTimer > StaticValues.airwalkThreshold)
+                            //{
+                            //    flightExpired = true;
+
+                            //    if (characterBody.inputBank.skill1.down
+                            //    | characterBody.inputBank.skill2.down
+                            //    | characterBody.inputBank.skill3.down
+                            //    | characterBody.inputBank.skill4.down
+                            //    | extrainputBankTest.extraSkill1.down
+                            //    | extrainputBankTest.extraSkill2.down
+                            //    | extrainputBankTest.extraSkill3.down
+                            //    | extrainputBankTest.extraSkill4.down)
                             //    {
                             //        characterBody.characterMotor.velocity.y = 0f;
                             //    }
-                            //    else
-                            //    {
-                            //        if (airwalkTimer < 3f)
-                            //        {
-                            //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                            //        }
-                            //        else
-                            //        {
-                            //            characterBody.characterMotor.velocity.y = 0f;
-                            //        }
-                            //    }
-                            //}
-                            ////if rising up
-                            //else if (characterBody.characterMotor.velocity.y >= 0)
-                            //{
-                            //    if (airwalkTimer < 3f)
-                            //    {
-                            //        if (characterBody.inputBank.skill1.down
-                            //        | characterBody.inputBank.skill2.down
-                            //        | characterBody.inputBank.skill3.down
-                            //        | characterBody.inputBank.skill4.down
-                            //        | extrainputBankTest.extraSkill1.down
-                            //        | extrainputBankTest.extraSkill2.down
-                            //        | extrainputBankTest.extraSkill3.down
-                            //        | extrainputBankTest.extraSkill4.down)
-                            //        {
-                            //            characterBody.characterMotor.velocity.y = 0f;
-                            //        }
-                            //        else
-                            //        {
-                            //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                            //        }
-                            //    }
-                            //    else
-                            //    {
-                            //        if (characterBody.inputBank.skill1.down
-                            //        | characterBody.inputBank.skill2.down
-                            //        | characterBody.inputBank.skill3.down
-                            //        | characterBody.inputBank.skill4.down
-                            //        | extrainputBankTest.extraSkill1.down
-                            //        | extrainputBankTest.extraSkill2.down
-                            //        | extrainputBankTest.extraSkill3.down
-                            //        | extrainputBankTest.extraSkill4.down)
-                            //        {
-                            //            characterBody.characterMotor.velocity.y = 0f;
-                            //        }
 
-                            //        if(characterBody.inputBank.moveVector == Vector3.zero)
-                            //        {
-                            //            characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                            //        }
-                            //        else
-                            //        {
-                            //            characterBody.characterMotor.velocity.y = 0f;
-                            //        }                                       
+                            //    if (characterBody.inputBank.moveVector == Vector3.zero)
+                            //    {
+                            //        characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                            //    }
+                            //    else
+                            //    {
+                            //        characterBody.characterMotor.velocity.y = 0f;
                             //    }
                             //}
 
                         }
 
                         //move in the direction you're moving at a normal speed
-                        if (characterBody.inputBank.moveVector != Vector3.zero)
-                        {
-                            //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
-                            characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
-                            //characterBody.characterMotor.disableAirControlUntilCollision = false;
-                        }
+                        //if (characterBody.inputBank.moveVector != Vector3.zero)
+                        //{
+                        //    //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
+                        //    characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
+                        //    //characterBody.characterMotor.disableAirControlUntilCollision = false;
+                        //}
 
 
                     }
@@ -681,6 +670,7 @@ namespace ShiggyMod.Modules.Survivors
             else if (characterBody.characterMotor.isGrounded)
             {
                 //remove airwalk buff when landed
+                //flightExpired = false;
                 airwalkTimer = 0f;
                 if (NetworkServer.active)
                 {

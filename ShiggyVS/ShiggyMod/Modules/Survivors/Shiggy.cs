@@ -214,6 +214,7 @@ namespace ShiggyMod.Modules.Survivors
         internal override UnlockableDef characterUnlockableDef { get; set; }
         private static UnlockableDef masterySkinUnlockableDef;
 
+
         internal override void InitializeCharacter()
         {
             base.InitializeCharacter();
