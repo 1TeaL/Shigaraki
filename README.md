@@ -66,6 +66,7 @@ If you enjoy my work, support me on Ko-fi!
 	- Bug Fixes
   		- Fixed omnibuff giving double time stacks and not properly decreasing.
   		- Improved buff checks for passsive skills (hopefully)
+      	- Fixed non-moving/moving passives. There were errors on checking if your character was not moving and now it checks if you aren't holding any direction down.
     - Changes
 		- Changed Air Walk to now be able to fly forever as well as flying in where you're looking at if you're holding forward, allowing improved ascend/descend. This should help improve movement. Now also costs 10% of plus chaos every second instead and has no limit to flight.
       - There's now a disclaimer that when using AFO you need to be standing still. This has always been how it mechanically worked but it caused some confusion as you could not use it while moving. 
