@@ -505,8 +505,8 @@ namespace ShiggyMod.Modules
                 + Environment.NewLine
                 + Environment.NewLine
             + $"<style=cKeywordName>Air Walk</style>"
-                + $"<style=cIsUtility>Holding jump in the air after 0.5 seconds let's him fly in the direction he's looking at</style>."
-                + Helpers.Passive(" Drains plus ultra"));
+                + $"<style=cIsUtility>Holding jump in the air after 0.5 seconds let's him fly in the direction he's looking at if he's holding forward. Don't hold a direction to simply gain height. Holding any other directions maintain your current height. </style>."
+                + Helpers.Passive($" Drains {StaticValues.airwalkEnergyFraction *100f}% of your max plus chaos every second."));
             #endregion
             #endregion
 
