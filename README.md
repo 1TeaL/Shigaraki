@@ -1,6 +1,5 @@
 # ShigarakiModRor2
-Shigaraki Tomura mod for Ror2 https://thunderstore.io/package/TeaL/ShigarakiMod/
-
+Shigaraki Tomura mod for Ror2
 Go Beyond, Plus Chaos!
 ## Shigaraki
 Adds Shigaraki from My Hero Academia, a multi-option survivor steal 'quirks' from enemies, gaining their abilites/skills.
@@ -63,6 +62,13 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.2.2- Bug Fixes/Changes
+	- Bug Fixes
+  		- Fixed omnibuff giving double time stacks and not properly decreasing.
+  		- Improved buff checks for passsive skills (hopefully)
+    - Changes
+		- Changed Air Walk to now be able to fly forever as well as flying in where you're looking at if you're holding forward, allowing improved ascend/descend. This should help improve movement. Now also costs 10% of plus chaos every second instead and has no limit to flight.
+      - There's now a disclaimer that when using AFO you need to be standing still. This has always been how it mechanically worked but it caused some confusion as you could not use it while moving. 
 - 2.2.1- Bug Fixes/Changes
 	- Bug Fixes
   		- Fixed some grammar mistakes with shadow claw and death aura.
@@ -100,6 +106,7 @@ If you enjoy my work, support me on Ko-fi!
     - Icons for base skills?
     - Reworking some base skills to be more in line with the Synergy update's ideas.
     - Aim to do more tutorials/guides on explaining Shigaraki?
+    - Attempt to add alternate skins like Awakened Shigaraki.
 
 <img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/5682234e-9b60-489d-9f36-2a35f060fa0e" height ="256" >
 <img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/3637a749-4066-4f01-80f9-3f104461d53c" height ="256" >
@@ -128,7 +135,8 @@ Shigaraki can give passive quirks to enemies by pressing the C key by default, t
 
 Actives(Circle Indicator) replace main skills and Passives(Square indicator) replace extra skills.
 
-Shigaraki has Air Walk as well- by holding jump in the air after 0.5 seconds, it allows him to fly, ascending for up to 3 seconds or slowing his descent thereafter or while using a skill (Drains plus ultra). After 3 seconds he can still ascend but can't be moving in a direction.
+Shigaraki has Air Walk: Holding jump in the air after 0.5 seconds let's him fly in the direction he's looking at if he's holding forward. Don't hold a direction to simply gain height. Holding any other directions maintain your current height. Drains 10% of your plus chaos every second.
+
 All [Melee]/Overlap attacks attacks Decay, which decreases the enemies' movespeed and attackspeed as well as instakilling them at 100 stacks (except for Teleporter Bosses).
 
 Shigaraki can sprint in any direction and has a double jump.
