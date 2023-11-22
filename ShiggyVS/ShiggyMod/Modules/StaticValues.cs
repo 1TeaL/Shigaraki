@@ -23,7 +23,7 @@ namespace ShiggyMod.Modules
         internal static float backupGain = 10f;
         internal static float afterburnerGain = 30f;
         internal static float lysateGain = 15f;
-        internal const float airwalkEnergyFraction = 0.02f;
+        internal const float airwalkEnergyFraction = 0.1f;
         //internal const float airwalkThreshold = 10f;
         internal const float AFOEnergyCost = 50f;
 

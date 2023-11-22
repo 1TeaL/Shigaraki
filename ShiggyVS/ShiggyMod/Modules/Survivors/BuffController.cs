@@ -952,7 +952,7 @@ namespace ShiggyMod.Modules.Survivors
         public void StandingStill()
         {
             //Standing still/not moving buffs
-            if (characterBody.moveSpeed == 0)
+            if (characterBody.inputBank.moveVector == Vector3.zero)
             {
                 //stoneform buff
                 if (characterBody.HasBuff(Modules.Buffs.stoneFormBuff.buffIndex))
@@ -1025,7 +1025,7 @@ namespace ShiggyMod.Modules.Survivors
                     characterBody.ApplyBuff(Modules.Buffs.voidbarnaclemortarattackspeedBuff.buffIndex, 0);
                 }
             }//moving buffs
-            else if (!characterBody.GetNotMoving())
+            else //if (!characterBody.GetNotMoving())
             {
                 stoneFormTimer = 0f;
                 if (characterBody.HasBuff(Buffs.stoneFormStillBuff.buffIndex))

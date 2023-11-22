@@ -559,7 +559,7 @@ namespace ShiggyMod.Modules.Survivors
                             characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 1);
 
 
-
+                            //direction checks for mouse  /
                             Vector3 moveVector = inputBank.moveVector;
                             Vector3 aimDirection = inputBank.aimDirection;
                             Vector3 normalized = new Vector3(aimDirection.x, 0f, aimDirection.z).normalized;
@@ -580,27 +580,31 @@ namespace ShiggyMod.Modules.Survivors
                             }
                             else
                             {
-                                //flightExpired = true;
-                                //characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
 
-                                //check if direction you're holding is your aim direction, then go in that direction, otherwise go up
-                                if (Vector3.Dot(inputBank.moveVector, normalized) >= 0.8f)
-                                {
-                                    characterBody.characterMotor.velocity = characterBody.inputBank.aimDirection * characterBody.moveSpeed;
-                                }
-                                else
+                                //check if you're holding no direction so you go up
+                                if (characterBody.inputBank.moveVector == Vector3.zero)
                                 {
                                     characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
                                 }
+                                else
+                                {
+                                    //check if the direction you're holding is your aim direction, then go in that direction (allowing you to go up or down)
+                                    if (Vector3.Dot(inputBank.moveVector, normalized) >= 0.8f)
+                                    {
+                                        characterBody.characterMotor.velocity = characterBody.inputBank.aimDirection * characterBody.moveSpeed;
+                                    }
+                                    else
+                                    {
+                                        //otherwise if not then maintain height                                       
+                                        characterBody.characterMotor.velocity.y = 0f;
+                                        characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
+                                    }
+                                }
+                                //flightExpired = true;
+                                //characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+
                             }
 
-                            //move in the direction you're moving at a normal speed when holding the jump button 
-                            if (characterBody.inputBank.moveVector != Vector3.zero)
-                            {
-                                //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
-                                characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
-                                //characterBody.characterMotor.disableAirControlUntilCollision = false;
-                            }
 
                             //before air walk timer runs out, can rise regardless besides while using a skill
                             //if (airwalkTimer <= StaticValues.airwalkThreshold)
