@@ -17,8 +17,8 @@ namespace ShiggyMod.Modules
         public static ConfigEntry<KeyboardShortcut> RemoveHotkey { get; set; }
         public static ConfigEntry<KeyboardShortcut> AFOGiveHotkey { get; set; }
 
-        public static ConfigEntry<float> glideSpeed;
-        public static ConfigEntry<float> glideAcceleration;
+        //public static ConfigEntry<float> glideSpeed;
+        //public static ConfigEntry<float> glideAcceleration;
 
         public static void ReadConfig()
         {
@@ -33,24 +33,24 @@ namespace ShiggyMod.Modules
             allowAllSkills = ShiggyPlugin.instance.Config.Bind("General", "Allow all skils to be picked", false, "Should you be allowed to pick all skills in the loadout menu. AFO functionality is not disabled. Will require a Restart.");
 
             //Gliding
-            glideSpeed = ShiggyPlugin.instance.Config.Bind<float>
-            (
-                new ConfigDefinition("Gliding", "Falling Speed when gliding"),
-                60f,
-                new ConfigDescription("Determines the base speed of descent when gliding.",
-                    null,
-                    Array.Empty<object>()
-                )
-            );
-            glideAcceleration = ShiggyPlugin.instance.Config.Bind<float>
-            (
-                new ConfigDefinition("Gliding", "Falling acceleration when gliding"),
-                29.6f,
-                new ConfigDescription("Determines the falling acceleration when gliding.",
-                    null,
-                    Array.Empty<object>()
-                )
-            );
+            //glideSpeed = ShiggyPlugin.instance.Config.Bind<float>
+            //(
+            //    new ConfigDefinition("Gliding", "Falling Speed when gliding"),
+            //    60f,
+            //    new ConfigDescription("Determines the base speed of descent when gliding.",
+            //        null,
+            //        Array.Empty<object>()
+            //    )
+            //);
+            //glideAcceleration = ShiggyPlugin.instance.Config.Bind<float>
+            //(
+            //    new ConfigDefinition("Gliding", "Falling acceleration when gliding"),
+            //    29.6f,
+            //    new ConfigDescription("Determines the falling acceleration when gliding.",
+            //        null,
+            //        Array.Empty<object>()
+            //    )
+            //);
         }
 
         // this helper automatically makes config entries for disabling survivors
@@ -83,27 +83,27 @@ namespace ShiggyMod.Modules
             Sprite icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Shiggy");
             ModSettingsManager.SetModIcon(icon);
 
-            ModSettingsManager.AddOption(
-                new StepSliderOption(
-                    glideSpeed,
-                    new StepSliderConfig
-                    {
-                        min = 0,
-                        max = 100f,
-                        increment = 0.05f
-                    }
-                ));
+            //ModSettingsManager.AddOption(
+            //    new StepSliderOption(
+            //        glideSpeed,
+            //        new StepSliderConfig
+            //        {
+            //            min = 0,
+            //            max = 100f,
+            //            increment = 0.05f
+            //        }
+            //    ));
 
-            ModSettingsManager.AddOption(
-                new StepSliderOption(
-                    glideAcceleration,
-                    new StepSliderConfig
-                    {
-                        min = 0f,
-                        max = 100f,
-                        increment = 0.05f
-                    }
-                ));
+            //ModSettingsManager.AddOption(
+            //    new StepSliderOption(
+            //        glideAcceleration,
+            //        new StepSliderConfig
+            //        {
+            //            min = 0f,
+            //            max = 100f,
+            //            increment = 0.05f
+            //        }
+            //    ));
 
         }
     }

@@ -189,7 +189,7 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
 
-           
+
 
             hasStolen = false;
             hasQuirk = false;
@@ -219,9 +219,9 @@ namespace ShiggyMod.Modules.Survivors
         }
 
         public void PlayFinalReleaseLoop()
-        {            
+        {
             finalReleaseLoopID = AkSoundEngine.PostEvent("ShiggyBankaiMusic", characterBody.gameObject);
-            
+
         }
         public void StopFinalReleaseLoop()
         {
@@ -529,15 +529,14 @@ namespace ShiggyMod.Modules.Survivors
         {
 
             //air walk
-            if (!characterBody.characterMotor.isGrounded)
+            if(characterBody.characterMotor.jumpCount >= characterBody.maxJumpCount)
             {
-                airwalkTimer += Time.fixedDeltaTime;
-                //after 0.5 seconds start flying
-                if (airwalkTimer > 0.5f)
+                if (energySystem.currentplusChaos > 1f)
                 {
-                    if (energySystem.currentplusChaos > 1f)
+                    if (characterBody.inputBank.jump.down)
                     {
-                        if (characterBody.inputBank.jump.down)
+                        airwalkTimer += Time.fixedDeltaTime;
+                        if (airwalkTimer > 0.5f)
                         {
                             //constantly draining energy cost for air walk - based off % of max energy
                             float plusChaosflatCost = StaticValues.airwalkEnergyFraction * energySystem.maxPlusChaos - (energySystem.costflatplusChaos);
@@ -546,7 +545,7 @@ namespace ShiggyMod.Modules.Survivors
                             float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                             if (plusChaosCost < 0f) plusChaosCost = 0f;
 
-                            if(airwalkEnergyTimer < 1f)
+                            if (airwalkEnergyTimer < 1f)
                             {
                                 airwalkEnergyTimer += Time.fixedDeltaTime;
                             }
@@ -559,7 +558,7 @@ namespace ShiggyMod.Modules.Survivors
                             characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 1);
 
 
-                            //direction checks for mouse  /
+                            //direction checks for mouse  
                             Vector3 moveVector = inputBank.moveVector;
                             Vector3 aimDirection = inputBank.aimDirection;
                             Vector3 normalized = new Vector3(aimDirection.x, 0f, aimDirection.z).normalized;
@@ -578,25 +577,41 @@ namespace ShiggyMod.Modules.Survivors
                                 characterBody.characterMotor.velocity.y = 0f;
                                 //flightExpired = false;
                             }
-                            else
+                            else if (!characterBody.inputBank.skill1.down
+                            && !characterBody.inputBank.skill2.down
+                            && !characterBody.inputBank.skill3.down
+                            && !characterBody.inputBank.skill4.down
+                            && !extrainputBankTest.extraSkill1.down
+                            && !extrainputBankTest.extraSkill2.down
+                            && !extrainputBankTest.extraSkill3.down
+                            && !extrainputBankTest.extraSkill4.down)
                             {
 
                                 //check if you're holding no direction so you go up
                                 if (characterBody.inputBank.moveVector == Vector3.zero)
                                 {
-                                    characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                    if (characterBody.characterMotor.velocity.y <= 0f)
+                                    {
+                                        characterBody.characterMotor.velocity.y = 0f;
+                                    }
+                                    //characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
+                                    //characterBody.characterMotor.rootMotion += Vector3.up * characterBody.moveSpeed * Time.fixedDeltaTime;
                                 }
                                 else
                                 {
                                     //check if the direction you're holding is your aim direction, then go in that direction (allowing you to go up or down)
                                     if (Vector3.Dot(inputBank.moveVector, normalized) >= 0.8f)
                                     {
-                                        characterBody.characterMotor.velocity = characterBody.inputBank.aimDirection * characterBody.moveSpeed;
+                                        characterBody.characterMotor.velocity = characterBody.inputBank.aimDirection * characterBody.moveSpeed * 2f;
+                                        //characterBody.characterMotor.rootMotion += characterBody.inputBank.aimDirection * characterBody.moveSpeed * Time.fixedDeltaTime;
                                     }
                                     else
                                     {
-                                        //otherwise if not then maintain height                                       
-                                        characterBody.characterMotor.velocity.y = 0f;
+                                        //otherwise if not then maintain height        
+                                        if (characterBody.characterMotor.velocity.y <= 0f)
+                                        {
+                                            characterBody.characterMotor.velocity.y = 0f;
+                                        }
                                         characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
                                     }
                                 }
@@ -658,18 +673,23 @@ namespace ShiggyMod.Modules.Survivors
 
                         }
 
-                        //move in the direction you're moving at a normal speed
-                        //if (characterBody.inputBank.moveVector != Vector3.zero)
-                        //{
-                        //    //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
-                        //    characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
-                        //    //characterBody.characterMotor.disableAirControlUntilCollision = false;
-                        //}
-
 
                     }
 
+                    //move in the direction you're moving at a normal speed
+                    //if (characterBody.inputBank.moveVector != Vector3.zero)
+                    //{
+                    //    //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
+                    //    characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
+                    //    //characterBody.characterMotor.disableAirControlUntilCollision = false;
+                    //}
+
+
                 }
+            }
+            if (!characterBody.characterMotor.isGrounded)
+            {
+                //after 0.5 seconds start flying
             }
             else if (characterBody.characterMotor.isGrounded)
             {
@@ -682,6 +702,8 @@ namespace ShiggyMod.Modules.Survivors
                 }
             }
         }
+    
+
 
         public void MechStance()
         {

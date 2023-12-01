@@ -370,27 +370,28 @@ namespace ShiggyMod.Modules.Survivors
 
         public void FixedUpdate()
         {
-			//         if (characterMaster)
-			//         {
-			//	self = characterMaster.GetBody();
-			//         }
-			//         if (self)
-			//{
-			//	if (!self.gameObject.GetComponent<ExtraSkillLocator>())
-			//	{
-			//		extraskillLocator = self.gameObject.GetComponent<ExtraSkillLocator>();
-			//	}
-
-			//}
-			if (checkQuirkTimer < 1f)
+			if (characterMaster)
 			{
-				checkQuirkTimer += Time.fixedDeltaTime;
+				self = characterMaster.GetBody();
+			}
+			if (self)
+			{
+				if (!self.gameObject.GetComponent<ExtraSkillLocator>())
+				{
+					extraskillLocator = self.gameObject.GetComponent<ExtraSkillLocator>();
+				}
 
-            }
-			else if (checkQuirkTimer >= 1f)
-            {
-                CheckQuirksForBuffs(self);
-				checkQuirkTimer = 0f;
+                if (checkQuirkTimer < 1f)
+                {
+                    checkQuirkTimer += Time.fixedDeltaTime;
+
+                }
+                else if (checkQuirkTimer >= 1f)
+                {
+                    CheckQuirksForBuffs(self);
+                    checkQuirkTimer = 0f;
+                }
+
             }
 
 
