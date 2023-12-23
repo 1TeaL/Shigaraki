@@ -1570,18 +1570,10 @@ namespace ShiggyMod
                 {
                     if (Modules.Config.allowVoice.Value) 
                     { 
-                        AkSoundEngine.PostEvent("ShiggyEntrance", self.gameObject); 
+                        AkSoundEngine.PostEvent(1896314350, self.gameObject); 
                     }
                 }
             }
-            //if (gameObject.name.Contains("DekuDisplay"))
-            //{
-            //    if (self.gameObject.name.Contains("ShiggyDisplay"))
-            //    {
-            //        AkSoundEngine.PostEvent(1899640155, self.gameObject);
-
-            //    }
-            //}
 
         }
         private void CharacterModel_UpdateOverlays(On.RoR2.CharacterModel.orig_UpdateOverlays orig, CharacterModel self)

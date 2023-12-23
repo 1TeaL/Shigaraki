@@ -23,7 +23,7 @@ namespace ShiggyMod.Modules
         internal static float backupGain = 10f;
         internal static float afterburnerGain = 30f;
         internal static float lysateGain = 15f;
-        internal const float airwalkEnergyFraction = 0.1f;
+        internal const float airwalkEnergyFraction = 0.05f;
         //internal const float airwalkThreshold = 10f;
         internal const float AFOEnergyCost = 50f;
 
@@ -275,8 +275,8 @@ namespace ShiggyMod.Modules
         internal const float gravitationalDownforceForce = 100f;
 
         internal const float gachaBuffThreshold = 30f;
-        internal const int gachaTier1Amount = 4;
-        internal const int gachaTier2Amount = 2;
+        internal const int gachaTier1Amount = 1;
+        internal const int gachaTier2Amount = 1;
         internal const int gachaTier3Amount = 1;
 
         internal const float windShieldRadius = 8f;

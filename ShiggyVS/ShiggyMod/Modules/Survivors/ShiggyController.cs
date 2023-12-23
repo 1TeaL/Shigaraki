@@ -535,7 +535,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     if (characterBody.inputBank.jump.down)
                     {
-                        airwalkTimer += Time.fixedDeltaTime;
+                        airwalkTimer += Time.deltaTime;
                         if (airwalkTimer > 0.5f)
                         {
                             //constantly draining energy cost for air walk - based off % of max energy
@@ -545,11 +545,11 @@ namespace ShiggyMod.Modules.Survivors
                             float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                             if (plusChaosCost < 0f) plusChaosCost = 0f;
 
-                            if (airwalkEnergyTimer < 1f)
+                            if (airwalkEnergyTimer <= 1f)
                             {
-                                airwalkEnergyTimer += Time.fixedDeltaTime;
+                                airwalkEnergyTimer += Time.deltaTime;
                             }
-                            else if (airwalkEnergyTimer >= 1f)
+                            else if (airwalkEnergyTimer > 1f)
                             {
                                 energySystem.SpendplusChaos(plusChaosCost);
                                 airwalkEnergyTimer = 0f;
@@ -590,14 +590,12 @@ namespace ShiggyMod.Modules.Survivors
                                 //check if you're holding no direction so you go up
                                 if (characterBody.inputBank.moveVector == Vector3.zero)
                                 {
-                                    if (characterBody.characterMotor.velocity.y <= 0f)
-                                    {
-                                        characterBody.characterMotor.velocity.y = 0f;
-                                    }
+                                    characterBody.characterMotor.velocity.y += 1f;
+                                    
                                     //characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
                                     //characterBody.characterMotor.rootMotion += Vector3.up * characterBody.moveSpeed * Time.fixedDeltaTime;
                                 }
-                                else
+                                else if (characterBody.inputBank.moveVector != Vector3.zero)
                                 {
                                     //check if the direction you're holding is your aim direction, then go in that direction (allowing you to go up or down)
                                     if (Vector3.Dot(inputBank.moveVector, normalized) >= 0.8f)
@@ -612,7 +610,7 @@ namespace ShiggyMod.Modules.Survivors
                                         {
                                             characterBody.characterMotor.velocity.y = 0f;
                                         }
-                                        characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
+                                        characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.deltaTime;
                                     }
                                 }
                                 //flightExpired = true;
@@ -687,11 +685,8 @@ namespace ShiggyMod.Modules.Survivors
 
                 }
             }
-            if (!characterBody.characterMotor.isGrounded)
-            {
-                //after 0.5 seconds start flying
-            }
-            else if (characterBody.characterMotor.isGrounded)
+
+            if (characterBody.characterMotor.isGrounded)
             {
                 //remove airwalk buff when landed
                 //flightExpired = false;
@@ -1035,7 +1030,6 @@ namespace ShiggyMod.Modules.Survivors
                     DeathAura();
                     TheWorld();
                     OFABuff();
-                    AirWalk();
                     MechStance();
                     MultBuff();
                     ClayDunestrider();
@@ -1418,6 +1412,7 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Update()
         {
+            AirWalk();
             SaveSkills();
             Particles();
             //update indicator

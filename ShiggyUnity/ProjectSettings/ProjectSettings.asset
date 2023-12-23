@@ -714,10 +714,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: c8f4de45-6f6d-4e91-a399-8a317b148524
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: ShiggyUnity
+  organizationId: te_al
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
