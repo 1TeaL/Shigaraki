@@ -590,7 +590,7 @@ namespace ShiggyMod.Modules.Survivors
                                 //check if you're holding no direction so you go up
                                 if (characterBody.inputBank.moveVector == Vector3.zero)
                                 {
-                                    characterBody.characterMotor.velocity.y += 1f;
+                                    characterBody.characterMotor.velocity.y += 2f;
                                     
                                     //characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
                                     //characterBody.characterMotor.rootMotion += Vector3.up * characterBody.moveSpeed * Time.fixedDeltaTime;

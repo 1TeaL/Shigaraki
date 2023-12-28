@@ -83,7 +83,7 @@ namespace ShiggyMod
 
         public ShiggyController Shiggycon;
         public ShiggyMasterController Shiggymastercon;
-
+        
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
         public const string MODVERSION = "2.2.3";

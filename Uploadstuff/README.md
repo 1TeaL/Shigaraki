@@ -62,11 +62,16 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.2.3- Bug Fixes/Changes
+	- Bug Fixes
+  		- Noted that when Shigaraki gets on a jump pad he doesn't go up properly? unsure on issue. For now, added a lot of height gain for air walk if you hold no direction, just the jump button.
+    	- Changes
+		- Changed Gacha so that it gives 1 of each item tier, previously would give 4 whites, 2 greens and 1 red and was too powerful.
 - 2.2.2- Bug Fixes/Changes
 	- Bug Fixes
   		- Fixed omnibuff giving double time stacks and not properly decreasing.
   		- Improved buff checks for passsive skills (hopefully)
-      - Fixed non-moving/moving passives. There were errors on checking if your character was not moving and now it checks if you aren't holding any direction down.
+      	- Fixed non-moving/moving passives. There were errors on checking if your character was not moving and now it checks if you aren't holding any direction down.
     - Changes
 		- Changed Air Walk to now be able to fly forever as well as flying in where you're looking at if you're holding forward, allowing improved ascend/descend. This should help improve movement. Now also costs 10% of plus chaos every second instead and has no limit to flight.
       - There's now a disclaimer that when using AFO you need to be standing still. This has always been how it mechanically worked but it caused some confusion as you could not use it while moving. 
@@ -118,6 +123,7 @@ If you enjoy my work, support me on Ko-fi!
 ## Known Issues
     Sometimes quirks don't combine.
     Multiplayer has some issues with buff checks, sometimes occurring twice (taking damage twice, healing twice etc)
+    Jump pad doesn't send him up properly, for now made air walk give a lot of height while holding jump and no other movement button.
 ## Overview
     He is initially weak with low base damage, aim to get passive quirks to increase his power.
     All For One can grab elite equipment from elites. 
@@ -125,22 +131,6 @@ If you enjoy my work, support me on Ko-fi!
     It's good to have some base skills too as synergy and ultimate skills aren't usually direct upgrades.
     Beetle Queen's Summon Ally quirk allows you to get the base survivor's summoned and therefore be able to steal their quirks too. 
     https://miro.com/app/board/uXjVPKipCPA=/?share_link_id=782257375770 This is a Miro link to a visual of all the skills
-
-## Skills
-### Passive
-Shigaraki has a plus chaos meter- this is used for a few skills and his main quirk- All For One. It regenerates over time and every kill gives 10% of your max plus chaos. 
-
-Shigaraki can grab the target's quirk with All For One by pressing the F key by default, then pressing a skill slot (Costs 50 plus ultra by default). 
-Remove quirks by pressing the V key by default and pressing the skill slot as well. 
-Shigaraki can give passive quirks to enemies by pressing the C key by default, then pressing a skill slot that contains a passive(Costs 50 plus ultra by default).
-
-Actives(Circle Indicator) replace main skills and Passives(Square indicator) replace extra skills.
-
-Shigaraki has Air Walk: Holding jump in the air after 0.5 seconds let's him fly in the direction he's looking at if he's holding forward. Don't hold a direction to simply gain height. Holding any other directions maintain your current height. Drains 10% of your plus chaos every second.
-
-All [Melee]/Overlap attacks attacks Decay, which decreases the enemies' movespeed and attackspeed as well as instakilling them at 100 stacks (except for Teleporter Bosses).
-
-Shigaraki can sprint in any direction and has a double jump.
 
 ### Base Skills
 
