@@ -62,6 +62,11 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 2.2.3- Bug Fixes/Changes
+	- Bug Fixes
+  		- Noted that when Shigaraki gets on a jump pad he doesn't go up properly? unsure on issue. For now, added a lot of height gain for air walk if you hold no direction, just the jump button.
+    	- Changes
+		- Changed Gacha so that it gives 1 of each item tier, previously would give 4 whites, 2 greens and 1 red and was too powerful.
 - 2.2.2- Bug Fixes/Changes
 	- Bug Fixes
   		- Fixed omnibuff giving double time stacks and not properly decreasing.
@@ -118,6 +123,7 @@ If you enjoy my work, support me on Ko-fi!
 ## Known Issues
     Sometimes quirks don't combine.
     Multiplayer has some issues with buff checks, sometimes occurring twice (taking damage twice, healing twice etc)
+    Jump pad doesn't send him up properly, for now made air walk give a lot of height while holding jump and no other movement button.
 ## Overview
     He is initially weak with low base damage, aim to get passive quirks to increase his power.
     All For One can grab elite equipment from elites. 
@@ -136,7 +142,7 @@ Shigaraki can give passive quirks to enemies by pressing the C key by default, t
 
 Actives(Circle Indicator) replace main skills and Passives(Square indicator) replace extra skills.
 
-Shigaraki has Air Walk: Holding jump in the air after 0.5 seconds let's him fly in the direction he's looking at if he's holding forward. Don't hold a direction to simply gain height. Holding any other directions maintain your current height. Drains 10% of your plus chaos every second.
+Shigaraki has Air Walk: Holding jump in the air after 0.5 seconds let's him fly in the direction he's looking at if he's holding forward. Don't hold a direction to simply gain height. Holding any other directions maintain your current height. Drains 5% of your plus chaos every second.
 
 All [Melee]/Overlap attacks attacks Decay, which decreases the enemies' movespeed and attackspeed as well as instakilling them at 100 stacks (except for Teleporter Bosses).
 
