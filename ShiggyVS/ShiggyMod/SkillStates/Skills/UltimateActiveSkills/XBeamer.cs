@@ -24,7 +24,7 @@ namespace ShiggyMod.SkillStates
         public ShiggyController Shiggycon;
         private DamageType damageType;
         public HurtBox Target;
-        public GameObject flamethrowerEffectPrefab = Modules.Assets.artificerfireEffect;
+        public GameObject flamethrowerEffectPrefab = Modules.ShiggyAsset.artificerfireEffect;
 
         private float force = 1f;
         private float procCoefficientPerTick = Modules.StaticValues.xBeamerProcCoefficient;
@@ -44,7 +44,7 @@ namespace ShiggyMod.SkillStates
         private ChildLocator childLocator;
         private string muzzleStringR = "RHand";
         private string muzzleStringL = "LHand";
-        public LoopSoundDef loopSoundDef = Modules.Assets.xiconstructsound;
+        public LoopSoundDef loopSoundDef = Modules.ShiggyAsset.xiconstructsound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
         private GameObject RchargeVfxInstance;
         private GameObject LchargeVfxInstance;
@@ -131,9 +131,9 @@ namespace ShiggyMod.SkillStates
                 this.LchargeVfxInstance = UnityEngine.Object.Instantiate<GameObject>(EntityStates.VoidJailer.Capture.chargeVfxPrefab, FindModelChild(this.muzzleStringL).position, Util.QuaternionSafeLookRotation(aimRay.direction));
                 this.LchargeVfxInstance.transform.parent = FindModelChild(this.muzzleStringL).transform;
             }
-            //if(Assets.xBeamerIndicator)
+            //if(Asset.xBeamerIndicator)
             //{
-            //    this.areaIndicator = Object.Instantiate<GameObject>(Assets.xBeamerIndicator);
+            //    this.areaIndicator = Object.Instantiate<GameObject>(Asset.xBeamerIndicator);
             //    this.areaIndicator.SetActive(true);
             //    this.areaIndicator.transform.localScale = Vector3.one * this.radius;
             //    this.areaIndicator.transform.localPosition = childLocator.FindChild(this.muzzleStringR).position;
@@ -201,7 +201,7 @@ namespace ShiggyMod.SkillStates
         }
         private void FireBeam()
         {
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.xiconstructbeamEffect, base.gameObject, muzzleStringR, false);
+            EffectManager.SimpleMuzzleFlash(Modules.ShiggyAsset.xiconstructbeamEffect, base.gameObject, muzzleStringR, false);
             if (base.isAuthority)
             {
                 Ray aimRay = base.GetAimRay();
@@ -227,7 +227,7 @@ namespace ShiggyMod.SkillStates
                     procCoefficient = procCoefficientPerTick,
                     maxDistance = StaticValues.xBeamerDistance,
                     smartCollision = true,
-                    tracerEffectPrefab = Modules.Assets.VoidFiendBeamTracer,
+                    tracerEffectPrefab = Modules.ShiggyAsset.VoidFiendBeamTracer,
                     damageType = DamageType.Stun1s,
                 };
                 bulletAttack.Fire();
@@ -293,7 +293,7 @@ namespace ShiggyMod.SkillStates
 
                     if (!laserEffect)
                     {
-                        laserEffect = UnityEngine.Object.Instantiate(Assets.xiconstructBeamLaser, startPosition, Quaternion.identity);
+                        laserEffect = UnityEngine.Object.Instantiate(Modules.ShiggyAsset.xiconstructBeamLaser, startPosition, Quaternion.identity);
                         //laserEffect.transform.parent = FindModelChild(this.muzzleStringR).transform;                        
                         laserEffectEndTransform = laserEffect.GetComponent<ChildLocator>().FindChild("LaserEnd");
                         laserEffectEndTransform.position = endPosition;

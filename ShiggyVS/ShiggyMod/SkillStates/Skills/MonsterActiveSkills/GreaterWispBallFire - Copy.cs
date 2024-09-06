@@ -61,7 +61,7 @@
 //            base.FixedUpdate();
 //            if(base.fixedAge < fireTime)
 //            {
-//                EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+//                EffectManager.SpawnEffect(Modules.Asset.chargegreaterwispBall, new EffectData
 //                {
 //                    origin = FindModelChild(LHand).position,
 //                    scale = radius,
@@ -69,7 +69,7 @@
 
 //                }, false);
 
-//                EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+//                EffectManager.SpawnEffect(Modules.Asset.chargegreaterwispBall, new EffectData
 //                {
 //                    origin = FindModelChild(RHand).position,
 //                    scale = radius,
@@ -120,7 +120,7 @@
 //                    {
 
 //                        ProjectileManager.instance.FireProjectile(
-//                            Modules.Assets.greaterwispBall, //prefab
+//                            Modules.Asset.greaterwispBall, //prefab
 //                            aimRay.origin, //position
 //                            Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
 //                            base.gameObject, //owner
@@ -135,7 +135,7 @@
 //                    {
 
 //                        ProjectileManager.instance.FireProjectile(
-//                            Modules.Assets.greaterwispBall, //prefab
+//                            Modules.Asset.greaterwispBall, //prefab
 //                            aimRay.origin, //position
 //                            Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
 //                            base.gameObject, //owner

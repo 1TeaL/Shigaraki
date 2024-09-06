@@ -29,8 +29,8 @@ namespace ShiggyMod.SkillStates
 
         private Transform modelTransform;
         private string muzzleString = "RHand";
-		private GameObject explosionPrefab = Assets.loaderOmniImpactLightningEffect;
-        private GameObject muzzlePrefab = Assets.loaderMuzzleFlashEffect;
+		private GameObject explosionPrefab = ShiggyAsset.loaderOmniImpactLightningEffect;
+        private GameObject muzzlePrefab = ShiggyAsset.loaderMuzzleFlashEffect;
         public GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
         private readonly BullseyeSearch search = new BullseyeSearch();
 
@@ -70,16 +70,15 @@ namespace ShiggyMod.SkillStates
 
             if (this.modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                 temporaryOverlay.duration = duration;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matVagrantEnergized");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
             }
             EffectManager.SimpleMuzzleFlash(EvisDash.blinkPrefab, base.gameObject, this.muzzleString, false);
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.muzzleflashMageLightningLargePrefab, base.gameObject, this.muzzleString, false);
+            EffectManager.SimpleMuzzleFlash(Modules.ShiggyAsset.muzzleflashMageLightningLargePrefab, base.gameObject, this.muzzleString, false);
             CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
         }
 		public override void OnExit()

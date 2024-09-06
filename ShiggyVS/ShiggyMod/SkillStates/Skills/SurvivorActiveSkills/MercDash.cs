@@ -36,9 +36,9 @@ namespace ShiggyMod.SkillStates
         protected string swingSoundString = "";
         protected string hitSoundString = "";
         protected string muzzleString = "Swing1";
-        protected GameObject swingEffectPrefab = Modules.Assets.shiggySwingEffect;
-        protected GameObject hitEffectPrefab = Modules.Assets.shiggyHitImpactEffect;
-        protected NetworkSoundEventIndex impactSound = Modules.Assets.hitSoundEffect.index;
+        protected GameObject swingEffectPrefab = Modules.ShiggyAsset.shiggySwingEffect;
+        protected GameObject hitEffectPrefab = Modules.ShiggyAsset.shiggyHitImpactEffect;
+        protected NetworkSoundEventIndex impactSound = Modules.ShiggyAsset.hitSoundEffect.index;
 
         public float duration;
         private bool hasFired;
@@ -121,13 +121,12 @@ namespace ShiggyMod.SkillStates
             this.modelTransform = base.GetModelTransform();
             if (this.modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                 temporaryOverlay.duration = duration;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matMercEnergized");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
             }
             base.characterDirection.forward = base.characterMotor.velocity.normalized;
             if (NetworkServer.active)
@@ -148,20 +147,18 @@ namespace ShiggyMod.SkillStates
             EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, false);
             if (this.modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                 temporaryOverlay.duration = duration;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
-                TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay2 = TemporaryOverlayManager.AddOverlay(new GameObject());
                 temporaryOverlay2.duration = 0.7f;
                 temporaryOverlay2.animateShaderAlpha = true;
                 temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay2.destroyComponentOnEnd = true;
                 temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
-                temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
             }
         }
 

@@ -25,7 +25,7 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride = -1f;
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
-        public GameObject crosshairOverridePrefab = Modules.Assets.banditCrosshair;
+        public GameObject crosshairOverridePrefab = Modules.ShiggyAsset.banditCrosshair;
 
         public override void OnEnter()
         {

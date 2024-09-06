@@ -82,7 +82,7 @@ namespace ShiggyMod.Modules
             ModSettingsManager.AddOption(new StepSliderOption(
                 holdButtonAFO, new StepSliderConfig() { min = 0, max = 10, increment = 1f }));
             ModSettingsManager.SetModDescription("Shigaraki Mod");
-            Sprite icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Shiggy");
+            Sprite icon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Shiggy");
             ModSettingsManager.SetModIcon(icon);
 
             //ModSettingsManager.AddOption(

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{3AA9B94F-EDC3-4D54-89F6-A06C1D5BCB26}" SchemaVersion="97">
+	<SoundBanks>
+		<WorkUnit Name="Default Work Unit" ID="{3AA9B94F-EDC3-4D54-89F6-A06C1D5BCB26}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="Shiggy" ID="{3DBBA3D4-B72C-4174-9451-A27430726567}">
+					<ObjectInclusionList>
+						<ObjectRef Name="ShiggySlide" ID="{4E97410B-8640-40F1-939A-2BC125C32CDB}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyOFA" ID="{E1D1FBC8-E0FD-4189-8737-A8B04C460F5A}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyStrongAttack" ID="{436058F5-5F14-434D-AD4F-2D37071257AA}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyAirCannon" ID="{04044226-4C0C-438A-8069-3FCFA267B6EF}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyBankaiMugetsu" ID="{E03CDB1D-06C4-4390-80E0-6A112145AF88}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyDekuCollab" ID="{C7D22022-44E5-4513-B7AD-6BF90713CC4E}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyMelee" ID="{265A8C71-0255-455D-915F-96F4E053FD15}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyExplosion" ID="{A2464958-AD92-4597-9900-A02FBD13B56D}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyTheWorld" ID="{A30051B1-5235-47B4-83AF-98A8A3E2F722}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyAttack" ID="{AC370208-0307-47E8-BA44-BF4682AB9A09}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyGacha" ID="{B0E8F652-4720-4959-97E3-252EB51F3C3F}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyLimitBreak" ID="{C8C0CC95-4FE6-49A5-9794-5D788184BC9D}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyDriveForm" ID="{1F0B6B63-D8BB-4B6C-9B07-A2800690F25F}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyDeath" ID="{46C4C418-59C6-4B77-A3A8-F9CAC45A3698}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyOFAGet" ID="{530DD5EC-ABF9-4C17-BD76-9E3835D30B6B}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyBankai" ID="{209F27A0-E531-4D5A-BF79-A4490F18934D}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyGetsuga" ID="{B3E96C7E-3A93-4E4B-A7F6-0F5B72B6FFF6}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyEntrance" ID="{7106EB36-ADB6-4E70-B7A0-1B15CCD6E81E}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyAFO" ID="{D8C5B628-D964-4EF2-8D9D-26F8E07649C8}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyBankaiMusic" ID="{D33ABBDD-654C-4EFB-93F8-15D9E4B07109}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ShiggyHitSFX" ID="{52C95AB5-B169-4FAF-8FCC-EE1D4AEB265F}" WorkUnitID="{93F48A79-6A4B-41F1-8C60-B91835847140}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundBanks>
+</WwiseDocument>

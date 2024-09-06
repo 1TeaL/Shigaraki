@@ -28,14 +28,14 @@ namespace ShiggyMod.SkillStates
             //play differnt animation and maybe particles?
 
             Ray aimRay = base.GetAimRay();
-            EffectManager.SpawnEffect(Assets.voidMegaCrabExplosionEffect, new EffectData
+            EffectManager.SpawnEffect(Modules.ShiggyAsset.voidMegaCrabExplosionEffect, new EffectData
             {
                 origin = FindModelChild(muzzleString).position,
                 scale = 1f,
                 rotation = Quaternion.LookRotation(aimRay.direction),
 
             }, true);
-            //EffectManager.SpawnEffect(Assets.commandoOmniExplosionVFXEffect, new EffectData
+            //EffectManager.SpawnEffect(ShiggyAsset.commandoOmniExplosionVFXEffect, new EffectData
             //{
             //    origin = muzz,
             //    scale = 1f,

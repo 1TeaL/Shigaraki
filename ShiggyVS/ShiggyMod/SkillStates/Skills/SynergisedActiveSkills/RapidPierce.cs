@@ -104,11 +104,11 @@ namespace ShiggyMod.SkillStates
                 sniper = false,
                 stopperMask = LayerIndex.noCollision.mask,
                 weapon = null,
-                tracerEffectPrefab = Modules.Assets.railgunnerSnipeLightTracerEffect,
+                tracerEffectPrefab = Modules.ShiggyAsset.railgunnerSnipeLightTracerEffect,
                 spreadPitchScale = 1f,
                 spreadYawScale = 1f,
                 queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                hitEffectPrefab = Modules.Assets.railgunnerHitSparkEffect,
+                hitEffectPrefab = Modules.ShiggyAsset.railgunnerHitSparkEffect,
 
             };
             bulletAttack.hitCallback = delegate (BulletAttack bulletAttackRef, ref BulletHit hitInfo)

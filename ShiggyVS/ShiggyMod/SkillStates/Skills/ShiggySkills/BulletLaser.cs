@@ -43,7 +43,7 @@ namespace ShiggyMod.SkillStates
             }
             this.muzzleString = "LHand";
             //EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
-            //EffectManager.SimpleMuzzleFlash(Modules.Assets.voidfiendblinkmuzzleEffect, base.gameObject, this.muzzleString, false);
+            //EffectManager.SimpleMuzzleFlash(Modules.Asset.voidfiendblinkmuzzleEffect, base.gameObject, this.muzzleString, false);
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -91,7 +91,7 @@ namespace ShiggyMod.SkillStates
                     sniper = false,
                     stopperMask = LayerIndex.noCollision.mask,
                     weapon = null,
-                    tracerEffectPrefab = Modules.Assets.VoidFiendBeamTracer,
+                    tracerEffectPrefab = Modules.ShiggyAsset.VoidFiendBeamTracer,
                     spreadPitchScale = 0f,
                     spreadYawScale = 0f,
                     queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,

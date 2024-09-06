@@ -26,8 +26,8 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride = -1f;
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
-        public GameObject crosshairOverridePrefab = Modules.Assets.railgunnercryoCrosshair;
-        public LoopSoundDef loopSoundDef = Modules.Assets.railgunnercryochargingSound;
+        public GameObject crosshairOverridePrefab = Modules.ShiggyAsset.railgunnercryoCrosshair;
+        public LoopSoundDef loopSoundDef = Modules.ShiggyAsset.railgunnercryochargingSound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
 
         public override void OnEnter()

@@ -143,7 +143,7 @@ namespace ShiggyMod.SkillStates
                             scale = StaticValues.finalReleaseBaseRadius + StaticValues.finalReleaseRadiusPerStackCoefficient * currentReleaseCount,
                         }, true);
 
-                        EffectManager.SpawnEffect(Modules.Assets.finalReleasePulseEffect, new EffectData
+                        EffectManager.SpawnEffect(Modules.ShiggyAsset.finalReleasePulseEffect, new EffectData
                         {
                             origin = characterBody.footPosition,
                             scale = 1f,

@@ -81,9 +81,9 @@ namespace ShiggyMod.SkillStates
                 base.characterMotor.velocity.y = ThrowGlaive.smallHopStrength;
             }
 
-            if (Assets.huntressGlaiveChargeEffect)
+            if (ShiggyAsset.huntressGlaiveChargeEffect)
             {
-                this.chargeEffect = UnityEngine.Object.Instantiate<GameObject>(Assets.huntressGlaiveChargeEffect, this.childLocator.FindChild(muzzleString).position, Util.QuaternionSafeLookRotation(aimRay.direction.normalized));
+                this.chargeEffect = UnityEngine.Object.Instantiate<GameObject>(Modules.ShiggyAsset.huntressGlaiveChargeEffect, this.childLocator.FindChild(muzzleString).position, Util.QuaternionSafeLookRotation(aimRay.direction.normalized));
                 this.chargeEffect.transform.parent = this.childLocator.FindChild(muzzleString);
             }
 
@@ -116,7 +116,7 @@ namespace ShiggyMod.SkillStates
             {
                 this.hasSuccessfullyThrownGlaive = true;
                 Transform transform = this.childLocator.FindChild(this.muzzleString);
-                EffectManager.SimpleMuzzleFlash(Assets.huntressGlaiveMuzzleEffect, base.gameObject, muzzleString, true);
+                EffectManager.SimpleMuzzleFlash(ShiggyAsset.huntressGlaiveMuzzleEffect, base.gameObject, muzzleString, true);
                 lightningOrb.origin = transform.position;
                 lightningOrb.target = hurtBox;
                 OrbManager.instance.AddOrb(lightningOrb);

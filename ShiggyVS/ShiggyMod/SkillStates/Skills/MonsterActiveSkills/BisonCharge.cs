@@ -119,7 +119,7 @@ namespace ShiggyMod.SkillStates
 			if (isAuthority)
 			{
 				Ray aimRay = base.GetAimRay();
-				EffectManager.SpawnEffect(Modules.Assets.bisonEffect, new EffectData
+				EffectManager.SpawnEffect(Modules.ShiggyAsset.bisonEffect, new EffectData
 				{
 					origin = base.transform.position,
 					scale = 1f,

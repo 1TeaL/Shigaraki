@@ -13,15 +13,15 @@ namespace ShiggyMod.SkillStates
     {
         public CharacterBody charBody;
         public CharacterBody attackerBody;
-        private GameObject effectObj = Modules.Assets.decaybuffEffect;
+        private GameObject effectObj = Modules.ShiggyAsset.decaybuffEffect;
         public float timer;
 
         public void Start()
         {
             charBody = gameObject.GetComponent<CharacterBody>();
-            //effectObj = UnityEngine.Object.Instantiate(Modules.Assets.decaybuffEffect, charBody.corePosition, Quaternion.identity);
+            //effectObj = UnityEngine.Object.Instantiate(Modules.Asset.decaybuffEffect, charBody.corePosition, Quaternion.identity);
             //effectObj.transform.parent = charBody.gameObject.transform;
-            //effectObj = EffectManager.SimpleEffect(Modules.Assets.decaybuffEffect, this.transform.position, Quaternion.identity, true);
+            //effectObj = EffectManager.SimpleEffect(Modules.Asset.decaybuffEffect, this.transform.position, Quaternion.identity, true);
 
             //EffectManager.SpawnEffect(effectObj, new EffectData
             //{
@@ -68,7 +68,7 @@ namespace ShiggyMod.SkillStates
 
                         DotController.InflictDot(ref info);
                     }
-                    EffectManager.SpawnEffect(Modules.Assets.decayspreadEffect, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.decayspreadEffect, new EffectData
                     {
                         origin = singularTarget.healthComponent.body.corePosition,
                         scale = 1f,
@@ -81,7 +81,7 @@ namespace ShiggyMod.SkillStates
                         controller = singularTarget.gameObject.AddComponent<DecayEffectController>();
                         controller.attackerBody = attackerBody;
                     }
-                    //EffectManager.SpawnEffect(Modules.Assets.decaybuffEffect, new EffectData
+                    //EffectManager.SpawnEffect(Modules.Asset.decaybuffEffect, new EffectData
                     //{
                     //    origin = singularTarget.healthComponent.body.corePosition,
                     //    scale = 1f,
@@ -101,7 +101,7 @@ namespace ShiggyMod.SkillStates
         //    info.dotIndex = Modules.Dots.decayDot;
 
         //    DotController.InflictDot(ref info);
-        //    EffectManager.SpawnEffect(Modules.Assets.decayspreadEffect, new EffectData
+        //    EffectManager.SpawnEffect(Modules.Asset.decayspreadEffect, new EffectData
         //    {
         //        origin = charBody.corePosition,
         //        scale = 1f,

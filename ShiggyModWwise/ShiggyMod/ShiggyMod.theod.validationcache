@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ValidationCache Version="1" SchemaVersion="97">
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Virtual Acoustics\Factory Reflect Acoustic Textures.wwu" DateLow="1646649460" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Virtual Acoustics\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Triggers\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Switches\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\States\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\SoundBanks\Default Work Unit.wwu" DateLow="1683692883" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\ShiggyMod.wproj" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\ShiggyMod.theod.wsettings" DateLow="1703334351" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Queries\Factory Queries.wwu" DateLow="1646649439" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Queries\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Presets\Factory Spatial Audio.wwu" DateLow="1646649439" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Presets\Factory Reflect.wwu" DateLow="1646649460" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Presets\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Modulators\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Mixing Sessions\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1652091153" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Game Parameters\Factory SoundSeed Air Game Syncs.wwu" DateLow="1646649460" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Game Parameters\Factory Motion.wwu" DateLow="1646649461" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Game Parameters\Default Work Unit.wwu" DateLow="1652091153" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Events\Default Work Unit.wwu" DateLow="1683692883" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory Reflect.wwu" DateLow="1646649460" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory McDSP Effects.wwu" DateLow="1646649459" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory Mastering Suite.wwu" DateLow="1646649462" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Singleband Distortion.wwu" DateLow="1646649459" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Multiband Distortion.wwu" DateLow="1646649459" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Hybrid Reverb Effects.wwu" DateLow="1646649459" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Filters.wwu" DateLow="1646649459" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Dynamics.wwu" DateLow="1646649459" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Delay.wwu" DateLow="1646649459" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Box Modeler.wwu" DateLow="1646649459" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory Effects.wwu" DateLow="1646649439" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory Auro Headphone.wwu" DateLow="1646649457" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Dynamic Dialogue\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Conversion Settings\Factory Conversion Settings.wwu" DateLow="1646649439" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Conversion Settings\Default Work Unit.wwu" DateLow="1652101882" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Control Surface Sessions\Default Work Unit.wwu" DateLow="1652081567" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Audio Devices\Default Work Unit.wwu" DateLow="1652091153" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Attenuations\Default Work Unit.wwu" DateLow="1652091153" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Actor-Mixer Hierarchy\Factory Synth One.wwu" DateLow="1646649439" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Actor-Mixer Hierarchy\Factory SoundSeed Air Objects.wwu" DateLow="1646649460" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Actor-Mixer Hierarchy\Factory Motion.wwu" DateLow="1652091153" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1683729261" DateHigh="0"/>
+<ValidationCache Version="1" SchemaVersion="119">
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Virtual Acoustics\Factory Reflect Acoustic Textures.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Virtual Acoustics\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Triggers\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Switches\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\States\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\SoundBanks\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\ShiggyMod.wproj" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\ShiggyMod.theod.wsettings" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Queries\Factory Queries.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Queries\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Presets\Factory Spatial Audio.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Presets\Factory Reflect.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Presets\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Modulators\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Mixing Sessions\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Game Parameters\Factory SoundSeed Air Game Syncs.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Game Parameters\Factory Motion.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Game Parameters\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Events\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory Reflect.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory McDSP Effects.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory Mastering Suite.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Singleband Distortion.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Multiband Distortion.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Hybrid Reverb Effects.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Filters.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Dynamics.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Delay.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory iZotope Box Modeler.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory Effects.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Factory Auro Headphone.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Effects\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Dynamic Dialogue\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Conversion Settings\Factory Conversion Settings.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Conversion Settings\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Control Surface Sessions\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Audio Devices\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Attenuations\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Actor-Mixer Hierarchy\Factory Synth One.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Actor-Mixer Hierarchy\Factory SoundSeed Air Objects.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Actor-Mixer Hierarchy\Factory Motion.wwu" DateLow="1725631068" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyModWwise\ShiggyMod\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1725631068" DateHigh="0"/>
 </ValidationCache>

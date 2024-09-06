@@ -69,7 +69,7 @@ namespace ShiggyMod.SkillStates
             {
                 hasFired = true;
                 Ray aimRay = base.GetAimRay();
-                EffectManager.SpawnEffect(Assets.impBossExplosionEffect, new EffectData
+                EffectManager.SpawnEffect(Modules.ShiggyAsset.impBossExplosionEffect, new EffectData
                 {
                     origin = aimRay.origin,
                     scale = radius,

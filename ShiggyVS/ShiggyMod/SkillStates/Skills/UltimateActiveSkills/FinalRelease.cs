@@ -76,7 +76,7 @@ namespace ShiggyMod.SkillStates
                     }
                 }
 
-                EffectManager.SpawnEffect(Modules.Assets.finalReleasePulseEffect, new EffectData
+                EffectManager.SpawnEffect(Modules.ShiggyAsset.finalReleasePulseEffect, new EffectData
                 {
                     origin = characterBody.footPosition,
                     scale = 1f,

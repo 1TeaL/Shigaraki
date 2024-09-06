@@ -63,8 +63,8 @@ namespace ShiggyMod.SkillStates
                 rotation = Quaternion.LookRotation(aimRay.direction),
 
             }, true);
-            EffectManager.SimpleMuzzleFlash(Assets.commandoOmniExplosionVFXEffect, base.gameObject, this.muzzleString, false);
-            //EffectManager.SpawnEffect(Assets.commandoOmniExplosionVFXEffect, new EffectData
+            EffectManager.SimpleMuzzleFlash(Modules.ShiggyAsset.commandoOmniExplosionVFXEffect, base.gameObject, this.muzzleString, false);
+            //EffectManager.SpawnEffect(Asset.commandoOmniExplosionVFXEffect, new EffectData
             //{
             //    origin = muzz,
             //    scale = 1f,

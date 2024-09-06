@@ -28,7 +28,7 @@ namespace ShiggyMod.SkillStates
             //play animation and maybe particles?
 
             Ray aimRay = base.GetAimRay();
-            EffectManager.SpawnEffect(Assets.impBossExplosionEffect, new EffectData
+            EffectManager.SpawnEffect(ShiggyAsset.impBossExplosionEffect, new EffectData
             {
                 origin = FindModelChild(muzzleString).position,
                 scale = 1f,

@@ -159,7 +159,7 @@ namespace ShiggyMod.Modules.Networking
                                 origin = position,
                                 start = start
                             };
-                            EffectManager.SpawnEffect(Modules.Assets.railgunnerSnipeLightTracerEffect, effectData, true);
+                            EffectManager.SpawnEffect(Modules.ShiggyAsset.railgunnerSnipeLightTracerEffect, effectData, true);
                         }
                     }
                 }

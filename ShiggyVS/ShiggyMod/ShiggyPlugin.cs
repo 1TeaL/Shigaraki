@@ -112,7 +112,7 @@ namespace ShiggyMod
             ShiggyPlugin.instance = this;
 
             // load assets and read config
-            Modules.Assets.Initialize();
+            Modules.ShiggyAsset.Initialize();
             Modules.Config.ReadConfig();
             Modules.Damage.SetupModdedDamage(); //setup modded damage
             if (Chainloader.PluginInfos.ContainsKey("com.rune580.riskofoptions")) //risk of options support
@@ -343,7 +343,7 @@ namespace ShiggyMod
                     //}.Fire();
                     new PerformForceNetworkRequest(self.attacker.gameObject.GetComponent<CharacterBody>().masterObjectId, self.target.transform.position, Vector3.up, StaticValues.blackholeGlaiveBlastRange, 0f, self.damageValue, 360f, false).Send(NetworkDestination.Clients);
 
-                    EffectManager.SpawnEffect(Modules.Assets.voidMegaCrabExplosionEffect, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.voidMegaCrabExplosionEffect, new EffectData
                     {
                         origin = self.target.transform.position,
                         scale = StaticValues.blackholeGlaiveBlastRange
@@ -595,7 +595,7 @@ namespace ShiggyMod
                 {
                     if (damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT && damageInfo.procCoefficient != 0f)
                     {
-                        EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                        EffectManager.SpawnEffect(Modules.ShiggyAsset.chargegreaterwispBall, new EffectData
                         {
                             origin = victimBody.transform.position,
                             scale = StaticValues.greaterwispballRadius,
@@ -645,7 +645,7 @@ namespace ShiggyMod
                                 attackerBody.ApplyBuff(Buffs.elementalFusionFreezeBuff.buffIndex, 1);
                                 attackerBody.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
 
-                                EffectManager.SpawnEffect(Modules.Assets.artificerFireMuzzleEffect, new EffectData
+                                EffectManager.SpawnEffect(Modules.ShiggyAsset.artificerFireMuzzleEffect, new EffectData
                                 {
                                     origin = attackerBody.corePosition,
                                     scale = 1f,
@@ -659,7 +659,7 @@ namespace ShiggyMod
                                 attackerBody.ApplyBuff(Buffs.elementalFusionShockBuff.buffIndex, 1);
                                 attackerBody.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
 
-                                EffectManager.SpawnEffect(Modules.Assets.artificerIceMuzzleEffect, new EffectData
+                                EffectManager.SpawnEffect(Modules.ShiggyAsset.artificerIceMuzzleEffect, new EffectData
                                 {
                                     origin = attackerBody.corePosition,
                                     scale = 1f,
@@ -672,7 +672,7 @@ namespace ShiggyMod
                                 attackerBody.ApplyBuff(Buffs.elementalFusionFireBuff.buffIndex, 1);
                                 attackerBody.ApplyBuff(Buffs.elementalFusionBuffStacks.buffIndex, 0);
 
-                                EffectManager.SpawnEffect(Modules.Assets.artificerLightningMuzzleEffect, new EffectData
+                                EffectManager.SpawnEffect(Modules.ShiggyAsset.artificerLightningMuzzleEffect, new EffectData
                                 {
                                     origin = attackerBody.corePosition,
                                     scale = 1f,
@@ -981,7 +981,7 @@ namespace ShiggyMod
                 //Debug.Log(item.bodyPrefab.name);
                 if (item.bodyPrefab.name == "ShiggyBody")
                 {
-                    CustomEmotesAPI.ImportArmature(item.bodyPrefab, Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("humanoidShigaraki"));
+                    CustomEmotesAPI.ImportArmature(item.bodyPrefab, Modules.ShiggyAsset.mainAssetBundle.LoadAsset<GameObject>("humanoidShigaraki"));
                 }
             }
         }
@@ -1113,13 +1113,12 @@ namespace ShiggyMod
                                 Transform modelTransform = victimBody.gameObject.GetComponent<ModelLocator>().modelTransform;
                                 if (modelTransform)
                                 {
-                                    TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                                    TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                                     temporaryOverlay.duration = 3f;
                                     temporaryOverlay.animateShaderAlpha = true;
                                     temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                                     temporaryOverlay.destroyComponentOnEnd = true;
                                     temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matVagrantEnergized");
-                                    temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
                                 }
                                 new BlastAttack
                                 {
@@ -1252,13 +1251,13 @@ namespace ShiggyMod
                                 origin = damageInfo.position,
                                 rotation = Quaternion.identity,
                             };
-                            EffectManager.SpawnEffect(Modules.Assets.mushrumSporeImpactPrefab, effectData, true);
+                            EffectManager.SpawnEffect(Modules.ShiggyAsset.mushrumSporeImpactPrefab, effectData, true);
                             EffectData effectData2 = new EffectData
                             {
                                 origin = damageInfo.attacker.transform.position,
                                 rotation = Quaternion.identity,
                             };
-                            EffectManager.SpawnEffect(Modules.Assets.mushrumSporeImpactPrefab, effectData2, true);
+                            EffectManager.SpawnEffect(Modules.ShiggyAsset.mushrumSporeImpactPrefab, effectData2, true);
                         }
 
                         //reversal effect
@@ -1445,7 +1444,7 @@ namespace ShiggyMod
                             blastAttack.Fire();
 
 
-                            EffectManager.SpawnEffect(Modules.Assets.GupSpikeEffect, new EffectData
+                            EffectManager.SpawnEffect(Modules.ShiggyAsset.GupSpikeEffect, new EffectData
                             {
                                 origin = self.transform.position,
                                 scale = Modules.StaticValues.spikedamageRadius / 3,
@@ -1584,17 +1583,17 @@ namespace ShiggyMod
             {
                 if (self.body)
                 {
-                    this.OverlayFunction(Modules.Assets.alphaconstructShieldBuffMat, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
-                    this.OverlayFunction(Modules.Assets.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
-                    this.OverlayFunction(Modules.Assets.limitBreakBuffMat, self.body.HasBuff(Modules.Buffs.limitBreakBuff), self);
-                    this.OverlayFunction(Modules.Assets.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.voidFormBuff), self);
-                    this.OverlayFunction(Modules.Assets.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.decayDebuff), self);
+                    this.OverlayFunction(Modules.ShiggyAsset.alphaconstructShieldBuffMat, self.body.HasBuff(Modules.Buffs.alphashieldonBuff), self);
+                    this.OverlayFunction(Modules.ShiggyAsset.multiplierShieldBuffMat, self.body.HasBuff(Modules.Buffs.multiplierBuff), self);
+                    this.OverlayFunction(Modules.ShiggyAsset.limitBreakBuffMat, self.body.HasBuff(Modules.Buffs.limitBreakBuff), self);
+                    this.OverlayFunction(Modules.ShiggyAsset.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.voidFormBuff), self);
+                    this.OverlayFunction(Modules.ShiggyAsset.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.decayDebuff), self);
                     this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.deathAuraBuff), self);
-                    this.OverlayFunction(Modules.Assets.deathAuraBuffMat, self.body.HasBuff(Modules.Buffs.deathAuraDebuff), self); 
+                    this.OverlayFunction(Modules.ShiggyAsset.deathAuraBuffMat, self.body.HasBuff(Modules.Buffs.deathAuraDebuff), self); 
                     this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.darknessFormBuff), self);
-                    this.OverlayFunction(Modules.Assets.lightFormBuffMat, self.body.HasBuff(Modules.Buffs.lightFormBuff), self);
-                    this.OverlayFunction(Modules.Assets.lightAndDarknessMat, self.body.HasBuff(Modules.Buffs.lightAndDarknessFormBuff), self);
-                    this.OverlayFunction(Modules.Assets.blastingZoneBurnMat, self.body.HasBuff(Modules.Buffs.blastingZoneBurnDebuff), self);
+                    this.OverlayFunction(Modules.ShiggyAsset.lightFormBuffMat, self.body.HasBuff(Modules.Buffs.lightFormBuff), self);
+                    this.OverlayFunction(Modules.ShiggyAsset.lightAndDarknessMat, self.body.HasBuff(Modules.Buffs.lightAndDarknessFormBuff), self);
+                    this.OverlayFunction(Modules.ShiggyAsset.blastingZoneBurnMat, self.body.HasBuff(Modules.Buffs.blastingZoneBurnDebuff), self);
                 }
             }
         }

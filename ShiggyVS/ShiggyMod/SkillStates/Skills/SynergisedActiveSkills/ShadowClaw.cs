@@ -34,7 +34,7 @@ namespace ShiggyMod.SkillStates
         private float damageCoefficient = StaticValues.shadowClawDamageCoefficient;
         private float procCoefficient = StaticValues.shadowClawProcCoefficient;
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
-        public GameObject crosshairOverridePrefab = Assets.banditCrosshair;
+        public GameObject crosshairOverridePrefab = Modules.ShiggyAsset.banditCrosshair;
         private BlastAttack blastAttack;
         private Vector3 randRelPos;
         private Transform modelTransform;
@@ -159,10 +159,10 @@ namespace ShiggyMod.SkillStates
                         blastAttack.Fire();
 
 
-                        EffectManager.SpawnEffect(Assets.impBossGroundSlamEffect, new EffectData
+                        EffectManager.SpawnEffect(Modules.ShiggyAsset.impBossGroundSlamEffect, new EffectData
                         {
                             origin = base.characterBody.corePosition + randRelPos,
-                            scale = radius/3f,
+                            scale = radius / 3f,
                             rotation = Quaternion.identity,
 
                         }, true);
@@ -173,7 +173,7 @@ namespace ShiggyMod.SkillStates
                         randRelPos = new Vector3((float)Random.Range(-radius, radius) / 2f, (float)Random.Range(-radius, radius) / 2f, (float)Random.Range(-radius, radius) / 2f);
                         blastAttack.position = characterBody.corePosition;
                         blastAttack.Fire();
-                        EffectManager.SpawnEffect(Assets.impBossGroundSlamEffect, new EffectData
+                        EffectManager.SpawnEffect(Modules.ShiggyAsset.impBossGroundSlamEffect, new EffectData
                         {
                             origin = base.characterBody.corePosition + randRelPos,
                             scale = radius / 3f,

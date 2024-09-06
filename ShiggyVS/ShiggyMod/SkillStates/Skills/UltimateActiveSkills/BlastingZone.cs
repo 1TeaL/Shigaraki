@@ -55,7 +55,7 @@ namespace ShiggyMod.SkillStates
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
 
-            EffectManager.SpawnEffect(Modules.Assets.blastingZoneEffect, new EffectData
+            EffectManager.SpawnEffect(Modules.ShiggyAsset.blastingZoneEffect, new EffectData
             {
                 origin = characterBody.corePosition,
                 scale = 1f,
@@ -131,7 +131,7 @@ namespace ShiggyMod.SkillStates
                             this.OnHitEnemyAuthority(result);
                         }
                         //test which one to use
-                        EffectManager.SpawnEffect(Modules.Assets.elderlemurianexplosionEffect, new EffectData
+                        EffectManager.SpawnEffect(Modules.ShiggyAsset.elderlemurianexplosionEffect, new EffectData
                         {
                             origin = theSpot,
                             scale = blastRadius,

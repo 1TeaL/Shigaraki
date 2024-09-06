@@ -23,7 +23,7 @@ namespace ShiggyMod.SkillStates
         private float procCoefficient = 1f;
         private float force = 1f;
         private float speedOverride = -1f;
-        private GameObject turretMasterPrefab = Modules.Assets.engiTurret;
+        private GameObject turretMasterPrefab = Modules.ShiggyAsset.engiTurret;
 
         public override void OnEnter()
         {

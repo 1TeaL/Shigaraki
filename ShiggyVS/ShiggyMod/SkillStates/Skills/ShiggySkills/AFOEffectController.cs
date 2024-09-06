@@ -29,7 +29,7 @@ namespace ShiggyMod.SkillStates
         {
             if (!AFOLineEffect)
             {
-                AFOLineEffect = UnityEngine.Object.Instantiate(Modules.Assets.AFOLineRenderer, RHandChild);
+                AFOLineEffect = UnityEngine.Object.Instantiate(Modules.ShiggyAsset.AFOLineRenderer, RHandChild);
                 AFOLineRenderer = AFOLineEffect.GetComponent<LineRenderer>();
             }
         }

@@ -26,7 +26,7 @@ namespace ShiggyMod.SkillStates
         private float force = 400f;
         private float damageCoefficient = Modules.StaticValues.elderlemurianfireblastDamageCoefficient;
 
-        public GameObject blastEffectPrefab = Modules.Assets.elderlemurianexplosionEffect;
+        public GameObject blastEffectPrefab = Modules.ShiggyAsset.elderlemurianexplosionEffect;
         private string rMuzzleString = "RHand";
         internal Vector3 moveVec;
         internal float damageMult;

@@ -280,7 +280,7 @@ namespace ShiggyMod.Modules.Survivors
                                     break;
                                 case 3:
                                     //stone titan fist projectile? otherwise just do a knock up
-                                    EffectManager.SpawnEffect(Assets.stonetitanFistEffect, new EffectData
+                                    EffectManager.SpawnEffect(ShiggyAsset.stonetitanFistEffect, new EffectData
                                     {
                                         origin = singularTarget.transform.position,
                                         scale = 1f,
@@ -290,7 +290,7 @@ namespace ShiggyMod.Modules.Survivors
 
 
                                     FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
-                                    fireProjectileInfo.projectilePrefab = Assets.stonetitanFistProj;
+                                    fireProjectileInfo.projectilePrefab = ShiggyAsset.stonetitanFistProj;
                                     fireProjectileInfo.position = singularTarget.transform.position;
                                     fireProjectileInfo.rotation = Quaternion.identity;
                                     fireProjectileInfo.owner = characterBody.gameObject;
@@ -329,7 +329,7 @@ namespace ShiggyMod.Modules.Survivors
                                     GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
 
 
-                                    EffectManager.SpawnEffect(Assets.voidjailerEffect, new EffectData
+                                    EffectManager.SpawnEffect(ShiggyAsset.voidjailerEffect, new EffectData
                                     {
                                         origin = singularTarget.transform.position,
                                         scale = 1f,
@@ -654,7 +654,7 @@ namespace ShiggyMod.Modules.Survivors
                     new ItemDropNetworked(characterBody.masterObjectId).Send(NetworkDestination.Clients);
                     characterBody.ApplyBuff(Buffs.gachaBuff.buffIndex, 1);
 
-                    EffectManager.SpawnEffect(Modules.Assets.scavSackEffect, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.scavSackEffect, new EffectData
                     {
                         origin = characterBody.transform.position,
                         scale = 1f,
@@ -938,7 +938,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     stoneformStillbuffTimer = 0f;
 
-                    EffectManager.SpawnEffect(Assets.titanClapEffect, new EffectData
+                    EffectManager.SpawnEffect(ShiggyAsset.titanClapEffect, new EffectData
                     {
                         origin = characterBody.transform.position,
                         scale = 1f,
@@ -965,7 +965,7 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         if (!characterBody.HasBuff(Buffs.stoneFormStillBuff.buffIndex))
                         {
-                            EffectManager.SpawnEffect(Assets.stonetitanFistEffect, new EffectData
+                            EffectManager.SpawnEffect(ShiggyAsset.stonetitanFistEffect, new EffectData
                             {
                                 origin = characterBody.transform.position,
                                 scale = 1f,
@@ -1116,7 +1116,7 @@ namespace ShiggyMod.Modules.Survivors
                 if (characterBody.inputBank.jump.justPressed && characterBody && characterBody.characterMotor.jumpCount < characterBody.maxJumpCount)
                 {
                     Vector3 footPosition = characterBody.footPosition;
-                    EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.larvajumpEffect, new EffectData
                     {
                         origin = footPosition,
                         scale = Modules.StaticValues.larvaRadius
@@ -1148,7 +1148,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     larvaTimer = 0f;
                     Vector3 footPosition = characterBody.footPosition;
-                    EffectManager.SpawnEffect(Modules.Assets.larvajumpEffect, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.larvajumpEffect, new EffectData
                     {
                         origin = footPosition,
                         scale = Modules.StaticValues.larvaRadius
@@ -1414,7 +1414,7 @@ namespace ShiggyMod.Modules.Survivors
 						GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
 
 
-                        EffectManager.SpawnEffect(Modules.Assets.voidjailerEffect, new EffectData
+                        EffectManager.SpawnEffect(Modules.ShiggyAsset.voidjailerEffect, new EffectData
                         {
                             origin = singularTarget.transform.position,
                             scale = 1f,
@@ -1433,7 +1433,7 @@ namespace ShiggyMod.Modules.Survivors
 							origin = position,
 							start = start
 						};
-						EffectManager.SpawnEffect(Modules.Assets.voidjailermuzzleEffect, effectData, true);
+						EffectManager.SpawnEffect(Modules.ShiggyAsset.voidjailermuzzleEffect, effectData, true);
 						
 					}
 				}
@@ -1509,9 +1509,9 @@ namespace ShiggyMod.Modules.Survivors
         //aura of blight buff 
         public void CreateAuraOfBlightIndicator()
         {
-            if (Assets.auraOfBlightIndicator)
+            if (ShiggyAsset.auraOfBlightIndicator)
             {
-                this.auraOfBlightIndicatorInstance= Object.Instantiate<GameObject>(Assets.auraOfBlightIndicator);
+                this.auraOfBlightIndicatorInstance= Object.Instantiate<GameObject>(ShiggyAsset.auraOfBlightIndicator);
                 this.auraOfBlightIndicatorInstance.SetActive(true);
 
                 this.auraOfBlightIndicatorInstance.transform.parent = characterBody.transform;
@@ -1525,9 +1525,9 @@ namespace ShiggyMod.Modules.Survivors
         //double time buff 
         public void CreateDoubleTimeIndicator()
         {
-            if (Assets.doubleTimeIndicator)
+            if (ShiggyAsset.doubleTimeIndicator)
             {
-                this.doubleTimeIndicatorInstance = Object.Instantiate<GameObject>(Assets.doubleTimeIndicator);
+                this.doubleTimeIndicatorInstance = Object.Instantiate<GameObject>(ShiggyAsset.doubleTimeIndicator);
                 this.doubleTimeIndicatorInstance.SetActive(true);
 
                 this.doubleTimeIndicatorInstance.transform.parent = characterBody.transform;
@@ -1540,9 +1540,9 @@ namespace ShiggyMod.Modules.Survivors
         //barbed spikes indicator
         public void CreateBarbedSpikesIndicator()
         {
-            if (Assets.barbedSpikesIndicator)
+            if (ShiggyAsset.barbedSpikesIndicator)
             {
-                this.barbedSpikesIndicatorInstance = Object.Instantiate<GameObject>(Assets.barbedSpikesIndicator);
+                this.barbedSpikesIndicatorInstance = Object.Instantiate<GameObject>(ShiggyAsset.barbedSpikesIndicator);
                 this.barbedSpikesIndicatorInstance.SetActive(true);
 
                 this.barbedSpikesIndicatorInstance.transform.parent = characterBody.transform;
@@ -1554,9 +1554,9 @@ namespace ShiggyMod.Modules.Survivors
         //hermit crab mortar
         public void CreateMortarIndicator()
 		{
-			if (Assets.hermitCrabMortarIndicator)
+			if (ShiggyAsset.hermitCrabMortarIndicator)
             {
-                this.mortarIndicatorInstance = Object.Instantiate<GameObject>(Assets.hermitCrabMortarIndicator);
+                this.mortarIndicatorInstance = Object.Instantiate<GameObject>(ShiggyAsset.hermitCrabMortarIndicator);
                 this.mortarIndicatorInstance.SetActive(true);
 
                 this.mortarIndicatorInstance.transform.parent = characterBody.transform;
@@ -1568,9 +1568,9 @@ namespace ShiggyMod.Modules.Survivors
         //void barnacle mortar	
         public void CreateVoidMortarIndicator()
 		{
-			if (Assets.voidBarnacleMortarIndicator)
+			if (ShiggyAsset.voidBarnacleMortarIndicator)
             {
-                this.voidmortarIndicatorInstance = Object.Instantiate<GameObject>(Assets.voidBarnacleMortarIndicator);
+                this.voidmortarIndicatorInstance = Object.Instantiate<GameObject>(ShiggyAsset.voidBarnacleMortarIndicator);
                 this.voidmortarIndicatorInstance.SetActive(true);
 
                 this.voidmortarIndicatorInstance.transform.parent = characterBody.transform;

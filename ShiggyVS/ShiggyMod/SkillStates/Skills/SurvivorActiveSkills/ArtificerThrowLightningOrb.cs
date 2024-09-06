@@ -22,13 +22,13 @@ namespace ShiggyMod.SkillStates
         public ShiggyController Shiggycon;
         public HurtBox Target;
 
-        public LoopSoundDef loopSoundDef = Modules.Assets.artificerlightningsound;
+        public LoopSoundDef loopSoundDef = Modules.ShiggyAsset.artificerlightningsound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
         public GameObject crosshairOverridePrefab;
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
         public float charge;
-        private GameObject muzzleflashEffectPrefab = Modules.Assets.artificerlightningorbMuzzleEffect;
-        public GameObject projectilePrefab = Modules.Assets.artificerlightningorbprojectileEffect;
+        private GameObject muzzleflashEffectPrefab = Modules.ShiggyAsset.artificerlightningorbMuzzleEffect;
+        public GameObject projectilePrefab = Modules.ShiggyAsset.artificerlightningorbprojectileEffect;
         private float minDamageCoefficient = Modules.StaticValues.artificerlightningorbMinDamageCoefficient;
         private float maxDamageCoefficient = Modules.StaticValues.artificerlightningorbMaxDamageCoefficient;
 

@@ -12,12 +12,12 @@ namespace ShiggyMod.SkillStates
     {
         internal float damageMult;
         internal float radius;
-        private GameObject muzzlePrefab = Assets.loaderMuzzleFlashEffect;
+        private GameObject muzzlePrefab = ShiggyAsset.loaderMuzzleFlashEffect;
         //private string lMuzzleString = "LFinger";
         private string rMuzzleString = "RHand";
         internal Vector3 moveVec;
 		//private GameObject explosionPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/MageLightningBombExplosion");
-		private GameObject explosionPrefab = Assets.loaderOmniImpactLightningEffect;
+		private GameObject explosionPrefab = ShiggyAsset.loaderOmniImpactLightningEffect;
 		private float baseForce = StaticValues.machPunchForce;
 		public float procCoefficient = StaticValues.machPunchProcCoefficient;
 

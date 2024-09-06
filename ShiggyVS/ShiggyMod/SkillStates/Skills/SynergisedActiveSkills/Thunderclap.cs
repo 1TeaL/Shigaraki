@@ -40,9 +40,9 @@ namespace ShiggyMod.SkillStates
         protected string swingSoundString = "";
         protected string hitSoundString = "";
         protected string muzzleString = "Swing2";
-        protected GameObject swingEffectPrefab = Assets.shiggySwingEffect;
-        protected GameObject hitEffectPrefab = Assets.shiggyHitImpactEffect;
-        protected NetworkSoundEventIndex impactSound = Assets.hitSoundEffect.index;
+        protected GameObject swingEffectPrefab = Modules.ShiggyAsset.shiggySwingEffect;
+        protected GameObject hitEffectPrefab = Modules.ShiggyAsset.shiggyHitImpactEffect;
+        protected NetworkSoundEventIndex impactSound = Modules.ShiggyAsset.hitSoundEffect.index;
 
         private float preDashTimer;
         public float duration;
@@ -126,13 +126,12 @@ namespace ShiggyMod.SkillStates
             this.modelTransform = base.GetModelTransform();
             if (this.modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                 temporaryOverlay.duration = duration* 3;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matVagrantEnergized");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
             }
             base.characterDirection.forward = base.characterMotor.velocity.normalized;
             if (NetworkServer.active)
@@ -181,7 +180,7 @@ namespace ShiggyMod.SkillStates
             //blast attack at the end
             blastAttack.position = characterBody.corePosition;
             blastAttack.Fire();
-            EffectManager.SpawnEffect(Assets.lightningNovaEffectPrefab, new EffectData
+            EffectManager.SpawnEffect(Modules.ShiggyAsset.lightningNovaEffectPrefab, new EffectData
             {
                 origin = characterBody.corePosition,
                 scale = radius,
@@ -217,7 +216,7 @@ namespace ShiggyMod.SkillStates
                 this.inHitPause = true;
             }
 
-            if (Assets.overloadingEliteEffect)
+            if (Modules.ShiggyAsset.overloadingEliteEffect)
             {
                 EffectData effectData = new EffectData
                 {
@@ -226,7 +225,7 @@ namespace ShiggyMod.SkillStates
                     
                 };
                 effectData.SetNetworkedObjectReference(base.gameObject);
-                EffectManager.SpawnEffect(Assets.overloadingEliteEffect, effectData, true);;
+                EffectManager.SpawnEffect(Modules.ShiggyAsset.overloadingEliteEffect, effectData, true);;
             }
         }
 
@@ -270,13 +269,12 @@ namespace ShiggyMod.SkillStates
                 this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
                 if (this.modelTransform)
                 {
-                    TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                     temporaryOverlay.duration = duration;
                     temporaryOverlay.animateShaderAlpha = true;
                     temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                     temporaryOverlay.destroyComponentOnEnd = true;
                     temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matIsShocked");
-                    temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
                 }
 
                 this.hitPauseTimer -= Time.fixedDeltaTime;

@@ -34,10 +34,10 @@ namespace ShiggyMod.SkillStates
             this.swingSoundString = "ShiggyMelee";
             this.hitSoundString = "";
             this.muzzleString = ChooseAnimationString();
-            this.swingEffectPrefab = Modules.Assets.shiggySwingEffect;
-            this.hitEffectPrefab = Modules.Assets.shiggyHitImpactEffect;
+            this.swingEffectPrefab = Modules.ShiggyAsset.shiggySwingEffect;
+            this.hitEffectPrefab = Modules.ShiggyAsset.shiggyHitImpactEffect;
 
-            this.impactSound = Modules.Assets.hitSoundEffect.index;
+            this.impactSound = Modules.ShiggyAsset.hitSoundEffect.index;
 
             base.OnEnter();
 

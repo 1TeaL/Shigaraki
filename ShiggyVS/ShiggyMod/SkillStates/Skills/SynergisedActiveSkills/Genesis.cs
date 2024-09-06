@@ -29,7 +29,7 @@ namespace ShiggyMod.SkillStates
 
         private ChildLocator childLocator;
         private Animator animator;
-        public LoopSoundDef loopSoundDef = Modules.Assets.xiconstructsound;
+        public LoopSoundDef loopSoundDef = Modules.ShiggyAsset.xiconstructsound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
 
         private BullseyeSearch search;
@@ -63,7 +63,7 @@ namespace ShiggyMod.SkillStates
                 this.animator = modelTransform.GetComponent<Animator>();
             }
 
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.xiconstructbeamEffect, base.gameObject, muzzleString, false);
+            EffectManager.SimpleMuzzleFlash(Modules.ShiggyAsset.xiconstructbeamEffect, base.gameObject, muzzleString, false);
             if (this.loopSoundDef)
             {
                 this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
@@ -71,9 +71,9 @@ namespace ShiggyMod.SkillStates
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            //if (Assets.xiconstructbeamEffect)
+            //if (Asset.xiconstructbeamEffect)
             //{
-            //    this.chargeEffect = UnityEngine.Object.Instantiate<GameObject>(Assets.xiconstructbeamEffect, this.childLocator.FindChild(muzzleString).position, Util.QuaternionSafeLookRotation(aimRay.direction.normalized));
+            //    this.chargeEffect = UnityEngine.Object.Instantiate<GameObject>(Asset.xiconstructbeamEffect, this.childLocator.FindChild(muzzleString).position, Util.QuaternionSafeLookRotation(aimRay.direction.normalized));
             //    this.chargeEffect.transform.parent = this.childLocator.FindChild(muzzleString);
             //}
 

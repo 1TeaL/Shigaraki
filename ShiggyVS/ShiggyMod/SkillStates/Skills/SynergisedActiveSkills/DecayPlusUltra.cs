@@ -74,7 +74,7 @@ namespace ShiggyMod.SkillStates
             {
                 hasFired = true;
                 Ray aimRay = base.GetAimRay();
-                EffectManager.SpawnEffect(Assets.decayattackEffect, new EffectData
+                EffectManager.SpawnEffect(ShiggyAsset.decayattackEffect, new EffectData
                 {
                     origin = characterBody.footPosition,
                     scale = 1f,
@@ -120,7 +120,7 @@ namespace ShiggyMod.SkillStates
             {
                 //play effect
 
-                EffectManager.SpawnEffect(Assets.shiggyHitImpactEffect, new EffectData
+                EffectManager.SpawnEffect(ShiggyAsset.shiggyHitImpactEffect, new EffectData
                 {
                     origin = hitpoint.hurtBox.transform.position,
                     scale = 1f,

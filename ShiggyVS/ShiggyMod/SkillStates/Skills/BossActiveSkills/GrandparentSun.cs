@@ -47,13 +47,12 @@ namespace ShiggyMod.SkillStates
             Transform modelTransform = base.GetModelTransform();
             if (modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                 temporaryOverlay.duration = this.baseDuration;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matGrandparentTeleportOutBoom");
-                temporaryOverlay.AddToCharacerModel(modelTransform.GetComponent<CharacterModel>());
             }
 
             if (NetworkServer.active)

@@ -21,7 +21,7 @@ namespace ShiggyMod.SkillStates
 		public void Start()
 		{
 			charbody = this.gameObject.GetComponent<CharacterBody>();
-			//effectObj = UnityEngine.Object.Instantiate<GameObject>(Modules.Assets.detroitEffect, charbody.footPosition, Quaternion.LookRotation(Vector3.up));
+			//effectObj = UnityEngine.Object.Instantiate<GameObject>(Modules.Asset.detroitEffect, charbody.footPosition, Quaternion.LookRotation(Vector3.up));
 			//effectObj.transform.parent = charbody.gameObject.transform;
 
 			currentNumber = 0f;
@@ -44,7 +44,7 @@ namespace ShiggyMod.SkillStates
 						timer -= interval;
                         AkSoundEngine.PostEvent("ShiggyHitSFX", charbody.gameObject);
                         new TakeMeleeDamageForceRequest(charbody.masterObjectId, Vector3.up, StaticValues.extremeSpeedForce / 2f, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
-                        EffectManager.SpawnEffect(Modules.Assets.shiggyHitImpactEffect, new EffectData
+                        EffectManager.SpawnEffect(Modules.ShiggyAsset.shiggyHitImpactEffect, new EffectData
                         {
                             origin = charbody.corePosition,
                             scale = 1f,
@@ -57,7 +57,7 @@ namespace ShiggyMod.SkillStates
 						AkSoundEngine.PostEvent("ShiggyStrongAttack", charbody.gameObject);
 						currentNumber += 1;
 						new TakeMeleeDamageForceRequest(charbody.masterObjectId, Vector3.down, StaticValues.extremeSpeedForce, damage, shiggycharbody.masterObjectId).Send(NetworkDestination.Server);
-                        EffectManager.SpawnEffect(Modules.Assets.shiggyHitImpactEffect, new EffectData
+                        EffectManager.SpawnEffect(Modules.ShiggyAsset.shiggyHitImpactEffect, new EffectData
                         {
                             origin = charbody.corePosition,
                             scale = 1f,

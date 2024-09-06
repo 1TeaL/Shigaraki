@@ -81,7 +81,7 @@ namespace ShiggyMod.SkillStates
             AkSoundEngine.PostEvent("ShiggyDriveForm", base.gameObject);
 
             Ray aimRay = base.GetAimRay();
-            EffectManager.SpawnEffect(Assets.engiShieldEffect, new EffectData
+            EffectManager.SpawnEffect(Modules.ShiggyAsset.engiShieldEffect, new EffectData
             {
                 origin = base.characterBody.corePosition,
                 scale = 1f,

@@ -803,7 +803,7 @@ namespace ShiggyMod.Modules.Survivors
                         attackerFiltering = AttackerFiltering.NeverHitSelf,
                     }.Fire();
 
-                    EffectManager.SpawnEffect(Modules.Assets.engiShieldEffect, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.engiShieldEffect, new EffectData
                     {
                         origin = characterBody.transform.position,
                         scale = StaticValues.windShieldRadius,
@@ -823,7 +823,7 @@ namespace ShiggyMod.Modules.Survivors
                 if (multTimer > 1f)
                 {
                     multTimer = 0f;
-                    EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.multEffect, new EffectData
                     {
                         origin = child.FindChild("LHand").position,
                         scale = 1f,
@@ -831,7 +831,7 @@ namespace ShiggyMod.Modules.Survivors
 
                     }, false);
 
-                    EffectManager.SpawnEffect(Modules.Assets.multEffect, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.multEffect, new EffectData
                     {
                         origin = child.FindChild("RHand").position,
                         scale = 1f,
@@ -856,7 +856,7 @@ namespace ShiggyMod.Modules.Survivors
                 if (clayDunestriderTimer > 1f)
                 {
                     clayDunestriderTimer = 0f;
-                    EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.claydunestriderEffect, new EffectData
                     {
                         origin = characterBody.corePosition,
                         scale = 1f,
@@ -881,7 +881,7 @@ namespace ShiggyMod.Modules.Survivors
                 if (greaterwispTimer > 1f)
                 {
                     greaterwispTimer = 0f;
-                    EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.chargegreaterwispBall, new EffectData
                     {
                         origin = child.FindChild("LHand").position,
                         scale = 1f,
@@ -889,7 +889,7 @@ namespace ShiggyMod.Modules.Survivors
 
                     }, false);
 
-                    EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+                    EffectManager.SpawnEffect(Modules.ShiggyAsset.chargegreaterwispBall, new EffectData
                     {
                         origin = child.FindChild("RHand").position,
                         scale = 1f,
@@ -1216,7 +1216,7 @@ namespace ShiggyMod.Modules.Survivors
 
 
                             //ProjectileManager.instance.FireProjectile(
-                            //    Modules.Assets.mercWindProj, //prefab
+                            //    Modules.Asset.mercWindProj, //prefab
                             //    aimRay.origin, //position
                             //    Util.QuaternionSafeLookRotation(aimRay.direction), //rotation
                             //    base.gameObject, //owner
@@ -1623,9 +1623,9 @@ namespace ShiggyMod.Modules.Survivors
         //death Aura Indicator 
         private void CreateDeathAuraIndicator()
         {
-            if (Assets.deathAuraIndicator)
+            if (ShiggyAsset.deathAuraIndicator)
             {
-                this.deathAuraIndicatorInstance = Object.Instantiate<GameObject>(Assets.deathAuraIndicator);
+                this.deathAuraIndicatorInstance = Object.Instantiate<GameObject>(ShiggyAsset.deathAuraIndicator);
                 this.deathAuraIndicatorInstance.SetActive(true);
 
                 this.deathAuraIndicatorInstance.transform.parent = characterBody.transform;
@@ -1638,9 +1638,9 @@ namespace ShiggyMod.Modules.Survivors
         //overclock indicator
         private void CreateTheWorldIndicator()
         {
-            if (Assets.theWorldIndicator)
+            if (ShiggyAsset.theWorldIndicator)
             {
-                this.theWorldIndicatorInstance = Object.Instantiate<GameObject>(Assets.theWorldIndicator);
+                this.theWorldIndicatorInstance = Object.Instantiate<GameObject>(ShiggyAsset.theWorldIndicator);
                 this.theWorldIndicatorInstance.SetActive(true);
 
                 this.theWorldIndicatorInstance.transform.parent = characterBody.transform;

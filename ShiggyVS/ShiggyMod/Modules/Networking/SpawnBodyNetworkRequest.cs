@@ -4,6 +4,7 @@ using RoR2;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 
@@ -52,7 +53,7 @@ namespace ShiggyMod.Modules.Networking
                 CharacterMaster charMaster = masterobject.GetComponent<CharacterMaster>();
                 CharacterBody charBody = charMaster.GetBody();
 
-                GameObject monsterMaster = PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/" + masterName), masterName + bodyName, true);
+                GameObject monsterMaster = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("R").WaitForCompletion(), masterName + bodyName, true);
                 //monsterMaster = MasterCatalog.FindMasterPrefab(bodyName);
                 //var monsterMaster = MasterCatalog.FindMasterPrefab(bodyName);
                 //var bodyGameObject = Object.Instantiate(monsterMaster.gameObject, charBody.transform.position + charBody.characterDirection.forward * 2f, Quaternion.identity);

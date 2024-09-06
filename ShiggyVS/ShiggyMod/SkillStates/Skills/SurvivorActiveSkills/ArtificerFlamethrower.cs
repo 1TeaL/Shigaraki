@@ -20,7 +20,7 @@ namespace ShiggyMod.SkillStates
         public ShiggyController Shiggycon;
         private DamageType damageType;
         public HurtBox Target;
-        public GameObject flamethrowerEffectPrefab = Modules.Assets.artificerfireEffect;
+        public GameObject flamethrowerEffectPrefab = Modules.ShiggyAsset.artificerfireEffect;
 
         private float force = 1f;
 		public float maxDistance = 16f;

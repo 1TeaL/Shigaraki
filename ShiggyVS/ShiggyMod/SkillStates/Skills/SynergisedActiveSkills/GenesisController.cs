@@ -35,12 +35,12 @@ namespace ShiggyMod.SkillStates
             endPosition = Target.transform.position;
 
 
-            laserEffect = UnityEngine.Object.Instantiate(Assets.xiconstructBeamLaser, startPosition, Quaternion.LookRotation(Vector3.down));
+            laserEffect = UnityEngine.Object.Instantiate(Modules.ShiggyAsset.xiconstructBeamLaser, startPosition, Quaternion.LookRotation(Vector3.down));
             //laserEffect.transform.parent = Target.transform;
             laserEffectEndTransform = laserEffect.GetComponent<ChildLocator>().FindChild("LaserEnd");
             laserEffectEndTransform.position = endPosition;
 
-            EffectManager.SpawnEffect(Assets.xiconstructbeamEffect, new EffectData
+            EffectManager.SpawnEffect(Modules.ShiggyAsset.xiconstructbeamEffect, new EffectData
             {
                 origin = startPosition,
                 scale = 1f,
@@ -96,7 +96,7 @@ namespace ShiggyMod.SkillStates
                         sniper = false,
                         stopperMask = LayerIndex.noCollision.mask,
                         weapon = null,
-                        //tracerEffectPrefab = Modules.Assets.VoidFiendBeamTracer,
+                        //tracerEffectPrefab = Modules.Asset.VoidFiendBeamTracer,
                         spreadPitchScale = 0f,
                         spreadYawScale = 0f,
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,

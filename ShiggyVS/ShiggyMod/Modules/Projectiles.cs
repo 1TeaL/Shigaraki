@@ -56,7 +56,7 @@ namespace ShiggyMod.Modules
 
         private static void CreateLemurianFireBall()
         {
-            lemurianFireBall = PrefabAPI.InstantiateClone(Modules.Assets.lemfireBall, "lemurianFireBall", true);
+            lemurianFireBall = PrefabAPI.InstantiateClone(Modules.ShiggyAsset.lemfireBall, "lemurianFireBall", true);
             Rigidbody lemurianFireballRigidbody = lemurianFireBall.GetComponent<Rigidbody>();
             if (!lemurianFireballRigidbody)
             {
@@ -91,7 +91,7 @@ namespace ShiggyMod.Modules
             ProjectileDamage lemurianFireBallDamage = lemurianFireBall.GetComponent<ProjectileDamage>();
             lemurianFireBallDamage.damageType = DamageType.IgniteOnHit;
 
-            if (Assets.lemfireBallGhost != null) lemurianFireBallController.ghostPrefab = Assets.lemfireBallGhost;
+            if (ShiggyAsset.lemfireBallGhost != null) lemurianFireBallController.ghostPrefab = ShiggyAsset.lemfireBallGhost;
             lemurianFireBallController.startSound = "";            
 
 
@@ -100,11 +100,11 @@ namespace ShiggyMod.Modules
 
         private static GameObject CreateGhostPrefab(string ghostName)
         {
-            GameObject ghostPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(ghostName);
+            GameObject ghostPrefab = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<GameObject>(ghostName);
             if (!ghostPrefab.GetComponent<NetworkIdentity>()) ghostPrefab.AddComponent<NetworkIdentity>();
             if (!ghostPrefab.GetComponent<ProjectileGhostController>()) ghostPrefab.AddComponent<ProjectileGhostController>();
 
-            Modules.Assets.ConvertAllRenderersToHopooShader(ghostPrefab);
+            Modules.ShiggyAsset.ConvertAllRenderersToHopooShader(ghostPrefab);
 
             return ghostPrefab;
         }

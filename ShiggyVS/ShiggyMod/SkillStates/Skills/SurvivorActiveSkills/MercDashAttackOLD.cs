@@ -90,20 +90,18 @@ namespace ShiggyMod.SkillStates
             {
 
 
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                 temporaryOverlay.duration = 0.6f;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matMercEvisTarget");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
-                TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay2 = TemporaryOverlayManager.AddOverlay(new GameObject());
                 temporaryOverlay2.duration = 0.7f;
                 temporaryOverlay2.animateShaderAlpha = true;
                 temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay2.destroyComponentOnEnd = true;
                 temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
-                temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
             }
             if (this.characterModel)
             {
@@ -153,13 +151,13 @@ namespace ShiggyMod.SkillStates
                         Vector3 normal = new Vector3(normalized.x, 0f, normalized.y);
                         EffectManager.SimpleImpactEffect(Evis.hitEffectPrefab, position, normal, false);
                         Transform transform = hurtBox.hurtBoxGroup.transform;
-                        TemporaryOverlay temporaryOverlay = transform.gameObject.AddComponent<TemporaryOverlay>();
+                        TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                         temporaryOverlay.duration = num;
                         temporaryOverlay.animateShaderAlpha = true;
                         temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                         temporaryOverlay.destroyComponentOnEnd = true;
                         temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matMercEvisTarget");
-                        temporaryOverlay.AddToCharacerModel(transform.GetComponent<CharacterModel>());
+
                         if (NetworkServer.active)
                         {
                             DamageInfo damageInfo = new DamageInfo();

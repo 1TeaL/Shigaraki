@@ -16,7 +16,7 @@ namespace ShiggyMod.SkillStates
         public float duration;
         public ShiggyController Shiggycon;
 
-        public static GameObject mercProjectile = Modules.Assets.mercWindProj;
+        public static GameObject mercProjectile = Modules.ShiggyAsset.mercWindProj;
 
         private string muzzleString;
         private Animator animator;
@@ -49,7 +49,7 @@ namespace ShiggyMod.SkillStates
         {
             Ray aimRay = base.GetAimRay();
 
-            EffectManager.SpawnEffect(Modules.Assets.shiggySwingEffect, new EffectData
+            EffectManager.SpawnEffect(Modules.ShiggyAsset.shiggySwingEffect, new EffectData
             {
                 origin = FindModelChild("Swing1").position,
                 scale = 1f,

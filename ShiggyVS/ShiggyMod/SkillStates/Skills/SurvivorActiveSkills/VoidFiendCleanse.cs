@@ -68,7 +68,7 @@ namespace ShiggyMod.SkillStates
             {
                 Util.CleanseBody(base.characterBody, true, false, false, true, true, false);
             }
-            this.blinkVfxInstance = UnityEngine.Object.Instantiate<GameObject>(Modules.Assets.voidfiendblinkVFX);
+            this.blinkVfxInstance = UnityEngine.Object.Instantiate<GameObject>(Modules.ShiggyAsset.voidfiendblinkVFX);
             this.blinkVfxInstance.transform.SetParent(base.transform, false);
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
 
@@ -85,7 +85,7 @@ namespace ShiggyMod.SkillStates
             EffectData effectData = new EffectData();
             effectData.rotation = Util.QuaternionSafeLookRotation(base.characterDirection.forward);
             effectData.origin = origin;
-            EffectManager.SpawnEffect(Modules.Assets.voidfiendblinkmuzzleEffect, effectData, false);
+            EffectManager.SpawnEffect(Modules.ShiggyAsset.voidfiendblinkmuzzleEffect, effectData, false);
         }
         public override void OnExit()
         {
@@ -113,13 +113,14 @@ namespace ShiggyMod.SkillStates
             this.modelTransform = base.GetModelTransform();
             if (this.modelTransform)
             {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                
+                //TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                 temporaryOverlay.duration = this.overlayDuration;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
-                temporaryOverlay.originalMaterial = Modules.Assets.voidfiendblinkMaterial;
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                temporaryOverlay.originalMaterial = Modules.ShiggyAsset.voidfiendblinkMaterial;
             }
         }
 

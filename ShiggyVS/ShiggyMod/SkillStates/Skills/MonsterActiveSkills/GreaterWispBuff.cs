@@ -56,7 +56,7 @@ namespace ShiggyMod.SkillStates
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
-            EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+            EffectManager.SpawnEffect(Modules.ShiggyAsset.chargegreaterwispBall, new EffectData
             {
                 origin = FindModelChild(LHand).position,
                 scale = radius,
@@ -64,7 +64,7 @@ namespace ShiggyMod.SkillStates
 
             }, false);
 
-            EffectManager.SpawnEffect(Modules.Assets.chargegreaterwispBall, new EffectData
+            EffectManager.SpawnEffect(Modules.ShiggyAsset.chargegreaterwispBall, new EffectData
             {
                 origin = FindModelChild(RHand).position,
                 scale = radius,

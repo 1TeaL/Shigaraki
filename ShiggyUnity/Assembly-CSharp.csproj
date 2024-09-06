@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Generated file, do not modify, your changes will be overwritten (use AssetPostprocessor.OnGeneratedCSProject) -->
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
-    <CscToolPath>F:\Theodore 3\Unity\2019.4.26f1\Editor\Data\Tools\RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.bat</CscToolExe>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -24,10 +23,10 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_2019_4_26;UNITY_2019_4;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;thunderkit;riskofrain2;bbepis-bepinexpack;riskofthunder-hookgenpatcher;tristanmcpherson-r2api;rob-henrymod;UNITY_POST_PROCESSING_STACK_V2;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>UNITY_2021_3_33;UNITY_2021_3;UNITY_2021;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;NET_STANDARD_2_1;NETSTANDARD;NETSTANDARD2_1;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;thunderkit;riskofrain2;bbepis-bepinexpack;riskofthunder-hookgenpatcher;tristanmcpherson-r2api;rob-henrymod;UNITY_POST_PROCESSING_STACK_V2;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>0169</NoWarn>
+    <NoWarn>0169;USG0001</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -36,7 +35,7 @@
     <OutputPath>Temp\bin\Release\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>0169</NoWarn>
+    <NoWarn>0169;USG0001</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
@@ -46,959 +45,1271 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
+  <PropertyGroup>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <UnityProjectGenerator>Package</UnityProjectGenerator>
+    <UnityProjectGeneratorVersion>2.0.22</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorStyle>Legacy</UnityProjectGeneratorStyle>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
+    <UnityVersion>2021.3.33f1</UnityVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\scripts\DynamicBone.cs" />
+    <Compile Include="Assets\scripts\RagdollController.cs" />
+    <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
+    <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
+    <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
+    <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ParticleExamples.cs" />
+    <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ParticleCollision.cs" />
+    <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\GunShoot.cs" />
+    <Compile Include="Assets\scripts\FootstepHandler.cs" />
+    <Compile Include="Assets\scripts\ChildLocator.cs" />
+    <Compile Include="Assets\scripts\DynamicBoneCollider.cs" />
+    <Compile Include="Assets\scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\GunAim.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_explosion_depth_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_measure_tes_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_smoke_win.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dome_distortion_tes_003.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\StdLib.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_slash_006.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Waveform.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_meshwave_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C0_flow_no_fade_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_drr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_arghh.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_foosh.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_C0_flow_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVOUpsample.compute" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl19_shuk.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_thunder_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl13_thwip.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_scroll1.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_crash.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_destroy.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_acid_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_Pl09_meshwave2_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Distortion.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl20_crack.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_avoid.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_color_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_outline_tes_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dome_distortion_tes_002.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ExposureHistogram.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_stick.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_kosei1_wave.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_Pl01_windscroll_005.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Texture3DLerp.compute" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl16_thoom.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DeferredFog.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_003_tes.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_change_ma.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\TemporalAntialiasing.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl06_thwip.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_005.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\FastApproximateAntialiasing.hlsl" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\SubpixelMorphologicalAntialiasing.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\M_ef_acid_tes_001_Inst.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_particle_test_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_spiral_beam_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_meshwave2_tr_two_side_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bom.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Dithering.hlsl" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Bloom.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_flow_no_fade_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_fire_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_windscroll_001.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Vectorscope.compute" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Sampling.hlsl" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_ball_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_thunder_tr_plus01.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_thwip.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C0_flow_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_aura_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_spotlight_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_boooom.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glass_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dome_distortion_tes_001.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Lut3DBaker.compute" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_spotlight_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_stagerange_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_aura_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dust_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_003.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Waveform.compute" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_outline_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_windscrollurutla_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_acid_wall_tes_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_Pl01_windscroll_004.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_acid_ball_tes_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_spiral_thunder_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_ball_001_M.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_006.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_battle_match_wind_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_grab.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl14_crack.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\PSSL.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_uvscrollparam_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Plusultra\MI_ef_Pl01_pulsultra02_bg.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ground_shock_test_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl15_thoom.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ground_shock_test_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_010.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_009.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_flowfade.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\LightMeter.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_star_001_gia02.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_scrollfadegradation_ad.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_star_001_gia.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_005.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_Pl01_windscroll_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_shockWave_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\AutoExposure.compute" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVORender.compute" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_scrollfade_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Texture2DLerp.shader" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\SubpixelMorphologicalAntialiasingBridge.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl18_shuk.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_flow_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_acid.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_addcolor_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_003.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DiskKernels.hlsl" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind01.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\D3D11.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ring_004.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVODownsample2.compute" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScalableAO.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_twist.props.txt" />
+    <None Include="Assets\Shigaraki\Assets\Material\Panner.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flow_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_stealth_01.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_C1_flow_tr_test.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_togeglow_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_splash_particle_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bonk.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C0_flow_no_fade_add.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_togeglow_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_distortion_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_irk.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_009.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_splash_depth_off_particle_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_004.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_repair_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_fullcowl.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_misty.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_common_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_uvparamdistortion_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_002_tes.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C0_uvscrollparam_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_sszzzaacck.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_gradation_tes_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_004_tes.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_kosei1_wave2.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_spiral_thunder_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_010.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_noblack_ad.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_waterDust_ma.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_float.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_shockwave_001_tes.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_drrrrrrrr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_acid_tes_001_Inst.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flare_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_sklit.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_thunder_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_color_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_008.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_akebono_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_011.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_shield_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_craassh.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_swish.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C1_common_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_bite_tes_002.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVO.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bzzzt.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_scroll_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_aura_001.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Vectorscope.shader" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\D3D9.hlsl" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScalableAO.shader" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\ACES.hlsl" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\FinalPass.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dot_000.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Histogram.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_dynDust_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_swing.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Histogram.compute" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\Switch.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_common_rock_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smash_text_001.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\Metal.hlsl" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Uber.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_boom_Nejire.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_boom_Fatgum.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_scroll_kumo2.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_meat_piece_tes_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_popo.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_wiggle.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_012.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_rush_bg_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_fire_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\xRLib.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C1_flow_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_uvscrollparam_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_fire2_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_swip.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_spotlight_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_splash_particle_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_Pl01_windscroll_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_explosion_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_outline_tes_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_gimmick.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flare_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_acid_test_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_winduvscroll_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_bite_tes_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_meshwave_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_pin.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_byebye.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_Pl09_scrollfadegradation_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_haunt.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_star_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_waterDust_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_darkthunder_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_battle_match_wind_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_common_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_Thunder_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bzz.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_spiral_tes_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_002.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Overlays.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_fog_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dust_000.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\PSP2.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_Dissolve_001.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScreenSpaceReflections.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_common_ma.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DepthOfField.hlsl" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DiscardAlpha.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_toon2_ma.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_004.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\OpenGL.hlsl" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Lut2DBaker.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_powerrr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_fwump.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_foooosh.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ring_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_booom.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_ice2_ma.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_Fresnel_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ground_shock_test_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_crunch.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_wham.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_speed_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smaassh.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_attacktrail_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\CopyStd.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_explosion_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_toge_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_thunder_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_Fresnel02_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_shunk.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_mesh_wave_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_dust_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_dom.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_scroll2.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_ice1_ma.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl20_thoom.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C1_uvscrollparam_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MotionBlur.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_005.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVODownsample1.compute" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_ball_002.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Fog.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smack.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ExposureHistogram.compute" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_judge.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_thunderFresnel02_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_guardbreak.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smaaaassshhhhhuuu.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flare_001.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\GrainBaker.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_004_tes.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_star_001_tes.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_UVscroll_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_sonic.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_fire_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_whakom.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_attacktrail_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_noblack_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\GaussianDownsample.compute" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_st_gradation_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smak.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_shwip.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_waterDustnoise_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ice2_ma.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScreenSpaceReflections.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_explosion_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_hole_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\XboxOne.hlsl" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Copy.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_justguard.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bzzzz.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\D3D12.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_004.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_tes.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_splash_ball_tes_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ice1_ma.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DepthOfField.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl22_yoarashi.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_fire_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\SubpixelMorphologicalAntialiasing.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bash.props.txt" />
+    <None Include="Assets\VFX\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_star_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_thunder_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_windcylinder_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_distortion_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_jack.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_smoke_hole_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_stealth_00.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_Pl01_plusultra02b_ma.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dust_005.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_star_001_UA.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dome_wave_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_shnk.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_005.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_change_unlit_ma.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_004.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_crack.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_plus02_ma.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_outline_tes_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl12_thoom.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_krak.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flow_no_fade_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_uvscrollparam_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_barriar_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_sonicwave_tes_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dust_004.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_splasshh.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MII_ef_wall_pierce_concrete.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\Vulkan.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_long_shock_tes.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_shock_distortion_tes_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C1_C1_uvscrollparam_tr_offset.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_barriar_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_plus02_tr.props.txt" />
+    <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Colors.hlsl" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_thunder_003.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_sidekickglow_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_moji_ma.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_invincible.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_acid_particle_test_001.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_acid_ball_tes_002.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C0_common_tr.props.txt" />
+    <None Include="Assets\OJ2 effects\Pl01\Plusultra\MII_ef_Pl01_pulsultra02b_windscroll02.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_karakoom.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_toon2_ma.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flowfade_000.props.txt" />
+    <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smash.props.txt" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
-      <HintPath>F:\Theodore 3\Unity\2019.4.26f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.AIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.ARModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.AccessibilityModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.AndroidJNIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.AnimationModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.AudioModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.ClothModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.ClusterInputModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.ClusterRendererModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.CrashReportingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.DSPGraphModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.DSPGraphModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.DirectorModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.GIModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.GIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.GameCenterModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.GridModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.HotReloadModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.InputModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.LocalizationModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.Physics2DModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.ProfilerModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.SharedInternalsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.SpriteMaskModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.SpriteShapeModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.StreamingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.SubstanceModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SubsystemsModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.SubsystemsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.TLSModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.TerrainModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreFontEngineModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreTextEngineModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.TilemapModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsNativeModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsNativeModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UNETModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UmbraModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsCommonModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityAnalyticsCommonModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityConnectModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityCurlModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityCurlModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityTestProtocolModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.VFXModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.VRModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.VehiclesModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.VideoModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VirtualTexturingModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.VirtualTexturingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.WindModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.XRModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>F:\Theodore 3\Unity\2019.4.26f1\Editor\Data\Managed/UnityEditor.dll</HintPath>
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.CoreModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.DeviceSimulatorModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.DeviceSimulatorModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.DiagnosticsModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.DiagnosticsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.GraphViewModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.GraphViewModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.PackageManagerUIModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.PackageManagerUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.QuickSearchModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.QuickSearchModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.SceneTemplateModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.SceneTemplateModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.TextCoreFontEngineModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.TextCoreFontEngineModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.TextCoreTextEngineModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.TextCoreTextEngineModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UIBuilderModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.UIBuilderModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UIElementsModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.UIElementsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UIElementsSamplesModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.UIElementsSamplesModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UIServiceModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.UIServiceModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UnityConnectModule">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.AppContext">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.AppContext.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Buffers.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Collections.Concurrent">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Collections.Concurrent.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Collections.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Collections.NonGeneric">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Collections.NonGeneric.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Collections.Specialized">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Collections.Specialized.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.ComponentModel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.EventBasedAsync">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.ComponentModel.EventBasedAsync.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.ComponentModel.Primitives.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.TypeConverter">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.ComponentModel.TypeConverter.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Console">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Console.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.Common">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Data.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.Contracts">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Diagnostics.Contracts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.Debug">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Diagnostics.Debug.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.FileVersionInfo">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Diagnostics.FileVersionInfo.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.Process">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Diagnostics.Process.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.StackTrace">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Diagnostics.StackTrace.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.TextWriterTraceListener">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Diagnostics.TextWriterTraceListener.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tools">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Diagnostics.Tools.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.TraceSource">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Diagnostics.TraceSource.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tracing">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Diagnostics.Tracing.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing.Primitives">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Drawing.Primitives.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Dynamic.Runtime">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Dynamic.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Globalization.Calendars.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Globalization">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Globalization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Globalization.Extensions">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Globalization.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.Compression.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.ZipFile">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.FileSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.DriveInfo">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.FileSystem.DriveInfo.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Watcher">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.FileSystem.Watcher.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.IsolatedStorage">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.IsolatedStorage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.MemoryMappedFiles">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.MemoryMappedFiles.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Pipes">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.Pipes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.UnmanagedMemoryStream">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.IO.UnmanagedMemoryStream.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Linq.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Linq.Expressions">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Linq.Expressions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Linq.Parallel">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Linq.Parallel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Linq.Queryable">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Linq.Queryable.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Memory.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.Http.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.NameResolution">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.NameResolution.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.NetworkInformation">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.NetworkInformation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Ping">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.Ping.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Primitives">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.Primitives.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Requests">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.Requests.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Security">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.Security.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Sockets">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.Sockets.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.WebHeaderCollection">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.WebHeaderCollection.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.WebSockets.Client">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.WebSockets.Client.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.WebSockets">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Net.WebSockets.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Numerics.Vectors.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ObjectModel">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.ObjectModel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Reflection.DispatchProxy">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Reflection.DispatchProxy.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Reflection">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Reflection.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Reflection.Emit">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Reflection.Emit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Reflection.Emit.ILGeneration">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Reflection.Emit.ILGeneration.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Reflection.Emit.Lightweight">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Reflection.Emit.Lightweight.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Reflection.Extensions">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Reflection.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Reflection.Primitives">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Reflection.Primitives.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Resources.Reader">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Resources.Reader.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Resources.ResourceManager">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Resources.ResourceManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Resources.Writer">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Resources.Writer.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.VisualC">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.CompilerServices.VisualC.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Handles">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.Handles.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.InteropServices.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Numerics">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.Numerics.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.Serialization.Formatters.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Json">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.Serialization.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Primitives">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.Serialization.Primitives.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Xml">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Runtime.Serialization.Xml.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Security.Claims">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Security.Claims.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Csp">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Security.Cryptography.Csp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Security.Principal">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Security.Principal.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Security.SecureString">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Security.SecureString.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Text.Encoding">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Text.Encoding.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Text.Encoding.Extensions">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Text.Encoding.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Text.RegularExpressions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Threading.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading.Overlapped">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Threading.Overlapped.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Threading.Tasks.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Parallel">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Threading.Tasks.Parallel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading.Thread">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Threading.Thread.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading.ThreadPool">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Threading.ThreadPool.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading.Timer">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Threading.Timer.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.ValueTuple.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.ReaderWriter">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Xml.ReaderWriter.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.XDocument">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Xml.XDocument.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.XmlDocument">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Xml.XmlDocument.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.XmlSerializer">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Xml.XmlSerializer.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.XPath">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Xml.XPath.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.XPath.XDocument">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netstandard\System.Xml.XPath.XDocument.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.WindowsRuntime">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\Extensions\2.0.0\System.Runtime.InteropServices.WindowsRuntime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\mscorlib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.ComponentModel.Composition.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Drawing.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.IO.Compression.FileSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Numerics">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Numerics.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Runtime.Serialization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.ServiceModel.Web.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Transactions">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Transactions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Web.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Windows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Linq.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Serialization">
+      <HintPath>F:\Theodore 3\Unity\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AssetBundleBrowser.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.AssetBundleBrowser.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualStudio.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Timeline">
+      <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.PlasticSCM.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
-     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
-     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\GunAim.cs" />
-     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\GunShoot.cs" />
-     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ParticleCollision.cs" />
-     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ParticleExamples.cs" />
-     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
-     <Compile Include="Assets\scripts\ChildLocator.cs" />
-     <Compile Include="Assets\scripts\DynamicBone.cs" />
-     <Compile Include="Assets\scripts\DynamicBoneCollider.cs" />
-     <Compile Include="Assets\scripts\FootstepHandler.cs" />
-     <Compile Include="Assets\scripts\NewBehaviourScript.cs" />
-     <Compile Include="Assets\scripts\RagdollController.cs" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_explosion_depth_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_measure_tes_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_smoke_win.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dome_distortion_tes_003.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\StdLib.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_slash_006.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Waveform.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_meshwave_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C0_flow_no_fade_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_drr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_arghh.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_foosh.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_C0_flow_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVOUpsample.compute" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl19_shuk.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_thunder_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl13_thwip.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_scroll1.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_crash.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_destroy.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_acid_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_Pl09_meshwave2_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Distortion.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl20_crack.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_avoid.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_color_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_outline_tes_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dome_distortion_tes_002.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ExposureHistogram.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_stick.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_kosei1_wave.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_Pl01_windscroll_005.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Texture3DLerp.compute" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl16_thoom.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DeferredFog.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_003_tes.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_change_ma.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\TemporalAntialiasing.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl06_thwip.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_005.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\FastApproximateAntialiasing.hlsl" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\SubpixelMorphologicalAntialiasing.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\M_ef_acid_tes_001_Inst.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_particle_test_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_spiral_beam_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_meshwave2_tr_two_side_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bom.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Dithering.hlsl" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Bloom.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_flow_no_fade_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_fire_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_windscroll_001.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Vectorscope.compute" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Sampling.hlsl" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_ball_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_thunder_tr_plus01.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_thwip.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C0_flow_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_aura_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_spotlight_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_boooom.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glass_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dome_distortion_tes_001.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Lut3DBaker.compute" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_spotlight_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_stagerange_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_aura_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dust_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_003.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Waveform.compute" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_outline_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_windscrollurutla_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_acid_wall_tes_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_Pl01_windscroll_004.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_acid_ball_tes_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_spiral_thunder_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_ball_001_M.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_006.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_battle_match_wind_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_grab.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl14_crack.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\PSSL.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_uvscrollparam_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Plusultra\MI_ef_Pl01_pulsultra02_bg.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ground_shock_test_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl15_thoom.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ground_shock_test_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_010.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_009.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_flowfade.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\LightMeter.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_star_001_gia02.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_scrollfadegradation_ad.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_star_001_gia.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_005.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_Pl01_windscroll_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_shockWave_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\AutoExposure.compute" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVORender.compute" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_scrollfade_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Texture2DLerp.shader" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\SubpixelMorphologicalAntialiasingBridge.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl18_shuk.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_flow_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_acid.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_addcolor_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_003.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DiskKernels.hlsl" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind01.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\D3D11.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ring_004.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVODownsample2.compute" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScalableAO.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_twist.props.txt" />
-     <None Include="Assets\Shigaraki\Assets\Material\Panner.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flow_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_stealth_01.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_C1_flow_tr_test.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_togeglow_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_splash_particle_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bonk.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C0_flow_no_fade_add.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_togeglow_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_distortion_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_irk.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_009.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_splash_depth_off_particle_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_004.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_repair_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_fullcowl.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_misty.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_common_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_uvparamdistortion_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_002_tes.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C0_uvscrollparam_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_sszzzaacck.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_gradation_tes_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_004_tes.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_kosei1_wave2.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_spiral_thunder_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_010.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_noblack_ad.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_waterDust_ma.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_float.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_shockwave_001_tes.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_drrrrrrrr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_acid_tes_001_Inst.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flare_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_sklit.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_thunder_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_color_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_008.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_akebono_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_011.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_shield_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_craassh.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_swish.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C1_common_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_bite_tes_002.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVO.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bzzzt.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_scroll_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_aura_001.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Vectorscope.shader" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\D3D9.hlsl" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScalableAO.shader" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\ACES.hlsl" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\FinalPass.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dot_000.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Histogram.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_dynDust_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_swing.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Histogram.compute" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\Switch.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_common_rock_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smash_text_001.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\Metal.hlsl" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Uber.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_boom_Nejire.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_boom_Fatgum.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_scroll_kumo2.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_meat_piece_tes_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_popo.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_wiggle.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_012.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_rush_bg_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_fire_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\xRLib.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C1_flow_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_uvscrollparam_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_fire2_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_swip.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_spotlight_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_splash_particle_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_Pl01_windscroll_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_explosion_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_outline_tes_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_gimmick.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flare_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_acid_test_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_winduvscroll_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_bite_tes_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_meshwave_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_pin.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_byebye.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_Pl09_scrollfadegradation_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_haunt.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_star_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_waterDust_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_darkthunder_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_battle_match_wind_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_common_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_Thunder_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bzz.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_spiral_tes_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_002.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Overlays.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_fog_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dust_000.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\PSP2.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_Dissolve_001.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScreenSpaceReflections.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_common_ma.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DepthOfField.hlsl" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DiscardAlpha.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_toon2_ma.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_004.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\OpenGL.hlsl" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Lut2DBaker.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_powerrr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_fwump.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_foooosh.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ring_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_booom.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_ice2_ma.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_Fresnel_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ground_shock_test_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_crunch.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_wham.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_speed_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smaassh.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_attacktrail_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\CopyStd.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_explosion_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_toge_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_thunder_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_Fresnel02_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_shunk.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_mesh_wave_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_dust_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_dom.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_scroll2.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_ice1_ma.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl20_thoom.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C1_uvscrollparam_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MotionBlur.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_005.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVODownsample1.compute" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_ball_002.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Fog.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smack.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ExposureHistogram.compute" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_judge.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_thunderFresnel02_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_guardbreak.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smaaaassshhhhhuuu.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flare_001.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\GrainBaker.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_004_tes.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_star_001_tes.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_UVscroll_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_sonic.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_fire_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_whakom.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_attacktrail_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_noblack_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\GaussianDownsample.compute" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_st_gradation_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smak.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_shwip.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_waterDustnoise_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ice2_ma.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScreenSpaceReflections.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_explosion_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_hole_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\XboxOne.hlsl" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Copy.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_justguard.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bzzzz.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\D3D12.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_glow_004.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_tes.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_splash_ball_tes_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ice1_ma.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DepthOfField.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl22_yoarashi.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_fire_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\SubpixelMorphologicalAntialiasing.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_bash.props.txt" />
-     <None Include="Assets\VFX\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_star_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_thunder_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_windcylinder_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_distortion_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_jack.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_smoke_hole_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_stealth_00.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_Pl01_plusultra02b_ma.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dust_005.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_star_001_UA.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dome_wave_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_shnk.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_005.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_change_unlit_ma.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_004.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_crack.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_plus02_ma.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_outline_tes_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl12_thoom.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_krak.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flow_no_fade_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_uvscrollparam_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_barriar_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_sonicwave_tes_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dust_004.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_splasshh.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MII_ef_wall_pierce_concrete.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\Vulkan.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_long_shock_tes.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_shock_distortion_tes_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C1_C1_uvscrollparam_tr_offset.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_barriar_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_plus02_tr.props.txt" />
-     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Colors.hlsl" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_thunder_003.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_sidekickglow_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_moji_ma.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_invincible.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MII_ef_acid_particle_test_001.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_acid_ball_tes_002.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_C0_common_tr.props.txt" />
-     <None Include="Assets\OJ2 effects\Pl01\Plusultra\MII_ef_Pl01_pulsultra02b_windscroll02.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_karakoom.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_toon2_ma.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flowfade_000.props.txt" />
-     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smash.props.txt" />
- <Reference Include="UnityEngine">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AIModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ARModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AccessibilityModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AndroidJNIModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.AndroidJNIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AnimationModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AssetBundleModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AudioModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ClothModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ClusterInputModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ClusterRendererModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.CoreModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.CrashReportingModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.DSPGraphModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.DSPGraphModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.DirectorModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.GameCenterModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.GridModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.HotReloadModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.HotReloadModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.IMGUIModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ImageConversionModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.InputModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.InputLegacyModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.InputLegacyModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.JSONSerializeModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.LocalizationModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.LocalizationModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ParticleSystemModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.PerformanceReportingModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.PhysicsModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Physics2DModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ProfilerModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.ProfilerModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ScreenCaptureModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SharedInternalsModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SpriteMaskModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SpriteShapeModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.StreamingModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.StreamingModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SubstanceModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.SubstanceModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SubsystemsModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.SubsystemsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TLSModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.TLSModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TerrainModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TerrainPhysicsModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TextCoreModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextCoreModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TextRenderingModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TilemapModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UIModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UIElementsModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UNETModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UmbraModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityAnalyticsModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityConnectModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityTestProtocolModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityTestProtocolModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityWebRequestModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityWebRequestAudioModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityWebRequestTextureModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UnityWebRequestWWWModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VFXModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.VFXModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VRModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VehiclesModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VideoModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.WindModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.XRModule">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
- </Reference>
- <Reference Include="netstandard">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
- </Reference>
- <Reference Include="Microsoft.Win32.Primitives">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/Microsoft.Win32.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.AppContext">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.AppContext.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections.Concurrent">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Concurrent.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections.NonGeneric">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.NonGeneric.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections.Specialized">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Specialized.dll</HintPath>
- </Reference>
- <Reference Include="System.ComponentModel">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.dll</HintPath>
- </Reference>
- <Reference Include="System.ComponentModel.EventBasedAsync">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.EventBasedAsync.dll</HintPath>
- </Reference>
- <Reference Include="System.ComponentModel.Primitives">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.ComponentModel.TypeConverter">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.TypeConverter.dll</HintPath>
- </Reference>
- <Reference Include="System.Console">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Console.dll</HintPath>
- </Reference>
- <Reference Include="System.Data.Common">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Data.Common.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.Contracts">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Contracts.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.Debug">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Debug.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.FileVersionInfo">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.FileVersionInfo.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.Process">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Process.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.StackTrace">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.StackTrace.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.TextWriterTraceListener">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.TextWriterTraceListener.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.Tools">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Tools.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.TraceSource">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.TraceSource.dll</HintPath>
- </Reference>
- <Reference Include="System.Diagnostics.Tracing">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Tracing.dll</HintPath>
- </Reference>
- <Reference Include="System.Drawing.Primitives">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Drawing.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.Dynamic.Runtime">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Dynamic.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="System.Globalization.Calendars">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.Calendars.dll</HintPath>
- </Reference>
- <Reference Include="System.Globalization">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.dll</HintPath>
- </Reference>
- <Reference Include="System.Globalization.Extensions">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.Compression">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Compression.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.Compression.ZipFile">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Compression.ZipFile.dll</HintPath>
- </Reference>
- <Reference Include="System.IO">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.FileSystem">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.FileSystem.DriveInfo">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.DriveInfo.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.FileSystem.Primitives">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.FileSystem.Watcher">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.Watcher.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.IsolatedStorage">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.IsolatedStorage.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.MemoryMappedFiles">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.MemoryMappedFiles.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.Pipes">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Pipes.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.UnmanagedMemoryStream">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.UnmanagedMemoryStream.dll</HintPath>
- </Reference>
- <Reference Include="System.Linq">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.dll</HintPath>
- </Reference>
- <Reference Include="System.Linq.Expressions">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Expressions.dll</HintPath>
- </Reference>
- <Reference Include="System.Linq.Parallel">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Parallel.dll</HintPath>
- </Reference>
- <Reference Include="System.Linq.Queryable">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Queryable.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Http">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Http.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.NameResolution">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.NameResolution.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.NetworkInformation">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.NetworkInformation.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Ping">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Ping.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Primitives">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Requests">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Requests.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Security">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Security.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.Sockets">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Sockets.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.WebHeaderCollection">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebHeaderCollection.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.WebSockets.Client">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebSockets.Client.dll</HintPath>
- </Reference>
- <Reference Include="System.Net.WebSockets">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebSockets.dll</HintPath>
- </Reference>
- <Reference Include="System.ObjectModel">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ObjectModel.dll</HintPath>
- </Reference>
- <Reference Include="System.Reflection">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.dll</HintPath>
- </Reference>
- <Reference Include="System.Reflection.Extensions">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="System.Reflection.Primitives">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.Resources.Reader">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.Reader.dll</HintPath>
- </Reference>
- <Reference Include="System.Resources.ResourceManager">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.ResourceManager.dll</HintPath>
- </Reference>
- <Reference Include="System.Resources.Writer">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.Writer.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.CompilerServices.VisualC">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.CompilerServices.VisualC.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Extensions">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Handles">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Handles.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.InteropServices">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.InteropServices.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Numerics">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Numerics.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization.Formatters">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Formatters.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization.Json">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Json.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization.Primitives">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization.Xml">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Xml.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Claims">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Claims.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.Algorithms">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Algorithms.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.Csp">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Csp.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.Encoding">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Encoding.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.Primitives">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Primitives.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Cryptography.X509Certificates">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.X509Certificates.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.Principal">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Principal.dll</HintPath>
- </Reference>
- <Reference Include="System.Security.SecureString">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.SecureString.dll</HintPath>
- </Reference>
- <Reference Include="System.Text.Encoding">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Text.Encoding.dll</HintPath>
- </Reference>
- <Reference Include="System.Text.Encoding.Extensions">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Text.Encoding.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="System.Text.RegularExpressions">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Text.RegularExpressions.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Overlapped">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Overlapped.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Tasks">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Tasks.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Tasks.Parallel">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Tasks.Parallel.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Thread">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Thread.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.ThreadPool">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.ThreadPool.dll</HintPath>
- </Reference>
- <Reference Include="System.Threading.Timer">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Timer.dll</HintPath>
- </Reference>
- <Reference Include="System.ValueTuple">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ValueTuple.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.ReaderWriter">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.ReaderWriter.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XDocument">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XDocument.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XmlDocument">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XmlDocument.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XmlSerializer">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XmlSerializer.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XPath">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XPath.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.XPath.XDocument">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XPath.XDocument.dll</HintPath>
- </Reference>
- <Reference Include="System.Numerics.Vectors">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/Extensions/2.0.0/System.Numerics.Vectors.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.InteropServices.WindowsRuntime">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll</HintPath>
- </Reference>
- <Reference Include="mscorlib">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
- </Reference>
- <Reference Include="System.ComponentModel.Composition">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.ComponentModel.Composition.dll</HintPath>
- </Reference>
- <Reference Include="System.Core">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Core.dll</HintPath>
- </Reference>
- <Reference Include="System.Data">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Data.dll</HintPath>
- </Reference>
- <Reference Include="System">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.dll</HintPath>
- </Reference>
- <Reference Include="System.Drawing">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Drawing.dll</HintPath>
- </Reference>
- <Reference Include="System.IO.Compression.FileSystem">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.IO.Compression.FileSystem.dll</HintPath>
- </Reference>
- <Reference Include="System.Net">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Net.dll</HintPath>
- </Reference>
- <Reference Include="System.Numerics">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Numerics.dll</HintPath>
- </Reference>
- <Reference Include="System.Runtime.Serialization">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Runtime.Serialization.dll</HintPath>
- </Reference>
- <Reference Include="System.ServiceModel.Web">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.ServiceModel.Web.dll</HintPath>
- </Reference>
- <Reference Include="System.Transactions">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Transactions.dll</HintPath>
- </Reference>
- <Reference Include="System.Web">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Web.dll</HintPath>
- </Reference>
- <Reference Include="System.Windows">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Windows.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.Linq">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Linq.dll</HintPath>
- </Reference>
- <Reference Include="System.Xml.Serialization">
- <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Timeline.Editor">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VSCode.Editor">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UI">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Timeline">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
- </Reference>
- <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.AssetBundleBrowser.Editor">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.AssetBundleBrowser.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Rider.Editor">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="com.unity.postprocessing.Editor.csproj">
-      <Project>{13683CD5-802B-8A69-1933-2F38FFC6BD1E}</Project>
-      <Name>com.unity.postprocessing.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="com.unity.postprocessing.Runtime.csproj">
       <Project>{D31A1EC2-9F09-AC45-53E3-3D6F9C5F0C27}</Project>
       <Name>com.unity.postprocessing.Runtime</Name>
     </ProjectReference>
+    <ProjectReference Include="com.unity.postprocessing.Editor.csproj">
+      <Project>{13683CD5-802B-8A69-1933-2F38FFC6BD1E}</Project>
+      <Name>com.unity.postprocessing.Editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

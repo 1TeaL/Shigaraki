@@ -26,12 +26,12 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride = -1f;
         private float recoilAmplitude = 4f;
-        private GameObject effectPrefab = Modules.Assets.banditmuzzleEffect;
+        private GameObject effectPrefab = Modules.ShiggyAsset.banditmuzzleEffect;
         private string muzzleName = "RHand";
         private float bulletCount = 1;
-        public LoopSoundDef loopSoundDef = Modules.Assets.railgunnercryoofflineSound;
+        public LoopSoundDef loopSoundDef = Modules.ShiggyAsset.railgunnercryoofflineSound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
-        public GameObject reloadcrosshairOverridePrefab = Modules.Assets.railgunnercryoreloadCrosshair;
+        public GameObject reloadcrosshairOverridePrefab = Modules.ShiggyAsset.railgunnercryoreloadCrosshair;
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
 
         public override void OnEnter()
@@ -74,9 +74,9 @@ namespace ShiggyMod.SkillStates
                     force = force,
                     stopperMask = LayerIndex.noCollision.mask,
                     falloffModel = BulletAttack.FalloffModel.None,
-                    tracerEffectPrefab = Modules.Assets.railgunnercryoTracer,
+                    tracerEffectPrefab = Modules.ShiggyAsset.railgunnercryoTracer,
                     muzzleName = muzzleName,
-                    //hitEffectPrefab = Modules.Assets.banditimpactEffect,
+                    //hitEffectPrefab = Modules.Asset.banditimpactEffect,
                     isCrit = base.RollCrit(),
                     HitEffectNormal = true,
                     radius = 2f,

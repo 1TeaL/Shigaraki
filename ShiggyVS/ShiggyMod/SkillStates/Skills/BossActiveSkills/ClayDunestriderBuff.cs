@@ -39,7 +39,7 @@ namespace ShiggyMod.SkillStates
                 //characterBody.AddTimedBuffAuthority(Modules.Buffs.claydunestriderBuff.buffIndex, Modules.StaticValues.claydunestriderbuffDuration);
             }
 
-            EffectManager.SpawnEffect(Modules.Assets.claydunestriderEffect, new EffectData
+            EffectManager.SpawnEffect(Modules.ShiggyAsset.claydunestriderEffect, new EffectData
             {
                 origin = base.characterBody.corePosition,
                 scale = 1f,

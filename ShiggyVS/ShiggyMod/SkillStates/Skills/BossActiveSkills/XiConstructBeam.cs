@@ -25,7 +25,7 @@ namespace ShiggyMod.SkillStates
         private float force = 100f;
         private float fireTimer;
         public string muzzleString = "RHand";
-        public LoopSoundDef loopSoundDef = Modules.Assets.xiconstructsound;
+        public LoopSoundDef loopSoundDef = Modules.ShiggyAsset.xiconstructsound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
 
         private GameObject beam;
@@ -53,7 +53,7 @@ namespace ShiggyMod.SkillStates
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
 
-            EffectManager.SimpleMuzzleFlash(Modules.Assets.xiconstructbeamEffect, base.gameObject, muzzleString, false);
+            EffectManager.SimpleMuzzleFlash(Modules.ShiggyAsset.xiconstructbeamEffect, base.gameObject, muzzleString, false);
             if (this.loopSoundDef)
             {
                 this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
@@ -62,7 +62,7 @@ namespace ShiggyMod.SkillStates
 
             base.characterBody.SetAimTimer(2f);
 
-            beam = UnityEngine.Object.Instantiate(Modules.Assets.beam);
+            beam = UnityEngine.Object.Instantiate(Modules.ShiggyAsset.beam);
             if (NetworkServer.active)
             {
                 NetworkServer.Spawn(beam);
@@ -117,7 +117,7 @@ namespace ShiggyMod.SkillStates
                     if (body)
                     {
                         Ray aimRay = base.GetAimRay();
-                        EffectManager.SpawnEffect(Modules.Assets.xiconstructSecondMuzzleEffect, new EffectData
+                        EffectManager.SpawnEffect(Modules.ShiggyAsset.xiconstructSecondMuzzleEffect, new EffectData
                         {
                             origin = healthComponent.body.corePosition,
                             scale = 1f,

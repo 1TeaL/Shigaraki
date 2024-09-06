@@ -166,7 +166,7 @@ namespace ShiggyMod.Modules.Networking
                                 origin = position,
                                 start = start
                             };
-                            EffectManager.SpawnEffect(Modules.Assets.tracerHuntressSnipePrefab, effectData, true);
+                            EffectManager.SpawnEffect(Modules.ShiggyAsset.tracerHuntressSnipePrefab, effectData, true);
                         }
                     }
                 }

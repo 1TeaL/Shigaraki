@@ -69,7 +69,7 @@ namespace ShiggyMod.Modules.Survivors
             ifEnergyUsed = false;
 
             //UI objects 
-            CustomUIObject = UnityEngine.Object.Instantiate(Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("shiggyCustomUI"));
+            CustomUIObject = UnityEngine.Object.Instantiate(Modules.ShiggyAsset.mainAssetBundle.LoadAsset<GameObject>("shiggyCustomUI"));
             CustomUIObject.SetActive(false);
             SetActiveTrue = false;
 

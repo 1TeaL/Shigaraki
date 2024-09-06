@@ -24,7 +24,7 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride = -1f;
         private float recoilAmplitude = 4f;
-        private GameObject effectPrefab = Modules.Assets.banditmuzzleEffect;
+        private GameObject effectPrefab = Modules.ShiggyAsset.banditmuzzleEffect;
         private string muzzleName = "RHand";
         private float bulletCount = 1;
 
@@ -63,9 +63,9 @@ namespace ShiggyMod.SkillStates
                     maxSpread = 0f,
                     force = force,
                     falloffModel = BulletAttack.FalloffModel.None,
-                    tracerEffectPrefab = Modules.Assets.bandittracerEffectPrefab,
+                    tracerEffectPrefab = Modules.ShiggyAsset.bandittracerEffectPrefab,
                     muzzleName = muzzleName,
-                    hitEffectPrefab = Modules.Assets.banditimpactEffect,
+                    hitEffectPrefab = Modules.ShiggyAsset.banditimpactEffect,
                     isCrit = base.RollCrit(),
                     HitEffectNormal = true,
                     radius = 0.5f,

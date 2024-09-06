@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{93F48A79-6A4B-41F1-8C60-B91835847140}" SchemaVersion="97">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{93F48A79-6A4B-41F1-8C60-B91835847140}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="ShiggyDeath" ID="{46C4C418-59C6-4B77-A3A8-F9CAC45A3698}">
+					<ChildrenList>
+						<Action Name="" ID="{5291B9D7-AF3F-476C-ADA3-7F0FE1E59917}" ShortID="601051697">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyDeath" ID="{B0656D8D-DC77-49FD-BE1C-47BC400A6047}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyEntrance" ID="{7106EB36-ADB6-4E70-B7A0-1B15CCD6E81E}">
+					<ChildrenList>
+						<Action Name="" ID="{CB7549AD-93F4-4A50-BD36-08F4D70C8EEF}" ShortID="481192717">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyEntrance" ID="{F06958ED-DBD9-4FB3-88CF-E0600E1F9261}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyAFO" ID="{D8C5B628-D964-4EF2-8D9D-26F8E07649C8}">
+					<ChildrenList>
+						<Action Name="" ID="{2DB72878-5349-4CA9-B5E4-01FF94706AF7}" ShortID="354955357">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyAFO" ID="{A5601923-29CC-4FAB-8FA9-94E095A07A4A}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyMelee" ID="{265A8C71-0255-455D-915F-96F4E053FD15}">
+					<ChildrenList>
+						<Action Name="" ID="{CD7E2BA3-BC2E-4A4A-818D-86B86635D50A}" ShortID="951373648">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyMelee" ID="{1F663EEF-374A-4667-B8A6-D07D03BEDF9D}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyExplosion" ID="{A2464958-AD92-4597-9900-A02FBD13B56D}">
+					<ChildrenList>
+						<Action Name="" ID="{511ED79C-602B-4BDE-AD87-631B09DB43D6}" ShortID="974248514">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyExplosion" ID="{6F55B912-AFE2-4147-A458-C5746D53912E}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyAirCannon" ID="{04044226-4C0C-438A-8069-3FCFA267B6EF}">
+					<ChildrenList>
+						<Action Name="" ID="{42D7BD3A-5777-44BC-874B-0710AF2DD770}" ShortID="925255288">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyAirCannon" ID="{F9C3B164-7B70-4F11-8BEB-70E527B07BF8}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggySlide" ID="{4E97410B-8640-40F1-939A-2BC125C32CDB}">
+					<ChildrenList>
+						<Action Name="" ID="{719B85E3-98D0-49F3-8E00-2949F4373843}" ShortID="349490132">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggySlide" ID="{60E119E2-08B3-4EF9-9F9D-CB47299B72CB}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyDekuCollab" ID="{C7D22022-44E5-4513-B7AD-6BF90713CC4E}">
+					<ChildrenList>
+						<Action Name="" ID="{C1C4CF62-0872-4EC4-A57B-4F12B848D982}" ShortID="886441214">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyDekuCollab" ID="{734AFBF6-4CF6-44D5-961E-D66C1E3736DA}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyAttack" ID="{AC370208-0307-47E8-BA44-BF4682AB9A09}">
+					<ChildrenList>
+						<Action Name="" ID="{4C19C03B-6A39-4D2E-870E-C0859DFAA477}" ShortID="393458900">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyAttack" ID="{75A9944D-368F-4C85-8053-FB9E326D4182}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyStrongAttack" ID="{436058F5-5F14-434D-AD4F-2D37071257AA}">
+					<ChildrenList>
+						<Action Name="" ID="{579D6151-0B21-425F-AD5E-A4CE0A8ECE6F}" ShortID="565990350">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyStrongAttack" ID="{FC63F6B4-CEB1-4F24-87CE-E4C0283F908F}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyHitSFX" ID="{52C95AB5-B169-4FAF-8FCC-EE1D4AEB265F}">
+					<ChildrenList>
+						<Action Name="" ID="{861BFA2A-457F-476D-A9CF-D9FE64BE02ED}" ShortID="364160286">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyHitSFX" ID="{0A3DCF76-3759-4F1E-9112-C093CAE5AD65}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyTheWorld" ID="{A30051B1-5235-47B4-83AF-98A8A3E2F722}">
+					<ChildrenList>
+						<Action Name="" ID="{CF2EC03E-0B11-4587-B83E-B5587C4C70C4}" ShortID="495956068">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyTheWorld" ID="{64DA2F57-B5F0-42FD-BE07-4E6F69EE006B}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyBankai" ID="{209F27A0-E531-4D5A-BF79-A4490F18934D}">
+					<ChildrenList>
+						<Action Name="" ID="{846B7931-1F3E-4FBD-A4FE-B8CCE91A3FFA}" ShortID="507685570">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyBankai" ID="{B397DDE8-B045-4CC6-B458-80877D934D16}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyDriveForm" ID="{1F0B6B63-D8BB-4B6C-9B07-A2800690F25F}">
+					<ChildrenList>
+						<Action Name="" ID="{0A05CA20-0310-43CC-9003-9372C7D66BB8}" ShortID="683208314">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyDriveForm" ID="{9EC22E14-F5FB-48CC-96D4-575E6739A486}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyGetsuga" ID="{B3E96C7E-3A93-4E4B-A7F6-0F5B72B6FFF6}">
+					<ChildrenList>
+						<Action Name="" ID="{E16BB682-CF62-4E30-93C7-FCD0D49ECC0B}" ShortID="188341329">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyLimitBreak" ID="{38A1E3C2-B733-4FAC-B3E2-D5312D8EBA97}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyOFA" ID="{E1D1FBC8-E0FD-4189-8737-A8B04C460F5A}">
+					<ChildrenList>
+						<Action Name="" ID="{578E15E1-F205-46FB-BB87-3867D98F8CE8}" ShortID="1072775872">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyOFA" ID="{CA3D6AD6-E6DC-40A9-B3D1-3B8817137B9D}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyOFAGet" ID="{530DD5EC-ABF9-4C17-BD76-9E3835D30B6B}">
+					<ChildrenList>
+						<Action Name="" ID="{99A46C35-D9A6-46C9-B0A3-DEF20BC97896}" ShortID="100180375">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyOFAGet" ID="{ACC701A3-6568-4173-A0C5-3FF4F082F170}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyLimitBreak" ID="{C8C0CC95-4FE6-49A5-9794-5D788184BC9D}">
+					<ChildrenList>
+						<Action Name="" ID="{6458D4D5-7764-4551-8F28-B2EA8D211F36}" ShortID="362951576">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ShiggyLimitBreak" ID="{38A1E3C2-B733-4FAC-B3E2-D5312D8EBA97}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyBankaiMusic" ID="{D33ABBDD-654C-4EFB-93F8-15D9E4B07109}">
+					<ChildrenList>
+						<Action Name="" ID="{94DDFBD3-9212-41A3-A9BD-1E2795B34D87}" ShortID="663966364">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Number One - Bankai" ID="{D3E16216-5BD9-4D7D-854E-17F228F3507C}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyBankaiMugetsu" ID="{E03CDB1D-06C4-4390-80E0-6A112145AF88}">
+					<ChildrenList>
+						<Action Name="" ID="{496BEB52-16AA-41A9-91DD-1B215C718A45}" ShortID="1757606">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="numberOneMugetsu" ID="{9A98A91A-BAA2-4B74-97B9-078BBE67D42C}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="ShiggyGacha" ID="{B0E8F652-4720-4959-97E3-252EB51F3C3F}">
+					<ChildrenList>
+						<Action Name="" ID="{25C97979-9F17-4C7E-8F97-73EF1C39BE66}" ShortID="837533973">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Gacha" ID="{6A5BA788-7CC9-4C98-B259-11FCAB323218}" WorkUnitID="{AD1A50BA-BC04-4391-9B71-DC328988801F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

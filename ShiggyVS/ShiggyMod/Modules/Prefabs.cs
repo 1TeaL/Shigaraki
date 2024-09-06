@@ -60,7 +60,7 @@ namespace ShiggyMod.Modules
 
             model.AddComponent<CharacterModel>().baseRendererInfos = prefab.GetComponentInChildren<CharacterModel>().baseRendererInfos;
 
-            Modules.Assets.ConvertAllRenderersToHopooShader(model);
+            Modules.ShiggyAsset.ConvertAllRenderersToHopooShader(model);
 
             return model.gameObject;
         }
@@ -201,13 +201,13 @@ namespace ShiggyMod.Modules
             ShiggyPlugin.DestroyImmediate(main.transform.Find("CameraPivot").gameObject);
             ShiggyPlugin.DestroyImmediate(main.transform.Find("AimOrigin").gameObject);
 
-            if (Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(modelName) == null)
+            if (Modules.ShiggyAsset.mainAssetBundle.LoadAsset<GameObject>(modelName) == null)
             {
                 Debug.LogError("Trying to load a null model- check to see if the name in your code matches the name of the object in Unity");
                 return null;
             }
 
-            return GameObject.Instantiate(Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(modelName));
+            return GameObject.Instantiate(Modules.ShiggyAsset.mainAssetBundle.LoadAsset<GameObject>(modelName));
         }
 
         internal static void SetupCharacterModel(GameObject prefab, CustomRendererInfo[] rendererInfo, int mainRendererIndex)
@@ -256,7 +256,7 @@ namespace ShiggyMod.Modules
 
             characterModel.autoPopulateLightInfos = true;
             characterModel.invisibilityCount = 0;
-            characterModel.temporaryOverlays = new List<TemporaryOverlay>();
+            characterModel.temporaryOverlays = new List<TemporaryOverlayInstance>();
 
             if (mainRendererIndex > characterModel.baseRendererInfos.Length)
             {

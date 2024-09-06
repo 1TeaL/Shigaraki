@@ -85,7 +85,7 @@ namespace ShiggyMod.SkillStates
                 {
                     stopwatch = 0f;
                     Ray aimRay = base.GetAimRay();
-                    EffectManager.SpawnEffect(Assets.elderlemurianexplosionEffect, new EffectData
+                    EffectManager.SpawnEffect(ShiggyAsset.elderlemurianexplosionEffect, new EffectData
                     {
                         origin = aimRay.origin,
                         scale = radius,

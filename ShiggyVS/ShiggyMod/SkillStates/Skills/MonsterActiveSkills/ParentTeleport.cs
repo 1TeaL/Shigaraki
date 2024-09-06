@@ -103,7 +103,7 @@ namespace ShiggyMod.SkillStates
                 AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
                 hasFired = true;
                 blastAttack.position = latestposition;
-                EffectManager.SpawnEffect(Modules.Assets.parentslamEffect, new EffectData
+                EffectManager.SpawnEffect(Modules.ShiggyAsset.parentslamEffect, new EffectData
                 {
                     origin = latestposition,
                     scale = radius,

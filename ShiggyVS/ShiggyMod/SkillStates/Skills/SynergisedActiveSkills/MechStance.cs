@@ -19,7 +19,7 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
 
             Ray aimRay = base.GetAimRay();
-            EffectManager.SpawnEffect(Assets.multCryoExplosionEffect, new EffectData
+            EffectManager.SpawnEffect(ShiggyAsset.ultCryoExplosionEffect, new EffectData
             {
                 origin = base.transform.position,
                 scale = 1f,

@@ -38,9 +38,9 @@
 
 //        public override ItemTier Tier => ItemTier.Lunar;
 
-//        public override GameObject ItemModel => Modules.Assets.ShiggyItemPrefab;
+//        public override GameObject ItemModel => Modules.Asset.ShiggyItemPrefab;
 
-//        public override Sprite ItemIcon => Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texShiggyIcon");
+//        public override Sprite ItemIcon => Modules.Asset.mainAssetBundle.LoadAsset<Sprite>("texShiggyIcon");
 
 
 //        public static SkillDef avestSkillDef = Shiggy.avestSkillDef;

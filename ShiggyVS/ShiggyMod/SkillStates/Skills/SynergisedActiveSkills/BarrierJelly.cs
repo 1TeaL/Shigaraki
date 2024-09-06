@@ -21,7 +21,7 @@ namespace ShiggyMod.SkillStates
 
             Ray aimRay = base.GetAimRay();
 
-            EffectManager.SpawnEffect(Assets.alphaConstructMuzzleFlashEffect, new EffectData
+            EffectManager.SpawnEffect(ShiggyAsset.alphaConstructMuzzleFlashEffect, new EffectData
             {
                 origin = base.transform.position,
                 scale = 1f,

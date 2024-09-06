@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo>
+	<Project Name="ShiggyMod" GUID="{910A4281-4C7A-4CB0-B96D-89871D72D057}" Generator="2023.1.4.8496"/>
+	<CacheRoot>../.cache</CacheRoot>
+	<Platforms>
+		<Platform Name="Windows" GUID="{6CB20DB1-3C25-4A0C-BD12-DB98096E5C65}" BasePlatform="Windows" BasePlatformGUID="{6E0CB257-C6C8-4C5C-8366-2740DFC441EB}" Path="Windows"/>
+	</Platforms>
+	<Languages>
+		<Language Name="English(US)" Id="684519430" GUID="{DC501672-F77F-4201-B0A5-4573866C9832}" Default="true" UseAsStandIn="true"/>
+	</Languages>
+	<FileHash>{669C31A2-5264-7ECE-B7E2-A23ED1262BF4}</FileHash>
+</ProjectInfo>

@@ -24,7 +24,7 @@ namespace ShiggyMod.Modules.Networking
         GameObject charbodyObj;
         private BullseyeSearch search;
         private List<HurtBox> trackingTargets;
-        private GameObject blastEffectPrefab = Assets.impBossExplosionEffect;
+        private GameObject blastEffectPrefab = ShiggyAsset.impBossExplosionEffect;
 
         public ExpungeNetworkRequest()
         {

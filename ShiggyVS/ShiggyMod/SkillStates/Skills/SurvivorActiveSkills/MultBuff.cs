@@ -48,8 +48,8 @@ namespace ShiggyMod.SkillStates
             {
                 characterBody.ApplyBuff(Modules.Buffs.multBuff.buffIndex, 1);
                 Util.PlaySound(ToolbotDualWield.enterSoundString, base.gameObject);
-                EffectManager.SimpleMuzzleFlash(Modules.Assets.multEffect, base.gameObject, "LHand", false);
-                EffectManager.SimpleMuzzleFlash(Modules.Assets.multEffect, base.gameObject, "RHand", false);
+                EffectManager.SimpleMuzzleFlash(Modules.ShiggyAsset.multEffect, base.gameObject, "LHand", false);
+                EffectManager.SimpleMuzzleFlash(Modules.ShiggyAsset.multEffect, base.gameObject, "RHand", false);
                 loopSoundID = Util.PlaySound(ToolbotDualWield.startLoopSoundString, base.gameObject);
             }
             else if (characterBody.HasBuff(Buffs.multBuff.buffIndex))

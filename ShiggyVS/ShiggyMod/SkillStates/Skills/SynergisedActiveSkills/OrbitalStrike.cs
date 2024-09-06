@@ -95,7 +95,7 @@ namespace ShiggyMod.SkillStates
         {
             FireProjectileInfo fireProjectileInfo = new FireProjectileInfo
             {
-                projectilePrefab = Modules.Assets.captainAirStrikeProj,
+                projectilePrefab = Modules.ShiggyAsset.captainAirStrikeProj,
                 position = point,
                 rotation = Quaternion.identity,
                 owner = base.gameObject,

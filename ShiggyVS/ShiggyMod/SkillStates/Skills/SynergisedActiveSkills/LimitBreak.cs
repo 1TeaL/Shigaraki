@@ -25,7 +25,7 @@ namespace ShiggyMod.SkillStates
             base.PlayAnimation("FullBody, Override", "FullBodyUnleash", "Attack.playbackRate", duration);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             AkSoundEngine.PostEvent("ShiggyLimitBreak", base.gameObject);
-            EffectManager.SpawnEffect(Assets.multCryoExplosionEffect, new EffectData
+            EffectManager.SpawnEffect(ShiggyAsset.multCryoExplosionEffect, new EffectData
             {
                 origin = base.transform.position,
                 scale = 1f,

@@ -26,11 +26,11 @@ namespace ShiggyMod.SkillStates
         private Animator animator;
         private ChildLocator childLocator;
         private GameObject chargeEffectInstance;
-        private GameObject chargeEffectPrefab = Modules.Assets.artificerlightningorbchargeEffect;
+        private GameObject chargeEffectPrefab = Modules.ShiggyAsset.artificerlightningorbchargeEffect;
         private string chargeSoundString;
-        public LoopSoundDef loopSoundDef = Modules.Assets.artificerlightningsound;
+        public LoopSoundDef loopSoundDef = Modules.ShiggyAsset.artificerlightningsound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
-        public GameObject crosshairOverridePrefab = Modules.Assets.artificerCrosshair;
+        public GameObject crosshairOverridePrefab = Modules.ShiggyAsset.artificerCrosshair;
         private CrosshairUtils.OverrideRequest crosshairOverrideRequest;
         private float minChargeDuration = 0.5f;
 
@@ -167,7 +167,7 @@ namespace ShiggyMod.SkillStates
             }
             if (base.fixedAge >= minChargeDuration)
             {
-                EffectManager.SpawnEffect(Modules.Assets.artificerlightningorbchargeEffect, new EffectData
+                EffectManager.SpawnEffect(Modules.ShiggyAsset.artificerlightningorbchargeEffect, new EffectData
                 {
                     origin = this.childLocator.FindChild("LHand").position,
                     scale = 1f,
