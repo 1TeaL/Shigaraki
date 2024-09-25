@@ -11,6 +11,7 @@ If you enjoy my work, support me on Ko-fi!
 ## Popcorn Factory
 <details>
 <summary>Check out other mods from the Popcorn Factory team!</summary>	
+
 <div>
     <a href="https://thunderstore.io/package/PopcornFactory/Arsonist_Mod/">
       <img width="130" src="https://github.com/user-attachments/assets/5928595d-ac4a-4bb7-9ef2-1e56d74ccb7d"/>
@@ -37,8 +38,14 @@ If you enjoy my work, support me on Ko-fi!
 </div>
 <div>
     <a href="https://thunderstore.io/package/TeaL/DekuMod/">
-        <img src="https://github.com/user-attachments/assets/117f7100-e25d-4d34-8811-71d4fdf94c61" height ="128" ><br>
+        <img width ="130" src="https://github.com/user-attachments/assets/117f7100-e25d-4d34-8811-71d4fdf94c61" ><br>
         <p>DekuMod (My other Mod!)</p>
+    </a>
+</div>
+<div>
+    <a href="[https://thunderstore.io/package/PopcornFactory/Arsonist_Mod/](https://thunderstore.io/package/TeaL/NoctisMod/)">
+      <img width="130" src="https://github.com/user-attachments/assets/e5ef6c35-f487-46f0-b6e7-aab58afd2a60"/>
+      <p>Noctis Mod (My Other Mod!)</p>
     </a>
 </div>
 <div>
@@ -55,7 +62,7 @@ If you enjoy my work, support me on Ko-fi!
 </div>
 <div>
     <a href="https://thunderstore.io/package/PopcornFactory/Wisp_WarframeSurvivorMod/">
-        <img src="https://github.com/user-attachments/assets/5cde736a-4c63-4a8f-84f7-72c787cf40b4" height ="128" ><br>
+        <img width ="130" src="https://github.com/user-attachments/assets/5cde736a-4c63-4a8f-84f7-72c787cf40b4" ><br>
         <p>Wisp Mod (Popcorn Factory Team)</p>
     </a>
 </div>
