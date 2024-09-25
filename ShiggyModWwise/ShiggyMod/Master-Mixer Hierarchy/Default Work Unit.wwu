@@ -12,8 +12,8 @@
 				</Bus>
 				<Bus Name="Motion Factory Bus" ID="{2AF9B9C6-6EF1-46E9-B5F2-E30C9E602C74}">
 					<ReferenceList>
-						<Reference Name="AudioDevice" CompanyID="0" PluginID="507" PluginType="7">
-							<ObjectRef Name="Default_Motion_Device" ID="{C02B422C-2B02-4B82-A0C1-6736963A6813}" WorkUnitID="{90AD2B8A-4176-41A8-AC72-2D2D12D1E737}"/>
+						<Reference Name="AudioDevice" PluginName="System" CompanyID="0" PluginID="174" PluginType="7">
+							<ObjectRef Name="System" ID="{5EA0E822-AE57-4D3C-A280-91A88C7C4E89}" WorkUnitID="{90AD2B8A-4176-41A8-AC72-2D2D12D1E737}"/>
 						</Reference>
 					</ReferenceList>
 				</Bus>

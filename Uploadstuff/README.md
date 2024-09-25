@@ -3,6 +3,7 @@ Shigaraki Tomura mod for Ror2
 Go Beyond, Plus Chaos!
 ## Shigaraki
 Adds Shigaraki from My Hero Academia, a multi-option survivor steal 'quirks' from enemies, gaining their abilites/skills.
+https://thunderstore.io/package/TeaL/ShigarakiMod/
 #### Multiplayer works (hopefully). CustomEmotesAPI compatibility. Risk of Options support.
 #### Message me on the Risk of Rain 2 Modding Discord if there are any issues- teal5571.
 #### <a href="https://ko-fi.com/tealpopcorn"><img src="https://user-images.githubusercontent.com/93917577/160220529-efed5020-90ac-467e-98f2-27b5c162d744.png"> </a>
@@ -12,13 +13,13 @@ If you enjoy my work, support me on Ko-fi!
 <summary>Check out other mods from the Popcorn Factory team!</summary>	
 <div>
     <a href="https://thunderstore.io/package/PopcornFactory/Arsonist_Mod/">
-      <img width="130" src="https://cdn.discordapp.com/attachments/928130606662049892/1088442099432706068/PopcornFactory-Arsonist_Mod-1.png"/>
+      <img width="130" src="https://github.com/user-attachments/assets/5928595d-ac4a-4bb7-9ef2-1e56d74ccb7d"/>
       <p>Arsonist Mod (Popcorn Factory Team)</p>
     </a>
 </div>	
 <div>
     <a href="https://thunderstore.io/package/PopcornFactory/Rimuru_Tempest_Mod/">
-      <img width="130" src="https://cdn.discordapp.com/attachments/399901440023330816/1033003173759164467/unknown.png"/>
+      <img width="130" src="https://github.com/user-attachments/assets/7ca86047-1bbb-4b2c-8b98-3cb6f65f86b3"/>
       <p>Rimuru Tempest Mod (Popcorn Factory Team)</p>
     </a>
 </div>
@@ -36,25 +37,25 @@ If you enjoy my work, support me on Ko-fi!
 </div>
 <div>
     <a href="https://thunderstore.io/package/TeaL/DekuMod/">
-        <img src="https://cdn.discordapp.com/attachments/399901440023330816/960043614036168784/TeaL-DekuMod-3.1.1.png.128x128_q95.png"><br>
+        <img src="https://github.com/user-attachments/assets/117f7100-e25d-4d34-8811-71d4fdf94c61" height ="128" ><br>
         <p>DekuMod (My other Mod!)</p>
     </a>
 </div>
 <div>
     <a href="https://thunderstore.io/package/Ethanol10/Ganondorf_Mod/">
-        <img src="https://cdn.discordapp.com/attachments/399901440023330816/960043613428011079/Ethanol10-Ganondorf_Mod-2.1.5.png.128x128_q95.png"><br>
+        <img src="https://github.com/user-attachments/assets/79f2ce62-04a0-4f89-a4e9-13d351401f37"><br>
         <p>Ganondorf Mod (Ethanol 10)</p>
     </a>
 </div>
 <div>
     <a href="https://thunderstore.io/package/BokChoyWithSoy/Phoenix_Wright_Mod/">
-        <img src="https://cdn.discordapp.com/attachments/399901440023330816/960054458790850570/BokChoyWithSoy-Phoenix_Wright_Mod-1.6.2.png.128x128_q95.png"><br>
+        <img src="https://github.com/user-attachments/assets/74f85c95-5ae5-4017-af33-afbbbafc868f"><br>
         <p>Phoenix Wright Mod (BokChoyWithSoy)</p>
     </a>
 </div>
 <div>
     <a href="https://thunderstore.io/package/PopcornFactory/Wisp_WarframeSurvivorMod/">
-        <img src="https://cdn.discordapp.com/attachments/399901440023330816/960043613692239942/PopcornFactory-Wisp_WarframeSurvivorMod-1.0.2.png.128x128_q95.png"><br>
+        <img src="https://github.com/user-attachments/assets/5cde736a-4c63-4a8f-84f7-72c787cf40b4" height ="128" ><br>
         <p>Wisp Mod (Popcorn Factory Team)</p>
     </a>
 </div>
@@ -62,51 +63,15 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
-- 2.2.3- Bug Fixes/Changes
-	- Bug Fixes
-  		- Noted that when Shigaraki gets on a jump pad he doesn't go up properly? unsure on issue. For now, added a lot of height gain for air walk if you hold no direction, just the jump button.
-    	- Changes
-		- Changed Gacha so that it gives 1 of each item tier, previously would give 4 whites, 2 greens and 1 red and was too powerful.
-- 2.2.2- Bug Fixes/Changes
-	- Bug Fixes
-  		- Fixed omnibuff giving double time stacks and not properly decreasing.
-  		- Improved buff checks for passsive skills (hopefully)
-      	- Fixed non-moving/moving passives. There were errors on checking if your character was not moving and now it checks if you aren't holding any direction down.
-    - Changes
-		- Changed Air Walk to now be able to fly forever as well as flying in where you're looking at if you're holding forward, allowing improved ascend/descend. This should help improve movement. Now also costs 10% of plus chaos every second instead and has no limit to flight.
-      - There's now a disclaimer that when using AFO you need to be standing still. This has always been how it mechanically worked but it caused some confusion as you could not use it while moving. 
-- 2.2.1- Bug Fixes/Changes
-	- Bug Fixes
-  		- Fixed some grammar mistakes with shadow claw and death aura.
-  		- Fixed Gacha not incrementing to 30 stacks properly.
-   	- Changes
-		- Changed Big Bang from every 5th hit dealing 20% of the enemy's max HP to 1000% of the hit's damage. 20% of the enemy's hp was pretty..busted. This keeps it still strong for slower attacks but for high attackspeed skills it still has power.
-- 2.2.0- 
-	- Overall this update aims to fix big bugs, changing a lot of skills, improve the descriptions of skills, and maybe the start of a better explanation for shigaraki. A Miro link has been attached (although not the best looking) to show a tree of Shigaraki's abilities and their combinations. Future guides and tutorials for the character to come along with more reworks and changes. 
-	- Bug Fixes
-  		- Fixed Left hand sword particle not disappearing when using mercenary's wind assault
-    		- Fixed The World not properly pausing animations of enemies- now it does!
-      		- Fixed Glacial Elite's freeze sphere infinitely exploding on players
-      		- Fixed Barbed Spikes not being created when Gup-Geep-Gip and Brass contraption paired together (was making Orbital Spikes).
-      		- Fixed all spherical range indicators for auras or specific skills not appearing on top of the player.
-		- Fixed errors when giving quirks to allies. Quirks can also no longer be given to enemies. 
-      		- Fixed Clay Templar's Minigun to now properly scale with player's damage (was doing 0.3 damage before..).
-      		- Similarly Fixed Lunar Chimera's Minigun to now properly scale with player's damage (was doing 3 damage before..).
-      		- Fixed Sweeping Beam scaling with attackspeed inappropriately, shortening the duration but therefore reducing the spray range. Now attackspeed increases the number of bullets shot and the angle and total duration remains the same.
-        	- Fixed Jellyfish's Regenerate to properly decrease per second.
-   	- Changes
-		- ALL SKILLS- now have descriptions on what they pair with and what they upgrade to for better clarification to players.
-		- Added Risk of Options functionality to the Give Quirk hotkey.
-      		- Lemurian's Fireball no longer is effected by gravity- the range was too limiting before. 
-      		- Orbital Strike now appropriately works when letting go of the button as well as uses the left hand (now a secondary skill similar to Lunar Chimera's Minigun) so that the player is able to use it while using most skills.
-      		- Similarly, Elder Lemurian's Fire Blast is also a secondary skill, allowing the player to hold it to charge it while using most skills. It also charges at a faster rate (approx 2x?).
-      		- Blast Burn's AOE now appropriately scales to match the size of the explosions, and also scales in damage for each pulse. 
-      		- Omniboost has been fixed but also instead the player loses half their current stacks on kill. Along with certain skills it enabled ludicrous amounts of attackspeed and damage to stack while only reducing it's rate at 1 per second was too slow. This change makes it still a strong skill against high health targets, but against squishier mobs it won't go out of control. 
-      		- *REWORKED*- Expunge now does an AOE around the player, it now also scales with the NUMBER of debuff stacks an enemy has as well as the number of decay stacks. For each stack, it does an additional 150% damage additively instead. Before, it's limited range and requirement for aiming made it's use limited. Attackspeed still does increase it's range. 
-   	- Known Issues
-		- Noted some known multiplayer issues like doubling of effects or whatnot, aiming to fix that over time. 	  
+- 2.3.0- Seekers of the Storm Update!
+	- Updated to seekers of the storm!
+ 	- I had attempted to make all for one be a skill slot but that requires a bit of changes so it may come in a later update. Otherwise working on a rework of the current system so that Shigaraki can access all stolen quirks he has.
+  	- My aim is to bring Shigaraki to his Prime so he'll change his look as well. Stay Tuned!
+  	- One more thing, no new skills have been added at this point!	  
 
 - Next update(s)
+    - Reworking All for One system
+    - Changing/adding new models/skins
     - Bug fixes. 
     - More/Improved animations.
     - Icons for base skills?
@@ -131,6 +96,22 @@ If you enjoy my work, support me on Ko-fi!
     It's good to have some base skills too as synergy and ultimate skills aren't usually direct upgrades.
     Beetle Queen's Summon Ally quirk allows you to get the base survivor's summoned and therefore be able to steal their quirks too. 
     https://miro.com/app/board/uXjVPKipCPA=/?share_link_id=782257375770 This is a Miro link to a visual of all the skills
+
+## Skills
+### Passive
+Shigaraki has a plus chaos meter- this is used for a few skills and his main quirk- All For One. It regenerates over time and every kill gives 10% of your max plus chaos. 
+
+Shigaraki can grab the target's quirk with All For One by pressing the F key by default, then pressing a skill slot (Costs 50 plus ultra by default). 
+Remove quirks by pressing the V key by default and pressing the skill slot as well. 
+Shigaraki can give passive quirks to enemies by pressing the C key by default, then pressing a skill slot that contains a passive(Costs 50 plus ultra by default).
+
+Actives(Circle Indicator) replace main skills and Passives(Square indicator) replace extra skills.
+
+Shigaraki has Air Walk: Holding jump in the air after 0.5 seconds let's him fly in the direction he's looking at if he's holding forward. Don't hold a direction to simply gain height. Holding any other directions maintain your current height. Drains 5% of your plus chaos every second.
+
+All [Melee]/Overlap attacks attacks Decay, which decreases the enemies' movespeed and attackspeed as well as instakilling them at 100 stacks (except for Teleporter Bosses).
+
+Shigaraki can sprint in any direction and has a double jump.
 
 ### Base Skills
 
@@ -555,7 +536,7 @@ If you enjoy my work, support me on Ko-fi!
   <tr>
     <td>Shadow Claw</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/ShadowClaw.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/7580fd36-fcef-4e39-afff-86d060ac965a"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/4aa46278-cd6a-49a6-8aed-99673d6b4c03"></td>
   </tr>
   <tr>
     <td>Orbital Strike</td>
@@ -639,7 +620,7 @@ If you enjoy my work, support me on Ko-fi!
   <tr>
     <td>Big Bang</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BigBang.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/bc15883c-0f06-4739-9be1-5d31aef2575f"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/90f108ea-4c51-4095-a95c-fb7a10f28f45"></td>
   </tr>
   <tr>
     <td>Wisper</td>
@@ -716,7 +697,7 @@ If you enjoy my work, support me on Ko-fi!
   <tr>
     <td>Death Aura</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/DeathAura.png?raw=true" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007302643400785/image.png"></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/cdc8ed14-bfa6-4ee0-a044-a51ee29eeef7"></td>
   </tr>
   <tr>
     <td>One For All For One</td>

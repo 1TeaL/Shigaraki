@@ -92,7 +92,9 @@ namespace ShiggyMod.Modules
             lemurianFireBallDamage.damageType = DamageType.IgniteOnHit;
 
             if (ShiggyAsset.lemfireBallGhost != null) lemurianFireBallController.ghostPrefab = ShiggyAsset.lemfireBallGhost;
-            lemurianFireBallController.startSound = "";            
+            lemurianFireBallController.startSound = "";      
+            
+           
 
 
         }
