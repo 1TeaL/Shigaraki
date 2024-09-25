@@ -3,6 +3,7 @@ Shigaraki Tomura mod for Ror2
 Go Beyond, Plus Chaos!
 ## Shigaraki
 Adds Shigaraki from My Hero Academia, a multi-option survivor steal 'quirks' from enemies, gaining their abilites/skills.
+https://thunderstore.io/package/TeaL/ShigarakiMod/
 #### Multiplayer works (hopefully). CustomEmotesAPI compatibility. Risk of Options support.
 #### Message me on the Risk of Rain 2 Modding Discord if there are any issues- teal5571.
 #### <a href="https://ko-fi.com/tealpopcorn"><img src="https://user-images.githubusercontent.com/93917577/160220529-efed5020-90ac-467e-98f2-27b5c162d744.png"> </a>
@@ -66,7 +67,7 @@ If you enjoy my work, support me on Ko-fi!
 	- Updated to seekers of the storm!
  	- I had attempted to make all for one be a skill slot but that requires a bit of changes so it may come in a later update. Otherwise working on a rework of the current system so that Shigaraki can access all stolen quirks he has.
   	- My aim is to bring Shigaraki to his Prime so he'll change his look as well. Stay Tuned!
-	  
+  	- One more thing, no new skills have been added at this point!	  
 
 - Next update(s)
     - Reworking All for One system
