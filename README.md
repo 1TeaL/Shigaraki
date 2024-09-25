@@ -789,6 +789,10 @@ Shigaraki can sprint in any direction and has a double jump.
 
 These stats are prone to change.
 
+## Credits
+##### HenryMod for the template.
+##### Mr.Bones for supplying base shigaraki skill icons.
+
 rest of changelog on github.
 ## Changelog
 
@@ -1041,9 +1045,6 @@ rest of changelog on github.
 
 </details>
 
-## Credits
-##### HenryMod for the template.
-##### Mr.Bones for supplying base shigaraki skill icons.
  
 <details>
 <summary>Click to expand for OG pictures:</summary>
