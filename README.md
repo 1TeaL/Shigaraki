@@ -69,7 +69,8 @@ If you enjoy my work, support me on Ko-fi!
 </details>
 
 ## Latest Changelog, Next update(s)
-
+- 2.3.1- Bug fixes
+	- Hopefully fixed issues with damage such as infinite lightning strikes on Prime Meridian.
 - 2.3.0- Seekers of the Storm Update!
 	- Updated to seekers of the storm!
  	- I had attempted to make all for one be a skill slot but that requires a bit of changes so it may come in a later update. Otherwise working on a rework of the current system so that Shigaraki can access all stolen quirks he has.
