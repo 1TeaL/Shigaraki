@@ -37,7 +37,7 @@ namespace ShiggyMod.SkillStates
             
 
 
-            damageType = DamageType.Generic;
+            damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
             EffectManager.SimpleMuzzleFlash(FireMortar2.muzzleEffect, base.gameObject, muzzleName, false);
             Util.PlaySound(FireMortar2.fireSound, base.gameObject);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
@@ -62,7 +62,7 @@ namespace ShiggyMod.SkillStates
                 damageInfo.crit = false;
                 damageInfo.attacker = characterBody.gameObject;
                 damageInfo.inflictor = null;
-                damageInfo.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
+                damageInfo.damageType = new DamageTypeCombo(DamageType.BypassArmor | DamageType.NonLethal, DamageTypeExtended.Generic, DamageSource.Secondary);
                 damageInfo.procCoefficient = 0f;
                 damageInfo.procChainMask = default(ProcChainMask);
                 base.healthComponent.TakeDamage(damageInfo);

@@ -154,7 +154,7 @@ namespace ShiggyMod.Modules.Networking
                         damage = damage += buffDamage,
                         position = singularTarget.transform.position,
                         procCoefficient = StaticValues.expungeProcCoefficient,
-                        damageType = DamageType.BypassArmor,
+                        damageType = new DamageTypeCombo(DamageType.BypassArmor, DamageTypeExtended.Generic, DamageSource.Secondary),
                         crit = charcharBody.RollCrit(),
 
                     };

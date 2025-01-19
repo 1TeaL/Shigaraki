@@ -22,7 +22,7 @@ namespace ShiggyMod.SkillStates
             this.damageCoefficient = Modules.StaticValues.decayattackDamageCoefficient;
             this.procCoefficient = 1f;
             this.pushForce = 0f;
-            this.damageType = DamageType.Generic;
+            this.damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
             this.baseDuration = 1f;
             this.attackStartTime = 0.2f;
             this.attackEndTime = 0.4f;

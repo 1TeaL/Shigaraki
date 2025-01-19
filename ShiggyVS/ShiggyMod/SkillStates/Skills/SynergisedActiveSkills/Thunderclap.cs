@@ -25,7 +25,7 @@ namespace ShiggyMod.SkillStates
 
         protected string hitboxName = "AroundHitbox";
 
-        protected DamageType damageType = DamageType.Shock5s;
+        protected DamageType damageType = new DamageTypeCombo(DamageType.Shock5s, DamageTypeExtended.Generic, DamageSource.Secondary);
         protected float damageCoefficient = StaticValues.thunderclapDamageCoefficient;
         protected float procCoefficient = StaticValues.thunderclapprocCoefficient;
         protected float pushForce = StaticValues.thunderclappushForce;

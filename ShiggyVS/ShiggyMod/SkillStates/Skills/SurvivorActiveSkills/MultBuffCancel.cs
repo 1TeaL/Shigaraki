@@ -42,7 +42,7 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 
-            damageType = DamageType.Generic;
+            damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
             base.OnEnter();
             if (NetworkServer.active)
             {

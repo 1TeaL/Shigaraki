@@ -95,7 +95,7 @@ namespace ShiggyMod.Modules.Survivors
         public float quirkTimer;
 
         public int captainitemcount;
-        private DamageType damageType;
+        private DamageType damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
         private DamageType damageType2;
         private float multTimer;
         private float clayDunestriderTimer;
@@ -213,7 +213,7 @@ namespace ShiggyMod.Modules.Survivors
 
         public void OnDisable()
         {
-            this.indicator.active = false;
+            //this.indicator.active = false;
             this.passiveindicator.active = false;
             this.activeindicator.active = false;
         }
@@ -793,7 +793,7 @@ namespace ShiggyMod.Modules.Survivors
                         teamIndex = TeamComponent.GetObjectTeam(characterBody.gameObject),
                         falloffModel = BlastAttack.FalloffModel.None,
                         baseDamage = characterBody.damage * StaticValues.windShieldDamageCoefficient,
-                        damageType = DamageType.Stun1s,
+                        damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary),
                         damageColorIndex = DamageColorIndex.Default,
                         baseForce = 0,
                         procChainMask = new ProcChainMask(),

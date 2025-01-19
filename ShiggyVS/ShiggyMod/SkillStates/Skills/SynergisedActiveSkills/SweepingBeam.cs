@@ -21,7 +21,7 @@ namespace ShiggyMod.SkillStates
         private float fireTime;
         private BulletAttack bulletAttack;
         public ShiggyController Shiggycon;
-        private DamageType damageType;
+        private DamageType damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
 
         private float range = 100f;
         private float damageCoefficient = Modules.StaticValues.sweepingBeamDamageCoefficient;

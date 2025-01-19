@@ -47,7 +47,7 @@ namespace ShiggyMod.SkillStates
             blastAttack.baseForce = StaticValues.decayPlusUltraForce;
             blastAttack.bonusForce = new Vector3(0, StaticValues.decayPlusUltraForce, 0);
             blastAttack.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
-            blastAttack.damageType = DamageType.Generic;
+            blastAttack.damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
             blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
             DamageAPI.AddModdedDamageType(blastAttack, Damage.shiggyDecay);

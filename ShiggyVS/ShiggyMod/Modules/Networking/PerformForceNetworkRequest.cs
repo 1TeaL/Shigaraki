@@ -140,7 +140,7 @@ namespace ShiggyMod.Modules.Networking
                             damage = damage,
                             position = singularTarget.transform.position,
                             procCoefficient = 1f,
-                            damageType = DamageType.Stun1s,
+                            damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary),
                             crit = charBody.RollCrit(),
 
                         };

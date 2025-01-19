@@ -228,7 +228,7 @@ namespace ShiggyMod.SkillStates
                     maxDistance = StaticValues.xBeamerDistance,
                     smartCollision = true,
                     tracerEffectPrefab = Modules.ShiggyAsset.VoidFiendBeamTracer,
-                    damageType = DamageType.Stun1s,
+                    damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary),
                 };
                 bulletAttack.Fire();
                 if (base.characterMotor)

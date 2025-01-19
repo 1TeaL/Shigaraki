@@ -19,7 +19,8 @@ namespace ShiggyMod.SkillStates
         public float baseDuration = 1f;
         public float duration;
         public ShiggyController Shiggycon;
-        private DamageType damageType;
+        private DamageType damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
+        private DamageType damageType2 = new DamageTypeCombo(DamageType.IgniteOnHit, DamageTypeExtended.Generic, DamageSource.Secondary);
         public HurtBox Target;
         private Animator animator;
         private float procCoefficient = Modules.StaticValues.elderlemurianfireblastProcCoefficient;
@@ -87,7 +88,7 @@ namespace ShiggyMod.SkillStates
                 blastAttack.procCoefficient = procCoefficient;
                 blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                 blastAttack.damageColorIndex = DamageColorIndex.Default;
-                blastAttack.damageType = (Util.CheckRoll(Flamethrower.ignitePercentChance, base.characterBody.master) ? DamageType.IgniteOnHit : damageType);
+                blastAttack.damageType = (Util.CheckRoll(Flamethrower.ignitePercentChance, base.characterBody.master) ? damageType2 : damageType);
                 blastAttack.attackerFiltering = AttackerFiltering.Default;
 
                 blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);

@@ -33,7 +33,7 @@ namespace ShiggyMod.SkillStates
             //base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            damageType = DamageType.Generic;
+            damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
 
 
 

@@ -40,7 +40,7 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             this.modelTransform = base.GetModelTransform();
             this.flyVector = Vector3.up;
-            damageType = DamageType.Stun1s;
+            damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
 
             dropTimer = 1f;
 

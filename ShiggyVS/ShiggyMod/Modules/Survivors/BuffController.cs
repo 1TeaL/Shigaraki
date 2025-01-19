@@ -211,7 +211,7 @@ namespace ShiggyMod.Modules.Survivors
                                         attacker = characterBody.gameObject,
                                         damageColorIndex = DamageColorIndex.Default,
                                         damageValue = characterBody.damage * Modules.StaticValues.weatherReportDamageCoefficient,
-                                        damageType = DamageType.Shock5s,
+                                        damageType = new DamageTypeCombo(DamageType.Shock5s, DamageTypeExtended.Generic, DamageSource.Secondary),
                                         origin = characterBody.corePosition,
                                         procChainMask = procChainMask1,
                                         procCoefficient = 1f,
@@ -264,7 +264,7 @@ namespace ShiggyMod.Modules.Survivors
                                     {
                                         damage = characterBody.damage * StaticValues.weatherReportDamageCoefficient,
                                         damageColorIndex = DamageColorIndex.Default,
-                                        damageType = DamageType.Freeze2s,
+                                        damageType = new DamageTypeCombo(DamageType.Freeze2s, DamageTypeExtended.Generic, DamageSource.Secondary),
                                         attacker = characterBody.gameObject,
                                         crit = characterBody.RollCrit(),
                                         force = Vector3.zero,
@@ -319,7 +319,7 @@ namespace ShiggyMod.Modules.Survivors
                                         damage = characterBody.damage * StaticValues.weatherReportDamageCoefficient,
                                         position = singularTarget.transform.position,
                                         procCoefficient = 1f,
-                                        damageType = DamageType.Generic,
+                                        damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary),
                                         crit = characterBody.RollCrit(),
 
                                     };
@@ -432,7 +432,7 @@ namespace ShiggyMod.Modules.Survivors
                                 origin = characterBody.corePosition,
                                 damage = characterBody.damage * StaticValues.machineFormDamageCoefficient,
                                 damageColorIndex = DamageColorIndex.Default,
-                                damageType = DamageType.Generic,
+                                damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary),
                                 falloffModel = BulletAttack.FalloffModel.None,
                                 maxDistance = StaticValues.machineFormRadius,
                                 force = 100f,
@@ -1132,7 +1132,7 @@ namespace ShiggyMod.Modules.Survivors
                     blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                     blastAttack.baseForce = Modules.StaticValues.larvaForce;
                     blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-                    blastAttack.damageType = DamageType.Generic;
+                    blastAttack.damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
                     blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
                     blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
                     blastAttack.Fire();
@@ -1164,7 +1164,7 @@ namespace ShiggyMod.Modules.Survivors
                     blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                     blastAttack.baseForce = Modules.StaticValues.larvaForce;
                     blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-                    blastAttack.damageType = DamageType.Generic;
+                    blastAttack.damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
                     blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
                     blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
                     blastAttack.Fire();
@@ -1406,7 +1406,7 @@ namespace ShiggyMod.Modules.Survivors
 							damage = characterBody.damage * Modules.StaticValues.voidjailerDamageCoefficient,
 							position = singularTarget.transform.position,
 							procCoefficient = 0.5f,
-							damageType = DamageType.SlowOnHit,
+							damageType = new DamageTypeCombo(DamageType.SlowOnHit, DamageTypeExtended.Generic, DamageSource.Secondary),
 
 						};
 						singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);

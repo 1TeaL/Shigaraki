@@ -46,7 +46,8 @@ namespace ShiggyMod.SkillStates
             {
                 base.characterBody.SetAimTimer(this.duration + 1f);
             }
-            damageType = DamageType.Generic;
+
+            damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);

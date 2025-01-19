@@ -21,7 +21,7 @@ namespace ShiggyMod.SkillStates
         public float baseDuration = 0.5f;
         public float duration;
         public ShiggyController Shiggycon;
-        private DamageType damageType = DamageType.BonusToLowHealth | DamageType.ResetCooldownsOnKill;
+        private DamageType damageType = new DamageTypeCombo(DamageType.BonusToLowHealth | DamageType.ResetCooldownsOnKill, DamageTypeExtended.Generic, DamageSource.Secondary);
         public HurtBox Target;
         private Animator animator;
         private int numberOfHits = 1;

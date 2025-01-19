@@ -14,7 +14,7 @@ namespace ShiggyMod.SkillStates.BaseStates
 
         protected string hitboxName = "Sword";
 
-        protected DamageType damageType = DamageType.Generic;
+        protected DamageType damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
         protected float damageCoefficient = 3.5f;
         protected float procCoefficient = 1f;
         protected float pushForce = 300f;

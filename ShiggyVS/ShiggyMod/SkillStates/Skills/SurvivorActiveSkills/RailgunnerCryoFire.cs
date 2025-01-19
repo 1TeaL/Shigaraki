@@ -50,7 +50,7 @@ namespace ShiggyMod.SkillStates
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
-            damageType = DamageType.Freeze2s;
+            damageType = new DamageTypeCombo(DamageType.Freeze2s, DamageTypeExtended.Generic, DamageSource.Secondary);
             
             if (effectPrefab)
             {

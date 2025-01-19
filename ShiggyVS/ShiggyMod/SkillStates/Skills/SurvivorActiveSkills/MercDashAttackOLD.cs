@@ -15,7 +15,7 @@ namespace ShiggyMod.SkillStates
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
         public float duration = 1.2f;
         public ShiggyController Shiggycon;
-        private DamageType damageType = DamageType.Generic;
+        private DamageType damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
         public HurtBox Target;
         private Animator animator;
 

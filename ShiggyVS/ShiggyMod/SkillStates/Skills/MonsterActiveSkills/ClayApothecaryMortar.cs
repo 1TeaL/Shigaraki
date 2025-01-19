@@ -19,7 +19,7 @@ namespace ShiggyMod.SkillStates
         private float baseDurationBeforeBlast = 1.5f;
         private float durationBeforeBlast;
         public ShiggyController Shiggycon;
-        private DamageType damageType = DamageType.ClayGoo;
+		private DamageType damageType = new DamageTypeCombo(DamageType.ClayGoo, DamageTypeExtended.Generic, DamageSource.Secondary);
 
 
         private float radius = 5f;
@@ -40,7 +40,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            damageType = DamageType.ClayGoo;
+			damageType = new DamageTypeCombo(DamageType.ClayGoo, DamageTypeExtended.Generic, DamageSource.Secondary);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
@@ -117,7 +117,7 @@ namespace ShiggyMod.SkillStates
 					damageInfo.crit = false;
 					damageInfo.attacker = characterBody.gameObject;
 					damageInfo.inflictor = null;
-					damageInfo.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
+					damageInfo.damageType = new DamageTypeCombo(DamageType.NonLethal | DamageType.BypassArmor, DamageTypeExtended.Generic, DamageSource.Secondary);
 					damageInfo.procCoefficient = 0f;
 					damageInfo.procChainMask = default(ProcChainMask);
 					base.healthComponent.TakeDamage(damageInfo);

@@ -45,7 +45,7 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 
-            damageType = DamageType.Generic;
+            damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
             //this.soundID = Util.PlaySound(this.beginSoundString, base.gameObject);
             this.forwardVector = ((base.inputBank.moveVector == Vector3.zero) ? base.characterDirection.forward : base.inputBank.moveVector).normalized;
             this.modelTransform = base.GetModelTransform();

@@ -20,7 +20,7 @@ namespace ShiggyMod.SkillStates
         public int shotsHit;
         public bool hasFired;
         public ShiggyController Shiggycon;
-        private DamageType damageType = DamageType.Generic;
+        private DamageType damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
 
         private float range = 200f;
         private float damageCoefficient = Modules.StaticValues.rapidPierceDamageCoefficient;

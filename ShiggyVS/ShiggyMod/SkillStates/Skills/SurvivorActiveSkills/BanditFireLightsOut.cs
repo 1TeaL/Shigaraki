@@ -45,7 +45,8 @@ namespace ShiggyMod.SkillStates
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
             Util.PlaySound(EntityStates.Bandit2.StealthMode.exitStealthSound, base.gameObject);
-            damageType = DamageType.BonusToLowHealth | DamageType.ResetCooldownsOnKill;
+
+            damageType = new DamageTypeCombo(DamageType.BonusToLowHealth | DamageType.ResetCooldownsOnKill, DamageTypeExtended.Generic, DamageSource.Secondary);
             if (effectPrefab)
             {
                 EffectManager.SimpleMuzzleFlash(effectPrefab, base.gameObject, muzzleName, false);

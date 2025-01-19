@@ -36,7 +36,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            damageType = DamageType.Stun1s;
+            damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
             this.duration = this.baseDuration / this.attackSpeedStat;

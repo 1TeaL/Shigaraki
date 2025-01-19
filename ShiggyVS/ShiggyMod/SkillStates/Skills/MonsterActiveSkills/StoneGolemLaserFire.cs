@@ -28,7 +28,7 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
-			damageType = DamageType.Stun1s;
+			damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
 
 			Shiggycon = gameObject.GetComponent<ShiggyController>();
 			this.modifiedAimRay = base.GetAimRay();

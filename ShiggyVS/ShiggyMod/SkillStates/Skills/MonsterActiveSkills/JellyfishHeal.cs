@@ -37,7 +37,7 @@ namespace ShiggyMod.SkillStates
             fireTime = duration / 2;
             hasFired = false;
             radius = 30 * (attackSpeedStat/3);
-            damageType = DamageType.Stun1s;
+            damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 

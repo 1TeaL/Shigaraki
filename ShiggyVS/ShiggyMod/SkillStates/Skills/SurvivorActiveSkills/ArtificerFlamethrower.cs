@@ -18,7 +18,8 @@ namespace ShiggyMod.SkillStates
         public float baseDuration = 1f;
         public float duration;
         public ShiggyController Shiggycon;
-        private DamageType damageType;
+        private DamageType damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
+        private DamageType damageType2 = new DamageTypeCombo(DamageType.IgniteOnHit, DamageTypeExtended.Generic, DamageSource.Secondary);
         public HurtBox Target;
         public GameObject flamethrowerEffectPrefab = Modules.ShiggyAsset.artificerfireEffect;
 
@@ -118,7 +119,7 @@ namespace ShiggyMod.SkillStates
                     maxDistance = this.maxDistance,
                     smartCollision = true,
                     tracerEffectPrefab = Flamethrower.tracerEffectPrefab,
-                    damageType = (Util.CheckRoll(Flamethrower.ignitePercentChance, base.characterBody.master) ? DamageType.IgniteOnHit : damageType)
+                    damageType = (Util.CheckRoll(Flamethrower.ignitePercentChance, base.characterBody.master) ? damageType2 : damageType)
                 }.Fire();
                 if (base.characterMotor)
                 {

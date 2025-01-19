@@ -52,7 +52,7 @@ namespace ShiggyMod.SkillStates
             blastAttack.falloffModel = BlastAttack.FalloffModel.None;
             blastAttack.baseForce = 400f;
             blastAttack.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
-            blastAttack.damageType = DamageType.IgniteOnHit;
+            blastAttack.damageType = new DamageTypeCombo(DamageType.IgniteOnHit, DamageTypeExtended.Generic, DamageSource.Secondary);
             blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
             //play anim

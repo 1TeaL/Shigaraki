@@ -65,7 +65,7 @@ namespace ShiggyMod.SkillStates
                         blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                         blastAttack.baseForce = StaticValues.finalReleaseForceCoefficient * currentReleaseCount;
                         blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-                        blastAttack.damageType = DamageType.Stun1s;
+                        blastAttack.damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
                         blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
                         blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
                         blastAttack.Fire();
@@ -112,7 +112,7 @@ namespace ShiggyMod.SkillStates
                         blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                         blastAttack.baseForce = StaticValues.finalReleaseForceCoefficient * currentReleaseCount;
                         blastAttack.teamIndex = characterBody.teamComponent.teamIndex;
-                        blastAttack.damageType = DamageType.Stun1s;
+                        blastAttack.damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
                         blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
                         blastAttack.AddModdedDamageType(Modules.Damage.shiggyDecay);
                         blastAttack.Fire();

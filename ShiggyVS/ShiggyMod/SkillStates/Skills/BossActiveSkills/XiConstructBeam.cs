@@ -41,7 +41,7 @@ namespace ShiggyMod.SkillStates
             updateAimRay();
             this.duration = this.baseDuration / this.attackSpeedStat;
             base.characterBody.SetAimTimer(this.duration);
-            damageType = DamageType.Generic;
+            damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 

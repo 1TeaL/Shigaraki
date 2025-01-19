@@ -56,7 +56,7 @@ namespace ShiggyMod.SkillStates
 
             //PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
             PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
-            damageType = DamageType.Generic;
+            damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
             float[] source = new float[]
             {
                 this.attackSpeedStat,

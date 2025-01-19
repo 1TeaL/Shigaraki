@@ -38,7 +38,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            damageType = DamageType.CrippleOnHit;
+            damageType = new DamageTypeCombo(DamageType.CrippleOnHit, DamageTypeExtended.Generic, DamageSource.Secondary);
 
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(2f);

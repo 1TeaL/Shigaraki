@@ -37,7 +37,7 @@ namespace ShiggyMod.SkillStates
             this.fireTime = this.duration / 3f;
             hasFired = false;
             hasTeleported = false;
-            damageType = DamageType.Stun1s;
+            damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);

@@ -130,7 +130,7 @@ namespace ShiggyMod.SkillStates
             blastAttack.baseForce = 500f;
             blastAttack.bonusForce = Vector3.up * blastAttack.baseForce;
             blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
-            blastAttack.damageType = DamageType.Freeze2s;
+            blastAttack.damageType = new DamageTypeCombo(DamageType.Freeze2s, DamageTypeExtended.Generic, DamageSource.Secondary);
             blastAttack.attackerFiltering = AttackerFiltering.Default;
             blastAttack.Fire(); 
 

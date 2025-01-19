@@ -31,7 +31,7 @@ namespace ShiggyMod.SkillStates
 			Ray aimRay = base.GetAimRay();
 			base.StartAimMode(aimRay, 2f, false);
 			totalDuration = 0f;
-			damageType = DamageType.Stun1s;
+			damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
 			bool isAuthority = base.isAuthority;
             Util.PlaySound(BaseChargeFist.startChargeLoopSFXString, base.gameObject);
 			this.animator = base.GetModelAnimator();

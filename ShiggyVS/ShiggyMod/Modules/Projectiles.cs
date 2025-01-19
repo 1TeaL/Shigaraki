@@ -89,7 +89,7 @@ namespace ShiggyMod.Modules
             lemurianFireBallController.procCoefficient = 1f;
             
             ProjectileDamage lemurianFireBallDamage = lemurianFireBall.GetComponent<ProjectileDamage>();
-            lemurianFireBallDamage.damageType = DamageType.IgniteOnHit;
+            lemurianFireBallDamage.damageType = new DamageTypeCombo(DamageType.IgniteOnHit, DamageTypeExtended.Generic, DamageSource.Secondary);
 
             if (ShiggyAsset.lemfireBallGhost != null) lemurianFireBallController.ghostPrefab = ShiggyAsset.lemfireBallGhost;
             lemurianFireBallController.startSound = "";      

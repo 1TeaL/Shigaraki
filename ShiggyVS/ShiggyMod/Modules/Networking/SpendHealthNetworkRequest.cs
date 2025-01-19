@@ -59,7 +59,7 @@ namespace ShiggyMod.Modules.Networking
                 damageInfo.crit = false;
                 damageInfo.attacker = bodyObj;
                 damageInfo.inflictor = null;
-                damageInfo.damageType = (DamageType.NonLethal | DamageType.BypassArmor);
+                damageInfo.damageType = new DamageTypeCombo(DamageType.BypassArmor | DamageType.NonLethal, DamageTypeExtended.Generic, DamageSource.Secondary);
                 damageInfo.procCoefficient = 0f;
                 damageInfo.procChainMask = default(ProcChainMask);
                 charBody.healthComponent.TakeDamage(damageInfo);

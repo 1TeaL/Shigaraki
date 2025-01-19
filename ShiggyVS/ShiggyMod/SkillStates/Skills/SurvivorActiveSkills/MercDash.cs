@@ -22,7 +22,7 @@ namespace ShiggyMod.SkillStates
         public ShiggyController shiggyCon;
         protected string hitboxName = "AroundHitbox";
 
-        protected DamageType damageType = DamageType.ApplyMercExpose;
+        protected DamageType damageType = new DamageTypeCombo(DamageType.ApplyMercExpose, DamageTypeExtended.Generic, DamageSource.Secondary);
         protected float damageCoefficient = StaticValues.mercDamageCoefficient;
         protected float procCoefficient = StaticValues.mercProcCoefficient;
         protected float pushForce = StaticValues.mercpushForce;
