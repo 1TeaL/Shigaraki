@@ -69,6 +69,8 @@ If you enjoy my work, support me on Ko-fi!
 </details>
 
 ## Latest Changelog, Next update(s)
+- 2.3.2- Bug fixes
+	- Slight changes to make sure damage from passives are properly added.
 - 2.3.1- Bug fixes
 	- Hopefully fixed issues with damage such as infinite lightning strikes on Prime Meridian.
 - 2.3.0- Seekers of the Storm Update!
