@@ -1275,14 +1275,24 @@ namespace ShiggyMod.Modules.Survivors
 
             //steal quirk
 
+            //check if button is released for stealing quirk
+            if(Input.GetKeyUp(Config.AFOHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
+            {
+                hasStolen = false;
+                hasQuirk = false;
+                stealQuirkStopwatch = 0f;
+            }
+
+
             if (trackingTarget)
             {
-                if (Config.AFOHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
+                if (Input.GetKeyDown(Config.AFOHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
                 {
                     stealQuirkStopwatch += Time.deltaTime;
                     if (!this.hasStolen && stealQuirkStopwatch > Config.holdButtonAFO.Value && Shiggymastercon.storedAFOSkill[0] == null)
                     {
 
+                        Debug.Log("attempting steal");
                         //energy cost
                         float plusChaosflatCost = (StaticValues.AFOEnergyCost) - (energySystem.costflatplusChaos);
                         if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
@@ -1311,14 +1321,8 @@ namespace ShiggyMod.Modules.Survivors
                     //Debug.Log(hasStolen + "hasstolen");
 
                 }
-                else if (Config.AFOHotkey.Value.IsUp() && characterBody.hasEffectiveAuthority)
-                {
-                    hasStolen = false;
-                    hasQuirk = false;
-                    stealQuirkStopwatch = 0f;
-                }
 
-                if (Config.AFOGiveHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority && trackingTarget.teamIndex == TeamIndex.Player)
+                if (UnityEngine.Input.GetKeyDown(Config.AFOGiveHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority && trackingTarget.teamIndex == TeamIndex.Player)
                 {
                     giveQuirkStopwatch += Time.deltaTime;
                     if (!this.hasStolen && giveQuirkStopwatch > Config.holdButtonAFO.Value)
@@ -1359,7 +1363,15 @@ namespace ShiggyMod.Modules.Survivors
             }
 
             //remove quirk
-            if (Config.RemoveHotkey.Value.IsDown() && characterBody.hasEffectiveAuthority)
+
+            //check if button is released for removing quirk
+            if (UnityEngine.Input.GetKeyUp(Config.RemoveHotkey.Value.MainKey))
+            {
+                hasRemoved = false;
+                removeQuirkStopwatch = 0f;
+            }
+
+            if (UnityEngine.Input.GetKeyDown(Config.RemoveHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
             {
 
                 removeQuirkStopwatch += Time.deltaTime;
@@ -1402,11 +1414,6 @@ namespace ShiggyMod.Modules.Survivors
                 }
 
 
-            }
-            else if (Config.RemoveHotkey.Value.IsUp())
-            {
-                hasRemoved = false;
-                removeQuirkStopwatch = 0f;
             }
         }
 

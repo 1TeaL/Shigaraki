@@ -1,6 +1,8 @@
 ﻿using R2API;
 using R2API.Networking.Interfaces;
 using RoR2;
+using RoR2.Networking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,8 +15,8 @@ namespace ShiggyMod.Modules.Networking
     internal class SpawnBodyNetworkRequest : INetMessage
     {
         //Network these ones.
-        private string bodyName;
-        private string masterName;
+        private GameObject bodyPrefab;
+        private GameObject masterPrefab;
         NetworkInstanceId netID;
 
         //Don't network these.
@@ -24,60 +26,66 @@ namespace ShiggyMod.Modules.Networking
 
         }
 
-        public SpawnBodyNetworkRequest(NetworkInstanceId netID, string bodyName, string masterName)
+        public SpawnBodyNetworkRequest(NetworkInstanceId netID, GameObject bodyPrefab, GameObject masterPrefab)
         {
             this.netID = netID;
-            this.bodyName = bodyName;
-            this.masterName = masterName;
+            this.bodyPrefab = bodyPrefab;
+            this.masterPrefab = masterPrefab;
         }
 
         public void Deserialize(NetworkReader reader)
         {
             netID = reader.ReadNetworkId();
-            bodyName = reader.ReadString();
-            masterName = reader.ReadString();
+            bodyPrefab = reader.ReadGameObject();
+            masterPrefab = reader.ReadGameObject();
         }
 
         public void Serialize(NetworkWriter writer)
         {
             writer.Write(netID);
-            writer.Write(bodyName);
-            writer.Write(masterName);
+            writer.Write(bodyPrefab);
+            writer.Write(masterPrefab);
         }
 
         public void OnReceived()
         {
             if (NetworkServer.active)
             {
+
                 GameObject masterobject = Util.FindNetworkObject(netID);
                 CharacterMaster charMaster = masterobject.GetComponent<CharacterMaster>();
                 CharacterBody charBody = charMaster.GetBody();
 
-                GameObject monsterMaster = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("R").WaitForCompletion(), masterName + bodyName, true);
-                //monsterMaster = MasterCatalog.FindMasterPrefab(bodyName);
-                //var monsterMaster = MasterCatalog.FindMasterPrefab(bodyName);
-                //var bodyGameObject = Object.Instantiate(monsterMaster.gameObject, charBody.transform.position + charBody.characterDirection.forward * 2f, Quaternion.identity);
-                //var master = bodyGameObject.GetComponent<CharacterMaster>();
+                var monsterMaster = MasterCatalog.FindMasterPrefab(masterPrefab.name);
+                var bodyGameObject = UnityEngine.Object.Instantiate(monsterMaster.gameObject, charBody.corePosition + charBody.characterDirection.forward * 5f, Quaternion.identity);
+                var master = bodyGameObject.GetComponent<CharacterMaster>();
 
-                //master.teamIndex = TeamIndex.Player;
-                //NetworkServer.Spawn(bodyGameObject);
-                //master.bodyPrefab = BodyCatalog.FindBodyPrefab(bodyName);
-                //master.SpawnBody(charBody.transform.position + charBody.characterDirection.forward * 2f, Quaternion.identity);
 
-                MasterSummon summonAlly = new MasterSummon();
-                summonAlly.masterPrefab = monsterMaster;
-                summonAlly.ignoreTeamMemberLimit = true;
-                summonAlly.summonerBodyObject = masterobject;
-                summonAlly.teamIndexOverride = TeamIndex.Player;
-                summonAlly.inventoryToCopy = charBody.inventory;
-                summonAlly.position = charBody.transform.position + charBody.characterDirection.forward * 2f;
-                summonAlly.rotation = charBody.transform.rotation;
-                summonAlly.useAmbientLevel = true;
+                master.teamIndex = charMaster.teamIndex;
+                master.inventory = charMaster.inventory;
 
-                if (summonAlly != null)
-                {
-                    CharacterMaster master = summonAlly.Perform();
-                }
+
+                NetworkServer.Spawn(bodyGameObject);
+                master.bodyPrefab = BodyCatalog.FindBodyPrefab(bodyPrefab.name);
+                master.SpawnBody(charBody.corePosition + charBody.characterDirection.forward * 5f, Quaternion.identity);
+
+
+                //GameObject monsterMaster = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("R").WaitForCompletion(), masterPrefab + bodyPrefab, true);
+
+                //MasterSummon summonAlly = new MasterSummon();
+                //summonAlly.masterPrefab = monsterMaster;
+                //summonAlly.ignoreTeamMemberLimit = true;
+                //summonAlly.summonerBodyObject = masterobject;
+                //summonAlly.teamIndexOverride = TeamIndex.Player;
+                //summonAlly.inventoryToCopy = charBody.inventory;
+                //summonAlly.position = charBody.transform.position + charBody.characterDirection.forward * 2f;
+                //summonAlly.rotation = charBody.transform.rotation;
+                //summonAlly.useAmbientLevel = true;
+
+                //if (summonAlly != null)
+                //{
+                //    CharacterMaster master = summonAlly.Perform();
+                //}
 
 
 

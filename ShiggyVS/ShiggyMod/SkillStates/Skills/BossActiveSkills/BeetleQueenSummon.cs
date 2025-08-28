@@ -11,6 +11,7 @@ using ShiggyMod.Modules.Networking;
 using R2API.Networking.Interfaces;
 using RoR2.ExpansionManagement;
 using System.Xml.Linq;
+using UnityEngine.AddressableAssets;
 
 namespace ShiggyMod.SkillStates
 {
@@ -35,9 +36,9 @@ namespace ShiggyMod.SkillStates
 
             //check if client able to summon dlc survivors
 
-            if (characterBody.hasAuthority)
+            if (NetworkServer.active)
             {
-                randomSurvivor = UnityEngine.Random.RandomRangeInt(0, 12);
+                randomSurvivor = UnityEngine.Random.RandomRangeInt(0, 16);
             }
 
             Summon(randomSurvivor);
@@ -58,55 +59,63 @@ namespace ShiggyMod.SkillStates
             //Debug.Log("randomsurvivor " + randomSurvivor);
             if(rand == 0)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "VoidSurvivorBody", "VoidSurvivorMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_DLC1_VoidSurvivor.VoidSurvivorBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_DLC1_VoidSurvivor.VoidSurvivorMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 1)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CommandoBody", "CommandoMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Commando.CommandoBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Commando.CommandoMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 2)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CrocoBody", "CrocoMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Croco.CrocoBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Croco.CrocoMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 3)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "MageBody", "MageMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Mage.MageBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Mage.MageMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 4)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "Bandit2Body", "Bandit2MonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Bandit2.Bandit2Body_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Bandit2.Bandit2MonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 5)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "CaptainBody", "CaptainMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Captain.CaptainBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Captain.CaptainBody_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 6)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "EngiBody", "EngiMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Engi.EngiBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Engi.EngiMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 7)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "HuntressBody", "HuntressMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Croco.CrocoBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Croco.CrocoMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 8)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "LoaderBody", "LoaderMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Loader.LoaderBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Loader.LoaderMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 9)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "ToolbotBody", "ToolbotMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Toolbot.ToolbotBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Toolbot.ToolbotMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 10)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "MercBody", "MercMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Merc.MercBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Merc.MercMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 11)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "TreebotBody", "TreebotMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Treebot.TreebotBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Treebot.TreebotMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
             if (rand == 12)
             {
-                new SpawnBodyNetworkRequest(characterBody.masterObjectId, "RailgunnerBody", "RailgunnerMonsterMaster").Send(NetworkDestination.Clients);
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_DLC1_Railgunner.RailgunnerBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_DLC1_Railgunner.RailgunnerMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
+            }
+            if (rand == 13)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_DLC2_Chef.ChefBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_DLC2_Chef.ChefMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
+            }
+            if (rand == 14)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_DLC2_FalseSon.FalseSonBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_DLC2_FalseSon.FalseSonMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
         }
 

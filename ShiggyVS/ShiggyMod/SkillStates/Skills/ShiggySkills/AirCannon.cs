@@ -39,13 +39,13 @@ namespace ShiggyMod.SkillStates
             damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
-            this.duration = this.baseDuration / this.attackSpeedStat;
+            this.duration = this.baseDuration;
 
             aimRay = base.GetAimRay();
             this.aimRayDir = aimRay.direction;
             base.characterBody.SetAimTimer(this.duration);
             AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
             PlayAnimation("Body", "Jump", "Attack.playbackRate", duration);
 
             base.characterMotor.disableAirControlUntilCollision = false;

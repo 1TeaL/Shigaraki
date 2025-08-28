@@ -13,9 +13,9 @@ namespace ShiggyMod.Modules
         public static ConfigEntry<bool> allowAllSkills;
         public static ConfigEntry<bool> allowVoice;
         public static ConfigEntry<float> holdButtonAFO;
-        public static ConfigEntry<KeyboardShortcut> AFOHotkey { get; set; }
-        public static ConfigEntry<KeyboardShortcut> RemoveHotkey { get; set; }
-        public static ConfigEntry<KeyboardShortcut> AFOGiveHotkey { get; set; }
+        public static ConfigEntry<KeyboardShortcut> AFOHotkey;
+        public static ConfigEntry<KeyboardShortcut> RemoveHotkey;
+        public static ConfigEntry<KeyboardShortcut> AFOGiveHotkey;
 
         //public static ConfigEntry<float> glideSpeed;
         //public static ConfigEntry<float> glideAcceleration;

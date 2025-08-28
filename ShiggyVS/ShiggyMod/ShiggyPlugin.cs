@@ -86,7 +86,7 @@ namespace ShiggyMod
         
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "2.3.2";
+        public const string MODVERSION = "2.4.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -166,6 +166,11 @@ namespace ShiggyMod
             // have to set item displays later now because they require direct object references..
             Modules.Survivors.Shiggy.instance.SetItemDisplays();
         }
+
+        private void Start()
+        {
+        }
+
 
         private void Hook()
         {
