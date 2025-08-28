@@ -69,6 +69,12 @@ If you enjoy my work, support me on Ko-fi!
 </details>
 
 ## Latest Changelog, Next update(s)
+
+- 2.4.0- Fixes
+	- Updated code to work with newest updates, apologies for the long wait, next update(s) will aim to update his model + streamline and improve the quirk system.
+ 	- Fixed AFO quirk stealing- can now be used while moving	
+ 	- Fixed Beetle Queen- Summon quirk, can now summon Chef and False son as well, however I haven't implemented their quirks
+  	- Air cannon no longer has reduced duration because of attack speed
 - 2.3.2- Bug fixes
 	- Slight changes to make sure damage from passives are properly added.
 - 2.3.1- Bug fixes
