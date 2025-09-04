@@ -24,7 +24,7 @@ namespace ShiggyMod.Modules
 
         internal static void AddProjectile(GameObject projectileToAdd)
         {
-            Modules.Prefabs.projectilePrefabs.Add(projectileToAdd);
+            Modules.Content.AddProjectilePrefab(projectileToAdd);
         }
 
 

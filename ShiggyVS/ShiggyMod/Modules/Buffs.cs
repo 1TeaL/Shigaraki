@@ -245,7 +245,7 @@ namespace ShiggyMod.Modules
             buffDef.eliteDef = null;
             buffDef.iconSprite = buffIcon;
 
-            Buffs.buffDefs.Add(buffDef);
+            Modules.Content.AddBuffDef(buffDef);
 
             return buffDef;
         }

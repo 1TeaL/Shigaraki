@@ -9,11 +9,11 @@ namespace ShiggyMod.SkillStates
 
         //unused
         //Ripped from mage lmao
-        //public override void OnEnter()
-        //{
-        //    base.OnEnter();
-        //    this.weaponStateMachine = EntityStateMachine.FindByCustomName(base.gameObject, "Weapon");
-        //}
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            this.weaponStateMachine = EntityStateMachine.FindByCustomName(base.gameObject, "Weapon");
+        }
 
         //public override void ProcessJump()
         //{
@@ -34,13 +34,13 @@ namespace ShiggyMod.SkillStates
         //    }
         //}
 
-        //public override void OnExit()
-        //{
-        //    if (base.isAuthority && this.weaponStateMachine)
-        //    {
-        //        this.weaponStateMachine.SetNextState(new Idle());
-        //    }
-        //    base.OnExit();
-        //}
+        public override void OnExit()
+        {
+            //if (base.isAuthority && this.weaponStateMachine)
+            //{
+            //    this.weaponStateMachine.SetNextState(new Idle());
+            //}
+            base.OnExit();
+        }
     }
 }

@@ -21,7 +21,199 @@ namespace ShiggyMod.Modules.Survivors
 	{
 		string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
-		public ShiggyController Shiggycon;
+        //All quirk IDs
+        public enum QuirkId
+        {
+            None,
+
+            Decay,              // base skills
+            AirCannon,
+            BulletLaser,
+            Multiplier,
+
+            // Utility / internal
+            EmptySkill,
+            Choose,
+            Remove,
+
+            // Base passives (monsters/survivors)
+            AlphaConstruct_Passive,
+            Beetle_Passive,
+            Pest_Passive,
+            Vermin_Passive,
+            Gup_Passive,
+            HermitCrab_Passive,
+            Larva_Passive,
+            LesserWisp_Passive,
+            LunarExploder_Passive,
+            MiniMushrum_Passive,
+            RoboBallMini_Passive,
+            VoidBarnacle_Passive,
+            VoidJailer_Passive,
+            ImpBoss_Passive,
+            StoneTitan_Passive,
+            MagmaWorm_Passive,
+            OverloadingWorm_Passive,
+            Vagrant_Passive,
+            Acrid_Passive,
+            Commando_Passive,
+            Captain_Passive,
+            Loader_Passive,
+
+            // Level two passives
+            BigBang_Passive,
+            Wisper_Passive,
+            Omniboost_Passive,
+            Gacha_Passive,
+            StoneForm_Passive,
+            AuraOfBlight_Passive,
+            BarbedSpikes_Passive,
+            Ingrain_Passive,
+            DoubleTime_Passive,
+            BlindSenses_Passive,
+
+            // Level four passives
+            Supernova_Passive,
+            Reversal_Passive,
+            MachineForm_Passive,
+            GargoyleProtection_Passive,
+            WeatherReport_Passive,
+            DecayAwakened_Passive,
+
+            // Base actives
+            AlloyVulture_WindBlast,
+            BeetleGuard_Slam,
+            Bison_Charge,
+            Bell_SpikedBall,
+            ClayApothecary_Mortar,
+            ClayTemplar_Minigun,
+            ElderLemurian_FireBlast,
+            GreaterWisp_Buff,
+            Imp_Blink,
+            Jellyfish_Heal,
+            Lemurian_Fireball,
+            LunarGolem_SlideReset,
+            LunarWisp_Minigun,
+            Parent_Teleport,
+            StoneGolem_Laser,
+            VoidReaver_Portal,
+            BeetleQueen_Summon,
+            Grandparent_Sun,
+            Grovetender_Chain,
+            ClayDunestrider_Buff,
+            SolusControlUnit_Knockup,
+            XIConstruct_Beam,
+            VoidDevastator_Homing,
+            Scavenger_Thqwib,
+            Artificer_Flamethrower,
+            Artificer_IceWall,
+            Artificer_LightningOrb,
+            Bandit_LightsOut,
+            Engi_Turret,
+            Huntress_Attack,
+            Merc_Dash,
+            MULT_Buff,
+            MULT_BuffCancel,
+            Railgunner_Cryo,
+            REX_Mortar,
+            VoidFiend_Cleanse,
+            Deku_OFA,
+
+            // Synergy actives
+            SweepingBeam,
+            BlackholeGlaive,
+            GravitationalDownforce,
+            WindShield,
+            Genesis,
+            Refresh,
+            Expunge,
+            ShadowClaw,
+            OrbitalStrike,
+            Thunderclap,
+            BlastBurn,
+            BarrierJelly,
+            MechStance,
+            WindSlash,
+            LimitBreak,
+            VoidForm,
+            DecayPlusUltra,
+            MachPunch,
+            RapidPierce,
+
+            // Ultimate actives
+            TheWorld,
+            ExtremeSpeed,
+            DeathAura,
+            OFAFO,
+            XBeamer,
+            FinalRelease,
+            BlastingZone,
+            WildCard,
+            LightAndDarkness,
+        }
+
+        // Metadata for UI and logic
+        public sealed class QuirkInfo
+        {
+            public QuirkId Id;
+            public string DisplayName;
+            public string Description;
+            public Sprite Icon;                // for UI
+            public Func<CharacterBody, bool> CanUse; // optional gating
+        }
+
+        // Global registry
+        //public static class QuirkDB
+        //{
+        //    public static readonly Dictionary<QuirkId, QuirkInfo> ById = new();
+
+        //    public static void Init()
+        //    {
+        //        if (ById.Count > 0) return;
+
+        //        ById[QuirkId.LemurianFireball] = new QuirkInfo
+        //        {
+        //            Id = QuirkId.LemurianFireball,
+        //            DisplayName = "Lemurian Fireball",
+        //            Description = "Launch a fireball.",
+        //            Icon = /* your sprite */,
+        //            CanUse = _ => true
+        //        };
+        //        // add the rest...
+        //    }
+        //}
+        //public IEnumerable<QuirkId> Owned => System.Linq.Enumerable.Select(_owned, i => (QuirkId)i);
+        //public QuirkId GetSlot(int i) => (QuirkId)(i switch
+        //{
+        //    0 => s0,
+        //    1 => s1,
+        //    2 => s2,
+        //    3 => s3,
+        //    4 => s4,
+        //    5 => s5,
+        //    6 => s6,
+        //    7 => s7,
+        //    _ => 0
+        //});
+
+        //private void SetSlotInternal(int i, QuirkId id)
+        //{
+        //    int v = (int)id;
+        //    switch (i)
+        //    {
+        //        case 0: s0 = v; break;
+        //        case 1: s1 = v; break;
+        //        case 2: s2 = v; break;
+        //        case 3: s3 = v; break;
+        //        case 4: s4 = v; break;
+        //        case 5: s5 = v; break;
+        //        case 6: s6 = v; break;
+        //        case 7: s7 = v; break;
+        //    }
+        //}
+
+
+        public ShiggyController Shiggycon;
         public ShiggyMasterController Shiggymastercon;
         private CharacterMaster characterMaster;
         private CharacterBody self;

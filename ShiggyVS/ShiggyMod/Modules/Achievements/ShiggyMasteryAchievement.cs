@@ -29,7 +29,7 @@ namespace ShiggyMod.Modules.Achievements
 
         public override BodyIndex LookUpRequiredBodyIndex()
         {
-            return BodyCatalog.FindBodyIndex(Modules.Survivors.Shiggy.instance.fullBodyName);
+            return BodyCatalog.FindBodyIndex(Modules.Survivors.Shiggy.staticBodyPrefab.name);
         }
 
         public void ClearCheck(Run run, RunReport runReport)

@@ -1,6 +1,7 @@
 ﻿using BepInEx.Configuration;
 using EntityStates;
 using EntityStates.Railgunner.Scope;
+using R2API;
 using RoR2;
 using RoR2.Skills;
 using ShiggyMod.SkillStates;
@@ -14,7 +15,12 @@ namespace ShiggyMod.Modules.Survivors
 
     internal class Shiggy : SurvivorBase
     {
-        internal override string bodyName { get; set; } = "Shiggy";
+
+        public static GameObject staticBodyPrefab; 
+        public override string prefabBodyName => "Shiggy";
+
+        public const string PLUGIN_PREFIX = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
+        public override string survivorTokenPrefix => PLUGIN_PREFIX;
 
         //monster passives
         internal static SkillDef alphacontructpassiveDef;
@@ -159,19 +165,21 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef lightAndDarknessDef;
 
 
-        internal override GameObject bodyPrefab { get; set; }
-        internal override GameObject displayPrefab { get; set; }
+        public override GameObject bodyPrefab { get; set; }
+        public override GameObject displayPrefab { get; set; }
 
-        internal override float sortPosition { get; set; } = 100f;
+        public float sortPosition = 100f;
 
-        internal override ConfigEntry<bool> characterEnabled { get; set; }
+        //if you have more than one character, easily create a config to enable/disable them like this
+        public override ConfigEntry<bool> characterEnabledConfig => null; //Modules.Config.CharacterEnableConfig(bodyName);
 
-        internal override BodyInfo bodyInfo { get; set; } = new BodyInfo
+        public override BodyInfo bodyInfo { get; set; } = new BodyInfo
         {
+            autoCalculateLevelStats = false,
             armor = 10f,
             armorGrowth = 0.5f,
             bodyName = "ShiggyBody",
-            bodyNameToken = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME",
+            bodyNameToken = PLUGIN_PREFIX + "NAME",
             bodyColor = Color.magenta,
             characterPortrait = Modules.ShiggyAsset.LoadCharacterIcon("Shiggy"),
             crosshair = Modules.ShiggyAsset.LoadCrosshair("Standard"),
@@ -181,83 +189,137 @@ namespace ShiggyMod.Modules.Survivors
             jumpCount = 2,
             maxHealth = 141f,
             moveSpeed = 7f,
-            subtitleNameToken = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_SUBTITLE",
+            subtitleNameToken = PLUGIN_PREFIX + "SUBTITLE",
+
+            aimOriginPosition = new Vector3(0f, 0f, 0f),
             //podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod")
         };
 
-        internal static Material ShiggyMat = Modules.ShiggyAsset.CreateMaterial("ShiggyMat");
-        internal override int mainRendererIndex { get; set; } = 1;
+        //internal static Material ShiggyMat = Modules.ShiggyAsset.CreateMaterial("ShiggyMat");
+        //internal static Material matShiggyBody = Modules.ShiggyAsset.CreateMaterial("matShiggyBody");
+        //internal static Material matShiggyEyes = Modules.ShiggyAsset.CreateMaterial("matShiggyEyes");
+        //internal static Material matShiggyFace = Modules.ShiggyAsset.CreateMaterial("matShiggyFace");
+        //internal static Material matShiggyHair = Modules.ShiggyAsset.CreateMaterial("matShiggyHair");
+        //internal override int mainRendererIndex { get; set; } = 1;
 
-        internal override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[] {
+        public override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[] {
 
                 new CustomRendererInfo
                 {
-                    childName = "Hand",
-                    material = ShiggyMat,
-                    ignoreOverlays = true
+                    childName = "shigarakiBodyMesh",
+                    material = Materials.CreateHopooMaterial("matShiggyBody", 1f),
                 },
                 new CustomRendererInfo
                 {
-                    childName = "Model",
-                    material = ShiggyMat
+                    childName = "shigarakiPantsMesh",
+                    material = Materials.CreateHopooMaterial("matShiggyBody", 1f),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "shigarakiEyesMesh",
+                    material = Materials.CreateHopooMaterial("matShiggyEyes", 1f),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "shigarakiFaceMesh",
+                    material = Materials.CreateHopooMaterial("matShiggyFace", 1f),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "shigarakiHairMesh",
+                    material = Materials.CreateHopooMaterial("matShiggyHair", 1f),
+                },
+                new CustomRendererInfo
+                {
+                    childName = "Hand",
+                    material = Materials.CreateHopooMaterial("ShiggyMat", 1f),
+                    ignoreOverlays = true
                 },
         };
 
 
 
-        internal override Type characterMainState { get; set; } = typeof(EntityStates.GenericCharacterMain);
+        public override Type characterMainState => typeof(ShiggyCharacterMain);
 
         //item display stuffs
-        internal override ItemDisplayRuleSet itemDisplayRuleSet { get; set; }
-        internal override List<ItemDisplayRuleSet.KeyAssetRuleGroup> itemDisplayRules { get; set; }
+        //internal override ItemDisplayRuleSet itemDisplayRuleSet { get; set; }
+        //internal override List<ItemDisplayRuleSet.KeyAssetRuleGroup> itemDisplayRules { get; set; }
 
-        internal override UnlockableDef characterUnlockableDef { get; set; }
+        public override UnlockableDef characterUnlockableDef => null;
         private static UnlockableDef masterySkinUnlockableDef;
 
 
-        internal override void InitializeCharacter()
+        public override void InitializeCharacter()
         {
             base.InitializeCharacter();
             bodyPrefab.AddComponent<ShiggyController>();
             bodyPrefab.AddComponent<BuffController>();
+
+            staticBodyPrefab = bodyPrefab;
         }
 
-        internal override void InitializeUnlockables()
+        public override void InitializeUnlockables()
         {
-            masterySkinUnlockableDef = Modules.Unlockables.AddUnlockable<Achievements.MasteryAchievement>(true);
+            //masterySkinUnlockableDef = Modules.Unlockables.AddUnlockable<Achievements.MasteryAchievement>(true);
         }
 
-        internal override void InitializeDoppelganger()
+        public override void InitializeDoppelganger(string clone)
         {
-            base.InitializeDoppelganger();
+            GameObject newMasterGameObject = PrefabAPI.InstantiateClone(RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterMasters/" + clone + "MonsterMaster"), bodyInfo.bodyName + "MonsterMaster", true);
+            CharacterMaster master = newMasterGameObject.GetComponent<CharacterMaster>();
+            master.bodyPrefab = bodyPrefab;
+
+            //can setup AI skill drivers if needed, uncomment below
+
+            //AISkillDriver[] drivers = master.GetComponents<AISkillDriver>();
+            //foreach (AISkillDriver driver in drivers)
+            //{
+            //    UnityEngine.Object.DestroyImmediate(driver);
+            //}
+
+            ////Fire as much as possible in range.
+            //AISkillDriver armamentBarrage = master.gameObject.AddComponent<AISkillDriver>();
+            //armamentBarrage.customName = "Lee: Hyperreal - Armament Barrage";
+            //armamentBarrage.skillSlot = SkillSlot.Primary;
+            //armamentBarrage.requireSkillReady = true;
+            //armamentBarrage.requireEquipmentReady = false;
+            //armamentBarrage.minDistance = 0;
+            //armamentBarrage.maxDistance = 10f;
+            //armamentBarrage.selectionRequiresAimTarget = true;
+            //armamentBarrage.selectionRequiresOnGround = false;
+            //armamentBarrage.selectionRequiresAimTarget = true;
+            //armamentBarrage.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            //armamentBarrage.activationRequiresTargetLoS = true;
+            //armamentBarrage.activationRequiresAimTargetLoS = true;
+            //armamentBarrage.activationRequiresAimConfirmation = true;
+            //armamentBarrage.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
+            //armamentBarrage.buttonPressType = AISkillDriver.ButtonPressType.TapContinuous;
+            //armamentBarrage.aimType = AISkillDriver.AimType.AtCurrentEnemy;
+            //armamentBarrage.resetCurrentEnemyOnNextDriverSelection = true;
+
+            Modules.Content.AddMasterPrefab(newMasterGameObject);
         }
 
 
 
-        internal override void InitializeHitboxes()
+        public override void InitializeHitboxes()
         {
             ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
             GameObject model = childLocator.gameObject;
 
-            Transform hitboxTransform = childLocator.FindChild("SmallHitbox");
-            Modules.Prefabs.SetupHitbox(model, hitboxTransform, "SmallHitbox");
+            //Transform hitboxTransform = childLocator.FindChild("SmallHitbox");
+            //Modules.Prefabs.SetupHitbox(model, hitboxTransform, "SmallHitbox");
+            Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, childLocator.FindChild("SmallHitbox"), "SmallHitbox");
+            Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, childLocator.FindChild("DetectSmallHitbox"), "DetectSmallHitbox");
+            Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, childLocator.FindChild("FrontHitbox"), "FrontHitbox");
+            Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, childLocator.FindChild("AroundHitbox"), "AroundHitbox");
+            Modules.Prefabs.SetupHitbox(prefabCharacterModel.gameObject, childLocator.FindChild("DecayHitbox"), "DecayHitbox");
 
-            Transform hitboxTransform2 = childLocator.FindChild("DetectSmallHitbox");
-            Modules.Prefabs.SetupHitbox(model, hitboxTransform2, "DetectSmallHitbox");
-
-            Transform hitboxTransform3 = childLocator.FindChild("FrontHitbox");
-            Modules.Prefabs.SetupHitbox(model, hitboxTransform3, "FrontHitbox");
-
-            Transform hitboxTransform4 = childLocator.FindChild("AroundHitbox");
-            Modules.Prefabs.SetupHitbox(model, hitboxTransform4, "AroundHitbox");
-
-            Transform hitboxTransform5 = childLocator.FindChild("DecayHitbox");
-            Modules.Prefabs.SetupHitbox(model, hitboxTransform5, "DecayHitbox");
         }
 
 
 
-        internal override void InitializeSkills()
+        public override void InitializeSkills()
         {
             Skills.CreateSkillFamilies(bodyPrefab);
             Modules.Skills.CreateFirstExtraSkillFamily(bodyPrefab);
@@ -3997,7 +4059,7 @@ namespace ShiggyMod.Modules.Survivors
                 Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
                 {
                     multiplierDef,
-                });
+                }); 
                 Modules.Skills.AddFirstExtraSkills(bodyPrefab, new SkillDef[]
                 {
                     emptySkillDef,
@@ -4020,122 +4082,213 @@ namespace ShiggyMod.Modules.Survivors
         }
 
 
-        internal override void InitializeSkins()
+        public override void InitializeSkins()
         {
-            GameObject model = bodyPrefab.GetComponentInChildren<ModelLocator>().modelTransform.gameObject;
-            CharacterModel characterModel = model.GetComponent<CharacterModel>();
+            //GameObject model = bodyPrefab.GetComponentInChildren<ModelLocator>().modelTransform.gameObject;
+            //CharacterModel characterModel = model.GetComponent<CharacterModel>();
 
-            ModelSkinController skinController = model.AddComponent<ModelSkinController>();
-            ChildLocator childLocator = model.GetComponent<ChildLocator>();
+            //ModelSkinController skinController = model.AddComponent<ModelSkinController>();
 
-            SkinnedMeshRenderer mainRenderer = characterModel.mainSkinnedMeshRenderer;
+            ModelSkinController skinController = prefabCharacterModel.gameObject.GetComponent<ModelSkinController>();
+            if (!skinController)
+            {
+                skinController = prefabCharacterModel.gameObject.AddComponent<ModelSkinController>();
+            }
 
-            CharacterModel.RendererInfo[] defaultRenderers = characterModel.baseRendererInfos;
+            //ChildLocator childLocator = model.GetComponent<ChildLocator>();
+
+            //SkinnedMeshRenderer mainRenderer = characterModel.mainSkinnedMeshRenderer;
+
+            //CharacterModel.RendererInfo[] defaultRenderers = characterModel.baseRendererInfos;
+
+            ChildLocator childLocator = prefabCharacterModel.GetComponent<ChildLocator>();
+
+            CharacterModel.RendererInfo[] defaultRendererInfos = prefabCharacterModel.baseRendererInfos;
 
             List<SkinDef> skins = new List<SkinDef>();
 
             #region DefaultSkin
             Material defaultMat = Modules.ShiggyAsset.CreateMaterial("ShiggyMat", 0f, Color.white, 0f);
-            CharacterModel.RendererInfo[] defaultRendererInfo = SkinRendererInfos(defaultRenderers, new Material[] {
-                defaultMat,
-                defaultMat,
-            });
-            SkinDef defaultSkin = Modules.Skins.CreateSkinDef(ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_DEFAULT_SKIN_NAME",
-                ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("ShiggyBaseSkin"),
-                defaultRendererInfo,
-                mainRenderer,
-                model);
+            Material matShiggyBody = Modules.ShiggyAsset.CreateMaterial("matShiggyBody", 0f, Color.white, 0f);
+            Material matShiggyEyes = Modules.ShiggyAsset.CreateMaterial("matShiggyEyes", 0f, Color.white, 0f);
+            Material matShiggyFace = Modules.ShiggyAsset.CreateMaterial("matShiggyFace", 0f, Color.white, 0f);
+            Material matShiggyHair = Modules.ShiggyAsset.CreateMaterial("matShiggyHair", 0f, Color.white, 0f);
 
-            defaultSkin.meshReplacements = new SkinDef.MeshReplacement[]
+            SkinDef defaultSkin = Modules.Skins.CreateSkinDef(PLUGIN_PREFIX + "DEFAULT_SKIN_NAME",
+                ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("ShiggyBaseSkin"),
+                defaultRendererInfos,
+                prefabCharacterModel.gameObject);
+
+            //these are your Mesh Replacements. The order here is based on your CustomRendererInfos from earlier
+            //pass in meshes as they are named in your assetbundle
+            defaultSkin.skinDefParams.meshReplacements = Modules.Skins.getMeshReplacements(defaultRendererInfos,
+                "shigarakiBodyMesh",
+                "shigarakiPantsMesh",
+                "shigarakiEyesMesh",
+                "shigarakiFaceMesh",
+                "shigarakiHairMesh",
+                "MeshHand"
+            );
+            //you can simply access the RendererInfos defaultMaterials and set them to the new materials for your skin.
+            //string[] defaultMaterialStrings =
+            //    {
+            //        "matShiggyBody",
+            //        "matShiggyBody",
+            //        "matShiggyEyes",
+            //        "matShiggyFace",
+            //        "matShiggyHair",
+            //        "ShiggyMat",
+            //    };
+
+            //for (int i = 0; i < defaultMaterialStrings.Length; i++)
+            //{
+            //    if (defaultMaterialStrings[i] == null)
+            //    {
+            //        defaultSkin.skinDefParams.rendererInfos[i].defaultMaterial = defaultRendererInfos[i].defaultMaterial;
+            //    }
+            //    else
+            //    {
+            //        defaultSkin.skinDefParams.rendererInfos[i].defaultMaterial = Materials.CreateHopooMaterial(defaultMaterialStrings[i], 2.5f).SetCull(true);
+            //    }
+            //}
+
+            //simply find an object on your child locator you want to activate/deactivate and set if you want to activate/deacitvate it with this skin
+            defaultSkin.skinDefParams.gameObjectActivations = new SkinDefParams.GameObjectActivation[]
             {
-                new SkinDef.MeshReplacement
+                new SkinDefParams.GameObjectActivation
                 {
-                    mesh = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Mesh>("MeshHand"),
-                    renderer = defaultRendererInfo[0].renderer
+                    gameObject = childLocator.FindChildGameObject("shigarakiBodyMesh"),
+                    shouldActivate = true,
                 },
-                new SkinDef.MeshReplacement
+                new SkinDefParams.GameObjectActivation
                 {
-                    mesh = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Mesh>("MeshShiggy"),
-                    renderer = defaultRendererInfo[instance.mainRendererIndex].renderer
-                }
+                    gameObject = childLocator.FindChildGameObject("shigarakiPantsMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDefParams.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("shigarakiEyesMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDefParams.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("shigarakiFaceMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDefParams.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("shigarakiHairMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDefParams.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("Hand"),
+                    shouldActivate = false,
+                },
             };
 
             skins.Add(defaultSkin);
             #endregion
 
             //handless skin
-            #region handlessSkin
-            Material emptyMat = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Material>("EmptyMat");
-            CharacterModel.RendererInfo[] handlessrendererInfos = SkinRendererInfos(defaultRenderers, new Material[] {
-                emptyMat,
-                defaultMat,
-            });
-            SkinDef handlessSkin = Modules.Skins.CreateSkinDef(ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_HANDLESS_SKIN_NAME",
-                ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("ShiggyBaseSkin"),
-                handlessrendererInfos,
-                mainRenderer,
-                model);
+            #region handSkin
 
-            handlessSkin.meshReplacements = new SkinDef.MeshReplacement[]
+            SkinDef handSkin = Modules.Skins.CreateSkinDef(PLUGIN_PREFIX + "HAND_SKIN_NAME",
+                ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("ShiggyBaseSkin"),
+                defaultRendererInfos,
+                prefabCharacterModel.gameObject);
+
+            //these are your Mesh Replacements. The order here is based on your CustomRendererInfos from earlier
+            //pass in meshes as they are named in your assetbundle
+            handSkin.skinDefParams.meshReplacements = Modules.Skins.getMeshReplacements(defaultRendererInfos,
+                "shigarakiBodyMesh",
+                "shigarakiPantsMesh",
+                "shigarakiEyesMesh",
+                "shigarakiFaceMesh",
+                "shigarakiHairMesh",
+                "MeshHand"
+            );
+            //string[] handMaterialStrings =
+            //{
+            //    "matShiggyBody",
+            //    "matShiggyBody",
+            //    "matShiggyEyes",
+            //    "matShiggyFace",
+            //    "matShiggyHair",
+            //    "ShiggyMat",
+            //};
+
+            //for (int i = 0; i < handMaterialStrings.Length; i++)
+            //{
+            //    if (handMaterialStrings[i] == null)
+            //    {
+            //        handSkin.skinDefParams.rendererInfos[i].defaultMaterial = defaultRendererInfos[i].defaultMaterial;
+            //    }
+            //    else
+            //    {
+            //        handSkin.skinDefParams.rendererInfos[i].defaultMaterial = Materials.CreateHopooMaterial(handMaterialStrings[i], 2.5f).SetCull(true);
+            //    }
+            //}
+
+            handSkin.skinDefParams.gameObjectActivations = new SkinDefParams.GameObjectActivation[]
             {
-                new SkinDef.MeshReplacement
+                new SkinDefParams.GameObjectActivation
                 {
-                    mesh = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Mesh>("MeshHand"),
-                    renderer = handlessrendererInfos[0].renderer,
+                    gameObject = childLocator.FindChildGameObject("shigarakiBodyMesh"),
+                    shouldActivate = true,
                 },
-                new SkinDef.MeshReplacement
+                new SkinDefParams.GameObjectActivation
                 {
-                    mesh = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Mesh>("MeshShiggy"),
-                    renderer = handlessrendererInfos[1].renderer
-                }
+                    gameObject = childLocator.FindChildGameObject("shigarakiPantsMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDefParams.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("shigarakiEyesMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDefParams.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("shigarakiFaceMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDefParams.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("shigarakiHairMesh"),
+                    shouldActivate = true,
+                },
+                new SkinDefParams.GameObjectActivation
+                {
+                    gameObject = childLocator.FindChildGameObject("Hand"),
+                    shouldActivate = true,
+                },
             };
 
-            skins.Add(handlessSkin);
+            skins.Add(handSkin);
             #endregion
-
-            //#region masteryskin
-            //Material masteryMat = Modules.Asset.CreateMaterial("ShinyShiggyMat", 0f, Color.white, 1.0f);
-            //CharacterModel.RendererInfo[] masteryRendererInfos = SkinRendererInfos(defaultRenderers, new Material[] {
-            //    masteryMat,
-            //    masteryMat,
-            //    masteryMat,
-            //    masteryMat,
-            //});
-            //SkinDef masterySkin = Modules.Skins.CreateSkinDef(ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_MASTERY_SKIN_NAME",
-            //    Asset.mainAssetBundle.LoadAsset<Sprite>("ShiggyShinySkin"),
-            //    masteryRendererInfos,
-            //    mainRenderer,
-            //    model,
-            //    masterySkinUnlockableDef);
-
-            //masterySkin.meshReplacements = new SkinDef.MeshReplacement[] {
-            //    new SkinDef.MeshReplacement
-            //    {
-            //        mesh = Modules.Asset.mainAssetBundle.LoadAsset<Mesh>("MeshShiggy"),
-            //        renderer = defaultRenderers[instance.mainRendererIndex].renderer
-            //    },
-            //};
-            //skins.Add(masterySkin);
-            //#endregion
 
             skinController.skins = skins.ToArray();
         }
 
 
-        internal override void SetItemDisplays()
-        {
+        //public override void SetItemDisplays()
+        //{
 
-        }
+        //}
 
-        private static CharacterModel.RendererInfo[] SkinRendererInfos(CharacterModel.RendererInfo[] defaultRenderers, Material[] materials)
-        {
-            CharacterModel.RendererInfo[] newRendererInfos = new CharacterModel.RendererInfo[defaultRenderers.Length];
-            defaultRenderers.CopyTo(newRendererInfos, 0);
+        //private static CharacterModel.RendererInfo[] SkinRendererInfos(CharacterModel.RendererInfo[] defaultRenderers, Material[] materials)
+        //{
+        //    CharacterModel.RendererInfo[] newRendererInfos = new CharacterModel.RendererInfo[defaultRenderers.Length];
+        //    defaultRenderers.CopyTo(newRendererInfos, 0);
 
-            newRendererInfos[0].defaultMaterial = materials[0];
+        //    for (int i = 0; i < defaultRenderers.Length; i++)
+        //    {
+        //        newRendererInfos[i].defaultMaterial = materials[i];
+        //    }
 
-            return newRendererInfos;
-        }
+
+        //    return newRendererInfos;
+        //}
     }
 }
 

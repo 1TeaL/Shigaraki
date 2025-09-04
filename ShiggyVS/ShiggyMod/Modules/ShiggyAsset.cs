@@ -586,7 +586,7 @@ namespace ShiggyMod.Modules
             return newTracer;
         }
 
-        
+
 
         internal static NetworkSoundEventDef CreateNetworkSoundEventDef(string eventName)
         {
@@ -594,7 +594,7 @@ namespace ShiggyMod.Modules
             networkSoundEventDef.akId = AkSoundEngine.GetIDFromString(eventName);
             networkSoundEventDef.eventName = eventName;
 
-            networkSoundEventDefs.Add(networkSoundEventDef);
+            Modules.Content.AddNetworkSoundEventDef(networkSoundEventDef);
 
             return networkSoundEventDef;
         }
@@ -645,6 +645,17 @@ namespace ShiggyMod.Modules
             return rendererInfos;
         }
 
+        public static GameObject LoadSurvivorModel(string modelName)
+        {
+            GameObject model = mainAssetBundle.LoadAsset<GameObject>(modelName);
+            if (model == null)
+            {
+                Log.Error("Trying to load a null model- check to see if the BodyName in your code matches the prefab name of the object in Unity\nFor Example, if your prefab in unity is 'mdlHenry', then your BodyName must be 'Henry'");
+                return null;
+            }
+
+            return PrefabAPI.InstantiateClone(model, model.name, false);
+        }
         internal static Texture LoadCharacterIcon(string characterName)
         {
             return mainAssetBundle.LoadAsset<Texture>("tex" + characterName + "Icon");
@@ -720,10 +731,10 @@ namespace ShiggyMod.Modules
             newEffectDef.prefabVfxAttributes = effectPrefab.GetComponent<VFXAttributes>();
             newEffectDef.spawnSoundEventName = soundName;
 
-            effectDefs.Add(newEffectDef);
+            Modules.Content.AddEffectDef(newEffectDef);
         }
 
-        public static Material CreateMaterial(string materialName, float emission, Color emissionColor, float normalStrength)
+        public static Material CreateMaterial(string materialName, float emission, Color emissionColor, float normalStrength, bool cutout = false, float cutoff = 0.4f, bool doubleSided = true)
         {
             if (!commandoMat) commandoMat = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponentInChildren<CharacterModel>().baseRendererInfos[0].defaultMaterial;
 
@@ -743,6 +754,23 @@ namespace ShiggyMod.Modules
             mat.SetFloat("_EmPower", emission);
             mat.SetTexture("_EmTex", tempMat.GetTexture("_EmissionMap"));
             mat.SetFloat("_NormalStrength", normalStrength);
+
+            // --- Cutout setup ---
+            if (cutout)
+            {
+                mat.EnableKeyword("_ALPHATEST_ON");
+                mat.DisableKeyword("_ALPHABLEND_ON");
+
+                mat.SetFloat("_Cutoff", cutoff);
+
+                mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+                mat.SetInt("_ZWrite", 1);
+
+                mat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest; // 2450
+                mat.SetInt("_Cull", doubleSided ? 0 : 2); // 0 = Off (double sided), 2 = Backface cull
+            }
+
 
             return mat;
         }

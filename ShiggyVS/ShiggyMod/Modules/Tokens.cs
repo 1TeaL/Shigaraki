@@ -35,7 +35,7 @@ namespace ShiggyMod.Modules
             #region Skins
             LanguageAPI.Add(prefix + "DEFAULT_SKIN_NAME", "Default");
             LanguageAPI.Add(prefix + "MASTERY_SKIN_NAME", "Shiny");
-            LanguageAPI.Add(prefix + "HANDLESS_SKIN_NAME", "Handless");
+            LanguageAPI.Add(prefix + "HAND_SKIN_NAME", "Hand Skin");
             #endregion
 
             #region Passive

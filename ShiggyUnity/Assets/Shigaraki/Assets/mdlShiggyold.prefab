@@ -17462,8 +17462,6 @@ MonoBehaviour:
     transform: {fileID: 5243712376169251680}
   - name: WindSwordR
     transform: {fileID: 3816433294547587416}
-  - name: BlastingZonePosition
-    transform: {fileID: 0}
   - name: DecayHitbox
     transform: {fileID: 8457412988778514741}
   - name: Swing1
