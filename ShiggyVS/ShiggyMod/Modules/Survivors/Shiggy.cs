@@ -23,7 +23,7 @@ namespace ShiggyMod.Modules.Survivors
         public override string survivorTokenPrefix => PLUGIN_PREFIX;
 
         //monster passives
-        internal static SkillDef alphacontructpassiveDef;
+        internal static SkillDef alphaconstructpassiveDef;
         internal static SkillDef beetlepassiveDef;
         internal static SkillDef pestpassiveDef;
         internal static SkillDef verminpassiveDef;
@@ -183,7 +183,7 @@ namespace ShiggyMod.Modules.Survivors
             bodyColor = Color.magenta,
             characterPortrait = Modules.ShiggyAsset.LoadCharacterIcon("Shiggy"),
             crosshair = Modules.ShiggyAsset.LoadCrosshair("Standard"),
-            damage = 5f,
+            damage = 1f,
             healthGrowth = 41f,
             healthRegen = 1f,
             jumpCount = 2,
@@ -201,7 +201,40 @@ namespace ShiggyMod.Modules.Survivors
         //internal static Material matShiggyFace = Modules.ShiggyAsset.CreateMaterial("matShiggyFace");
         //internal static Material matShiggyHair = Modules.ShiggyAsset.CreateMaterial("matShiggyHair");
         //internal override int mainRendererIndex { get; set; } = 1;
+        protected override void InitializeEntityStateMachine()
+        {
+            // Let base wire the Body machine to ShiggyCharacterMain (and spawn if you set it)
+            base.InitializeEntityStateMachine();
 
+            // Ensure a single NetworkStateMachine on the root
+            var nsm = bodyPrefab.GetComponent<NetworkStateMachine>();
+            if (!nsm) nsm = bodyPrefab.AddComponent<NetworkStateMachine>();
+            if (nsm.stateMachines == null) nsm.stateMachines = System.Array.Empty<EntityStateMachine>();
+
+            // Find or add the dedicated "Flight" machine
+            var flightESM = EntityStateMachine.FindByCustomName(bodyPrefab, "Flight");
+            if (!flightESM)
+            {
+                flightESM = bodyPrefab.AddComponent<EntityStateMachine>();
+                flightESM.customName = "Flight";
+            }
+
+            // Idle is a no-op state for this side-machine
+            flightESM.initialStateType = new SerializableEntityStateType(typeof(EntityStates.Idle));
+            flightESM.mainStateType = new SerializableEntityStateType(typeof(EntityStates.Idle));
+
+            // Append to NetworkStateMachine without clobbering existing entries (Body/Weapon/etc.)
+            var list = new System.Collections.Generic.List<EntityStateMachine>(nsm.stateMachines);
+            if (!list.Contains(flightESM))
+            {
+                list.Add(flightESM);
+                nsm.stateMachines = list.ToArray();
+            }
+
+            // Register flight states (CharacterMain already added by base via characterMainState)
+            //Modules.Content.AddEntityState(typeof(EntityStates.Idle));
+            Modules.Content.AddEntityState(typeof(AirWalk));
+        }
         public override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[] {
 
                 new CustomRendererInfo
@@ -557,7 +590,7 @@ namespace ShiggyMod.Modules.Survivors
 
             #region Passive Skills
             //passives
-            Shiggy.alphacontructpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.alphaconstructpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ALPHACONSTRUCT_NAME",
                 skillNameToken = prefix + "ALPHACONSTRUCT_NAME",
@@ -3185,7 +3218,7 @@ namespace ShiggyMod.Modules.Survivors
                 Skills.AddPrimarySkills(bodyPrefab, new SkillDef[]
                 {
                     decayDef,
-                    alphacontructpassiveDef,
+                    alphaconstructpassiveDef,
                     beetlepassiveDef,
                     pestpassiveDef,
                     verminpassiveDef,
@@ -3293,7 +3326,7 @@ namespace ShiggyMod.Modules.Survivors
                 Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
                 {
                     bulletlaserDef,
-                    alphacontructpassiveDef,
+                    alphaconstructpassiveDef,
                     beetlepassiveDef,
                     pestpassiveDef,
                     verminpassiveDef,
@@ -3401,7 +3434,7 @@ namespace ShiggyMod.Modules.Survivors
                 Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
                 {
                     aircannonDef,
-                    alphacontructpassiveDef,
+                    alphaconstructpassiveDef,
                     beetlepassiveDef,
                     pestpassiveDef,
                     verminpassiveDef,
@@ -3508,7 +3541,7 @@ namespace ShiggyMod.Modules.Survivors
                 Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
                 {
                     multiplierDef,
-                    alphacontructpassiveDef,
+                    alphaconstructpassiveDef,
                     beetlepassiveDef,
                     pestpassiveDef,
                     verminpassiveDef,
@@ -3615,7 +3648,7 @@ namespace ShiggyMod.Modules.Survivors
                 Modules.Skills.AddFirstExtraSkills(bodyPrefab, new SkillDef[]
                 {
                     emptySkillDef,
-                    alphacontructpassiveDef,
+                    alphaconstructpassiveDef,
                     beetlepassiveDef,
                     pestpassiveDef,
                     verminpassiveDef,
@@ -3722,7 +3755,7 @@ namespace ShiggyMod.Modules.Survivors
                 Modules.Skills.AddSecondExtraSkills(bodyPrefab, new SkillDef[]
                 {
                     emptySkillDef,
-                    alphacontructpassiveDef,
+                    alphaconstructpassiveDef,
                     beetlepassiveDef,
                     pestpassiveDef,
                     verminpassiveDef,
@@ -3829,7 +3862,7 @@ namespace ShiggyMod.Modules.Survivors
                 Modules.Skills.AddThirdExtraSkills(bodyPrefab, new SkillDef[]
                 {
                     emptySkillDef,
-                    alphacontructpassiveDef,
+                    alphaconstructpassiveDef,
                     beetlepassiveDef,
                     pestpassiveDef,
                     verminpassiveDef,
@@ -3936,7 +3969,7 @@ namespace ShiggyMod.Modules.Survivors
                 Modules.Skills.AddFourthExtraSkills(bodyPrefab, new SkillDef[]
                 {
                     emptySkillDef,
-                    alphacontructpassiveDef,
+                    alphaconstructpassiveDef,
                     beetlepassiveDef,
                     pestpassiveDef,
                     verminpassiveDef,

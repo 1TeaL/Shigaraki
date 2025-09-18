@@ -1,30 +1,32 @@
 ﻿using EntityStates;
+using EntityStates.LunarExploderMonster;
+using EntityStates.MiniMushroom;
+using EntityStates.VoidMegaCrab.BackWeapon;
+using ExtraSkillSlots;
+using IL.RoR2.Achievements.Bandit2;
 using R2API;
+using R2API.Networking;
+using R2API.Networking.Interfaces;
+using RiskOfOptions.Components.Panel;
 using RoR2;
+using RoR2.CharacterAI;
+using RoR2.Items;
 using RoR2.Orbs;
+using RoR2.Projectile;
+using ShiggyMod.Modules.Networking;
+using ShiggyMod.Modules.Quirks;
+using ShiggyMod.SkillStates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using EntityStates.LunarExploderMonster;
-using RoR2.Projectile;
-using EntityStates.MiniMushroom;
-using UnityEngine.Networking;
-using ExtraSkillSlots;
-using R2API.Networking;
-using ShiggyMod.Modules.Networking;
-using R2API.Networking.Interfaces;
-using UnityEngine.UIElements;
-using ShiggyMod.SkillStates;
-using IL.RoR2.Achievements.Bandit2;
-using RoR2.Items;
-using UnityEngine.AddressableAssets;
-using Object = UnityEngine.Object;
-using static UnityEngine.ParticleSystem.PlaybackState;
-using EntityStates.VoidMegaCrab.BackWeapon;
-using RiskOfOptions.Components.Panel;
 using Unity.Baselib.LowLevel;
-using RoR2.CharacterAI;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using static UnityEngine.ParticleSystem.PlaybackState;
+using Object = UnityEngine.Object;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -62,15 +64,18 @@ namespace ShiggyMod.Modules.Survivors
         private int buttonCount;
         private float formTimer;
 
+
+        //indicators
         private Ray downRay;
         public float maxTrackingDistance = 70f;
         public float maxTrackingAngle = 20f;
         public float trackerUpdateFrequency = 10f;
         private Indicator indicator;
-        private Indicator passiveindicator;
-        private Indicator activeindicator;
+        //private Indicator passiveindicator;
+        //private Indicator activeindicator;
         public HurtBox trackingTarget;
         public HurtBox Target;
+        private QuirkId _lastQuirkId;
 
         private CharacterBody characterBody;
         private InputBankTest inputBank;
@@ -153,9 +158,17 @@ namespace ShiggyMod.Modules.Survivors
             SWORDAURAL.Stop();
             SWORDAURAR.Stop();
 
-            indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator"));
-            passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
-            activeindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
+            indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
+            // name indicator
+            //quirkNameIndicator = new RoR2.Indicator(gameObject, null);
+            //quirkNameIndicator.visualizerPrefab = QuirkIndicatorFactory.GetOrBuildNameBillboardPrefab();
+
+            //// owned-check indicator
+            //ownedIndicator = new RoR2.Indicator(gameObject, null);
+            //ownedIndicator.visualizerPrefab = QuirkIndicatorFactory.GetOrBuildOwnedCheckPrefab();
+
+            //passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
+            //activeindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
             //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
             inputBank = gameObject.GetComponent<InputBankTest>();
 
@@ -189,7 +202,7 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
 
-
+            QuirkHUDOverlay.EnsureFor(characterBody);
 
             hasStolen = false;
             hasQuirk = false;
@@ -207,15 +220,15 @@ namespace ShiggyMod.Modules.Survivors
         public void OnEnable()
         {
             this.indicator.active = true;
-            this.passiveindicator.active = true;
-            this.activeindicator.active = true;
+            //this.passiveindicator.active = true;
+            //this.activeindicator.active = true;
         }
 
         public void OnDisable()
         {
-            //this.indicator.active = false;
-            this.passiveindicator.active = false;
-            this.activeindicator.active = false;
+            this.indicator.active = false;
+            //this.passiveindicator.active = false;
+            //this.activeindicator.active = false;
         }
 
         public void PlayFinalReleaseLoop()
@@ -969,6 +982,19 @@ namespace ShiggyMod.Modules.Survivors
                 }
             }
         }
+        private void UpdateDefaultIndicator()
+        {
+            HurtBox hurtBox = this.trackingTarget;
+            if (!hurtBox)
+            {
+                this.indicator.active = false;
+                return;
+            }
+
+            this.indicator.active = true;
+            this.indicator.targetTransform = hurtBox.transform;
+
+        }
 
         public void FixedUpdate()
         {
@@ -976,48 +1002,20 @@ namespace ShiggyMod.Modules.Survivors
             if (this.trackerUpdateStopwatch >= 1f / this.trackerUpdateFrequency)
             {
                 this.trackerUpdateStopwatch -= 1f / this.trackerUpdateFrequency;
+
+                // 1) your existing scan:
                 Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
                 this.SearchForTarget(aimRay);
-                HurtBox hurtBox = this.trackingTarget;
-                if (hurtBox)
-                {
-                    var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
-                    if (StaticValues.indicatorDict.ContainsKey(name))
-                    {
-                        if (Modules.StaticValues.indicatorDict[name] == StaticValues.IndicatorType.PASSIVE)
-                        {
-                            this.passiveindicator.active = true;
-                            this.activeindicator.active = false;
-                            this.passiveindicator.targetTransform = this.trackingTarget.transform;
 
-                        }
-                        else if (Modules.StaticValues.indicatorDict[name] == StaticValues.IndicatorType.ACTIVE)
-                        {
-                            this.passiveindicator.active = false;
-                            this.activeindicator.active = true;
-                            this.activeindicator.targetTransform = this.trackingTarget.transform;
-
-                        }
-
-                    }
-                    else
-                    {
-                        this.activeindicator.active = false;
-                        this.passiveindicator.active = false;
-                        this.indicator.active = true;
-                        this.indicator.targetTransform = this.trackingTarget.transform;
-                    }
-
-                }
-                else
-                {
-                    this.indicator.active = false;
-                    this.activeindicator.active = false;
-                    this.passiveindicator.active = false;
-
-                }
+                UpdateDefaultIndicator();
+                
 
             }
+            //UpdateQuirkOverlayIndicators();
+
+
+
+
             if (characterBody)
             {
                 if (characterBody.hasEffectiveAuthority)
@@ -1364,62 +1362,62 @@ namespace ShiggyMod.Modules.Survivors
 
             //remove quirk
 
-            //check if button is released for removing quirk
-            if (UnityEngine.Input.GetKeyUp(Config.RemoveHotkey.Value.MainKey))
-            {
-                hasRemoved = false;
-                removeQuirkStopwatch = 0f;
-            }
+            ////check if button is released for removing quirk
+            //if (UnityEngine.Input.GetKeyUp(Config.RemoveHotkey.Value.MainKey))
+            //{
+            //    hasRemoved = false;
+            //    removeQuirkStopwatch = 0f;
+            //}
 
-            if (UnityEngine.Input.GetKeyDown(Config.RemoveHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
-            {
+            //if (UnityEngine.Input.GetKeyDown(Config.RemoveHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
+            //{
 
-                removeQuirkStopwatch += Time.deltaTime;
-                if (!this.hasRemoved && removeQuirkStopwatch > Config.holdButtonAFO.Value)
-                {
-                    hasRemoved = true;
+            //    removeQuirkStopwatch += Time.deltaTime;
+            //    if (!this.hasRemoved && removeQuirkStopwatch > Config.holdButtonAFO.Value)
+            //    {
+            //        hasRemoved = true;
 
-                    //choose what quirk to remove
-                    Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
-                    energySystem.quirkGetInformation("<style=cIsUtility>Choose which Quirk to Remove</style>", 2f);
-                    //unset skills but not to unwrite the skilllist
-                    //RemovePrimary();
-                    //RemoveSecondary();
-                    //RemoveUtility();
-                    //RemoveSpecial();
-                    //RemoveExtra1();
-                    //RemoveExtra2();
-                    //RemoveExtra3();
-                    //RemoveExtra4();
+            //        //choose what quirk to remove
+            //        Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
+            //        energySystem.quirkGetInformation("<style=cIsUtility>Choose which Quirk to Remove</style>", 2f);
+            //        //unset skills but not to unwrite the skilllist
+            //        //RemovePrimary();
+            //        //RemoveSecondary();
+            //        //RemoveUtility();
+            //        //RemoveSpecial();
+            //        //RemoveExtra1();
+            //        //RemoveExtra2();
+            //        //RemoveExtra3();
+            //        //RemoveExtra4();
 
-                    characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggymastercon.skillListToOverrideOnRespawn[0], GenericSkill.SkillOverridePriority.Contextual);
-                    characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggymastercon.skillListToOverrideOnRespawn[1], GenericSkill.SkillOverridePriority.Contextual);
-                    characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggymastercon.skillListToOverrideOnRespawn[2], GenericSkill.SkillOverridePriority.Contextual);
-                    characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggymastercon.skillListToOverrideOnRespawn[3], GenericSkill.SkillOverridePriority.Contextual);
-                    extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggymastercon.skillListToOverrideOnRespawn[4], GenericSkill.SkillOverridePriority.Contextual);
-                    extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggymastercon.skillListToOverrideOnRespawn[5], GenericSkill.SkillOverridePriority.Contextual);
-                    extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggymastercon.skillListToOverrideOnRespawn[6], GenericSkill.SkillOverridePriority.Contextual);
-                    extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggymastercon.skillListToOverrideOnRespawn[7], GenericSkill.SkillOverridePriority.Contextual);
-
-
-                    //override skills to removedef
-                    characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                    characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                    characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                    characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                    extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                    extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                    extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                    extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
-                }
+            //        characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggymastercon.skillListToOverrideOnRespawn[0], GenericSkill.SkillOverridePriority.Contextual);
+            //        characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggymastercon.skillListToOverrideOnRespawn[1], GenericSkill.SkillOverridePriority.Contextual);
+            //        characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggymastercon.skillListToOverrideOnRespawn[2], GenericSkill.SkillOverridePriority.Contextual);
+            //        characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggymastercon.skillListToOverrideOnRespawn[3], GenericSkill.SkillOverridePriority.Contextual);
+            //        extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggymastercon.skillListToOverrideOnRespawn[4], GenericSkill.SkillOverridePriority.Contextual);
+            //        extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggymastercon.skillListToOverrideOnRespawn[5], GenericSkill.SkillOverridePriority.Contextual);
+            //        extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggymastercon.skillListToOverrideOnRespawn[6], GenericSkill.SkillOverridePriority.Contextual);
+            //        extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggymastercon.skillListToOverrideOnRespawn[7], GenericSkill.SkillOverridePriority.Contextual);
 
 
-            }
+            //        //override skills to removedef
+            //        characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+            //        characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+            //        characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+            //        characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+            //        extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+            //        extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+            //        extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+            //        extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.removeDef, GenericSkill.SkillOverridePriority.Contextual);
+            //    }
+
+
+            //}
         }
 
         public void Update()
         {
-            AirWalk();
+            //AirWalk();
             SaveSkills();
             Particles();
             //update indicator
@@ -1717,256 +1715,152 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.giveDef, GenericSkill.SkillOverridePriority.Contextual);
 
         }
-        //steal quirk code
+
+        // ---------------------------------------------
+        // Steal (AFO) – body name → Quirk, elites, auto-craft toasts
+        // ---------------------------------------------
         private void StealQuirk(HurtBox hurtBox)
         {
-            var name = BodyCatalog.GetBodyName(hurtBox.healthComponent.body.bodyIndex);
-            GameObject newbodyPrefab = BodyCatalog.FindBodyPrefab(name);
+            if (hurtBox == null || hurtBox.healthComponent == null) return;
 
-            Debug.Log(name + "name");
-            Debug.Log(newbodyPrefab + "newbodyprefab");
-            //AkSoundEngine.PostEvent("ShiggyAFO", characterBody.gameObject);
+            var body = hurtBox.healthComponent.body;
+            if (!body) return;
 
-            if(name == "DekuBody")
+
+            string bodyName = BodyCatalog.GetBodyName(body.bodyIndex);
+            Debug.Log($"[StealQuirk] targetBody={bodyName} (index={body.bodyIndex})");
+
+            // SFX
+            if (Modules.Config.allowVoice.Value)
+                AkSoundEngine.PostEvent(bodyName == "DekuBody" ? "ShiggyOFAGet" : "ShiggyAFO", characterBody.gameObject);
+
+            bool grantedAny = false;
+
+            // Quick sanity: registry must be bound or we can't resolve IDs/skills.
+            if (QuirkRegistry.All == null || QuirkRegistry.All.Count == 0)
             {
-                if (Modules.Config.allowVoice.Value)
-                {
-                    AkSoundEngine.PostEvent("ShiggyOFAGet", characterBody.gameObject);
-                }
+                Debug.LogWarning("[StealQuirk] QuirkRegistry not bound yet. Call QuirkRegistry.BindQuirkRegistry() earlier (e.g., after content packs build and before the run).");
             }
-            else
+
+            // 1) Elite affix → passive + equipment
+            if (QuirkRegistry.TryGetEliteQuirkId(body, out var eliteId))
             {
-                if (Modules.Config.allowVoice.Value)
+                Debug.Log($"[StealQuirk] Elite affix detected -> {eliteId}");
+                if (!body.HasBuff(Buffs.eliteDebuff.buffIndex))
                 {
-                    AkSoundEngine.PostEvent("ShiggyAFO", characterBody.gameObject);
-                }
-            }
-            
-
-            //elite aspects
-            if (hurtBox.healthComponent.body.isElite)
-			{
-				if (!hurtBox.healthComponent.body.HasBuff(Buffs.eliteDebuff.buffIndex))
-				{
-					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixBlue))
-					{
-						Chat.AddMessage("Stole Overloading <style=cIsUtility>Quirk!</style>");
-						dropEquipment(RoR2Content.Elites.Lightning.eliteEquipmentDef);
-						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
-					}
-					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixHaunted))
-					{
-						Chat.AddMessage("Stole Celestine <style=cIsUtility>Quirk!</style>");
-						dropEquipment(RoR2Content.Elites.Haunted.eliteEquipmentDef);
-						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
-					}
-					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixLunar))
-					{
-						Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
-						dropEquipment(RoR2Content.Elites.Lunar.eliteEquipmentDef);
-						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
-					}
-					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixPoison))
-					{
-						Chat.AddMessage("Stole Malachite <style=cIsUtility>Quirk!</style>");
-						dropEquipment(RoR2Content.Elites.Poison.eliteEquipmentDef);
-						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
-					}
-					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixRed))
-					{
-						Chat.AddMessage("Stole Blazing <style=cIsUtility>Quirk!</style>");
-						dropEquipment(RoR2Content.Elites.Fire.eliteEquipmentDef);
-						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
-					}
-					if (hurtBox.healthComponent.body.HasBuff(RoR2Content.Buffs.AffixWhite))
-					{
-						Chat.AddMessage("Stole Glacial <style=cIsUtility>Quirk!</style>");
-						dropEquipment(RoR2Content.Elites.Ice.eliteEquipmentDef);
-						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
-					}
-					if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteEarth))
-					{
-						Chat.AddMessage("Stole Mending <style=cIsUtility>Quirk!</style>");
-						dropEquipment(DLC1Content.Elites.Earth.eliteEquipmentDef);
-						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
-					}
-					if (hurtBox.healthComponent.body.HasBuff(DLC1Content.Buffs.EliteVoid))
-					{
-						Chat.AddMessage("Stole Void <style=cIsUtility>Quirk!</style>");
-						dropEquipment(DLC1Content.Elites.Void.eliteEquipmentDef);
-						hurtBox.healthComponent.body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
-					}
-
-				}
-				else if (hurtBox.healthComponent.body.HasBuff(Buffs.eliteDebuff.buffIndex))
-				{
-					Chat.AddMessage("Can't steal <style=cIsUtility>Elite Quirk until debuff is gone</style>.");
-				}
-			}
-
-            if (StaticValues.bodyNameToSkillDef.ContainsKey(name))
-            {
-                AFOEffectController AFOCon = hurtBox.healthComponent.body.gameObject.AddComponent<AFOEffectController>();
-                AFOCon.attackerBody = characterBody;
-                AFOCon.RHandChild = child.FindChild("RHand").transform;
-
-
-                RoR2.Skills.SkillDef skillDef = StaticValues.bodyNameToSkillDef[name];
-                Debug.Log(skillDef.skillName + "skillDef");
-                RoR2.Skills.SkillDef skillDefUpgrade = StaticValues.baseSkillUpgrade[skillDef.skillName];
-                Debug.Log(skillDefUpgrade.skillName + "skillDefUpgrade");
-                RoR2.Skills.SkillDef skillDefUltimate = StaticValues.synergySkillUpgrade[skillDefUpgrade.skillName];
-                Debug.Log(skillDefUltimate.skillName + "skillDefUltimate");
-
-                bool canBaseSkillTake = false;
-                bool canSynergyUpgrade = false;
-                bool canUltimateUpgrade = false;
-
-                if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.baseSkillPair[skillDef.skillName], characterBody))
-                {
-                    //check if you can upgrade the skill in the first place
-                    canSynergyUpgrade = true;
-                    
-                }
-                if(canSynergyUpgrade)
-                {
-                    if (Shiggymastercon.SearchSkillSlotsForQuirks(StaticValues.synergySkillPair[skillDefUpgrade.skillName], characterBody))
+                    bool added = QuirkInventory.Add(eliteId);
+                    Debug.Log($"[StealQuirk] Add(eliteId={eliteId}) -> {added}");
+                    if (added)
                     {
-                        //check if you own the ultimate skill arleady
-                        if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUltimate, characterBody))
-                        {
-                            canUltimateUpgrade = false;
-                            //if you already have the ultimate check if you can grab the synergy
-                            if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUpgrade, characterBody))
-                            {
-                                canSynergyUpgrade = false;
-                                //if you already have the synergy check if you can grab the base
-                                if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDef, characterBody))
-                                {
-                                    canBaseSkillTake = false;
-                                }
-                                else
-                                {
-                                    canBaseSkillTake = true;
-                                }
-                            }
-                            else
-                            {
-                                canSynergyUpgrade = true;
-                            }
-                        }
-                        else
-                        {
-                            canUltimateUpgrade = true;
-                        }
-                    }
-                    //if you can't get the ultimate skill check if you can still get the synergy
-                    else if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDefUpgrade, characterBody))
-                    {
-                        canSynergyUpgrade = false;
-                        //if you already have the synergy check if you can grab the base
-                        if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDef, characterBody))
-                        {
-                            canBaseSkillTake = false;
-                        }
-                        else
-                        {
-                            canBaseSkillTake = true;
-                        }
+                        ToastQuirkPickup(eliteId);
+
+                        if (QuirkInventory.LastAutoCrafted.Count > 0)
+                            Debug.Log($"[StealQuirk] Auto-crafted: {string.Join(", ", QuirkInventory.LastAutoCrafted.Select(QuirkInventory.QuirkPickupUI.MakeNiceName))}");
+
+                        foreach (var crafted in QuirkInventory.LastAutoCrafted)
+                            ToastQuirkPickup(crafted);
                     }
                     else
                     {
-                        canSynergyUpgrade = true;
+                        energySystem.quirkGetInformation("Already own this Elite Quirk.", 1.5f);
                     }
 
+                    var eq = QuirkRegistry.GetEliteEquipmentForId(eliteId);
+                    if (eq) dropEquipment(eq);
+
+                    body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
+                    grantedAny = true;
                 }
                 else
                 {
-
-                    if (Shiggymastercon.SearchSkillSlotsForQuirks(skillDef, characterBody))
-                    {
-                        canBaseSkillTake = false;
-                    }
-                    else
-                    {
-                        canBaseSkillTake = true;
-                    }
+                    Chat.AddMessage("Can't steal <style=cIsUtility>Elite Quirk</style> until debuff is gone.");
                 }
+            }
 
-                if (canUltimateUpgrade)
-                {
-                    canBaseSkillTake = false;
-                    canSynergyUpgrade = false;
-                    Shiggymastercon.writeToAFOSkillList(skillDefUltimate, 0);
-                    Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDefUltimate.skillName]);
-                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDefUltimate.skillName], 2f);
+            // 2) Body name map → QuirkId
+            if (QuirkTargetingMap.TryGet(bodyName, out var id) && id != QuirkId.None)
+            {
+                Debug.Log($"[StealQuirk] Body map resolved {bodyName} -> {id}");
 
-                }
-                else if (canSynergyUpgrade)
+                // Optional: verify that this id has a bound SkillDef (so it can appear in the picker).
+                if (!QuirkRegistry.TryGet(id, out var rec))
                 {
-                    canBaseSkillTake = false;
-                    Shiggymastercon.writeToAFOSkillList(skillDefUpgrade, 0);
-                    Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDefUpgrade.skillName]);
-                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDefUpgrade.skillName], 2f);
-                }
-                else if (canBaseSkillTake)
-                {
-                    Shiggymastercon.writeToAFOSkillList(skillDef, 0);
-                    Chat.AddMessage(StaticValues.quirkStringToInfoString[skillDef.skillName]);
-                    energySystem.quirkGetInformation(StaticValues.quirkStringToInfoString[skillDef.skillName], 2f);
-
+                    Debug.LogWarning($"[StealQuirk] Registry has no record for {id}. Did you call QuirkRegistry.Build()/BindQuirkRegistry()?");
                 }
                 else
                 {
-                    Shiggymastercon.storedAFOSkill[0] = null;
+                    Debug.Log($"[StealQuirk] Registry record ok. SkillDef={(rec.Skill ? rec.Skill.name : "null")} Category={rec.Category}");
                 }
 
+                bool newlyOwned = QuirkInventory.Add(id);
+                Debug.Log($"[StealQuirk] Add(id={id}) -> {newlyOwned}. Owned now: {QuirkInventory.Owned.Count}");
+
+                if (newlyOwned)
+                {
+                    // Visual flourish
+                    var AFOCon = hurtBox.healthComponent.body.gameObject.AddComponent<AFOEffectController>();
+                    AFOCon.attackerBody = characterBody;
+                    AFOCon.RHandChild = child.FindChild("RHand").transform;
+
+                    ToastQuirkPickup(id);
+                    grantedAny = true;
+
+                    if (QuirkInventory.LastAutoCrafted.Count > 0)
+                        Debug.Log($"[StealQuirk] Auto-crafted: {string.Join(", ", QuirkInventory.LastAutoCrafted.Select(QuirkInventory.QuirkPickupUI.MakeNiceName))}");
+
+                    foreach (var crafted in QuirkInventory.LastAutoCrafted)
+                        ToastQuirkPickup(crafted);
+
+                    // The QuirkUI subscribes to QuirkInventory.OnOwnedChanged and will rebuild its pool.
+                    // If the picker is open right now and you want an immediate refresh, you can nudge it:
+                    if (QuirkUI.Current != null)
+                    {
+                        Debug.Log("[StealQuirk] QuirkUI is open; nudging it to rebuild its pool.");
+                        // The UI already listens to OnOwnedChanged, but in case timing matters:
+                        // (This assumes you added a public method to force-refresh the open picker list, otherwise it will
+                        // rebuild next time you open the modal. If not present, this log is enough to confirm the event fired.)
+                        // QuirkUI.Current.ForceRefreshOpenPicker(); // (optional if you add such a method)
+                    }
+                }
+                else
+                {
+                    Chat.AddMessage("<style=cDeath>Already have this Quirk!</style>");
+                    energySystem.quirkGetInformation("Already have this Quirk!", 2f);
+                }
+
+                // force overlay to refresh ownership check immediately
+                _lastQuirkId = QuirkId.None;
             }
             else
             {
-                Shiggymastercon.storedAFOSkill[0] = null;
+                Debug.Log($"[StealQuirk] No body->quirk mapping for {bodyName} (or mapped to None).");
             }
-            
-            if (Shiggymastercon.storedAFOSkill[0] != null)
-            {
-                //override skills to choosdef
 
-                characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggymastercon.skillListToOverrideOnRespawn[0], GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggymastercon.skillListToOverrideOnRespawn[1], GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggymastercon.skillListToOverrideOnRespawn[2], GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggymastercon.skillListToOverrideOnRespawn[3], GenericSkill.SkillOverridePriority.Contextual);
-                extraskillLocator.extraFirst.UnsetSkillOverride(extraskillLocator.extraFirst, Shiggymastercon.skillListToOverrideOnRespawn[4], GenericSkill.SkillOverridePriority.Contextual);
-                extraskillLocator.extraSecond.UnsetSkillOverride(extraskillLocator.extraSecond, Shiggymastercon.skillListToOverrideOnRespawn[5], GenericSkill.SkillOverridePriority.Contextual);
-                extraskillLocator.extraThird.UnsetSkillOverride(extraskillLocator.extraThird, Shiggymastercon.skillListToOverrideOnRespawn[6], GenericSkill.SkillOverridePriority.Contextual);
-                extraskillLocator.extraFourth.UnsetSkillOverride(extraskillLocator.extraFourth, Shiggymastercon.skillListToOverrideOnRespawn[7], GenericSkill.SkillOverridePriority.Contextual);
-
-                characterBody.skillLocator.primary.SetSkillOverride(characterBody.skillLocator.primary, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.secondary.SetSkillOverride(characterBody.skillLocator.secondary, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.utility.SetSkillOverride(characterBody.skillLocator.utility, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
-                characterBody.skillLocator.special.SetSkillOverride(characterBody.skillLocator.special, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
-
-                extraskillLocator.extraFirst.SetSkillOverride(extraskillLocator.extraFirst, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
-                extraskillLocator.extraSecond.SetSkillOverride(extraskillLocator.extraSecond, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
-                extraskillLocator.extraThird.SetSkillOverride(extraskillLocator.extraThird, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
-                extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.chooseDef, GenericSkill.SkillOverridePriority.Contextual);
-            }
-            else if (Shiggymastercon.storedAFOSkill[0] == null)
+            // 3) Refund if we truly found nothing
+            if (!grantedAny)
             {
                 Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
                 energySystem.quirkGetInformation("No Quirk to <style=cIsUtility>Steal!</style>", 2f);
 
-                //refund energy
-                float plusChaosflatCost = (StaticValues.AFOEnergyCost) - (energySystem.costflatplusChaos);
+                float plusChaosflatCost = StaticValues.AFOEnergyCost - energySystem.costflatplusChaos;
                 if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
-
                 float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                 if (plusChaosCost < 0f) plusChaosCost = 0f;
                 energySystem.GainplusChaos(plusChaosCost);
             }
-            
         }
 
 
+
+
+
+
+        void ToastQuirkPickup(QuirkId id)
+        {
+            var msg = QuirkInventory.QuirkPickupUI.BuildPickupText(id);
+            Chat.AddMessage(msg);
+            energySystem.quirkGetInformation(msg, 2f);
+        }
 
     }
 

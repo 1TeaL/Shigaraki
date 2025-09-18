@@ -1,45 +1,72 @@
 ﻿using EntityStates;
 using RoR2;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
+    // Inherits the default locomotion/skill processing but adds a "Flight" machine toggle via double-tap Jump.
     internal class ShiggyCharacterMain : GenericCharacterMain
     {
         private EntityStateMachine weaponStateMachine;
+        private EntityStateMachine flightStateMachine;
 
-        //unused
-        //Ripped from mage lmao
+        // double-tap detection
+        private float lastJumpTapTime;
+        private const float doubleTapWindow = 0.3f;
+
         public override void OnEnter()
         {
             base.OnEnter();
-            this.weaponStateMachine = EntityStateMachine.FindByCustomName(base.gameObject, "Weapon");
+
+            // Weapon machine (optional, for checks)
+            weaponStateMachine = EntityStateMachine.FindByCustomName(base.gameObject, "Weapon");
+
+            // Flight machine (custom)
+            flightStateMachine = EntityStateMachine.FindByCustomName(base.gameObject, "Flight");
+            
         }
 
-        //public override void ProcessJump()
-        //{
-        //    base.ProcessJump();
-        //    if (this.hasCharacterMotor && this.hasInputBank && base.isAuthority)
-        //    {
-        //        bool CheckJumpingHold = base.inputBank.jump.down && (base.characterMotor.velocity.y < 0f) && !base.characterMotor.isGrounded;
-        //        bool flag = this.weaponStateMachine.state.GetType() == typeof(Gliding);
+        private bool IsInFlight()
+        {
+            return flightStateMachine && flightStateMachine.state is AirWalk;
+        }
 
-        //        if (CheckJumpingHold && !flag)
-        //        {
-        //            this.weaponStateMachine.SetNextState(new Gliding());
-        //        }
-        //        if (!CheckJumpingHold && flag)
-        //        {
-        //            this.weaponStateMachine.SetNextState(new Idle());
-        //        }
-        //    }
-        //}
+        public override void ProcessJump()
+        {
+            // Perform vanilla jump first so you don't break normal ground jumps
+            base.ProcessJump();
+
+            if (!hasInputBank || !isAuthority || !inputBank) return;
+
+            if (inputBank.jump.justPressed)
+            {
+                float now = Time.time;
+                if (now - lastJumpTapTime <= doubleTapWindow)
+                {
+                    // Double-tap detected
+                    if (IsInFlight())
+                    {
+                        // Exit flight
+                        flightStateMachine.SetNextState(new Idle());
+                    }
+                    else
+                    {
+                        // Enter flight
+                        flightStateMachine.SetNextState(new AirWalk());
+                    }
+                    lastJumpTapTime = 0f; // reset
+                }
+                else
+                {
+                    lastJumpTapTime = now;
+                }
+            }
+        }
 
         public override void OnExit()
         {
-            //if (base.isAuthority && this.weaponStateMachine)
-            //{
-            //    this.weaponStateMachine.SetNextState(new Idle());
-            //}
+            // If you want to force-exit flight whenever CharacterMain exits:
+            // if (isAuthority && flightStateMachine) flightStateMachine.SetNextState(new Idle());
             base.OnExit();
         }
     }

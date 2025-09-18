@@ -5,6 +5,7 @@ using RoR2;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ShiggyMod.Modules
 {
@@ -664,7 +665,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.hermitcrabpassiveDef.skillName, Survivors.Shiggy.hermitcrabpassiveDef},
                 { Survivors.Shiggy.stonetitanpassiveDef.skillName, Survivors.Shiggy.stonetitanpassiveDef},
 
-                { Survivors.Shiggy.alphacontructpassiveDef.skillName, Survivors.Shiggy.alphacontructpassiveDef},
+                { Survivors.Shiggy.alphaconstructpassiveDef.skillName, Survivors.Shiggy.alphaconstructpassiveDef},
                 { Survivors.Shiggy.jellyfishHealDef.skillName, Survivors.Shiggy.jellyfishHealDef},
 
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, Survivors.Shiggy.elderlemurianfireblastDef},
@@ -836,7 +837,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.hermitcrabpassiveDef.skillName, Survivors.Shiggy.stoneFormPassiveDef},
                 { Survivors.Shiggy.stonetitanpassiveDef.skillName, Survivors.Shiggy.stoneFormPassiveDef},
 
-                { Survivors.Shiggy.alphacontructpassiveDef.skillName, Survivors.Shiggy.barrierJellyDef},
+                { Survivors.Shiggy.alphaconstructpassiveDef.skillName, Survivors.Shiggy.barrierJellyDef},
                 { Survivors.Shiggy.jellyfishHealDef.skillName, Survivors.Shiggy.barrierJellyDef},
 
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, Survivors.Shiggy.blastBurnDef},
@@ -932,8 +933,8 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.hermitcrabpassiveDef.skillName, Survivors.Shiggy.stonetitanpassiveDef},
                 { Survivors.Shiggy.stonetitanpassiveDef.skillName, Survivors.Shiggy.hermitcrabpassiveDef},
 
-                { Survivors.Shiggy.alphacontructpassiveDef.skillName, Survivors.Shiggy.jellyfishHealDef},
-                { Survivors.Shiggy.jellyfishHealDef.skillName, Survivors.Shiggy.alphacontructpassiveDef},
+                { Survivors.Shiggy.alphaconstructpassiveDef.skillName, Survivors.Shiggy.jellyfishHealDef},
+                { Survivors.Shiggy.jellyfishHealDef.skillName, Survivors.Shiggy.alphaconstructpassiveDef},
 
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, Survivors.Shiggy.lemurianfireballDef},
                 { Survivors.Shiggy.lemurianfireballDef.skillName, Survivors.Shiggy.elderlemurianfireblastDef},
@@ -980,7 +981,7 @@ namespace ShiggyMod.Modules
             
             passiveToBuff = new Dictionary<string, RoR2.BuffDef>
             {
-                { Survivors.Shiggy.alphacontructpassiveDef.skillName, Buffs.alphashieldonBuff },
+                { Survivors.Shiggy.alphaconstructpassiveDef.skillName, Buffs.alphashieldonBuff },
                 { Survivors.Shiggy.beetlepassiveDef.skillName, Buffs.beetleBuff},
                 { Survivors.Shiggy.pestpassiveDef.skillName, Buffs.pestjumpBuff},
                 { Survivors.Shiggy.verminpassiveDef.skillName, Buffs.verminsprintBuff},
@@ -1024,7 +1025,7 @@ namespace ShiggyMod.Modules
             quirkStringToInfoString = new Dictionary<string, string>
             {
                 //passive skill to info
-                { Survivors.Shiggy.alphacontructpassiveDef.skillName, "<style=cIsUtility>Barrier Quirk</style> Get! (Passive)" },
+                { Survivors.Shiggy.alphaconstructpassiveDef.skillName, "<style=cIsUtility>Barrier Quirk</style> Get! (Passive)" },
                 { Survivors.Shiggy.beetlepassiveDef.skillName, "<style=cIsUtility>Strength Boost Quirk</style> Get! (Passive)" },
                 { Survivors.Shiggy.pestpassiveDef.skillName, "<style=cIsUtility>Jump Boost Quirk</style> Get! (Passive)" },
                 { Survivors.Shiggy.verminpassiveDef.skillName, "<style=cIsUtility>Super Speed Quirk</style> Get! (Passive)" },
@@ -1135,8 +1136,8 @@ namespace ShiggyMod.Modules
 
             bodyNameToSkillDef = new Dictionary<string, RoR2.Skills.SkillDef>
             {
-                { "MinorConstructBody", Survivors.Shiggy.alphacontructpassiveDef },
-                { "MinorConstructOnKillBody", Survivors.Shiggy.alphacontructpassiveDef },
+                { "MinorConstructBody", Survivors.Shiggy.alphaconstructpassiveDef },
+                { "MinorConstructOnKillBody", Survivors.Shiggy.alphaconstructpassiveDef },
                 { "BeetleBody", Survivors.Shiggy.beetlepassiveDef },
                 { "FlyingVerminBody", Survivors.Shiggy.pestpassiveDef },
                 { "VerminBody", Survivors.Shiggy.verminpassiveDef },
@@ -1207,7 +1208,7 @@ namespace ShiggyMod.Modules
 
             skillDict = new Dictionary<string, skillType>
             {
-                { Survivors.Shiggy.alphacontructpassiveDef.skillName, skillType.PASSIVE },
+                { Survivors.Shiggy.alphaconstructpassiveDef.skillName, skillType.PASSIVE },
                 { Survivors.Shiggy.beetlepassiveDef.skillName, skillType.PASSIVE },
                 { Survivors.Shiggy.pestpassiveDef.skillName, skillType.PASSIVE },
                 { Survivors.Shiggy.verminpassiveDef.skillName, skillType.PASSIVE },

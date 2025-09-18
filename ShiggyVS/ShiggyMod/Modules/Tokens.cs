@@ -12,7 +12,7 @@ namespace ShiggyMod.Modules
             string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
             string desc = $"Shiggy is a multi-option survivor that can steal quirks from monster and base survivors to create his own playstyle.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            desc = desc + $"< ! > Steal quirk with {Config.AFOHotkey.Value}. Remove quirks with {Config.RemoveHotkey.Value}. Give quirks with {Config.AFOGiveHotkey.Value}. All rebindable in the configs." + Environment.NewLine + Environment.NewLine;
+            desc = desc + $"< ! > Steal quirk with {Config.AFOHotkey.Value}. Open the quirk menu with {Config.OpenQuirkMenuHotkey.Value} and close it with {Config.CloseQuirkMenuHotkey.Value}. Give quirks with {Config.AFOGiveHotkey.Value}. All rebindable in the configs." + Environment.NewLine + Environment.NewLine;
             desc = desc + $"< ! > There's also configs to enable ALL quirks selectable in the loadout if you'd like to choose them from the beginning." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Grabbing a quirk when owning a specific quirk already will create a combination, these combinations can further combine." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > The Plus Chaos Meter in the middle increases naturally and by killing enemies, it is used for All For One and certain skills." + Environment.NewLine + Environment.NewLine;
@@ -40,7 +40,7 @@ namespace ShiggyMod.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "All For One");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"While standing still, steal quirks by looking at a target and pressing {Config.AFOHotkey.Value}. Remove them with {Config.RemoveHotkey.Value}. Give passive quirks to targets by pressing {Config.AFOGiveHotkey.Value}." + Environment.NewLine +
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"While standing still, steal quirks by looking at a target and pressing {Config.AFOHotkey.Value}. Open the quirk menu with {Config.OpenQuirkMenuHotkey.Value} and close it with {Config.CloseQuirkMenuHotkey.Value}. Give passive quirks to targets by pressing {Config.AFOGiveHotkey.Value}." + Environment.NewLine +
                 Helpers.Passive("[Plus Chaos Meter] [Decay] [Air Walk]") + Environment.NewLine +
                 "<style=cIsUtility>He has a double jump. He can sprint in any direction.</style>");
             #endregion
@@ -63,8 +63,9 @@ namespace ShiggyMod.Modules
                 $"</style> Boosts your next attack to deal <style=cIsDamage>{StaticValues.multiplierCoefficient}x damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Deku/Newt- One For All] to create [Limit Break]</style>");
             LanguageAPI.Add(prefix + "AFO_NAME", "All For One");
-            LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>. " 
-                + $"Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
+            LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>. "
+                + $" Press the [{Config.OpenQuirkMenuHotkey.Value}] key to <style=cIsUtility>open the quirk menu</style>." +
+                    $" Press the [{Config.CloseQuirkMenuHotkey.Value}] key to <style=cIsUtility>close the quirk menu</style>." +
                 " Actives<style=cWorldEvent>[Circle]</style> and Passives<style=cWorldEvent>[Triangle]</style> have different indicators." );
             LanguageAPI.Add(prefix + "CHOOSESKILL_NAME", "Choose Skill Slot");
             LanguageAPI.Add(prefix + "CHOOSESKILL_DESCRIPTION", $"Press this to <style=cIsUtility>slot in the stolen quirk</style>.");

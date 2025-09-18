@@ -79,6 +79,7 @@ namespace ShiggyMod.Modules
         public static Sprite critBuffIcon;
         public static Sprite claygooBuffIcon;
         public static Sprite predatorBuffIcon;
+        public static Sprite hemorrhageBuffIcon;
 
         //game material
         //public static Material alphaconstructShieldBuffMat = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
@@ -295,6 +296,7 @@ namespace ShiggyMod.Modules
          critBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_CritOnUse.bdFullCrit_asset).WaitForCompletion().iconSprite;
          claygooBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Common.bdClayGoo_asset).WaitForCompletion().iconSprite;
          predatorBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_AttackSpeedOnCrit.bdAttackSpeedOnCrit_asset).WaitForCompletion().iconSprite;
+         hemorrhageBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Bandit2.bdSuperBleed_asset).WaitForCompletion().iconSprite;
 
         //game effects
         voidMegaCrabExplosionEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_DLC1_VoidMegaCrab.VoidMegacrabAntimatterExplosion_prefab).WaitForCompletion();

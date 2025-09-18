@@ -117,6 +117,10 @@ namespace ShiggyMod.Modules
         //elite 60 second debuff timer
         internal static BuffDef eliteDebuff;
 
+        //Apex passive
+        public static BuffDef ApexSurgeryDebuff;   // stacking debuff (health drain + dmg penalty)
+        public static BuffDef ApexOverdrive;       // short “shock”/danger indicator (non-stacking)
+
 
         internal static void RegisterBuffs()
         {
@@ -232,6 +236,11 @@ namespace ShiggyMod.Modules
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>($"RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;
             //transformBuff = AddNewBuff($"TransformTimer", TransformBuff, Color.yellow, false, false);
 
+            //apex surgery
+            ApexSurgeryDebuff = Buffs.AddNewBuff("Apex Surgery Debuff", ShiggyAsset.bleedBuffIcon, Color.black, true, true);
+            ApexOverdrive = Buffs.AddNewBuff("ApexOverdrive", ShiggyAsset.hemorrhageBuffIcon, Color.black, false, true);
+
+
         }
 
         // simple helper method
@@ -244,6 +253,7 @@ namespace ShiggyMod.Modules
             buffDef.isDebuff = isDebuff;
             buffDef.eliteDef = null;
             buffDef.iconSprite = buffIcon;
+
 
             Modules.Content.AddBuffDef(buffDef);
 

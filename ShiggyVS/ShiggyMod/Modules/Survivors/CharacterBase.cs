@@ -75,6 +75,7 @@ namespace ShiggyMod.Modules.Survivors
             }
         }
 
+
         public abstract void InitializeSkills();
 
         public virtual void InitializeHitboxes() { }

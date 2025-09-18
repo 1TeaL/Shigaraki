@@ -256,10 +256,13 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     informAFOToPlayers = true;
                     Chat.AddMessage($"While standing still, Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                    + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
+                    //+ $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
+                    + $" Press the [{Config.OpenQuirkMenuHotkey.Value}] key to <style=cIsUtility>open the quirk menu</style>." +
+                    $" Press the [{Config.CloseQuirkMenuHotkey.Value}] key to <style=cIsUtility>close the quirk menu</style>." +
                     $" Press the [{Config.AFOGiveHotkey.Value}] key to <style=cIsUtility>give passive quirks</style>.");
                     quirkGetInformation($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                    + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
+                    + $" Press the [{Config.OpenQuirkMenuHotkey.Value}] key to <style=cIsUtility>open the quirk menu</style>." +
+                    $" Press the [{Config.CloseQuirkMenuHotkey.Value}] key to <style=cIsUtility>close the quirk menu</style>." +
                     $" Press the [{Config.AFOGiveHotkey.Value}] key to <style=cIsUtility>give passive quirks</style>.", 5f);
                 }
 
