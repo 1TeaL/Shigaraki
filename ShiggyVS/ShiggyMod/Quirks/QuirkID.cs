@@ -38,6 +38,8 @@ namespace ShiggyMod.Modules.Quirks
         Elite_LunarPassive,         // AffixLunar
         Elite_MendingPassive,       // DLC1 EliteEarth
         Elite_VoidPassive,          // DLC1 EliteVoid
+        Elite_GildedPassive,        // DLC2 EliteAurelionite
+        Elite_TwistedPassive,       // DLC2 EliteHisSpitefulBoon
         AlphaConstruct_BarrierPassive,
         Beetle_StrengthPassive,
         Pest_JumpPassive,
@@ -60,6 +62,7 @@ namespace ShiggyMod.Modules.Quirks
         Commando_DoubleTapPassive,
         Captain_MicrobotsPassive,
         Loader_ScrapBarrierPassive,
+        Child_EmergencyTeleportPassive,
 
         // ============================
         // Level 2 passives
@@ -105,6 +108,7 @@ namespace ShiggyMod.Modules.Quirks
         Parent_TeleportActive,
         StoneGolem_LaserActive,
         VoidReaver_PortalActive,
+        Halcyonite_GreedActive,
         BeetleQueen_SummonActive,
         Grandparent_SunActive,
         Grovetender_ChainActive,

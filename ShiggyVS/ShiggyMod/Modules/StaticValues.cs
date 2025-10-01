@@ -147,6 +147,11 @@ namespace ShiggyMod.Modules
         internal const float bronzongballDamageCoefficient = 4f;
         internal const float bronzongballProcCoefficient = 1f;
 
+        internal const float childTeleportCD = 60f;
+        internal const float childEscapeMinRange = 60f;
+        internal const float childEscapeMaxRange = 120f;
+        internal const float childEscapePostInvuln = 0.5f;
+
         internal const float clayapothecarymortarDamageCoefficient = 2f;
         internal const float clayapothecarymortarHealthCostCoefficient = 0.05f;
         internal const float clayapothecarymortarProcCoefficient = 0.5f;
@@ -158,6 +163,12 @@ namespace ShiggyMod.Modules
         internal const float greaterwispballRadius = 6f;
         internal const int greaterwispballbuffDuration = 8;
         internal const float greaterwispballProcCoefficient = 0f;
+
+        internal const float halcyoniteGreedGoldRatio = 0.5f;
+        internal const float halcyoniteGreedBuffGoldPerStack = 100f;
+        internal const float halcyoniteGreedBuffDamageCoefficient = 1f;
+        internal const float halcyoniteGreedBuffAttackspeedCoefficient = 0.1f;
+        internal const int halcyoniteGreedInterval = 10;
 
         internal const float JellyfishHealTickRate = 0.05f;
         internal const float JellyfishHealProcCoefficient = 2f;

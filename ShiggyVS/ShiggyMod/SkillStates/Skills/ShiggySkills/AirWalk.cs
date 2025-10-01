@@ -19,7 +19,7 @@ namespace ShiggyMod.SkillStates
         // Tunables
         private const float ascendSpeed = 12f;         // vertical speed while holding Jump
         private const float verticalDamp = 100f;         // how quickly we settle to 0 vertical when not ascending
-        private const float aerialAccel = 100f;         // acceleration toward target horizontal velocity
+        private float aerialAccel;         // acceleration toward target horizontal velocity
         private const float maxBankAngle = 25f;        // optional visual banking (degrees) while sprinting
 
         private CharacterBody body;
@@ -28,6 +28,8 @@ namespace ShiggyMod.SkillStates
         private CharacterDirection charDir;
         private ModelLocator modelLocator;
         private Animator animator;
+        private Vector3 lastPlanarFacing = Vector3.forward; // helps avoid jitter when inputs are tiny
+
 
         // Energy drain timer
         private float airwalkEnergyTimer;
@@ -68,79 +70,99 @@ namespace ShiggyMod.SkillStates
             // Util.PlaySound("Play_Shiggy_Flight_Start", gameObject);
 
             body.ApplyBuff(Buffs.airwalkBuff.buffIndex, 1);
+            aerialAccel = Mathf.Max(100f, body.acceleration * 2f); 
         }
-
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (!isAuthority) return; // this is a movement authority state
-
+            if (!isAuthority) return;
             if (!motor || !input || !body) return;
 
-            // 1) Vertical control: hold Jump to go up; otherwise gently damp toward 0 vertical (hover)
-            float vy = motor.velocity.y;
-            if (input.jump.down)
-            {
-                vy = Mathf.MoveTowards(vy, ascendSpeed * body.moveSpeed, aerialAccel * Time.fixedDeltaTime);
-            }
-            else
-            if (Input.GetKeyDown(Config.AFOHotkey.Value.MainKey))
-            {
-                vy = -Mathf.MoveTowards(vy, ascendSpeed * body.moveSpeed, aerialAccel * Time.fixedDeltaTime);
-            }
-            else
-            {
-                // ease vertical velocity toward 0 to "hover"
-                vy = Mathf.MoveTowards(vy, 0f, verticalDamp * Time.fixedDeltaTime);
-            }
-
-
-            // --- Horizontal: input when walking, aim when sprinting ---
-            bool sprint = body.isSprinting || input.sprint.down; // pick one; both shown for safety
-            float sprintMult = sprint ? body.sprintingSpeedMultiplier : 1f;
+            
+            // --- Common speed targets ---
+            bool sprintInput = body.isSprinting || input.sprint.down;
+            float sprintMult = sprintInput ? body.sprintingSpeedMultiplier : 1f;
             float targetSpeed = body.moveSpeed * sprintMult;
 
-            // Decide desired direction
-            Vector3 targetDir;
-            if (sprint)
+            Vector3 velocity = motor.velocity;
+
+            // ===== BRANCH A: SPRINT = full 3D flight along aim (includes Y) =====
+            if (sprintInput)
             {
-                // Use aim direction, flattened to XZ
-                Vector3 flatAim = Vector3.ProjectOnPlane(input.aimDirection, Vector3.up);
-                targetDir = flatAim.sqrMagnitude > 0.0001f ? flatAim.normalized : Vector3.zero;
+                Vector3 aimDir = input.aimDirection;
+                if (aimDir.sqrMagnitude > 0.0001f)
+                {
+                    aimDir.Normalize();
+
+                    // Move whole velocity toward aim * targetSpeed (true 3D sprint flight)
+                    Vector3 targetVel = aimDir * targetSpeed;
+                    velocity = Vector3.MoveTowards(velocity, targetVel, aerialAccel * Time.fixedDeltaTime);
+
+                    // Animator sprint flag
+                    if (animator) animator.SetBool("isFlightSprint", true);
+
+                    // Face planar component of the aim to avoid pitch jitter on CharacterDirection
+                    Vector3 flatAim = Vector3.ProjectOnPlane(aimDir, Vector3.up);
+                    if (flatAim.sqrMagnitude > 0.0001f)
+                        lastPlanarFacing = flatAim.normalized;
+                }
             }
+            // ===== BRANCH B: NOT SPRINTING = hover controls (Jump up / descend / damp to 0) =====
             else
             {
-                // Use move input (already camera-relative)
-                Vector3 wish = input.moveVector;
-                targetDir = wish.sqrMagnitude > 0.0001f ? wish.normalized : Vector3.zero;
-            }
+                if (animator) animator.SetBool("isFlightSprint", false);
+                bool descendHeld = Input.GetKeyDown(Config.AFOHotkey.Value.MainKey);
+                // Vertical
+                float vy = velocity.y;
+                if (input.jump.down)
+                {
+                    // Upward climb (use fixed ascendSpeed; not scaled by moveSpeed to keep it predictable)
+                    vy = Mathf.MoveTowards(vy, ascendSpeed, aerialAccel * Time.fixedDeltaTime);
+                }
+                else if (descendHeld) // your descend key
+                {
+                    //vy = Mathf.MoveTowards(vy, -ascendSpeed, aerialAccel * Time.fixedDeltaTime);
+                    vy = -ascendSpeed;
+                }
+                else
+                {
+                    // Hover damping toward 0 only when NOT sprinting
+                    vy = Mathf.MoveTowards(vy, 0f, verticalDamp * Time.fixedDeltaTime);
+                }
 
-            // Smooth toward target velocity on XZ
-            Vector3 targetHoriz = targetDir * targetSpeed;
-            Vector3 currentHoriz = new Vector3(motor.velocity.x, 0f, motor.velocity.z);
-            Vector3 newHoriz = Vector3.MoveTowards(currentHoriz, targetHoriz, aerialAccel * Time.fixedDeltaTime);
+                // Horizontal: camera-relative move input at ground speed
+                Vector3 wish = input.moveVector; // already camera-relative
+                Vector3 targetHoriz = Vector3.zero;
+                if (wish.sqrMagnitude > 0.0001f)
+                {
+                    wish.Normalize();
+                    targetHoriz = wish * targetSpeed;
+                    lastPlanarFacing = wish; // remember for facing
+                }
+
+                Vector3 currentHoriz = new Vector3(velocity.x, 0f, velocity.z);
+                Vector3 newHoriz = Vector3.MoveTowards(currentHoriz, targetHoriz, aerialAccel * Time.fixedDeltaTime);
+
+                velocity = new Vector3(newHoriz.x, vy, newHoriz.z);
+            }
 
             // Commit velocity
-            motor.velocity = new Vector3(newHoriz.x, vy, newHoriz.z);
+            motor.velocity = velocity;
 
-            // Animator / sprint flag (optional)
-            if (animator) animator.SetBool("isFlightSprint", sprint);
-
-            // Face where we're going (sprint: face aim; else: face movement, fallback to aim)
+            // --- Character facing: always planar to avoid look jitter ---
             if (charDir)
             {
-                Vector3 face =
-                    sprint && targetDir.sqrMagnitude > 0.0001f
-                    ? targetDir
-                    : (newHoriz.sqrMagnitude > 0.01f
-                        ? newHoriz.normalized
-                        : Vector3.ProjectOnPlane(input.aimDirection, Vector3.up).normalized);
-
-                if (face.sqrMagnitude > 0.0001f)
-                    charDir.forward = face;
+                Vector3 planarFace = lastPlanarFacing;
+                if (planarFace.sqrMagnitude < 0.0001f)
+                {
+                    // Fallback to planar aim
+                    Vector3 flatAim = Vector3.ProjectOnPlane(input.aimDirection, Vector3.up);
+                    planarFace = flatAim.sqrMagnitude > 0.0001f ? flatAim.normalized : charDir.forward;
+                }
+                charDir.forward = planarFace;
             }
 
-            // 4) Energy drain every 1 second using your exact formula
+            // --- Energy drain, unchanged from your code ---
             if (energySystem != null)
             {
                 if (airwalkEnergyTimer <= 1f)
@@ -149,7 +171,6 @@ namespace ShiggyMod.SkillStates
                 }
                 else
                 {
-                    // Your provided cost block (unchanged)
                     float plusChaosflatCost = StaticValues.airwalkEnergyFraction * energySystem.maxPlusChaos - (energySystem.costflatplusChaos);
                     if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
@@ -159,8 +180,7 @@ namespace ShiggyMod.SkillStates
                     energySystem.SpendplusChaos(plusChaosCost);
                     airwalkEnergyTimer = 0f;
 
-                    // OPTIONAL auto-fallout if no energy
-                    if (energySystem.currentplusChaos < 1f) // replace with your real check
+                    if (energySystem.currentplusChaos < 1f)
                     {
                         outer.SetNextState(new Idle());
                         return;
@@ -168,6 +188,7 @@ namespace ShiggyMod.SkillStates
                 }
             }
         }
+
 
         public override void OnExit()
         {

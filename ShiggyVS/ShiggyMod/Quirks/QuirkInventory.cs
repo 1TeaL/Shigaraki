@@ -124,6 +124,8 @@ namespace ShiggyMod.Modules.Quirks
                     case QuirkId.Elite_LunarPassive: return "Lunar Quirk";
                     case QuirkId.Elite_MendingPassive: return "Mending Quirk";
                     case QuirkId.Elite_VoidPassive: return "Void Quirk";
+                    case QuirkId.Elite_GildedPassive: return "Gilded Quirk";
+                    case QuirkId.Elite_TwistedPassive: return "Twisted Quirk";
                 }
                 return MakeNiceNameFromRaw(id.ToString());
             }

@@ -481,16 +481,16 @@ namespace ShiggyMod.Modules.Quirks
             var sl = _body ? _body.skillLocator : null;
             var ex = _extras ? _extras : (_body ? _body.GetComponent<ExtraSkillLocator>() : null);
 
-            _selPrimary = (sl && sl.primary && sl.primary.skillDef && QuirkRegistry.TryResolve(sl.primary.skillDef, out q)) ? q : QuirkId.None;
+            _selPrimary   = (sl && sl.primary   && sl.primary.skillDef   && QuirkRegistry.TryResolve(sl.primary.skillDef, out q))   ? q : QuirkId.None;
             _selSecondary = (sl && sl.secondary && sl.secondary.skillDef && QuirkRegistry.TryResolve(sl.secondary.skillDef, out q)) ? q : QuirkId.None;
-            _selUtility = (sl && sl.utility && sl.utility.skillDef && QuirkRegistry.TryResolve(sl.utility.skillDef, out q)) ? q : QuirkId.None;
-            _selSpecial = (sl && sl.special && sl.special.skillDef && QuirkRegistry.TryResolve(sl.special.skillDef, out q)) ? q : QuirkId.None;
+            _selUtility   = (sl && sl.utility   && sl.utility.skillDef   && QuirkRegistry.TryResolve(sl.utility.skillDef, out q))   ? q : QuirkId.None;
+            _selSpecial   = (sl && sl.special   && sl.special.skillDef   && QuirkRegistry.TryResolve(sl.special.skillDef, out q))   ? q : QuirkId.None;
 
             if (ex)
             {
-                _selE1 = (ex.extraFirst && ex.extraFirst.skillDef && QuirkRegistry.TryResolve(ex.extraFirst.skillDef, out q)) ? q : QuirkId.None;
+                _selE1 = (ex.extraFirst  && ex.extraFirst.skillDef  && QuirkRegistry.TryResolve(ex.extraFirst.skillDef,  out q)) ? q : QuirkId.None;
                 _selE2 = (ex.extraSecond && ex.extraSecond.skillDef && QuirkRegistry.TryResolve(ex.extraSecond.skillDef, out q)) ? q : QuirkId.None;
-                _selE3 = (ex.extraThird && ex.extraThird.skillDef && QuirkRegistry.TryResolve(ex.extraThird.skillDef, out q)) ? q : QuirkId.None;
+                _selE3 = (ex.extraThird  && ex.extraThird.skillDef  && QuirkRegistry.TryResolve(ex.extraThird.skillDef,  out q)) ? q : QuirkId.None;
                 _selE4 = (ex.extraFourth && ex.extraFourth.skillDef && QuirkRegistry.TryResolve(ex.extraFourth.skillDef, out q)) ? q : QuirkId.None;
             }
         }

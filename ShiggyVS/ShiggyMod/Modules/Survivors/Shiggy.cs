@@ -4,6 +4,7 @@ using EntityStates.Railgunner.Scope;
 using R2API;
 using RoR2;
 using RoR2.Skills;
+using ShiggyMod.Modules.Quirks;
 using ShiggyMod.SkillStates;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef roboballminibpassiveDef;
         internal static SkillDef voidbarnaclepassiveDef;
         internal static SkillDef voidjailerpassiveDef;
+        internal static SkillDef childpassiveDef;
 
 
         //boss monster passives
@@ -89,6 +91,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef parentteleportDef;
         internal static SkillDef stonegolemlaserDef;
         internal static SkillDef voidreaverportalDef;
+        internal static SkillDef halcyoniteGreedDef;
 
 
         //boss monster actives
@@ -587,15 +590,14 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1
             });
             #endregion
-
             #region Passive Skills
-            //passives
+            // passives
             Shiggy.alphaconstructpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ALPHACONSTRUCT_NAME",
                 skillNameToken = prefix + "ALPHACONSTRUCT_NAME",
                 skillDescriptionToken = prefix + "ALPHACONSTRUCT_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Alpha_Construct"),
+                skillIcon = QuirkIconBank.Get(QuirkId.AlphaConstruct_BarrierPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.AlphaConstruct)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -613,14 +615,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.beetlepassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BEETLE_NAME",
                 skillNameToken = prefix + "BEETLE_NAME",
                 skillDescriptionToken = prefix + "BEETLE_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Beetle"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Beetle_StrengthPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Beetle)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -638,14 +639,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.guppassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "GUP_NAME",
                 skillNameToken = prefix + "GUP_NAME",
                 skillDescriptionToken = prefix + "GUP_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Gup"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Gup_SpikyBodyPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Gup)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -663,14 +663,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.larvapassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "LARVA_NAME",
                 skillNameToken = prefix + "LARVA_NAME",
                 skillDescriptionToken = prefix + "LARVA_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Larva"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Larva_AcidJumpPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Larva)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -688,14 +687,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.lesserwisppassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "LESSERWISP_NAME",
                 skillNameToken = prefix + "LESSERWISP_NAME",
                 skillDescriptionToken = prefix + "LESSERWISP_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Lesser_Wisp"),
+                skillIcon = QuirkIconBank.Get(QuirkId.LesserWisp_HastePassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LesserWisp)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -713,14 +711,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.lunarexploderpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "LUNAREXPLODER_NAME",
                 skillNameToken = prefix + "LUNAREXPLODER_NAME",
                 skillDescriptionToken = prefix + "LUNAREXPLODER_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Lunar_Exploder"),
+                skillIcon = QuirkIconBank.Get(QuirkId.LunarExploder_LunarBarrierPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LunarExploder)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -738,14 +735,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.hermitcrabpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "HERMITCRAB_NAME",
                 skillNameToken = prefix + "HERMITCRAB_NAME",
                 skillDescriptionToken = prefix + "HERMITCRAB_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Hermit_Crab"),
+                skillIcon = QuirkIconBank.Get(QuirkId.HermitCrab_MortarPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.HermitCrab)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -763,14 +759,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.pestpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "PEST_NAME",
                 skillNameToken = prefix + "PEST_NAME",
                 skillDescriptionToken = prefix + "PEST_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Blind_Pest"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Pest_JumpPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BlindPest)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -788,14 +783,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.verminpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VERMIN_NAME",
                 skillNameToken = prefix + "VERMIN_NAME",
                 skillDescriptionToken = prefix + "VERMIN_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Blind_Vermin"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Vermin_SpeedPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BlindVermin)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -813,14 +807,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.minimushrumpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "MINIMUSHRUM_NAME",
                 skillNameToken = prefix + "MINIMUSHRUM_NAME",
                 skillDescriptionToken = prefix + "MINIMUSHRUM_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Mini_Mushrum"),
+                skillIcon = QuirkIconBank.Get(QuirkId.MiniMushrum_HealingAuraPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MiniMushrum)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -838,14 +831,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.roboballminibpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ROBOBALLMINI_NAME",
                 skillNameToken = prefix + "ROBOBALLMINI_NAME",
                 skillDescriptionToken = prefix + "ROBOBALLMINI_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Solus_Probe"),
+                skillIcon = QuirkIconBank.Get(QuirkId.RoboBallMini_SolusBoostPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.RoboBallMini)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -863,14 +855,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.voidbarnaclepassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VOIDBARNACLE_NAME",
                 skillNameToken = prefix + "VOIDBARNACLE_NAME",
                 skillDescriptionToken = prefix + "VOIDBARNACLE_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Void_Barnacle"),
+                skillIcon = QuirkIconBank.Get(QuirkId.VoidBarnacle_VoidMortarPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidBarnacle)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -888,14 +879,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.voidjailerpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VOIDJAILER_NAME",
                 skillNameToken = prefix + "VOIDJAILER_NAME",
                 skillDescriptionToken = prefix + "VOIDJAILER_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Void_Jailer"),
+                skillIcon = QuirkIconBank.Get(QuirkId.VoidJailer_GravityPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidJailer)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -913,15 +903,37 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
-
+            Shiggy.childpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "CHILD_NAME",
+                skillNameToken = prefix + "CHILD_NAME",
+                skillDescriptionToken = prefix + "CHILD_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.Child_EmergencyTeleportPassive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Child)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
             Shiggy.impbosspassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "IMPBOSS_NAME",
                 skillNameToken = prefix + "IMPBOSS_NAME",
                 skillDescriptionToken = prefix + "IMPBOSS_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Imp_Overlord"),
+                skillIcon = QuirkIconBank.Get(QuirkId.ImpBoss_BleedPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ImpBoss)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -939,14 +951,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.stonetitanpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "STONETITAN_NAME",
                 skillNameToken = prefix + "STONETITAN_NAME",
                 skillDescriptionToken = prefix + "STONETITAN_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Stone_Titan"),
+                skillIcon = QuirkIconBank.Get(QuirkId.StoneTitan_StoneSkinPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.StoneTitan)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -964,14 +975,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.magmawormpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "MAGMAWORM_NAME",
                 skillNameToken = prefix + "MAGMAWORM_NAME",
                 skillDescriptionToken = prefix + "MAGMAWORM_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Magma_Worm"),
+                skillIcon = QuirkIconBank.Get(QuirkId.MagmaWorm_BlazingAuraPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MagmaWorm)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -989,14 +999,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.overloadingwormpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "OVERLOADINGWORM_NAME",
                 skillNameToken = prefix + "OVERLOADINGWORM_NAME",
                 skillDescriptionToken = prefix + "OVERLOADINGWORM_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Overloading_Worm"),
+                skillIcon = QuirkIconBank.Get(QuirkId.OverloadingWorm_LightningAuraPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.OverloadingWorm)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1014,14 +1023,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.vagrantpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VAGRANT_NAME",
                 skillNameToken = prefix + "VAGRANT_NAME",
                 skillDescriptionToken = prefix + "VAGRANT_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Wandering_Vagrant"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Vagrant_OrbPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Vagrant)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1039,7 +1047,6 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
 
             Shiggy.acridpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -1047,7 +1054,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "ACRID_NAME",
                 skillNameToken = prefix + "ACRID_NAME",
                 skillDescriptionToken = prefix + "ACRID_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Acrid"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Acrid_PoisonPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Acrid)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1065,14 +1072,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.commandopassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "COMMANDO_NAME",
                 skillNameToken = prefix + "COMMANDO_NAME",
                 skillDescriptionToken = prefix + "COMMANDO_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Commando"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Commando_DoubleTapPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Commando)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1090,14 +1096,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.captainpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "CAPTAIN_NAME",
                 skillNameToken = prefix + "CAPTAIN_NAME",
                 skillDescriptionToken = prefix + "CAPTAIN_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Captain"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Captain_MicrobotsPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Captain)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1115,14 +1120,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.loaderpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "LOADER_NAME",
                 skillNameToken = prefix + "LOADER_NAME",
                 skillDescriptionToken = prefix + "LOADER_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Loader"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Loader_ScrapBarrierPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Loader)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1140,7 +1144,6 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             #endregion
 
@@ -1150,7 +1153,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "VULTURE_NAME",
                 skillNameToken = prefix + "VULTURE_NAME",
                 skillDescriptionToken = prefix + "VULTURE_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Alloy_Vulture"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Vulture_WindBlastActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.AlloyVultureWindBlast)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1168,14 +1171,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.beetleguardslamDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BEETLEGUARD_NAME",
                 skillNameToken = prefix + "BEETLEGUARD_NAME",
                 skillDescriptionToken = prefix + "BEETLEGUARD_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Beetle_Guard"),
+                skillIcon = QuirkIconBank.Get(QuirkId.BeetleGuard_SlamActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BeetleGuardSlam)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -1193,14 +1195,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
-
             });
             Shiggy.bisonchargeDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BISON_NAME",
                 skillNameToken = prefix + "BISON_NAME",
                 skillDescriptionToken = prefix + "BISON_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Bison"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Bison_ChargeActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BisonCharge)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -1218,14 +1219,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
-
             });
             Shiggy.bronzongballDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BRONZONG_NAME",
                 skillNameToken = prefix + "BRONZONG_NAME",
                 skillDescriptionToken = prefix + "BRONZONG_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Brass_Contraption"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Bell_SpikedBallActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BronzongBall)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1243,14 +1243,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.clayapothecarymortarDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "APOTHECARY_NAME",
                 skillNameToken = prefix + "APOTHECARY_NAME",
                 skillDescriptionToken = prefix + "APOTHECARY_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Clay_Apothecary"),
+                skillIcon = QuirkIconBank.Get(QuirkId.ClayApothecary_MortarActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ClayApothecaryMortar)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1268,14 +1267,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_TAR" }
-
             });
             Shiggy.claytemplarminigunDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "TEMPLAR_NAME",
                 skillNameToken = prefix + "TEMPLAR_NAME",
                 skillDescriptionToken = prefix + "TEMPLAR_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Clay_Templar"),
+                skillIcon = QuirkIconBank.Get(QuirkId.ClayTemplar_MinigunActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ClayTemplarMinigun)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1293,14 +1291,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_TAR" }
-
             });
             Shiggy.elderlemurianfireblastDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ELDERLEMURIAN_NAME",
                 skillNameToken = prefix + "ELDERLEMURIAN_NAME",
                 skillDescriptionToken = prefix + "ELDERLEMURIAN_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Elder_Lemurian"),
+                skillIcon = QuirkIconBank.Get(QuirkId.ElderLemurian_FireBlastActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ElderLemurianFireBlastCharge)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1318,14 +1315,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.greaterWispBuffDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "GREATERWISP_NAME",
                 skillNameToken = prefix + "GREATERWISP_NAME",
                 skillDescriptionToken = prefix + "GREATERWISP_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Greater_Wisp"),
+                skillIcon = QuirkIconBank.Get(QuirkId.GreaterWisp_SpiritBoostActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.GreaterWispBuff)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1343,14 +1339,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.impblinkDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "IMP_NAME",
                 skillNameToken = prefix + "IMP_NAME",
                 skillDescriptionToken = prefix + "IMP_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Imp"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Imp_BlinkActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ImpBlink)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 3,
@@ -1368,14 +1363,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.jellyfishHealDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "JELLYFISH_NAME",
                 skillNameToken = prefix + "JELLYFISH_NAME",
                 skillDescriptionToken = prefix + "JELLYFISH_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Jellyfish"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Jellyfish_HealActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.JellyfishHeal)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1393,14 +1387,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_STUNNING" }
-
             });
             Shiggy.lemurianfireballDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "LEMURIAN_NAME",
                 skillNameToken = prefix + "LEMURIAN_NAME",
                 skillDescriptionToken = prefix + "LEMURIAN_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Lemurian"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Lemurian_FireballActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LemurianFireball)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1418,14 +1411,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_BURNING" }
-
             });
             Shiggy.lunargolemSlideDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "LUNARGOLEM_NAME",
                 skillNameToken = prefix + "LUNARGOLEM_NAME",
                 skillDescriptionToken = prefix + "LUNARGOLEM_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Lunar_Golem"),
+                skillIcon = QuirkIconBank.Get(QuirkId.LunarGolem_SlideResetActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LunarGolemSlide)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1443,14 +1435,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.lunarwispminigunDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "LUNARWISP_NAME",
                 skillNameToken = prefix + "LUNARWISP_NAME",
                 skillDescriptionToken = prefix + "LUNARWISP_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Lunar_Wisp"),
+                skillIcon = QuirkIconBank.Get(QuirkId.LunarWisp_MinigunActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LunarWispMinigun)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1468,14 +1459,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_CRIPPLE" }
-
             });
             Shiggy.parentteleportDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "PARENT_NAME",
                 skillNameToken = prefix + "PARENT_NAME",
                 skillDescriptionToken = prefix + "PARENT_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Parent"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Parent_TeleportActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ParentTeleport)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 2,
@@ -1493,14 +1483,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
-
             });
             Shiggy.stonegolemlaserDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "STONEGOLEM_NAME",
                 skillNameToken = prefix + "STONEGOLEM_NAME",
                 skillDescriptionToken = prefix + "STONEGOLEM_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Stone_Golem"),
+                skillIcon = QuirkIconBank.Get(QuirkId.StoneGolem_LaserActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.StoneGolemLaserCharge)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1518,14 +1507,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_STUNNING" }
-
             });
             Shiggy.voidreaverportalDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VOIDREAVER_NAME",
                 skillNameToken = prefix + "VOIDREAVER_NAME",
                 skillDescriptionToken = prefix + "VOIDREAVER_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Void_Reaver"),
+                skillIcon = QuirkIconBank.Get(QuirkId.VoidReaver_PortalActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidReaverPortal)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1543,16 +1531,14 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
-
 
             Shiggy.beetlequeenSummonDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BEETLEQUEEN_NAME",
                 skillNameToken = prefix + "BEETLEQUEEN_NAME",
                 skillDescriptionToken = prefix + "BEETLEQUEEN_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Beetle_Queen"),
+                skillIcon = QuirkIconBank.Get(QuirkId.BeetleQueen_SummonActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BeetleQueenSummon)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1570,14 +1556,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.grandparentsunDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "GRANDPARENT_NAME",
                 skillNameToken = prefix + "GRANDPARENT_NAME",
                 skillDescriptionToken = prefix + "GRANDPARENT_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Grandparent"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Grandparent_SunActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.GrandparentSun)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1595,14 +1580,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "" }
-
             });
             Shiggy.grovetenderChainDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "GROVETENDER_NAME",
                 skillNameToken = prefix + "GROVETENDER_NAME",
                 skillDescriptionToken = prefix + "GROVETENDER_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Grovetender"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Grovetender_ChainActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.GrovetenderChain)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1620,14 +1604,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
-            Shiggy.claydunestriderbuffDef    = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.claydunestriderbuffDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "CLAYDUNESTRIDER_NAME",
                 skillNameToken = prefix + "CLAYDUNESTRIDER_NAME",
                 skillDescriptionToken = prefix + "CLAYDUNESTRIDER_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Clay_Dunestrider"),
+                skillIcon = QuirkIconBank.Get(QuirkId.ClayDunestrider_TarBoostActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ClayDunestriderBuff)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1645,14 +1628,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.soluscontrolunityknockupDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "SOLUSCONTROLUNIT_NAME",
                 skillNameToken = prefix + "SOLUSCONTROLUNIT_NAME",
                 skillDescriptionToken = prefix + "SOLUSCONTROLUNIT_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Solus_Control_Unit"),
+                skillIcon = QuirkIconBank.Get(QuirkId.SolusControlUnit_KnockupActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.SolusControlUnitKnockup)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1670,14 +1652,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.xiconstructbeamDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "XICONSTRUCT_NAME",
                 skillNameToken = prefix + "XICONSTRUCT_NAME",
                 skillDescriptionToken = prefix + "XICONSTRUCT_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Xi_Construct"),
+                skillIcon = QuirkIconBank.Get(QuirkId.XIConstruct_BeamActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.XiConstructBeam)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1695,14 +1676,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.voiddevastatorhomingDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VOIDDEVASTATOR_NAME",
                 skillNameToken = prefix + "VOIDDEVASTATOR_NAME",
                 skillDescriptionToken = prefix + "VOIDDEVASTATOR_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Void_Devastator"),
+                skillIcon = QuirkIconBank.Get(QuirkId.VoidDevastator_MissilesActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidDevastatorHoming)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1720,14 +1700,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.scavengerthqwibDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "SCAVENGER_NAME",
                 skillNameToken = prefix + "SCAVENGER_NAME",
                 skillDescriptionToken = prefix + "SCAVENGER_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Scavenger"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Scavenger_ThqwibActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ScavengerThqwibs)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1745,7 +1724,6 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
 
             Shiggy.artificerflamethrowerDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -1753,7 +1731,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "ARTIFICERFLAMETHROWER_NAME",
                 skillNameToken = prefix + "ARTIFICERFLAMETHROWER_NAME",
                 skillDescriptionToken = prefix + "ARTIFICERFLAMETHROWER_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("ArtificerFire"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Artificer_FlamethrowerActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ArtificerFlamethrower)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1771,14 +1749,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.artificericewallDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ARTIFICERICEWALL_NAME",
                 skillNameToken = prefix + "ARTIFICERICEWALL_NAME",
                 skillDescriptionToken = prefix + "ARTIFICERICEWALL_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("ArtificerIce"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Artificer_IceWallActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ArtificerIceWall)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1796,14 +1773,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.artificerlightningorbDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ARTIFICERLIGHTNINGORB_NAME",
                 skillNameToken = prefix + "ARTIFICERLIGHTNINGORB_NAME",
                 skillDescriptionToken = prefix + "ARTIFICERLIGHTNINGORB_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("ArtificerLightning"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Artificer_LightningOrbActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ArtificerChargeLightningOrb)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1821,14 +1797,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
-
             });
             Shiggy.banditlightsoutDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BANDIT_NAME",
                 skillNameToken = prefix + "BANDIT_NAME",
                 skillDescriptionToken = prefix + "BANDIT_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Bandit"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Bandit_LightsOutActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BanditPrepLightsOut)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1846,14 +1821,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_SLAYER" }
-
             });
             Shiggy.engiturretDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ENGI_NAME",
                 skillNameToken = prefix + "ENGI_NAME",
                 skillDescriptionToken = prefix + "ENGI_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Engineer"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Engineer_TurretActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.EngiTurret)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1870,15 +1844,14 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE"}
-
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
             Shiggy.huntressattackDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "HUNTRESS_NAME",
                 skillNameToken = prefix + "HUNTRESS_NAME",
                 skillDescriptionToken = prefix + "HUNTRESS_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Huntress"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Huntress_FlurryActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.HuntressAttack)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1895,15 +1868,14 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE"}
-
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
             Shiggy.mercdashDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "MERC_NAME",
                 skillNameToken = prefix + "MERC_NAME",
                 skillDescriptionToken = prefix + "MERC_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Mercenary"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Merc_DashActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MercDash)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1921,14 +1893,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_SLAYER" }
-
             });
             Shiggy.multbuffDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "MULTBUFF_NAME",
                 skillNameToken = prefix + "MULTBUFF_NAME",
                 skillDescriptionToken = prefix + "MULTBUFF_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("MUL-T"),
+                skillIcon = QuirkIconBank.Get(QuirkId.MULT_PowerStanceActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MultBuff)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1946,14 +1917,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_SLAYER" }
-
             });
             Shiggy.multbuffcancelDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "MULTBUFFCANCEL_NAME",
                 skillNameToken = prefix + "MULTBUFFCANCEL_NAME",
                 skillDescriptionToken = prefix + "MULTBUFFCANCEL_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("MUL-TCANCEL"),
+                skillIcon = QuirkIconBank.Get(QuirkId.MULT_PowerStanceCancelActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MultBuffCancel)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1971,14 +1941,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_SLAYER" }
-
             });
             Shiggy.railgunnercryoDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "RAILGUNNNER_NAME",
                 skillNameToken = prefix + "RAILGUNNNER_NAME",
                 skillDescriptionToken = prefix + "RAILGUNNNER_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Railgunner"),
+                skillIcon = QuirkIconBank.Get(QuirkId.Railgunner_CryoActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.RailgunnerCryoCharge)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -1996,14 +1965,13 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_FREEZING" }
-
             });
             Shiggy.rexmortarDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "REX_NAME",
                 skillNameToken = prefix + "REX_NAME",
                 skillDescriptionToken = prefix + "REX_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("REX"),
+                skillIcon = QuirkIconBank.Get(QuirkId.REX_MortarActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.RexMortar)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -2020,15 +1988,14 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE"}
-
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
             Shiggy.voidfiendcleanseDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VOIDFIEND_NAME",
                 skillNameToken = prefix + "VOIDFIEND_NAME",
                 skillDescriptionToken = prefix + "VOIDFIEND_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Void_Fiend"),
+                skillIcon = QuirkIconBank.Get(QuirkId.VoidFiend_CleanseActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.VoidFiendCleanse)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -2045,8 +2012,31 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE"}
-
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
+            Shiggy.halcyoniteGreedDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "HALCYONITE_NAME",
+                skillNameToken = prefix + "HALCYONITE_NAME",
+                skillDescriptionToken = prefix + "HALCYONITE_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.Halcyonite_GreedActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.VoidFiendCleanse)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 12f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
             #endregion
 
@@ -3212,904 +3202,157 @@ namespace ShiggyMod.Modules.Survivors
             #region Chosen Skills
 
 
+            Skills.AddPrimarySkills(bodyPrefab, new SkillDef[]
+            {
+                    decayDef,
+            });
+            Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
+            {
+                    bulletlaserDef,
+            });
+            Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
+            {
+                    aircannonDef,
+            });
+            Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
+            {
+                    multiplierDef,
+            });
+            Modules.Skills.AddFirstExtraSkills(bodyPrefab, new SkillDef[]
+            {
+                    emptySkillDef,
+            });
+            Modules.Skills.AddSecondExtraSkills(bodyPrefab, new SkillDef[]
+            {
+                    emptySkillDef,
+            });
+            Modules.Skills.AddThirdExtraSkills(bodyPrefab, new SkillDef[]
+            {
+                    emptySkillDef,
+            });
+            Modules.Skills.AddFourthExtraSkills(bodyPrefab, new SkillDef[]
+            {
+                    emptySkillDef,
+            });
+
+            SkillDef[] allSkills = new SkillDef[]
+            {
+                    alphaconstructpassiveDef,
+                    beetlepassiveDef,
+                    pestpassiveDef,
+                    verminpassiveDef,
+                    guppassiveDef,
+                    hermitcrabpassiveDef,
+                    larvapassiveDef,
+                    lesserwisppassiveDef,
+                    lunarexploderpassiveDef,
+                    minimushrumpassiveDef,
+                    roboballminibpassiveDef,
+                    voidbarnaclepassiveDef,
+                    voidjailerpassiveDef,
+                    impbosspassiveDef,
+                    stonetitanpassiveDef,
+                    magmawormpassiveDef,
+                    overloadingwormpassiveDef,
+                    vagrantpassiveDef,
+                    childpassiveDef,
+                    acridpassiveDef,
+                    commandopassiveDef,
+                    captainpassiveDef,
+                    loaderpassiveDef,
+                    bigBangPassiveDef,
+                    wisperPassiveDef,
+                    omniboostPassiveDef,
+                    gachaPassiveDef,
+                    stoneFormPassiveDef,
+                    auraOfBlightPassiveDef,
+                    barbedSpikesPassiveDef,
+                    ingrainPassiveDef,
+                    doubleTimePassiveDef,
+                    blindSensesPassiveDef,
+                    supernovaPassiveDef,
+                    reversalPassiveDef,
+                    machineFormPassiveDef,
+                    gargoyleProtectionPassiveDef,
+                    weatherReportPassiveDef,
+                    decayAwakenedPassiveDef,
+                    alloyvultureWindBlastDef,
+                    beetleguardslamDef,
+                    bisonchargeDef,
+                    bronzongballDef,
+                    clayapothecarymortarDef,
+                    claytemplarminigunDef,
+                    elderlemurianfireblastDef,
+                    greaterWispBuffDef,
+                    impblinkDef,
+                    jellyfishHealDef,
+                    lemurianfireballDef,
+                    lunargolemSlideDef,
+                    lunarwispminigunDef,
+                    parentteleportDef,
+                    stonegolemlaserDef,
+                    voidreaverportalDef,
+                    beetlequeenSummonDef,
+                    grandparentsunDef,
+                    grovetenderChainDef,
+                    claydunestriderbuffDef,
+                    soluscontrolunityknockupDef,
+                    xiconstructbeamDef,
+                    voiddevastatorhomingDef,
+                    scavengerthqwibDef,
+                    artificerflamethrowerDef,
+                    artificericewallDef,
+                    artificerlightningorbDef,
+                    banditlightsoutDef,
+                    engiturretDef,
+                    huntressattackDef,
+                    mercdashDef,
+                    multbuffDef,
+                    railgunnercryoDef,
+                    rexmortarDef,
+                    voidfiendcleanseDef,
+                    DekuOFADef,
+                    sweepingBeamDef,
+                    blackholeGlaiveDef,
+                    gravitationalDownforceDef,
+                    windShieldDef,
+                    genesisDef,
+                    refreshDef,
+                    expungeDef,
+                    shadowClawDef,
+                    orbitalStrikeDef,
+                    thunderclapDef,
+                    blastBurnDef,
+                    barrierJellyDef,
+                    mechStanceDef,
+                    windSlashDef,
+                    limitBreakDef,
+                    voidFormDef,
+                    elementalFusionPassiveDef,
+                    decayPlusUltraDef,
+                    machPunchDef,
+                    rapidPierceDef,
+                    theWorldDef,
+                    extremeSpeedDef,
+                    deathAuraDef,
+                    OFAFODef,
+                    xBeamerDef,
+                    finalReleaseDef,
+                    blastingZoneDef,
+                    wildCardDef,
+                    lightAndDarknessDef,
+            };
 
             if (Config.allowAllSkills.Value)
             {
-                Skills.AddPrimarySkills(bodyPrefab, new SkillDef[]
-                {
-                    decayDef,
-                    alphaconstructpassiveDef,
-                    beetlepassiveDef,
-                    pestpassiveDef,
-                    verminpassiveDef,
-                    guppassiveDef,
-                    hermitcrabpassiveDef,
-                    larvapassiveDef,
-                    lesserwisppassiveDef,
-                    lunarexploderpassiveDef,
-                    minimushrumpassiveDef,
-                    roboballminibpassiveDef,
-                    voidbarnaclepassiveDef,
-                    voidjailerpassiveDef,
-                    impbosspassiveDef,
-                    stonetitanpassiveDef,
-                    magmawormpassiveDef,
-                    overloadingwormpassiveDef,
-                    vagrantpassiveDef,
-                    acridpassiveDef,
-                    commandopassiveDef,
-                    captainpassiveDef,
-                    loaderpassiveDef,
-                    bigBangPassiveDef,
-                    wisperPassiveDef,
-                    omniboostPassiveDef,
-                    gachaPassiveDef,
-                    stoneFormPassiveDef,
-                    auraOfBlightPassiveDef,
-                    barbedSpikesPassiveDef,
-                    ingrainPassiveDef,
-                    doubleTimePassiveDef,
-                    blindSensesPassiveDef,
-                    supernovaPassiveDef,
-                    reversalPassiveDef,
-                    machineFormPassiveDef,
-                    gargoyleProtectionPassiveDef,
-                    weatherReportPassiveDef,
-                    decayAwakenedPassiveDef,
-                    alloyvultureWindBlastDef,
-                    beetleguardslamDef,
-                    bisonchargeDef,
-                    bronzongballDef,
-                    clayapothecarymortarDef,
-                    claytemplarminigunDef,
-                    elderlemurianfireblastDef,
-                    greaterWispBuffDef,
-                    impblinkDef,
-                    jellyfishHealDef,
-                    lemurianfireballDef,
-                    lunargolemSlideDef,
-                    lunarwispminigunDef,
-                    parentteleportDef,
-                    stonegolemlaserDef,
-                    voidreaverportalDef,
-                    beetlequeenSummonDef,
-                    grandparentsunDef,
-                    grovetenderChainDef,
-                    claydunestriderbuffDef,
-                    soluscontrolunityknockupDef,
-                    xiconstructbeamDef,
-                    voiddevastatorhomingDef,
-                    scavengerthqwibDef,
-                    artificerflamethrowerDef,
-                    artificericewallDef,
-                    artificerlightningorbDef,
-                    banditlightsoutDef,
-                    engiturretDef,
-                    huntressattackDef,
-                    mercdashDef,
-                    multbuffDef,
-                    railgunnercryoDef,
-                    rexmortarDef,
-                    voidfiendcleanseDef,
-                    DekuOFADef,
-                    sweepingBeamDef,
-                    blackholeGlaiveDef,
-                    gravitationalDownforceDef,
-                    windShieldDef,
-                    genesisDef,
-                    refreshDef,
-                    expungeDef,
-                    shadowClawDef,
-                    orbitalStrikeDef,
-                    thunderclapDef,
-                    blastBurnDef,
-                    barrierJellyDef,
-                    mechStanceDef,
-                    windSlashDef,
-                    limitBreakDef,
-                    voidFormDef,
-                    elementalFusionPassiveDef,
-                    decayPlusUltraDef,
-                    machPunchDef,
-                    rapidPierceDef,
-                    theWorldDef,
-                    extremeSpeedDef,
-                    deathAuraDef,
-                    OFAFODef,
-                    xBeamerDef,
-                    finalReleaseDef,
-                    blastingZoneDef,
-                    wildCardDef,
-                    lightAndDarknessDef,
-
-                });
-                Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
-                {
-                    bulletlaserDef,
-                    alphaconstructpassiveDef,
-                    beetlepassiveDef,
-                    pestpassiveDef,
-                    verminpassiveDef,
-                    guppassiveDef,
-                    hermitcrabpassiveDef,
-                    larvapassiveDef,
-                    lesserwisppassiveDef,
-                    lunarexploderpassiveDef,
-                    minimushrumpassiveDef,
-                    roboballminibpassiveDef,
-                    voidbarnaclepassiveDef,
-                    voidjailerpassiveDef,
-                    impbosspassiveDef,
-                    stonetitanpassiveDef,
-                    magmawormpassiveDef,
-                    overloadingwormpassiveDef,
-                    vagrantpassiveDef,
-                    acridpassiveDef,
-                    commandopassiveDef,
-                    captainpassiveDef,
-                    loaderpassiveDef,
-                    bigBangPassiveDef,
-                    wisperPassiveDef,
-                    omniboostPassiveDef,
-                    gachaPassiveDef,
-                    stoneFormPassiveDef,
-                    auraOfBlightPassiveDef,
-                    barbedSpikesPassiveDef,
-                    ingrainPassiveDef,
-                    doubleTimePassiveDef,
-                    blindSensesPassiveDef,
-                    supernovaPassiveDef,
-                    reversalPassiveDef,
-                    machineFormPassiveDef,
-                    gargoyleProtectionPassiveDef,
-                    weatherReportPassiveDef,
-                    decayAwakenedPassiveDef,
-                    alloyvultureWindBlastDef,
-                    beetleguardslamDef,
-                    bisonchargeDef,
-                    bronzongballDef,
-                    clayapothecarymortarDef,
-                    claytemplarminigunDef,
-                    elderlemurianfireblastDef,
-                    greaterWispBuffDef,
-                    impblinkDef,
-                    jellyfishHealDef,
-                    lemurianfireballDef,
-                    lunargolemSlideDef,
-                    lunarwispminigunDef,
-                    parentteleportDef,
-                    stonegolemlaserDef,
-                    voidreaverportalDef,
-                    beetlequeenSummonDef,
-                    grandparentsunDef,
-                    grovetenderChainDef,
-                    claydunestriderbuffDef,
-                    soluscontrolunityknockupDef,
-                    xiconstructbeamDef,
-                    voiddevastatorhomingDef,
-                    scavengerthqwibDef,
-                    artificerflamethrowerDef,
-                    artificericewallDef,
-                    artificerlightningorbDef,
-                    banditlightsoutDef,
-                    engiturretDef,
-                    huntressattackDef,
-                    mercdashDef,
-                    multbuffDef,
-                    railgunnercryoDef,
-                    rexmortarDef,
-                    voidfiendcleanseDef,
-                    DekuOFADef,
-                    sweepingBeamDef,
-                    blackholeGlaiveDef,
-                    gravitationalDownforceDef,
-                    windShieldDef,
-                    genesisDef,
-                    refreshDef,
-                    expungeDef,
-                    shadowClawDef,
-                    orbitalStrikeDef,
-                    thunderclapDef,
-                    blastBurnDef,
-                    barrierJellyDef,
-                    mechStanceDef,
-                    windSlashDef,
-                    limitBreakDef,
-                    voidFormDef,
-                    elementalFusionPassiveDef,
-                    decayPlusUltraDef,
-                    machPunchDef,
-                    rapidPierceDef,
-                    theWorldDef,
-                    extremeSpeedDef,
-                    deathAuraDef,
-                    OFAFODef,
-                    xBeamerDef,
-                    finalReleaseDef,
-                    blastingZoneDef,
-                    wildCardDef,
-                    lightAndDarknessDef,
-
-                });
-                Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
-                {
-                    aircannonDef,
-                    alphaconstructpassiveDef,
-                    beetlepassiveDef,
-                    pestpassiveDef,
-                    verminpassiveDef,
-                    guppassiveDef,
-                    hermitcrabpassiveDef,
-                    larvapassiveDef,
-                    lesserwisppassiveDef,
-                    lunarexploderpassiveDef,
-                    minimushrumpassiveDef,
-                    roboballminibpassiveDef,
-                    voidbarnaclepassiveDef,
-                    voidjailerpassiveDef,
-                    impbosspassiveDef,
-                    stonetitanpassiveDef,
-                    magmawormpassiveDef,
-                    overloadingwormpassiveDef,
-                    vagrantpassiveDef,
-                    acridpassiveDef,
-                    commandopassiveDef,
-                    captainpassiveDef,
-                    loaderpassiveDef,
-                    bigBangPassiveDef,
-                    wisperPassiveDef,
-                    omniboostPassiveDef,
-                    gachaPassiveDef,
-                    stoneFormPassiveDef,
-                    auraOfBlightPassiveDef,
-                    barbedSpikesPassiveDef,
-                    ingrainPassiveDef,
-                    doubleTimePassiveDef,
-                    blindSensesPassiveDef,
-                    supernovaPassiveDef,
-                    reversalPassiveDef,
-                    machineFormPassiveDef,
-                    gargoyleProtectionPassiveDef,
-                    weatherReportPassiveDef,
-                    decayAwakenedPassiveDef,
-                    alloyvultureWindBlastDef,
-                    beetleguardslamDef,
-                    bisonchargeDef,
-                    bronzongballDef,
-                    clayapothecarymortarDef,
-                    claytemplarminigunDef,
-                    elderlemurianfireblastDef,
-                    greaterWispBuffDef,
-                    impblinkDef,
-                    jellyfishHealDef,
-                    lemurianfireballDef,
-                    lunargolemSlideDef,
-                    lunarwispminigunDef,
-                    parentteleportDef,
-                    stonegolemlaserDef,
-                    voidreaverportalDef,
-                    beetlequeenSummonDef,
-                    grandparentsunDef,
-                    grovetenderChainDef,
-                    claydunestriderbuffDef,
-                    soluscontrolunityknockupDef,
-                    xiconstructbeamDef,
-                    voiddevastatorhomingDef,
-                    scavengerthqwibDef,
-                    artificerflamethrowerDef,
-                    artificericewallDef,
-                    artificerlightningorbDef,
-                    banditlightsoutDef,
-                    engiturretDef,
-                    huntressattackDef,
-                    mercdashDef,
-                    multbuffDef,
-                    railgunnercryoDef,
-                    rexmortarDef,
-                    voidfiendcleanseDef,
-                    DekuOFADef,
-                    sweepingBeamDef,
-                    blackholeGlaiveDef,
-                    gravitationalDownforceDef,
-                    windShieldDef,
-                    genesisDef,
-                    refreshDef,
-                    expungeDef,
-                    shadowClawDef,
-                    orbitalStrikeDef,
-                    thunderclapDef,
-                    blastBurnDef,
-                    barrierJellyDef,
-                    mechStanceDef,
-                    windSlashDef,
-                    limitBreakDef,
-                    voidFormDef,
-                    elementalFusionPassiveDef,
-                    decayPlusUltraDef,
-                    machPunchDef,
-                    rapidPierceDef,
-                    theWorldDef,
-                    extremeSpeedDef,
-                    deathAuraDef,
-                    OFAFODef,
-                    xBeamerDef,
-                    finalReleaseDef,
-                    blastingZoneDef,
-                    wildCardDef,
-                    lightAndDarknessDef,
-                });
-                Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
-                {
-                    multiplierDef,
-                    alphaconstructpassiveDef,
-                    beetlepassiveDef,
-                    pestpassiveDef,
-                    verminpassiveDef,
-                    guppassiveDef,
-                    hermitcrabpassiveDef,
-                    larvapassiveDef,
-                    lesserwisppassiveDef,
-                    lunarexploderpassiveDef,
-                    minimushrumpassiveDef,
-                    roboballminibpassiveDef,
-                    voidbarnaclepassiveDef,
-                    voidjailerpassiveDef,
-                    impbosspassiveDef,
-                    stonetitanpassiveDef,
-                    magmawormpassiveDef,
-                    overloadingwormpassiveDef,
-                    vagrantpassiveDef,
-                    acridpassiveDef,
-                    commandopassiveDef,
-                    captainpassiveDef,
-                    loaderpassiveDef,
-                    bigBangPassiveDef,
-                    wisperPassiveDef,
-                    omniboostPassiveDef,
-                    gachaPassiveDef,
-                    stoneFormPassiveDef,
-                    auraOfBlightPassiveDef,
-                    barbedSpikesPassiveDef,
-                    ingrainPassiveDef,
-                    doubleTimePassiveDef,
-                    blindSensesPassiveDef,
-                    supernovaPassiveDef,
-                    reversalPassiveDef,
-                    machineFormPassiveDef,
-                    gargoyleProtectionPassiveDef,
-                    weatherReportPassiveDef,
-                    decayAwakenedPassiveDef,
-                    alloyvultureWindBlastDef,
-                    beetleguardslamDef,
-                    bisonchargeDef,
-                    bronzongballDef,
-                    clayapothecarymortarDef,
-                    claytemplarminigunDef,
-                    elderlemurianfireblastDef,
-                    greaterWispBuffDef,
-                    impblinkDef,
-                    jellyfishHealDef,
-                    lemurianfireballDef,
-                    lunargolemSlideDef,
-                    lunarwispminigunDef,
-                    parentteleportDef,
-                    stonegolemlaserDef,
-                    voidreaverportalDef,
-                    beetlequeenSummonDef,
-                    grandparentsunDef,
-                    grovetenderChainDef,
-                    claydunestriderbuffDef,
-                    soluscontrolunityknockupDef,
-                    xiconstructbeamDef,
-                    voiddevastatorhomingDef,
-                    scavengerthqwibDef,
-                    artificerflamethrowerDef,
-                    artificericewallDef,
-                    artificerlightningorbDef,
-                    banditlightsoutDef,
-                    engiturretDef,
-                    huntressattackDef,
-                    mercdashDef,
-                    multbuffDef,
-                    railgunnercryoDef,
-                    rexmortarDef,
-                    voidfiendcleanseDef,
-                    DekuOFADef,
-                    sweepingBeamDef,
-                    blackholeGlaiveDef,
-                    gravitationalDownforceDef,
-                    windShieldDef,
-                    genesisDef,
-                    refreshDef,
-                    expungeDef,
-                    shadowClawDef,
-                    orbitalStrikeDef,
-                    thunderclapDef,
-                    blastBurnDef,
-                    barrierJellyDef,
-                    mechStanceDef,
-                    windSlashDef,
-                    limitBreakDef,
-                    voidFormDef,
-                    elementalFusionPassiveDef,
-                    decayPlusUltraDef,
-                    machPunchDef,
-                    rapidPierceDef,
-                    theWorldDef,
-                    extremeSpeedDef,
-                    deathAuraDef,
-                    OFAFODef,
-                    xBeamerDef,
-                    finalReleaseDef,
-                    blastingZoneDef,
-                    wildCardDef,
-                    lightAndDarknessDef,
-                });
-                Modules.Skills.AddFirstExtraSkills(bodyPrefab, new SkillDef[]
-                {
-                    emptySkillDef,
-                    alphaconstructpassiveDef,
-                    beetlepassiveDef,
-                    pestpassiveDef,
-                    verminpassiveDef,
-                    guppassiveDef,
-                    hermitcrabpassiveDef,
-                    larvapassiveDef,
-                    lesserwisppassiveDef,
-                    lunarexploderpassiveDef,
-                    minimushrumpassiveDef,
-                    roboballminibpassiveDef,
-                    voidbarnaclepassiveDef,
-                    voidjailerpassiveDef,
-                    impbosspassiveDef,
-                    stonetitanpassiveDef,
-                    magmawormpassiveDef,
-                    overloadingwormpassiveDef,
-                    vagrantpassiveDef,
-                    acridpassiveDef,
-                    commandopassiveDef,
-                    captainpassiveDef,
-                    loaderpassiveDef,
-                    bigBangPassiveDef,
-                    wisperPassiveDef,
-                    omniboostPassiveDef,
-                    gachaPassiveDef,
-                    stoneFormPassiveDef,
-                    auraOfBlightPassiveDef,
-                    barbedSpikesPassiveDef,
-                    ingrainPassiveDef,
-                    doubleTimePassiveDef,
-                    blindSensesPassiveDef,
-                    supernovaPassiveDef,
-                    reversalPassiveDef,
-                    machineFormPassiveDef,
-                    gargoyleProtectionPassiveDef,
-                    weatherReportPassiveDef,
-                    decayAwakenedPassiveDef,
-                    alloyvultureWindBlastDef,
-                    beetleguardslamDef,
-                    bisonchargeDef,
-                    bronzongballDef,
-                    clayapothecarymortarDef,
-                    claytemplarminigunDef,
-                    elderlemurianfireblastDef,
-                    greaterWispBuffDef,
-                    impblinkDef,
-                    jellyfishHealDef,
-                    lemurianfireballDef,
-                    lunargolemSlideDef,
-                    lunarwispminigunDef,
-                    parentteleportDef,
-                    stonegolemlaserDef,
-                    voidreaverportalDef,
-                    beetlequeenSummonDef,
-                    grandparentsunDef,
-                    grovetenderChainDef,
-                    claydunestriderbuffDef,
-                    soluscontrolunityknockupDef,
-                    xiconstructbeamDef,
-                    voiddevastatorhomingDef,
-                    scavengerthqwibDef,
-                    artificerflamethrowerDef,
-                    artificericewallDef,
-                    artificerlightningorbDef,
-                    banditlightsoutDef,
-                    engiturretDef,
-                    huntressattackDef,
-                    mercdashDef,
-                    multbuffDef,
-                    railgunnercryoDef,
-                    rexmortarDef,
-                    voidfiendcleanseDef,
-                    DekuOFADef,
-                    sweepingBeamDef,
-                    blackholeGlaiveDef,
-                    gravitationalDownforceDef,
-                    windShieldDef,
-                    genesisDef,
-                    refreshDef,
-                    expungeDef,
-                    shadowClawDef,
-                    orbitalStrikeDef,
-                    thunderclapDef,
-                    blastBurnDef,
-                    barrierJellyDef,
-                    mechStanceDef,
-                    windSlashDef,
-                    limitBreakDef,
-                    voidFormDef,
-                    elementalFusionPassiveDef,
-                    decayPlusUltraDef,
-                    machPunchDef,
-                    rapidPierceDef,
-                    theWorldDef,
-                    extremeSpeedDef,
-                    deathAuraDef,
-                    OFAFODef,
-                    xBeamerDef,
-                    finalReleaseDef,
-                    blastingZoneDef,
-                    wildCardDef,
-                    lightAndDarknessDef,
-                });
-                Modules.Skills.AddSecondExtraSkills(bodyPrefab, new SkillDef[]
-                {
-                    emptySkillDef,
-                    alphaconstructpassiveDef,
-                    beetlepassiveDef,
-                    pestpassiveDef,
-                    verminpassiveDef,
-                    guppassiveDef,
-                    hermitcrabpassiveDef,
-                    larvapassiveDef,
-                    lesserwisppassiveDef,
-                    lunarexploderpassiveDef,
-                    minimushrumpassiveDef,
-                    roboballminibpassiveDef,
-                    voidbarnaclepassiveDef,
-                    voidjailerpassiveDef,
-                    impbosspassiveDef,
-                    stonetitanpassiveDef,
-                    magmawormpassiveDef,
-                    overloadingwormpassiveDef,
-                    vagrantpassiveDef,
-                    acridpassiveDef,
-                    commandopassiveDef,
-                    captainpassiveDef,
-                    loaderpassiveDef,
-                    bigBangPassiveDef,
-                    wisperPassiveDef,
-                    omniboostPassiveDef,
-                    gachaPassiveDef,
-                    stoneFormPassiveDef,
-                    auraOfBlightPassiveDef,
-                    barbedSpikesPassiveDef,
-                    ingrainPassiveDef,
-                    doubleTimePassiveDef,
-                    blindSensesPassiveDef,
-                    supernovaPassiveDef,
-                    reversalPassiveDef,
-                    machineFormPassiveDef,
-                    gargoyleProtectionPassiveDef,
-                    weatherReportPassiveDef,
-                    decayAwakenedPassiveDef,
-                    alloyvultureWindBlastDef,
-                    beetleguardslamDef,
-                    bisonchargeDef,
-                    bronzongballDef,
-                    clayapothecarymortarDef,
-                    claytemplarminigunDef,
-                    elderlemurianfireblastDef,
-                    greaterWispBuffDef,
-                    impblinkDef,
-                    jellyfishHealDef,
-                    lemurianfireballDef,
-                    lunargolemSlideDef,
-                    lunarwispminigunDef,
-                    parentteleportDef,
-                    stonegolemlaserDef,
-                    voidreaverportalDef,
-                    beetlequeenSummonDef,
-                    grandparentsunDef,
-                    grovetenderChainDef,
-                    claydunestriderbuffDef,
-                    soluscontrolunityknockupDef,
-                    xiconstructbeamDef,
-                    voiddevastatorhomingDef,
-                    scavengerthqwibDef,
-                    artificerflamethrowerDef,
-                    artificericewallDef,
-                    artificerlightningorbDef,
-                    banditlightsoutDef,
-                    engiturretDef,
-                    huntressattackDef,
-                    mercdashDef,
-                    multbuffDef,
-                    railgunnercryoDef,
-                    rexmortarDef,
-                    voidfiendcleanseDef,
-                    DekuOFADef,
-                    sweepingBeamDef,
-                    blackholeGlaiveDef,
-                    gravitationalDownforceDef,
-                    windShieldDef,
-                    genesisDef,
-                    refreshDef,
-                    expungeDef,
-                    shadowClawDef,
-                    orbitalStrikeDef,
-                    thunderclapDef,
-                    blastBurnDef,
-                    barrierJellyDef,
-                    mechStanceDef,
-                    windSlashDef,
-                    limitBreakDef,
-                    voidFormDef,
-                    elementalFusionPassiveDef,
-                    decayPlusUltraDef,
-                    machPunchDef,
-                    rapidPierceDef,
-                    theWorldDef,
-                    extremeSpeedDef,
-                    deathAuraDef,
-                    OFAFODef,
-                    xBeamerDef,
-                    finalReleaseDef,
-                    blastingZoneDef,
-                    wildCardDef,
-                    lightAndDarknessDef,
-                });
-                Modules.Skills.AddThirdExtraSkills(bodyPrefab, new SkillDef[]
-                {
-                    emptySkillDef,
-                    alphaconstructpassiveDef,
-                    beetlepassiveDef,
-                    pestpassiveDef,
-                    verminpassiveDef,
-                    guppassiveDef,
-                    hermitcrabpassiveDef,
-                    larvapassiveDef,
-                    lesserwisppassiveDef,
-                    lunarexploderpassiveDef,
-                    minimushrumpassiveDef,
-                    roboballminibpassiveDef,
-                    voidbarnaclepassiveDef,
-                    voidjailerpassiveDef,
-                    impbosspassiveDef,
-                    stonetitanpassiveDef,
-                    magmawormpassiveDef,
-                    overloadingwormpassiveDef,
-                    vagrantpassiveDef,
-                    acridpassiveDef,
-                    commandopassiveDef,
-                    captainpassiveDef,
-                    loaderpassiveDef,
-                    bigBangPassiveDef,
-                    wisperPassiveDef,
-                    omniboostPassiveDef,
-                    gachaPassiveDef,
-                    stoneFormPassiveDef,
-                    auraOfBlightPassiveDef,
-                    barbedSpikesPassiveDef,
-                    ingrainPassiveDef,
-                    doubleTimePassiveDef,
-                    blindSensesPassiveDef,
-                    supernovaPassiveDef,
-                    reversalPassiveDef,
-                    machineFormPassiveDef,
-                    gargoyleProtectionPassiveDef,
-                    weatherReportPassiveDef,
-                    decayAwakenedPassiveDef,
-                    alloyvultureWindBlastDef,
-                    beetleguardslamDef,
-                    bisonchargeDef,
-                    bronzongballDef,
-                    clayapothecarymortarDef,
-                    claytemplarminigunDef,
-                    elderlemurianfireblastDef,
-                    greaterWispBuffDef,
-                    impblinkDef,
-                    jellyfishHealDef,
-                    lemurianfireballDef,
-                    lunargolemSlideDef,
-                    lunarwispminigunDef,
-                    parentteleportDef,
-                    stonegolemlaserDef,
-                    voidreaverportalDef,
-                    beetlequeenSummonDef,
-                    grandparentsunDef,
-                    grovetenderChainDef,
-                    claydunestriderbuffDef,
-                    soluscontrolunityknockupDef,
-                    xiconstructbeamDef,
-                    voiddevastatorhomingDef,
-                    scavengerthqwibDef,
-                    artificerflamethrowerDef,
-                    artificericewallDef,
-                    artificerlightningorbDef,
-                    banditlightsoutDef,
-                    engiturretDef,
-                    huntressattackDef,
-                    mercdashDef,
-                    multbuffDef,
-                    railgunnercryoDef,
-                    rexmortarDef,
-                    voidfiendcleanseDef,
-                    DekuOFADef,
-                    sweepingBeamDef,
-                    blackholeGlaiveDef,
-                    gravitationalDownforceDef,
-                    windShieldDef,
-                    genesisDef,
-                    refreshDef,
-                    expungeDef,
-                    shadowClawDef,
-                    orbitalStrikeDef,
-                    thunderclapDef,
-                    blastBurnDef,
-                    barrierJellyDef,
-                    mechStanceDef,
-                    windSlashDef,
-                    limitBreakDef,
-                    voidFormDef,
-                    elementalFusionPassiveDef,
-                    decayPlusUltraDef,
-                    machPunchDef,
-                    rapidPierceDef,
-                    theWorldDef,
-                    extremeSpeedDef,
-                    deathAuraDef,
-                    OFAFODef,
-                    xBeamerDef,
-                    finalReleaseDef,
-                    blastingZoneDef,
-                    wildCardDef,
-                    lightAndDarknessDef,
-                });
-                Modules.Skills.AddFourthExtraSkills(bodyPrefab, new SkillDef[]
-                {
-                    emptySkillDef,
-                    alphaconstructpassiveDef,
-                    beetlepassiveDef,
-                    pestpassiveDef,
-                    verminpassiveDef,
-                    guppassiveDef,
-                    hermitcrabpassiveDef,
-                    larvapassiveDef,
-                    lesserwisppassiveDef,
-                    lunarexploderpassiveDef,
-                    minimushrumpassiveDef,
-                    roboballminibpassiveDef,
-                    voidbarnaclepassiveDef,
-                    voidjailerpassiveDef,
-                    impbosspassiveDef,
-                    stonetitanpassiveDef,
-                    magmawormpassiveDef,
-                    overloadingwormpassiveDef,
-                    vagrantpassiveDef,
-                    acridpassiveDef,
-                    commandopassiveDef,
-                    captainpassiveDef,
-                    loaderpassiveDef,
-                    bigBangPassiveDef,
-                    wisperPassiveDef,
-                    omniboostPassiveDef,
-                    gachaPassiveDef,
-                    stoneFormPassiveDef,
-                    auraOfBlightPassiveDef,
-                    barbedSpikesPassiveDef,
-                    ingrainPassiveDef,
-                    doubleTimePassiveDef,
-                    blindSensesPassiveDef,
-                    supernovaPassiveDef,
-                    reversalPassiveDef,
-                    machineFormPassiveDef,
-                    gargoyleProtectionPassiveDef,
-                    weatherReportPassiveDef,
-                    decayAwakenedPassiveDef,
-                    alloyvultureWindBlastDef,
-                    beetleguardslamDef,
-                    bisonchargeDef,
-                    bronzongballDef,
-                    clayapothecarymortarDef,
-                    claytemplarminigunDef,
-                    elderlemurianfireblastDef,
-                    greaterWispBuffDef,
-                    impblinkDef,
-                    jellyfishHealDef,
-                    lemurianfireballDef,
-                    lunargolemSlideDef,
-                    lunarwispminigunDef,
-                    parentteleportDef,
-                    stonegolemlaserDef,
-                    voidreaverportalDef,
-                    beetlequeenSummonDef,
-                    grandparentsunDef,
-                    grovetenderChainDef,
-                    claydunestriderbuffDef,
-                    soluscontrolunityknockupDef,
-                    xiconstructbeamDef,
-                    voiddevastatorhomingDef,
-                    scavengerthqwibDef,
-                    artificerflamethrowerDef,
-                    artificericewallDef,
-                    artificerlightningorbDef,
-                    banditlightsoutDef,
-                    engiturretDef,
-                    huntressattackDef,
-                    mercdashDef,
-                    multbuffDef,
-                    railgunnercryoDef,
-                    rexmortarDef,
-                    voidfiendcleanseDef,
-                    DekuOFADef,
-                    sweepingBeamDef,
-                    blackholeGlaiveDef,
-                    gravitationalDownforceDef,
-                    windShieldDef,
-                    genesisDef,
-                    refreshDef,
-                    expungeDef,
-                    shadowClawDef,
-                    orbitalStrikeDef,
-                    thunderclapDef,
-                    blastBurnDef,
-                    barrierJellyDef,
-                    mechStanceDef,
-                    windSlashDef,
-                    limitBreakDef,
-                    voidFormDef,
-                    elementalFusionPassiveDef,
-                    decayPlusUltraDef,
-                    machPunchDef,
-                    rapidPierceDef,
-                    theWorldDef,
-                    extremeSpeedDef,
-                    deathAuraDef,
-                    OFAFODef,
-                    xBeamerDef,
-                    finalReleaseDef,
-                    blastingZoneDef,
-                    wildCardDef,
-                    lightAndDarknessDef,
-                });
-
-            }
-            else if (!Config.allowAllSkills.Value)
-            {
-                Skills.AddPrimarySkills(bodyPrefab, new SkillDef[]
-                {
-                    decayDef,
-                });
-                Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
-                {
-                    bulletlaserDef,
-                });
-                Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
-                {
-                    aircannonDef,
-                });
-                Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
-                {
-                    multiplierDef,
-                }); 
-                Modules.Skills.AddFirstExtraSkills(bodyPrefab, new SkillDef[]
-                {
-                    emptySkillDef,
-                });
-                Modules.Skills.AddSecondExtraSkills(bodyPrefab, new SkillDef[]
-                {
-                    emptySkillDef,
-                });
-                Modules.Skills.AddThirdExtraSkills(bodyPrefab, new SkillDef[]
-                {
-                    emptySkillDef,
-                });
-                Modules.Skills.AddFourthExtraSkills(bodyPrefab, new SkillDef[]
-                {
-                    emptySkillDef,
-                });
-
+                Skills.AddPrimarySkills(bodyPrefab, allSkills);
+                Skills.AddSecondarySkills(bodyPrefab, allSkills);
+                Skills.AddUtilitySkills(bodyPrefab, allSkills);
+                Skills.AddSpecialSkills(bodyPrefab, allSkills);
+                Skills.AddFirstExtraSkills(bodyPrefab, allSkills);
+                Skills.AddSecondExtraSkills(bodyPrefab, allSkills);
+                Skills.AddThirdExtraSkills(bodyPrefab, allSkills);
+                Skills.AddFourthExtraSkills(bodyPrefab, allSkills);
             }
             #endregion
         }

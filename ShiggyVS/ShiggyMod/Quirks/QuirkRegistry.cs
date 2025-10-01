@@ -209,6 +209,9 @@ namespace ShiggyMod.Modules.Quirks
 
             //add starting quirks
             QuirkInventory.SeedStartingQuirksFromConfig();
+
+            //create sprites for quirks
+            QuirkIconBank.CreateSpriteIcons();
         }
         public static void LateRebindIfMissing()
         {
@@ -296,6 +299,8 @@ namespace ShiggyMod.Modules.Quirks
             AddLeaf(QuirkId.XIConstruct_BeamActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.VoidDevastator_MissilesActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.Scavenger_ThqwibActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.Halcyonite_GreedActive, QuirkLevel.Level1, QuirkCategory.Active);
+
             AddLeaf(QuirkId.Artificer_FlamethrowerActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.Artificer_IceWallActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.Artificer_LightningOrbActive, QuirkLevel.Level1, QuirkCategory.Active);
@@ -321,6 +326,8 @@ namespace ShiggyMod.Modules.Quirks
             AddLeaf(QuirkId.Elite_LunarPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.Elite_MendingPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.Elite_VoidPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_GildedPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_TwistedPassive, QuirkLevel.Level1, QuirkCategory.Passive);
 
             // ============================
             // LEVEL 1 — Passives (standalone)
@@ -343,6 +350,8 @@ namespace ShiggyMod.Modules.Quirks
             AddLeaf(QuirkId.MagmaWorm_BlazingAuraPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.OverloadingWorm_LightningAuraPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.Vagrant_OrbPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Child_EmergencyTeleportPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+
             AddLeaf(QuirkId.Acrid_PoisonPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.Commando_DoubleTapPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.Captain_MicrobotsPassive, QuirkLevel.Level1, QuirkCategory.Passive);
@@ -687,6 +696,7 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.RoboBallMini_SolusBoostPassive] = roboballminiBuff, // roboballminiattackspeedBuff is a sub-effect
                 [QuirkId.VoidBarnacle_VoidMortarPassive] = voidbarnaclemortarBuff, // *_attackspeedBuff is a sub-effect
                 [QuirkId.VoidJailer_GravityPassive] = voidjailerBuff,
+                [QuirkId.Child_EmergencyTeleportPassive] = childBuff, // childCDDebuff is a debuff to turn it off
 
                 [QuirkId.ImpBoss_BleedPassive] = impbossBuff,
                 [QuirkId.StoneTitan_StoneSkinPassive] = stonetitanBuff,
@@ -757,6 +767,10 @@ namespace ShiggyMod.Modules.Quirks
             if (body.HasBuff(DLC1Content.Buffs.EliteEarth)) { id = QuirkId.Elite_MendingPassive; return true; }
             if (body.HasBuff(DLC1Content.Buffs.EliteVoid)) { id = QuirkId.Elite_VoidPassive; return true; }
 
+            //Seekers of the storm elites
+            if (body.HasBuff(DLC2Content.Buffs.EliteAurelionite)) { id = QuirkId.Elite_MendingPassive; return true; }
+            if (body.HasBuff(DLC1Content.Buffs.EliteVoid)) { id = QuirkId.Elite_VoidPassive; return true; }
+
             return false;
         }
         public static EquipmentDef GetEliteEquipmentForId(QuirkId id)
@@ -771,6 +785,8 @@ namespace ShiggyMod.Modules.Quirks
                 case QuirkId.Elite_LunarPassive: return RoR2Content.Elites.Lunar.eliteEquipmentDef;
                 case QuirkId.Elite_MendingPassive: return DLC1Content.Elites.Earth.eliteEquipmentDef;
                 case QuirkId.Elite_VoidPassive: return DLC1Content.Elites.Void.eliteEquipmentDef;
+                case QuirkId.Elite_GildedPassive: return DLC2Content.Elites.Aurelionite.eliteEquipmentDef;
+                case QuirkId.Elite_TwistedPassive: return DLC2Content.Elites.Bead.eliteEquipmentDef;
                 default: return null;
             }
         }
@@ -844,6 +860,7 @@ namespace ShiggyMod.Modules.Quirks
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Vagrant.VagrantBody_prefab).WaitForCompletion().name, QuirkId.Vagrant_OrbPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_MagmaWorm.MagmaWormBody_prefab).WaitForCompletion().name, QuirkId.MagmaWorm_BlazingAuraPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_ElectricWorm.ElectricWormBody_prefab).WaitForCompletion().name, QuirkId.OverloadingWorm_LightningAuraPassive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_DLC2_Child.ChildBody_prefab).WaitForCompletion().name, QuirkId.Child_EmergencyTeleportPassive);
 
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Captain.CaptainBody_prefab).WaitForCompletion().name, QuirkId.Captain_MicrobotsPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.RoR2_Base_Commando.CommandoBody_prefab).WaitForCompletion().name, QuirkId.Commando_DoubleTapPassive);

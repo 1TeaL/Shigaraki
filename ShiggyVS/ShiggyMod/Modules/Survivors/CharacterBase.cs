@@ -55,7 +55,11 @@ namespace ShiggyMod.Modules.Survivors
             bodyPrefab = Modules.Prefabs.CreateBodyPrefab(prefabBodyName + "Body", "mdl" + prefabBodyName, bodyInfo);
             prefabCharacterBody = bodyPrefab.GetComponent<CharacterBody>();
             CharacterDeathBehavior prefabCharacterDeathState = bodyPrefab.GetComponent<CharacterDeathBehavior>();
-            prefabCharacterDeathState.deathState.stateType = characterDeathState;
+            if (characterDeathState != null)
+            {
+                prefabCharacterDeathState.deathState.stateType = characterDeathState;
+                Modules.Content.AddEntityState(characterDeathState); 
+            }
             InitializeCharacterModel();
         }
         protected virtual void InitializeCharacterModel()

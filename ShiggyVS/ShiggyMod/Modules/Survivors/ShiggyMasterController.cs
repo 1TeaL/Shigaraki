@@ -151,6 +151,18 @@ namespace ShiggyMod.Modules.Survivors
 							}
 							extraskillLocator = self.gameObject.GetComponent<ExtraSkillLocator>();
 
+							if (Config.allowAllSkills.Value)
+							{
+								skillListToOverrideOnRespawn[0] = self.skillLocator.primary.skillDef;
+                                skillListToOverrideOnRespawn[1] = self.skillLocator.secondary.skillDef;
+                                skillListToOverrideOnRespawn[2] = self.skillLocator.utility.skillDef;
+                                skillListToOverrideOnRespawn[3] = self.skillLocator.special.skillDef;
+                                skillListToOverrideOnRespawn[4] = extraskillLocator.extraFirst.skillDef;
+                                skillListToOverrideOnRespawn[5] = extraskillLocator.extraSecond.skillDef;
+                                skillListToOverrideOnRespawn[6] = extraskillLocator.extraThird.skillDef;
+                                skillListToOverrideOnRespawn[7] = extraskillLocator.extraFourth.skillDef;
+
+                            }
 
 							if (Config.retainLoadout.Value)
 							{
@@ -234,12 +246,12 @@ namespace ShiggyMod.Modules.Survivors
 									extra4given = true;
                                     extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
                                 }
-                                CheckQuirksForBuffs(self);
 
 
                             }
+                            CheckQuirksForBuffs(self);
 
-						}
+                        }
 
 					}
 

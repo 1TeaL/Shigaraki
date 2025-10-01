@@ -41,6 +41,10 @@ namespace ShiggyMod.Modules
         internal static BuffDef vagrantdisableBuff;
         internal static BuffDef magmawormBuff;
         internal static BuffDef overloadingwormBuff;
+        internal static BuffDef childBuff;
+        internal static BuffDef childCDDebuff;
+        internal static BuffDef halcyoniteGreedBuff;
+        internal static BuffDef halcyoniteGreedStacksBuff;
 
         //monsterdebuffs
         internal static BuffDef grovetenderChainDebuff;
@@ -191,8 +195,10 @@ namespace ShiggyMod.Modules
             gargoyleProtectionBuff = Buffs.AddNewBuff($"Gargoyle Protection Buff- Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. ", ShiggyAsset.resonanceBuffIcon, Color.blue, false, false);
             weatherReportBuff = Buffs.AddNewBuff($"Weather Report Buff- Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient * 100f}%</style>. ", ShiggyAsset.spikeBuffIcon, Color.white, false, false);
             decayAwakenedBuff = Buffs.AddNewBuff($"Weather Report Buff- Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient * 100f}%</style>. ", ShiggyAsset.decayBuffIcon, Color.white, false, false);
-
-
+            childBuff = Buffs.AddNewBuff($"Emergency Teleport Buff- Gain the ability to teleport randomly on taking lethal damage. This can be done every {StaticValues.childTeleportCD} seconds</style>. ", ShiggyAsset.decayBuffIcon, Color.white, false, false);
+            childCDDebuff = Buffs.AddNewBuff($"Emergency Teleport Debuff- Can't teleport while this is active</style>. ", ShiggyAsset.decayBuffIcon, Color.black, false, true);
+            halcyoniteGreedBuff = Buffs.AddNewBuff($"Greed Buff- Spend {StaticValues.halcyoniteGreedGoldRatio * 100f}% of your gold every 10 seconds. Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.halcyoniteGreedBuffDamageCoefficient} and {StaticValues.halcyoniteGreedBuffAttackspeedCoefficient} respectively</style> per stack of the buff. For every {StaticValues.halcyoniteGreedBuffGoldPerStack} gold, gain 1 stack.", ShiggyAsset.affixAurelioniteBuffIcon, Color.white, false, false);
+            halcyoniteGreedStacksBuff = Buffs.AddNewBuff($"Greed Buff stacks", ShiggyAsset.affixAurelioniteBuffIcon, new Color(255f, 215f, 0f), true, false);
 
             //shiggy buffs
             airwalkBuff = Buffs.AddNewBuff($"Air walk acceleration Buff", ShiggyAsset.jumpBuffIcon, Color.magenta, false, false);

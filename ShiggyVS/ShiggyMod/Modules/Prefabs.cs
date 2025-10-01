@@ -129,7 +129,7 @@ namespace ShiggyMod.Modules
 
             bodyComponent.sprintingSpeedMultiplier = 1.45f;
 
-            bodyComponent.bodyFlags = CharacterBody.BodyFlags.ImmuneToExecutes | CharacterBody.BodyFlags.SprintAnyDirection;
+            bodyComponent.bodyFlags = CharacterBody.BodyFlags.ImmuneToExecutes | CharacterBody.BodyFlags.SprintAnyDirection | CharacterBody.BodyFlags.IgnoreFallDamage;
             bodyComponent.rootMotionInMainState = false;
 
             bodyComponent.hullClassification = HullClassification.Human;
@@ -335,9 +335,9 @@ namespace ShiggyMod.Modules
         private static void SetupCapsuleCollider(GameObject prefab)
         {
             CapsuleCollider capsuleCollider = prefab.GetComponent<CapsuleCollider>();
-            capsuleCollider.center = new Vector3(0f, 0f, 0f);
             capsuleCollider.radius = 0.5f;
             capsuleCollider.height = 1.82f;
+            capsuleCollider.center = new Vector3(0f, capsuleCollider.height * 0.5f, 0f);
             capsuleCollider.direction = 1;
         }
 

@@ -63,6 +63,7 @@ namespace ShiggyMod.Modules.Survivors
         private float buttonCooler;
         private int buttonCount;
         private float formTimer;
+        private float halcyoniteTimer;
 
 
         //indicators
@@ -982,6 +983,29 @@ namespace ShiggyMod.Modules.Survivors
                 }
             }
         }
+
+        public void HalcyoniteGreedBuff()
+        {
+            //halcyonite greed buff
+            if (characterBody.HasBuff(Buffs.halcyoniteGreedBuff))
+            {
+                if(halcyoniteTimer > StaticValues.halcyoniteGreedInterval)
+                {
+                    //find half of the total money player owns
+                    uint halfMoney = (uint)Mathf.RoundToInt(characterBody.master.money * StaticValues.halcyoniteGreedGoldRatio);
+                    int greedBuffStacksToGive = Mathf.RoundToInt(halfMoney / StaticValues.halcyoniteGreedBuffGoldPerStack);
+
+                    characterBody.master.money -= halfMoney;
+                    characterBody.ApplyBuff(Buffs.halcyoniteGreedStacksBuff.buffIndex, greedBuffStacksToGive, StaticValues.halcyoniteGreedInterval);
+
+                }
+                else if (halcyoniteTimer <= StaticValues.halcyoniteGreedInterval)
+                {
+                    halcyoniteTimer += Time.fixedDeltaTime;
+                }
+            }
+
+        }
         private void UpdateDefaultIndicator()
         {
             HurtBox hurtBox = this.trackingTarget;
@@ -1033,7 +1057,8 @@ namespace ShiggyMod.Modules.Survivors
                     ClayDunestrider();
                     GreaterWisp();
                     VagrantDisableBuff();
-                    JellyFishHealStacks();  
+                    JellyFishHealStacks();
+                    HalcyoniteGreedBuff();
                 }
             }
         }    
@@ -1282,8 +1307,10 @@ namespace ShiggyMod.Modules.Survivors
             }
 
 
+
             if (trackingTarget)
             {
+
                 if (Input.GetKeyDown(Config.AFOHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
                 {
                     stealQuirkStopwatch += Time.deltaTime;
@@ -1291,6 +1318,20 @@ namespace ShiggyMod.Modules.Survivors
                     {
 
                         Debug.Log("attempting steal");
+
+                        //check if close enough to activate
+                        if (!Config.allowRangedAFO.Value)
+                        {
+                            var body = trackingTarget.healthComponent.body;
+                            float distance = Vector2.Distance(body.corePosition, characterBody.aimOrigin);
+                            if (distance > Config.maxAFORange.Value)
+                            {
+                                Chat.AddMessage($"<style=cIsUtility>Out of AFO Range!</style>");
+                                energySystem.quirkGetInformation($"<style=cIsUtility>Out of AFO Range!</style>", 1f);
+                                return;
+                            }
+                        }
+
                         //energy cost
                         float plusChaosflatCost = (StaticValues.AFOEnergyCost) - (energySystem.costflatplusChaos);
                         if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
@@ -1834,6 +1875,26 @@ namespace ShiggyMod.Modules.Survivors
             else
             {
                 Debug.Log($"[StealQuirk] No body->quirk mapping for {bodyName} (or mapped to None).");
+            }
+
+            //stop the enemy in their tracks
+            SetStateOnHurt component = body.healthComponent.GetComponent<SetStateOnHurt>();
+            bool flag = component == null;
+            if (!flag)
+            {
+                bool canBeHitStunned = component.canBeHitStunned;
+                if (canBeHitStunned)
+                {
+                    component.SetPain();
+                    if (body.characterMotor)
+                    {
+                        body.characterMotor.velocity = Vector3.zero;
+                    }
+                    if (body.rigidbody != null)
+                    {
+                        body.rigidbody.velocity = Vector3.zero;
+                    }
+                }
             }
 
             // 3) Refund if we truly found nothing

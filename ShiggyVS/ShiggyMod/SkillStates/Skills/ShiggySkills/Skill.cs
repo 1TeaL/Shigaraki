@@ -17,6 +17,8 @@ namespace ShiggyMod.SkillStates
         private DamageType damageType;
         public HurtBox Target;
         private Animator animator;
+        public float fireTime;
+        public bool hasFired;
 
 
         private float radius = 15f;

@@ -155,8 +155,11 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "CAPTAIN_DESCRIPTION", $"Passively gain Microbots that shoot down nearby enemy projectiles. Drones are also given Microbots. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Void Reaver- Nullifier Artillery] to create [Orbital Strike]</style>");
             LanguageAPI.Add(prefix + "LOADER_NAME", "Scrap Barrier");
-            LanguageAPI.Add(prefix + "LOADER_DESCRIPTION", $"Gain <style=cIsUtility>{100f *StaticValues.loaderBarrierGainCoefficient}% of your damage as barrier</style> on all attacks. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "LOADER_DESCRIPTION", $"Gain <style=cIsUtility>{100f * StaticValues.loaderBarrierGainCoefficient}% of your damage as barrier</style> on all attacks. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Parent- Teleport] to create [Mach Punch]</style>");
+            LanguageAPI.Add(prefix + "CHILD_NAME", "Emergency Teleport");
+            LanguageAPI.Add(prefix + "CHILD_DESCRIPTION", $"Gain the ability to teleport randomly on taking lethal damage. This can be done every {StaticValues.childTeleportCD} seconds. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>No pairing yet</style>");
             #endregion
 
             #region Actives 
@@ -289,6 +292,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "DEKUOFA_DESCRIPTION", $"Go beyond your limits, boosting Damage, Attackspeed, Armor and Movespeed by {100f *(1 + StaticValues.OFACoefficient)}% additively, " + Helpers.Damage($"taking {100f * StaticValues.OFAHealthCostCoefficient}% of CURRENT health as damage every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Deku/Newt]</style>" +Environment.NewLine +
                 $"<style=cSub>Pairs with [Multiplier] to create [Limit Break]</style>");
+            LanguageAPI.Add(prefix + "HALCYONITE_NAME", "Greed");
+            LanguageAPI.Add(prefix + "HALCYONITE_DESCRIPTION", $"Spend <style=cIsUtility>{StaticValues.halcyoniteGreedGoldRatio * 100f}%</style> of your gold every 10 seconds. Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.halcyoniteGreedBuffDamageCoefficient}</style> and <style=cIsDamage>{StaticValues.halcyoniteGreedBuffAttackspeedCoefficient}</style> respectively per stack of the buff. For every {StaticValues.halcyoniteGreedBuffGoldPerStack} gold, gain 1 stack. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>No pairing yet</style>");
             #endregion
 
             #region Synergised Active

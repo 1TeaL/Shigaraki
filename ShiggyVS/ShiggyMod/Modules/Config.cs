@@ -12,6 +12,8 @@ namespace ShiggyMod.Modules
         public static ConfigEntry<bool> retainLoadout;
         public static ConfigEntry<bool> allowAllSkills;
         public static ConfigEntry<bool> allowVoice;
+        public static ConfigEntry<bool> allowRangedAFO;
+        public static ConfigEntry<float> maxAFORange;   // determine max afo range, up to 70 which is the range of the indicator
         public static ConfigEntry<float> holdButtonAFO;
         public static ConfigEntry<KeyboardShortcut> AFOHotkey;
         //public static ConfigEntry<KeyboardShortcut> RemoveHotkey;
@@ -56,7 +58,9 @@ namespace ShiggyMod.Modules
             CloseQuirkMenuHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Quirk UI Close Key", new KeyboardShortcut(UnityEngine.KeyCode.Tilde), "Keybinding for Closing the Quirk UI");
             AirWalkDescentKey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Air Walk Descent Key", new KeyboardShortcut(UnityEngine.KeyCode.X), "Keybinding for descending while in Air Walk");
 
-            allowAllSkills = ShiggyPlugin.instance.Config.Bind("General", "Allow all skils to be picked", false, "Should you be allowed to pick all skills in the loadout menu. AFO functionality is not disabled. Will require a Restart.");
+            allowAllSkills = ShiggyPlugin.instance.Config.Bind("AFO", "Allow all skils to be picked", false, "Should you be allowed to pick all skills in the loadout menu. AFO functionality is not disabled. Will require a Restart.");
+            allowRangedAFO = ShiggyPlugin.instance.Config.Bind("AFO", "Allow Ranged AFO", false, "Should you be allowed to use AFO from max distance.");
+            maxAFORange = ShiggyPlugin.instance.Config.Bind("AFO", "Max Range for AFO", 5f, "Maximum range for AFO, up to 70.");
             ShowQuirkNameOverlay = ShiggyPlugin.instance.Config.Bind("UI/Indicators", "Show Quirk Name Overlay", true, "Enable a label with the quirk's name if the target has one.");
             ShowOwnedCheckOverlay = ShiggyPlugin.instance.Config.Bind("UI/Indicators", "Show Owned Check Overlay", true, "Show a ✓ when you’ve already stolen that quirk.");
             ApexShowAdaptationOverlay = ShiggyPlugin.instance.Config.Bind("UI/Indicators", "Show Adaptation Stacks Overlay", true, "Show how many stacks of adaptation and how many thresholds have been passed.");
@@ -116,6 +120,8 @@ namespace ShiggyMod.Modules
                 OpenQuirkMenuHotkey));
             ModSettingsManager.AddOption(new KeyBindOption(
                 CloseQuirkMenuHotkey));
+            ModSettingsManager.AddOption(new KeyBindOption(
+                AirWalkDescentKey));
             ModSettingsManager.AddOption(new CheckBoxOption(
                 ShowQuirkNameOverlay));
             ModSettingsManager.AddOption(new CheckBoxOption(
@@ -130,6 +136,12 @@ namespace ShiggyMod.Modules
                 allowVoice));
             ModSettingsManager.AddOption(new StepSliderOption(
                 holdButtonAFO, new StepSliderConfig() { min = 0, max = 10, increment = 1f }));
+
+
+            ModSettingsManager.AddOption(new CheckBoxOption(
+                allowRangedAFO));
+            ModSettingsManager.AddOption(new StepSliderOption(
+                maxAFORange, new StepSliderConfig() { min = 1f, max = 70f, increment = 1f }));
 
             ModSettingsManager.AddOption(new IntSliderOption(
                 ApexStacksPerSecondReset, new IntSliderConfig() { min = 1, max = 10 }));
