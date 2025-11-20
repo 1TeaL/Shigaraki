@@ -485,6 +485,7 @@ namespace ShiggyMod.Modules.Survivors
                 }
                 else if (theWorldTimer > 1f)
                 {
+                    theWorldTimer = 0f;
                     //energy cost
                     float plusChaosflatCost = (StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
                     if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
@@ -513,7 +514,7 @@ namespace ShiggyMod.Modules.Survivors
                     //take damage every second based off current hp, cleanse self as well
                     new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.voidFormHealthCostCoefficient).Send(NetworkDestination.Clients);
 
-                    Util.CleanseBody(characterBody, true, false, false, true, true, true);
+                    CleanseSystem.CleanseBodyServer(characterBody, true, false, false, true, true, true);
                 }
             }
         }
@@ -1493,7 +1494,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     //radius increases overtime
                     overclockTimer += Time.deltaTime * OFAFOTimeMultiplier;
-                    float maxRadius = overclockTimer * StaticValues.theWorldCoefficient;
+                    float maxRadius = overclockTimer * StaticValues.theWorldCoefficient * StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos;
                     if (maxRadius > StaticValues.theWorldMaxRadius)
                     {
                         maxRadius = StaticValues.theWorldMaxRadius;
@@ -1589,7 +1590,7 @@ namespace ShiggyMod.Modules.Survivors
                     }
                 }
             }
-            else if (energySystem.currentplusChaos < 1f || !characterBody.HasBuff(Buffs.theWorldBuff))
+            else if (energySystem.currentplusChaos < 1f && characterBody.HasBuff(Buffs.theWorldBuff))
             {
                 characterBody.ApplyBuff(Buffs.theWorldBuff.buffIndex, 0);
                 //make sure to reset the timer and instance size 

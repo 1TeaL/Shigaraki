@@ -340,7 +340,7 @@ namespace ShiggyMod.Modules.UI
         private static Text NewText(string name, Transform parent, string text)
         {
             var t = NewUI<Text>(name, parent);
-            t.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            t.font = ShiggyAsset.ror2Font;
             t.text = text;
             t.color = Color.white;
             t.alignment = TextAnchor.MiddleLeft;

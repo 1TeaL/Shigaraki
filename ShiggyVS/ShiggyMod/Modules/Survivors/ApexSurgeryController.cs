@@ -446,10 +446,10 @@ namespace ShiggyMod.Modules.Quirks
             r.offsetMax = Vector2.zero;
 
             _adaptText = textGO.AddComponent<Text>();
-            _adaptText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            _adaptText.font = ShiggyAsset.ror2Font;
             _adaptText.alignment = TextAnchor.MiddleCenter;
             _adaptText.resizeTextForBestFit = false;
-            _adaptText.resizeTextMinSize = 14;
+            _adaptText.resizeTextMinSize = 20;
             _adaptText.resizeTextMaxSize = 32;
             _adaptText.color = new Color(0.9f, 0.95f, 1f, 0.95f);
             _adaptText.horizontalOverflow = HorizontalWrapMode.Overflow;  // never wrap

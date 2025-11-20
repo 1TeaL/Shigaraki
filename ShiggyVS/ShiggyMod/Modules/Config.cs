@@ -167,7 +167,7 @@ namespace ShiggyMod.Modules
                 ApexShowAdaptationOverlay));
 
             ModSettingsManager.SetModDescription("Shigaraki Mod");
-            Sprite icon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("Shiggy");
+            Sprite icon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("texShiggyIcon");
             ModSettingsManager.SetModIcon(icon);
 
             //ModSettingsManager.AddOption(

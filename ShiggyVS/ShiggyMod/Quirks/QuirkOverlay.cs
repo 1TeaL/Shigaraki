@@ -193,7 +193,7 @@ namespace ShiggyMod.Modules.Quirks
             rt.offsetMax = Vector2.zero;
 
             _line = txtGO.AddComponent<Text>();
-            _line.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            _line.font = ShiggyAsset.ror2Font;
             _line.text = string.Empty;
             _line.alignment = TextAnchor.MiddleCenter;
             _line.color = new Color(1f, 1f, 1f, 0.95f);

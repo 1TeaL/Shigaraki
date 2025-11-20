@@ -281,35 +281,47 @@ namespace ShiggyMod.Modules.Quirks
             trt.sizeDelta = new Vector2(0f, 44f);
             trt.anchoredPosition = new Vector2(0f, -8f);
 
-            // scroll list
+
+            // ScrollRect root
+            var scrollGO = new GameObject("ScrollRect");
+            scrollGO.transform.SetParent(panel.transform, false);
+
+            var scrollRT = scrollGO.AddComponent<RectTransform>();
+            scrollRT.anchorMin = new Vector2(0f, 0f);
+            scrollRT.anchorMax = new Vector2(1f, 1f);
+            scrollRT.offsetMin = new Vector2(10f, 60f);
+            scrollRT.offsetMax = new Vector2(-10f, -60f);
+
+            // IMPORTANT: a Graphic so it can receive raycasts
+            var scrollImg = scrollGO.AddComponent<Image>();
+            scrollImg.color = new Color(0f, 0f, 0f, 0f); // fully transparent is fine
+
+            var scroll = scrollGO.AddComponent<ScrollRect>();
+            scroll.horizontal = false;
+            scroll.vertical = true;
+
+            // Viewport as *child* of ScrollRect
             var viewportGO = new GameObject("Viewport");
-            viewportGO.transform.SetParent(panel.transform, false);
+            viewportGO.transform.SetParent(scrollGO.transform, false);
             var viewportRT = viewportGO.AddComponent<RectTransform>();
             viewportGO.AddComponent<RectMask2D>();
             var vimg = viewportGO.AddComponent<Image>();
             vimg.color = new Color(0f, 0f, 0f, 0.2f);
             viewportRT.anchorMin = new Vector2(0f, 0f);
             viewportRT.anchorMax = new Vector2(1f, 1f);
-            viewportRT.offsetMin = new Vector2(10f, 60f);
-            viewportRT.offsetMax = new Vector2(-10f, -60f);
+            viewportRT.offsetMin = Vector2.zero;
+            viewportRT.offsetMax = Vector2.zero;
 
-            var scrollGO = new GameObject("ScrollRect");
-            scrollGO.transform.SetParent(panel.transform, false);
-            var scroll = scrollGO.AddComponent<ScrollRect>();
-            var scrollRT = scrollGO.GetComponent<RectTransform>();
-            scrollRT.anchorMin = new Vector2(0f, 0f);
-            scrollRT.anchorMax = new Vector2(1f, 1f);
-            scrollRT.offsetMin = new Vector2(10f, 60f);
-            scrollRT.offsetMax = new Vector2(-10f, -60f);
             scroll.viewport = viewportRT;
-            scroll.horizontal = false;
 
+            // Content as child of Viewport
             var contentGO = new GameObject("Content");
             contentGO.transform.SetParent(viewportGO.transform, false);
             var crt = contentGO.AddComponent<RectTransform>();
             crt.anchorMin = new Vector2(0f, 1f);
             crt.anchorMax = new Vector2(1f, 1f);
             crt.pivot = new Vector2(0.5f, 1f);
+
             scroll.content = crt;
 
             float y = -6f;
@@ -422,7 +434,7 @@ namespace ShiggyMod.Modules.Quirks
         private static Text NewText(string name, Transform parent, string text)
         {
             var t = NewUI<Text>(name, parent);
-            t.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            t.font = ShiggyAsset.ror2Font;
             t.text = text;
             t.color = Color.white;
             t.alignment = TextAnchor.MiddleLeft;

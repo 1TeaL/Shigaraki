@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 211576462
+CRC: 4077270407
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 763c504827445bf093ad2bd6627532ae
+    Hash: 0a449a2c01fbf6a41852a9794ed5d4cd
   TypeTreeHash:
     serializedVersion: 2
     Hash: c6e88c678bec3d38b177b2bfda004c24
@@ -103,6 +103,7 @@ Assets:
 - Assets/Shigaraki/GUI/SynergyAndUltimate/ThunderClap.png
 - Assets/Shigaraki/GUI/Base/texShiggyIcon.png
 - Assets/Shigaraki/Assets/Particle/SwingEffect.prefab
+- Assets/Shigaraki/newAnimations/FloatDownTransition.anim
 - Assets/Shigaraki/Animations/RightArmOut.anim
 - Assets/Shigaraki/Assets/shigarakiHairMesh.mesh
 - Assets/Shigaraki/GUI/BaseSkills/Solus_Control_Unit.jpg
@@ -158,7 +159,6 @@ Assets:
 - Assets/Shigaraki/newAnimations/Jump.anim
 - Assets/Shigaraki/GUI/SynergyAndUltimate/LimitBreak.png
 - Assets/Shigaraki/Animations/FloatIdle.anim
-- Assets/Shigaraki/newAnimations/FloatDownFast.anim
 - Assets/Shigaraki/Assets/Material/texHair.png
 - Assets/Shigaraki/GUI/BaseSkills/Hermit_Crab.jpg
 - Assets/Shigaraki/GUI/BaseSkills/Void_Devastator.jpg
@@ -189,6 +189,7 @@ Assets:
 - Assets/Shigaraki/GUI/SynergyAndUltimate/LightAndDarkness.png
 - Assets/Shigaraki/GUI/SynergyAndUltimate/Wisper.png
 - Assets/Shigaraki/newAnimations/EntranceHairLoop.anim
+- Assets/Shigaraki/newAnimations/FloatDownFast.anim
 - Assets/Shigaraki/Assets/shigarakiFaceMesh.mesh
 - Assets/Shigaraki/Animations/ShiggyLeftArmMask.mask
 - Assets/Shigaraki/GUI/SynergyAndUltimate/DecayAwakened.png
