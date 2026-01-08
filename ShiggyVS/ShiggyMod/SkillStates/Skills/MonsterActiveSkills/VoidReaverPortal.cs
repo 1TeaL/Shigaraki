@@ -42,7 +42,8 @@ namespace ShiggyMod.SkillStates
             
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmDetonate", "Attack.playbackRate", duration, 0.1f);
+            //PlayCrossfade("RightArm, Override", "RightArmDetonate", "Attack.playbackRate", duration, 0.1f);
+            //need hand to stay out the whole time
             AkSoundEngine.PostEvent("ShiggyExplosion", base.gameObject);
         }
 

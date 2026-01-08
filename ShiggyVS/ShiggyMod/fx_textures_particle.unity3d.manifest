@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 183899754
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0c069b8be0a267b7f56d2ce110b7fed1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Textures/tf-28.png
+- Assets/Free Game VFX/Textures/particle_sprite_01.png
+- Assets/Free Game VFX/Textures/suipianlizi_00000.png
+Dependencies: []

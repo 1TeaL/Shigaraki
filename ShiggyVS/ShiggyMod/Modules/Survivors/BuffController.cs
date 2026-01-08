@@ -689,7 +689,7 @@ namespace ShiggyMod.Modules.Survivors
         {
 
             //captain buff items
-            captainitemcount = characterBody.master.inventory.GetItemCount(RoR2Content.Items.CaptainDefenseMatrix);
+            captainitemcount = characterBody.master.inventory.GetItemCountEffective(RoR2Content.Items.CaptainDefenseMatrix);
             if (characterBody.HasBuff(Buffs.captainBuff))
             {
                 if (captainitemcount < 1)

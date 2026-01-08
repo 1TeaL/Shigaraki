@@ -166,14 +166,14 @@ namespace ShiggyMod.Modules.Survivors
             if (characterBody)
             {
                 maxPlusChaos = StaticValues.basePlusChaos + ((characterBody.level - 1) * StaticValues.levelPlusChaos)
-                    + (StaticValues.backupGain * characterBody.master.inventory.GetItemCount(RoR2Content.Items.SecondarySkillMagazine))
-                    + (StaticValues.afterburnerGain * characterBody.master.inventory.GetItemCount(RoR2Content.Items.UtilitySkillMagazine))
-                    + (StaticValues.lysateGain * characterBody.master.inventory.GetItemCount(DLC1Content.Items.EquipmentMagazineVoid));
+                    + (StaticValues.backupGain * characterBody.master.inventory.GetItemCountEffective(RoR2Content.Items.SecondarySkillMagazine))
+                    + (StaticValues.afterburnerGain * characterBody.master.inventory.GetItemCountEffective(RoR2Content.Items.UtilitySkillMagazine))
+                    + (StaticValues.lysateGain * characterBody.master.inventory.GetItemCountEffective(DLC1Content.Items.EquipmentMagazineVoid));
 
                 regenPlusChaos = maxPlusChaos * StaticValues.regenPlusChaosFraction;
 
-                costmultiplierplusChaos = (float)Math.Pow(0.75f, characterBody.master.inventory.GetItemCount(RoR2Content.Items.AlienHead));
-                costflatplusChaos = (StaticValues.costFlatPlusChaosSpend * characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarBadLuck));
+                costmultiplierplusChaos = (float)Math.Pow(0.75f, characterBody.master.inventory.GetItemCountEffective(RoR2Content.Items.AlienHead));
+                costflatplusChaos = (StaticValues.costFlatPlusChaosSpend * characterBody.master.inventory.GetItemCountEffective(RoR2Content.Items.LunarBadLuck));
 
                 if (costmultiplierplusChaos > 1f)
                 {

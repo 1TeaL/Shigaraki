@@ -24,6 +24,7 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(RemoveSkill));
             Modules.Content.AddEntityState(typeof(EmptySkill));
             Modules.Content.AddEntityState(typeof(GiveSkill));
+            Modules.Content.AddEntityState(typeof(QuirkOverdrive));
 
             //active skills
             Modules.Content.AddEntityState(typeof(AlloyVultureWindBlast));

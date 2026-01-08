@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 3159026098
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6305751dba99897b21e860ae8a424f5d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Textures/Fx_Rin022.png
+- Assets/Free Game VFX/Textures/sd_21a.png
+- Assets/Free Game VFX/Textures/DungeonRingGuid.png
+Dependencies: []

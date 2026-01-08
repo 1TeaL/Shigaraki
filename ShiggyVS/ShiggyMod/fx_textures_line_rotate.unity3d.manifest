@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 3054897870
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 466738a70a5b808e9946a9f07327ad9e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Textures/fm-g01-02.png
+- Assets/Free Game VFX/Textures/Sparkle_Ink_008.png
+Dependencies: []

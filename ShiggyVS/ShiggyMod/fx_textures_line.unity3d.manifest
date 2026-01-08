@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 1929582574
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 412bd85585e0ca5a16dda252930d9b31
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Textures/Yellow_line_002.png
+- Assets/Free Game VFX/Textures/Flow_001.png
+Dependencies: []

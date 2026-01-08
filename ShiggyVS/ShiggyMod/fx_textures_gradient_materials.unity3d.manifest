@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 2443077793
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 64a65cf32114a4455c6500c3e8d537f4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f9f3d136959ac0e7043e721e899342fb
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Materials/trail05.mat
+Dependencies:
+- F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyVS/ShiggyMod/fx_textures_line.unity3d

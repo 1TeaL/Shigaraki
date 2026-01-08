@@ -58,12 +58,14 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Vefects\Trails VFX URP\Scripts\Demo_FreeCam.cs" />
     <Compile Include="Assets\scripts\DynamicBone.cs" />
     <Compile Include="Assets\scripts\RagdollController.cs" />
     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ParticleExamples.cs" />
+    <Compile Include="Assets\Vefects\Trails VFX URP\Scripts\Demo_TurningAround.cs" />
     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\ParticleCollision.cs" />
     <Compile Include="Assets\VFX\EffectExamples\Shared\Scripts\GunShoot.cs" />
     <Compile Include="Assets\scripts\FootstepHandler.cs" />
@@ -88,6 +90,7 @@
     <None Include="Assets\OJ2 effects\Pl01\Material\MII_ef_C0_flow_tr.props.txt" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\MultiScaleVOUpsample.compute" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl19_shuk.props.txt" />
+    <None Include="Assets\Vefects\Trails VFX URP\Demo\Resources\Character\Shaders\SH_Vefects_URP_VFX_Character_Showoff.shader" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_thunder_000.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl13_thwip.props.txt" />
     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_wind_scroll1.props.txt" />
@@ -97,6 +100,7 @@
     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_Pl09_meshwave2_tr.props.txt" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Distortion.hlsl" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl20_crack.props.txt" />
+    <None Include="Assets\Free Game VFX\Shaders\Additive.shader" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_avoid.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_hit_color_001.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_outline_tes_001.props.txt" />
@@ -164,6 +168,7 @@
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ground_shock_test_002.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl15_thoom.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ground_shock_test_003.props.txt" />
+    <None Include="Assets\Vefects\Trails VFX URP\VFX\Shaders\SH_Vefects_VFX_URP_Trail_Distortion.shader" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_010.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_009.props.txt" />
     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_flowfade.props.txt" />
@@ -249,6 +254,7 @@
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\FinalPass.shader" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_dot_000.props.txt" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Histogram.shader" />
+    <None Include="Assets\Vefects\Trails VFX URP\_ Extra\Shaders\SH_Vefects_Extra_Billboard_01.shader" />
     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_dynDust_tr.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_swing.props.txt" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Debug\Histogram.compute" />
@@ -301,6 +307,7 @@
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\PSP2.hlsl" />
     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_Dissolve_001.props.txt" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScreenSpaceReflections.shader" />
+    <None Include="Assets\Vefects\Trails VFX URP\VFX\Shaders\SH_Vefects_VFX_URP_Trail_New.shader" />
     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_common_ma.props.txt" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DepthOfField.hlsl" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\DiscardAlpha.shader" />
@@ -317,8 +324,10 @@
     <None Include="Assets\OJ2 effects\Pl01\Material\MI_ef_Pl01_Fresnel_tr.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ground_shock_test_001.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_crunch.props.txt" />
+    <None Include="Assets\Free Game VFX\Readme.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_wham.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_wind_speed_000.props.txt" />
+    <None Include="Assets\Free Game VFX\Shaders\Alpha Blended.shader" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smaassh.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_attacktrail_tr.props.txt" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\CopyStd.shader" />
@@ -345,6 +354,7 @@
     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_thunderFresnel02_tr.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_guardbreak.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_smaaaassshhhhhuuu.props.txt" />
+    <None Include="Assets\Vefects\Trails VFX URP\Demo\Resources\Environment\Shaders\SH_Vefects_Grid_01.shader" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flare_001.props.txt" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\GrainBaker.shader" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_004_tes.props.txt" />
@@ -364,6 +374,7 @@
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_ice2_ma.props.txt" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\ScreenSpaceReflections.hlsl" />
     <None Include="Assets\OJ2 effects\Common\Material\Master_Material\M_ef_explosion_tr.props.txt" />
+    <None Include="Assets\Vefects\Trails VFX URP\_ Extra\Shaders\SH_Vefects_Extra_Grid_01.shader" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_smoke_hole_tr.props.txt" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\API\XboxOne.hlsl" />
     <None Include="Assets\VFX\PostProcessing-2\PostProcessing\Shaders\Builtins\Copy.shader" />
@@ -402,6 +413,7 @@
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_outline_tes_002.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_Pl12_thoom.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Textmaterial_Instance\MI_ef_text_krak.props.txt" />
+    <None Include="Assets\Hovl Studio\Magic effects pack\Demo scene\Readme.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_flow_no_fade_001.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_uvscrollparam_001.props.txt" />
     <None Include="Assets\OJ2 effects\Common\Material\Material_Instance\MI_ef_linecircle_001.props.txt" />

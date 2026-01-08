@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 641803418
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 8603983913d9faa92d5d9799d08758c6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f9f3d136959ac0e7043e721e899342fb
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Materials/M_2D_Ray_01.mat
+Dependencies:
+- F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyVS/ShiggyMod/fx_textures_aura.unity3d

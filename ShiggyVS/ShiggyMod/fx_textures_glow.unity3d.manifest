@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 323914923
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ec6be1ca461af5e4a5a38456b8176b8b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Textures/glow_point2_purple.png
+- Assets/Free Game VFX/Textures/Color_Ring_002.tga
+Dependencies: []

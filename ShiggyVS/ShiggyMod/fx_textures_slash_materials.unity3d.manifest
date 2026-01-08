@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 3764553649
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 26479202e34cee9fec874f20ac186ca5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f9f3d136959ac0e7043e721e899342fb
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Materials/Slash16.mat
+- Assets/Free Game VFX/Materials/A38.mat
+- Assets/Free Game VFX/Materials/Slash17.mat
+Dependencies:
+- F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyVS/ShiggyMod/fx_textures_slash.unity3d

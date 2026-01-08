@@ -28,6 +28,8 @@ namespace ShiggyMod.Modules
         //internal const float airwalkThreshold = 10f;
         internal const float AFOEnergyCost = 50f;
 
+        internal const float quirkOverdriveDuration = 5f;
+
 
         internal const float vulturePushRange = 70f;
         internal const float vulturePushAngle = 180f;
@@ -323,6 +325,7 @@ namespace ShiggyMod.Modules
         internal const float thunderclapprocCoefficient = 1f;
         internal const float thunderclappushForce = 300f;
         public static Vector3 thunderclapbonusForce = Vector3.zero;
+        internal const float thunderclapbasePreDashDuration = 0.25f;
         internal const float thunderclapbaseDuration = 0.25f;
         internal const float thunderclapattackStartTime = 0.1f;
         internal const float thunderclapattackEndTime = 0.9f;

@@ -160,6 +160,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<ApexResetSlotRequest>();
             NetworkingAPI.RegisterMessageType<EquipLoadoutRequest>();
             NetworkingAPI.RegisterMessageType<GivePassiveRequest>();
+            NetworkingAPI.RegisterMessageType<ForceQuirkOverdriveState>();
 
 
 
@@ -1069,7 +1070,7 @@ namespace ShiggyMod
                 if (validHitForBlocks && victimBody.HasBuff(Buffs.blindSensesBuff.buffIndex))
                 {
                     float bearBonus = Util.ConvertAmplificationPercentageIntoReductionPercentage(
-                        StaticValues.blindSensesBlockChance * (float)victimBody.inventory.GetItemCount(RoR2Content.Items.Bear));
+                        StaticValues.blindSensesBlockChance * (float)victimBody.inventory.GetItemCountEffective(RoR2Content.Items.Bear));
                     if (Util.CheckRoll(StaticValues.blindSensesBlockChance + bearBonus, victimBody.master))
                     {
                         var orb = new LightningOrb

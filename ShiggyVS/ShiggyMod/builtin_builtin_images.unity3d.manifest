@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 3138396731
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1dd12a0164db32aa39973158658e694f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Textures/Default-Particle.png
+Dependencies: []

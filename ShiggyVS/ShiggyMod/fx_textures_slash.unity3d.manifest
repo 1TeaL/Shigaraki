@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 463491224
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1c7ed3cbaf2570b3357d8aab0576099e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Textures/orange_slash_L.png
+- Assets/Free Game VFX/Textures/slash03_anim 1.png
+Dependencies: []

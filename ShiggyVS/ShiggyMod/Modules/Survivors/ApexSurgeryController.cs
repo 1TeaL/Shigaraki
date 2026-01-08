@@ -1,15 +1,16 @@
 ﻿// ApexSurgeryController.cs
-using System;
-using RoR2;
-using RoR2.Skills;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Networking;
-
 using ExtraSkillSlots;
-
 using R2API.Networking;
 using R2API.Networking.Interfaces;
+using RoR2;
+using RoR2.Skills;
+using RoR2.UI;
+using ShiggyMod.Modules.Networking;
+using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace ShiggyMod.Modules.Quirks
 {
@@ -82,13 +83,29 @@ namespace ShiggyMod.Modules.Quirks
         [SyncVar(hook = nameof(OnAdaptationSync))]
         private int _adaptationStacks;
 
-        // HUD overlay
-        private Canvas _hudCanvas;
-        private CanvasGroup _hudCg;
-        private Text _adaptText;
-        private RectTransform _panelRT;
+        // ---------- HUD / UI (authority client only) ----------
         private bool _overlayDirty;
         private float _overlayTick;
+
+        // Prefab instance
+        private GameObject _uiObj;
+        private RectTransform _uiRoot;
+
+        // Ring fills
+        private Image _innerRingFill;   // Apex load (Radial180 bottom)
+        private Image _outerRingFill;   // Adapt progress (Radial360)
+
+        // Text
+        private HGTextMeshProUGUI _tierText;   // Center: T#
+        private HGTextMeshProUGUI _adaptText;  // Above: within/per (or stacks)
+
+        // Cache for minimal updates
+        private int _lastTier = int.MinValue;
+        private int _lastWithin = int.MinValue;
+        private int _lastPer = int.MinValue;
+        private int _lastApex = int.MinValue;
+        private int _lastCap = int.MinValue;
+
 
         // input edge armers (client-side)
         private bool _p1Armed, _p2Armed, _p3Armed, _p4Armed;
@@ -152,7 +169,7 @@ namespace ShiggyMod.Modules.Quirks
         {
             if (_body == null) return;
 
-            // Only spawn HUD when running as client AND this body has authority
+            // Only spawn UI when running as client AND this body has authority
             if (!NetworkClient.active || !_body.hasAuthority)
             {
                 // If we previously had an overlay but lost authority, clean it up
@@ -161,24 +178,17 @@ namespace ShiggyMod.Modules.Quirks
             }
 
             // Build once
-            if (_hudCanvas == null)
+            if (_uiObj == null)
             {
                 RebuildOverlay();
                 _overlayDirty = true;
             }
         }
 
+
         // ---------- update loop (input + overlay) ----------
         private void Update()
         {
-            // Overlay refresh @ ~4 Hz even on clients
-            _overlayTick += Time.deltaTime;
-            if (_overlayTick >= 0.25f)
-            {
-                _overlayTick = 0f;
-                if (_overlayDirty) UpdateOverlay();
-            }
-
             // === Apex bleed (server authoritative) ===
             if (NetworkServer.active && _body != null)
             {
@@ -193,9 +203,32 @@ namespace ShiggyMod.Modules.Quirks
                     }
                 }
             }
+
+            // If body is gone/dead, bail (and overlay will be destroyed by UpdateOverlay/TryEnsureOverlay)
             if (_body == null || _body.healthComponent == null || !_body.healthComponent.alive)
                 return;
-            if (_body == null || _skills == null) return;
+
+            if (_skills == null) return;
+
+            // Ensure overlay exists when we have authority
+            // (Optional but recommended to handle late body attach or respawns)
+            TryEnsureOverlay();
+
+            // --- UI refresh (authority client only) ---
+            _overlayTick += Time.deltaTime;
+            if (_overlayTick >= 0.1f) // 0.1f is fine; 0.25f also fine
+            {
+                _overlayTick = 0f;
+
+                if (NetworkClient.active && _body.hasAuthority)
+                {
+                    // Buff stacks are not SyncVars; detect apex changes and mark dirty
+                    int apexNow = _body.GetBuffCount(Buffs.ApexSurgeryDebuff);
+                    if (apexNow != _lastApex) _overlayDirty = true;
+
+                    if (_overlayDirty) UpdateOverlay();
+                }
+            }
 
             // Refresh references if needed
             if (_input == null) _input = _body.inputBank;
@@ -206,18 +239,6 @@ namespace ShiggyMod.Modules.Quirks
             if (!_body.hasAuthority) return;
 
             // --------- YOUR INPUT BLOCK (unchanged) ---------
-            // current down states
-            bool p1 = _input != null && _input.skill1.down;
-            bool p2 = _input != null && _input.skill2.down;
-            bool p3 = _input != null && _input.skill3.down;
-            bool p4 = _input != null && _input.skill4.down;
-
-            bool x1 = _extraInput != null && _extraInput.extraSkill1.down;
-            bool x2 = _extraInput != null && _extraInput.extraSkill2.down;
-            bool x3 = _extraInput != null && _extraInput.extraSkill3.down;
-            bool x4 = _extraInput != null && _extraInput.extraSkill4.down;
-
-            // rising-edges
             HandleSkillInput(_input.skill1.justReleased, _input.skill1.justPressed, ref _p1Armed, _skills.primary);
             HandleSkillInput(_input.skill2.justReleased, _input.skill2.justPressed, ref _p2Armed, _skills.secondary);
             HandleSkillInput(_input.skill3.justReleased, _input.skill3.justPressed, ref _p3Armed, _skills.utility);
@@ -229,6 +250,7 @@ namespace ShiggyMod.Modules.Quirks
             HandleSkillInput(_extraInput.extraSkill4.justReleased, _extraInput.extraSkill4.justPressed, ref _x4Armed, _extraSkills.extraFourth);
             // --------- END INPUT BLOCK ---------
         }
+
 
         // NOTE: signature & usage unchanged — we ALWAYS send a message (host included).
         private void HandleSkillInput(bool justReleased, bool justPressed, ref bool armed, GenericSkill slot)
@@ -318,18 +340,32 @@ namespace ShiggyMod.Modules.Quirks
         {
             if (slot == null) return;
 
-            bool outOfStock = slot.stock <= 0;
-            bool cooling = slot.cooldownRemaining > 0f;
-            if (!(outOfStock && cooling)) return;
+            // If blocked, do not reset (prevents bypassing special lockouts)
+            if (slot.isCooldownBlocked) return;
 
-            // Compute seconds to trade into stacks
+            // Only reset if actually cooling down (your intended gate)
+            if (slot.cooldownRemaining <= 0f) return;
+
+            // Compute seconds traded into stacks
             int seconds = ComputeStackSeconds(slot);
             if (seconds <= 0) return;
 
-            // Reset by granting one stock (respect maxStock)
-            if (slot.stock < slot.maxStock) slot.AddOneStock();
+            // --- Make skill usable NOW ---
+            // Complete the current recharge cycle
+            slot.rechargeStopwatch = slot.finalRechargeInterval;
 
-            // Stack math
+            // Ensure at least one stock is available
+            // (You can choose: add one stock, or clamp to 1 if you want deterministic)
+            if (slot.stock < 1)
+            {
+                slot.stock = 1; // direct set is allowed by property
+            }
+            else if (slot.stock < slot.maxStock)
+            {
+                slot.AddOneStock();
+            }
+
+            // --- Apply Apex/Adapt costs ---
             int apexPerSec = Mathf.Max(0, Modules.Config.ApexStacksPerSecondReset.Value);
             int adaptPerSec = Mathf.Max(0, Modules.Config.ApexAdaptPerSecondReset.Value);
 
@@ -339,6 +375,31 @@ namespace ShiggyMod.Modules.Quirks
             if (addApex > 0) AddApexStacksServer(addApex);
             if (addAdapt > 0) AddAdaptationServer(addAdapt);
         }
+        //private void TryAutoResetSlot(GenericSkill slot)
+        //{
+        //    if (slot == null) return;
+
+        //    bool outOfStock = slot.stock <= 0;
+        //    bool cooling = slot.cooldownRemaining > 0f;
+        //    if (!(outOfStock && cooling)) return;
+
+        //    // Compute seconds to trade into stacks
+        //    int seconds = ComputeStackSeconds(slot);
+        //    if (seconds <= 0) return;
+
+        //    // Reset by granting one stock (respect maxStock)
+        //    if (slot.stock < slot.maxStock) slot.AddOneStock();
+
+        //    // Stack math
+        //    int apexPerSec = Mathf.Max(0, Modules.Config.ApexStacksPerSecondReset.Value);
+        //    int adaptPerSec = Mathf.Max(0, Modules.Config.ApexAdaptPerSecondReset.Value);
+
+        //    int addApex = seconds * apexPerSec;
+        //    int addAdapt = seconds * adaptPerSec;
+
+        //    if (addApex > 0) AddApexStacksServer(addApex);
+        //    if (addAdapt > 0) AddAdaptationServer(addAdapt);
+        //}
 
         // ---------- client->server entry from message ----------
         [Server]
@@ -405,100 +466,205 @@ namespace ShiggyMod.Modules.Quirks
             catch { show = true; }
 
             if (!show || _body == null) return;
-
-            // Safety: Only on the local-authority client
             if (!NetworkClient.active || !_body.hasAuthority) return;
 
-            var root = new GameObject("Apex_AdaptationHUD");
-            _hudCanvas = root.AddComponent<Canvas>();
-            _hudCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            _hudCanvas.sortingOrder = 5001;
+            // Instantiate prefab (asset bundle)
+            _uiObj = UnityEngine.Object.Instantiate(
+                Modules.ShiggyAsset.mainAssetBundle.LoadAsset<GameObject>("apexAdaptUI")
+            );
+            _uiObj.name = "ApexAdaptUI_Runtime";
+            _uiObj.SetActive(true);
 
-            var scaler = root.AddComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920, 1080);
+            // OPTIONAL (recommended later): parent to RoR2 HUD container
+            // Only enable when you confirm which container exists in your RoR2 version.
+            /*
+            var hud = HUD.instancesList != null
+                ? HUD.instancesList.Find(h => h && h.targetBodyObject == _body.gameObject)
+                : null;
 
-            root.AddComponent<GraphicRaycaster>();
-            _hudCg = root.AddComponent<CanvasGroup>();
-            _hudCg.interactable = false;
-            _hudCg.blocksRaycasts = false;
-            _hudCg.alpha = 1f;
+            if (hud != null && hud.mainContainer != null)
+                _uiObj.transform.SetParent(hud.mainContainer.transform, false);
+            */
 
-            // Transparent panel anchored bottom-center, offset left
-            var panel = new GameObject("Panel").AddComponent<Image>();
-            panel.color = new Color(0f, 0f, 0f, 0f);
-            panel.raycastTarget = false;
-            panel.transform.SetParent(_hudCanvas.transform, false);
+            // Resolve the inner root: Canvas (Environment) -> apexAdaptUI
+            Transform rootTf = _uiObj.transform;
 
-            _panelRT = panel.rectTransform;
-            _panelRT.sizeDelta = new Vector2(320f, 42f);
-            _panelRT.anchorMin = _panelRT.anchorMax = new Vector2(0.5f, 0f); // bottom-center
-            _panelRT.pivot = new Vector2(0.5f, 0f);
-            _panelRT.anchoredPosition = new Vector2(-240f, 80f);
+            var canvasTf = rootTf.Find("Canvas (Environment)");
+            if (canvasTf != null)
+            {
+                var uiTf = canvasTf.Find("apexAdaptUI");
+                if (uiTf != null) rootTf = uiTf;
+            }
+            else
+            {
+                var uiTf = rootTf.Find("apexAdaptUI");
+                if (uiTf != null) rootTf = uiTf;
+            }
 
-            // Text
-            var textGO = new GameObject("AdaptText");
-            textGO.transform.SetParent(panel.transform, false);
-            var r = textGO.AddComponent<RectTransform>();
-            r.anchorMin = Vector2.zero;
-            r.anchorMax = Vector2.one;
-            r.offsetMin = Vector2.zero;
-            r.offsetMax = Vector2.zero;
+            _uiRoot = rootTf.GetComponent<RectTransform>();
+            if (_uiRoot == null) _uiRoot = rootTf.gameObject.AddComponent<RectTransform>();
 
-            _adaptText = textGO.AddComponent<Text>();
-            _adaptText.font = ShiggyAsset.ror2Font;
-            _adaptText.alignment = TextAnchor.MiddleCenter;
-            _adaptText.resizeTextForBestFit = false;
-            _adaptText.resizeTextMinSize = 20;
-            _adaptText.resizeTextMaxSize = 32;
-            _adaptText.color = new Color(0.9f, 0.95f, 1f, 0.95f);
-            _adaptText.horizontalOverflow = HorizontalWrapMode.Overflow;  // never wrap
-            _adaptText.verticalOverflow = VerticalWrapMode.Truncate;    // single-line height
+            // Bind fills (prefer name-based, fallback to your screenshot order)
+            _innerRingFill = rootTf.Find("InnerRing")?.GetComponent<Image>();
+            _outerRingFill = rootTf.Find("OuterRingFill")?.GetComponent<Image>();
 
+            if (_innerRingFill == null || _outerRingFill == null)
+            {
+                // Fallback to index mapping:
+                // 0 InnerRingBackground
+                // 1 InnerRing
+                // 2 OuterRingBackground
+                // 3 OuterRing
+                // 4 OuterRingFill
+                if (rootTf.childCount >= 5)
+                {
+                    if (_innerRingFill == null) _innerRingFill = rootTf.GetChild(1).GetComponent<Image>();
+                    if (_outerRingFill == null) _outerRingFill = rootTf.GetChild(4).GetComponent<Image>();
+                }
+            }
 
+            // Create texts (code-created like your EnergySystem)
+            _tierText = CreateLabel(rootTf, "TierText", "T0", new Vector2(0f, 0f), 24f, new Color(0.92f, 0.92f, 0.95f, 0.95f));
+            _adaptText = CreateLabel(rootTf, "AdaptText", "0/0", new Vector2(0f, 60f), 16f, new Color(0.70f, 0.95f, 0.70f, 0.85f));
+
+            // Ensure text draws above rings
+            _tierText.transform.SetAsLastSibling();
+            _adaptText.transform.SetAsLastSibling();
+
+            ResetOverlayCaches();
+            _overlayDirty = true;
             UpdateOverlay();
         }
+
+
+        private void ResetOverlayCaches()
+        {
+            _lastTier = int.MinValue;
+            _lastWithin = int.MinValue;
+            _lastPer = int.MinValue;
+            _lastApex = int.MinValue;
+            _lastCap = int.MinValue;
+        }
+
+        private HGTextMeshProUGUI CreateLabel(Transform parent, string name, string text, Vector2 position, float textScale, Color color)
+        {
+            GameObject go = new GameObject(name);
+            go.transform.parent = parent;
+            go.AddComponent<CanvasRenderer>();
+
+            RectTransform rectTransform = go.AddComponent<RectTransform>();
+            HGTextMeshProUGUI tmp = go.AddComponent<HGTextMeshProUGUI>();
+
+            tmp.enabled = true;
+            tmp.text = text;
+            tmp.fontSize = textScale;
+            tmp.color = color;
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.enableWordWrapping = false;
+
+            rectTransform.localPosition = Vector2.zero;
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.anchorMax = Vector2.one;
+            rectTransform.localScale = Vector3.one;
+            rectTransform.sizeDelta = Vector2.zero;
+            rectTransform.anchoredPosition = position;
+
+            return tmp;
+        }
+
 
         private void UpdateOverlay()
         {
             _overlayDirty = false;
 
-            // Only on authority client; if we somehow lost authority, destroy it.
             if (!NetworkClient.active || _body == null || !_body.hasAuthority)
             {
                 DestroyOverlay();
                 return;
             }
 
-            if (_adaptText == null)
-            {
-                if (_hudCanvas == null && _body != null) RebuildOverlay();
-                return;
-            }
+            if (_uiObj == null) return;
+            if (_innerRingFill == null || _outerRingFill == null || _tierText == null) return;
 
             int adapt = _adaptationStacks;
-            int thr = GetAdaptationThresholds();
+            int per = Mathf.Max(1, Modules.Config.ApexAdaptThreshold.Value);
+            int tier = adapt / per;
+            int within = adapt % per;
+
             int cap = ComputeOverdriveCap();
-            int apex = _body ? _body.GetBuffCount(Buffs.ApexSurgeryDebuff) : 0;
+            int apex = _body.GetBuffCount(Buffs.ApexSurgeryDebuff);
 
-            _adaptText.text = $"Adaptation: {adapt}  ({thr}x)  |  Apex Limit: {apex}/{(cap > 0 ? cap : 0)}";
+            // Text updates only when changed
+            if (tier != _lastTier)
+            {
+                _tierText.SetText($"T{tier}");
+                _lastTier = tier;
+            }
 
-            float warn = (cap > 0) ? Mathf.Clamp01(apex / Mathf.Max(1f, (float)cap)) : 0f;
-            _adaptText.color = Color.Lerp(new Color(0.9f, 0.95f, 1f, 0.95f),
-                                          new Color(1f, 0.8f, 0.3f, 0.95f), warn);
+            if (_adaptText != null && (within != _lastWithin || per != _lastPer))
+            {
+                _adaptText.SetText($"{within}/{per}");
+                _lastWithin = within;
+                _lastPer = per;
+            }
+
+            // Outer ring fill (adapt progress)
+            _outerRingFill.fillAmount = within / (float)per;
+
+            // Inner ring fill (apex danger)
+            float apexFill = (cap > 0) ? Mathf.Clamp01(apex / (float)cap) : 0f;
+            _innerRingFill.fillAmount = apexFill;
+
+            // Inner ring color ramp
+            Color safe = new Color(0.70f, 0.20f, 0.90f, 0.95f);
+            Color warn = new Color(1.00f, 0.65f, 0.25f, 0.95f);
+            Color crit = new Color(1.00f, 0.20f, 0.20f, 0.98f);
+
+            if (apexFill < 0.65f) _innerRingFill.color = Color.Lerp(safe, warn, apexFill / 0.65f);
+            else _innerRingFill.color = Color.Lerp(warn, crit, Mathf.InverseLerp(0.65f, 1f, apexFill));
+
+            // Pulse near cap
+            if (apexFill > 0.85f)
+            {
+                float t = Mathf.InverseLerp(0.85f, 1f, apexFill);
+                float pulse = 0.6f + 0.4f * Mathf.Abs(Mathf.Sin(Time.unscaledTime * (8f + 10f * t)));
+                var c = _innerRingFill.color;
+                c.a = 0.75f + 0.25f * pulse;
+                _innerRingFill.color = c;
+            }
+
+            // Keep outer ring slightly subdued (prevents green dominance)
+            var oc = _outerRingFill.color;
+            oc.a = 0.75f;
+            _outerRingFill.color = oc;
+
+            // Update cache values used for dirty detection
+            _lastApex = apex;
+            _lastCap = cap;
         }
+
+
 
         private void DestroyOverlay()
         {
-            if (_hudCanvas != null)
+            if (_uiObj != null)
             {
-                try { UnityEngine.Object.Destroy(_hudCanvas.gameObject); } catch { }
+                try { UnityEngine.Object.Destroy(_uiObj); } catch { }
             }
-            _hudCanvas = null;
-            _hudCg = null;
+
+            _uiObj = null;
+            _uiRoot = null;
+
+            _innerRingFill = null;
+            _outerRingFill = null;
+
+            _tierText = null;
             _adaptText = null;
-            _panelRT = null;
+
+            ResetOverlayCaches();
         }
+
+
 
         // ---------- server-side overdrive ----------
         [Server]
@@ -525,11 +691,14 @@ namespace ShiggyMod.Modules.Quirks
                 hc.TakeDamage(di);
             }
 
+
+
             int healBlock = Mathf.Max(0, Modules.Config.ApexHealBlockDuration.Value);
             if (healBlock > 0)
                 _body.ApplyBuff(RoR2Content.Buffs.HealingDisabled.buffIndex, 1, healBlock);
 
             Chat.AddMessage("<style=cDeath>Quirk Overdrive!</style> Healing blocked and backlash applied.");
+            new ForceQuirkOverdriveState(_body.masterObjectId).Send(NetworkDestination.Clients);
         }
     }
 }

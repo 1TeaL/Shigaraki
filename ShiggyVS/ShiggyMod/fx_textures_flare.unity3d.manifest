@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 4132504190
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 262b3e2dfbee49e74fb60752f480af94
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Textures/star_CP.png
+- Assets/Free Game VFX/Textures/Fx_Glow_004.png
+- Assets/Free Game VFX/Textures/tex_vfx-ult_particle_sprite_kh_twinkle-blurred 1.png
+Dependencies: []

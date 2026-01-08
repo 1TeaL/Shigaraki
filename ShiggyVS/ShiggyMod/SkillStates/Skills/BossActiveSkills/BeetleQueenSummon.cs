@@ -34,13 +34,7 @@ namespace ShiggyMod.SkillStates
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            //check if client able to summon dlc survivors
-
-            if (NetworkServer.active)
-            {
-                randomSurvivor = UnityEngine.Random.RandomRangeInt(0, 16);
-            }
-
+            randomSurvivor = UnityEngine.Random.RandomRangeInt(0, 16);
             Summon(randomSurvivor);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
@@ -116,6 +110,14 @@ namespace ShiggyMod.SkillStates
             if (rand == 14)
             {
                 new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_FalseSon.FalseSonBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_FalseSon.FalseSonMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
+            }
+            if (rand == 15)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_35_0.RoR2_DLC3_Drone_Tech.DroneTechBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_35_0.RoR2_DLC3_Drone_Tech.DroneTechMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
+            }
+            if (rand == 1)
+            {
+                new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_35_0.RoR2_DLC3_Drifter.DrifterBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_35_0.RoR2_DLC3_Drifter.DrifterMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
         }
 

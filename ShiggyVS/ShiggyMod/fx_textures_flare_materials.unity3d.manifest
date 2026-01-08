@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 3524828445
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 722103c8aeae2c2fb59972ac91425c2f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f9f3d136959ac0e7043e721e899342fb
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Materials/star_CPdr_wyy_006_alpha_01.mat
+- Assets/Free Game VFX/Materials/zxv effects_textures.mat
+- Assets/Free Game VFX/Materials/vfx_twinkle-blurred-add-[1.0] 1.mat
+- Assets/Free Game VFX/Materials/Background_paticle_purple_W01.mat
+Dependencies:
+- F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyVS/ShiggyMod/fx_textures_flare.unity3d

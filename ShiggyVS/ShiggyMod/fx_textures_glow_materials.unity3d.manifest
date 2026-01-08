@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1653551163
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b47225b95f8c242fc231542d1132260a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f9f3d136959ac0e7043e721e899342fb
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Free Game VFX/Materials/Color_Ring_003.mat
+- Assets/Free Game VFX/Materials/glow_point2_yellow_4.mat
+- Assets/Free Game VFX/Materials/glow_ball2_grey_5.mat
+Dependencies:
+- F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyVS/ShiggyMod/fx_textures_glow.unity3d

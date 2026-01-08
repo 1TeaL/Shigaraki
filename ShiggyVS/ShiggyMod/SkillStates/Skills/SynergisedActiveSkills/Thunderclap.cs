@@ -46,6 +46,7 @@ namespace ShiggyMod.SkillStates
 
         private float preDashTimer;
         public float duration;
+        public float preDashDuration;
         private bool hasFired;
         private float hitPauseTimer;
         private OverlapAttack attack;
@@ -75,6 +76,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             this.duration = this.baseDuration / this.attackSpeedStat;
+            this.preDashDuration = StaticValues.thunderclapbasePreDashDuration / this.attackSpeedStat;
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
             base.StartAimMode(0.5f + this.duration, false);
@@ -258,13 +260,13 @@ namespace ShiggyMod.SkillStates
             base.FixedUpdate();
 
             //stay still, move after prep
-            if (preDashTimer < duration * 1f)
+            if (preDashTimer < preDashDuration * 1f)
             {
                 preDashTimer += Time.fixedDeltaTime;
                 characterBody.characterMotor.velocity.y = 0f;
                 //play prestance anim here
             }
-            else if (preDashTimer >= duration * 1f)
+            else if (preDashTimer >= preDashDuration * 1f)
             {
                 this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
                 if (this.modelTransform)
