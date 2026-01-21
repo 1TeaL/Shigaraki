@@ -37,8 +37,8 @@ namespace ShiggyMod.Modules
         public static ConfigEntry<float> ApexAdaptReward;             // how much flat stat upgrade do you gain for each threshold hit
         public static ConfigEntry<float> ApexOverdriveChunk;             // % MaxHP chunk on overdrive (0.4 = 40%)
         public static ConfigEntry<int> ApexHealBlockDuration;          // seconds heal-block lasts
-        public static ConfigEntry<bool> ApexScaleByRemainingOnly;       // if true, use remaining cooldown; else use full final cooldown
         public static ConfigEntry<bool> ApexShowAdaptationOverlay;       // show the number of adaptation stacks and how many thresholds have happened
+        public static ConfigEntry<float> ApexHoldSecondsToReset;             // seconds to hold to reset cooldowns
 
 
         public static void ReadConfig()
@@ -60,7 +60,7 @@ namespace ShiggyMod.Modules
 
             allowAllSkills = ShiggyPlugin.instance.Config.Bind("AFO", "Allow all skils to be picked", false, "Should you be allowed to pick all skills in the loadout menu. AFO functionality is not disabled. Will require a Restart.");
             allowRangedAFO = ShiggyPlugin.instance.Config.Bind("AFO", "Allow Ranged AFO", false, "Should you be allowed to use AFO from max distance.");
-            maxAFORange = ShiggyPlugin.instance.Config.Bind("AFO", "Max Range for AFO", 5f, "Maximum range for AFO, up to 70.");
+            maxAFORange = ShiggyPlugin.instance.Config.Bind("AFO", "Max Range for AFO", 10f, "Maximum range for AFO, up to 70.");
             ShowQuirkNameOverlay = ShiggyPlugin.instance.Config.Bind("UI/Indicators", "Show Quirk Name Overlay", true, "Enable a label with the quirk's name if the target has one.");
             ShowOwnedCheckOverlay = ShiggyPlugin.instance.Config.Bind("UI/Indicators", "Show Owned Check Overlay", true, "Show a ✓ when you’ve already stolen that quirk.");
             ApexShowAdaptationOverlay = ShiggyPlugin.instance.Config.Bind("UI/Indicators", "Show Adaptation Stacks Overlay", true, "Show how many stacks of adaptation and how many thresholds have been passed.");
@@ -94,7 +94,7 @@ namespace ShiggyMod.Modules
             ApexAdaptReward = ShiggyPlugin.instance.Config.Bind("Apex", "Adaptation Reward Value", 0.1f, "Percent of stat boosts gained per threshold met.");
             ApexOverdriveChunk = ShiggyPlugin.instance.Config.Bind("Apex", "OverdriveChunk", 0.40f, "Percent Max HP damage when overdrive triggers.");
             ApexHealBlockDuration = ShiggyPlugin.instance.Config.Bind("Apex", "HealBlockDuration", 5, "Seconds of heal-block during overdrive.");
-            ApexScaleByRemainingOnly = ShiggyPlugin.instance.Config.Bind("Apex", "ScaleByRemainingOnly", true, "When true, stacks scale with remaining cooldown rather than full cooldown.");
+            ApexHoldSecondsToReset = ShiggyPlugin.instance.Config.Bind("Apex", "HoldSecondsToReset", 0.30f, "Seconds to hold to reset cooldowns.");
 
         }
 
@@ -141,7 +141,7 @@ namespace ShiggyMod.Modules
             ModSettingsManager.AddOption(new CheckBoxOption(
                 allowRangedAFO));
             ModSettingsManager.AddOption(new StepSliderOption(
-                maxAFORange, new StepSliderConfig() { min = 1f, max = 70f, increment = 1f }));
+                maxAFORange, new StepSliderConfig() { min = 1f, max = StaticValues.maxTrackingDistance, increment = 1f }));
 
             ModSettingsManager.AddOption(new IntSliderOption(
                 ApexStacksPerSecondReset, new IntSliderConfig() { min = 1, max = 10 }));
@@ -162,9 +162,9 @@ namespace ShiggyMod.Modules
             ModSettingsManager.AddOption(new IntSliderOption(
                 ApexHealBlockDuration, new IntSliderConfig() { min = 1, max = 100 }));
             ModSettingsManager.AddOption(new CheckBoxOption(
-                ApexScaleByRemainingOnly));
-            ModSettingsManager.AddOption(new CheckBoxOption(
                 ApexShowAdaptationOverlay));
+            ModSettingsManager.AddOption(new StepSliderOption(
+                ApexHoldSecondsToReset, new StepSliderConfig() { min = 0.01f, max = 10f, increment = 0.01f }));
 
             ModSettingsManager.SetModDescription("Shigaraki Mod");
             Sprite icon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("texShiggyIcon");

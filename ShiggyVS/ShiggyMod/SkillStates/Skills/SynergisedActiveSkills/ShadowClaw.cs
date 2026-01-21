@@ -15,16 +15,10 @@ using R2API;
 namespace ShiggyMod.SkillStates
 {
     //imp + bandit
-    public class ShadowClaw : BaseSkillState
+    public class ShadowClaw : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 0.5f;
-        public float duration;
-        public ShiggyController Shiggycon;
-        private DamageType damageType = new DamageTypeCombo(DamageType.BonusToLowHealth | DamageType.ResetCooldownsOnKill, DamageTypeExtended.Generic, DamageSource.Secondary);
-        public HurtBox Target;
-        private Animator animator;
-        private int numberOfHits = 1;
+        private int numberOfHits;
         private int totalHits;
         private float fireInterval;
         private float stopwatch;
@@ -41,7 +35,10 @@ namespace ShiggyMod.SkillStates
 
         public override void OnEnter()
         {
+            baseDuration = 0.5f;
             base.OnEnter();
+            numberOfHits = 0;
+            damageType = new DamageTypeCombo(DamageType.BonusToLowHealth | DamageType.ResetCooldownsOnKill, DamageTypeExtended.Generic, DamageSource.Secondary);
             this.duration = this.baseDuration / this.attackSpeedStat;
             fireInterval = duration * StaticValues.shadowClawInterval;
             totalHits = Mathf.RoundToInt(StaticValues.shadowClawHits * attackSpeedStat);
@@ -100,9 +97,9 @@ namespace ShiggyMod.SkillStates
             base.OnExit();
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
-            //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+
+            this.animator.SetBool("attacking", true);
+            base.PlayCrossfade("RightArm, Override", "RArmSwipe1Start" , "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -128,8 +125,53 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-            base.FixedUpdate();
-            if (base.IsKeyDownAuthority())
+
+            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            else
+            {
+                keepFiring = false;
+            }
+
+            if (keepFiring)
             {
                 base.characterMotor.walkSpeedPenaltyCoefficient = 1f - base.fixedAge/StaticValues.shadowClawMovespeedCharge;
                 if(base.characterMotor.walkSpeedPenaltyCoefficient < 0.3f)
@@ -138,9 +180,15 @@ namespace ShiggyMod.SkillStates
                 }
                 //PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
             }
-            if (base.fixedAge >= this.duration && base.isAuthority && !base.IsKeyDownAuthority())
+            if (base.fixedAge >= this.duration && base.isAuthority && !keepFiring)
             {
+                if (!hasFired)
+                {
+                    hasFired = true;
+                    this.animator.SetBool("attacking", true);
+                    base.PlayCrossfade("RightArm, Override", "RArmSwipe1Release", "Attack.playbackRate", duration, 0.05f);
 
+                }
                 base.characterMotor.walkSpeedPenaltyCoefficient = 1f;
                 if (stopwatch < fireInterval)
                 {

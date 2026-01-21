@@ -16,15 +16,12 @@ namespace ShiggyMod.SkillStates
     public class DeathAura : Skill
     {
         //Barbed spikes + Expunge
-        public float baseDuration = 0.5f;
-        public float duration;
         private string muzzleString = "RHand";
         private GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
 
         public override void OnEnter()
         {
             base.OnEnter();
-            duration= baseDuration;
             //play animation and maybe particles?
 
             Ray aimRay = base.GetAimRay();
@@ -45,11 +42,13 @@ namespace ShiggyMod.SkillStates
             if (!characterBody.HasBuff(Buffs.deathAuraBuff.buffIndex))
             {
                 characterBody.ApplyBuff(Buffs.deathAuraBuff.buffIndex, 1);
+                base.PlayAnimation("FullBody, Override", "BothHandLift", "Attack.playbackRate", duration);
             }
             else
             if (characterBody.HasBuff(Buffs.deathAuraBuff.buffIndex))
             {
                 characterBody.ApplyBuff(Buffs.deathAuraBuff.buffIndex, 0);
+                base.PlayAnimation("FullBody, Override", "BothHandDown", "Attack.playbackRate", duration);
             }
 
 

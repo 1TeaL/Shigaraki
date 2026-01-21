@@ -16,13 +16,10 @@ using R2API.Networking.Interfaces;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BlackHoleGlaive : BaseSkillState
+    public class BlackHoleGlaive : Skill
     {
         //huntress + void devastator crab
 
-        public float baseDuration = 2f;
-        public float duration;
-        public ShiggyController Shiggycon;
         private Transform modelTransform;
 
         public static GameObject effectPrefab;
@@ -30,12 +27,8 @@ namespace ShiggyMod.SkillStates
         private GameObject chargeEffect;
 
         private string muzzleString;
-        private Animator animator;
-        private HurtBox Target;
         private bool hasTriedToThrowGlaive;
         private bool hasSuccessfullyThrownGlaive;
-        private float stopwatch;
-        private ExtraSkillLocator extraskillLocator;
 
         public override void OnEnter()
         {
@@ -56,7 +49,7 @@ namespace ShiggyMod.SkillStates
             }
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
@@ -186,8 +179,7 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            stopwatch += Time.fixedDeltaTime;
-            if (!this.hasTriedToThrowGlaive && stopwatch > duration/3f)
+            if (base.fixedAge > fireTime && !this.hasTriedToThrowGlaive)
             {
                 if (this.chargeEffect)
                 {
@@ -197,8 +189,8 @@ namespace ShiggyMod.SkillStates
                 
             }
             CharacterMotor characterMotor = base.characterMotor;
-            characterMotor.velocity.y = characterMotor.velocity.y + ThrowGlaive.antigravityStrength * Time.fixedDeltaTime * (1f - this.stopwatch / this.duration);
-            if (this.stopwatch >= this.duration && base.isAuthority)
+            characterMotor.velocity.y = characterMotor.velocity.y + ThrowGlaive.antigravityStrength * Time.fixedDeltaTime * (1f - base.fixedAge / this.duration);
+            if (base.fixedAge > this.duration && base.isAuthority)
             {
                 this.outer.SetNextStateToMain();
                 return;

@@ -45,6 +45,9 @@ namespace ShiggyMod.Modules
         internal static BuffDef childCDDebuff;
         internal static BuffDef halcyoniteGreedBuff;
         internal static BuffDef halcyoniteGreedStacksBuff;
+        internal static BuffDef falsesonStolenInheritanceBuff;
+        internal static BuffDef chefOilBurstBuff;
+        internal static BuffDef chefOilBurstStacksBuff;
 
         //monsterdebuffs
         internal static BuffDef grovetenderChainDebuff;
@@ -199,6 +202,9 @@ namespace ShiggyMod.Modules
             childCDDebuff = Buffs.AddNewBuff($"Emergency Teleport Debuff- Can't teleport while this is active</style>. ", ShiggyAsset.decayBuffIcon, Color.black, false, true);
             halcyoniteGreedBuff = Buffs.AddNewBuff($"Greed Buff- Spend {StaticValues.halcyoniteGreedGoldRatio * 100f}% of your gold every 10 seconds. Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.halcyoniteGreedBuffDamageCoefficient} and {StaticValues.halcyoniteGreedBuffAttackspeedCoefficient} respectively</style> per stack of the buff. For every {StaticValues.halcyoniteGreedBuffGoldPerStack} gold, gain 1 stack.", ShiggyAsset.affixAurelioniteBuffIcon, Color.white, false, false);
             halcyoniteGreedStacksBuff = Buffs.AddNewBuff($"Greed Buff stacks", ShiggyAsset.affixAurelioniteBuffIcon, new Color(255f, 215f, 0f), true, false);
+            falsesonStolenInheritanceBuff = Buffs.AddNewBuff($"Stolen Inheritance Buff- Gain bonus base damage equal to {StaticValues.falseSonHPCoefficient}% of maximum health.", ShiggyAsset.falseSonEnergizedCoreBuffIcon, new Color(235f, 150f, 50f), false, false);
+            chefOilBurstBuff = Buffs.AddNewBuff($"Oil Burst Buff- Every {StaticValues.falseSonHPCoefficient} attacks, fire an oil glob that coats enemies.", ShiggyAsset.chefOilBuffIcon, Color.white, false, false);
+            chefOilBurstBuff = Buffs.AddNewBuff($"Oil Burst Buff stacks", ShiggyAsset.chefOilBuffIcon, Color.black, true, false);
 
             //shiggy buffs
             airwalkBuff = Buffs.AddNewBuff($"Air walk acceleration Buff", ShiggyAsset.jumpBuffIcon, Color.magenta, false, false);

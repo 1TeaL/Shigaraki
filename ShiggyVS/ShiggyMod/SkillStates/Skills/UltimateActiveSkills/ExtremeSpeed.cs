@@ -14,11 +14,9 @@ using System.Linq;
 
 namespace ShiggyMod.SkillStates
 {
-    internal class ExtremeSpeed : BaseSkillState
+    internal class ExtremeSpeed : Skill
     {
         //mach punch + thunder clap
-		private float baseDuration = 1f;
-        private float duration;
         internal float radius;
 		internal float distance = StaticValues.extremeSpeedDistance;
 		private Vector3 startPos;
@@ -38,7 +36,6 @@ namespace ShiggyMod.SkillStates
         {
 			
 			base.OnEnter();
-			duration = baseDuration / attackSpeedStat;
             numberOfHits = Mathf.RoundToInt(StaticValues.extremeSpeedNumberOfHits * attackSpeedStat);
             if(numberOfHits < StaticValues.extremeSpeedNumberOfHits)
             {
@@ -47,7 +44,7 @@ namespace ShiggyMod.SkillStates
 
             base.characterMotor.velocity = Vector3.zero;
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "FullBodyExtremeSpeed", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
@@ -70,12 +67,13 @@ namespace ShiggyMod.SkillStates
 
             if (this.modelTransform)
             {
-                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(modelTransform.gameObject);
                 temporaryOverlay.duration = duration;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matVagrantEnergized");
+                temporaryOverlay.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
             }
             EffectManager.SimpleMuzzleFlash(EvisDash.blinkPrefab, base.gameObject, this.muzzleString, false);
             EffectManager.SimpleMuzzleFlash(Modules.ShiggyAsset.muzzleflashMageLightningLargePrefab, base.gameObject, this.muzzleString, false);

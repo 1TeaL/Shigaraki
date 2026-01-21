@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
-    internal class MachPunchRelease : BaseSkillState
+    internal class MachPunchRelease : Skill
     {
         internal float damageMult;
         internal float radius;
@@ -31,9 +31,8 @@ namespace ShiggyMod.SkillStates
 			base.OnEnter();
             base.characterMotor.velocity = Vector3.zero;
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
-			//base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-			base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", 0.5f, 0.05f);
+            base.GetModelAnimator().SetBool("attacking", false);
+            base.PlayCrossfade("RightArm, Override", "RArmPunchRelease", "Attack.playbackRate", 0.5f, 0.05f);
             //Util.PlaySound(FireMegaNova.novaSoundString, base.gameObject);
             AkSoundEngine.PostEvent(3289116818, this.gameObject);
 			//EffectManager.SimpleMuzzleFlash(this.muzzlePrefab, base.gameObject, this.lMuzzleString, false);

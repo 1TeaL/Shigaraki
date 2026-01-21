@@ -14,20 +14,14 @@ using R2API.Networking.Interfaces;
 
 namespace ShiggyMod.SkillStates
 {
-    public class Expunge : BaseSkillState
+    public class Expunge : Skill
     {
-        public float fireTime;
-        public bool hasFired = false;
         public float radius;
-        public float baseDuration = 1f;
-        public float duration;
 
         //Imp boss + Magmaworm
         public override void OnEnter()
         {
             base.OnEnter();
-            duration = baseDuration / attackSpeedStat;
-            fireTime = duration / 2f;
             radius = StaticValues.expungeRadius * attackSpeedStat;
             if(radius < StaticValues.expungeRadius)
             {
@@ -35,7 +29,7 @@ namespace ShiggyMod.SkillStates
             }
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)

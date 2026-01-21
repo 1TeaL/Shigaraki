@@ -13,12 +13,9 @@ using R2API;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ElderLemurianFireBlastFire : BaseSkillState
+    public class ElderLemurianFireBlastFire : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
         private DamageType damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
         private DamageType damageType2 = new DamageTypeCombo(DamageType.IgniteOnHit, DamageTypeExtended.Generic, DamageSource.Secondary);
         public HurtBox Target;
@@ -28,7 +25,7 @@ namespace ShiggyMod.SkillStates
         private float damageCoefficient = Modules.StaticValues.elderlemurianfireblastDamageCoefficient;
 
         public GameObject blastEffectPrefab = Modules.ShiggyAsset.elderlemurianexplosionEffect;
-        private string rMuzzleString = "RHand";
+        private string rMuzzleString = "LHand";
         internal Vector3 moveVec;
         internal float damageMult;
         internal float radius;
@@ -44,7 +41,8 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayAnimation("RightArm, Override", "RightArmPunch", "Attack.playbackRate", duration);
+            base.GetModelAnimator().SetBool("attacking", false);
+            PlayAnimation("RightArm, Override", "LArmBlastRelease", "Attack.playbackRate", duration);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
             Util.PlaySound(FireMegaFireball.attackString, base.gameObject);

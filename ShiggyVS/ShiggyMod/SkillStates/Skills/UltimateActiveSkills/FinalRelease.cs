@@ -18,8 +18,6 @@ namespace ShiggyMod.SkillStates
     public class FinalRelease : Skill
     {
         //wind shield + wind slash
-        public float baseDuration = 1f;
-        public float duration;
         private string muzzleString = "RHand";
         private GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
         private EnergySystem energySystem;

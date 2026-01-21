@@ -29,7 +29,7 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
 
-            PlayAnimation("Body", "QuirkOverdrive", "Attack.playbackRate", duration);
+            PlayAnimation("FullBody, Override", "QuirkOverdrive", "Attack.playbackRate", duration);
 
 
         }

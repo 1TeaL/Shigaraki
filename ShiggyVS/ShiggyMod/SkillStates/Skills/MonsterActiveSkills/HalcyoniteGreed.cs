@@ -16,6 +16,10 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            baseDuration = 0.1f;
+            this.duration = this.baseDuration / this.attackSpeedStat;
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.PlayCrossfade("LeftArm, Override", "LHandFist", "Attack.playbackRate", duration, 0.05f);
             if (NetworkServer.active)
             {
                 if (characterBody.HasBuff(Buffs.halcyoniteGreedBuff))

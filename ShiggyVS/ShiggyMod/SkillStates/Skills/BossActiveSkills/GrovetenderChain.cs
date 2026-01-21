@@ -16,13 +16,8 @@ using static UnityEngine.UI.Image;
 
 namespace ShiggyMod.SkillStates
 {
-    public class GrovetenderChain : BaseSkillState
+    public class GrovetenderChain : Skill
     { 
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
-
-
         private float baseradius = Modules.StaticValues.grovetenderRadius;
         private float radius;
         private float force = -1000f;
@@ -37,6 +32,8 @@ namespace ShiggyMod.SkillStates
             {
                 radius= baseradius;
             }
+            hasFired = false;
+
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -58,7 +55,7 @@ namespace ShiggyMod.SkillStates
             }, true);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if(base.isAuthority)
@@ -129,6 +126,12 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
+            if(base.fixedAge > fireTime && !hasFired)
+            {
+                hasFired = true;
+                ChainNearby();
+               
+            }
 
             if (base.fixedAge >= this.duration && base.isAuthority)
             {

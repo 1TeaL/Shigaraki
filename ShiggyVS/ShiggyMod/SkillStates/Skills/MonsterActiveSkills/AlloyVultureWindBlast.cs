@@ -25,16 +25,14 @@ namespace ShiggyMod.SkillStates
             }
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "RArmBlast", "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
             AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
 
-            new PerformForceNetworkRequest(characterBody.masterObjectId, base.GetAimRay().origin - GetAimRay().direction, base.GetAimRay().direction, pushRange, pushRange, characterBody.damage * Modules.StaticValues.vultureDamageCoefficient, Modules.StaticValues.vulturePushAngle, true).Send(NetworkDestination.Clients);
 
         }
 
@@ -49,10 +47,16 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (base.fixedAge >= duration)
+            if(base.fixedAge > fireTime && !hasFired)
             {
+                hasFired = true;
+                new PerformForceNetworkRequest(characterBody.masterObjectId, base.GetAimRay().origin - GetAimRay().direction, base.GetAimRay().direction, pushRange, pushRange, characterBody.damage * Modules.StaticValues.vultureDamageCoefficient, Modules.StaticValues.vulturePushAngle, true).Send(NetworkDestination.Clients);
+            }
 
+            if (base.fixedAge >= this.duration && base.isAuthority)
+            {
                 this.outer.SetNextStateToMain();
+                return;
             }
         }
     

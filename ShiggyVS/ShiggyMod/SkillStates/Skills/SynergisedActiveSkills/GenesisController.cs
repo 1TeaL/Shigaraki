@@ -72,7 +72,7 @@ namespace ShiggyMod.SkillStates
                     numberOfHits++;
                     timer = 0f;
 
-                    Debug.Log("fire bullet");
+                    //Debug.Log("fire bullet");
                     new BulletAttack
                     {
                         bulletCount = 1,

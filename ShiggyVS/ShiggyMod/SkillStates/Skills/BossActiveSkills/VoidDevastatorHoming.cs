@@ -1,18 +1,16 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using EntityStates.VoidMegaCrab.BackWeapon;
+using RoR2;
+using RoR2.Projectile;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class VoidDevastatorHoming : BaseSkillState
+    public class VoidDevastatorHoming : Skill
     {
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
         private DamageType damageType;
 
 
@@ -46,7 +44,7 @@ namespace ShiggyMod.SkillStates
             //}
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)

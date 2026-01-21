@@ -42,6 +42,7 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.PlayCrossfade("LeftArm, Override", "LHandFist", "Attack.playbackRate", duration, 0.05f);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 
@@ -66,7 +67,8 @@ namespace ShiggyMod.SkillStates
             }
             if (NetworkServer.active)
             {
-                Util.CleanseBody(base.characterBody, true, false, false, true, true, false);
+                //Util.CleanseBody(base.characterBody, true, false, false, true, true, false);
+                CleanseSystem.CleanseBodyServer(characterBody, true, false, false, true, true, false);
             }
             this.blinkVfxInstance = UnityEngine.Object.Instantiate<GameObject>(Modules.ShiggyAsset.voidfiendblinkVFX);
             this.blinkVfxInstance.transform.SetParent(base.transform, false);
@@ -113,14 +115,15 @@ namespace ShiggyMod.SkillStates
             this.modelTransform = base.GetModelTransform();
             if (this.modelTransform)
             {
-                
+
                 //TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(modelTransform.gameObject);
                 temporaryOverlay.duration = this.overlayDuration;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = Modules.ShiggyAsset.voidfiendblinkMaterial;
+                temporaryOverlay.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
             }
         }
 

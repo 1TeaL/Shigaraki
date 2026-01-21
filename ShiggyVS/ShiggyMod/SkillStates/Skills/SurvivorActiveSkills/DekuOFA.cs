@@ -17,7 +17,8 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            duration = 1f;
+
+            PlayCrossfade("FullBody, Override", "FullBodyUnleash", "Attack.playbackRate", duration, 0.1f);
             Ray aimRay = base.GetAimRay();
 
             //play animation, also need to play particles in controller

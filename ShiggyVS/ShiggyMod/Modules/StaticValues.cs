@@ -26,10 +26,14 @@ namespace ShiggyMod.Modules
         internal static float lysateGain = 15f;
         internal const float airwalkEnergyFraction = 0.05f;
         //internal const float airwalkThreshold = 10f;
-        internal const float AFOEnergyCost = 50f;
+        internal const float AFOEnergyCost = 0.5f;
 
-        internal const float quirkOverdriveDuration = 5f;
+        internal const float maxTrackingDistance = 70f;
 
+        internal const float quirkOverdriveDuration = 4f;
+
+        internal const float universalDuration = 1f;
+        internal const float universalFiretime = 11/30f;
 
         internal const float vulturePushRange = 70f;
         internal const float vulturePushAngle = 180f;
@@ -41,12 +45,20 @@ namespace ShiggyMod.Modules
 
         internal const float loaderDamageMultiplier = 1.5f;
 
+        internal const int chefOilBurstStacks = 6;
+        internal const float chefOilDamageCoefficient = 2.5f;
+
+        internal const float drifterSalvagePlusChaosSpend = 80f;
+        internal const int drifterSalvageItems = 4;
+
         internal const float commandoProcCoefficient = 1f;
         internal const float commandoDamageMultiplier = 0.1f;
 
         internal const int vagrantCooldown = 10;
 
         internal const int alphaconstructCooldown = 10;
+
+        internal const float operatorDamageCoefficient = 6f;
 
         internal const float overloadingInterval = 1f;
         internal const float overloadingRadius = 6.5f;
@@ -122,6 +134,8 @@ namespace ShiggyMod.Modules
 
         internal const float lesserwispFlatAttackSpeed = 0.5f;
 
+
+
         internal const float decayspreadRadius = 10f;
         internal const float decayadditionalTimer = 6f;
         internal const float decayDamageCoefficient = 1f;
@@ -133,6 +147,7 @@ namespace ShiggyMod.Modules
         internal const float decayattackDamageCoefficient = 2f;
         internal const float decayattackProcCoefficient = 1f;
 
+        internal const float aircannonSpeedCoefficient = 10f;
         internal const float aircannonDamageCoefficient = 4f;
         internal const float aircannonProcCoefficient = 1f;
 
@@ -161,6 +176,8 @@ namespace ShiggyMod.Modules
         internal const float claytemplarminigunDamageCoefficient = 0.3f;
         internal const float claytemplarminigunProcCoefficient = 0.05f;
 
+        internal const float falseSonHPCoefficient = 0.01f;
+
         internal const float greaterwispballDamageCoefficient = 0.5f;
         internal const float greaterwispballRadius = 6f;
         internal const int greaterwispballbuffDuration = 8;
@@ -171,6 +188,8 @@ namespace ShiggyMod.Modules
         internal const float halcyoniteGreedBuffDamageCoefficient = 1f;
         internal const float halcyoniteGreedBuffAttackspeedCoefficient = 0.1f;
         internal const int halcyoniteGreedInterval = 10;
+
+        internal const float impBlinkDuration = 0.3f;
 
         internal const float JellyfishHealTickRate = 0.05f;
         internal const float JellyfishHealProcCoefficient = 2f;
@@ -184,6 +203,8 @@ namespace ShiggyMod.Modules
         internal const float lunarwispminigunDamageCoefficient = 3f;
         internal const float lunarwispminigunProcCoefficient = 0.1f;
 
+        internal const float lunarGolemSlideBaseDuration = 1f;
+        internal const float lunarGolemSlideJumpDuration = 0.2f;
         internal const float lunarGolemSlideCooldown = 4f;
 
         internal const float parentDamageCoefficient = 6f;
@@ -255,6 +276,9 @@ namespace ShiggyMod.Modules
         internal const float railgunnerDamageCoefficient = 15f;
         internal const float railgunnerProcCoefficient = 2f;
 
+        internal const float seekerMeditateRadius = 20f;
+        internal const float seekerMeditateCoeffecient = 0.25f;
+
         internal const float loaderBarrierGainCoefficient = 0.01f;
 
         internal const float grandparentSunEnergyCost = 10f;
@@ -279,8 +303,8 @@ namespace ShiggyMod.Modules
 
         internal const float wisperBuffDamageCoefficient = 2f;
 
-        internal const float omniboostBuffCoefficient = 0.3f;
-        internal const float omniboostBuffStackCoefficient = 0.05f;
+        internal const float omniboostBuffCoefficient = 0.2f;
+        internal const float omniboostBuffStackCoefficient = 0.02f;
         internal const int omniboostNumberOfHits = 3;
         internal const float omniboostBuffTimer = 1f;
 
@@ -485,6 +509,7 @@ namespace ShiggyMod.Modules
         internal static int blastingZoneDebuffStackApplication = 6;
         internal static int blastingZoneDebuffStackRemoval = 3;
         internal static float blastingZoneDebuffDamagePerStack = 0.01f;
+        internal static float blastingZoneDuration = 2f;
         internal static float blastingZoneWindup = 0.5f;
         internal static float blastingZoneInterval = 0.1f;
         internal static int blastingZoneTotalHits = 6;

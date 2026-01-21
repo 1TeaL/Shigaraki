@@ -9,15 +9,9 @@ using RoR2.Audio;
 
 namespace ShiggyMod.SkillStates
 {
-    public class RailgunnerCryoCharge : BaseSkillState
+    public class RailgunnerCryoCharge : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
-        public HurtBox Target;
-        private Animator animator;
 
 
         private float radius = 15f;
@@ -37,9 +31,10 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            this.animator.SetBool("attacking", true);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", 1f);
+            PlayAnimation("LeftArm, Override", "LArmAimStart", "Attack.playbackRate", duration);
             if (this.loopSoundDef)
             {
                 this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
@@ -64,16 +59,57 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-            base.FixedUpdate();
-            if (base.IsKeyDownAuthority())
+
+            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.railgunnercryoDef)
             {
-                PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
+
+                keepFiring = true;
             }
+            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.railgunnercryoDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.railgunnercryoDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.railgunnercryoDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.railgunnercryoDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.railgunnercryoDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.railgunnercryoDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.railgunnercryoDef)
+            {
+
+                keepFiring = true;
+            }
+            else
+            {
+                keepFiring = false;
+            }
+
             if (base.characterBody)
             {
                 base.characterBody.SetAimTimer(this.duration);
             }
-            if (base.fixedAge >= this.duration && base.isAuthority && !base.IsKeyDownAuthority())
+            if (base.fixedAge >= this.duration && base.isAuthority && !keepFiring)
             {
                 CrosshairUtils.OverrideRequest overrideRequest = this.crosshairOverrideRequest;
                 if (overrideRequest != null)

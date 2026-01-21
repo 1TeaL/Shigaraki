@@ -37,7 +37,8 @@ namespace ShiggyMod.SkillStates
 
             this.animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayCrossfade("LeftArm, Override", "LArmGetsuga", "Attack.playbackRate", duration, 0.05f);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(1, 3);
+            base.PlayCrossfade("LeftArm, Override", "LArmGetsuga1", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             AkSoundEngine.PostEvent("ShiggyGetsuga", base.gameObject);
 

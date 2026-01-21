@@ -1,20 +1,16 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
 using EntityStates.ClayBruiser.Weapon;
+using ExtraSkillSlots;
+using RoR2;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ClayTemplarMinigun : BaseSkillState
+    public class ClayTemplarMinigun : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
 
 
         private float radius = 15f;
@@ -23,7 +19,6 @@ namespace ShiggyMod.SkillStates
         private float force = 1f;
         private float speedOverride = -1f;
         private string muzzleString;
-        private Animator animator;
         private float baseFireInterval = 0.1f;
         private float baseBulletCount;
         private float baseFireRate;
@@ -37,7 +32,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = new DamageTypeCombo(DamageType.ClayGoo, DamageTypeExtended.Generic, DamageSource.Secondary);
-
+            keepFiring = true;
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
@@ -47,7 +42,7 @@ namespace ShiggyMod.SkillStates
             this.animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 
-            PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
+            PlayCrossfade("RightArm, Override", "RArmOutStart", "Attack.playbackRate", baseFireInterval, 0.1f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -105,7 +100,6 @@ namespace ShiggyMod.SkillStates
             this.UpdateCrits();
             bool isCrit = !this.critEndTime.hasPassed;
 
-            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
             EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
 
             Ray aimRay = base.GetAimRay();
@@ -117,7 +111,7 @@ namespace ShiggyMod.SkillStates
                 damage = damageCoefficient * characterBody.damage,
                 damageColorIndex = DamageColorIndex.Default,
                 damageType = damageType,
-                falloffModel = BulletAttack.FalloffModel.None,
+                falloffModel = BulletAttack.FalloffModel.DefaultBullet,
                 maxDistance = bulletMaxDistance,
                 force = force,
                 hitMask = LayerIndex.CommonMasks.bullet,
@@ -143,9 +137,52 @@ namespace ShiggyMod.SkillStates
         }
         public override void FixedUpdate()
         {
-            base.FixedUpdate();
+            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.claytemplarminigunDef)
+            {
 
-            if (base.IsKeyDownAuthority())
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.claytemplarminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.claytemplarminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.claytemplarminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.claytemplarminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.claytemplarminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.claytemplarminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.claytemplarminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            else
+            {
+                keepFiring = false;
+            }
+
+            if (keepFiring)
             {
                 this.fireTimer -= Time.fixedDeltaTime;
                 if (this.fireTimer <= 0f)
@@ -154,9 +191,8 @@ namespace ShiggyMod.SkillStates
                     this.fireTimer += num;
                     this.OnFireShared();
                 }
-
-            }
-            else
+            }             
+            else if(!keepFiring)
             {
                 if (base.isAuthority)
                 {
@@ -166,7 +202,6 @@ namespace ShiggyMod.SkillStates
                 }
 
             }
-
 
         }
 

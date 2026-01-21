@@ -8,19 +8,16 @@ using EntityStates.Mage.Weapon;
 using RoR2.UI;
 using RoR2.Audio;
 using System;
+using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ArtificerThrowLightningOrb : BaseSkillState
+    public class ArtificerThrowLightningOrb : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 1f;
-        public float duration;
         public float force = 2000f;
         private float selfForce = 100f;
         private float speedOverride = -1f;
-        public ShiggyController Shiggycon;
-        public HurtBox Target;
 
         public LoopSoundDef loopSoundDef = Modules.ShiggyAsset.artificerlightningsound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
@@ -35,11 +32,14 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            baseDuration = 0.5f;
             this.duration = baseDuration / this.attackSpeedStat;
+            fireTime = duration * StaticValues.universalFiretime;
             Ray aimRay = base.GetAimRay();
-            base.characterBody.SetAimTimer(this.duration + 2f);
+            base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
+            base.GetModelAnimator().SetBool("attacking", false);
+            PlayCrossfade("LeftArm, Override", "LArmBlastRelease", "Attack.playbackRate", duration, 0.1f);
 
             AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -50,17 +50,7 @@ namespace ShiggyMod.SkillStates
                 EffectManager.SimpleMuzzleFlash(this.muzzleflashEffectPrefab, base.gameObject, "LHand", false);
             }
 
-            if (base.HasBuff(Modules.Buffs.multiplierBuff))
-            {
-                this.Fire();
-                this.Fire();
-                this.Fire();
-            }
-            else
-            {
-                this.Fire();
-            }
-
+            Fire();
         }
         private void Fire()
         {
@@ -113,6 +103,22 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            //if(base.fixedAge > fireTime && !hasFired)
+            //{
+            //    hasFired = true;
+            //    if (base.HasBuff(Modules.Buffs.multiplierBuff))
+            //    {
+            //        this.Fire();
+            //        this.Fire();
+            //        this.Fire();
+            //    }
+            //    else
+            //    {
+            //        this.Fire();
+            //    }
+            //}
+
             if (base.isAuthority && base.fixedAge >= this.duration)
             {
                 this.outer.SetNextStateToMain();

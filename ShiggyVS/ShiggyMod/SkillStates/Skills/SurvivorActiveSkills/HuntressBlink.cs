@@ -85,18 +85,20 @@ namespace ShiggyMod.SkillStates
                 this.modelTransform = base.GetModelTransform();
                 if (this.modelTransform)
                 {
-                    TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
+                    TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(modelTransform.gameObject);
                     temporaryOverlay.duration = 0.6f;
                     temporaryOverlay.animateShaderAlpha = true;
                     temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                     temporaryOverlay.destroyComponentOnEnd = true;
                     temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
-                    TemporaryOverlayInstance temporaryOverlay2 = TemporaryOverlayManager.AddOverlay(new GameObject());
+                    temporaryOverlay.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
+                    TemporaryOverlayInstance temporaryOverlay2 = TemporaryOverlayManager.AddOverlay(modelTransform.gameObject);
                     temporaryOverlay2.duration = 0.7f;
                     temporaryOverlay2.animateShaderAlpha = true;
                     temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                     temporaryOverlay2.destroyComponentOnEnd = true;
                     temporaryOverlay2.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
+                    temporaryOverlay2.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
                 }
             }
             if (this.characterModel)

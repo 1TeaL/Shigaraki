@@ -41,7 +41,8 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration + 2f);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration, 0.1f);
+            base.GetModelAnimator().SetBool("attacking", true);
+            PlayCrossfade("LeftArm, Override", "LArmBlastStart", "Attack.playbackRate", duration, 0.1f);
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();

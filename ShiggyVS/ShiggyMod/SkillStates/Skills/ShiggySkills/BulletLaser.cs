@@ -7,14 +7,8 @@ using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BulletLaser : BaseSkillState
+    public class BulletLaser : Skill
     {
-        public float baseDuration = 1f;
-        public float duration;
-        private float fireTime;
-        public bool hasFired;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
 
         private float range = 100f;
         private float radius = 15f;
@@ -28,14 +22,11 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
-            this.fireTime = 0.2f * this.duration;
             hasFired = false;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
-            base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("LeftArm, Override", "LHandStretch", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {

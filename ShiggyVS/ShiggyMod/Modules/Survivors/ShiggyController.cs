@@ -68,7 +68,7 @@ namespace ShiggyMod.Modules.Survivors
 
         //indicators
         private Ray downRay;
-        public float maxTrackingDistance = 70f;
+        public float maxTrackingDistance = StaticValues.maxTrackingDistance;
         public float maxTrackingAngle = 20f;
         public float trackerUpdateFrequency = 10f;
         private Indicator indicator;
@@ -118,15 +118,16 @@ namespace ShiggyMod.Modules.Survivors
         public CharacterBody giveQuirkBody;
 
         //Particles
-        public ParticleSystem RARM;
-        public ParticleSystem LARM;
+        public ParticleSystem REYE;
+        public ParticleSystem LEYE;
         public ParticleSystem OFA;
         public ParticleSystem FINALRELEASEAURA;
         public ParticleSystem SWORDAURAL;
         public ParticleSystem SWORDAURAR;
 
         //particle bools
-        public bool boolenoughEnergyAura;
+        public bool booleyeAuraL;
+        public bool booleyeAuraR;
         public bool booloneForAllAura;
         public bool boolfinalReleaseAura;
         public bool boolswordAuraL;
@@ -144,16 +145,16 @@ namespace ShiggyMod.Modules.Survivors
 
             if (child)
             {
-                LARM = child.FindChild("lArmAura").GetComponent<ParticleSystem>();
-                RARM = child.FindChild("rArmAura").GetComponent<ParticleSystem>();
+                LEYE = child.FindChild("EyeAuraL").GetComponent<ParticleSystem>();
+                REYE = child.FindChild("EyeAuraR").GetComponent<ParticleSystem>();
                 OFA = child.FindChild("OFAlightning").GetComponent<ParticleSystem>();
                 FINALRELEASEAURA = child.FindChild("finalReleaseAura").GetComponent<ParticleSystem>();
                 SWORDAURAL = child.FindChild("WindSwordL").GetComponent<ParticleSystem>();
                 SWORDAURAR = child.FindChild("WindSwordR").GetComponent<ParticleSystem>();
             }
 
-            LARM.Stop();
-            RARM.Stop();
+            LEYE.Stop();
+            REYE.Stop();
             OFA.Stop();
             FINALRELEASEAURA.Stop();
             SWORDAURAL.Stop();
@@ -1072,28 +1073,38 @@ namespace ShiggyMod.Modules.Survivors
             //arm aura
             if (characterBody.hasEffectiveAuthority)
             {
-
-                if (boolenoughEnergyAura || energySystem.currentplusChaos > StaticValues.AFOEnergyCost)
+                //left eye aura plays when your energy is full only
+                if(booleyeAuraL || energySystem.currentplusChaos == energySystem.maxPlusChaos)
                 {
-                    if (LARM.isStopped)
+                    if (LEYE.isStopped)
                     {
-                        LARM.Play();
-                    }
-                    if (RARM.isStopped)
-                    {
-                        RARM.Play();
+                        LEYE.Play();
                     }
 
                 }
-                else
+                else if (!booleyeAuraL || energySystem.currentplusChaos < energySystem.maxPlusChaos)
                 {
-                    if (LARM.isPlaying)
+                    if (LEYE.isStopped)
                     {
-                        LARM.Stop();
+                        LEYE.Play();
                     }
-                    if (RARM.isPlaying)
+
+                }
+
+                //right aura only plays when you have > 50%
+                if (booleyeAuraR || energySystem.currentplusChaos >= StaticValues.AFOEnergyCost * energySystem.maxPlusChaos)
+                {
+                    if (REYE.isStopped)
                     {
-                        RARM.Stop();
+                        REYE.Play();
+                    }
+
+                }
+                else if (!booleyeAuraR || energySystem.currentplusChaos < StaticValues.AFOEnergyCost * energySystem.maxPlusChaos)
+                {
+                    if (REYE.isPlaying)
+                    {
+                        REYE.Stop();
                     }
                 }
 
@@ -1225,7 +1236,7 @@ namespace ShiggyMod.Modules.Survivors
                             finalReleaseTimer += StaticValues.finalReleaseThreshold;
 
 
-                            Debug.Log("getsuga");
+                            //Debug.Log("getsuga");
                             new SetGetsugaStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
 
                             Ray aimRay = characterBody.inputBank.GetAimRay();
@@ -1334,7 +1345,7 @@ namespace ShiggyMod.Modules.Survivors
                         }
 
                         //energy cost
-                        float plusChaosflatCost = (StaticValues.AFOEnergyCost) - (energySystem.costflatplusChaos);
+                        float plusChaosflatCost = (StaticValues.AFOEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
                         if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                         float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
@@ -1369,7 +1380,7 @@ namespace ShiggyMod.Modules.Survivors
                     {
 
                         //energy cost
-                        float plusChaosflatCost = (StaticValues.AFOEnergyCost) - (energySystem.costflatplusChaos);
+                        float plusChaosflatCost = (StaticValues.AFOEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
                         if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                         float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
@@ -1713,12 +1724,27 @@ namespace ShiggyMod.Modules.Survivors
 
         public void dropEquipment(EquipmentDef def)
         {
-            if (characterBody.hasEffectiveAuthority)
-            {
-                new EquipmentDropNetworked(PickupCatalog.FindPickupIndex(def.equipmentIndex),
-                    base.transform.position + Vector3.up * 1.5f,
-                    Vector3.up * 20f + base.transform.forward * 2f).Send(NetworkDestination.Clients);
-            }
+            if (!def) return;
+            if (!NetworkServer.active) return; // IMPORTANT: server spawns droplets
+
+            PickupIndex pickup = PickupCatalog.FindPickupIndex(def.equipmentIndex);
+            if (pickup == PickupIndex.none) return;
+
+            Vector3 pos = transform.position + Vector3.up * 1.5f;
+            Vector3 vel = Vector3.up * 20f + transform.forward * 2f;
+
+            //PickupDropletController.CreatePickupDroplet(pickup, pos, vel);
+
+            UniquePickup unique = new UniquePickup(pickup);
+            unique.upgradeValue = 1;
+            PickupDropletController.CreatePickupDroplet(unique, pos, vel, false, false);
+
+            //if (characterBody.hasEffectiveAuthority)
+            //{
+            //    new EquipmentDropNetworked(PickupCatalog.FindPickupIndex(def.equipmentIndex),
+            //        base.transform.position + Vector3.up * 1.5f,
+            //        Vector3.up * 20f + base.transform.forward * 2f).Send(NetworkDestination.Clients);
+            //}
         }
 
         //steal quirk code
@@ -1843,6 +1869,7 @@ namespace ShiggyMod.Modules.Survivors
                     var AFOCon = hurtBox.healthComponent.body.gameObject.AddComponent<AFOEffectController>();
                     AFOCon.attackerBody = characterBody;
                     AFOCon.RHandChild = child.FindChild("RHand").transform;
+                    new SetAFOStealStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
 
                     ToastQuirkPickup(id);
                     grantedAny = true;
@@ -1887,6 +1914,7 @@ namespace ShiggyMod.Modules.Survivors
                 if (canBeHitStunned)
                 {
                     component.SetPain();
+                    component.SetStun(2f);
                     if (body.characterMotor)
                     {
                         body.characterMotor.velocity = Vector3.zero;
@@ -1904,7 +1932,7 @@ namespace ShiggyMod.Modules.Survivors
                 Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
                 energySystem.quirkGetInformation("No Quirk to <style=cIsUtility>Steal!</style>", 2f);
 
-                float plusChaosflatCost = StaticValues.AFOEnergyCost - energySystem.costflatplusChaos;
+                float plusChaosflatCost = StaticValues.AFOEnergyCost * energySystem.maxPlusChaos - energySystem.costflatplusChaos;
                 if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
                 float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                 if (plusChaosCost < 0f) plusChaosCost = 0f;

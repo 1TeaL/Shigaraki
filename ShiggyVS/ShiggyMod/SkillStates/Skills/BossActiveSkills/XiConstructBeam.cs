@@ -8,11 +8,8 @@ using static RoR2.BulletAttack;
 
 namespace ShiggyMod.SkillStates
 {
-    public class XiConstructBeam : BaseSkillState
+    public class XiConstructBeam : Skill
     {
-        public float baseDuration = 0.3f;
-        public float duration;
-        public ShiggyController Shiggycon;
         private DamageType damageType;
         private Ray aimRay;
 
@@ -39,6 +36,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             updateAimRay();
+            baseDuration = 0.3f;
             this.duration = this.baseDuration / this.attackSpeedStat;
             base.characterBody.SetAimTimer(this.duration);
             damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
@@ -46,8 +44,9 @@ namespace ShiggyMod.SkillStates
 
 
             this.animator = base.GetModelAnimator();
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration, 0.1f);
+            animator.SetFloat("Attack.playbackRate", attackSpeedStat);
+            animator.SetBool("attacking", true);
+            PlayCrossfade("RightArm, Override", "RArmOutStart", "Attack.playbackRate", duration, 0.1f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -187,7 +186,6 @@ namespace ShiggyMod.SkillStates
                 //Fire the laser
                 if (fireTimer > fireInterval)
                 {
-                    PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", fireInterval, 0.1f);
                     base.characterBody.SetAimTimer(2f);
                     attack.muzzleName = muzzleString;
                     attack.aimVector = aimRay.direction;

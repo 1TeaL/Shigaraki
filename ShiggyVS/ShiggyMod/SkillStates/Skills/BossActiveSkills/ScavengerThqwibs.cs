@@ -1,18 +1,16 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using EntityStates.ScavMonster;
+using RoR2;
+using RoR2.Projectile;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ScavengerThqwibs : BaseSkillState
+    public class ScavengerThqwibs : Skill
     {
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
         private DamageType damageType;
 
 
@@ -26,13 +24,12 @@ namespace ShiggyMod.SkillStates
         private float timeToTarget = 0.3f;
         private float minSpread = 0f;
         private float maxSpread = 5f;
-        private string muzzleName = "LHand";
+        private string muzzleName = "RHand";
         
 
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
@@ -45,14 +42,12 @@ namespace ShiggyMod.SkillStates
             }
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "RArmThrow", "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
-            this.Fire();
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
@@ -119,7 +114,11 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-
+            if(base.fixedAge > fireTime && !hasFired)
+            {
+                hasFired = true;
+                Fire();
+            }
 
             if (base.fixedAge >= this.duration && base.isAuthority)
             {

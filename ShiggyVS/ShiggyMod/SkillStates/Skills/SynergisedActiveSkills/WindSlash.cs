@@ -11,19 +11,16 @@ using ShiggyMod.Modules;
 namespace ShiggyMod.SkillStates
 {
     //merc + air cannon
-    public class WindSlash : BaseSkillState
+    public class WindSlash : Skill
     {
-        public float baseDuration = 0.8f;
-        public float duration;
-        public ShiggyController Shiggycon;
 
         public static GameObject mercProjectile = Modules.ShiggyAsset.mercWindProj;
 
         private string muzzleString;
-        private Animator animator;
         private float damageCoefficient = Modules.StaticValues.windSlashDamageCoefficient;
         private float force = 1f;
         private float speedOverride = -1f;
+        private int randomAnim;
 
         public override void OnEnter()
         {
@@ -32,15 +29,15 @@ namespace ShiggyMod.SkillStates
             duration = baseDuration / attackSpeedStat;
 
             base.characterBody.SetAimTimer(this.duration);
-            this.muzzleString = "LHand";
+            this.muzzleString = "RHand";
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             Shiggycon.boolswordAuraR = true;
 
             this.animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            //int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            randomAnim = UnityEngine.Random.RandomRangeInt(1, 3);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            base.PlayCrossfade("RightArm, Override", "RArmGetsuga", "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "RArmGetsuga" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -48,7 +45,6 @@ namespace ShiggyMod.SkillStates
             AkSoundEngine.PostEvent("ShiggyGetsuga", base.gameObject);
 
 
-            FireWind();
 
         }
         public void FireWind()
@@ -57,7 +53,7 @@ namespace ShiggyMod.SkillStates
 
             EffectManager.SpawnEffect(Modules.ShiggyAsset.shiggySwingEffect, new EffectData
             {
-                origin = FindModelChild("Swing2").position,
+                origin = FindModelChild("Swing" + randomAnim).position,
                 scale = 1f,
                 rotation = Quaternion.LookRotation(aimRay.direction),
 
@@ -112,6 +108,13 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if(base.fixedAge < fireTime && !hasFired)
+            {
+                hasFired = true;
+                FireWind();
+            }
+
             if (base.fixedAge >= this.duration && base.isAuthority)
             {
                 this.outer.SetNextStateToMain();

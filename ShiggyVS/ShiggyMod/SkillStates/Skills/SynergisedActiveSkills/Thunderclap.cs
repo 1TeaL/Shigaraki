@@ -15,6 +15,7 @@ using ShiggyMod.Modules;
 using R2API;
 using HG;
 using UnityEngine.UIElements;
+using TMPro;
 
 namespace ShiggyMod.SkillStates
 {
@@ -81,7 +82,7 @@ namespace ShiggyMod.SkillStates
             this.animator = base.GetModelAnimator();
             base.StartAimMode(0.5f + this.duration, false);
             base.characterBody.outOfCombatStopwatch = 0f;
-            this.animator.SetBool("attacking", true);
+            this.animator.SetBool("attacking", false);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", duration, 0.05f);
@@ -128,12 +129,13 @@ namespace ShiggyMod.SkillStates
             this.modelTransform = base.GetModelTransform();
             if (this.modelTransform)
             {
-                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(modelTransform.gameObject);
                 temporaryOverlay.duration = duration* 3;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matVagrantEnergized");
+                temporaryOverlay.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
             }
             base.characterDirection.forward = base.characterMotor.velocity.normalized;
             if (NetworkServer.active)
@@ -268,6 +270,11 @@ namespace ShiggyMod.SkillStates
             }
             else if (preDashTimer >= preDashDuration * 1f)
             {
+                if (!animator.GetBool("attacking"))
+                {
+                    this.animator.SetBool("attacking", true);
+                }
+
                 this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
                 if (this.modelTransform)
                 {
@@ -306,6 +313,11 @@ namespace ShiggyMod.SkillStates
                 if (this.stopwatch >= (this.duration * this.attackStartTime) && this.stopwatch <= (this.duration * this.attackEndTime))
                 {
                     this.FireAttack();
+
+                    if (animator.GetBool("attacking"))
+                    {
+                        this.animator.SetBool("attacking", false);
+                    }
                 }
 
 

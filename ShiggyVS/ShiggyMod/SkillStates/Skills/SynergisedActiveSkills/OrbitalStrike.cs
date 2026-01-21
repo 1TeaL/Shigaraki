@@ -17,15 +17,10 @@ using ExtraSkillSlots;
 namespace ShiggyMod.SkillStates
 {
     //captain + void reaver/nullifier
-    public class OrbitalStrike : BaseSkillState
+    public class OrbitalStrike : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 0.7f;
-        public float duration;
         public float durationAfterTimer;
-        public ShiggyController Shiggycon;
-        public HurtBox Target;
-        private Animator animator;
         public bool hasFired = false;
         private Vector3 point;
         private GameObject aimSphere;
@@ -44,6 +39,7 @@ namespace ShiggyMod.SkillStates
 
         public override void OnEnter()
         {
+            baseDuration = 0.7f;
             base.OnEnter();
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
@@ -66,7 +62,8 @@ namespace ShiggyMod.SkillStates
             {
                 this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, SetupAirstrike.crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
             }
-            PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
+            this.animator.SetBool("attacking", true);
+            PlayAnimation("LeftArm, Override", "LArmAimStart", "Attack.playbackRate", duration);
 
             this.aimSphere = Object.Instantiate<GameObject>(ArrowRain.areaIndicatorPrefab);
             aimSphere.SetActive(true);
@@ -150,46 +147,62 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-            base.FixedUpdate();
             base.characterBody.SetAimTimer(this.duration);
-            if (base.IsKeyDownAuthority())
+
+
+            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.orbitalStrikeDef)
             {
-                PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
+
+                keepFiring = true;
             }
-            else if (!base.IsKeyDownAuthority())
+            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.orbitalStrikeDef)
             {
-                if (inputBank.skill1.justReleased && characterBody.skillLocator.primary.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
-                {
-                    ReleaseKey();
-                }
-                if (inputBank.skill2.justReleased && characterBody.skillLocator.secondary.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
-                {
-                    ReleaseKey();
-                }
-                if (inputBank.skill3.justReleased && characterBody.skillLocator.utility.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
-                {
-                    ReleaseKey();
-                }
-                if (inputBank.skill4.justReleased && characterBody.skillLocator.special.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
-                {
-                    ReleaseKey();
-                }
-                if (extraInputBank.extraSkill1.justReleased && extraSkillLocator.extraFirst.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
-                {
-                    ReleaseKey();
-                }
-                if (extraInputBank.extraSkill2.justReleased && extraSkillLocator.extraSecond.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
-                {
-                    ReleaseKey();
-                }
-                if (extraInputBank.extraSkill3.justReleased && extraSkillLocator.extraThird.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
-                {
-                    ReleaseKey();
-                }
-                if (extraInputBank.extraSkill4.justReleased && extraSkillLocator.extraFourth.skillNameToken == Shiggy.orbitalStrikeDef.skillNameToken)
-                {
-                    ReleaseKey();
-                }
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.orbitalStrikeDef)
+            {
+
+                keepFiring = true;
+            }
+            else
+            {
+                keepFiring = false;
+            }
+
+            if (keepFiring)
+            {
+
+
+            }
+            else if (!keepFiring)
+            {
+                ReleaseKey();
 
                 durationAfterTimer += Time.fixedDeltaTime;
                 if (durationAfterTimer > duration / 2f)
@@ -204,11 +217,10 @@ namespace ShiggyMod.SkillStates
         {
             if (!hasFired)
             {
+                this.animator.SetBool("attacking", false);
+                PlayAnimation("LeftArm, Override", "LArmAimRelease", "Attack.playbackRate", duration / 2f);
                 hasFired = true;
                 this.Fire();
-                base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-                int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
-                base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
                 //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
                 if (base.isAuthority)
                 {

@@ -11,13 +11,8 @@ using R2API.Networking.Interfaces;
 
 namespace ShiggyMod.SkillStates
 {
-    public class JellyfishHeal : BaseSkillState
+    public class JellyfishHeal : Skill
     {
-        public float baseDuration = 0.6f;
-        private float fireTime;
-        public float duration;
-        public bool hasFired;
-        public ShiggyController Shiggycon;
         private DamageType damageType;
 
 
@@ -32,17 +27,14 @@ namespace ShiggyMod.SkillStates
 
         public override void OnEnter()
         {
-            base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
-            fireTime = duration / 2;
-            hasFired = false;
+            base.OnEnter(); 
             radius = 30 * (attackSpeedStat/3);
             damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
             
-            PlayCrossfade("RightArm, Override", "RightArmDetonate", "Attack.playbackRate", duration, 0.1f);
+            PlayCrossfade("LeftArm, Override", "LHandDetonate", "Attack.playbackRate", duration, 0.1f);
             Transform modelTransform = base.GetModelTransform();
             //AkSoundEngine.PostEvent("ShiggyExplosion", base.gameObject);
             this.soundID = Util.PlaySound(JellyNova.chargingSoundString, base.gameObject);
@@ -54,8 +46,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            PlayCrossfade("RightArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
-            //PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
+            PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
             AkSoundEngine.StopPlayingID(this.soundID);
             
         }

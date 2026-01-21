@@ -12,9 +12,8 @@ using EntityStates.Merc;
 
 namespace ShiggyMod.SkillStates
 {
-    public class FinalReleaseShunpo : BaseSkillState
+    public class FinalReleaseShunpo : Skill
     {
-        public ShiggyController Shiggycon;
         private bool startedStateGrounded;
 
         private Vector3 forwardDirection;
@@ -22,7 +21,6 @@ namespace ShiggyMod.SkillStates
         private float basejumpDuration = StaticValues.shunpoDuration;
         private float slideDuration;
         private float jumpDuration;
-        private ExtraSkillLocator extraskillLocator;
         private CharacterModel characterModel;
         private HurtBoxGroup hurtboxGroup;
 
@@ -33,7 +31,8 @@ namespace ShiggyMod.SkillStates
             this.jumpDuration = this.basejumpDuration / this.attackSpeedStat;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", slideDuration, 0.05f);
+            this.animator.SetBool("attacking", true);
+            base.PlayCrossfade("FullBody, Override", "FullBodyDashThunder", "Attack.playbackRate", slideDuration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //AkSoundEngine.PostEvent("ShiggySlide", base.gameObject);
 
@@ -79,6 +78,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            this.animator.SetBool("attacking", false);
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
             if (this.characterModel)
             {

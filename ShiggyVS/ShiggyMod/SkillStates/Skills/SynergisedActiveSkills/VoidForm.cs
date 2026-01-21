@@ -21,6 +21,7 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
 
             //play animation, also need to play particles in controller
+            base.PlayAnimation("FullBody, Override", "FullBodyUnleash", "Attack.playbackRate", duration);
             EffectManager.SpawnEffect(ShiggyAsset.voidFiendBeamMuzzleEffect, new EffectData
             {
                 origin = base.transform.position,

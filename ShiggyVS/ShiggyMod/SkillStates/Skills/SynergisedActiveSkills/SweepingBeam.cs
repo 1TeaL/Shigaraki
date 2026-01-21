@@ -16,12 +16,7 @@ namespace ShiggyMod.SkillStates
     {
         //stone golem + bullet laser
 
-        public float baseDuration = 1f;
-        public float duration;
-        private float fireTime;
         private BulletAttack bulletAttack;
-        public ShiggyController Shiggycon;
-        private DamageType damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
 
         private float range = 100f;
         private float damageCoefficient = Modules.StaticValues.sweepingBeamDamageCoefficient;
@@ -41,9 +36,8 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "RHandStretch", "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -57,7 +51,7 @@ namespace ShiggyMod.SkillStates
 
 
             totalBullets = (uint)(Modules.StaticValues.sweepingBeamTotalBullets * attackSpeedStat);
-            fireTime = duration / totalBullets;
+            fireTime = (duration- duration* StaticValues.universalFiretime) / totalBullets;
 
 
 
@@ -72,14 +66,18 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if(stopwatch > fireTime)
+            if(base.fixedAge > duration * StaticValues.universalFiretime)
             {
-                stopwatch = 0f;
-                FireBeam(direction);
-            }
-            else
-            {
-                stopwatch += Time.fixedDeltaTime;
+
+                if (stopwatch > fireTime)
+                {
+                    stopwatch = 0f;
+                    FireBeam(direction);
+                }
+                else
+                {
+                    stopwatch += Time.fixedDeltaTime;
+                }
             }
 
             if(base.fixedAge > duration)

@@ -1,23 +1,19 @@
 ﻿using EntityStates;
 using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using RoR2.Audio;
+using RoR2.Projectile;
 using RoR2.UI;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using System;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class RailgunnerCryoFire : BaseSkillState
+    public class RailgunnerCryoFire : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 2f;
-        public float duration;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
-        public HurtBox Target;
-        private Animator animator;
 
 
         private float radius = 15f;
@@ -37,15 +33,18 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            baseDuration = 1f;
             this.duration = this.baseDuration / this.attackSpeedStat;
+            fireTime = duration * StaticValues.universalFiretime;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            this.animator.SetBool("attacking", false);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
             base.AddRecoil(-3f * recoilAmplitude, -4f * recoilAmplitude, -0.5f * recoilAmplitude, 0.5f * recoilAmplitude);
 
-            PlayCrossfade("LeftArm, Override", "LHandFingerGun", "Attack.playbackRate", duration, 0.1f);
+            PlayCrossfade("LeftArm, Override", "LArmAimRelease", "Attack.playbackRate", duration, 0.1f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -60,33 +59,7 @@ namespace ShiggyMod.SkillStates
             {
                 this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
             }
-            if (base.isAuthority)
-            {
-                new BulletAttack
-                {
-                    bulletCount = (uint)bulletCount,
-                    owner = base.gameObject,
-                    weapon = base.gameObject,
-                    origin = aimRay.origin,
-                    aimVector = aimRay.direction,
-                    minSpread = 0f,
-                    maxSpread = 0f,
-                    force = force,
-                    stopperMask = LayerIndex.noCollision.mask,
-                    falloffModel = BulletAttack.FalloffModel.None,
-                    tracerEffectPrefab = Modules.ShiggyAsset.railgunnercryoTracer,
-                    muzzleName = muzzleName,
-                    //hitEffectPrefab = Modules.Asset.banditimpactEffect,
-                    isCrit = base.RollCrit(),
-                    HitEffectNormal = true,
-                    radius = 2f,
-                    maxDistance = 2000f,
-                    procCoefficient = procCoefficient,
-                    damage = damageCoefficient * this.damageStat,
-                    damageType = damageType,
-                    smartCollision = true
-                }.Fire();
-            }
+            
         }
 
         public override void OnExit()
@@ -104,6 +77,40 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if(base.fixedAge > fireTime && !hasFired)
+            {
+                hasFired = true;
+                if (base.isAuthority)
+                {
+                    Ray aimRay = base.GetAimRay();
+                    new BulletAttack
+                    {
+                        bulletCount = (uint)bulletCount,
+                        owner = base.gameObject,
+                        weapon = base.gameObject,
+                        origin = aimRay.origin,
+                        aimVector = aimRay.direction,
+                        minSpread = 0f,
+                        maxSpread = 0f,
+                        force = force,
+                        stopperMask = LayerIndex.noCollision.mask,
+                        falloffModel = BulletAttack.FalloffModel.None,
+                        tracerEffectPrefab = Modules.ShiggyAsset.railgunnercryoTracer,
+                        muzzleName = muzzleName,
+                        //hitEffectPrefab = Modules.Asset.banditimpactEffect,
+                        isCrit = base.RollCrit(),
+                        HitEffectNormal = true,
+                        radius = 2f,
+                        maxDistance = 2000f,
+                        procCoefficient = procCoefficient,
+                        damage = damageCoefficient * this.damageStat,
+                        damageType = damageType,
+                        smartCollision = true
+                    }.Fire();
+                }
+            }
+
             if (base.fixedAge >= this.duration && base.isAuthority)
             {
                 this.outer.SetNextStateToMain();

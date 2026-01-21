@@ -10,14 +10,11 @@ using EntityStates.LemurianBruiserMonster;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ElderLemurianFireBlastCharge : BaseSkillState
+    public class ElderLemurianFireBlastCharge : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
+        
         private DamageType damageType;
-        public HurtBox Target;
         private Animator animator;
 
 
@@ -48,14 +45,13 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             //PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
-            PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
+            PlayAnimation("LeftArm, Override", "LArmBlastStart", "Attack.playbackRate", duration);
+            base.GetModelAnimator().SetBool("attacking", true);
             damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
             float[] source = new float[]
             {
@@ -132,7 +128,6 @@ namespace ShiggyMod.SkillStates
             bool flag = base.IsKeyDownAuthority();
             if (flag)
             {
-                PlayAnimation("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration);
                 this.chargePercent = base.fixedAge / this.maxCharge;
                 this.IndicatorUpdator();
             }

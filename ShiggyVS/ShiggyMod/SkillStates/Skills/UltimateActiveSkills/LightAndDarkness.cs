@@ -16,8 +16,6 @@ namespace ShiggyMod.SkillStates
     public class LightAndDarkness : Skill
     {
         //double time + omniboost
-        public float baseDuration = 1f;
-        public float duration;
         private string muzzleString = "RHand";
         private GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
         private EnergySystem energySystem;
@@ -46,6 +44,12 @@ namespace ShiggyMod.SkillStates
                 }
                 else if (energySystem.currentplusChaos > energySystem.maxPlusChaos / 2f)
                 {
+                    //if player in light form can also give them light and darkness 
+                    if (characterBody.HasBuff(Buffs.lightFormBuff))
+                    {
+                        characterBody.ApplyBuff(Buffs.lightFormBuff.buffIndex, 0);
+                        characterBody.ApplyBuff(Buffs.lightAndDarknessFormBuff.buffIndex, 1);
+                    }
                     if (characterBody.HasBuff(Buffs.darknessFormBuff.buffIndex))
                     {
                         characterBody.ApplyBuff(Buffs.darknessFormBuff.buffIndex, 0);
@@ -60,6 +64,12 @@ namespace ShiggyMod.SkillStates
                 else
                 if (energySystem.currentplusChaos < energySystem.maxPlusChaos / 2f)
                 {
+                    //if player in darkness form can also give them light and darkness 
+                    if (characterBody.HasBuff(Buffs.darknessFormBuff))
+                    {
+                        characterBody.ApplyBuff(Buffs.darknessFormBuff.buffIndex, 0);
+                        characterBody.ApplyBuff(Buffs.lightAndDarknessFormBuff.buffIndex, 1);
+                    }
                     if (characterBody.HasBuff(Buffs.lightFormBuff.buffIndex))
                     {
                         characterBody.ApplyBuff(Buffs.lightFormBuff.buffIndex, 0);

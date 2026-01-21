@@ -20,8 +20,6 @@ namespace ShiggyMod.SkillStates
     public class WildCard : Skill
     {
         //Refresh + gacha
-        public float baseDuration = 1f;
-        public float duration;
         private string muzzleString = "RHand";
         private int randomInt;
         public BullseyeSearch search;
@@ -34,7 +32,8 @@ namespace ShiggyMod.SkillStates
 
             Ray aimRay = base.GetAimRay();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayCrossfade("LeftArm, Override", "LHandSnap", "Attack.playbackRate", duration, 0.05f);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(1, 3);
+            base.PlayCrossfade("LeftArm, Override", "LHandSnap" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             AkSoundEngine.PostEvent("ShiggyGacha", base.gameObject);
             EffectManager.SpawnEffect(EntityStates.LunarGolem.ChargeTwinShot.effectPrefab, new EffectData
@@ -45,7 +44,7 @@ namespace ShiggyMod.SkillStates
 
             }, true);
 
-            randomInt = UnityEngine.Random.RandomRangeInt(0, 7);
+            randomInt = UnityEngine.Random.RandomRangeInt(0, 10);
 
             switch (randomInt)
             {
@@ -311,7 +310,7 @@ namespace ShiggyMod.SkillStates
                     {
                         if (singularTarget.healthComponent && singularTarget.healthComponent.body)
                         {
-                            //make everyone get a random item
+                            //make everyone heal
                             new HealNetworkRequest(singularTarget.healthComponent.body.masterObjectId, singularTarget.healthComponent.fullCombinedHealth / 2f);
 
                         }

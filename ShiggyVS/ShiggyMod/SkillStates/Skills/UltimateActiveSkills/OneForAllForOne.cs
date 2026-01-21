@@ -16,8 +16,6 @@ namespace ShiggyMod.SkillStates
     public class OneForAllForOne : Skill
     {
         //void form + limit break
-        public float baseDuration = 0.5f;
-        public float duration;
         private string muzzleString = "RHand";
         private GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
 

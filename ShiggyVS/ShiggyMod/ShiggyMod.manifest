@@ -1,10 +1,11 @@
 ManifestFileVersion: 0
-CRC: 3198549828
+CRC: 3075074996
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: shiggyassetbundle
-      Dependencies: {}
+      Dependencies:
+        Dependency_0: fx_textures_flare_materials.unity3d
     Info_1:
       Name: fx_textures_ring_materials.unity3d
       Dependencies:

@@ -7,10 +7,8 @@ using EntityStates.GolemMonster;
 
 namespace ShiggyMod.SkillStates
 {
-    public class StoneGolemLaserFire : BaseSkillState
+    public class StoneGolemLaserFire : Skill
     {
-        public float duration = 0.1f;
-        public ShiggyController Shiggycon;
         private DamageType damageType;
 
 
@@ -26,6 +24,7 @@ namespace ShiggyMod.SkillStates
 		public override void OnEnter()
         {
             base.OnEnter();
+			duration = 0.1f;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 			damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
@@ -38,10 +37,10 @@ namespace ShiggyMod.SkillStates
 			Transform modelTransform = base.GetModelTransform();
 			Util.PlaySound(FireLaser.attackSoundString, base.gameObject);
 
+            base.GetModelAnimator().SetBool("attacking", false);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
 			//base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-			base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", 0.5f, 0.05f);
+			base.PlayCrossfade("RightArm, Override", "RArmAimRelease", "Attack.playbackRate", 0.5f, 0.05f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }

@@ -9,11 +9,8 @@ using RoR2.Projectile;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BronzongBall : BaseSkillState
+    public class BronzongBall : Skill
     {
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
         private DamageType damageType;
 
 
@@ -42,13 +39,11 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            Shiggycon = gameObject.GetComponent<ShiggyController>();
             
-            this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)

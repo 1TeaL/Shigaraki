@@ -2,6 +2,7 @@
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 using System.Linq;
 using UnityEngine;
 using static ShiggyMod.Modules.Quirks.QuirkRegistry;
@@ -21,6 +22,24 @@ namespace ShiggyMod.Modules.Quirks
         public static bool Has(QuirkId id) => _owned.Contains(id);
 
         // Use QuirkRegistry.CanCraft(...) so leaf-owned ingredients count toward crafted results
+
+        private static void AnnounceAutoCrafted()
+        {
+            if (!NetworkServer.active) return;              // server authoritative chat
+            if (_lastAutoCrafted.Count == 0) return;
+
+            // One message per crafted quirk (clear and readable)
+            foreach (var id in _lastAutoCrafted)
+            {
+                string name = QuirkRegistry.GetDisplayName(id);
+
+                Chat.SendBroadcastChat(new Chat.SimpleChatMessage
+                {
+                    baseToken = $"Additionally, a new quirk combination has been made — {name}"
+                });
+            }
+        }
+
         private static bool TryAutoCraftAllFromOwned()
         {
             bool anyChange = false;
@@ -58,7 +77,11 @@ namespace ShiggyMod.Modules.Quirks
             bool changed = false;
             if (_owned.Add(id)) changed = true;
 
-            if (TryAutoCraftAllFromOwned()) changed = true;
+            if (TryAutoCraftAllFromOwned())
+            {
+                changed = true;
+                AnnounceAutoCrafted();
+            }
 
             if (changed) OnOwnedChanged?.Invoke();
             return changed;

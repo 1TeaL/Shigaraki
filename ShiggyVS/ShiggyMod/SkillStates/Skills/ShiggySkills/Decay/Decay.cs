@@ -24,8 +24,8 @@ namespace ShiggyMod.SkillStates
             this.pushForce = 0f;
             this.damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
             this.baseDuration = 1f;
-            this.attackStartTime = 0.2f;
-            this.attackEndTime = 0.4f;
+            this.attackStartTime = 0.33f;
+            this.attackEndTime = 0.66f;
             this.baseEarlyExitTime = 0.4f;
             this.hitStopDuration = 0.08f;
             this.attackRecoil = 0.75f;

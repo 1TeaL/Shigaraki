@@ -10,15 +10,10 @@ using R2API;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ParentTeleport : BaseSkillState
+    public class ParentTeleport : Skill
     {
 
         public bool hasTeleported;
-        public bool hasFired;
-        public float baseDuration = 1f;
-        public float duration;
-        public float fireTime;
-        public ShiggyController Shiggycon;
         private DamageType damageType;
 
         private float radius = 10f;
@@ -28,21 +23,17 @@ namespace ShiggyMod.SkillStates
 
         private BlastAttack blastAttack;
 
-        public HurtBox Target;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / base.attackSpeedStat;
-            this.fireTime = this.duration / 3f;
             hasFired = false;
             hasTeleported = false;
             damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "RArmPunch", "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }

@@ -7,21 +7,18 @@ using EntityStates.LunarWisp;
 
 namespace ShiggyMod.SkillStates
 {
-    public class LunarWispMinigun : BaseSkillState
+    public class LunarWispMinigun : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
         public float vfxTimerOn;
         public float vfxTimerOff;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
 
 
         private float damageCoefficient = Modules.StaticValues.lunarwispminigunDamageCoefficient;
         private float procCoefficient = 0.2f;
         private float force = 60f;
         private string muzzleString;
-        private Animator animator;
         private float baseFireInterval = 0.2f;
         private float baseBulletCount;
 
@@ -39,15 +36,16 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             damageType = new DamageTypeCombo(DamageType.CrippleOnHit, DamageTypeExtended.Generic, DamageSource.Secondary);
-
+            keepFiring = true;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(2f);
             this.muzzleString = "LHand";
 
             this.animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            this.animator.SetBool("attacking", true);
 
-            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
+            PlayCrossfade("LeftArm, Override", "LArmOutStart", "Attack.playbackRate", baseFireInterval, 0.1f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -115,7 +113,7 @@ namespace ShiggyMod.SkillStates
             this.UpdateCrits();
             bool isCrit = !this.critEndTime.hasPassed;
 
-            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
+            //PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", baseFireInterval, 0.1f);
 
             EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
 
@@ -129,7 +127,7 @@ namespace ShiggyMod.SkillStates
                 damage = damageCoefficient * characterBody.damage,
                 damageColorIndex = DamageColorIndex.Default,
                 damageType = damageType,
-                falloffModel = BulletAttack.FalloffModel.None,
+                falloffModel = BulletAttack.FalloffModel.DefaultBullet,
                 maxDistance = bulletMaxDistance,
                 force = force,
                 hitMask = LayerIndex.CommonMasks.bullet,
@@ -155,8 +153,6 @@ namespace ShiggyMod.SkillStates
         }
         public override void FixedUpdate()
         {
-            base.FixedUpdate();
-
             if (this.muzzleVFXInstanceOne)
             {
                 vfxTimerOff += Time.fixedDeltaTime;
@@ -168,7 +164,53 @@ namespace ShiggyMod.SkillStates
                 }
             }
 
-            if (base.IsKeyDownAuthority())
+
+            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.lunarwispminigunDef)
+            {
+                    
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.lunarwispminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.lunarwispminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.lunarwispminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.lunarwispminigunDef)
+            {
+                    
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.lunarwispminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.lunarwispminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.lunarwispminigunDef)
+            {
+
+                keepFiring = true;
+            }
+            else
+            {
+                keepFiring = false;
+            }
+
+            if (keepFiring)
             {
                 this.fireTimer -= Time.fixedDeltaTime;
                 if (this.fireTimer <= 0f)
@@ -178,9 +220,8 @@ namespace ShiggyMod.SkillStates
                     this.OnFireShared();
                 }
 
-
             }
-            else
+            else if (!keepFiring)
             {
                 if (base.isAuthority)
                 {

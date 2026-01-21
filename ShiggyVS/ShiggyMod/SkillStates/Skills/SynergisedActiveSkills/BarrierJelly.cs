@@ -19,6 +19,8 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             duration = 0.5f;
 
+            int randomAnim = UnityEngine.Random.RandomRangeInt(1,3);
+            base.PlayCrossfade("LeftArm, Override", "LHandSnap" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             Ray aimRay = base.GetAimRay();
 
             EffectManager.SpawnEffect(ShiggyAsset.alphaConstructMuzzleFlashEffect, new EffectData

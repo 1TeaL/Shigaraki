@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6842005605119223115}
   - component: {fileID: 6240323997924428840}
   - component: {fileID: 5255542348553829632}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: OuterRingFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4121237277569012885}
   - component: {fileID: 4976624315512480290}
   - component: {fileID: 3399918825870009508}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: OuterRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 2398200463659944478}
   - component: {fileID: 210175516285586298}
   - component: {fileID: 6733609887811782414}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InnerRingBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 5152563029306567007}
   - component: {fileID: 5152563029306567006}
   - component: {fileID: 5152563029306567001}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: apexAdaptUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 5152563030804682880}
   - component: {fileID: 5152563030804682886}
   - component: {fileID: 5152563030804682881}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: OuterRingBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 318127122696998124}
   - component: {fileID: 6277613569983410371}
   - component: {fileID: 5260460457968517066}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InnerRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}

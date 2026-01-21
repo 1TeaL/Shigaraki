@@ -13,11 +13,10 @@ using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BeetleGuardSlam : BaseSkillState
+    public class BeetleGuardSlam : Skill
     {
         public static float dropForce = 80f;
         public  float dropTimer;
-        private ShiggyController Shiggycon;
         public static float slamRadius = 10f;
         public static float slamProcCoefficient = 1f;
         public static float slamForce = 1000f;
@@ -50,7 +49,8 @@ namespace ShiggyMod.SkillStates
 
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            //PlayCrossfade("Fullbody, Override", "Slam", "Attack.playbackRate", 1f, 0.1f);
+            PlayCrossfade("Fullbody, Override", "DiveKickStart", "Attack.playbackRate", 1f, 0.1f);
+            base.GetModelAnimator().SetBool("attacking", true);
 
 
             base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
@@ -189,6 +189,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
 
+            base.GetModelAnimator().SetBool("attacking", false);
             this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             if (this.slamIndicatorInstance)
                 this.slamIndicatorInstance.SetActive(false);

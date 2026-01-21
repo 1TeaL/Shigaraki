@@ -8,14 +8,8 @@ using System.Linq;
 
 namespace ShiggyMod.SkillStates
 {
-    public class StoneGolemLaserCharge : BaseSkillState
+    public class StoneGolemLaserCharge : Skill
     {
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
-
-
 		private float baseRadius = 2f;
 		private float radius;
         private float damageCoefficient;
@@ -38,12 +32,12 @@ namespace ShiggyMod.SkillStates
 		public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
 			base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration, 0.05f);
+            base.GetModelAnimator().SetBool("attacking", true);
+            PlayCrossfade("RightArm, Override", "RArmAimStart", "Attack.playbackRate", duration, 0.05f);
 
             float[] source = new float[]
 			{
@@ -60,7 +54,7 @@ namespace ShiggyMod.SkillStates
 				ChildLocator component = modelTransform.GetComponent<ChildLocator>();
 				if (component)
 				{
-					Transform transform = component.FindChild("LHand");
+					Transform transform = component.FindChild("RHand");
 					if (transform)
 					{
 						if (ChargeLaser.effectPrefab)
@@ -148,17 +142,60 @@ namespace ShiggyMod.SkillStates
 		}
 
 		public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-			bool flag = base.IsKeyDownAuthority();
-			if (flag)
+		{
+
+            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.stonegolemlaserDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.stonegolemlaserDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.stonegolemlaserDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.stonegolemlaserDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.stonegolemlaserDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.stonegolemlaserDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.stonegolemlaserDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.stonegolemlaserDef)
+            {
+
+                keepFiring = true;
+            }
+            else
+            {
+                keepFiring = false;
+            }
+
+            if (keepFiring)
 			{
-				PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
 				this.chargePercent = base.fixedAge / this.maxCharge;
 				this.damageCoefficient = (Modules.StaticValues.stonegolemDamageCoefficient + 1f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoefficient));
 				this.radius = (this.baseRadius * this.damageCoefficient + 20f) / 4f;
 			}
-            else
+            else if(!keepFiring)
 			{
 				if (base.fixedAge >= this.duration && base.isAuthority)
 				{

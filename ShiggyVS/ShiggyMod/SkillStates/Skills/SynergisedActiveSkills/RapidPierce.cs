@@ -12,14 +12,12 @@ using System.Reflection;
 
 namespace ShiggyMod.SkillStates
 {
-    public class RapidPierce : BaseSkillState
+    public class RapidPierce : Skill
     {
         private float baseFireInterval = 1.5f;
         private float fireInterval;
         private float fireTimer;
         public int shotsHit;
-        public bool hasFired;
-        public ShiggyController Shiggycon;
         private DamageType damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
 
         private float range = 200f;
@@ -42,7 +40,7 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(1f);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
             if (base.isAuthority)
@@ -63,7 +61,7 @@ namespace ShiggyMod.SkillStates
          public void Fire()
         {
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
             if (base.isAuthority)
@@ -148,9 +146,55 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-            base.FixedUpdate();
 
-            if (base.IsKeyDownAuthority())
+            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.rapidPierceDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.rapidPierceDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.rapidPierceDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.rapidPierceDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.rapidPierceDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.rapidPierceDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.rapidPierceDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.rapidPierceDef)
+            {
+
+                keepFiring = true;
+            }
+            else
+            {
+                keepFiring = false;
+            }
+
+
+
+            if (keepFiring)
             {
                 this.fireTimer -= Time.fixedDeltaTime;
                 if (this.fireTimer <= 0f)
@@ -161,7 +205,7 @@ namespace ShiggyMod.SkillStates
                 }
 
             }
-            else
+            else if (!keepFiring)
             {
                 if (base.isAuthority)
                 {

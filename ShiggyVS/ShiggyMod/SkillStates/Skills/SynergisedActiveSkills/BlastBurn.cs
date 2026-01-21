@@ -13,7 +13,7 @@ using EntityStates.LemurianMonster;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BlastBurn : BaseSkillState
+    public class BlastBurn : Skill
     {
         //Elder lemurian and lemurian
         private BlastAttack blastAttack;
@@ -31,9 +31,9 @@ namespace ShiggyMod.SkillStates
             radius = StaticValues.blastBurnStartRadius;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
-            base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", fireInterval, 0.05f);
+            this.animator.SetBool("attacking", true);
+            base.PlayCrossfade("RightArm, Override", "RArmOutStart", "Attack.playbackRate", fireInterval, 0.05f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -67,6 +67,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            this.animator.SetBool("attacking", false);
             if (this.chargeVfxInstance)
             {
                 EntityState.Destroy(this.chargeVfxInstance);
@@ -76,9 +77,54 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-            base.FixedUpdate();
 
-            if (base.IsKeyDownAuthority())
+            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.blastBurnDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.blastBurnDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.blastBurnDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.blastBurnDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.blastBurnDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.blastBurnDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.blastBurnDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.blastBurnDef)
+            {
+
+                keepFiring = true;
+            }
+            else
+            {
+                keepFiring = false;
+            }
+
+
+            if (keepFiring)
             {
                 stopwatch += Time.fixedDeltaTime;
                 if (stopwatch > fireInterval)
@@ -110,7 +156,7 @@ namespace ShiggyMod.SkillStates
 
                 }
             }
-            else if (!base.IsKeyDownAuthority())
+            else if (!keepFiring)
             {
 
                 this.outer.SetNextStateToMain();

@@ -4,14 +4,12 @@ using UnityEngine;
 using ShiggyMod.Modules.Survivors;
 using EntityStates.ImpMonster;
 using RoR2.Navigation;
+using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ImpBlink : BaseSkillState
+    public class ImpBlink : Skill
     {
-        public float baseDuration = 0.3f;
-        public float duration;
-        public ShiggyController Shiggycon;
         private DamageType damageType;
 
         private float baseblinkDistance = 25f;
@@ -28,6 +26,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            baseDuration = StaticValues.impBlinkDuration;
             this.duration = this.baseDuration / this.attackSpeedStat;
             blinkDistance = baseblinkDistance * (moveSpeedStat / 7);
             Ray aimRay = base.GetAimRay();
@@ -87,14 +86,15 @@ namespace ShiggyMod.SkillStates
             this.modelTransform = base.GetModelTransform();
             if (this.modelTransform && BlinkState.destealthMaterial)
             {
-                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(modelTransform.gameObject);
                 temporaryOverlay.duration = 1f;
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = BlinkState.destealthMaterial;
                 temporaryOverlay.inspectorCharacterModel = this.animator.gameObject.GetComponent<CharacterModel>();
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.animateShaderAlpha = true;
-                
+                temporaryOverlay.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
+
             }
             if (this.characterModel)
             {

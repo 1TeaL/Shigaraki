@@ -18,31 +18,22 @@ namespace ShiggyMod.SkillStates
     {
         //Void jailer + solus control unit
 
-        public float baseDuration = 1f;
-        public float duration;
-        private float fireTime;
         private BulletAttack bulletAttack;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
 
         private float force = StaticValues.gravitationalDownforceForce;
         private string muzzleString;
         private Vector3 direction = Vector3.down;
-        private bool hasFired = false;
         
         private ChildLocator childLocator;
-        private Animator animator;
         private GameObject chargeEffect;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
-            fireTime = duration / 2f;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", fireTime, 0.1f);
+            PlayCrossfade("LeftArm, Override", "LHandDown", "Attack.playbackRate", fireTime, 0.1f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -70,8 +61,7 @@ namespace ShiggyMod.SkillStates
 
             
 
-
-            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", fireTime, 0.1f);
+            
         }
         public override void OnExit()
         {

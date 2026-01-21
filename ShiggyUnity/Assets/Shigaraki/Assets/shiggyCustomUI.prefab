@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8534171013406101257}
   - component: {fileID: 8112352374134334298}
   - component: {fileID: 6686380681505140378}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: backgroundGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 2.5254, y: 0.10759, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5152563029306567007}
   m_RootOrder: 1
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.63529414, g: 0.9969274, b: 1, a: 0.6509804}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -85,8 +87,8 @@ GameObject:
   - component: {fileID: 5152563029306567007}
   - component: {fileID: 5152563029306567006}
   - component: {fileID: 5152563029306567001}
-  m_Layer: 0
-  m_Name: shiggyCustomUI 1
+  m_Layer: 5
+  m_Name: shiggyCustomUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,6 +104,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5152563030804682880}
   - {fileID: 8534171013406101257}
@@ -153,7 +156,7 @@ GameObject:
   - component: {fileID: 5152563030804682880}
   - component: {fileID: 5152563030804682886}
   - component: {fileID: 5152563030804682881}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,6 +173,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 0.05, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5152563029306567007}
   m_RootOrder: 0
@@ -202,6 +206,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.9136019, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

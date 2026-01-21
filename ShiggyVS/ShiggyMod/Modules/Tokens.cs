@@ -40,7 +40,7 @@ namespace ShiggyMod.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "All For One");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"While standing still, steal quirks by looking at a target and pressing {Config.AFOHotkey.Value}. Open the quirk menu with {Config.OpenQuirkMenuHotkey.Value} and close it with {Config.CloseQuirkMenuHotkey.Value}. Give passive quirks to targets by pressing {Config.AFOGiveHotkey.Value}." + Environment.NewLine +
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Steal quirks by looking at a target and pressing {Config.AFOHotkey.Value}, costing " + Helpers.Passive($"{StaticValues.AFOEnergyCost * 100f}% Plus Chaos") + $". Open the quirk menu with {Config.OpenQuirkMenuHotkey.Value} and close it with {Config.CloseQuirkMenuHotkey.Value}. Give passive quirks to targets by pressing {Config.AFOGiveHotkey.Value}." + Environment.NewLine +
                 Helpers.Passive("[Plus Chaos Meter] [Decay] [Air Walk]") + Environment.NewLine +
                 "<style=cIsUtility>He has a double jump. He can sprint in any direction.</style>");
             #endregion
@@ -86,6 +86,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "PEST_NAME", "Jump Boost");
             LanguageAPI.Add(prefix + "PEST_DESCRIPTION", $"<style=cIsUtility>Gain 4 extra jumps and jump power</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Blind Vermin- Super Speed] to create [Blind Senses]</style>");
+            LanguageAPI.Add(prefix + "CHILD_NAME", "Emergency Teleport");
+            LanguageAPI.Add(prefix + "CHILD_DESCRIPTION", $"Gain the ability to teleport randomly on taking lethal damage. This can be done every {StaticValues.childTeleportCD} seconds. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>No pairing yet</style>");
             LanguageAPI.Add(prefix + "VERMIN_NAME", "Super Speed");
             LanguageAPI.Add(prefix + "VERMIN_DESCRIPTION", $"<style=cIsUtility>Gain {StaticValues.verminmovespeedMultiplier}x movespeed and change sprint speed to {StaticValues.verminsprintMultiplier}x</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Blind Pest- Jump Boost] to create [Blind Senses]</style>");
@@ -154,12 +157,15 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "CAPTAIN_NAME", "Defensive Microbots");
             LanguageAPI.Add(prefix + "CAPTAIN_DESCRIPTION", $"Passively gain Microbots that shoot down nearby enemy projectiles. Drones are also given Microbots. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Void Reaver- Nullifier Artillery] to create [Orbital Strike]</style>");
+            LanguageAPI.Add(prefix + "CHEF_NAME", "Oil Burst");
+            LanguageAPI.Add(prefix + "CHEF_DESCRIPTION", $"Every <style=cIsDamage>{StaticValues.chefOilBurstStacks}th attack, fire globs dealing {100f * StaticValues.chefOilDamageCoefficient}, </style>applying weak and oiled on enemies. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>No pairing yet");
             LanguageAPI.Add(prefix + "LOADER_NAME", "Scrap Barrier");
             LanguageAPI.Add(prefix + "LOADER_DESCRIPTION", $"Gain <style=cIsUtility>{100f * StaticValues.loaderBarrierGainCoefficient}% of your damage as barrier</style> on all attacks. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Parent- Teleport] to create [Mach Punch]</style>");
-            LanguageAPI.Add(prefix + "CHILD_NAME", "Emergency Teleport");
-            LanguageAPI.Add(prefix + "CHILD_DESCRIPTION", $"Gain the ability to teleport randomly on taking lethal damage. This can be done every {StaticValues.childTeleportCD} seconds. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>No pairing yet</style>");
+            LanguageAPI.Add(prefix + "FALSESON_NAME", "Stolen Inheritance");
+            LanguageAPI.Add(prefix + "FALSESON_DESCRIPTION", $"Gain <style=cIsDamage>bonus base damage equal to {100f * StaticValues.falseSonHPCoefficient}% of your maximum health</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>No pairing yet");
             #endregion
 
             #region Actives 
@@ -179,7 +185,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BRONZONG_DESCRIPTION", $"Summon 3 spiked balls, then release them, dealing <style=cIsDamage>{100f * StaticValues.bronzongballDamageCoefficient}% damage</style> per ball. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Gup-Spiky Body] to create [Barbed Spikes]</style>");
             LanguageAPI.Add(prefix + "APOTHECARY_NAME", "Clay AirStrike");
-            LanguageAPI.Add(prefix + "APOTHECARY_DESCRIPTION", $"Release a tar shockwave, dealing <style=cIsDamage>{100f * StaticValues.clayapothecarymortarDamageCoefficient}% damage</style> and send a mortar into the sky, which rains down on enemies around you for <style=cIsDamage>{100f * StaticValues.clayapothecarymortarDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "APOTHECARY_DESCRIPTION", $"Take <style=cIsHealth>{100f * StaticValues.clayapothecarymortarHealthCostCoefficient}% health</style> to expel tar, dealing <style=cIsDamage>{100f * StaticValues.clayapothecarymortarDamageCoefficient}% damage</style> and send a mortar into the sky, which rains down on enemies around you for <style=cIsDamage>{100f * StaticValues.clayapothecarymortarDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Xi Construct] to create [Genesis]</style>");
             LanguageAPI.Add(prefix + "TEMPLAR_NAME", "Clay Minigun");
             LanguageAPI.Add(prefix + "TEMPLAR_DESCRIPTION", $"Shoot a rapid hail of tar bullets, tarring and dealing <style=cIsDamage>{100f * StaticValues.claytemplarminigunDamageCoefficient}% damage per bullet</style>. " + Environment.NewLine + Environment.NewLine +
@@ -260,6 +266,9 @@ namespace ShiggyMod.Modules
                 $"Release to fire the shot for <style=cIsDamage>{100f * StaticValues.banditDamageCoefficient}% damage</style>. " +
                 $"Kills reset all your cooldowns." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Imp- Blink] to create [Shadow Claw]</style>");
+            LanguageAPI.Add(prefix + "DRIFTERSALVAGE_NAME", "Salvage");
+            LanguageAPI.Add(prefix + "DRIFTERSALVAGE_DESCRIPTION", $"Spend" + Helpers.Passive($"{StaticValues.drifterSalvagePlusChaosSpend} plus chaos ") + "to spawn <style=cIsUtility>{StaticValues.drifterSalvageItems} temporary items</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>No pairing yet</style>");
             LanguageAPI.Add(prefix + "ENGI_NAME", "Turret");
             LanguageAPI.Add(prefix + "ENGI_DESCRIPTION", $"Place a turret that inherits all your items. Fires a cannon for <style=cIsDamage>100% damage</style>. Can place up to 2. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Alloy Vulture- Wind Blast] to create [Wind Shield]</style>");
@@ -278,6 +287,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "MULTBUFFCANCEL_NAME", "Power Stance: Cancel");
             LanguageAPI.Add(prefix + "MULTBUFFCANCEL_DESCRIPTION", $"Cancel the stance. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Beetleguard- Fast Drop] to create [Mech Stance]</style>");
+            LanguageAPI.Add(prefix + "OPERATORS141CUSTOM_NAME", "S1-41 Custom");
+            LanguageAPI.Add(prefix + "OPERATORS141CUSTOM_DESCRIPTION", $"Fire a pistol shot that deals <style=cIsDamage>{100f * StaticValues.operatorDamageCoefficient}% damage and ricochets on kill</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>No pairing yet</style>");
             LanguageAPI.Add(prefix + "RAILGUNNNER_NAME", "Cryocharged Railgun");
             LanguageAPI.Add(prefix + "RAILGUNNNER_DESCRIPTION", $"<style=cIsDamage>Freezing.</style> Hold to ready a freezing, piercing round. " +
                 $"Release to fire the round for <style=cIsDamage>{100f * StaticValues.railgunnerDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
@@ -285,6 +297,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "REX_NAME", "Seed Barrage");
             LanguageAPI.Add(prefix + "REX_DESCRIPTION", $"<style=cIsHealth>Costs {100f * StaticValues.rexHealthCost}% health</style>. Launch a mortar into the sky for <style=cIsDamage>{100f * StaticValues.rexDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Decay] to create [Decay Plus Ultra]</style>");
+            LanguageAPI.Add(prefix + "SEEKER_NAME", "Meditate");
+            LanguageAPI.Add(prefix + "SEEKER_DESCRIPTION", $"Release a pulse, <style=cIsHealing>healing you and your allies for {StaticValues.seekerMeditateCoeffecient * 100f}% of their max hp, overhealing and giving barrier</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>No pairing yet</style>");
             LanguageAPI.Add(prefix + "VOIDFIEND_NAME", "Cleanse");
             LanguageAPI.Add(prefix + "VOIDFIEND_DESCRIPTION", $"Disappear into the Void, <style=cIsUtility>cleansing all debuffs</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Void Barnacle- Void Mortar] to create [Void Form]</style>");
@@ -394,7 +409,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Get from [Greater Wisp/Grovetender]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Big Bang (Wandering Vagrant/Clay Templar)] to create [Supernova]</style>");
             LanguageAPI.Add(prefix + "OMNIBOOST_NAME", "Omniboost");
-            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>. Lose half your stacks on kill. " + 
+            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>. Lose half your stacks on kill or when you switch targets. " + 
                 Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Beetle/Lesser Wisp]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Double Time (Commando/Solus Probe)] to create [The World]</style>");
@@ -464,10 +479,10 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "WILDCARD_DESCRIPTION", $"Pull out a card. <style=cIsUtility>A random effect will apply to everyone</style>. These include altering speed, damage, teleporting, healing, taking damage, activating glowing meteorite, gaining a random item. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Refresh] [Gacha]</style>");
             LanguageAPI.Add(prefix + "LIGHTANDDARKNESS_NAME", "Light And Darkness");
-            LanguageAPI.Add(prefix + "LIGHTANDDARKNESS_DESCRIPTION", $"Attempt to control the light and darkness in your heart. Based on your current energy, transform into <style=cIsUtility>Light Form, Darkness Form, or Light And Darkness Form</style>. " +
+            LanguageAPI.Add(prefix + "LIGHTANDDARKNESS_DESCRIPTION", $"Attempt to control the light and darkness in your heart. Based on your current plus chaos, transform into <style=cIsUtility>Light Form, Darkness Form, or Light And Darkness Form</style>. If you are able to use this skill again while having either Light form or Darkness form active- gain Light and Darkness form. " +
                 $"Attacking in Light Form <style=cIsDamage>applies the light debuff, and hitting enemies with it will chain {StaticValues.lightFormBonusDamage * 100f}% of the damage to nearby enemies, with the bounce damage increasing by {StaticValues.lightFormBonusDamage * 100f}% damage per stack</style>. " + Environment.NewLine +
                 $"Attacking in Dark Form <style=cIsDamage>applies the darkness debuff, and hitting enemies with it will deal {StaticValues.darkFormBonusDamage * 100f}% extra damage per stack</style>. " + Environment.NewLine +
-                $"Attacking in Light And Darkness Form <style=cIsDamage>applies the light and darkness debuff, and hitting enemies with it will deal {StaticValues.lightAndDarknessBonusDamage* 100f}% of the damage and pull nearby enemies to them, increasing by {StaticValues.lightAndDarknessBonusDamage* 100f}% damage as well as pull range increasing per stack</style>. " + Environment.NewLine + Helpers.Passive($"Light Form constantly drains {StaticValues.lightFormEnergyCost} plus chaos every second, darkness form instead gains {StaticValues.darkFormEnergyGain} energy every second. Light And Darkness equalizes your energy- constantly setting it to 50%") + "." + Environment.NewLine + Environment.NewLine +
+                $"Attacking in Light And Darkness Form <style=cIsDamage>applies the light and darkness debuff, and hitting enemies with it will deal {StaticValues.lightAndDarknessBonusDamage* 100f}% of the damage and pull nearby enemies to them, increasing by {StaticValues.lightAndDarknessBonusDamage* 100f}% damage as well as pull range increasing per stack</style>. " + Environment.NewLine + Helpers.Passive($"Light Form constantly drains {StaticValues.lightFormEnergyCost} plus chaos every second and deactivates at 0 plus chaos, darkness form instead gains {StaticValues.darkFormEnergyGain} plus chaos every second and deactivates at max plus chaos. Light And Darkness equalizes your plus chaos- constantly setting it to 50%") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Shadow Claw] [Genesis]</style>");
             #endregion
 
@@ -512,8 +527,12 @@ namespace ShiggyMod.Modules
                 + Environment.NewLine
                 + Environment.NewLine
             + $"<style=cKeywordName>Air Walk</style>"
-                + $"<style=cIsUtility>Holding jump in the air after 0.5 seconds let's him fly in the direction he's looking at if he's holding forward. Don't hold a direction to simply gain height. Holding any other directions maintain your current height. </style>."
-                + Helpers.Passive($" Drains {StaticValues.airwalkEnergyFraction *100f}% of your max plus chaos every second."));
+                + $"<style=cIsUtility>Double tapping jump in the air toggles flight. Freely move horizontally. Sprinting will have move towards where you're looking at. </style>."
+                + Helpers.Passive($" Drains {StaticValues.airwalkEnergyFraction *100f}% of your max plus chaos every second."
+                + Environment.NewLine
+                + Environment.NewLine
+            + $"<style=cKeywordName>Apex Adaptation</style>"
+                + $"<style=cIsUtility>Hold skills to reset their cooldowns. Resetting generates Apex, draining health over time. Exceeding your Apex limit triggers Quirk Overdrive, causing backlash and disabling healing. Also generates Adaptation, increasing damage, movespeed and armor and raising your Apex limit. </style>."));
             #endregion
             #endregion
 

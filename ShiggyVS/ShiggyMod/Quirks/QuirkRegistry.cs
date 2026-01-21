@@ -310,8 +310,10 @@ namespace ShiggyMod.Modules.Quirks
             AddLeaf(QuirkId.Merc_DashActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.MULT_PowerStanceActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.MULT_PowerStanceCancelActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.Operator_S141CustomActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.Railgunner_CryoActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.REX_MortarActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.Seeker_MeditateActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.VoidFiend_CleanseActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.Deku_OFAActive, QuirkLevel.Level1, QuirkCategory.Active);
 
@@ -356,6 +358,8 @@ namespace ShiggyMod.Modules.Quirks
             AddLeaf(QuirkId.Commando_DoubleTapPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.Captain_MicrobotsPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.Loader_ScrapBarrierPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.FalseSon_StolenInheritancePassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Chef_OilBurstPassive, QuirkLevel.Level1, QuirkCategory.Passive);
 
             // ============================
             // Level 2 — Passives (pairs of L1)
@@ -571,8 +575,10 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.Merc_DashActive] = mercdashDef,
                 [QuirkId.MULT_PowerStanceActive] = multbuffDef,
                 [QuirkId.MULT_PowerStanceCancelActive] = multbuffcancelDef,
+                [QuirkId.Operator_S141CustomActive] = operators141customDef,
                 [QuirkId.Railgunner_CryoActive] = railgunnercryoDef,
                 [QuirkId.REX_MortarActive] = rexmortarDef,
+                [QuirkId.Seeker_MeditateActive] = seekermeditateDef,
                 [QuirkId.VoidFiend_CleanseActive] = voidfiendcleanseDef,
                 [QuirkId.Deku_OFAActive] = DekuOFADef,
 
@@ -592,6 +598,7 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.RoboBallMini_SolusBoostPassive] = roboballminibpassiveDef,
                 [QuirkId.VoidBarnacle_VoidMortarPassive] = voidbarnaclepassiveDef,
                 [QuirkId.VoidJailer_GravityPassive] = voidjailerpassiveDef,
+                [QuirkId.Child_EmergencyTeleportPassive] = childpassiveDef,
 
                 [QuirkId.ImpBoss_BleedPassive] = impbosspassiveDef,
                 [QuirkId.StoneTitan_StoneSkinPassive] = stonetitanpassiveDef,
@@ -602,7 +609,10 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.Acrid_PoisonPassive] = acridpassiveDef,
                 [QuirkId.Commando_DoubleTapPassive] = commandopassiveDef,
                 [QuirkId.Captain_MicrobotsPassive] = captainpassiveDef,
+                [QuirkId.Drifter_SalvageActive] = driftersalvageDef,
                 [QuirkId.Loader_ScrapBarrierPassive] = loaderpassiveDef,
+                [QuirkId.FalseSon_StolenInheritancePassive] = falsesonpassiveDef,
+                [QuirkId.Chef_OilBurstPassive] = chefpassiveDef,
 
                 // =========================
                 // Level 2 — Passives
@@ -709,6 +719,8 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.Commando_DoubleTapPassive] = commandoBuff,
                 [QuirkId.Captain_MicrobotsPassive] = captainBuff,
                 [QuirkId.Loader_ScrapBarrierPassive] = loaderBuff,
+                [QuirkId.FalseSon_StolenInheritancePassive] = falsesonStolenInheritanceBuff,
+                [QuirkId.Chef_OilBurstPassive] = chefOilBurstBuff,
 
                 // Level 2 passives
                 [QuirkId.Pest_Vermin_BlindSensesPassive] = blindSensesBuff,
@@ -749,11 +761,14 @@ namespace ShiggyMod.Modules.Quirks
 
             return b;
         }
-
         public static bool TryGetEliteQuirkId(CharacterBody body, out QuirkId id)
         {
             id = QuirkId.None;
             if (!body) return false;
+
+            Debug.Log("Elite bead buff " + body.GetBuffCount(DLC2Content.Buffs.EliteBead));
+            Debug.Log("Elite bead corruption buff " + body.GetBuffCount(DLC2Content.Buffs.EliteBeadCorruption));
+            Debug.Log("Elite bead thorns buff " + body.GetBuffCount(DLC2Content.Buffs.EliteBeadThorns));
 
             // Vanilla elites
             if (body.HasBuff(RoR2Content.Buffs.AffixRed)) { id = QuirkId.Elite_BlazingPassive; return true; }
@@ -763,16 +778,17 @@ namespace ShiggyMod.Modules.Quirks
             if (body.HasBuff(RoR2Content.Buffs.AffixBlue)) { id = QuirkId.Elite_OverloadingPassive; return true; }
             if (body.HasBuff(RoR2Content.Buffs.AffixLunar)) { id = QuirkId.Elite_LunarPassive; return true; }
 
-            // Survivors of the Void elites
+            // DLC1 elites
             if (body.HasBuff(DLC1Content.Buffs.EliteEarth)) { id = QuirkId.Elite_MendingPassive; return true; }
             if (body.HasBuff(DLC1Content.Buffs.EliteVoid)) { id = QuirkId.Elite_VoidPassive; return true; }
 
-            //Seekers of the storm elites
-            if (body.HasBuff(DLC2Content.Buffs.EliteAurelionite)) { id = QuirkId.Elite_MendingPassive; return true; }
-            if (body.HasBuff(DLC1Content.Buffs.EliteVoid)) { id = QuirkId.Elite_VoidPassive; return true; }
+            // DLC2 elites (these names must match the content you have referenced elsewhere)
+            if (body.HasBuff(DLC2Content.Buffs.EliteAurelionite)) { id = QuirkId.Elite_GildedPassive; return true; }
+            if (body.HasBuff(DLC2Content.Buffs.EliteBead)) { id = QuirkId.Elite_TwistedPassive; return true; }
 
             return false;
         }
+
         public static EquipmentDef GetEliteEquipmentForId(QuirkId id)
         {
             switch (id)
@@ -866,6 +882,8 @@ namespace ShiggyMod.Modules.Quirks
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Commando.CommandoBody_prefab).WaitForCompletion().name, QuirkId.Commando_DoubleTapPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Croco.CrocoBody_prefab).WaitForCompletion().name, QuirkId.Acrid_PoisonPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Loader.LoaderBody_prefab).WaitForCompletion().name, QuirkId.Loader_ScrapBarrierPassive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_FalseSon.FalseSonBody_prefab).WaitForCompletion().name, QuirkId.FalseSon_StolenInheritancePassive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Chef.ChefBody_prefab).WaitForCompletion().name, QuirkId.Chef_OilBurstPassive);
 
             // Actives (L1)
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Vulture.VultureBody_prefab).WaitForCompletion().name, QuirkId.Vulture_WindBlastActive);
@@ -896,6 +914,7 @@ namespace ShiggyMod.Modules.Quirks
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidMegaCrab.VoidMegaCrabAllyBody_prefab).WaitForCompletion().name, QuirkId.VoidDevastator_MissilesActive);
 
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bandit2.Bandit2Body_prefab).WaitForCompletion().name, QuirkId.Bandit_LightsOutActive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Drifter.DrifterBody_prefab).WaitForCompletion().name, QuirkId.Drifter_SalvageActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Engi.EngiBody_prefab).WaitForCompletion().name, QuirkId.Engineer_TurretActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Huntress.HuntressBody_prefab).WaitForCompletion().name, QuirkId.Huntress_FlurryActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MageBody_prefab).WaitForCompletion().name, QuirkId.Artificer_FlamethrowerActive);
@@ -903,6 +922,7 @@ namespace ShiggyMod.Modules.Quirks
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Toolbot.ToolbotBody_prefab).WaitForCompletion().name, QuirkId.MULT_PowerStanceActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Treebot.TreebotBody_prefab).WaitForCompletion().name, QuirkId.REX_MortarActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_Railgunner.RailgunnerBody_prefab).WaitForCompletion().name, QuirkId.Railgunner_CryoActive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Seeker.SeekerBody_prefab).WaitForCompletion().name, QuirkId.Seeker_MeditateActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidSurvivor.VoidSurvivorBody_prefab).WaitForCompletion().name, QuirkId.VoidFiend_CleanseActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Shopkeeper.ShopkeeperBody_prefab).WaitForCompletion().name, QuirkId.Deku_OFAActive);
 

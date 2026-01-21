@@ -10,14 +10,10 @@ using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
-    public class GrandparentSun : BaseSkillState
+    public class GrandparentSun : Skill
     {
-        public float baseDuration = 1f;
-        public float duration;
         public float timer;
-        public ShiggyController Shiggycon;
         public EnergySystem energySystem;
-        public HurtBox Target;
 
         public Vector3 sunSpawnPosition;
         private GameObject sunInstance;
@@ -29,7 +25,8 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("Fullbody, Override", "FullBodyTheWorld", "Attack.playbackRate", duration, 0.05f);
+            PlayCrossfade("Fullbody, Override", "FullBodyTheWorldCrossArm", "Attack.playbackRate", duration, 0.05f);
+            base.GetModelAnimator().SetBool("attacking", true);
             AkSoundEngine.PostEvent("ShiggyExplosion", base.gameObject);
 
             base.characterMotor.Motor.ForceUnground();
@@ -47,12 +44,13 @@ namespace ShiggyMod.SkillStates
             Transform modelTransform = base.GetModelTransform();
             if (modelTransform)
             {
-                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(modelTransform.gameObject);
                 temporaryOverlay.duration = this.baseDuration;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matGrandparentTeleportOutBoom");
+                temporaryOverlay.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
             }
 
             if (NetworkServer.active)
@@ -124,9 +122,10 @@ namespace ShiggyMod.SkillStates
 
             if (base.isAuthority && base.fixedAge >= duration)
             {
-                PlayCrossfade("Fullbody, Override", "ConstantFullBodyTheWorld", "Attack.playbackRate", 0.5f, 0.05f);
+                //PlayCrossfade("Fullbody, Override", "ConstantFullBodyTheWorld", "Attack.playbackRate", 0.5f, 0.05f);
                 if (!base.IsKeyDownAuthority())
                 {
+                    base.GetModelAnimator().SetBool("attacking", false);
                     this.outer.SetNextStateToMain();
                     return;
                 }

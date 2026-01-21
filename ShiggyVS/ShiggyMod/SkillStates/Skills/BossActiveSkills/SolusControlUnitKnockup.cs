@@ -1,20 +1,18 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
 using EntityStates.RoboBallBoss.Weapon;
+using RoR2;
+using RoR2.Projectile;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
 using System.Linq;
-using RoR2.Projectile;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class SolusControlUnitKnockup : BaseSkillState
+    public class SolusControlUnitKnockup : Skill
     {
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
         private DamageType damageType;
 
 
@@ -29,14 +27,12 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
-            base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("LeftArm, Override", "LHandLift", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {

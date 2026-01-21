@@ -7,20 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using R2API.Networking;
 using R2API;
+using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
-    public class AirCannon : BaseSkillState
+    public class AirCannon : Skill
     {
-        public float baseDuration = 0.5f;
-        public float duration;
         private Ray aimRay;
-        public ShiggyController Shiggycon;
 
         public GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
         public static event Action<int> Compacted;
 
-        public float SpeedCoefficient = 15f;
+        public float SpeedCoefficient = StaticValues.aircannonSpeedCoefficient;
         private float radius = 15f;
         private float damageCoefficient = Modules.StaticValues.aircannonDamageCoefficient;
         private float procCoefficient = 1f;
@@ -38,7 +36,8 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
+            baseDuration = 0.5f;
             this.duration = this.baseDuration;
 
             aimRay = base.GetAimRay();
@@ -46,7 +45,8 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetAimTimer(this.duration);
             AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
-            PlayAnimation("Body", "Jump", "Attack.playbackRate", duration);
+            base.GetModelAnimator().SetBool("attacking", true);
+            PlayAnimation("FullBody, Override", "FullBodyDashStart", "Attack.playbackRate", duration);
 
             base.characterMotor.disableAirControlUntilCollision = false;
 
@@ -99,9 +99,9 @@ namespace ShiggyMod.SkillStates
                 Compacted?.Invoke(result.hitCount);
             }
 
-            base.characterMotor.useGravity = false;
-            this.previousMass = base.characterMotor.mass;
-            base.characterMotor.mass = 0f;
+            //base.characterMotor.useGravity = false;
+            //this.previousMass = base.characterMotor.mass;
+            //base.characterMotor.mass = 0f;
             base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
 
 
@@ -123,15 +123,16 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
+            base.GetModelAnimator().SetBool("attacking", false);
             this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             base.OnExit();
 
-            base.characterMotor.mass = this.previousMass;
-            base.characterMotor.useGravity = true;
-            base.characterMotor.velocity = Vector3.zero;
+            //base.characterMotor.mass = this.previousMass;
+            //base.characterMotor.useGravity = true;
+            //base.characterMotor.velocity = Vector3.zero;
             if (base.cameraTargetParams) base.cameraTargetParams.fovOverride = -1f;
             base.characterMotor.disableAirControlUntilCollision = false;
-            base.characterMotor.velocity.y = 0;
+            //base.characterMotor.velocity.y = 0;
             base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
         }
 
@@ -141,18 +142,24 @@ namespace ShiggyMod.SkillStates
             base.FixedUpdate();
 
             this.RecalculateRollSpeed();
-            Vector3 normalized = (base.transform.position - this.previousPosition).normalized;
-            if (base.characterDirection) base.characterDirection.forward = this.aimRayDir;
-            if (base.characterMotor && base.characterDirection && normalized != Vector3.zero)
-            {
-                Vector3 vector = normalized * this.rollSpeed;
-                float d = Mathf.Max(Vector3.Dot(vector, this.aimRay.direction), 0f);
-                vector = this.aimRay.direction * d;
+            //Vector3 normalized = (base.transform.position - this.previousPosition).normalized;
+            //if (base.characterDirection) base.characterDirection.forward = this.aimRayDir;
+            //if (base.characterMotor && base.characterDirection && normalized != Vector3.zero)
+            //{
+            //    Vector3 vector = normalized * this.rollSpeed;
+            //    float d = Mathf.Max(Vector3.Dot(vector, this.aimRay.direction), 0f);
+            //    vector = this.aimRay.direction * d;
 
-                base.characterMotor.velocity = vector;
-            }
-            this.previousPosition = base.transform.position;
+            //    base.characterMotor.velocity = vector;
+            //}
+            //this.previousPosition = base.transform.position;
 
+
+            Vector3 direction = aimRay.direction.normalized;
+            base.characterDirection.forward = direction;
+            Vector3 velocity = direction * rollSpeed;
+            base.characterMotor.velocity = velocity;
+            base.characterDirection.forward = base.characterMotor.velocity.normalized;
 
             if (base.fixedAge >= this.duration && base.isAuthority)
             {

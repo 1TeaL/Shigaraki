@@ -12,14 +12,8 @@ using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ClayApothecaryMortar : BaseSkillState
+    public class ClayApothecaryMortar : Skill
     {
-        public float baseDuration = 3.5f;
-        public float duration;
-        private float baseDurationBeforeBlast = 1.5f;
-        private float durationBeforeBlast;
-        public ShiggyController Shiggycon;
-		private DamageType damageType = new DamageTypeCombo(DamageType.ClayGoo, DamageTypeExtended.Generic, DamageSource.Secondary);
 
 
         private float radius = 5f;
@@ -33,7 +27,6 @@ namespace ShiggyMod.SkillStates
         private Animator modelAnimator;
         private Transform modelTransform;
         private GameObject chargeInstance;
-        private bool hasFiredBlast;
         private float healthCostFraction = Modules.StaticValues.clayapothecarymortarHealthCostCoefficient;
         private BlastAttack attack;
 
@@ -41,18 +34,17 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
 			damageType = new DamageTypeCombo(DamageType.ClayGoo, DamageTypeExtended.Generic, DamageSource.Secondary);
-            Shiggycon = gameObject.GetComponent<ShiggyController>();
-            this.duration = this.baseDuration / this.attackSpeedStat;
+			Shiggycon = gameObject.GetComponent<ShiggyController>();
+
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
             this.modelAnimator = base.GetModelAnimator();
             this.modelTransform = base.GetModelTransform();
             this.duration = baseDuration / this.attackSpeedStat;
-            this.durationBeforeBlast = baseDurationBeforeBlast / this.attackSpeedStat;
             Util.PlayAttackSpeedSound(FaceSlam.attackSoundString, base.gameObject, this.attackSpeedStat);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
@@ -71,7 +63,7 @@ namespace ShiggyMod.SkillStates
                 ScaleParticleSystemDuration component = this.chargeInstance.GetComponent<ScaleParticleSystemDuration>();
                 if (component)
                 {
-                    component.newDuration = this.durationBeforeBlast;
+                    component.newDuration = duration;
                 }
             }
 
@@ -94,9 +86,9 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-			if (base.fixedAge > this.durationBeforeBlast && !this.hasFiredBlast)
+			if (base.fixedAge > this.fireTime && !this.hasFired)
 			{
-				this.hasFiredBlast = true;
+				this.hasFired = true;
 				if (this.chargeInstance)
 				{
 					EntityState.Destroy(this.chargeInstance);

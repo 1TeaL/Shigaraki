@@ -50,8 +50,10 @@ namespace ShiggyMod.Modules.Survivors
 
         //survivor passives
         internal static SkillDef acridpassiveDef;
-        internal static SkillDef commandopassiveDef;
         internal static SkillDef captainpassiveDef;
+        internal static SkillDef commandopassiveDef;
+        internal static SkillDef chefpassiveDef;
+        internal static SkillDef falsesonpassiveDef;
         internal static SkillDef loaderpassiveDef;
 
         //synergy passives
@@ -110,13 +112,16 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef artificericewallDef;
         internal static SkillDef artificerlightningorbDef;
         internal static SkillDef banditlightsoutDef;
+        internal static SkillDef driftersalvageDef;
         internal static SkillDef engiturretDef;
         internal static SkillDef huntressattackDef;
         internal static SkillDef mercdashDef;
         internal static SkillDef multbuffDef;
         internal static SkillDef multbuffcancelDef;
+        internal static SkillDef operators141customDef;
         internal static SkillDef railgunnercryoDef;
         internal static SkillDef rexmortarDef;
+        internal static SkillDef seekermeditateDef;
         internal static SkillDef voidfiendcleanseDef;
 
         //collab actives
@@ -187,6 +192,7 @@ namespace ShiggyMod.Modules.Survivors
             characterPortrait = Modules.ShiggyAsset.LoadCharacterIcon("Shiggy"),
             crosshair = Modules.ShiggyAsset.LoadCrosshair("Standard"),
             damage = 1f,
+            damageGrowth = 1f,
             healthGrowth = 41f,
             healthRegen = 1f,
             jumpCount = 2,
@@ -454,7 +460,7 @@ namespace ShiggyMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,
@@ -1145,6 +1151,54 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
+            Shiggy.falsesonpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "FALSESON_NAME",
+                skillNameToken = prefix + "FALSESON_NAME",
+                skillDescriptionToken = prefix + "FALSESON_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.FalseSon_StolenInheritancePassive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.FalseSon)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
+            Shiggy.chefpassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "CHEF_NAME",
+                skillNameToken = prefix + "CHEF_NAME",
+                skillDescriptionToken = prefix + "CHEF_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.Chef_OilBurstPassive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Chef)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
             #endregion
 
             #region Active Skills
@@ -1421,7 +1475,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.LunarGolemSlide)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
-                baseRechargeInterval = 16f,
+                baseRechargeInterval = 20f, //16-> 20 balance change due to apex
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -1822,6 +1876,30 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_SLAYER" }
             });
+            Shiggy.banditlightsoutDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "DRIFTERSALVAGE_NAME",
+                skillNameToken = prefix + "DRIFTERSALVAGE_NAME",
+                skillDescriptionToken = prefix + "DRIFTERSALVAGE_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.Drifter_SalvageActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.DrifterSalvage)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 30f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE"}
+            });
             Shiggy.engiturretDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ENGI_NAME",
@@ -1942,6 +2020,30 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_SLAYER" }
             });
+            Shiggy.operators141customDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "OPERATORS141CUSTOM_NAME",
+                skillNameToken = prefix + "OPERATORS141CUSTOM_NAME",
+                skillDescriptionToken = prefix + "OPERATORS141CUSTOM_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.Operator_S141CustomActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.OperatorS141Custom)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 10f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
             Shiggy.railgunnercryoDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "RAILGUNNNER_NAME",
@@ -1976,6 +2078,30 @@ namespace ShiggyMod.Modules.Survivors
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0.5f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
+            Shiggy.seekermeditateDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SEEKER_NAME",
+                skillNameToken = prefix + "SEEKER_NAME",
+                skillDescriptionToken = prefix + "SEEKER_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.REX_MortarActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SeekerMeditate)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 16f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -2098,7 +2224,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "GRAVITATIONALDOWNFORCE_NAME",
                 skillDescriptionToken = prefix + "GRAVITATIONALDOWNFORCE_DESCRIPTION",
                 skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("GravitationalDownforce"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.GravitationalDownforce)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SeekerMeditate)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 15f,
@@ -2176,7 +2302,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Refresh)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
-                baseRechargeInterval = 20f,
+                baseRechargeInterval = 60f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,

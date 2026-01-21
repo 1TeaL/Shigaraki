@@ -5,38 +5,40 @@ using ShiggyMod.Modules.Survivors;
 using RoR2.Projectile;
 using EntityStates.LemurianMonster;
 using EmotesAPI;
+using Rewired.ComponentControls.Data;
 
 namespace ShiggyMod.SkillStates
 {
-    public class LemurianFireball : BaseSkillState
+    public class LemurianFireball : Skill
     {
-        public float baseDuration = 0.5f;
-        public float duration;
-        public ShiggyController Shiggycon;
 
         public static GameObject effectPrefab;
 
         private string muzzleString;
-        private Animator animator;
         private float damageCoefficient = Modules.StaticValues.lemurianfireballDamageCoefficient;
         private float force = 1f;
         private float speedOverride = -1f;
         private GameObject chargeVfxInstance;
+        public bool isContinued;
 
         public override void OnEnter()
         {
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
+            baseDuration = 0.5f;
             duration = baseDuration / attackSpeedStat;
+
+                
 
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "LHand";
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             this.animator = base.GetModelAnimator();
+            base.GetModelAnimator().SetBool("attacking", true);
             //this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration / 2, 0.1f);
+            PlayCrossfade("LeftArm, Override", "LArmOutStart", "Attack.playbackRate", duration / 2, 0.1f);
             //PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration/2, 0.1f);
             if (transform && ChargeFireball.chargeVfxPrefab)
             {
@@ -91,7 +93,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            this.animator.SetBool("false", true);
+            base.GetModelAnimator().SetBool("attacking", isContinued);
             //PlayCrossfade("RightArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
             PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
             if (this.chargeVfxInstance)
@@ -103,16 +105,69 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-            base.FixedUpdate();
 
-            if (base.fixedAge >= this.duration && base.isAuthority && base.IsKeyDownAuthority())
+            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.lemurianfireballDef)
             {
-                this.outer.SetNextState(new LemurianFireball());
+
+                keepFiring = true;
             }
-            else if (base.fixedAge >= this.duration && base.isAuthority)
+            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.lemurianfireballDef)
             {
-                this.outer.SetNextStateToMain();
-                return;
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.lemurianfireballDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.lemurianfireballDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.lemurianfireballDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.lemurianfireballDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.lemurianfireballDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.lemurianfireballDef)
+            {
+
+                keepFiring = true;
+            }
+            else
+            {
+                keepFiring = false;
+            }
+
+
+            if (base.fixedAge >= this.duration && base.isAuthority && keepFiring)
+            {
+                if (keepFiring)
+                {
+                    LemurianFireball lemFireball = new LemurianFireball();
+                    lemFireball.isContinued = true;
+                    this.outer.SetNextState(lemFireball);
+
+                }
+                else if (!keepFiring)
+                {
+                    this.outer.SetNextStateToMain();
+                    return;
+
+                }                
+                
             }
         }
 

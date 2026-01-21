@@ -20,6 +20,7 @@ namespace ShiggyMod.Modules
         //font
         internal static Font ror2Font;
 
+
         // particle effects
         internal static GameObject beam;
         internal static List<GameObject> networkObjDefs = new List<GameObject>();
@@ -86,6 +87,8 @@ namespace ShiggyMod.Modules
         public static Sprite teleportOnLowHealthBuffIcon;
         public static Sprite teleportOnLowHealthCDBuffIcon;
         public static Sprite affixAurelioniteBuffIcon;
+        public static Sprite falseSonEnergizedCoreBuffIcon;
+        public static Sprite chefOilBuffIcon;
 
         //game material
         //public static Material alphaconstructShieldBuffMat = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
@@ -132,6 +135,7 @@ namespace ShiggyMod.Modules
         public static GameObject lunarGolemSmokeEffect;
         public static GameObject impBossExplosionEffect;
         public static GameObject impBossGroundSlamEffect;
+        public static GameObject seekerChakraEffect;
 
         public static RoR2.Audio.LoopSoundDef xiconstructsound;
         public static GameObject grandparentSunPrefab;
@@ -188,6 +192,11 @@ namespace ShiggyMod.Modules
         public static GameObject strongerBurnEffectPrefab;
         public static GameObject muzzleflashScavSackPrefab;
         public static GameObject tracerHuntressSnipePrefab;
+        public static GameObject chefGlazeEffectMuzzlePrefab;
+        public static GameObject operatorPistolTracerPrefab;
+        public static GameObject operatorPistolHitEffectPrefab;
+        public static GameObject operatorPistolMuzzlePrefab;
+
 
 
         //game projectiles
@@ -197,6 +206,7 @@ namespace ShiggyMod.Modules
         public static GameObject lemfireBallGhost;
         public static GameObject greaterwispBall;
         public static GameObject stonetitanFistProj;
+        public static GameObject chefGlazeProjectilePrefab;
 
         //Area indicators
         internal static GameObject sphereIndicator;
@@ -309,6 +319,8 @@ namespace ShiggyMod.Modules
             teleportOnLowHealthBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Items_TeleportOnLowHealth.bdTeleportOnLowHealthActive_asset).WaitForCompletion().iconSprite;
             teleportOnLowHealthCDBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Items_TeleportOnLowHealth.bdTeleportOnLowHealthCooldown_asset).WaitForCompletion().iconSprite;
             affixAurelioniteBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Elites_EliteAurelionite.bdEliteAurelionite_asset).WaitForCompletion().iconSprite;
+            falseSonEnergizedCoreBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_FalseSon.bdEnergizedCore_asset).WaitForCompletion().iconSprite;
+            chefOilBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Chef.bdOiled_asset).WaitForCompletion().iconSprite;
 
             //game effects
             voidMegaCrabExplosionEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidMegaCrab.VoidMegacrabAntimatterExplosion_prefab).WaitForCompletion();        
@@ -329,10 +341,11 @@ namespace ShiggyMod.Modules
             xiconstructBeamLaser = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.LaserMajorConstruct_prefab).WaitForCompletion();        
             lunarGolemSmokeEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LunarGolem.BlastSmokeLunarGolem_prefab).WaitForCompletion();        
             impBossExplosionEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ImpBoss.ImpBossBlink_prefab).WaitForCompletion();       
-            impBossGroundSlamEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ImpBoss.ImpBossGroundSlam_prefab).WaitForCompletion();       
+            impBossGroundSlamEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ImpBoss.ImpBossGroundSlam_prefab).WaitForCompletion();
             xiconstructsound = Addressables.LoadAssetAsync<RoR2.Audio.LoopSoundDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.lsdMajorConstructLaser_asset).WaitForCompletion();
-         
-      
+            seekerChakraEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Seeker.MeditateSuccessVFX_prefab).WaitForCompletion();
+
+
             artificerfireEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MageFlamethrowerEffect_prefab).WaitForCompletion();      
             artificerlightningorbchargeEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MuzzleflashMageLightningLarge_prefab).WaitForCompletion();       
             artificerlightningorbMuzzleEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MuzzleflashMageLightning_prefab).WaitForCompletion();
@@ -384,7 +397,10 @@ namespace ShiggyMod.Modules
             strongerBurnEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_StrengthenBurn.StrongerBurnEffect_prefab).WaitForCompletion();
             muzzleflashScavSackPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Scav.MuzzleflashScavSack_prefab).WaitForCompletion();
             tracerHuntressSnipePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Huntress.TracerHuntressSnipe_prefab).WaitForCompletion();
-
+            chefGlazeEffectMuzzlePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Chef.ChefGlazeImpactEffect_prefab).WaitForCompletion();
+            operatorPistolTracerPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Drone_Tech.TracerNanoPistolCharged_prefab).WaitForCompletion();
+            operatorPistolMuzzlePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Drone_Tech.NanoPistolMuzzleFlashVFX_prefab).WaitForCompletion();
+            operatorPistolHitEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Drone_Tech.NanoPistolRicochetImpactEffect_prefab).WaitForCompletion();
 
             //game projectiles
             captainAirStrikeProj = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Captain.CaptainAirstrikeProjectile1_prefab).WaitForCompletion();
@@ -393,6 +409,7 @@ namespace ShiggyMod.Modules
             lemfireBallGhost = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Lemurian.FireballGhost_prefab).WaitForCompletion();
             greaterwispBall = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_GreaterWisp.WispCannon_prefab).WaitForCompletion();
             stonetitanFistProj = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Titan.TitanPreFistProjectile_prefab).WaitForCompletion();
+            chefGlazeProjectilePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Chef.ChefGlazeProjectile_prefab).WaitForCompletion();
 
 
             //sword swing
@@ -515,7 +532,7 @@ namespace ShiggyMod.Modules
 
 
             //decay particle
-            decayattackEffect = LoadEffect("DecayAttack");
+            decayattackEffect = LoadEffect("DecayPlusUltra");
             //decaybuffEffect = Modules.Asset.mainAssetBundle.LoadAsset<GameObject>("DecayBuff");
             decaybuffEffect = LoadEffect("DecayBuff");
             decayspreadEffect = LoadEffect("DecaySpread");

@@ -8,12 +8,8 @@ using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class GreaterWispBuff : BaseSkillState
+    public class GreaterWispBuff : Skill
     {
-        public float baseDuration = 0.1f;
-        public float duration;
-        public float fireTime;
-        public ShiggyController Shiggycon;
         private DamageType damageType;
         public bool hasFired;
 
@@ -32,14 +28,13 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            baseDuration = 0.1f;
             this.duration = this.baseDuration / this.attackSpeedStat;
-            this.fireTime = duration / 3;
             hasFired = false;
             Ray aimRay = base.GetAimRay();
             //base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
-            base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("LeftArm, Override", "LHandFist", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {

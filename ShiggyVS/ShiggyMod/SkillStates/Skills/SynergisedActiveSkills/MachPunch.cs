@@ -54,6 +54,8 @@ namespace ShiggyMod.SkillStates
             this.areaIndicator = Object.Instantiate<GameObject>(ArrowRain.areaIndicatorPrefab);
             this.areaIndicator.SetActive(true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            this.animator.SetBool("attacking", true);
+            base.PlayCrossfade("RightArm, Override", "RArmPunchStart", "Attack.playbackRate", duration, 0.05f);
 
 
             Ray aimRay = base.GetAimRay();

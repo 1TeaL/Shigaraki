@@ -13,7 +13,6 @@ namespace ShiggyMod.SkillStates
 {
     public class Refresh : Skill
     {
-        private ExtraSkillLocator extraskillLocator;
         private EnergySystem energysys;
         //Lunar golem + Lunar exploder
         public override void OnEnter()
@@ -21,6 +20,7 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
 
             //play animation?
+            PlayAnimation("LeftArm, Override", "LHandFist", "Attack.playbackRate", duration / 2f);
 
             AkSoundEngine.PostEvent("ShiggyGacha", base.gameObject);
             EffectManager.SpawnEffect(ShiggyAsset.lunarGolemSmokeEffect, new EffectData

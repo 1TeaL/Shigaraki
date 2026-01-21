@@ -20,12 +20,8 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
 
-            baseDuration = 1f;
-            this.duration = baseDuration / base.attackSpeedStat;
-            fireTime = duration / 2f;
-
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             //base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)

@@ -1,23 +1,29 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
+using ExtraSkillSlots;
 using R2API.Networking.Interfaces;
+using RoR2;
+using RoR2.Projectile;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
     public class Skill : BaseSkillState
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 1f;
+        public float baseDuration = StaticValues.universalDuration;
         public float duration;
         public ShiggyController Shiggycon;
-        private DamageType damageType;
+        public EnergySystem energySystem;
+        public ExtraInputBankTest extrainputBankTest;
+        public ExtraSkillLocator extraskillLocator;
+        public DamageType damageType;
         public HurtBox Target;
-        private Animator animator;
+        public Animator animator;
         public float fireTime;
+        public bool keepFiring;
         public bool hasFired;
 
 
@@ -31,10 +37,16 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             this.duration = this.baseDuration / this.attackSpeedStat;
+            fireTime = duration * StaticValues.universalFiretime;
+            hasFired = false;
+            keepFiring = true;
             Ray aimRay = base.GetAimRay();
             //base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
+            energySystem = gameObject.GetComponent<EnergySystem>();
+            extraskillLocator = base.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
             damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
 
 

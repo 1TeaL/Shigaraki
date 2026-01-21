@@ -61,16 +61,19 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(ArtificerThrowLightningOrb));
             Modules.Content.AddEntityState(typeof(BanditPrepLightsOut));
             Modules.Content.AddEntityState(typeof(BanditFireLightsOut));
+            Modules.Content.AddEntityState(typeof(DrifterSalvage));
             Modules.Content.AddEntityState(typeof(EngiTurret));
             Modules.Content.AddEntityState(typeof(HuntressBlink));
             Modules.Content.AddEntityState(typeof(HuntressAttack));
             Modules.Content.AddEntityState(typeof(MercDash));
             Modules.Content.AddEntityState(typeof(MercDashAttack));
             Modules.Content.AddEntityState(typeof(MultBuff));
+            Modules.Content.AddEntityState(typeof(OperatorS141Custom));
             Modules.Content.AddEntityState(typeof(RailgunnerCryoCharge));
             Modules.Content.AddEntityState(typeof(RailgunnerCryoFire));
             Modules.Content.AddEntityState(typeof(RexMortar));
             Modules.Content.AddEntityState(typeof(VoidFiendCleanse));
+            Modules.Content.AddEntityState(typeof(SeekerMeditate));
             //collab skills
             Modules.Content.AddEntityState(typeof(DekuOFA));
 
@@ -100,12 +103,14 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(Acrid));
             Modules.Content.AddEntityState(typeof(Captain));
             Modules.Content.AddEntityState(typeof(Commando));
+            Modules.Content.AddEntityState(typeof(Chef));
             Modules.Content.AddEntityState(typeof(Loader));
+            Modules.Content.AddEntityState(typeof(FalseSon));
 
             //synergy active skills
             Modules.Content.AddEntityState(typeof(SweepingBeam));
             Modules.Content.AddEntityState(typeof(BlackHoleGlaive));
-            Modules.Content.AddEntityState(typeof(GravitationalDownforce));
+            Modules.Content.AddEntityState(typeof(SeekerMeditate));
             Modules.Content.AddEntityState(typeof(WindShield));
             Modules.Content.AddEntityState(typeof(Genesis));
             Modules.Content.AddEntityState(typeof(Refresh));

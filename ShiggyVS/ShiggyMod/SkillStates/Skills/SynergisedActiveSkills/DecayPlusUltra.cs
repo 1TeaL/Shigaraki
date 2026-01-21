@@ -16,21 +16,16 @@ using static RoR2.BlastAttack;
 
 namespace ShiggyMod.SkillStates
 {
-    public class DecayPlusUltra : BaseSkillState
+    public class DecayPlusUltra : Skill
     {
         private BlastAttack blastAttack;
-        public float fireTime;
-        public bool hasFired = false;
         public float radius = StaticValues.decayPlusUltraRadius;
-        public float baseDuration = StaticValues.decayPlusUltraDuration;
-        public float duration;
 
         //Rex + decay
         public override void OnEnter()
         {
+            baseDuration = StaticValues.decayPlusUltraDuration;
             base.OnEnter();
-            duration = baseDuration / attackSpeedStat;
-            fireTime = duration * 0.7f;
             //play animation
 
             Ray aimRay = base.GetAimRay();

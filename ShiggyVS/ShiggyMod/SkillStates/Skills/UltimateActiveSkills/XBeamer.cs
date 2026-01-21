@@ -16,14 +16,11 @@ using EntityStates.VoidRaidCrab;
 
 namespace ShiggyMod.SkillStates
 {
-    public class XBeamer : BaseSkillState
+    public class XBeamer : Skill
     {
         //rapid pierce + sweeping beam
 
         public EnergySystem energySystem;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
-        public HurtBox Target;
         public GameObject flamethrowerEffectPrefab = Modules.ShiggyAsset.artificerfireEffect;
 
         private float force = 1f;
@@ -93,6 +90,7 @@ namespace ShiggyMod.SkillStates
 
             //animation with right arm in front like tsuna from hitman reborn doing the blast
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.GetModelAnimator().SetBool("attacking", false);
             base.PlayAnimation("FullBody, Override", "FullBodyXBurner", "Attack.playbackRate", entryDuration);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
@@ -144,7 +142,7 @@ namespace ShiggyMod.SkillStates
             }
         }
 
-        public void Update()
+        public override void Update()
         {
             //Handle transform of effectObj
             if (laserEffect)
@@ -196,6 +194,7 @@ namespace ShiggyMod.SkillStates
                 Destroy(laserEffect);
             }
             LoopSoundManager.StopSoundLoopLocal(this.loopPtr);
+            base.GetModelAnimator().SetBool("attacking", false);
             base.PlayCrossfade("FullBody, Override", "BufferEmpty", "Attack.playbackRate", 0.05f, 0.05f);
 
         }
@@ -240,20 +239,65 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-            base.FixedUpdate();
 
-            base.PlayCrossfade("FullBody, Override", "FullBodyXBurner", "Attack.playbackRate", entryDuration, 0.05f);
             switch (state)
             {
                 case BeamState.CHARGE:
 
 
                     this.chargePercent = base.fixedAge / StaticValues.xBeamerChargeCoefficient;
-                    if (base.IsKeyDownAuthority())
+
+                    if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.xBeamerDef)
+                    {
+
+                        keepFiring = true;
+                    }
+                    else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.xBeamerDef)
+                    {
+
+                        keepFiring = true;
+                    }
+                    else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.xBeamerDef)
+                    {
+
+                        keepFiring = true;
+                    }
+                    else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.xBeamerDef)
+                    {
+
+                        keepFiring = true;
+                    }
+                    else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.xBeamerDef)
+                    {
+
+                        keepFiring = true;
+                    }
+                    if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.xBeamerDef)
+                    {
+
+                        keepFiring = true;
+                    }
+                    if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.xBeamerDef)
+                    {
+
+                        keepFiring = true;
+                    }
+                    if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.xBeamerDef)
+                    {
+
+                        keepFiring = true;
+                    }
+                    else
+                    {
+                        keepFiring = false;
+                    }
+
+
+                    if (keepFiring)
                     {
                         Charge();
                     }
-                    if (!base.IsKeyDownAuthority())
+                    if (!keepFiring)
                     {
                         state = BeamState.ACTIVE;
                     }
@@ -291,6 +335,7 @@ namespace ShiggyMod.SkillStates
                 //    break;
                 case BeamState.ACTIVE:
 
+                    base.GetModelAnimator().SetBool("attacking", true);
                     if (!laserEffect)
                     {
                         laserEffect = UnityEngine.Object.Instantiate(Modules.ShiggyAsset.xiconstructBeamLaser, startPosition, Quaternion.identity);

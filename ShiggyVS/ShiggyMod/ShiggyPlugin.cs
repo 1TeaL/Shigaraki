@@ -161,6 +161,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<EquipLoadoutRequest>();
             NetworkingAPI.RegisterMessageType<GivePassiveRequest>();
             NetworkingAPI.RegisterMessageType<ForceQuirkOverdriveState>();
+            NetworkingAPI.RegisterMessageType<SetAFOStealStateMachine>();
 
 
 
@@ -195,6 +196,7 @@ namespace ShiggyMod
             // run hooks here, disabling one is as simple as commenting out the line
             On.RoR2.CharacterBody.OnDeathStart += CharacterBody_OnDeathStart;
             On.RoR2.CharacterModel.Awake += CharacterModel_Awake;
+            On.RoR2.CharacterModel.Start += CharacterModel_Start;
             RoR2.Run.onRunStartGlobal += Run_onRunStartGlobal;
             RoR2.Run.onRunDestroyGlobal += Run_onRunDestroyGlobal;
             //On.RoR2.CharacterBody.Start += CharacterBody_Start;
@@ -212,6 +214,7 @@ namespace ShiggyMod
             On.RoR2.OverlapAttack.Fire += OverlapAttack_Fire;
             On.RoR2.BulletAttack.Fire += BulletAttack_Fire;
             On.RoR2.BlastAttack.Fire += BlastAttack_Fire;
+            CharacterBody.onBodyStartGlobal += CharacterBody_onBodyStartGlobal;
 
            
 
@@ -221,6 +224,73 @@ namespace ShiggyMod
             }
         }
 
+        //make sure quirk passives are added 
+        private void CharacterBody_onBodyStartGlobal(CharacterBody obj)
+        {
+            if (!NetworkServer.active) return;
+            if (!obj || !obj.master) return;
+
+            // Only your survivor
+            if (obj.bodyIndex != BodyCatalog.FindBodyIndex("ShiggyBody")) return;
+
+            // You already have logic to compute equipped quirks from skill slots:
+            // Prefer calling your existing controller method if present, otherwise call a static utility.
+            var masterCon = obj.master.GetComponent<ShiggyMasterController>();
+            if (masterCon != null)
+            {
+                masterCon.CheckQuirksForBuffs(obj);
+            }
+            else
+            {
+                // Fallback: call a static helper (recommended to avoid depending on controller existence)
+                ApplyQuirkBuffsFromEquippedSkills(obj);
+            }
+        }
+        private static void ApplyQuirkBuffsFromEquippedSkills(CharacterBody body)
+        {
+            if (!body) return;
+
+            var equipped = QuirkEquipUtils.GetEquippedQuirks(body);
+
+            // IMPORTANT: don’t wipe vanilla affix buffs etc. unless you are 100% sure.
+            // Best practice: only clear buffs that belong to quirks you control.
+            foreach (var rec in QuirkRegistry.All.Values)
+            {
+                if (rec.Buff == null) continue;
+
+                // If you used base game buffs (AffixRed etc.) in the registry, you should EXCLUDE them here
+                // or you will delete legitimate elite buffs.
+                // A simple safe rule: only clear buffs you created in Modules.Buffs.
+                // If you can’t tag them, do explicit exclusions.
+                if (IsVanillaAffix(rec.Buff)) continue;
+
+                body.ApplyBuff(rec.Buff.buffIndex, 0);
+            }
+
+            foreach (var q in equipped)
+            {
+                if (QuirkRegistry.TryGet(q, out var rec) && rec.Buff != null)
+                {
+                    if (IsVanillaAffix(rec.Buff)) continue;
+                    body.ApplyBuff(rec.Buff.buffIndex, 1);
+                }
+            }
+        }
+
+        private static bool IsVanillaAffix(BuffDef buff)
+        {
+            // Expand this as needed (DLC1/DLC2 too)
+            return buff == RoR2Content.Buffs.AffixRed
+                || buff == RoR2Content.Buffs.AffixWhite
+                || buff == RoR2Content.Buffs.AffixPoison
+                || buff == RoR2Content.Buffs.AffixHaunted
+                || buff == RoR2Content.Buffs.AffixBlue
+                || buff == RoR2Content.Buffs.AffixLunar
+                || buff == DLC1Content.Buffs.EliteEarth
+                || buff == DLC1Content.Buffs.EliteVoid
+                || buff == DLC2Content.Buffs.EliteAurelionite
+                || buff == DLC2Content.Buffs.EliteBead;
+        }
 
         private void Run_onRunStartGlobal(Run obj)
         {
@@ -511,10 +581,15 @@ namespace ShiggyMod
                         args.attackSpeedMultAdd -= StaticValues.doubleTimeSlowCoefficient;
                         args.moveSpeedMultAdd -= StaticValues.doubleTimeSlowCoefficient;
                     }
+                    //false son buff
+                    if (sender.HasBuff(Buffs.falsesonStolenInheritanceBuff))
+                    {
+                        args.baseDamageAdd += StaticValues.falseSonHPCoefficient * sender.healthComponent.fullHealth;
+                    }
 
                 }
             }
-            
+
 
         }
 
@@ -588,6 +663,49 @@ namespace ShiggyMod
                     procChainMask = default
                 };
                 victimBody.healthComponent.TakeDamage(di);
+            }
+            // Chef Oil burst
+            if (attackerBody.HasBuff(Buffs.chefOilBurstBuff) && positiveDmg && isNonDot && hasProcChance)
+            {
+                int stacks = attackerBody.GetBuffCount(Buffs.chefOilBurstStacksBuff);
+                if (stacks >= StaticValues.chefOilBurstStacks)
+                {
+                    attackerBody.ApplyBuff(Buffs.chefOilBurstBuff.buffIndex, 0);
+
+                    EffectManager.SimpleMuzzleFlash(EntityStates.Chef.Glaze.effectPrefab, attackerBody.gameObject, "RHand", false);
+                    //test to see if it works
+                    EffectManager.SimpleMuzzleFlash(ShiggyAsset.chefGlazeEffectMuzzlePrefab, attackerBody.gameObject, "LHand", false);
+
+                    Ray projectileRay = new Ray(attackerBody.aimOrigin, attackerBody.inputBank.aimDirection);
+                    float x = UnityEngine.Random.Range(0f, attackerBody.spreadBloomAngle + EntityStates.Chef.Glaze.xDeviationSpread);
+                    float z = UnityEngine.Random.Range(0f, 360f);
+                    
+                    Vector3 up = Vector3.up;
+                    Vector3 axis = Vector3.Cross(up, projectileRay.direction);
+                    Vector3 vector = Quaternion.Euler(0f, 0f, z) * (Quaternion.Euler(x, 0f, 0f) * Vector3.forward);
+                    float y = vector.y;
+                    vector.y = 0f;
+                    float angle = Mathf.Atan2(vector.z, vector.x) * 57.29578f - 90f;
+                    float angle2 = Mathf.Atan2(y, vector.magnitude) * 57.29578f + EntityStates.Chef.Glaze.arcAngle;
+                    Vector3 forward = Quaternion.AngleAxis(angle, up) * (Quaternion.AngleAxis(angle2, axis) * projectileRay.direction);
+
+
+                    FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
+                    //fireProjectileInfo.projectilePrefab = EntityStates.Chef.Glaze.projectilePrefab;
+                    fireProjectileInfo.projectilePrefab = ShiggyAsset.chefGlazeProjectilePrefab;
+                    fireProjectileInfo.position = attackerBody.aimOrigin;
+                    fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(forward);
+                    fireProjectileInfo.owner = attackerBody.gameObject;
+                    fireProjectileInfo.damage = attackerBody.damage * StaticValues.chefOilDamageCoefficient;
+                    fireProjectileInfo.force = 0f;
+                    fireProjectileInfo.crit = Util.CheckRoll(attackerBody.crit, attackerBody.master);
+                    fireProjectileInfo.damageTypeOverride = new DamageTypeCombo?(new DamageTypeCombo(DamageType.WeakOnHit, DamageTypeExtended.Generic, DamageSource.Special));
+                    ProjectileManager.instance.FireProjectile(fireProjectileInfo);
+                }
+                else if (stacks < StaticValues.chefOilBurstStacks)
+                {
+                    attackerBody.ApplyBuff(Buffs.chefOilBurstBuff.buffIndex, stacks + 1);
+                }
             }
 
             // Greater Wisp bonus blast
@@ -664,7 +782,32 @@ namespace ShiggyMod
             // OmniBoost stacks (debuff on victim -> buff on you)
             if (attackerBody.HasBuff(Buffs.omniboostBuff) && positiveDmg && isNonDot && hasProcChance)
             {
+                var tracker = attackerBody.GetComponent<OmniboostTracker>();
+                if (!tracker) tracker = attackerBody.gameObject.AddComponent<OmniboostTracker>();
+
+                bool swapped = tracker.lastVictim && tracker.lastVictim != victimBody;
+
+                if (swapped)
+                {
+                    // 1) Clear counter on the old victim so only one target can be "tracked"
+                    tracker.lastVictim.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
+
+                    // 2) Halve your stacks immediately
+                    int myStacks = attackerBody.GetBuffCount(Buffs.omniboostBuffStacks);
+
+                    // Choose floor or ceil based on feel:
+                    // floor: 5 -> 2, 1 -> 0 (harsher)
+                    // ceil : 5 -> 3, 1 -> 1 (less punishing)
+                    int halved = myStacks / 2; // floor
+                    attackerBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, halved);
+                }
+
+                // Update last victim (including first hit case)
+                tracker.lastVictim = victimBody;
+
+                // Build counter on this victim
                 int debuff = victimBody.GetBuffCount(Buffs.omniboostDebuffStacks);
+
                 if (debuff + 1 < StaticValues.omniboostNumberOfHits)
                 {
                     victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, debuff + 1);
@@ -672,6 +815,7 @@ namespace ShiggyMod
                 else
                 {
                     victimBody.ApplyBuff(Buffs.omniboostDebuffStacks.buffIndex, 0);
+
                     int myStacks = attackerBody.GetBuffCount(Buffs.omniboostBuffStacks);
                     attackerBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, myStacks + 1);
 
@@ -679,6 +823,7 @@ namespace ShiggyMod
                         new EffectData { origin = victimBody.transform.position, scale = 1f }, false);
                 }
             }
+        
 
             // Big Bang stacking → nova
             if (attackerBody.HasBuff(Buffs.bigbangBuff) && positiveDmg && isNonDot && hasProcChance)
@@ -778,9 +923,14 @@ namespace ShiggyMod
                     attackerBody.healthComponent.fullHealth * StaticValues.limitBreakHealthCostCoefficient)
                     .Send(NetworkDestination.Clients);
             }
-            
 
 
+
+        }
+        //keeping track of last victim
+        public class OmniboostTracker : MonoBehaviour
+        {
+            public CharacterBody lastVictim;
         }
 
         private void CharacterBody_OnDeathStart(On.RoR2.CharacterBody.orig_OnDeathStart orig, CharacterBody self)
@@ -1264,12 +1414,13 @@ namespace ShiggyMod
                             var modelTransform = victimBody.GetComponent<ModelLocator>()?.modelTransform;
                             if (modelTransform)
                             {
-                                var overlay = TemporaryOverlayManager.AddOverlay(new GameObject());
+                                TemporaryOverlayInstance overlay = TemporaryOverlayManager.AddOverlay(modelTransform.gameObject);
                                 overlay.duration = 3f;
                                 overlay.animateShaderAlpha = true;
                                 overlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                                 overlay.destroyComponentOnEnd = true;
                                 overlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matVagrantEnergized");
+                                overlay.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
                             }
 
                             new BlastAttack
@@ -1437,13 +1588,41 @@ namespace ShiggyMod
 
         }
 
+        private void CharacterModel_Start(On.RoR2.CharacterModel.orig_Start orig, CharacterModel self)
+        {
+            orig(self);
+            if (self.gameObject.name.Contains("ShiggyDisplay"))
+            {
+                //randomise starting animation
+                Animator animator = self.gameObject.GetComponentInChildren<Animator>();
+                if (animator)
+                {
+                    int randomInt = UnityEngine.Random.RandomRangeInt(1, 3);
+                    animator.SetInteger("randomInt", randomInt);
+
+                    Debug.Log("randomInt number " + animator.GetFloat(randomInt));
+
+                }
+            }
+        }
+
 
         private void CharacterModel_Awake(On.RoR2.CharacterModel.orig_Awake orig, CharacterModel self)
         {
             orig(self);
-            //deku collab
             if (self.gameObject.name.Contains("ShiggyDisplay"))
             {
+
+                //Animator animator = self.gameObject.GetComponentInChildren<Animator>();
+                //if (animator)
+                //{
+                //    int randomInt = UnityEngine.Random.RandomRangeInt(1, 3);
+                //    animator.SetInteger("randomInt", randomInt);
+
+                //    Debug.Log("randomInt number " + animator.GetFloat(randomInt));
+
+                //}
+                //deku collab
                 bool dekuFound = false;
                 foreach (Transform child in self.gameObject.transform.parent.parent)
                 {

@@ -42,6 +42,7 @@ namespace ShiggyMod.Modules.Quirks
         Elite_TwistedPassive,       // DLC2 EliteHisSpitefulBoon
         AlphaConstruct_BarrierPassive,
         Beetle_StrengthPassive,
+        Child_EmergencyTeleportPassive,
         Pest_JumpPassive,
         Vermin_SpeedPassive,
         Gup_SpikyBodyPassive,
@@ -59,10 +60,11 @@ namespace ShiggyMod.Modules.Quirks
         OverloadingWorm_LightningAuraPassive,
         Vagrant_OrbPassive,
         Acrid_PoisonPassive,
-        Commando_DoubleTapPassive,
         Captain_MicrobotsPassive,
+        Chef_OilBurstPassive,
+        Commando_DoubleTapPassive,
+        FalseSon_StolenInheritancePassive,
         Loader_ScrapBarrierPassive,
-        Child_EmergencyTeleportPassive,
 
         // ============================
         // Level 2 passives
@@ -121,13 +123,16 @@ namespace ShiggyMod.Modules.Quirks
         Artificer_IceWallActive,
         Artificer_LightningOrbActive,
         Bandit_LightsOutActive,
+        Drifter_SalvageActive,
         Engineer_TurretActive,
         Huntress_FlurryActive,
         Merc_DashActive,
         MULT_PowerStanceActive,
         MULT_PowerStanceCancelActive,
+        Operator_S141CustomActive,
         Railgunner_CryoActive,
         REX_MortarActive,
+        Seeker_MeditateActive,
         VoidFiend_CleanseActive,
         Deku_OFAActive,
 

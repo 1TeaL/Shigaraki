@@ -16,7 +16,7 @@ using R2API;
 
 namespace ShiggyMod.SkillStates
 {
-    public class MercDash : BaseSkillState
+    public class MercDash : Skill
 
     {
         public ShiggyController shiggyCon;
@@ -27,7 +27,6 @@ namespace ShiggyMod.SkillStates
         protected float procCoefficient = StaticValues.mercProcCoefficient;
         protected float pushForce = StaticValues.mercpushForce;
         protected Vector3 bonusForce = StaticValues.mercbonusForce;
-        protected float baseDuration = StaticValues.mercbaseDuration;
         protected float attackStartTime = StaticValues.mercattackStartTime;
         protected float attackEndTime = StaticValues.mercattackEndTime;
         protected float hitStopDuration = StaticValues.merchitStopDuration;
@@ -40,13 +39,10 @@ namespace ShiggyMod.SkillStates
         protected GameObject hitEffectPrefab = Modules.ShiggyAsset.shiggyHitImpactEffect;
         protected NetworkSoundEventIndex impactSound = Modules.ShiggyAsset.hitSoundEffect.index;
 
-        public float duration;
-        private bool hasFired;
         private float hitPauseTimer;
         private OverlapAttack attack;
         protected bool inHitPause;
         protected float stopwatch;
-        protected Animator animator;
         private BaseState.HitStopCachedState hitStopCachedState;
         private Vector3 storedVelocity;
         private Vector3 forwardDirection;
@@ -69,6 +65,8 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             shiggyCon = base.gameObject.GetComponent<ShiggyController>();
+
+            baseDuration = StaticValues.mercbaseDuration;
             this.duration = this.baseDuration / this.attackSpeedStat;
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
@@ -76,7 +74,7 @@ namespace ShiggyMod.SkillStates
             base.characterBody.outOfCombatStopwatch = 0f;
             this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "FullBodyDashSlash", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
@@ -121,12 +119,13 @@ namespace ShiggyMod.SkillStates
             this.modelTransform = base.GetModelTransform();
             if (this.modelTransform)
             {
-                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
+                TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(modelTransform.gameObject);
                 temporaryOverlay.duration = duration;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matMercEnergized");
+                temporaryOverlay.AddToCharacterModel(modelTransform.GetComponent<CharacterModel>());
             }
             base.characterDirection.forward = base.characterMotor.velocity.normalized;
             if (NetworkServer.active)

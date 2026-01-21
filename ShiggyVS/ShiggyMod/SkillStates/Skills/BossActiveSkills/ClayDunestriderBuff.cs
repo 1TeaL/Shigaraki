@@ -1,20 +1,18 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
 using EntityStates.ClayBoss;
-using RoR2.Projectile;
 using EntityStates.ClayBoss.ClayBossWeapon;
 using R2API.Networking;
+using RoR2;
+using RoR2.Projectile;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ClayDunestriderBuff : BaseSkillState
+    public class ClayDunestriderBuff : Skill
     {
-        public float baseDuration = 0.1f;
-        public float duration;
-        public ShiggyController Shiggycon;
         public static float baseTimeBetweenShots = 0.5f;
         public static float recoilAmplitude = 1f;
 
@@ -47,8 +45,7 @@ namespace ShiggyMod.SkillStates
 
             }, false);
             //if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
-            base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("LeftArm, Override", "LHandFist", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
 
         }

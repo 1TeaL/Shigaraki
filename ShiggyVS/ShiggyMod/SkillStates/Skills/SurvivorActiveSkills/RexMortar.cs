@@ -8,15 +8,9 @@ using EntityStates.Treebot.Weapon;
 
 namespace ShiggyMod.SkillStates
 {
-    public class RexMortar : BaseSkillState
+    public class RexMortar : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 0.7f;
-        public float duration;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
-        public HurtBox Target;
-        private Animator animator;
 
 
         private float radius = 15f;
@@ -29,8 +23,8 @@ namespace ShiggyMod.SkillStates
 
         public override void OnEnter()
         {
+            baseDuration = 0.7f;
             base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -41,7 +35,7 @@ namespace ShiggyMod.SkillStates
             EffectManager.SimpleMuzzleFlash(FireMortar2.muzzleEffect, base.gameObject, muzzleName, false);
             Util.PlaySound(FireMortar2.fireSound, base.gameObject);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 5);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)

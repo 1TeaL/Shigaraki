@@ -11,11 +11,10 @@ using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
-    public class LunarGolemSlide : BaseSkillState
+    public class LunarGolemSlide : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
-        public ShiggyController Shiggycon;
         private bool startedStateGrounded;
 
         public static float minLeadTime = 0.5f;
@@ -24,8 +23,8 @@ namespace ShiggyMod.SkillStates
         private float speedOverride = -1f;
         private Vector3 forwardDirection;
         private GameObject slideEffectInstance;
-        private float baseslideDuration = 1f;
-        private float basejumpDuration = 0.2f;
+        private float baseslideDuration = StaticValues.lunarGolemSlideBaseDuration;
+        private float basejumpDuration = StaticValues.lunarGolemSlideJumpDuration;
         private float slideDuration;
         private float jumpDuration;
         private ExtraSkillLocator extraskillLocator;
@@ -48,9 +47,9 @@ namespace ShiggyMod.SkillStates
             base.characterBody.SetSpreadBloom(0f, false);
             if (!this.startedStateGrounded)
             {
-                //need better animation
                 base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-                base.PlayCrossfade("FullBody, Override", "FullBodyDash", "Attack.playbackRate", slideDuration, 0.05f);
+                base.GetModelAnimator().SetBool("attacking", true);
+                base.PlayCrossfade("FullBody, Override", "FullBodyDashStart", "Attack.playbackRate", slideDuration, 0.05f);
                 if (base.isAuthority)
                 {
                     if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -110,6 +109,7 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
+            base.GetModelAnimator().SetBool("attacking", false);
             this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             base.OnExit();
             this.PlayImpactAnimation();

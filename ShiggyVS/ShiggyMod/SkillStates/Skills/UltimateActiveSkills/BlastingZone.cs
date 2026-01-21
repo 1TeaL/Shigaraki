@@ -14,7 +14,7 @@ using ShiggyMod.Modules.Survivors;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BlastingZone : BaseSkillState
+    public class BlastingZone : Skill
     {
         //Orbital strike + blast burn
         public ShiggyController shiggyCon;
@@ -27,18 +27,23 @@ namespace ShiggyMod.SkillStates
         public Vector3 theSpot;
         public Vector3 directionExtension;
         public float interval;
+        public float intervalStopwatch;
         public int currentHits = 0;
         public int totalHits;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            baseDuration = StaticValues.blastingZoneDuration;
+            duration = baseDuration / attackSpeedStat;
+            fireTime = duration * StaticValues.blastingZoneWindup;
             Ray aimRay = base.GetAimRay();
             //hasFired = false;
             theSpot = aimRay.origin + range * aimRay.direction;
             directionExtension = aimRay.direction * rangeaddition;
             totalHits = (int)(StaticValues.blastingZoneTotalHits * attackSpeedStat);
-            base.StartAimMode(1f, true);
+            interval = (duration - fireTime) / totalHits;
+
             characterDirection.forward = aimRay.direction;
 
             base.characterMotor.disableAirControlUntilCollision = false;
@@ -55,6 +60,7 @@ namespace ShiggyMod.SkillStates
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
 
+            //update animation- should be like squall blasting zone
             EffectManager.SpawnEffect(Modules.ShiggyAsset.blastingZoneEffect, new EffectData
             {
                 origin = characterBody.corePosition,
@@ -112,11 +118,11 @@ namespace ShiggyMod.SkillStates
 
             if ((base.fixedAge >= StaticValues.blastingZoneWindup) && base.isAuthority)
             {
-                if (interval < StaticValues.blastingZoneInterval / attackSpeedStat)
+                if (intervalStopwatch < interval)
                 {
-                    interval += Time.fixedDeltaTime;
+                    intervalStopwatch += Time.fixedDeltaTime;
                 }
-                else if (interval >= StaticValues.blastingZoneInterval / attackSpeedStat)
+                else if (intervalStopwatch >= interval)
                 {
                     interval = 0f;
                     if(currentHits < totalHits)

@@ -1,27 +1,23 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
 using EntityStates.BeetleQueenMonster;
-using RoR2.Projectile;
-using System;
 using R2API.Networking;
-using ShiggyMod.Modules.Networking;
 using R2API.Networking.Interfaces;
+using RoR2;
 using RoR2.ExpansionManagement;
+using RoR2.Projectile;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Networking;
+using ShiggyMod.Modules.Survivors;
+using System;
 using System.Xml.Linq;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BeetleQueenSummon : BaseSkillState
+    public class BeetleQueenSummon : Skill
     {
-
-
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
 
         private int randomSurvivor;
 
@@ -29,17 +25,17 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
-            duration = baseDuration / attackSpeedStat;
             base.characterBody.SetAimTimer(this.duration);
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            randomSurvivor = UnityEngine.Random.RandomRangeInt(0, 16);
+            randomSurvivor = UnityEngine.Random.RandomRangeInt(0, 17);
             Summon(randomSurvivor);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 
-            base.PlayCrossfade("LeftArm, Override", "LHandSnap", "Attack.playbackRate", duration, 0.05f);
+            int randomAnim = UnityEngine.Random.Range(1, 2);
+            base.PlayCrossfade("LeftArm, Override", "LHandSnap" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             AkSoundEngine.PostEvent("ShiggyGacha", base.gameObject);
 
@@ -115,7 +111,7 @@ namespace ShiggyMod.SkillStates
             {
                 new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_35_0.RoR2_DLC3_Drone_Tech.DroneTechBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_35_0.RoR2_DLC3_Drone_Tech.DroneTechMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
-            if (rand == 1)
+            if (rand == 16)
             {
                 new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_35_0.RoR2_DLC3_Drifter.DrifterBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_35_0.RoR2_DLC3_Drifter.DrifterMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }

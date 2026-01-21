@@ -10,7 +10,7 @@ using R2API;
 
 namespace ShiggyMod.SkillStates
 {
-	public class BisonCharge : BaseSkillState
+	public class BisonCharge : Skill
 	{
 		string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 		private DamageType damageType;
@@ -35,10 +35,10 @@ namespace ShiggyMod.SkillStates
 			bool isAuthority = base.isAuthority;
             Util.PlaySound(BaseChargeFist.startChargeLoopSFXString, base.gameObject);
 			this.animator = base.GetModelAnimator();
-			this.animator.SetBool("isSprinting", true);
-			PlayAnimation("Body", "Sprint");
-			//Util.PlaySound(EntityStates.Bison.Charge.startSoundString, base.gameObject);
-			bool flag = isAuthority;
+			this.animator.SetBool("attacking", true);
+            PlayCrossfade("Fullbody, Override", "FullBodyDashThunderStart", "Attack.playbackRate", 1f, 0.1f);
+            //Util.PlaySound(EntityStates.Bison.Charge.startSoundString, base.gameObject);
+            bool flag = isAuthority;
 			if (flag)
 			{
 				base.characterBody.baseAcceleration = 320f;
@@ -80,8 +80,8 @@ namespace ShiggyMod.SkillStates
 		}
 
 		public override void OnExit()
-		{
-			bool isAuthority = base.isAuthority;
+        {
+            bool isAuthority = base.isAuthority;
 			if (isAuthority)
 			{
 				base.characterBody.baseAcceleration = 40f;
@@ -102,7 +102,6 @@ namespace ShiggyMod.SkillStates
 
 			if (base.IsKeyDownAuthority())
 			{
-				PlayAnimation("Body", "Sprint");
 				Loop();
             }
             else
@@ -172,9 +171,12 @@ namespace ShiggyMod.SkillStates
                     Util.PlaySound(EntityStates.Bison.Headbutt.attackSoundString, base.gameObject);
 
 					AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
-					
-					
-					if (blastAttack.Fire().hitCount > 0)
+
+
+                    this.animator.SetBool("attacking", false);
+                    PlayCrossfade("Fullbody, Override", "FullBodyDashThunderClap", "Attack.playbackRate", 0.5f, 0.01f);
+
+                    if (blastAttack.Fire().hitCount > 0)
 					{
 						this.OnHitEnemyAuthority();
 					}

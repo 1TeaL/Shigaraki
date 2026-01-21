@@ -10,16 +10,10 @@ using ExtraSkillSlots;
 
 namespace ShiggyMod.SkillStates
 {
-    public class ArtificerIceWall : BaseSkillState
+    public class ArtificerIceWall : Skill
     {
-        private ExtraInputBankTest extrainputBankTest;
-        private ExtraSkillLocator extraskillLocator;
         private bool skillSwapped;
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 1f;
-        public float duration;
-        public ShiggyController Shiggycon;
-        public HurtBox Target;
         private float damageCoefficient = Modules.StaticValues.artificericewallDamageCoefficient;
 
         public static GameObject areaIndicatorPrefab;
@@ -35,7 +29,8 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration + 2f);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("LeftArm, Override", "LeftArmOut", "Attack.playbackRate", duration, 0.1f);
+            //base.GetModelAnimator().SetBool("attacking", true);
+            //PlayCrossfade("LeftArm, Override", "LArmAimStart", "Attack.playbackRate", duration, 0.1f);
 
             AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
@@ -116,7 +111,7 @@ namespace ShiggyMod.SkillStates
             {
                 if (this.goodPlacement)
                 {
-                    PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
+                    PlayCrossfade("LeftArm, Override", "LHandLift", "Attack.playbackRate", duration, 0.1f);
                     Util.PlaySound(PrepWall.fireSoundString, base.gameObject);
                     if (this.areaIndicatorInstance && base.isAuthority)
                     {

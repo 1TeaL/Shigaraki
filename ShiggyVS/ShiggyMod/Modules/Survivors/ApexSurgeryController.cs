@@ -1,5 +1,4 @@
-﻿// ApexSurgeryController.cs
-using ExtraSkillSlots;
+﻿using ExtraSkillSlots;
 using R2API.Networking;
 using R2API.Networking.Interfaces;
 using RoR2;
@@ -16,7 +15,7 @@ namespace ShiggyMod.Modules.Quirks
 {
     /// <summary>
     /// Master-persistent controller for Apex Surgery / Adaptation (multiplayer-safe).
-    /// - All clients (including the host's client) send ApexResetSlotRequest; ONLY the server mutates.
+    /// - Clients send ApexResetSlotRequest; ONLY the server mutates.
     /// - Adaptation is SyncVar to clients (for HUD + local RecalculateStats).
     /// - Apex stacks are networked via buff stacks.
     /// - HUD overlay renders once on the local-authority client; protected against duplicates.
@@ -31,9 +30,7 @@ namespace ShiggyMod.Modules.Quirks
             if (s_hooksInstalled) return;
             s_hooksInstalled = true;
 
-            // Recalc hook for regen penalties & adaptation bonuses
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
-
         }
 
         private static void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
@@ -48,25 +45,26 @@ namespace ShiggyMod.Modules.Quirks
             int thresholds = ctrl.GetAdaptationThresholds();
             if (thresholds > 0)
             {
-                float r = Mathf.Max(0f, Modules.Config.ApexAdaptReward.Value); // e.g. 0.1
+                float r = Mathf.Max(0f, Modules.Config.ApexAdaptReward.Value);
                 float mult = 1f + thresholds * r;
 
                 self.damage *= mult;
-                self.attackSpeed *= mult;
+                // self.attackSpeed *= mult; // (left disabled per your latest paste)
                 self.moveSpeed *= mult;
                 self.regen *= mult;
-                self.armor *= mult;
+
+                // If you want armor to scale in chunky increments rather than multiplicative
+                self.armor += (mult - 1f) * 20f;
             }
 
-            // ----- Apex negative regen (buffs are networked) -----
+            // ----- Apex negative regen -----
             if (self.HasBuff(Buffs.ApexSurgeryDebuff.buffIndex))
             {
                 int apex = self.GetBuffCount(Buffs.ApexSurgeryDebuff);
-                float hpDrainPerSecPerStack = Mathf.Max(0f, Modules.Config.ApexHPDrainPerStackPerSecond.Value); // HP/sec per stack
+                float hpDrainPerSecPerStack = Mathf.Max(0f, Modules.Config.ApexHPDrainPerStackPerSecond.Value);
                 if (apex > 0 && hpDrainPerSecPerStack > 0f)
                 {
-                    float negRegen = hpDrainPerSecPerStack * apex;
-                    self.regen -= negRegen;
+                    self.regen -= hpDrainPerSecPerStack * apex;
                 }
             }
         }
@@ -92,12 +90,12 @@ namespace ShiggyMod.Modules.Quirks
         private RectTransform _uiRoot;
 
         // Ring fills
-        private Image _innerRingFill;   // Apex load (Radial180 bottom)
-        private Image _outerRingFill;   // Adapt progress (Radial360)
+        private Image _innerRingFill;   // Apex load
+        private Image _outerRingFill;   // Adapt progress
 
         // Text
         private HGTextMeshProUGUI _tierText;   // Center: T#
-        private HGTextMeshProUGUI _adaptText;  // Above: within/per (or stacks)
+        private HGTextMeshProUGUI _adaptText;  // Above: within/per
 
         // Cache for minimal updates
         private int _lastTier = int.MinValue;
@@ -106,11 +104,26 @@ namespace ShiggyMod.Modules.Quirks
         private int _lastApex = int.MinValue;
         private int _lastCap = int.MinValue;
 
+        // ---------- hold-to-reset (client-side) ----------
+        private float _holdP1, _holdP2, _holdP3, _holdP4;
+        private float _holdX1, _holdX2, _holdX3, _holdX4;
 
-        // input edge armers (client-side)
-        private bool _p1Armed, _p2Armed, _p3Armed, _p4Armed;
-        private bool _x1Armed, _x2Armed, _x3Armed, _x4Armed;
+        private bool _firedP1, _firedP2, _firedP3, _firedP4;
+        private bool _firedX1, _firedX2, _firedX3, _firedX4;
 
+        // Optional small grace after attach/respawn so you don't instantly fire on spawn
+        private float _holdResetGrace = 0.3f;
+
+        // ---------- UI init state (EnergySystem-style) ----------
+        private bool _uiInitialized;
+        private bool _uiActivated;
+
+        // Position tweaks (offset from the barContainer anchor center)
+        // +X = right, +Y = up, -Y = down
+        private readonly Vector2 _uiOffset = new Vector2(330f, 20f);
+        private readonly Vector3 _uiScale = Vector3.one;
+
+        // ---------- misc ----------
         private float _apexTick; // server-side bleed off
 
         // ---------- lifecycle ----------
@@ -129,8 +142,11 @@ namespace ShiggyMod.Modules.Quirks
         public override void OnStartClient()
         {
             base.OnStartClient();
-            // On host, both server & client run; HUD must only spawn on the local-authority client.
-            TryEnsureOverlay();
+            // host has both server and client; UI should only appear on the local-authority client.
+            if (NetworkClient.active && _body && _body.hasAuthority)
+            {
+                TryInitOverlay(); // EnergySystem-style lazy init
+            }
         }
 
         private void OnDestroy()
@@ -159,34 +175,15 @@ namespace ShiggyMod.Modules.Quirks
             _input = body.inputBank;
             _extraInput = body.GetComponent<ExtraInputBankTest>();
 
-            // Prevent duplicate HUDs; only local-authority client creates one.
-            TryEnsureOverlay();
+            // Reset per-body UI state so it can re-init after respawn
+            _uiInitialized = false;
+            _uiActivated = false;
 
+            // Add a small grace to avoid immediate hold firing during attach
+            _holdResetGrace = 0.3f;
         }
 
-        // Only build overlay for the local player (authority) on the client.
-        private void TryEnsureOverlay()
-        {
-            if (_body == null) return;
-
-            // Only spawn UI when running as client AND this body has authority
-            if (!NetworkClient.active || !_body.hasAuthority)
-            {
-                // If we previously had an overlay but lost authority, clean it up
-                DestroyOverlay();
-                return;
-            }
-
-            // Build once
-            if (_uiObj == null)
-            {
-                RebuildOverlay();
-                _overlayDirty = true;
-            }
-        }
-
-
-        // ---------- update loop (input + overlay) ----------
+        // ---------- update loop (server bleed + client UI + hold-to-reset) ----------
         private void Update()
         {
             // === Apex bleed (server authoritative) ===
@@ -200,78 +197,105 @@ namespace ShiggyMod.Modules.Quirks
                     if (buffcount > 0)
                     {
                         _body.ApplyBuff(Buffs.ApexSurgeryDebuff.buffIndex, buffcount - 1);
+                        _overlayDirty = true;
                     }
                 }
             }
 
-            // If body is gone/dead, bail (and overlay will be destroyed by UpdateOverlay/TryEnsureOverlay)
+            // If body is gone/dead, bail (UI will be destroyed by authority check below)
             if (_body == null || _body.healthComponent == null || !_body.healthComponent.alive)
+            {
+                if (_uiObj) DestroyOverlay();
                 return;
+            }
 
-            if (_skills == null) return;
+            // Refresh references if needed (defensive)
+            if (_skills == null) _skills = _body.GetComponent<SkillLocator>();
+            if (_extraSkills == null) _extraSkills = _body.GetComponent<ExtraSkillLocator>();
+            if (_input == null) _input = _body.inputBank;
+            if (_extraInput == null) _extraInput = _body.GetComponent<ExtraInputBankTest>();
 
-            // Ensure overlay exists when we have authority
-            // (Optional but recommended to handle late body attach or respawns)
-            TryEnsureOverlay();
+            // Only local authority client should run UI + input checks
+            if (!NetworkClient.active || !_body.hasAuthority)
+            {
+                if (_uiObj) DestroyOverlay();
+                return;
+            }
 
-            // --- UI refresh (authority client only) ---
+            // === EnergySystem-style UI init/activate ===
+            TryInitOverlay();
+
+            // === UI refresh tick ===
             _overlayTick += Time.deltaTime;
-            if (_overlayTick >= 0.1f) // 0.1f is fine; 0.25f also fine
+            if (_overlayTick >= 0.1f)
             {
                 _overlayTick = 0f;
 
-                if (NetworkClient.active && _body.hasAuthority)
-                {
-                    // Buff stacks are not SyncVars; detect apex changes and mark dirty
-                    int apexNow = _body.GetBuffCount(Buffs.ApexSurgeryDebuff);
-                    if (apexNow != _lastApex) _overlayDirty = true;
+                // Buff stacks are not SyncVars; detect apex changes and mark dirty
+                int apexNow = _body.GetBuffCount(Buffs.ApexSurgeryDebuff);
+                if (apexNow != _lastApex) _overlayDirty = true;
 
-                    if (_overlayDirty) UpdateOverlay();
-                }
+                if (_overlayDirty) UpdateOverlay();
             }
 
-            // Refresh references if needed
-            if (_input == null) _input = _body.inputBank;
-            if (_extraSkills == null) _extraSkills = _body.GetComponent<ExtraSkillLocator>();
-            if (_extraInput == null) _extraInput = _body.GetComponent<ExtraInputBankTest>();
+            // === Hold-to-reset ===
+            float holdSeconds = Mathf.Max(0.05f, Modules.Config.ApexHoldSecondsToReset.Value);
 
-            // Only the local authoritative body should read inputs and send requests
-            if (!_body.hasAuthority) return;
+            if (_holdResetGrace > 0f)
+            {
+                _holdResetGrace -= Time.deltaTime;
+                return;
+            }
 
-            // --------- YOUR INPUT BLOCK (unchanged) ---------
-            HandleSkillInput(_input.skill1.justReleased, _input.skill1.justPressed, ref _p1Armed, _skills.primary);
-            HandleSkillInput(_input.skill2.justReleased, _input.skill2.justPressed, ref _p2Armed, _skills.secondary);
-            HandleSkillInput(_input.skill3.justReleased, _input.skill3.justPressed, ref _p3Armed, _skills.utility);
-            HandleSkillInput(_input.skill4.justReleased, _input.skill4.justPressed, ref _p4Armed, _skills.special);
+            // Base slots
+            if (_skills != null && _input != null)
+            {
+                UpdateHoldToReset(_skills.primary, _input.skill1.down, ref _holdP1, ref _firedP1, 0, holdSeconds);
+                UpdateHoldToReset(_skills.secondary, _input.skill2.down, ref _holdP2, ref _firedP2, 1, holdSeconds);
+                UpdateHoldToReset(_skills.utility, _input.skill3.down, ref _holdP3, ref _firedP3, 2, holdSeconds);
+                UpdateHoldToReset(_skills.special, _input.skill4.down, ref _holdP4, ref _firedP4, 3, holdSeconds);
+            }
 
-            HandleSkillInput(_extraInput.extraSkill1.justReleased, _extraInput.extraSkill1.justPressed, ref _x1Armed, _extraSkills.extraFirst);
-            HandleSkillInput(_extraInput.extraSkill2.justReleased, _extraInput.extraSkill2.justPressed, ref _x2Armed, _extraSkills.extraSecond);
-            HandleSkillInput(_extraInput.extraSkill3.justReleased, _extraInput.extraSkill3.justPressed, ref _x3Armed, _extraSkills.extraThird);
-            HandleSkillInput(_extraInput.extraSkill4.justReleased, _extraInput.extraSkill4.justPressed, ref _x4Armed, _extraSkills.extraFourth);
-            // --------- END INPUT BLOCK ---------
+            // Extra slots
+            if (_extraSkills != null && _extraInput != null)
+            {
+                UpdateHoldToReset(_extraSkills.extraFirst, _extraInput.extraSkill1.down, ref _holdX1, ref _firedX1, 4, holdSeconds);
+                UpdateHoldToReset(_extraSkills.extraSecond, _extraInput.extraSkill2.down, ref _holdX2, ref _firedX2, 5, holdSeconds);
+                UpdateHoldToReset(_extraSkills.extraThird, _extraInput.extraSkill3.down, ref _holdX3, ref _firedX3, 6, holdSeconds);
+                UpdateHoldToReset(_extraSkills.extraFourth, _extraInput.extraSkill4.down, ref _holdX4, ref _firedX4, 7, holdSeconds);
+            }
         }
 
-
-        // NOTE: signature & usage unchanged — we ALWAYS send a message (host included).
-        private void HandleSkillInput(bool justReleased, bool justPressed, ref bool armed, GenericSkill slot)
+        private void UpdateHoldToReset(GenericSkill slot, bool isDown, ref float hold, ref bool firedThisHold, byte slotIndex, float holdSeconds)
         {
-            if (justReleased) armed = true;
-
-            if (justPressed && armed)
+            // Release resets state
+            if (!isDown)
             {
-                armed = false;
-                if (slot == null) return;
+                hold = 0f;
+                firedThisHold = false;
+                return;
+            }
 
-                if (hasAuthority)
-                {
-                    byte idx = ResolveSlotIndex(slot);
-                    if (idx != 255)
-                    {
-                        // Host client will loopback to server; dedicated clients route to server.
-                        new ShiggyMod.Modules.Networking.ApexResetSlotRequest(netId, idx)
-                            .Send(NetworkDestination.Server);
-                    }
-                }
+            // Must have a valid slot and be eligible (cooling down + not blocked)
+            if (slot == null || slot.isCooldownBlocked || slot.cooldownRemaining <= 0f)
+            {
+                hold = 0f;
+                firedThisHold = false;
+                return;
+            }
+
+            // Accumulate hold time
+            hold += Time.deltaTime;
+
+            // Fire once per hold
+            if (!firedThisHold && hold >= holdSeconds)
+            {
+                firedThisHold = true;
+
+                new ApexResetSlotRequest(netId, slotIndex)
+                    .Send(NetworkDestination.Server);
+
+                _overlayDirty = true;
             }
         }
 
@@ -281,10 +305,9 @@ namespace ShiggyMod.Modules.Quirks
         public int GetAdaptationThresholds()
         {
             int per = Mathf.Max(1, Modules.Config.ApexAdaptThreshold.Value);
-            return per == 0 ? 0 : _adaptationStacks / per;
+            return _adaptationStacks / per;
         }
 
-        // SyncVar hook (runs on clients when server updates Adaptation)
         private void OnAdaptationSync(int _old, int _new)
         {
             _overlayDirty = true;
@@ -313,7 +336,6 @@ namespace ShiggyMod.Modules.Quirks
             if (cap > 0 && after > cap)
             {
                 TriggerOverdriveServer();
-                // clamp: remove excess stacks
                 _body.ApplyBuff(Buffs.ApexSurgeryDebuff.buffIndex, 0);
             }
         }
@@ -328,8 +350,7 @@ namespace ShiggyMod.Modules.Quirks
 
         private int ComputeStackSeconds(GenericSkill slot)
         {
-            bool remainingOnly = Modules.Config.ApexScaleByRemainingOnly.Value;
-            float seconds = remainingOnly ? slot.cooldownRemaining : slot.finalRechargeInterval;
+            float seconds = slot.cooldownRemaining;
             int rounded = Mathf.RoundToInt(seconds);
             return Mathf.Max(0, rounded);
         }
@@ -339,33 +360,19 @@ namespace ShiggyMod.Modules.Quirks
         private void TryAutoResetSlot(GenericSkill slot)
         {
             if (slot == null) return;
-
-            // If blocked, do not reset (prevents bypassing special lockouts)
             if (slot.isCooldownBlocked) return;
 
-            // Only reset if actually cooling down (your intended gate)
-            if (slot.cooldownRemaining <= 0f) return;
+            // Only reset if they are actually "stuck": out of stock AND cooling down
+            bool outOfStock = slot.stock <= 0;
+            bool cooling = slot.cooldownRemaining > 0f;
+            if (!(outOfStock && cooling)) return;
 
-            // Compute seconds traded into stacks
             int seconds = ComputeStackSeconds(slot);
             if (seconds <= 0) return;
 
-            // --- Make skill usable NOW ---
-            // Complete the current recharge cycle
-            slot.rechargeStopwatch = slot.finalRechargeInterval;
+            // Make skill usable now: grant 1 stock. Do NOT mess with rechargeStopwatch here.
+            slot.stock = 1;
 
-            // Ensure at least one stock is available
-            // (You can choose: add one stock, or clamp to 1 if you want deterministic)
-            if (slot.stock < 1)
-            {
-                slot.stock = 1; // direct set is allowed by property
-            }
-            else if (slot.stock < slot.maxStock)
-            {
-                slot.AddOneStock();
-            }
-
-            // --- Apply Apex/Adapt costs ---
             int apexPerSec = Mathf.Max(0, Modules.Config.ApexStacksPerSecondReset.Value);
             int adaptPerSec = Mathf.Max(0, Modules.Config.ApexAdaptPerSecondReset.Value);
 
@@ -375,64 +382,16 @@ namespace ShiggyMod.Modules.Quirks
             if (addApex > 0) AddApexStacksServer(addApex);
             if (addAdapt > 0) AddAdaptationServer(addAdapt);
         }
-        //private void TryAutoResetSlot(GenericSkill slot)
-        //{
-        //    if (slot == null) return;
 
-        //    bool outOfStock = slot.stock <= 0;
-        //    bool cooling = slot.cooldownRemaining > 0f;
-        //    if (!(outOfStock && cooling)) return;
-
-        //    // Compute seconds to trade into stacks
-        //    int seconds = ComputeStackSeconds(slot);
-        //    if (seconds <= 0) return;
-
-        //    // Reset by granting one stock (respect maxStock)
-        //    if (slot.stock < slot.maxStock) slot.AddOneStock();
-
-        //    // Stack math
-        //    int apexPerSec = Mathf.Max(0, Modules.Config.ApexStacksPerSecondReset.Value);
-        //    int adaptPerSec = Mathf.Max(0, Modules.Config.ApexAdaptPerSecondReset.Value);
-
-        //    int addApex = seconds * apexPerSec;
-        //    int addAdapt = seconds * adaptPerSec;
-
-        //    if (addApex > 0) AddApexStacksServer(addApex);
-        //    if (addAdapt > 0) AddAdaptationServer(addAdapt);
-        //}
-
-        // ---------- client->server entry from message ----------
+        // Called by your network message handler (server-side)
         [Server]
         public void TryAutoResetSlotByIndex(byte idx)
         {
             if (_body == null) return;
-
             var slot = ResolveSlotByIndex(idx);
             if (slot == null) return;
 
             TryAutoResetSlot(slot);
-        }
-
-        // ---------- slot index mapping ----------
-        private byte ResolveSlotIndex(GenericSkill slot)
-        {
-            if (_skills == null) _skills = _body?.GetComponent<SkillLocator>();
-            if (_extraSkills == null) _extraSkills = _body?.GetComponent<ExtraSkillLocator>();
-            if (_skills == null) return 255;
-
-            if (slot == _skills.primary)   return 0;
-            if (slot == _skills.secondary) return 1;
-            if (slot == _skills.utility)   return 2;
-            if (slot == _skills.special)   return 3;
-
-            if (_extraSkills != null)
-            {
-                if (slot == _extraSkills.extraFirst)  return 4;
-                if (slot == _extraSkills.extraSecond) return 5;
-                if (slot == _extraSkills.extraThird)  return 6;
-                if (slot == _extraSkills.extraFourth) return 7;
-            }
-            return 255; // invalid
         }
 
         [Server]
@@ -448,47 +407,72 @@ namespace ShiggyMod.Modules.Quirks
                 case 1: return _skills.secondary;
                 case 2: return _skills.utility;
                 case 3: return _skills.special;
-                case 4: return _extraSkills ? _extraSkills.extraFirst  : null;
+                case 4: return _extraSkills ? _extraSkills.extraFirst : null;
                 case 5: return _extraSkills ? _extraSkills.extraSecond : null;
-                case 6: return _extraSkills ? _extraSkills.extraThird  : null;
+                case 6: return _extraSkills ? _extraSkills.extraThird : null;
                 case 7: return _extraSkills ? _extraSkills.extraFourth : null;
                 default: return null;
             }
         }
 
-        // ---------- HUD overlay (authority client only) ----------
-        private void RebuildOverlay()
+        // ---------- HUD overlay (EnergySystem-style lazy init) ----------
+        private void TryInitOverlay()
         {
-            DestroyOverlay();
+            if (_uiInitialized)
+            {
+                if (!_uiActivated && _uiObj)
+                {
+                    _uiObj.SetActive(true);
+                    _uiActivated = true;
+                }
+                return;
+            }
 
-            bool show = true;
-            try { show = Modules.Config.ApexShowAdaptationOverlay == null || Modules.Config.ApexShowAdaptationOverlay.Value; }
-            catch { show = true; }
+            if (_body == null || !_body.hasAuthority) return;
 
-            if (!show || _body == null) return;
-            if (!NetworkClient.active || !_body.hasAuthority) return;
+            // Find HUD for this body
+            HUD hud = null;
+            if (HUD.instancesList != null)
+            {
+                for (int i = 0; i < HUD.instancesList.Count; i++)
+                {
+                    var h = HUD.instancesList[i];
+                    if (h && h.targetBodyObject == _body.gameObject)
+                    {
+                        hud = h;
+                        break;
+                    }
+                }
+            }
+            if (!hud || !hud.healthBar || !hud.healthBar.barContainer) return;
 
-            // Instantiate prefab (asset bundle)
-            _uiObj = UnityEngine.Object.Instantiate(
-                Modules.ShiggyAsset.mainAssetBundle.LoadAsset<GameObject>("apexAdaptUI")
-            );
-            _uiObj.name = "ApexAdaptUI_Runtime";
-            _uiObj.SetActive(true);
+            Transform parent = hud.healthBar.barContainer.transform;
+            if (!parent) return;
 
-            // OPTIONAL (recommended later): parent to RoR2 HUD container
-            // Only enable when you confirm which container exists in your RoR2 version.
-            /*
-            var hud = HUD.instancesList != null
-                ? HUD.instancesList.Find(h => h && h.targetBodyObject == _body.gameObject)
-                : null;
+            // Instantiate once (inactive first, like your EnergySystem)
+            if (!_uiObj)
+            {
+                var prefab = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<GameObject>("apexAdaptUI");
+                if (!prefab) return;
 
-            if (hud != null && hud.mainContainer != null)
-                _uiObj.transform.SetParent(hud.mainContainer.transform, false);
-            */
+                _uiObj = UnityEngine.Object.Instantiate(prefab, parent, false);
+                _uiObj.name = "ApexAdaptUI_Runtime";
+                _uiObj.SetActive(false);
+            }
 
-            // Resolve the inner root: Canvas (Environment) -> apexAdaptUI
+            // Move the instantiated root rect (more reliable than moving nested roots)
+            RectTransform moveRect = _uiObj.GetComponent<RectTransform>();
+            if (!moveRect) moveRect = _uiObj.GetComponentInChildren<RectTransform>(true);
+            if (!moveRect) return;
+
+            moveRect.anchorMin = new Vector2(0.5f, 0.5f);
+            moveRect.anchorMax = new Vector2(0.5f, 0.5f);
+            moveRect.pivot = new Vector2(0.5f, 0.5f);
+            moveRect.anchoredPosition = _uiOffset;
+            moveRect.localScale = _uiScale;
+
+            // Resolve binding root: Canvas (Environment) -> apexAdaptUI
             Transform rootTf = _uiObj.transform;
-
             var canvasTf = rootTf.Find("Canvas (Environment)");
             if (canvasTf != null)
             {
@@ -504,18 +488,11 @@ namespace ShiggyMod.Modules.Quirks
             _uiRoot = rootTf.GetComponent<RectTransform>();
             if (_uiRoot == null) _uiRoot = rootTf.gameObject.AddComponent<RectTransform>();
 
-            // Bind fills (prefer name-based, fallback to your screenshot order)
             _innerRingFill = rootTf.Find("InnerRing")?.GetComponent<Image>();
             _outerRingFill = rootTf.Find("OuterRingFill")?.GetComponent<Image>();
 
             if (_innerRingFill == null || _outerRingFill == null)
             {
-                // Fallback to index mapping:
-                // 0 InnerRingBackground
-                // 1 InnerRing
-                // 2 OuterRingBackground
-                // 3 OuterRing
-                // 4 OuterRingFill
                 if (rootTf.childCount >= 5)
                 {
                     if (_innerRingFill == null) _innerRingFill = rootTf.GetChild(1).GetComponent<Image>();
@@ -523,19 +500,22 @@ namespace ShiggyMod.Modules.Quirks
                 }
             }
 
-            // Create texts (code-created like your EnergySystem)
             _tierText = CreateLabel(rootTf, "TierText", "T0", new Vector2(0f, 0f), 24f, new Color(0.92f, 0.92f, 0.95f, 0.95f));
             _adaptText = CreateLabel(rootTf, "AdaptText", "0/0", new Vector2(0f, 60f), 16f, new Color(0.70f, 0.95f, 0.70f, 0.85f));
 
-            // Ensure text draws above rings
             _tierText.transform.SetAsLastSibling();
             _adaptText.transform.SetAsLastSibling();
 
             ResetOverlayCaches();
             _overlayDirty = true;
+
+            _uiInitialized = true;
+
+            _uiObj.SetActive(true);
+            _uiActivated = true;
+
             UpdateOverlay();
         }
-
 
         private void ResetOverlayCaches()
         {
@@ -549,7 +529,7 @@ namespace ShiggyMod.Modules.Quirks
         private HGTextMeshProUGUI CreateLabel(Transform parent, string name, string text, Vector2 position, float textScale, Color color)
         {
             GameObject go = new GameObject(name);
-            go.transform.parent = parent;
+            go.transform.SetParent(parent, false);
             go.AddComponent<CanvasRenderer>();
 
             RectTransform rectTransform = go.AddComponent<RectTransform>();
@@ -571,7 +551,6 @@ namespace ShiggyMod.Modules.Quirks
 
             return tmp;
         }
-
 
         private void UpdateOverlay()
         {
@@ -608,14 +587,12 @@ namespace ShiggyMod.Modules.Quirks
                 _lastPer = per;
             }
 
-            // Outer ring fill (adapt progress)
             _outerRingFill.fillAmount = within / (float)per;
 
-            // Inner ring fill (apex danger)
             float apexFill = (cap > 0) ? Mathf.Clamp01(apex / (float)cap) : 0f;
             _innerRingFill.fillAmount = apexFill;
 
-            // Inner ring color ramp
+            // Color ramp
             Color safe = new Color(0.70f, 0.20f, 0.90f, 0.95f);
             Color warn = new Color(1.00f, 0.65f, 0.25f, 0.95f);
             Color crit = new Color(1.00f, 0.20f, 0.20f, 0.98f);
@@ -633,17 +610,14 @@ namespace ShiggyMod.Modules.Quirks
                 _innerRingFill.color = c;
             }
 
-            // Keep outer ring slightly subdued (prevents green dominance)
+            // Keep outer ring subdued
             var oc = _outerRingFill.color;
             oc.a = 0.75f;
             _outerRingFill.color = oc;
 
-            // Update cache values used for dirty detection
             _lastApex = apex;
             _lastCap = cap;
         }
-
-
 
         private void DestroyOverlay()
         {
@@ -661,10 +635,11 @@ namespace ShiggyMod.Modules.Quirks
             _tierText = null;
             _adaptText = null;
 
+            _uiInitialized = false;
+            _uiActivated = false;
+
             ResetOverlayCaches();
         }
-
-
 
         // ---------- server-side overdrive ----------
         [Server]
@@ -675,7 +650,7 @@ namespace ShiggyMod.Modules.Quirks
             var hc = _body.healthComponent;
             if (hc == null) return;
 
-            float chunkPct = Mathf.Clamp01(Modules.Config.ApexOverdriveChunk.Value); // e.g. 0.40
+            float chunkPct = Mathf.Clamp01(Modules.Config.ApexOverdriveChunk.Value);
             float dmg = chunkPct * hc.fullCombinedHealth;
             if (dmg > 0f)
             {
@@ -691,8 +666,6 @@ namespace ShiggyMod.Modules.Quirks
                 hc.TakeDamage(di);
             }
 
-
-
             int healBlock = Mathf.Max(0, Modules.Config.ApexHealBlockDuration.Value);
             if (healBlock > 0)
                 _body.ApplyBuff(RoR2Content.Buffs.HealingDisabled.buffIndex, 1, healBlock);
@@ -702,4 +675,3 @@ namespace ShiggyMod.Modules.Quirks
         }
     }
 }
-

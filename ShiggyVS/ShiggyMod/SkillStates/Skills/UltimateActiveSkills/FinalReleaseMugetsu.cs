@@ -14,17 +14,17 @@ using R2API;
 
 namespace ShiggyMod.SkillStates
 {
-    public class FinalReleaseMugetsu : BaseSkillState
+    public class FinalReleaseMugetsu : Skill
     {
-        public ShiggyController Shiggycon;
         private float finalReleaseMugetsuTimer = 0f;
         private int currentReleaseCount = 0;
         private int finalReleaseCount;
-        public float duration = 1f;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            duration = (40f / 30f) / attackSpeedStat;
+            fireTime = duration * (24f / 40f);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             //play animation and maybe particles?
             finalReleaseCount = characterBody.GetBuffCount(Buffs.finalReleaseBuff);
@@ -44,7 +44,7 @@ namespace ShiggyMod.SkillStates
             base.FixedUpdate();
 
             //do mugetsu if no energy- need to put this in the skill as well
-            if(base.fixedAge > duration)
+            if(base.fixedAge > fireTime)
             {
                 if (finalReleaseMugetsuTimer >= 0f)
                 {
@@ -152,14 +152,16 @@ namespace ShiggyMod.SkillStates
                         }, true);
 
                         currentReleaseCount = 0;
-                        this.outer.SetNextStateToMain();
-                        return;
 
                     }
                 }
 
             }
-            
+            if(base.fixedAge > duration)
+            {
+                this.outer.SetNextStateToMain();
+                return;
+            }
             
         }
 

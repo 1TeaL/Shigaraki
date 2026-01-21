@@ -1,22 +1,17 @@
 ﻿using EntityStates;
+using ExtraSkillSlots;
 using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
 using RoR2.Projectile;
 using RoR2.UI;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BanditPrepLightsOut : BaseSkillState
+    public class BanditPrepLightsOut : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 0.5f;
-        public float duration;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
-        public HurtBox Target;
-        private Animator animator;
 
 
         private float radius = 15f;
@@ -30,6 +25,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            baseDuration = 0.5f;
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
@@ -39,7 +35,7 @@ namespace ShiggyMod.SkillStates
 
             base.characterBody.AddTimedBuffAuthority(RoR2Content.Buffs.Cloak.buffIndex, Modules.StaticValues.banditcloakDuration);
             base.characterBody.AddTimedBuffAuthority(RoR2Content.Buffs.CloakSpeed.buffIndex, Modules.StaticValues.banditcloakDuration);
-            PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", 1f);
+            PlayAnimation("RightArm, Override", "RHandFingerGunStart", "Attack.playbackRate", 1f);
             if (this.crosshairOverridePrefab)
             {
                 this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, this.crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
@@ -59,16 +55,56 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-            base.FixedUpdate();
-            if (base.IsKeyDownAuthority())
+            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.banditlightsoutDef)
             {
-                PlayAnimation("RightArm, Override", "RightArmOut", "Attack.playbackRate", duration);
+
+                keepFiring = true;
             }
+            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.banditlightsoutDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.banditlightsoutDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.banditlightsoutDef)
+            {
+
+                keepFiring = true;
+            }
+            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.banditlightsoutDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.banditlightsoutDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.banditlightsoutDef)
+            {
+
+                keepFiring = true;
+            }
+            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.banditlightsoutDef)
+            {
+
+                keepFiring = true;
+            }
+            else
+            {
+                keepFiring = false;
+            }
+
             if (base.characterBody)
             {
                 base.characterBody.SetAimTimer(this.duration);
             }
-            if (base.fixedAge >= this.duration && base.isAuthority && !base.IsKeyDownAuthority())
+            if (base.fixedAge >= this.duration && base.isAuthority && !keepFiring)
             {
                 this.outer.SetNextState(new BanditFireLightsOut());
                 return;

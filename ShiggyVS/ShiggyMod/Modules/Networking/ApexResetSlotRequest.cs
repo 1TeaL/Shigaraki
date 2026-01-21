@@ -30,7 +30,6 @@
             netID = reader.ReadNetworkId();
             slotIndex = reader.ReadByte();
         }
-
         public void OnReceived()
         {
             if (!NetworkServer.active) return;
@@ -38,16 +37,11 @@
             var masterGO = Util.FindNetworkObject(netID);
             if (!masterGO) return;
 
-            var master = masterGO.GetComponent<CharacterMaster>();
-            if (master == null) return;
-
             var ctrl = masterGO.GetComponent<ShiggyMod.Modules.Quirks.ApexSurgeryController>();
-            if (ctrl == null) return;
-
-            var body = master.GetBody();
-            if (body == null) return;
+            if (!ctrl) return;
 
             ctrl.TryAutoResetSlotByIndex(slotIndex);
         }
+
     }
 }

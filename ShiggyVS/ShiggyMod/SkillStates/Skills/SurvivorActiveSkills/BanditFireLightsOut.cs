@@ -7,15 +7,9 @@ using RoR2.Projectile;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BanditFireLightsOut : BaseSkillState
+    public class BanditFireLightsOut : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float baseDuration = 0.5f;
-        public float duration;
-        public ShiggyController Shiggycon;
-        private DamageType damageType;
-        public HurtBox Target;
-        private Animator animator;
 
 
         private float radius = 15f;
@@ -31,15 +25,18 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            baseDuration = 0.5f;
             this.duration = this.baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.GetModelAnimator().SetBool("attacking", false);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             
             base.AddRecoil(-3f * recoilAmplitude, -4f * recoilAmplitude, -0.5f * recoilAmplitude, 0.5f * recoilAmplitude);
 
-            PlayCrossfade("RightArm, Override", "RHandFingerGun", "Attack.playbackRate", duration, 0.1f);
+
+            PlayCrossfade("RightArm, Override", "RHandFingerGunRelease", "Attack.playbackRate", duration, 0.1f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }

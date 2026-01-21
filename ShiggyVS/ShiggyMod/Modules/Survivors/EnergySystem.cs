@@ -127,37 +127,6 @@ namespace ShiggyMod.Modules.Survivors
             rectTransform.anchoredPosition = position;
             return hgtextMeshProUGUI;
 
-            //GameObject textObj;
-            //if (!parent)
-            //{
-            //    CustomUIObject = new GameObject(name);
-            //    textObj = CustomUIObject;
-            //    Canvas canvas = textObj.AddComponent<Canvas>();
-            //    canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            //}
-            //else
-            //{
-            //    textObj = new GameObject(name);
-            //    textObj.transform.parent = parent;
-
-            //}
-
-            //textObj.AddComponent<CanvasRenderer>();
-            //RectTransform rectTransform = textObj.AddComponent<RectTransform>();
-            //HGTextMeshProUGUI hgtextMeshProUGUI = textObj.AddComponent<HGTextMeshProUGUI>();
-            //hgtextMeshProUGUI.enabled = true;
-            //hgtextMeshProUGUI.text = text;
-            //hgtextMeshProUGUI.fontSize = textScale;
-            //hgtextMeshProUGUI.color = color;
-            //hgtextMeshProUGUI.alignment = TextAlignmentOptions.Center;
-            //hgtextMeshProUGUI.enableWordWrapping = false;
-            //rectTransform.localPosition = Vector2.zero;
-            //rectTransform.anchorMin = Vector2.zero;
-            //rectTransform.anchorMax = Vector2.one;
-            //rectTransform.localScale = Vector3.one;
-            //rectTransform.sizeDelta = Vector2.zero;
-            //rectTransform.anchoredPosition = position;
-            //return hgtextMeshProUGUI;
         }
 
         private void CalculateEnergyStats()
@@ -315,7 +284,16 @@ namespace ShiggyMod.Modules.Survivors
 
             plusChaosMeterGlowBackground.color = currentColor;
         }
-
+        public bool CanAffordPlusChaos(float baseCost)
+        {
+            return currentplusChaos >= GetFinalPlusChaosCost(baseCost);
+        }
+        public float GetFinalPlusChaosCost(float baseCost)
+        {
+            float flatCost = Mathf.Max(baseCost - costflatplusChaos,
+                                       StaticValues.minimumCostFlatPlusChaosSpend);
+            return Mathf.Max(flatCost * costmultiplierplusChaos, 0f);
+        }
 
         public void SpendplusChaos(float plusChaos)
         {
