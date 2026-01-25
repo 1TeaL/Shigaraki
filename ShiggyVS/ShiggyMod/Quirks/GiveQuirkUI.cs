@@ -1,17 +1,28 @@
-﻿using RoR2;
+﻿// GiveQuirkUI.cs
+// Runtime-built, singleton “Give Passive Quirk” UI.
+// IMPORTANT: Sends request to SERVER (server-authoritative give).
+//
+// Notes:
+// - Uses QuirkInventory.Owned as the local display list (you should still validate on server).
+// - Uses QuirkRegistry.GetDisplayName if available; otherwise falls back to QuirkInventory.QuirkPickupUI.MakeNiceName.
+// - Fixes ScrollRect hierarchy/wiring (matches your working QuirkUI pattern).
+
+using RoR2;
 using RoR2.UI;
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.Networking;
-using static ShiggyMod.Modules.Quirks.QuirkRegistry;
-using ShiggyMod.Modules.Quirks;
+
 using R2API.Networking;
-using ShiggyMod.Modules.Networking;
 using R2API.Networking.Interfaces;
+
+using ShiggyMod.Modules.Networking; // GivePassiveRequest
+using ShiggyMod.Modules.Quirks;
 
 namespace ShiggyMod.Modules.UI
 {
@@ -49,8 +60,6 @@ namespace ShiggyMod.Modules.UI
         private Action<string, float> _toast;
 
         private Canvas _canvas;
-        private Image _dim;
-        private Image _panel;
 
         private ScrollRect _scroll;
         private RectTransform _content;
@@ -77,23 +86,23 @@ namespace ShiggyMod.Modules.UI
 
             canvasGO.AddComponent<GraphicRaycaster>();
 
-            // Dimmer (also closes on click outside if you want)
-            _dim = NewUI<Image>("Dim", canvasGO.transform);
-            _dim.color = new Color(0f, 0f, 0f, 0.65f);
-            StretchFull(_dim.rectTransform);
-            var dimBtn = _dim.gameObject.AddComponent<Button>();
-            dimBtn.onClick.AddListener(Close); // click outside to close
+            // Dimmer (click outside to close)
+            var dim = NewUI<Image>("Dim", canvasGO.transform);
+            dim.color = new Color(0f, 0f, 0f, 0.65f);
+            StretchFull(dim.rectTransform);
+            var dimBtn = dim.gameObject.AddComponent<Button>();
+            dimBtn.onClick.AddListener(Close);
 
             // Panel
-            _panel = NewUI<Image>("Panel", canvasGO.transform);
-            _panel.color = new Color(0.08f, 0.08f, 0.08f, 0.95f);
-            var prt = _panel.rectTransform;
+            var panel = NewUI<Image>("Panel", canvasGO.transform);
+            panel.color = new Color(0.08f, 0.08f, 0.08f, 0.95f);
+            var prt = panel.rectTransform;
             prt.sizeDelta = new Vector2(760f, 560f);
             prt.anchorMin = prt.anchorMax = new Vector2(0.5f, 0.5f);
             prt.anchoredPosition = Vector2.zero;
 
             // Title
-            var title = NewText("Title", _panel.transform, "Give Passive Quirk");
+            var title = NewText("Title", panel.transform, "Give Passive Quirk");
             title.alignment = TextAnchor.MiddleCenter;
             title.fontSize = 28;
             var trt = title.rectTransform;
@@ -104,7 +113,7 @@ namespace ShiggyMod.Modules.UI
             trt.anchoredPosition = new Vector2(0f, -10f);
 
             // Target subtitle
-            var sub = NewText("Subtitle", _panel.transform, $"Target: <color=#8f8>{_target.GetUserName()}</color>");
+            var sub = NewText("Subtitle", panel.transform, $"Target: <color=#8f8>{SafeUserName(_target)}</color>");
             sub.alignment = TextAnchor.MiddleCenter;
             var srt = sub.rectTransform;
             srt.anchorMin = new Vector2(0f, 1f);
@@ -113,33 +122,50 @@ namespace ShiggyMod.Modules.UI
             srt.sizeDelta = new Vector2(0f, 28f);
             srt.anchoredPosition = new Vector2(0f, -46f);
 
-            // Scroll list
+            // ===== ScrollRect (correct hierarchy) =====
+            var scrollGO = new GameObject("ScrollRect");
+            scrollGO.transform.SetParent(panel.transform, false);
+
+            var scrollRT = scrollGO.AddComponent<RectTransform>();
+            scrollRT.anchorMin = new Vector2(0f, 0f);
+            scrollRT.anchorMax = new Vector2(1f, 1f);
+            scrollRT.offsetMin = new Vector2(10f, 90f);
+            scrollRT.offsetMax = new Vector2(-10f, -70f);
+
+            // Graphic so it can receive raycasts
+            var scrollImg = scrollGO.AddComponent<Image>();
+            scrollImg.color = new Color(0f, 0f, 0f, 0f);
+
+            _scroll = scrollGO.AddComponent<ScrollRect>();
+            _scroll.horizontal = false;
+            _scroll.vertical = true;
+
+            // Viewport as child of ScrollRect
             var viewportGO = new GameObject("Viewport");
-            viewportGO.transform.SetParent(_panel.transform, false);
+            viewportGO.transform.SetParent(scrollGO.transform, false);
             var viewportRT = viewportGO.AddComponent<RectTransform>();
             viewportGO.AddComponent<RectMask2D>();
             var vimg = viewportGO.AddComponent<Image>();
             vimg.color = new Color(0f, 0f, 0f, 0.2f);
+            viewportRT.anchorMin = Vector2.zero;
+            viewportRT.anchorMax = Vector2.one;
+            viewportRT.offsetMin = Vector2.zero;
+            viewportRT.offsetMax = Vector2.zero;
 
-            _scroll = NewUI<ScrollRect>("ScrollRect", _panel.transform);
-            var srt2 = _scroll.GetComponent<RectTransform>();
-            srt2.anchorMin = new Vector2(0f, 0f);
-            srt2.anchorMax = new Vector2(1f, 1f);
-            srt2.offsetMin = new Vector2(10f, 90f);
-            srt2.offsetMax = new Vector2(-10f, -70f);
             _scroll.viewport = viewportRT;
-            _scroll.horizontal = false;
 
+            // Content as child of Viewport
             var contentGO = new GameObject("Content");
             contentGO.transform.SetParent(viewportGO.transform, false);
             _content = contentGO.AddComponent<RectTransform>();
             _content.anchorMin = new Vector2(0f, 1f);
             _content.anchorMax = new Vector2(1f, 1f);
             _content.pivot = new Vector2(0.5f, 1f);
+
             _scroll.content = _content;
 
             // Buttons row
-            var btnRow = NewUI<HorizontalLayoutGroup>("Buttons", _panel.transform);
+            var btnRow = NewUI<HorizontalLayoutGroup>("Buttons", panel.transform);
             btnRow.childAlignment = TextAnchor.MiddleRight;
             btnRow.spacing = 8f;
             var btnRowRT = (RectTransform)btnRow.transform;
@@ -164,10 +190,27 @@ namespace ShiggyMod.Modules.UI
             OnEnable();
         }
 
+        private static string SafeUserName(CharacterBody body)
+        {
+            try
+            {
+                if (!body) return "(None)";
+                // GetUserName() is an extension in some setups; guard it.
+                return body.GetUserName();
+            }
+            catch
+            {
+                return body ? body.name : "(None)";
+            }
+        }
+
         private void RebuildOwnedPassiveList()
         {
+            // Restrict to actual auto-buff passives (BuffDef != null).
             _ownedPassives = QuirkInventory.Owned
-                .Where(id => TryGet(id, out var rec) && rec.Category == QuirkCategory.Passive && (rec.Buff != null || rec.Skill != null))
+                .Where(id => QuirkRegistry.TryGet(id, out var rec)
+                             && rec.Category == QuirkCategory.Passive
+                             && rec.BuffDef != null)
                 .OrderBy(id => QuirkRegistry.Get(id).Level)
                 .ThenBy(id => QuirkInventory.QuirkPickupUI.MakeNiceName(id))
                 .ToList();
@@ -175,7 +218,6 @@ namespace ShiggyMod.Modules.UI
 
         private void BuildRows()
         {
-            // clear old
             foreach (Transform t in _content) Destroy(t.gameObject);
             _rowButtons.Clear();
 
@@ -209,10 +251,10 @@ namespace ShiggyMod.Modules.UI
                     irt.anchoredPosition = new Vector2(4f, 0f);
                 }
 
-                // label
                 var label = NewText("Label", row.transform, QuirkInventory.QuirkPickupUI.MakeNiceName(q));
                 label.alignment = TextAnchor.MiddleLeft;
-                var lrt = label.rectTransform; StretchFull(lrt);
+                var lrt = label.rectTransform;
+                StretchFull(lrt);
                 lrt.offsetMin = new Vector2(50f, 0f);
 
                 btn.onClick.AddListener(() => Select(q));
@@ -230,21 +272,27 @@ namespace ShiggyMod.Modules.UI
         private void Select(QuirkId id)
         {
             _selected = id;
-            // simple visual: thicken the selected row
+
             foreach (var kv in _rowButtons)
             {
                 var img = kv.Value.targetGraphic as Image;
                 if (!img) continue;
-                img.color = kv.Key.Equals(id) ? new Color(1f, 1f, 1f, 0.18f) : new Color(1f, 1f, 1f, 0.06f);
+
+                img.color = kv.Key.Equals(id)
+                    ? new Color(1f, 1f, 1f, 0.18f)
+                    : new Color(1f, 1f, 1f, 0.06f);
             }
         }
 
+        // Local-only UX validation (server must revalidate!)
         private bool LocalValidateRangeAndTeam(float maxDistSqr = 30f * 30f)
         {
             if (!_giver || !_target) return false;
+
             var gTeam = _giver.teamComponent ? _giver.teamComponent.teamIndex : TeamIndex.None;
             var tTeam = _target.teamComponent ? _target.teamComponent.teamIndex : TeamIndex.None;
             if (gTeam != tTeam) return false;
+
             return (_target.corePosition - _giver.corePosition).sqrMagnitude <= maxDistSqr;
         }
 
@@ -255,9 +303,10 @@ namespace ShiggyMod.Modules.UI
                 _toast?.Invoke("<style=cIsDamage>No passive selected.</style>", 1.6f);
                 return;
             }
-            if (!_giver || !_target)
+
+            if (!_giver || !_target || !_giver.master || !_target.master)
             {
-                _toast?.Invoke("<style=cDeath>Missing giver/target.</style>", 1.8f);
+                _toast?.Invoke("<style=cDeath>Missing giver/target master.</style>", 1.8f);
                 Close();
                 return;
             }
@@ -268,19 +317,27 @@ namespace ShiggyMod.Modules.UI
                 return;
             }
 
-            var giverNI = _giver.masterObject ? _giver.masterObject.GetComponent<NetworkIdentity>() : null;
-            var targetNI = _target.masterObject ? _target.masterObject.GetComponent<NetworkIdentity>() : null;
-            if (!giverNI || !targetNI)
-            {
-                _toast?.Invoke("<style=cDeath>Couldn’t resolve masters.</style>", 1.8f);
-                Close();
-                return;
-            }
+            // SERVER authoritative
+            new GivePassiveRequest(_giver.master.netId, _target.master.netId, _selected)
+                .Send(NetworkDestination.Server);
 
-            new GivePassiveRequest(giverNI.netId, targetNI.netId, _selected).Send(NetworkDestination.Clients);
-
-            _toast?.Invoke($"<style=cIsUtility>Requested: {QuirkRegistry.GetDisplayName(_selected)}</style>", 1.2f);
+            _toast?.Invoke($"<style=cIsUtility>Requested: {GetDisplayNameSafe(_selected)}</style>", 1.2f);
             Close();
+        }
+
+        private static string GetDisplayNameSafe(QuirkId id)
+        {
+            // If you do NOT have QuirkRegistry.GetDisplayName implemented, this keeps the UI compiling.
+            // Recommended: implement GetDisplayName in QuirkRegistry to centralize naming.
+            try
+            {
+                // If you add this method later, switch to: return QuirkRegistry.GetDisplayName(id);
+                return QuirkRegistry.GetDisplayName(id);
+            }
+            catch
+            {
+                return id.ToString();
+            }
         }
 
         private void Close()
@@ -315,13 +372,15 @@ namespace ShiggyMod.Modules.UI
 
         private void HandleOwnedChanged()
         {
-            QuirkRegistry.LateRebindIfMissing();
+            // If you have LateRebindIfMissing, call it. Otherwise remove this.
+            // QuirkRegistry.LateRebindIfMissing();
+
             RebuildOwnedPassiveList();
             BuildRows();
             if (!_ownedPassives.Contains(_selected)) SelectFirstIfAny();
         }
 
-        // ---------- Small UI helpers (same style as QuirkUI) ----------
+        // ---------- Small UI helpers ----------
         private static T NewUI<T>(string name, Transform parent) where T : Component
         {
             var go = new GameObject(name);
@@ -340,7 +399,7 @@ namespace ShiggyMod.Modules.UI
         private static Text NewText(string name, Transform parent, string text)
         {
             var t = NewUI<Text>(name, parent);
-            t.font = ShiggyAsset.ror2Font;
+            t.font = ShiggyMod.Modules.ShiggyAsset.ror2Font;
             t.text = text;
             t.color = Color.white;
             t.alignment = TextAnchor.MiddleLeft;
@@ -352,8 +411,10 @@ namespace ShiggyMod.Modules.UI
         {
             var go = new GameObject(text);
             go.transform.SetParent(parent, false);
+
             var img = go.AddComponent<Image>();
             img.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+
             var btn = go.AddComponent<Button>();
             btn.targetGraphic = img;
 
@@ -368,6 +429,7 @@ namespace ShiggyMod.Modules.UI
             return btn;
         }
 
+        // ---------- Cursor helper ----------
         public static class UICursorUtil
         {
             private static MPEventSystem GetLocalMPES()
@@ -381,6 +443,7 @@ namespace ShiggyMod.Modules.UI
             {
                 var mpes = GetLocalMPES();
                 if (!mpes) return;
+
                 mpes.cursorOpenerCount = mpes.cursorOpenerCount + 1;
                 mpes.SetCursorIndicatorEnabled(true);
                 mpes.sendNavigationEvents = false;

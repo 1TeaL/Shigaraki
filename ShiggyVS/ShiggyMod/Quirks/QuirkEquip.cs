@@ -1,21 +1,14 @@
 ﻿// QuirkEquip.cs
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-
 using ExtraSkillSlots;
-
 using R2API.Networking;
 using R2API.Networking.Interfaces;
-
 using RoR2;
 using RoR2.Skills;
-
-using UnityEngine;
-using UnityEngine.Networking;
-
-using ShiggyMod.Modules.Survivors;
 using ShiggyMod.Modules.Networking; // EquipLoadoutRequest
-using static ShiggyMod.Modules.Quirks.QuirkRegistry;
+using ShiggyMod.Modules.Survivors;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.Modules.Quirks
 {
@@ -31,7 +24,7 @@ namespace ShiggyMod.Modules.Quirks
         public QuirkId Extra3;
         public QuirkId Extra4;
 
-        // Optional: dedicated passive toggles (checkboxes). If null/empty, derive from slots.
+        // Kept for wire compatibility if you ever want it; unused in slot-driven passive model.
         public List<QuirkId> PassiveToggles;
     }
 
@@ -43,6 +36,7 @@ namespace ShiggyMod.Modules.Quirks
             public SkillDef Primary, Secondary, Utility, Special;
             public SkillDef Extra1, Extra2, Extra3, Extra4;
         }
+
         private class SlotOverridesHolder { public SlotOverrides Last; }
 
         private static readonly ConditionalWeakTable<CharacterBody, SlotOverridesHolder> _overrideCache
@@ -58,9 +52,8 @@ namespace ShiggyMod.Modules.Quirks
             if (!body || !body.master) return;
 
             // Don’t gate on body.hasAuthority; player bodies usually don’t have authority.
-            // Anyone with the UI open can send to the server.
             new EquipLoadoutRequest(body.master.netId, loadout)
-                .Send(NetworkDestination.Server);
+                .Send(R2API.Networking.NetworkDestination.Server);
         }
 
         // ========================= SERVER SIDE =========================
@@ -69,7 +62,7 @@ namespace ShiggyMod.Modules.Quirks
         /// Server-authoritative apply; called from EquipLoadoutRequest.OnReceived when a body exists.
         /// - Sets/unsets slot overrides
         /// - Persists overrides via ShiggyMasterController.writeToSkillList(sd, idx) for idx=0..7
-        /// - Applies passives exactly once
+        /// - Passives are slot-driven: SyncFromEquippedSkillsServer(body)
         /// </summary>
         [Server]
         internal static void ApplyServer(CharacterBody body, ExtraSkillLocator extras, in SelectedQuirkLoadout loadout)
@@ -91,7 +84,7 @@ namespace ShiggyMod.Modules.Quirks
                 if (masterCtrl != null) masterCtrl.writeToSkillList(sd, idx);
             }
 
-            void EquipActiveSlot(GenericSkill slot, ref SkillDef lastOverride, QuirkId qid, int persistIndex)
+            void EquipSlot(GenericSkill slot, ref SkillDef lastOverride, QuirkId qid, int persistIndex)
             {
                 if (!slot)
                 {
@@ -99,14 +92,14 @@ namespace ShiggyMod.Modules.Quirks
                     return;
                 }
 
-                // Unset previous
-                if (lastOverride)
+                // Unset previous override (if any)
+                if (lastOverride != null)
                 {
                     slot.UnsetSkillOverride(slot, lastOverride, GenericSkill.SkillOverridePriority.Contextual);
                     lastOverride = null;
                 }
 
-                // Resolve & set new
+                // Resolve & set new override
                 SkillDef sd = ResolveSkill(qid);
                 if (sd != null)
                 {
@@ -114,103 +107,58 @@ namespace ShiggyMod.Modules.Quirks
                     lastOverride = sd;
                 }
 
-                // Persist 0..7
                 Persist(persistIndex, sd);
             }
 
             // Core 4
-            EquipActiveSlot(sl.primary, ref last.Primary, loadout.Primary, 0);
-            EquipActiveSlot(sl.secondary, ref last.Secondary, loadout.Secondary, 1);
-            EquipActiveSlot(sl.utility, ref last.Utility, loadout.Utility, 2);
-            EquipActiveSlot(sl.special, ref last.Special, loadout.Special, 3);
+            EquipSlot(sl.primary, ref last.Primary, loadout.Primary, 0);
+            EquipSlot(sl.secondary, ref last.Secondary, loadout.Secondary, 1);
+            EquipSlot(sl.utility, ref last.Utility, loadout.Utility, 2);
+            EquipSlot(sl.special, ref last.Special, loadout.Special, 3);
 
             // Extras 4
-            if (extras)
+            if (extras != null)
             {
-                EquipActiveSlot(extras.extraFirst, ref last.Extra1, loadout.Extra1, 4);
-                EquipActiveSlot(extras.extraSecond, ref last.Extra2, loadout.Extra2, 5);
-                EquipActiveSlot(extras.extraThird, ref last.Extra3, loadout.Extra3, 6);
-                EquipActiveSlot(extras.extraFourth, ref last.Extra4, loadout.Extra4, 7);
+                EquipSlot(extras.extraFirst, ref last.Extra1, loadout.Extra1, 4);
+                EquipSlot(extras.extraSecond, ref last.Extra2, loadout.Extra2, 5);
+                EquipSlot(extras.extraThird, ref last.Extra3, loadout.Extra3, 6);
+                EquipSlot(extras.extraFourth, ref last.Extra4, loadout.Extra4, 7);
+            }
+            else
+            {
+                // Still persist indexes so respawn doesn’t “keep” old extras
+                Persist(4, null); Persist(5, null); Persist(6, null); Persist(7, null);
             }
 
             holder.Last = last;
 
-            // Passives: clear managed → apply selected once (idempotent)
-            ApplyPassivesOnceServer(body, loadout);
+            // Passives are slot-driven
+            QuirkPassiveSync.SyncFromEquippedSkillsServer(body);
 
-            // Recalc on server; clients will replicate
+            // Server recalcs; clients replicate
             body.RecalculateStats();
-        }
-
-        /// <summary>
-        /// Clear all managed passive buffs, then apply the new selection exactly once.
-        /// </summary>
-        [Server]
-        private static void ApplyPassivesOnceServer(CharacterBody body, in SelectedQuirkLoadout loadout)
-        {
-            if (!body) return;
-
-            // Clear all registry-defined passives
-            foreach (var rec in QuirkRegistry.All.Values)
-            {
-                if (rec.Category == QuirkCategory.Passive && rec.Buff)
-                    body.ApplyBuff(rec.Buff.buffIndex, 0);
-            }
-
-            // Build desired passive set
-            var target = new HashSet<QuirkId>();
-            if (loadout.PassiveToggles != null && loadout.PassiveToggles.Count > 0)
-            {
-                foreach (var q in loadout.PassiveToggles) target.Add(q);
-            }
-            else
-            {
-                void TryAddIfPassive(QuirkId id)
-                {
-                    if (id == QuirkId.None) return;
-                    if (QuirkRegistry.TryGet(id, out var rec) && rec.Category == QuirkCategory.Passive && rec.Buff)
-                        target.Add(id);
-                }
-
-                TryAddIfPassive(loadout.Primary);
-                TryAddIfPassive(loadout.Secondary);
-                TryAddIfPassive(loadout.Utility);
-                TryAddIfPassive(loadout.Special);
-                TryAddIfPassive(loadout.Extra1);
-                TryAddIfPassive(loadout.Extra2);
-                TryAddIfPassive(loadout.Extra3);
-                TryAddIfPassive(loadout.Extra4);
-            }
-
-            // Apply exactly once
-            foreach (var q in target)
-            {
-                if (q == QuirkId.None) continue;
-                if (QuirkRegistry.TryGet(q, out var rec) && rec.Category == QuirkCategory.Passive && rec.Buff)
-                    body.ApplyBuff(rec.Buff.buffIndex, 1);
-            }
         }
 
         private static SkillDef ResolveSkill(QuirkId id)
         {
             if (id == QuirkId.None) return null;
 
-            if (QuirkRegistry.TryGet(id, out var r) && r.Skill != null)
-                return r.Skill;
+            if (QuirkRegistry.TryGet(id, out var r) && r.SkillDef != null)
+                return r.SkillDef;
 
             // Fallbacks for base four
             switch (id)
             {
-                case QuirkId.Shiggy_DecayActive: return Survivors.Shiggy.decayDef;
-                case QuirkId.Shiggy_AirCannonActive: return Survivors.Shiggy.aircannonDef;
-                case QuirkId.Shiggy_BulletLaserActive: return Survivors.Shiggy.bulletlaserDef;
-                case QuirkId.Shiggy_MultiplierActive: return Survivors.Shiggy.multiplierDef;
+                case QuirkId.Shiggy_DecayActive: return Shiggy.decayDef;
+                case QuirkId.Shiggy_AirCannonActive: return Shiggy.aircannonDef;
+                case QuirkId.Shiggy_BulletLaserActive: return Shiggy.bulletlaserDef;
+                case QuirkId.Shiggy_MultiplierActive: return Shiggy.multiplierDef;
                 default: return null;
             }
         }
 
         /// <summary>
-        /// Unset previously applied overrides (server-only).
+        /// Unset previously applied overrides AND clear persisted respawn list (server-only).
         /// </summary>
         [Server]
         public static void Clear(CharacterBody body, ExtraSkillLocator extras)
@@ -221,33 +169,55 @@ namespace ShiggyMod.Modules.Quirks
             var sl = body.skillLocator;
             if (!_overrideCache.TryGetValue(body, out var holder)) return;
 
-            void Unset(GenericSkill slot, ref SkillDef lastOverride)
+            var masterCtrl = body.master ? body.master.GetComponent<ShiggyMasterController>()
+                                         : body.GetComponent<ShiggyMasterController>();
+
+            void Persist(int idx, SkillDef sd)
             {
-                if (!slot || !lastOverride) return;
-                slot.UnsetSkillOverride(slot, lastOverride, GenericSkill.SkillOverridePriority.Contextual);
-                lastOverride = null;
+                if (masterCtrl != null) masterCtrl.writeToSkillList(sd, idx);
+            }
+
+            void Unset(GenericSkill slot, ref SkillDef lastOverride, int persistIndex)
+            {
+                if (slot != null && lastOverride != null)
+                {
+                    slot.UnsetSkillOverride(slot, lastOverride, GenericSkill.SkillOverridePriority.Contextual);
+                    lastOverride = null;
+                }
+
+                // Clear persisted slot so respawn doesn't reapply it
+                Persist(persistIndex, null);
             }
 
             var last = holder.Last;
-            Unset(sl.primary, ref last.Primary);
-            Unset(sl.secondary, ref last.Secondary);
-            Unset(sl.utility, ref last.Utility);
-            Unset(sl.special, ref last.Special);
 
-            if (extras)
+            Unset(sl.primary, ref last.Primary, 0);
+            Unset(sl.secondary, ref last.Secondary, 1);
+            Unset(sl.utility, ref last.Utility, 2);
+            Unset(sl.special, ref last.Special, 3);
+
+            if (extras != null)
             {
-                Unset(extras.extraFirst, ref last.Extra1);
-                Unset(extras.extraSecond, ref last.Extra2);
-                Unset(extras.extraThird, ref last.Extra3);
-                Unset(extras.extraFourth, ref last.Extra4);
+                Unset(extras.extraFirst, ref last.Extra1, 4);
+                Unset(extras.extraSecond, ref last.Extra2, 5);
+                Unset(extras.extraThird, ref last.Extra3, 6);
+                Unset(extras.extraFourth, ref last.Extra4, 7);
+            }
+            else
+            {
+                Persist(4, null); Persist(5, null); Persist(6, null); Persist(7, null);
             }
 
             holder.Last = last;
 
-            // Optional: also clear managed passives
+            // Clear slot-driven passive buffs (set to 0 for all auto-buff passives)
             foreach (var rec in QuirkRegistry.All.Values)
-                if (rec.Category == QuirkCategory.Passive && rec.Buff)
-                    body.ApplyBuff(rec.Buff.buffIndex, 0);
+            {
+                if (rec.Category != QuirkCategory.Passive) continue;
+                if (rec.BuffDef == null) continue;
+
+                body.ApplyBuff(rec.BuffDef.buffIndex, 0);
+            }
 
             body.RecalculateStats();
         }

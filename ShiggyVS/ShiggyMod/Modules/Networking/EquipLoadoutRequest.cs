@@ -1,19 +1,21 @@
-﻿using ExtraSkillSlots;
+﻿// EquipLoadoutRequest.cs
+using ExtraSkillSlots;
 using R2API.Networking.Interfaces;
 using RoR2;
 using RoR2.Skills;
 using ShiggyMod.Modules.Quirks;
 using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Networking;
 
 namespace ShiggyMod.Modules.Networking
 {
     /// <summary>
     /// Client -> Server: equip a full Shiggy loadout.
+    ///
     /// Server will:
     ///  • If body exists now: QuirkEquip.ApplyServer(body, extras, loadout) (this persists 0..7 internally).
+    ///    Then ensure passive buffs match equipped slots (QuirkPassiveSync).
     ///  • If body does not exist: resolve SkillDefs and persist via writeToSkillList(def, index) for 0..7.
     /// </summary>
     internal class EquipLoadoutRequest : INetMessage
@@ -22,6 +24,7 @@ namespace ShiggyMod.Modules.Networking
         private SelectedQuirkLoadoutNet netLoadout;
 
         public EquipLoadoutRequest() { }
+
         public EquipLoadoutRequest(NetworkInstanceId masterId, SelectedQuirkLoadout loadout)
         {
             this.masterId = masterId;
@@ -50,40 +53,49 @@ namespace ShiggyMod.Modules.Networking
             var master = masterGO.GetComponent<CharacterMaster>();
             if (!master) return;
 
+            // Must exist for persistence path
             var smc = masterGO.GetComponent<ShiggyMasterController>();
             if (!smc) return;
 
             var loadout = netLoadout.ToRuntime();
             var body = master.GetBody();
+
             if (body)
             {
-                // Server-authoritative apply; this ALSO persists 0..7 internally.
+                // Apply now (server-authoritative). This should do slot overrides + persist 0..7.
                 var extras = body.GetComponent<ExtraSkillLocator>();
                 QuirkEquip.ApplyServer(body, extras, loadout);
+
+                // Passives are derived from equipped slots, so sync them once after equip.
+                QuirkPassiveSync.SyncFromEquippedSkillsServer(body);
             }
             else
             {
-                // No body yet — just persist 0..7 so CharacterBody.Start will reapply later.
+                // No body yet — persist 0..7 so CharacterBody.Start will reapply later.
                 var defs = ResolveSkillDefs(loadout);
                 for (int i = 0; i < 8; i++)
                     smc.writeToSkillList(defs[i], i);
             }
         }
 
-        // ---- Helpers ----
+        // ---------------- Helpers ----------------
 
         private static SkillDef[] ResolveSkillDefs(SelectedQuirkLoadout loadout)
         {
             SkillDef SD(QuirkId q)
             {
-                if (QuirkRegistry.TryGet(q, out var rec) && rec.Skill) return rec.Skill;
-                // Fallbacks for base four
+                if (q == QuirkId.None) return null;
+
+                if (QuirkRegistry.TryGet(q, out var rec) && rec.SkillDef != null)
+                    return rec.SkillDef;
+
+                // Fallbacks for base four (if you keep them outside registry entries)
                 switch (q)
                 {
-                    case QuirkId.Shiggy_DecayActive: return Survivors.Shiggy.decayDef;
-                    case QuirkId.Shiggy_AirCannonActive: return Survivors.Shiggy.aircannonDef;
-                    case QuirkId.Shiggy_BulletLaserActive: return Survivors.Shiggy.bulletlaserDef;
-                    case QuirkId.Shiggy_MultiplierActive: return Survivors.Shiggy.multiplierDef;
+                    case QuirkId.Shiggy_DecayActive: return Shiggy.decayDef;
+                    case QuirkId.Shiggy_AirCannonActive: return Shiggy.aircannonDef;
+                    case QuirkId.Shiggy_BulletLaserActive: return Shiggy.bulletlaserDef;
+                    case QuirkId.Shiggy_MultiplierActive: return Shiggy.multiplierDef;
                     default: return null;
                 }
             }
@@ -106,7 +118,9 @@ namespace ShiggyMod.Modules.Networking
         {
             public int Primary, Secondary, Utility, Special;
             public int Extra1, Extra2, Extra3, Extra4;
-            public List<int> PassiveToggles; // optional
+
+            // Kept for compatibility / future use; not used for passive buffing if passives are slot-based.
+            public List<int> PassiveToggles;
 
             public static SelectedQuirkLoadoutNet From(SelectedQuirkLoadout src)
             {

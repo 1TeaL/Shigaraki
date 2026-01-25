@@ -124,7 +124,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.GetModelAnimator().SetBool("attacking", false);
-            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
+            //this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             base.OnExit();
 
             //base.characterMotor.mass = this.previousMass;

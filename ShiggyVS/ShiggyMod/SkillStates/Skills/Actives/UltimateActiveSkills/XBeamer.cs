@@ -195,7 +195,7 @@ namespace ShiggyMod.SkillStates
             }
             LoopSoundManager.StopSoundLoopLocal(this.loopPtr);
             base.GetModelAnimator().SetBool("attacking", false);
-            base.PlayCrossfade("FullBody, Override", "BufferEmpty", "Attack.playbackRate", 0.05f, 0.05f);
+            //base.PlayCrossfade("FullBody, Override", "BufferEmpty", "Attack.playbackRate", 0.05f, 0.05f);
 
         }
         private void FireBeam()

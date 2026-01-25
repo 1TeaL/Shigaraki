@@ -208,7 +208,7 @@ namespace ShiggyMod.Modules
             solusamalgamatorEquipmentBoostBuff = Buffs.AddNewBuff($"Equipment Boost Buff- Every attack that has a proc coefficient reduces <style=cIsUtility>Equipment cooldown by {StaticValues.solusAmalgamatorEquipmentBoostCDReduction} seconds on hit</style>. ", ShiggyAsset.noCooldownBuffIcon, Color.white, false, false);
             alloyhunterCritBoostBuff = Buffs.AddNewBuff($"Crit Boost Buff- All critical attacks deal <style=cIsDamage>{100 * StaticValues.alloyHunterCritBoostMultiplier}x more damage</style>.", ShiggyAsset.critBuffIcon, Color.yellow, false, false);
             falsesonStolenInheritanceBuff = Buffs.AddNewBuff($"Stolen Inheritance Buff- Gain bonus base damage equal to {StaticValues.falseSonHPCoefficient}% of maximum health.", ShiggyAsset.falseSonEnergizedCoreBuffIcon, new Color(235f, 150f, 50f), false, false);
-            chefOilBurstBuff = Buffs.AddNewBuff($"Oil Burst Buff- Every {StaticValues.falseSonHPCoefficient} attacks, fire an oil glob that coats enemies.", ShiggyAsset.chefOilBuffIcon, Color.white, false, false);
+            chefOilBurstBuff = Buffs.AddNewBuff($"Oil Burst Buff- Every {StaticValues.chefOilBurstStacks} attacks, fire an oil glob that coats enemies.", ShiggyAsset.chefOilBuffIcon, Color.white, false, false);
             chefOilBurstStacksBuff = Buffs.AddNewBuff($"Oil Burst Buff stacks", ShiggyAsset.chefOilBuffIcon, Color.black, true, false);
             solusPrimedBuff = Buffs.AddNewBuff($"Solus Primed Buff- attacks apply Primed debuff", ShiggyAsset.soluswingWeakpointDestroyedDebuffIcon, Color.black, false, false);
             hyperRegenerationBuff = Buffs.AddNewBuff($"Hyper Regeneration Buff- attacks apply Primed debuff", ShiggyAsset.healBuffIcon, Color.white, false, false);

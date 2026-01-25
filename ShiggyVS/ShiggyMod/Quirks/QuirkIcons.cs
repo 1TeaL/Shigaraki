@@ -204,90 +204,26 @@ namespace ShiggyMod.Modules.Quirks
                 if (!cache.ContainsKey(kv.Key))
                     Get(kv.Key);
         }
+		public static void RegisterFromRegistryData()
+		{
+			foreach (var e in QuirkRegistryData.All)
+			{
+				if (e.Category == QuirkCategory.Utility) continue;
 
-        /// Optional: fill null icons for registered quirks (late safety pass)
-        public static void ApplyToRegisteredSkillDefsIfNull()
-        {
-            foreach (var kv in registrations)
-            {
-                QuirkRecord rec;
-                if (!QuirkRegistry.TryGet(kv.Key, out rec) || rec.Skill == null) continue;
-                if (rec.Skill.icon != null) continue;
+				// pick a body source (prefer a body path if present)
+				var body = (e.BodyPaths != null && e.BodyPaths.Length > 0) ? e.BodyPaths[0]
+						 : (e.BodyNames != null && e.BodyNames.Length > 0) ? e.BodyNames[0]
+						 : null;
 
-                var s = Get(kv.Key);
-                if (s) rec.Skill.icon = s;
-            }
-        }
+				if (string.IsNullOrEmpty(body)) continue;
 
-        public static void CreateSpriteIcons()
-        {
-            // ===== Level 1 — PASSIVES (non-elite) =====
-            QuirkIconBank.Register(QuirkId.AlphaConstruct_BarrierPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.MinorConstructBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Beetle_StrengthPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Beetle.BeetleBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Pest_JumpPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_FlyingVermin.FlyingVerminBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Vermin_SpeedPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_Vermin.VerminBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Gup_SpikyBodyPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_Gup.GupBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.HermitCrab_MortarPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_HermitCrab.HermitCrabBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Larva_AcidJumpPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_AcidLarva.AcidLarvaBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.LesserWisp_HastePassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Wisp.WispBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.LunarExploder_LunarBarrierPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LunarExploder.LunarExploderBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.MiniMushrum_HealingAuraPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_MiniMushroom.MiniMushroomBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.RoboBallMini_SolusBoostPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_RoboBallBoss.RoboBallMiniBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.VoidBarnacle_VoidMortarPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidBarnacle.VoidBarnacleBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.VoidJailer_GravityPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidJailer.VoidJailerBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.ImpBoss_BleedPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ImpBoss.ImpBossBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.StoneTitan_StoneSkinPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Titan.TitanBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.MagmaWorm_BlazingAuraPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_MagmaWorm.MagmaWormBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.OverloadingWorm_LightningAuraPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ElectricWorm.ElectricWormBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Vagrant_OrbPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Vagrant.VagrantBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Child_EmergencyTeleportPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Child.ChildBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Acrid_PoisonPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Croco.CrocoBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Commando_DoubleTapPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Commando.CommandoBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Captain_MicrobotsPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Captain.CaptainBody_prefab, QuirkIconBank.Theme.Passive);
-            QuirkIconBank.Register(QuirkId.Loader_ScrapBarrierPassive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Loader.LoaderBody_prefab, QuirkIconBank.Theme.Passive);
+				var theme = (e.Category == QuirkCategory.Passive) ? QuirkIconBank.Theme.Passive : QuirkIconBank.Theme.Active;
+				QuirkIconBank.Register(e.Id, body, theme);
+			}
+		}
 
-            // ===== Level 1 — ACTIVES (exclude Shiggy_* and Deku_OFAActive) =====
-            QuirkIconBank.Register(QuirkId.Vulture_WindBlastActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Vulture.VultureBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.BeetleGuard_SlamActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_BeetleGuard.BeetleGuardBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Bison_ChargeActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bison.BisonBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Bell_SpikedBallControlActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bell.BellBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.ClayApothecary_ClayAirStrikeActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_ClayGrenadier.ClayGrenadierBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.ClayTemplar_ClayMinigunActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ClayBruiser.ClayBruiserBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.ElderLemurian_FireBlastActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LemurianBruiser.LemurianBruiserBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.GreaterWisp_SpiritBoostActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_GreaterWisp.GreaterWispBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Imp_BlinkActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Imp.ImpBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Jellyfish_RegenerateActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Jellyfish.JellyfishBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Lemurian_FireballActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Lemurian.LemurianBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.LunarGolem_SlideResetActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LunarGolem.LunarGolemBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.LunarWisp_MinigunActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LunarWisp.LunarWispBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Parent_TeleportActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Parent.ParentBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.StoneGolem_LaserActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Golem.GolemBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.VoidReaver_PortalActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Nullifier.NullifierBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.BeetleQueen_SummonActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_BeetleQueen.BeetleQueen2Body_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Grandparent_SunActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Grandparent.GrandParentBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Grovetender_ChainActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Gravekeeper.GravekeeperBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.ClayDunestrider_TarBoostActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ClayBoss.ClayBossBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.SolusControlUnit_KnockupActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_RoboBallBoss.RoboBallBossBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.XIConstruct_BeamActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.MajorConstructBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.VoidDevastator_MissilesActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidMegaCrab.VoidMegaCrabAllyBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Scavenger_ThqwibActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Scav.ScavBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Artificer_FlamethrowerActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MageBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Artificer_IceWallActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MageBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Artificer_LightningOrbActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MageBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Bandit_LightsOutActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bandit2.Bandit2Body_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Engineer_TurretActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Engi.EngiBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Huntress_FlurryActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Huntress.HuntressBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Merc_DashActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Merc.MercBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.MULT_PowerStanceActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Toolbot.ToolbotBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.MULT_PowerStanceCancelActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Toolbot.ToolbotBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Railgunner_CryoActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_Railgunner.RailgunnerBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.REX_MortarActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Treebot.TreebotBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.VoidFiend_CleanseActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidSurvivor.VoidSurvivorBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Halcyonite_GreedActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Halcyonite.HalcyoniteBody_prefab, QuirkIconBank.Theme.Active);
 
-        }
-
-    }
+	}
 
 
 

@@ -124,7 +124,7 @@ namespace ShiggyMod.Modules.Quirks
         Grandparent_SunActive,
         Grovetender_ChainActive,
         ClayDunestrider_TarBoostActive,
-        SolusControlUnit_KnockupActive,
+        SolusControlUnit_AntiGravityActive,
         XIConstruct_BeamActive,
         VoidDevastator_MissilesActive,
         Scavenger_ThqwibActive,

@@ -42,11 +42,11 @@ namespace ShiggyMod.SkillStates
 
             this.duration = baseDuration / this.attackSpeedStat;
 
-            if (NetworkServer.active)
-            {
-                characterBody.ApplyBuff(Modules.Buffs.greaterwispBuff.buffIndex, 1, Modules.StaticValues.greaterwispballbuffDuration);
-                //characterBody.AddTimedBuffAuthority(Modules.Buffs.greaterwispBuff.buffIndex, Modules.StaticValues.greaterwispballbuffDuration);
-            }
+            //if (NetworkServer.active)
+            //{
+            //    characterBody.ApplyBuff(Modules.Buffs.greaterwispBuff.buffIndex, 1, Modules.StaticValues.greaterwispballbuffDuration);
+            //    //characterBody.AddTimedBuffAuthority(Modules.Buffs.greaterwispBuff.buffIndex, Modules.StaticValues.greaterwispballbuffDuration);
+            //}
 
             
             //EffectManager.SpawnEffect(Modules.ShiggyAsset.chargegreaterwispBall, new EffectData
@@ -67,74 +67,107 @@ namespace ShiggyMod.SkillStates
 
 
         }
-        private void SpawnMine()
+        private void SpawnMineServer()
         {
-            if (base.characterBody.master.GetDeployableCount(DeployableSlot.MinePodMine) >= base.characterBody.master.GetDeployableSameSlotLimit(DeployableSlot.MinePodMine))
+            if (!NetworkServer.active) return;
+            if (!characterBody || !characterBody.master) return;
+
+            var master = characterBody.master;
+
+            // Respect deployable limit
+            if (master.GetDeployableCount(DeployableSlot.MinePodMine) >= master.GetDeployableSameSlotLimit(DeployableSlot.MinePodMine))
+                return;
+
+            // Ensure spawn card exists
+            var card = MinePlant.mineSpawnCard;
+            if (!card)
             {
+                Debug.LogError("[Shiggy] MinePlant.mineSpawnCard is null. Provide your own SpawnCard or load vanilla one.");
                 return;
             }
-            DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest(MinePlant.mineSpawnCard, new DirectorPlacementRule
+
+            Vector3 pos = characterBody.footPosition + characterDirection.forward * 5f;
+
+            var req = new DirectorSpawnRequest(
+                card,
+                new DirectorPlacementRule
+                {
+                    placementMode = DirectorPlacementRule.PlacementMode.Direct,
+                    position = pos,
+                    minDistance = 0f,
+                    maxDistance = 0f
+                },
+                RoR2Application.rng);
+
+            req.summonerBodyObject = gameObject;
+            req.onSpawnedServer = OnSpawnedServer;
+
+            var spawned = DirectorCore.instance.TrySpawnObject(req);
+            if (spawned)
             {
-                placementMode = DirectorPlacementRule.PlacementMode.Direct,
-                minDistance = 0f,
-                maxDistance = 0f,
-                position = characterBody.footPosition + characterDirection.forward * 5f,
-            }, RoR2Application.rng);
-            directorSpawnRequest.summonerBodyObject = base.gameObject;
-            directorSpawnRequest.onSpawnedServer = new Action<SpawnCard.SpawnResult>(OnSpawned);
-            GameObject gameObject = DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
-            if (gameObject)
-            {
-                CharacterMaster component = gameObject.GetComponent<CharacterMaster>();
-                Deployable deployable = gameObject.AddComponent<Deployable>();
-                deployable.onUndeploy = new UnityEvent();
-                deployable.onUndeploy.AddListener(new UnityAction(component.TrueKill));
-                base.characterBody.master.AddDeployable(deployable, DeployableSlot.MinePodMine);
-                EffectManager.SimpleEffect(MinePlant.minePlantVFX, gameObject.transform.position, Quaternion.identity, true);
+                // Deployable tracking expects a Deployable component on the spawned OBJECT.
+                // Vanilla adds it to the returned object (which is a master object for this card).
+                var spawnedMaster = spawned.GetComponent<CharacterMaster>();
+                if (spawnedMaster)
+                {
+                    var dep = spawned.AddComponent<Deployable>();
+                    dep.onUndeploy = new UnityEvent();
+                    dep.onUndeploy.AddListener(new UnityAction(spawnedMaster.TrueKill));
+                    master.AddDeployable(dep, DeployableSlot.MinePodMine);
+                }
+
+                if (MinePlant.minePlantVFX)
+                    EffectManager.SimpleEffect(MinePlant.minePlantVFX, spawned.transform.position, Quaternion.identity, true);
+
+                Util.PlayAttackSpeedSound(MinePlant.deploySoundEvent, gameObject, attackSpeedStat);
             }
-            Util.PlayAttackSpeedSound(MinePlant.deploySoundEvent, base.gameObject, this.attackSpeedStat);
         }
 
-        private void OnSpawned(SpawnCard.SpawnResult result)
+        private void OnSpawnedServer(SpawnCard.SpawnResult result)
         {
-            if (result.success)
+            if (!result.success) return;
+
+            var owner = characterBody.master;
+            if (owner && owner.minionOwnership.ownerMaster)
+                owner = owner.minionOwnership.ownerMaster;
+
+            var spawnedMaster = result.spawnedInstance.GetComponent<CharacterMaster>();
+            if (!spawnedMaster) return;
+
+            spawnedMaster.minionOwnership.SetOwner(owner);
+            spawnedMaster.teamIndex = owner.teamIndex;
+
+            // If you need to apply buffs, do it on the BODY, not the master GameObject directly.
+            var spawnedBody = spawnedMaster.GetBody();
+            if (spawnedBody)
             {
-                CharacterMaster characterMaster = base.characterBody.master;
-                if (characterMaster && characterMaster.minionOwnership.ownerMaster)
+                spawnedBody.AddBuff(Buffs.solusPrimedBuff); // prefer AddBuff(BuffDef) when possible
+            }
+
+            var inv = spawnedMaster.inventory;
+            if (inv != null)
+            {
+                // Vanilla behavior
+                inv.CopyEquipmentFrom(characterBody.inventory, true);
+
+                if (characterBody.inventory.GetItemCountEffective(RoR2Content.Items.Ghost) > 0)
                 {
-                    characterMaster = characterMaster.minionOwnership.ownerMaster;
+                    inv.GiveItemPermanent(RoR2Content.Items.Ghost, 1);
+                    inv.GiveItemPermanent(RoR2Content.Items.HealthDecay, 30);
+                    inv.GiveItemPermanent(RoR2Content.Items.BoostDamage, 150);
                 }
-                CharacterMaster component = result.spawnedInstance.GetComponent<CharacterMaster>();
-                component.minionOwnership.SetOwner(characterMaster);
 
-
-                component.teamIndex = characterMaster.teamIndex;
-                component.inventory = characterMaster.inventory;
-
-                CharacterBody body = component.GetComponent<CharacterBody>();
-                body.ApplyBuff(Buffs.solusPrimedBuff.buffIndex, 1);
-
-                Inventory component2 = component.GetComponent<Inventory>();
-                if (component2)
+                var elite = EliteCatalog.GetEliteDefFromEquipmentIndex(characterBody.inventory.currentEquipmentIndex);
+                if (elite != null)
                 {
-                    //component2.CopyEquipmentFrom(base.characterBody.inventory);
-                    if (base.characterBody.inventory.GetItemCountEffective(RoR2Content.Items.Ghost) > 0)
-                    {
-                        component2.GiveItemPermanent(RoR2Content.Items.Ghost, 1);
-                        component2.GiveItemPermanent(RoR2Content.Items.HealthDecay, 30);
-                        component2.GiveItemPermanent(RoR2Content.Items.BoostDamage, 150);
-                    }
-                    EliteDef eliteDefFromEquipmentIndex = EliteCatalog.GetEliteDefFromEquipmentIndex(base.characterBody.inventory.currentEquipmentIndex);
-                    if (eliteDefFromEquipmentIndex != null)
-                    {
-                        float num = (eliteDefFromEquipmentIndex != null) ? eliteDefFromEquipmentIndex.healthBoostCoefficient : 1f;
-                        float num2 = (eliteDefFromEquipmentIndex != null) ? eliteDefFromEquipmentIndex.damageBoostCoefficient : 1f;
-                        component.inventory.GiveItemPermanent(RoR2Content.Items.BoostHp, Mathf.RoundToInt((num - 1f) * 10f));
-                        component.inventory.GiveItemPermanent(RoR2Content.Items.BoostDamage, Mathf.RoundToInt((num2 - 1f) * 10f));
-                    }
+                    float hp = elite.healthBoostCoefficient;
+                    float dmg = elite.damageBoostCoefficient;
+                    inv.GiveItemPermanent(RoR2Content.Items.BoostHp, Mathf.RoundToInt((hp - 1f) * 10f));
+                    inv.GiveItemPermanent(RoR2Content.Items.BoostDamage, Mathf.RoundToInt((dmg - 1f) * 10f));
                 }
             }
         }
+
 
 
 
@@ -142,8 +175,8 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            PlayCrossfade("RightArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
-            PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
+            //PlayCrossfade("RightArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
+            //PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
         }
 
 
@@ -152,7 +185,8 @@ namespace ShiggyMod.SkillStates
             if (base.fixedAge > fireTime && !hasFired)
             {
                 hasFired = true;
-                SpawnMine();
+                if (NetworkServer.active)
+                    SpawnMineServer();
             }
             if (base.fixedAge >= this.duration && base.isAuthority)
             {

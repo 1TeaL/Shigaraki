@@ -73,7 +73,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
+            //this.PlayAnimation("Fullbody, Override", "BufferEmpty");
         }
 
         public override void FixedUpdate()

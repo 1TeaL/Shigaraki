@@ -130,10 +130,16 @@ namespace ShiggyMod
             Modules.Projectiles.RegisterProjectiles(); // add and register custom projectiles
             Modules.Tokens.AddTokens(); // register name tokens
             Modules.ItemDisplays.PopulateDisplays(); // collect item display prefabs for use in our display rules
-            Modules.Quirks.QuirkRegistry.BindQuirkRegistry(); //build registry of quirks
 
-            // survivor initialization
+
+            // IMPORTANT: do this BEFORE creating SkillDefs, because SkillDef creation calls QuirkIconBank.Get(...)
+            Modules.Quirks.QuirkIconBank.RegisterFromRegistryData();
+
+            // Create survivor SkillDefs (and anything else that calls QuirkIconBank.Get)
             new Shiggy().Initialize();
+
+            // IMPORTANT: do this AFTER SkillDefs exist, so ResolveFromData can bind them and build reverse maps
+            Modules.Quirks.QuirkRegistry.BindQuirkRegistry();
 
             Modules.StaticValues.LoadDictionary(); // load dictionary to differentiate between passives and actives
             //networking
@@ -177,7 +183,7 @@ namespace ShiggyMod
         {
             try
             {
-                Modules.Quirks.QuirkRegistry.BindQuirkRegistry();
+                Modules.Quirks.QuirkIconBank.BuildAll();
                 Debug.Log("[Shiggy] BindQuirkRegistry completed after content packs.");
             }
             catch (Exception e)
@@ -233,49 +239,9 @@ namespace ShiggyMod
             // Only your survivor
             if (obj.bodyIndex != BodyCatalog.FindBodyIndex("ShiggyBody")) return;
 
-            // You already have logic to compute equipped quirks from skill slots:
-            // Prefer calling your existing controller method if present, otherwise call a static utility.
-            var masterCon = obj.master.GetComponent<ShiggyMasterController>();
-            if (masterCon != null)
-            {
-                masterCon.CheckQuirksForBuffs(obj);
-            }
-            else
-            {
-                // Fallback: call a static helper (recommended to avoid depending on controller existence)
-                ApplyQuirkBuffsFromEquippedSkills(obj);
-            }
-        }
-        private static void ApplyQuirkBuffsFromEquippedSkills(CharacterBody body)
-        {
-            if (!body) return;
-
-            var equipped = QuirkEquipUtils.GetEquippedQuirks(body);
-
-            // IMPORTANT: don’t wipe vanilla affix buffs etc. unless you are 100% sure.
-            // Best practice: only clear buffs that belong to quirks you control.
-            foreach (var rec in QuirkRegistry.All.Values)
-            {
-                if (rec.Buff == null) continue;
-
-                // If you used base game buffs (AffixRed etc.) in the registry, you should EXCLUDE them here
-                // or you will delete legitimate elite buffs.
-                // A simple safe rule: only clear buffs you created in Modules.Buffs.
-                // If you can’t tag them, do explicit exclusions.
-                if (IsVanillaAffix(rec.Buff)) continue;
-
-                body.ApplyBuff(rec.Buff.buffIndex, 0);
-            }
-
-            foreach (var q in equipped)
-            {
-                if (QuirkRegistry.TryGet(q, out var rec) && rec.Buff != null)
-                {
-                    if (IsVanillaAffix(rec.Buff)) continue;
-                    body.ApplyBuff(rec.Buff.buffIndex, 1);
-                }
-            }
-        }
+            QuirkPassiveSync.SyncFromEquippedSkillsServer(obj);
+        } 
+        
 
         private static bool IsVanillaAffix(BuffDef buff)
         {
@@ -768,7 +734,7 @@ namespace ShiggyMod
                 int stacks = attackerBody.GetBuffCount(Buffs.chefOilBurstStacksBuff);
                 if (stacks >= StaticValues.chefOilBurstStacks)
                 {
-                    attackerBody.ApplyBuff(Buffs.chefOilBurstBuff.buffIndex, 0);
+                    attackerBody.ApplyBuff(Buffs.chefOilBurstStacksBuff.buffIndex, 0);
 
                     EffectManager.SimpleMuzzleFlash(EntityStates.Chef.Glaze.effectPrefab, attackerBody.gameObject, "RHand", false);
                     //test to see if it works
@@ -802,7 +768,7 @@ namespace ShiggyMod
                 }
                 else if (stacks < StaticValues.chefOilBurstStacks)
                 {
-                    attackerBody.ApplyBuff(Buffs.chefOilBurstBuff.buffIndex, stacks + 1);
+                    attackerBody.ApplyBuff(Buffs.chefOilBurstStacksBuff.buffIndex, stacks + 1);
                 }
             }
 

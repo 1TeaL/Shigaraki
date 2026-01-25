@@ -133,7 +133,7 @@ namespace ShiggyMod.Modules
                 $"The gap between attacks scales with movespeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Solus Control Unit- Anti Gravity] to create [Gravitational Downforce]</style>");
             LanguageAPI.Add(prefix + "ALLOYHUNTER_NAME", "Crit Boost");
-            LanguageAPI.Add(prefix + "ALLOYHUNTER_DESCRIPTION", $"All critical attacks deal <style=cIsDamage>{100 * StaticValues.alloyHunterCritBoostMultiplier}x more damage</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "ALLOYHUNTER_DESCRIPTION", $"All critical attacks deal <style=cIsDamage>{StaticValues.alloyHunterCritBoostMultiplier}x more damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>No pairing yet");
             LanguageAPI.Add(prefix + "IMPBOSS_NAME", "Bleed");
             LanguageAPI.Add(prefix + "IMPBOSS_DESCRIPTION", $"Attacks apply <style=cIsHealth>Bleed</style>. " +

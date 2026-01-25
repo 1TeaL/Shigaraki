@@ -1857,7 +1857,7 @@ namespace ShiggyMod.Modules.Survivors
                 }
                 else
                 {
-                    Debug.Log($"[StealQuirk] Registry record ok. SkillDef={(rec.Skill ? rec.Skill.name : "null")} Category={rec.Category}");
+                    Debug.Log($"[StealQuirk] Registry record ok. SkillDef={(rec.SkillDef ? rec.SkillDef.name : "null")} Category={rec.Category}");
                 }
 
                 bool newlyOwned = QuirkInventory.Add(id);

@@ -48,14 +48,19 @@ namespace ShiggyMod.Modules.Survivors
 		public SkillDef[] storedAFOSkill;
 
 
-        
+
+        private static bool _hooksInstalled;
 
 
         public void Awake()
         {
 
-			On.RoR2.CharacterBody.Start += CharacterBody_Start;
-            On.RoR2.Run.Start += Run_Start;
+            if (!_hooksInstalled)
+            {
+                _hooksInstalled = true;
+                On.RoR2.CharacterBody.Start += CharacterBody_Start;
+                On.RoR2.Run.Start += Run_Start;
+            }
 
             skillListToOverrideOnRespawn = new SkillDef[8];
             storedAFOSkill = new SkillDef[1];
@@ -84,9 +89,11 @@ namespace ShiggyMod.Modules.Survivors
             for (int i = 0; i < 8; i++) writeToSkillList(null, i);
 
             writeToAFOSkillList(null, 0);
-
-            QuirkInventory.ResetSeedFlagForNextRun();   
-            QuirkInventory.SeedStartingQuirksFromConfig();
+            if (NetworkServer.active)
+            {
+                QuirkInventory.ResetSeedFlagForNextRun();
+                QuirkInventory.SeedStartingQuirksFromConfig();
+            }
 
         }
 
@@ -249,7 +256,8 @@ namespace ShiggyMod.Modules.Survivors
 
 
                             }
-                            CheckQuirksForBuffs(self);
+                            if (NetworkServer.active)
+                                QuirkPassiveSync.SyncFromEquippedSkillsServer(self);
 
                         }
 
@@ -264,8 +272,8 @@ namespace ShiggyMod.Modules.Survivors
 
 		public void Update()
 		{
-
-            if (Input.GetKeyDown(Config.OpenQuirkMenuHotkey.Value.MainKey) && self.hasEffectiveAuthority)
+            var body = characterMaster ? characterMaster.GetBody() : null;
+            if (body && body.hasEffectiveAuthority && Input.GetKeyDown(Config.OpenQuirkMenuHotkey.Value.MainKey))
             {
                 if (!ShiggyMod.Modules.Quirks.QuirkUI.IsOpen)
                 {
@@ -344,50 +352,7 @@ namespace ShiggyMod.Modules.Survivors
             }
         }
 
-        public void CheckQuirksForBuffs(CharacterBody body)
-        {
-            if (!body) return;
 
-            // Get currently equipped quirks from slots
-            var equipped = QuirkEquipUtils.GetEquippedQuirks(body);
-
-            // Clear all registry-defined buffs
-            foreach (var rec in QuirkRegistry.All.Values)
-            {
-                if (rec.Buff != null)
-                    body.ApplyBuff(rec.Buff.buffIndex, 0);
-            }
-
-            // Apply buffs for the ones actually equipped
-            foreach (var q in equipped)
-            {
-                if (QuirkRegistry.TryGet(q, out var rec) && rec.Buff != null)
-                {
-                    body.ApplyBuff(rec.Buff.buffIndex, 1);
-                    // Debug: show which passive buff was applied
-                    Debug.Log($"[CheckQuirksForBuffs] Applied {rec.Buff.name} from {q}");
-                }
-            }
-        }
-
-        //public void CheckQuirksForBuffs(CharacterBody characterBody)
-        //{
-        //	//check passive
-
-        //	foreach (var skillname in StaticValues.passiveToBuff)
-        //	{
-
-        //		if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
-        //		{
-        //			characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 1);
-        //		}
-        //		else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
-        //		{
-        //			characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 0);
-        //		}
-        //	}
-
-        //}
 
         public bool SearchSkillSlotsForQuirks(SkillDef skillDef, CharacterBody characterBody)
         {

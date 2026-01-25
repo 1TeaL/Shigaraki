@@ -169,9 +169,14 @@ namespace ShiggyMod.Modules.Quirks
             // Show cursor
             UICursorUtil.OpenGameCursor();
 
-            OnEnable();
+            Subscribe();
         }
-
+        private void Subscribe()
+        {
+            if (_subscribed) return;
+            QuirkInventory.OnOwnedChanged += HandleOwnedChanged;
+            _subscribed = true;
+        }
         // === Pool builders ===
 
         private void RebuildActivePool()
@@ -182,12 +187,12 @@ namespace ShiggyMod.Modules.Quirks
                 pool.Add(q);
 
             foreach (var q in QuirkInventory.Owned)
-                if (TryGet(q, out var rec) && rec.Skill)
+                if (TryGet(q, out var rec) && rec.SkillDef != null)
                     pool.Add(q);
 
             if (Modules.Config.StartWithAllQuirks != null && Modules.Config.StartWithAllQuirks.Value)
                 foreach (var kv in QuirkRegistry.All)
-                    if (kv.Value.Skill)
+                    if (kv.Value.SkillDef != null)
                         pool.Add(kv.Key);
 
             _activePool = new List<QuirkId> { QuirkId.None };
@@ -195,8 +200,8 @@ namespace ShiggyMod.Modules.Quirks
                 _activePool.AddRange(BaseShiggyActives);
             else
                 _activePool.AddRange(pool.OrderBy(id => QuirkInventory.QuirkPickupUI.MakeNiceName(id)));
+            Debug.Log("[QuirkUI] pool=" + string.Join(", ", _activePool.Select(id => QuirkInventory.QuirkPickupUI.MakeNiceName(id))));
 
-            Debug.Log("[QuirkUI] pool=" + string.Join(", ", _activePool.Select(QuirkInventory.QuirkPickupUI.MakeNiceName)));
         }
 
         private void RebuildPickablePool() => RebuildActivePool();
@@ -256,7 +261,6 @@ namespace ShiggyMod.Modules.Quirks
 
         private void OpenPicker(string title, Action<QuirkId> onPicked)
         {
-            QuirkRegistry.LateRebindIfMissing();
             RebuildActivePool();
 
             var modal = new GameObject("Picker").AddComponent<Image>();
@@ -401,9 +405,14 @@ namespace ShiggyMod.Modules.Quirks
             if (_selUtility == QuirkId.None) _selUtility = QuirkId.Shiggy_AirCannonActive;
             if (_selSpecial == QuirkId.None) _selSpecial = QuirkId.Shiggy_MultiplierActive;
         }
-
         private void Close()
         {
+            if (_subscribed)
+            {
+                QuirkInventory.OnOwnedChanged -= HandleOwnedChanged;
+                _subscribed = false;
+            }
+
             UICursorUtil.CloseGameCursor();
             if (Current == this) Current = null;
             Destroy(gameObject);
@@ -482,7 +491,6 @@ namespace ShiggyMod.Modules.Quirks
 
         private void HandleOwnedChanged()
         {
-            QuirkRegistry.LateRebindIfMissing();
             RebuildActivePool();
         }
 
@@ -493,17 +501,17 @@ namespace ShiggyMod.Modules.Quirks
             var sl = _body ? _body.skillLocator : null;
             var ex = _extras ? _extras : (_body ? _body.GetComponent<ExtraSkillLocator>() : null);
 
-            _selPrimary   = (sl && sl.primary   && sl.primary.skillDef   && QuirkRegistry.TryResolve(sl.primary.skillDef, out q))   ? q : QuirkId.None;
-            _selSecondary = (sl && sl.secondary && sl.secondary.skillDef && QuirkRegistry.TryResolve(sl.secondary.skillDef, out q)) ? q : QuirkId.None;
-            _selUtility   = (sl && sl.utility   && sl.utility.skillDef   && QuirkRegistry.TryResolve(sl.utility.skillDef, out q))   ? q : QuirkId.None;
-            _selSpecial   = (sl && sl.special   && sl.special.skillDef   && QuirkRegistry.TryResolve(sl.special.skillDef, out q))   ? q : QuirkId.None;
+            _selPrimary   = (sl && sl.primary   && sl.primary.skillDef   && QuirkRegistry.QuirkLookup.TryFromSkill(sl.primary.skillDef, out q))   ? q : QuirkId.None;
+            _selSecondary = (sl && sl.secondary && sl.secondary.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(sl.secondary.skillDef, out q)) ? q : QuirkId.None;
+            _selUtility   = (sl && sl.utility   && sl.utility.skillDef   && QuirkRegistry.QuirkLookup.TryFromSkill(sl.utility.skillDef, out q))   ? q : QuirkId.None;
+            _selSpecial   = (sl && sl.special   && sl.special.skillDef   && QuirkRegistry.QuirkLookup.TryFromSkill(sl.special.skillDef, out q))   ? q : QuirkId.None;
 
             if (ex)
             {
-                _selE1 = (ex.extraFirst  && ex.extraFirst.skillDef  && QuirkRegistry.TryResolve(ex.extraFirst.skillDef,  out q)) ? q : QuirkId.None;
-                _selE2 = (ex.extraSecond && ex.extraSecond.skillDef && QuirkRegistry.TryResolve(ex.extraSecond.skillDef, out q)) ? q : QuirkId.None;
-                _selE3 = (ex.extraThird  && ex.extraThird.skillDef  && QuirkRegistry.TryResolve(ex.extraThird.skillDef,  out q)) ? q : QuirkId.None;
-                _selE4 = (ex.extraFourth && ex.extraFourth.skillDef && QuirkRegistry.TryResolve(ex.extraFourth.skillDef, out q)) ? q : QuirkId.None;
+                _selE1 = (ex.extraFirst  && ex.extraFirst.skillDef  && QuirkRegistry.QuirkLookup.TryFromSkill(ex.extraFirst.skillDef,  out q)) ? q : QuirkId.None;
+                _selE2 = (ex.extraSecond && ex.extraSecond.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(ex.extraSecond.skillDef, out q)) ? q : QuirkId.None;
+                _selE3 = (ex.extraThird  && ex.extraThird.skillDef  && QuirkRegistry.QuirkLookup.TryFromSkill(ex.extraThird.skillDef,  out q)) ? q : QuirkId.None;
+                _selE4 = (ex.extraFourth && ex.extraFourth.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(ex.extraFourth.skillDef, out q)) ? q : QuirkId.None;
             }
         }
 
@@ -511,7 +519,7 @@ namespace ShiggyMod.Modules.Quirks
         {
             QuirkId From(GenericSkill g)
             {
-                if (g && g.skillDef && QuirkRegistry.TryResolve(g.skillDef, out var qid))
+                if (g && g.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(g.skillDef, out var qid))
                     return qid;
                 return QuirkId.None;
             }

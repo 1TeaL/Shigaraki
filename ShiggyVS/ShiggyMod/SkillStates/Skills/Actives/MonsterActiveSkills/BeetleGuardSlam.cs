@@ -190,7 +190,7 @@ namespace ShiggyMod.SkillStates
         {
 
             base.GetModelAnimator().SetBool("attacking", false);
-            this.PlayAnimation("Fullbody, Override", "BufferEmpty");
+            //this.PlayAnimation("Fullbody, Override", "BufferEmpty");
             if (this.slamIndicatorInstance)
                 this.slamIndicatorInstance.SetActive(false);
             EntityState.Destroy(this.slamIndicatorInstance);

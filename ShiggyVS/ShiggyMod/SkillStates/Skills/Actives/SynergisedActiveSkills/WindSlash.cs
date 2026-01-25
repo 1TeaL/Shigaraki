@@ -101,7 +101,7 @@ namespace ShiggyMod.SkillStates
             Shiggycon.boolswordAuraR = false;
             this.animator.SetBool("false", true);
             //PlayCrossfade("RightArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
-            PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
+            //PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
         }
 
 

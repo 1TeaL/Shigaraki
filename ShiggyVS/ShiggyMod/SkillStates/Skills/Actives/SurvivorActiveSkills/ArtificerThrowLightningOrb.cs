@@ -97,7 +97,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", duration, 0.1f);
+            //PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", duration, 0.1f);
 
         }
         public override void FixedUpdate()

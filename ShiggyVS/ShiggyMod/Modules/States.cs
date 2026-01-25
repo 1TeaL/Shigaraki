@@ -55,7 +55,7 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(ClayDunestriderBuff));
             Modules.Content.AddEntityState(typeof(GrandparentSun));
             Modules.Content.AddEntityState(typeof(GrovetenderChain));
-            Modules.Content.AddEntityState(typeof(SolusControlUnitKnockup));
+            Modules.Content.AddEntityState(typeof(SolusControlUnitAntiGravity));
             Modules.Content.AddEntityState(typeof(XiConstructBeam));
             Modules.Content.AddEntityState(typeof(VoidDevastatorHoming));
             Modules.Content.AddEntityState(typeof(ScavengerThqwibs));

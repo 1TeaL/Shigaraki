@@ -11,7 +11,7 @@ using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class SolusControlUnitKnockup : Skill
+    public class SolusControlUnitAntiGravity : Skill
     {
         private DamageType damageType;
 

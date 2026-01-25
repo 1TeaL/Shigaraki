@@ -90,7 +90,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef elderlemurianfireblastDef;
         internal static SkillDef greaterWispBuffDef;
         internal static SkillDef impblinkDef;
-        internal static SkillDef JellyfishRegenerateDef;
+        internal static SkillDef jellyfishregenerateDef;
         internal static SkillDef lemurianfireballDef;
         internal static SkillDef lunargolemSlideDef;
         internal static SkillDef lunarwispminigunDef;
@@ -1501,7 +1501,7 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
-            Shiggy.JellyfishRegenerateDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.jellyfishregenerateDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "JELLYFISH_NAME",
                 skillNameToken = prefix + "JELLYFISH_NAME",
@@ -1891,8 +1891,8 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "SOLUSCONTROLUNIT_NAME",
                 skillNameToken = prefix + "SOLUSCONTROLUNIT_NAME",
                 skillDescriptionToken = prefix + "SOLUSCONTROLUNIT_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.SolusControlUnit_KnockupActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.SolusControlUnitKnockup)),
+                skillIcon = QuirkIconBank.Get(QuirkId.SolusControlUnit_AntiGravityActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SolusControlUnitAntiGravity)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 14f,
@@ -3669,7 +3669,7 @@ namespace ShiggyMod.Modules.Survivors
                     elderlemurianfireblastDef,
                     greaterWispBuffDef,
                     impblinkDef,
-                    JellyfishRegenerateDef,
+                    jellyfishregenerateDef,
                     lemurianfireballDef,
                     lunargolemSlideDef,
                     lunarwispminigunDef,

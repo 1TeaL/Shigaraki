@@ -51,8 +51,8 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
-            AkSoundEngine.StopPlayingID(this.soundID);
+            //PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
+            //AkSoundEngine.StopPlayingID(this.soundID);
             
         }
 

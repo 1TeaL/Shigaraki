@@ -159,7 +159,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             this.animator.SetBool("attacking", false);
-            PlayCrossfade("RightArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
+            //PlayCrossfade("RightArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
             //PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
             base.OnExit();
             LoopSoundManager.StopSoundLoopLocal(this.loopPtr);
