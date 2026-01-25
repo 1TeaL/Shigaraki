@@ -21,6 +21,12 @@ namespace ShiggyMod.Modules
             }
 
             SkillLocator skillLocator = targetPrefab.GetComponent<SkillLocator>();
+            if (!skillLocator)
+            {
+                Debug.LogError($"[ShiggyMod] CreateSkillFamilies: No SkillLocator on {targetPrefab.name}. " +
+                               $"You must add/clone a SkillLocator before creating skill families.");
+                return;
+            }
 
             skillLocator.primary = targetPrefab.AddComponent<GenericSkill>();
             SkillFamily primaryFamily = ScriptableObject.CreateInstance<SkillFamily>();
@@ -200,19 +206,59 @@ namespace ShiggyMod.Modules
         }
 
         // this could all be a lot cleaner but at least it's simple and easy to work with
+
         internal static void AddPrimarySkill(GameObject targetPrefab, SkillDef skillDef)
         {
-            SkillLocator skillLocator = targetPrefab.GetComponent<SkillLocator>();
+            if (!targetPrefab)
+            {
+                Debug.LogError("[ShiggyMod] AddPrimarySkill: targetPrefab is null");
+                return;
+            }
 
-            SkillFamily skillFamily = skillLocator.primary.skillFamily;
+            if (!skillDef)
+            {
+                Debug.LogError($"[ShiggyMod] AddPrimarySkill: skillDef is null for {targetPrefab.name}");
+                return;
+            }
 
-            Array.Resize(ref skillFamily.variants, skillFamily.variants.Length + 1);
-            skillFamily.variants[skillFamily.variants.Length - 1] = new SkillFamily.Variant
+            var loc = targetPrefab.GetComponent<SkillLocator>();
+            if (!loc)
+            {
+                Debug.LogError($"[ShiggyMod] AddPrimarySkill: No SkillLocator on {targetPrefab.name}");
+                return;
+            }
+
+            if (!loc.primary)
+            {
+                Debug.LogError($"[ShiggyMod] AddPrimarySkill: No primary GenericSkill on {targetPrefab.name}");
+                return;
+            }
+
+            var fam = loc.primary.skillFamily;
+            if (!fam)
+            {
+                Debug.LogError($"[ShiggyMod] AddPrimarySkill: primary.skillFamily is null on {targetPrefab.name}");
+                return;
+            }
+
+            // KEY: variants can be null depending on how/when the SkillFamily was created/loaded.
+            if (fam.variants == null)
+                fam.variants = new SkillFamily.Variant[0];
+
+            int oldLen = fam.variants.Length;
+            Array.Resize(ref fam.variants, oldLen + 1);
+
+            string token = string.IsNullOrEmpty(skillDef.skillNameToken) ? skillDef.skillName : skillDef.skillNameToken;
+
+            fam.variants[oldLen] = new SkillFamily.Variant
             {
                 skillDef = skillDef,
-                viewableNode = new ViewablesCatalog.Node(skillDef.skillNameToken, false, null)
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node(token, false, null),
             };
         }
+
+
         internal static void AddPrimarySkills(GameObject targetPrefab, params SkillDef[] skillDefs)
         {
             foreach (SkillDef i in skillDefs)

@@ -949,17 +949,17 @@ namespace ShiggyMod.Modules.Survivors
             }
         }
 
-        public void JellyFishHealStacks()
+        public void JellyfishRegenerateStacks()
         {
 
             //jellyfish heal buff
-            if (characterBody.HasBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex))
+            if (characterBody.HasBuff(Modules.Buffs.JellyfishRegenerateStacksBuff.buffIndex))
             {
 
                 if (jellyfishtimer > 1f)
                 {
-                    int jellyfishBuffCount = characterBody.GetBuffCount(Modules.Buffs.jellyfishHealStacksBuff.buffIndex);
-                    int jellyfishBuffCountToReduce = Mathf.RoundToInt(characterBody.healthComponent.fullHealth * (StaticValues.JellyfishHealTickRate));
+                    int jellyfishBuffCount = characterBody.GetBuffCount(Modules.Buffs.JellyfishRegenerateStacksBuff.buffIndex);
+                    int jellyfishBuffCountToReduce = Mathf.RoundToInt(characterBody.healthComponent.fullHealth * (StaticValues.JellyfishRegenerateTickRate));
                     int jellyfishBuffCountToApply = jellyfishBuffCount - jellyfishBuffCountToReduce;
                     if (jellyfishBuffCountToApply < 2)
                     {
@@ -969,7 +969,7 @@ namespace ShiggyMod.Modules.Survivors
                     {
                         if (jellyfishBuffCount >= 2)
                         {
-                            characterBody.ApplyBuff(Modules.Buffs.jellyfishHealStacksBuff.buffIndex, jellyfishBuffCountToApply);
+                            characterBody.ApplyBuff(Modules.Buffs.JellyfishRegenerateStacksBuff.buffIndex, jellyfishBuffCountToApply);
                             jellyfishtimer = 0f;
                         }
 
@@ -1059,7 +1059,7 @@ namespace ShiggyMod.Modules.Survivors
                     ClayDunestrider();
                     GreaterWisp();
                     VagrantDisableBuff();
-                    JellyFishHealStacks();
+                    JellyfishRegenerateStacks();
                     HalcyoniteGreedBuff();
                 }
             }
@@ -1084,9 +1084,9 @@ namespace ShiggyMod.Modules.Survivors
                 }
                 else if (!booleyeAuraL || energySystem.currentplusChaos < energySystem.maxPlusChaos)
                 {
-                    if (LEYE.isStopped)
+                    if (LEYE.isPlaying)
                     {
-                        LEYE.Play();
+                        LEYE.Stop();
                     }
 
                 }
@@ -1359,10 +1359,10 @@ namespace ShiggyMod.Modules.Survivors
                         else if (energySystem.currentplusChaos >= plusChaosCost)
                         {
                             energySystem.SpendplusChaos(plusChaosCost);
-
+                            
                             hasStolen = true;
                             Debug.Log("Target");
-                            Debug.Log(BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
+                            Debug.Log("body name = " + BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
                             StealQuirk(trackingTarget);
 
                         }
@@ -1880,6 +1880,28 @@ namespace ShiggyMod.Modules.Survivors
                     foreach (var crafted in QuirkInventory.LastAutoCrafted)
                         ToastQuirkPickup(crafted);
 
+
+                    //stop the enemy in their tracks
+                    SetStateOnHurt component = body.healthComponent.GetComponent<SetStateOnHurt>();
+                    bool flag = component == null;
+                    if (!flag)
+                    {
+                        bool canBeHitStunned = component.canBeHitStunned;
+                        if (canBeHitStunned)
+                        {
+                            component.SetPain();
+                            component.SetStun(2f);
+                            if (body.characterMotor)
+                            {
+                                body.characterMotor.velocity = Vector3.zero;
+                            }
+                            if (body.rigidbody != null)
+                            {
+                                body.rigidbody.velocity = Vector3.zero;
+                            }
+                        }
+                    }
+
                     // The QuirkUI subscribes to QuirkInventory.OnOwnedChanged and will rebuild its pool.
                     // If the picker is open right now and you want an immediate refresh, you can nudge it:
                     if (QuirkUI.Current != null)
@@ -1905,26 +1927,6 @@ namespace ShiggyMod.Modules.Survivors
                 Debug.Log($"[StealQuirk] No body->quirk mapping for {bodyName} (or mapped to None).");
             }
 
-            //stop the enemy in their tracks
-            SetStateOnHurt component = body.healthComponent.GetComponent<SetStateOnHurt>();
-            bool flag = component == null;
-            if (!flag)
-            {
-                bool canBeHitStunned = component.canBeHitStunned;
-                if (canBeHitStunned)
-                {
-                    component.SetPain();
-                    component.SetStun(2f);
-                    if (body.characterMotor)
-                    {
-                        body.characterMotor.velocity = Vector3.zero;
-                    }
-                    if (body.rigidbody != null)
-                    {
-                        body.rigidbody.velocity = Vector3.zero;
-                    }
-                }
-            }
 
             // 3) Refund if we truly found nothing
             if (!grantedAny)

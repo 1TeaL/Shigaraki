@@ -40,9 +40,19 @@ namespace ShiggyMod.Modules
         public static ConfigEntry<bool> ApexShowAdaptationOverlay;       // show the number of adaptation stacks and how many thresholds have happened
         public static ConfigEntry<float> ApexHoldSecondsToReset;             // seconds to hold to reset cooldowns
 
+        public static ConfigEntry<float> HyperRegenerationInterval;
+        public static ConfigEntry<float> HyperRegenerationHealPercent;
+
+        public static ConfigEntry<float> DecayInterval;
+        public static ConfigEntry<float> DecayDuration;
+        public static ConfigEntry<int> DecayStacks;
+        public static ConfigEntry<float> DecayBaseDamage;
+        public static ConfigEntry<float> DecayDamagePercentage;
+        public static ConfigEntry<float> DecaySpreadRadius;
 
         public static void ReadConfig()
         {
+            //General configs
             retainLoadout = ShiggyPlugin.instance.Config.Bind("General", "Retain loadout across stages", true, "Should you retain your stolen quirks across stages and respawns.");
             holdButtonAFO = ShiggyPlugin.instance.Config.Bind("General", "Steal, Give and Remove quirk timer", 0f, "Set how long you want to hold the button.");
             allowVoice = ShiggyPlugin.instance.Config.Bind("General", "Allow voice", true, "Allow voice lines of Shigaraki.");
@@ -50,7 +60,7 @@ namespace ShiggyMod.Modules
                 "Begin runs with all quirks unlocked.");
 
 
-
+            //Input configs
             AFOHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "AFO Key", new KeyboardShortcut(UnityEngine.KeyCode.F), "Keybinding for AFO");
             //RemoveHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Remove Quirk Key", new KeyboardShortcut(UnityEngine.KeyCode.V), "Keybinding for Remove Quirk");
             AFOGiveHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Give Quirk Key", new KeyboardShortcut(UnityEngine.KeyCode.C), "Keybinding for Give Quirk");
@@ -58,32 +68,17 @@ namespace ShiggyMod.Modules
             CloseQuirkMenuHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Quirk UI Close Key", new KeyboardShortcut(UnityEngine.KeyCode.Tilde), "Keybinding for Closing the Quirk UI");
             AirWalkDescentKey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Air Walk Descent Key", new KeyboardShortcut(UnityEngine.KeyCode.X), "Keybinding for descending while in Air Walk");
 
+            //AFO configs
             allowAllSkills = ShiggyPlugin.instance.Config.Bind("AFO", "Allow all skils to be picked", false, "Should you be allowed to pick all skills in the loadout menu. AFO functionality is not disabled. Will require a Restart.");
             allowRangedAFO = ShiggyPlugin.instance.Config.Bind("AFO", "Allow Ranged AFO", false, "Should you be allowed to use AFO from max distance.");
             maxAFORange = ShiggyPlugin.instance.Config.Bind("AFO", "Max Range for AFO", 10f, "Maximum range for AFO, up to 70.");
+
+            //UI configs
             ShowQuirkNameOverlay = ShiggyPlugin.instance.Config.Bind("UI/Indicators", "Show Quirk Name Overlay", true, "Enable a label with the quirk's name if the target has one.");
             ShowOwnedCheckOverlay = ShiggyPlugin.instance.Config.Bind("UI/Indicators", "Show Owned Check Overlay", true, "Show a ✓ when you’ve already stolen that quirk.");
             ApexShowAdaptationOverlay = ShiggyPlugin.instance.Config.Bind("UI/Indicators", "Show Adaptation Stacks Overlay", true, "Show how many stacks of adaptation and how many thresholds have been passed.");
-            //Gliding
-            //glideSpeed = ShiggyPlugin.instance.Config.Bind<float>
-            //(
-            //    new ConfigDefinition("Gliding", "Falling Speed when gliding"),
-            //    60f,
-            //    new ConfigDescription("Determines the base speed of descent when gliding.",
-            //        null,
-            //        Array.Empty<object>()
-            //    )
-            //);
-            //glideAcceleration = ShiggyPlugin.instance.Config.Bind<float>
-            //(
-            //    new ConfigDefinition("Gliding", "Falling acceleration when gliding"),
-            //    29.6f,
-            //    new ConfigDescription("Determines the falling acceleration when gliding.",
-            //        null,
-            //        Array.Empty<object>()
-            //    )
-            //);
 
+            //Apex
             ApexStacksPerSecondReset = ShiggyPlugin.instance.Config.Bind("Apex", "Stacks Per Second Reset", 1, "Debuff stacks added per second of cooldown reset.");
             ApexAdaptPerSecondReset = ShiggyPlugin.instance.Config.Bind("Apex", "Adapt Per Second Reset", 1, "Adaptation stacks gained per second of cooldown reset.");
             ApexHPDrainPerStackPerSecond = ShiggyPlugin.instance.Config.Bind("Apex", "HP Drain Per Stack Per Second", 0.5f, "Negative HP Regen per Apex Surgery Debuff stack.");
@@ -95,6 +90,16 @@ namespace ShiggyMod.Modules
             ApexOverdriveChunk = ShiggyPlugin.instance.Config.Bind("Apex", "OverdriveChunk", 0.40f, "Percent Max HP damage when overdrive triggers.");
             ApexHealBlockDuration = ShiggyPlugin.instance.Config.Bind("Apex", "HealBlockDuration", 5, "Seconds of heal-block during overdrive.");
             ApexHoldSecondsToReset = ShiggyPlugin.instance.Config.Bind("Apex", "HoldSecondsToReset", 0.30f, "Seconds to hold to reset cooldowns.");
+
+            //Quirks Configs
+            HyperRegenerationInterval = ShiggyPlugin.instance.Config.Bind("Quirks", "HyperRegenerationInterval", StaticValues.hyperRegenInterval, "Seconds between each heal tick.");
+            HyperRegenerationHealPercent = ShiggyPlugin.instance.Config.Bind("Quirks", "HyperRegenerationHealPercent", StaticValues.hyperRegenHealthCoefficient, "Percentage healing (out of 1 = 100%) of your Max HP that you are healed.");
+            DecayInterval = ShiggyPlugin.instance.Config.Bind("Quirks", "DecaySpreadInterval", StaticValues.decayadditionalTimer, "Seconds between each decay spread.");
+            DecayDuration = ShiggyPlugin.instance.Config.Bind("Quirks", "DecayDuration", StaticValues.decayDamageTimer, "How many seconds decay lasts.");
+            DecayBaseDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "DecayAttackerDamage", StaticValues.decayDamageStack, "How much damage decay does based on player damage.");
+            DecayDamagePercentage = ShiggyPlugin.instance.Config.Bind("Quirks", "DecayHPDamagePercentage", StaticValues.decayDamagePercentage, "How much damage decay does based on enemy max HP.");
+            DecaySpreadRadius = ShiggyPlugin.instance.Config.Bind("Quirks", "DecaySpreadRadius", StaticValues.decayspreadRadius, "How far decay can spread.");
+            DecayStacks = ShiggyPlugin.instance.Config.Bind("Quirks", "DecayInstakillThreshold", StaticValues.decayInstaKillThreshold, "How many stacks to instakill an enemy.");
 
         }
 
@@ -165,6 +170,24 @@ namespace ShiggyMod.Modules
                 ApexShowAdaptationOverlay));
             ModSettingsManager.AddOption(new StepSliderOption(
                 ApexHoldSecondsToReset, new StepSliderConfig() { min = 0.01f, max = 10f, increment = 0.01f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+                HyperRegenerationInterval, new StepSliderConfig() { min = 0.1f, max = 5f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+                HyperRegenerationHealPercent, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+                DecayInterval, new StepSliderConfig() { min = 0.1f, max = 100f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+                DecayDuration, new StepSliderConfig() { min = 1f, max = 100f, increment = 1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+                DecayBaseDamage, new StepSliderConfig() { min = 0.1f, max = 100f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+                DecaySpreadRadius, new StepSliderConfig() { min = 1f, max = 100f, increment = 1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+                DecayDamagePercentage, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
+            ModSettingsManager.AddOption(new IntSliderOption(
+                DecayStacks, new IntSliderConfig() { min = 1, max = 1000}));
 
             ModSettingsManager.SetModDescription("Shigaraki Mod");
             Sprite icon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("texShiggyIcon");

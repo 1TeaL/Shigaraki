@@ -23,7 +23,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef greaterwispBuff;
         internal static BuffDef hermitcrabmortarBuff;
         internal static BuffDef hermitcrabmortararmorBuff;
-        internal static BuffDef jellyfishHealStacksBuff;
+        internal static BuffDef JellyfishRegenerateStacksBuff;
         internal static BuffDef larvajumpBuff;
         internal static BuffDef lesserwispBuff;
         internal static BuffDef lunarexploderBuff;
@@ -48,9 +48,14 @@ namespace ShiggyMod.Modules
         internal static BuffDef falsesonStolenInheritanceBuff;
         internal static BuffDef chefOilBurstBuff;
         internal static BuffDef chefOilBurstStacksBuff;
+        internal static BuffDef solusPrimedBuff;
+        internal static BuffDef solusSuperPrimedBuff;
+        internal static BuffDef solusamalgamatorEquipmentBoostBuff;
+        internal static BuffDef alloyhunterCritBoostBuff;
 
         //monsterdebuffs
         internal static BuffDef grovetenderChainDebuff;
+        internal static BuffDef solusPrimedDebuff;
 
         //synergy buffs
         internal static BuffDef bigbangBuff;
@@ -99,6 +104,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef lightFormBuff;
         internal static BuffDef darknessFormBuff;
         internal static BuffDef lightAndDarknessFormBuff;
+        internal static BuffDef hyperRegenerationBuff;
 
         //ultimate debuffs
         internal static BuffDef theWorldDebuff;
@@ -154,7 +160,7 @@ namespace ShiggyMod.Modules
                 $"Radius and damage scales with armor and attack speed. ", ShiggyAsset.mortarBuffIcon, Color.magenta, false, false);
             voidbarnaclemortarattackspeedBuff = Buffs.AddNewBuff($"voidbarnaclemortarattackspeedBuff", ShiggyAsset.attackspeedBuffIcon, Color.blue, true, false);
             voidjailerBuff = Buffs.AddNewBuff($"Gravity Buff- <style=cIsDamage>Slowing.</style><style=cIsUtility> While moving</style>, Pull nearby enemies and deal <style=cIsDamage>{100 * StaticValues.voidjailerDamageCoefficient}% damage</style> ." +
-                $"The gap between attacks scales with movespeed. ", ShiggyAsset.gravityBuffIcon, Color.magenta, false, false);
+                $"The gap between attacks scales with movespeed. ", ShiggyAsset.noCooldownBuffIcon, Color.magenta, false, false);
             claydunestriderBuff = Buffs.AddNewBuff($"claydunestriderBuff", ShiggyAsset.claygooBuffIcon, Color.magenta, true, false);
             impbossBuff = Buffs.AddNewBuff($"Bleed Buff- <style=cIsDamage>Bleeding.</style> Attacks apply <style=cIsHealth>Bleed</style>.", ShiggyAsset.bleedBuffIcon, Color.red, false, false);
             stonetitanBuff = Buffs.AddNewBuff($"Stone Skin Buff- <style=cIsUtility>Gain {StaticValues.stonetitanarmorGain} armor and flat damage reduction equal to your armor</style>. " +
@@ -165,7 +171,7 @@ namespace ShiggyMod.Modules
             vagrantDebuff = Buffs.AddNewBuff($"vagrant Debuff", ShiggyAsset.orbdisableBuffIcon, Color.white, true, false);
             magmawormBuff = Buffs.AddNewBuff($"Blazing Aura Buff- <style=cIsDamage>Burning.</style> Burn nearby enemies for <style=cIsDamage>{100 * StaticValues.magmawormCoefficient}% damage over {StaticValues.magmawormDuration} seconds</style>.", ShiggyAsset.blazingBuffIcon, Color.magenta, false, false);
             overloadingwormBuff = Buffs.AddNewBuff($"Lighting Aura Buff- Summon lightning bolts on nearby enemies for <style=cIsDamage>{100 * StaticValues.overloadingCoefficient}% damage</style> every ({StaticValues.overloadingInterval}/Attackspeed) seconds. ", ShiggyAsset.lightningBuffIcon, Color.magenta, false, false);
-            jellyfishHealStacksBuff = Buffs.AddNewBuff($"Jellyfish Heal Stacks", ShiggyAsset.healBuffIcon, Color.grey, true, false);
+            JellyfishRegenerateStacksBuff = Buffs.AddNewBuff($"Jellyfish Heal Stacks", ShiggyAsset.healBuffIcon, Color.grey, true, false);
             commandoBuff = Buffs.AddNewBuff($"Double Tap Buff- All attacks hit twice, dealing <style=cIsDamage>{100 * StaticValues.commandoDamageMultiplier}% damage</style> of the attack, with a proc coefficient of {StaticValues.commandoProcCoefficient}.", ShiggyAsset.critBuffIcon, Color.magenta, false, false);
             acridBuff = Buffs.AddNewBuff($"Poison Buff- <style=cIsDamage>Poison.</style> Attacks apply <style=cIsHealth>Poison</style>.", ShiggyAsset.bleedBuffIcon, Color.green, false, false);
             captainBuff = Buffs.AddNewBuff($"Defensive Microbots Buff- Passively gain Microbots that shoot down nearby enemy projectiles. Drones are also given Microbots.", ShiggyAsset.shieldBuffIcon, Color.red, false, false);
@@ -198,13 +204,14 @@ namespace ShiggyMod.Modules
             gargoyleProtectionBuff = Buffs.AddNewBuff($"Gargoyle Protection Buff- Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. ", ShiggyAsset.resonanceBuffIcon, Color.blue, false, false);
             weatherReportBuff = Buffs.AddNewBuff($"Weather Report Buff- Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient * 100f}%</style>. ", ShiggyAsset.spikeBuffIcon, Color.white, false, false);
             decayAwakenedBuff = Buffs.AddNewBuff($"Weather Report Buff- Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient * 100f}%</style>. ", ShiggyAsset.decayBuffIcon, Color.white, false, false);
-            childBuff = Buffs.AddNewBuff($"Emergency Teleport Buff- Gain the ability to teleport randomly on taking lethal damage. This can be done every {StaticValues.childTeleportCD} seconds</style>. ", ShiggyAsset.decayBuffIcon, Color.white, false, false);
-            childCDDebuff = Buffs.AddNewBuff($"Emergency Teleport Debuff- Can't teleport while this is active</style>. ", ShiggyAsset.decayBuffIcon, Color.black, false, true);
-            halcyoniteGreedBuff = Buffs.AddNewBuff($"Greed Buff- Spend {StaticValues.halcyoniteGreedGoldRatio * 100f}% of your gold every 10 seconds. Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.halcyoniteGreedBuffDamageCoefficient} and {StaticValues.halcyoniteGreedBuffAttackspeedCoefficient} respectively</style> per stack of the buff. For every {StaticValues.halcyoniteGreedBuffGoldPerStack} gold, gain 1 stack.", ShiggyAsset.affixAurelioniteBuffIcon, Color.white, false, false);
-            halcyoniteGreedStacksBuff = Buffs.AddNewBuff($"Greed Buff stacks", ShiggyAsset.affixAurelioniteBuffIcon, new Color(255f, 215f, 0f), true, false);
+            childBuff = Buffs.AddNewBuff($"Emergency Teleport Buff- Gain the ability to <style=cIsUtility>teleport randomly on taking lethal damage</style>. This can be done every {StaticValues.childTeleportCD} seconds. ", ShiggyAsset.decayBuffIcon, Color.white, false, false);
+            solusamalgamatorEquipmentBoostBuff = Buffs.AddNewBuff($"Equipment Boost Buff- Every attack that has a proc coefficient reduces <style=cIsUtility>Equipment cooldown by {StaticValues.solusAmalgamatorEquipmentBoostCDReduction} seconds on hit</style>. ", ShiggyAsset.noCooldownBuffIcon, Color.white, false, false);
+            alloyhunterCritBoostBuff = Buffs.AddNewBuff($"Crit Boost Buff- All critical attacks deal <style=cIsDamage>{100 * StaticValues.alloyHunterCritBoostMultiplier}x more damage</style>.", ShiggyAsset.critBuffIcon, Color.yellow, false, false);
             falsesonStolenInheritanceBuff = Buffs.AddNewBuff($"Stolen Inheritance Buff- Gain bonus base damage equal to {StaticValues.falseSonHPCoefficient}% of maximum health.", ShiggyAsset.falseSonEnergizedCoreBuffIcon, new Color(235f, 150f, 50f), false, false);
             chefOilBurstBuff = Buffs.AddNewBuff($"Oil Burst Buff- Every {StaticValues.falseSonHPCoefficient} attacks, fire an oil glob that coats enemies.", ShiggyAsset.chefOilBuffIcon, Color.white, false, false);
-            chefOilBurstBuff = Buffs.AddNewBuff($"Oil Burst Buff stacks", ShiggyAsset.chefOilBuffIcon, Color.black, true, false);
+            chefOilBurstStacksBuff = Buffs.AddNewBuff($"Oil Burst Buff stacks", ShiggyAsset.chefOilBuffIcon, Color.black, true, false);
+            solusPrimedBuff = Buffs.AddNewBuff($"Solus Primed Buff- attacks apply Primed debuff", ShiggyAsset.soluswingWeakpointDestroyedDebuffIcon, Color.black, false, false);
+            hyperRegenerationBuff = Buffs.AddNewBuff($"Hyper Regeneration Buff- attacks apply Primed debuff", ShiggyAsset.healBuffIcon, Color.white, false, false);
 
             //shiggy buffs
             airwalkBuff = Buffs.AddNewBuff($"Air walk acceleration Buff", ShiggyAsset.jumpBuffIcon, Color.magenta, false, false);
@@ -223,6 +230,9 @@ namespace ShiggyMod.Modules
             lightFormBuff = Buffs.AddNewBuff($"Light Form Buff", ShiggyAsset.lunarRootIcon, Color.white, false, false);
             darknessFormBuff = Buffs.AddNewBuff($"Darkness Form Buff", ShiggyAsset.lunarRootIcon, Color.black, false, false);
             lightAndDarknessFormBuff = Buffs.AddNewBuff($"Light And Darkness Form Buff", ShiggyAsset.lunarRootIcon, Color.magenta, false, false);
+            solusSuperPrimedBuff = Buffs.AddNewBuff($"Solus Super Primed Buff- Attacks no longer consume Primed", ShiggyAsset.soluswingWeakpointDestroyedDebuffIcon, Color.magenta, false, false); 
+            halcyoniteGreedBuff = Buffs.AddNewBuff($"Greed Buff- Spend {StaticValues.halcyoniteGreedGoldRatio * 100f}% of your gold every 10 seconds. Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.halcyoniteGreedBuffDamageCoefficient} and {StaticValues.halcyoniteGreedBuffAttackspeedCoefficient} respectively</style> per stack of the buff. For every {StaticValues.halcyoniteGreedBuffGoldPerStack} gold, gain 1 stack.", ShiggyAsset.affixAurelioniteBuffIcon, Color.white, false, false);
+            halcyoniteGreedStacksBuff = Buffs.AddNewBuff($"Greed Buff stacks", ShiggyAsset.affixAurelioniteBuffIcon, new Color(255f, 215f, 0f), true, false);
 
             //wild card buffs
             wildcardSpeedBuff = Buffs.AddNewBuff($"Wildcard Speed Buff- Move {StaticValues.wildcardSpeedCoefficient}x faster. ", ShiggyAsset.speedBuffIcon, Color.white, false, false);
@@ -243,8 +253,8 @@ namespace ShiggyMod.Modules
             lightFormDebuff = Buffs.AddNewBuff($"Light Form Debuff", ShiggyAsset.crippleBuffIcon, Color.white, true, true);
             darknessFormDebuff = Buffs.AddNewBuff($"Darkness Form Debuff", ShiggyAsset.crippleBuffIcon, Color.black, true, true);
             lightAndDarknessFormDebuff = Buffs.AddNewBuff($"Light And Darkness Form Debuff", ShiggyAsset.crippleBuffIcon, Color.magenta, true, true);
-
-
+            childCDDebuff = Buffs.AddNewBuff($"Emergency Teleport Debuff- Can't teleport while this is active</style>. ", ShiggyAsset.decayBuffIcon, Color.black, false, true);
+            solusPrimedDebuff = Buffs.AddNewBuff($"Solus Primed Debuff stacks", ShiggyAsset.soluswingWeakpointDestroyedDebuffIcon, Color.cyan, true, true);
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>($"RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;
             //transformBuff = AddNewBuff($"TransformTimer", TransformBuff, Color.yellow, false, false);
 

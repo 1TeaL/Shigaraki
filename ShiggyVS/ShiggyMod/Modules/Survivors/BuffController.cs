@@ -1,25 +1,26 @@
 ﻿using EntityStates;
+using EntityStates.MiniMushroom;
+using EntityStates.VoidMegaCrab.BackWeapon;
+using ExtraSkillSlots;
+using HG;
+using On.EntityStates.Huntress;
 using R2API;
+using R2API.Networking;
+using R2API.Networking.Interfaces;
 using RoR2;
+using RoR2.Items;
 using RoR2.Orbs;
+using RoR2.Projectile;
+using ShiggyMod.Modules.Networking;
+using ShiggyMod.SkillStates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
-using EntityStates.MiniMushroom;
 using UnityEngine.Networking;
-using ExtraSkillSlots;
-using R2API.Networking;
-using ShiggyMod.Modules.Networking;
-using R2API.Networking.Interfaces;
 using static UnityEngine.ParticleSystem.PlaybackState;
-using HG;
-using RoR2.Projectile;
-using RoR2.Items;
-using System;
-using ShiggyMod.SkillStates;
-using On.EntityStates.Huntress;
 using Object = UnityEngine.Object;
-using EntityStates.VoidMegaCrab.BackWeapon;
 
 namespace ShiggyMod.Modules.Survivors
 {
@@ -50,6 +51,7 @@ namespace ShiggyMod.Modules.Survivors
         private float reversalTimer;
         private float machineFormTimer;
         private float weatherReportTimer;
+        private float hyperRegenerationTimer;
 
         private Ray downRay;
         public GameObject doubleTimeIndicatorInstance;
@@ -1188,6 +1190,27 @@ namespace ShiggyMod.Modules.Survivors
             }
 
         }
+
+
+        public void HyperRegeneration()
+        {
+            //hyper regen buff
+            if (characterBody.HasBuff(Modules.Buffs.hyperRegenerationBuff.buffIndex))
+            {
+                if (hyperRegenerationTimer < Config.HyperRegenerationInterval.Value)
+                {
+                    hyperRegenerationTimer += Time.fixedDeltaTime;
+                }
+                else if(hyperRegenerationTimer >= Config.HyperRegenerationInterval.Value)
+                {
+                    hyperRegenerationTimer = 0f;
+                    new HealNetworkRequest(characterBody.masterObjectId, Config.HyperRegenerationHealPercent.Value * characterBody.healthComponent.fullHealth).Send(NetworkDestination.Clients);
+
+                }
+            }
+        }
+
+
         public void FixedUpdate()
         {
             if(characterBody != null)
@@ -1215,6 +1238,7 @@ namespace ShiggyMod.Modules.Survivors
                     StandingStill();
                     VerminJump();
                     LarvaJump();
+                    HyperRegeneration();
 
                 }
             }

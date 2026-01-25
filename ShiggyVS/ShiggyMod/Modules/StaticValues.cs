@@ -142,7 +142,7 @@ namespace ShiggyMod.Modules
         internal const float decayDamageStack = 0.5f;
         internal const float decayDamagePercentage = 0.005f;
         internal const float decayDamageTimer = 10f;
-        internal const float decayInstaKillThreshold = 100f;
+        internal const int decayInstaKillThreshold = 100;
 
         internal const float decayattackDamageCoefficient = 2f;
         internal const float decayattackProcCoefficient = 1f;
@@ -153,6 +153,8 @@ namespace ShiggyMod.Modules
 
         internal const float bulletlaserDamageCoefficient = 2f;
         internal const float bulletlaserProcCoefficient = 0.3f;
+
+        internal const float alloyHunterCritBoostMultiplier = 2f;
 
         internal const float beetleguardSlamDamageCoefficient = 4f;
         internal const float beetleguardSlamBarrierCoefficient = 0.05f;
@@ -189,10 +191,13 @@ namespace ShiggyMod.Modules
         internal const float halcyoniteGreedBuffAttackspeedCoefficient = 0.1f;
         internal const int halcyoniteGreedInterval = 10;
 
+        internal const float hyperRegenHealthCoefficient = 0.1f;
+        internal const float hyperRegenInterval = 1f;
+
         internal const float impBlinkDuration = 0.3f;
 
-        internal const float JellyfishHealTickRate = 0.05f;
-        internal const float JellyfishHealProcCoefficient = 2f;
+        internal const float JellyfishRegenerateTickRate = 0.05f;
+        internal const float JellyfishRegenerateProcCoefficient = 2f;
 
         internal const float lemurianfireballDamageCoefficient = 2f;
         internal const float lemurianfireballProcCoefficient = 1f;
@@ -209,6 +214,24 @@ namespace ShiggyMod.Modules
 
         internal const float parentDamageCoefficient = 6f;
         internal const float parentProcCoefficient = 1f;
+
+        internal const float solusAmalgamatorEquipmentBoostCDReduction= 0.5f;
+
+        internal const float solusFactorUnleashedEnergyPerStack = 10f;
+        internal const float solusFactorUnleashedBlastRadius = 8f;
+
+        internal const float solusPrimedDamageMult = 0.1f;
+
+        internal const float solusExtractorLungeCooldownReduction = 1f;
+        internal const float solusExtractorLungeDamageCoefficient = 2f;
+        internal const float solusExtractorLungeDuration = 0.5f;
+        internal const float solusExtractorLungeSpeedCoefficient = 10f;
+
+        internal const float solusInvalidatorInvalidateEffectDuration = 3f;
+        internal const float solusInvalidatorInvalidateRange = 30f;
+
+        internal const float solusScorcherAccelerateDamageCoefficient = 1f;
+        internal const float solusScorcherAccelerateRange = 30f;
 
         internal const float stonegolemDamageCoefficient = 4f;
         internal const float stonegolemProcCoefficient = 2f;
@@ -705,7 +728,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.stonetitanpassiveDef.skillName, Survivors.Shiggy.stonetitanpassiveDef},
 
                 { Survivors.Shiggy.alphaconstructpassiveDef.skillName, Survivors.Shiggy.alphaconstructpassiveDef},
-                { Survivors.Shiggy.jellyfishHealDef.skillName, Survivors.Shiggy.jellyfishHealDef},
+                { Survivors.Shiggy.JellyfishRegenerateDef.skillName, Survivors.Shiggy.JellyfishRegenerateDef},
 
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, Survivors.Shiggy.elderlemurianfireblastDef},
                 { Survivors.Shiggy.lemurianfireballDef.skillName, Survivors.Shiggy.lemurianfireballDef},
@@ -877,7 +900,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.stonetitanpassiveDef.skillName, Survivors.Shiggy.stoneFormPassiveDef},
 
                 { Survivors.Shiggy.alphaconstructpassiveDef.skillName, Survivors.Shiggy.barrierJellyDef},
-                { Survivors.Shiggy.jellyfishHealDef.skillName, Survivors.Shiggy.barrierJellyDef},
+                { Survivors.Shiggy.JellyfishRegenerateDef.skillName, Survivors.Shiggy.barrierJellyDef},
 
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, Survivors.Shiggy.blastBurnDef},
                 { Survivors.Shiggy.lemurianfireballDef.skillName, Survivors.Shiggy.blastBurnDef},
@@ -972,8 +995,8 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.hermitcrabpassiveDef.skillName, Survivors.Shiggy.stonetitanpassiveDef},
                 { Survivors.Shiggy.stonetitanpassiveDef.skillName, Survivors.Shiggy.hermitcrabpassiveDef},
 
-                { Survivors.Shiggy.alphaconstructpassiveDef.skillName, Survivors.Shiggy.jellyfishHealDef},
-                { Survivors.Shiggy.jellyfishHealDef.skillName, Survivors.Shiggy.alphaconstructpassiveDef},
+                { Survivors.Shiggy.alphaconstructpassiveDef.skillName, Survivors.Shiggy.JellyfishRegenerateDef},
+                { Survivors.Shiggy.JellyfishRegenerateDef.skillName, Survivors.Shiggy.alphaconstructpassiveDef},
 
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, Survivors.Shiggy.lemurianfireballDef},
                 { Survivors.Shiggy.lemurianfireballDef.skillName, Survivors.Shiggy.elderlemurianfireblastDef},
@@ -1116,7 +1139,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, "<style=cIsUtility>Fire Blast Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.greaterWispBuffDef.skillName, "<style=cIsUtility>Spirit Boost Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.impblinkDef.skillName, "<style=cIsUtility>Blink Quirk</style> Get! (Active)" },
-                { Survivors.Shiggy.jellyfishHealDef.skillName, "<style=cIsUtility>Regenerate Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.JellyfishRegenerateDef.skillName, "<style=cIsUtility>Regenerate Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.lemurianfireballDef.skillName, "<style=cIsUtility>Fireball Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.lunargolemSlideDef.skillName, "<style=cIsUtility>Slide Reset Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.lunarwispminigunDef.skillName, "<style=cIsUtility>Lunar Minigun Quirk</style> Get! (Active)" },
@@ -1214,7 +1237,7 @@ namespace ShiggyMod.Modules
                 { "LemurianBruiserBody", Survivors.Shiggy.elderlemurianfireblastDef },
                 { "GreaterWispBody", Survivors.Shiggy.greaterWispBuffDef },
                 { "ImpBody", Survivors.Shiggy.impblinkDef },
-                { "JellyfishBody", Survivors.Shiggy.jellyfishHealDef },
+                { "JellyfishBody", Survivors.Shiggy.JellyfishRegenerateDef },
                 { "LemurianBody", Survivors.Shiggy.lemurianfireballDef },
                 { "LunarGolemBody", Survivors.Shiggy.lunargolemSlideDef },
                 { "LunarWispBody", Survivors.Shiggy.lunarwispminigunDef },
@@ -1295,7 +1318,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.greaterWispBuffDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.impblinkDef.skillName, skillType.ACTIVE },
-                { Survivors.Shiggy.jellyfishHealDef.skillName, skillType.ACTIVE },
+                { Survivors.Shiggy.JellyfishRegenerateDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.lemurianfireballDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.lunargolemSlideDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.lunarwispminigunDef.skillName, skillType.ACTIVE },

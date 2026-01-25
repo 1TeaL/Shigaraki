@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638924764935300587
-    m_Hash: 3937838711
+      ticks: 639046797000210886
+    m_Hash: 2459337155
   m_LockFileStatus:
     m_FilePath: F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638924764935660558
-    m_Hash: 1381511052
+      ticks: 639046797000576547
+    m_Hash: 3705304382
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -297,6 +297,10 @@ m_ResolvedPackages:
     - 2.9.1
     - 2.9.2
     - 2.9.3
+    - 2.10.0
+    - 2.10.1
+    - 2.10.2
+    - 2.11.2
     compatible:
     - 2.2.0
     - 2.3.1
@@ -311,6 +315,10 @@ m_ResolvedPackages:
     - 2.9.1
     - 2.9.2
     - 2.9.3
+    - 2.10.0
+    - 2.10.1
+    - 2.10.2
+    - 2.11.2
     verified: 2.2.0
   dependencies: []
   resolvedDependencies: []
@@ -349,6 +357,124 @@ m_ResolvedPackages:
     path: 
   unityLifecycle:
     version: 2.2.0
+    nextVersion: 
+- packageId: com.unity.formats.fbx@4.1.3
+  testable: 0
+  isDirectDependency: 1
+  version: 4.1.3
+  source: 1
+  resolvedPath: F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyUnity\Library\PackageCache\com.unity.formats.fbx@4.1.3
+  assetPath: Packages/com.unity.formats.fbx
+  name: com.unity.formats.fbx
+  displayName: FBX Exporter
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: asset
+  description: "The Unity FBX Exporter package makes it easy to send geometry and
+    animation to any application that supports the FBX format and send them back
+    to Unity with minimal effort.\n\nIn particular, this round-trip workflow enables
+    you to export Unity Scenes to FBX files, import them into Autodesk\xAE Maya\xAE,
+    Autodesk\xAE Maya LT\u2122, or Autodesk\xAE 3ds Max\xAE using an artist-friendly
+    interface, export Unity-ready FBX geometry and animation, and safely merge your
+    changes back into those Assets to continue your work in Unity."
+  status: 0
+  errors: []
+  versions:
+    all:
+    - 2.0.1-preview.2
+    - 2.0.1-preview.3
+    - 2.0.1-preview.4
+    - 2.0.1-preview.5
+    - 2.0.1-preview.11
+    - 2.0.2-preview.1
+    - 2.0.3-preview.3
+    - 3.0.0-preview.2
+    - 3.0.1-preview.2
+    - 3.1.0-preview.1
+    - 3.2.0-preview.2
+    - 3.2.1-preview.2
+    - 4.0.0-pre.1
+    - 4.0.0-pre.4
+    - 4.0.1
+    - 4.1.0-pre.2
+    - 4.1.0
+    - 4.1.1
+    - 4.1.2
+    - 4.1.3
+    - 4.2.0-pre.1
+    - 4.2.0
+    - 4.2.1
+    - 5.0.0-pre.1
+    - 5.0.0
+    - 5.1.0-pre.1
+    - 5.1.0
+    - 5.1.1
+    - 5.1.2
+    - 5.1.3
+    - 5.1.4
+    - 5.1.5
+    compatible:
+    - 4.1.3
+    - 4.2.0-pre.1
+    - 4.2.0
+    - 4.2.1
+    - 5.0.0-pre.1
+    - 5.0.0
+    - 5.1.0-pre.1
+    - 5.1.0
+    - 5.1.1
+    - 5.1.2
+    - 5.1.3
+    - 5.1.4
+    - 5.1.5
+    verified: 4.1.3
+  dependencies:
+  - name: com.autodesk.fbx
+    version: 4.1.2
+  - name: com.unity.timeline
+    version: 1.5.2
+  resolvedDependencies:
+  - name: com.autodesk.fbx
+    version: 4.1.2
+  - name: com.unity.timeline
+    version: 1.6.5
+  - name: com.unity.modules.audio
+    version: 1.0.0
+  - name: com.unity.modules.director
+    version: 1.0.0
+  - name: com.unity.modules.animation
+    version: 1.0.0
+  - name: com.unity.modules.particlesystem
+    version: 1.0.0
+  keywords:
+  - fbx
+  - animation
+  - modeling
+  - maya
+  - max
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 638088751850000000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.formats.fbx@4.1/manual/index.html
+  hasRepository: 1
+  repository:
+    type: git
+    url: https://github.com/Unity-Technologies/com.unity.formats.fbx.git
+    revision: 8858388b679f626b4b9cc2ec21ab367b95f16125
+    path: 
+  unityLifecycle:
+    version: 4.1.3
     nextVersion: 
 - packageId: com.unity.ide.rider@3.0.26
   testable: 0
@@ -418,6 +544,9 @@ m_ResolvedPackages:
     - 3.0.34
     - 3.0.35
     - 3.0.36
+    - 3.0.37
+    - 3.0.38
+    - 3.0.39
     compatible:
     - 3.0.26
     - 3.0.27
@@ -426,7 +555,10 @@ m_ResolvedPackages:
     - 3.0.34
     - 3.0.35
     - 3.0.36
-    verified: 3.0.36
+    - 3.0.37
+    - 3.0.38
+    - 3.0.39
+    verified: 3.0.39
   dependencies:
   - name: com.unity.ext.nunit
     version: 1.0.6
@@ -502,10 +634,14 @@ m_ResolvedPackages:
     - 2.0.21
     - 2.0.22
     - 2.0.23
+    - 2.0.25
+    - 2.0.26
     compatible:
     - 2.0.22
     - 2.0.23
-    verified: 2.0.23
+    - 2.0.25
+    - 2.0.26
+    verified: 2.0.26
   dependencies:
   - name: com.unity.test-framework
     version: 1.1.9
@@ -872,6 +1008,8 @@ m_ResolvedPackages:
     - 3.2.0-pre.11
     - 3.2.0-pre.12
     - 3.2.0-pre.13
+    - 3.2.0-pre.14
+    - 3.2.0-pre.15
     - 4.0.0-pre.1
     - 4.0.0-pre.2
     compatible:
@@ -892,6 +1030,8 @@ m_ResolvedPackages:
     - 3.2.0-pre.11
     - 3.2.0-pre.12
     - 3.2.0-pre.13
+    - 3.2.0-pre.14
+    - 3.2.0-pre.15
     verified: 3.0.9
   dependencies:
   - name: com.unity.ugui
@@ -1040,6 +1180,7 @@ m_ResolvedPackages:
     - 1.8.7
     - 1.8.8
     - 1.8.9
+    - 1.8.10
     compatible:
     - 1.6.5
     - 1.7.0-pre.1
@@ -3011,4 +3152,58 @@ m_ResolvedPackages:
     path: 
   unityLifecycle:
     version: 1.0.6
+    nextVersion: 
+- packageId: com.autodesk.fbx@4.1.2
+  testable: 0
+  isDirectDependency: 0
+  version: 4.1.2
+  source: 1
+  resolvedPath: F:\Theodore 3\GameDev\Mods\ShiggyRor2\ShiggyUnity\Library\PackageCache\com.autodesk.fbx@4.1.2
+  assetPath: Packages/com.autodesk.fbx
+  name: com.autodesk.fbx
+  displayName: Autodesk FBX SDK for Unity
+  author:
+    name: Unity
+    email: 
+    url: 
+  category: 
+  type: 
+  description: "This package provides Unity C# bindings to the Autodesk\xAE FBX\xAE
+    SDK."
+  status: 0
+  errors: []
+  versions:
+    all:
+    - 4.1.2
+    compatible:
+    - 4.1.2
+    verified: 4.1.2
+  dependencies: []
+  resolvedDependencies: []
+  keywords:
+  - fbx
+  - animation
+  - modeling
+  - maya
+  - max
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 0
+  documentationUrl: https://docs.unity3d.com/Packages/com.autodesk.fbx@4.1/manual/index.html
+  hasRepository: 1
+  repository:
+    type: git
+    url: https://github.com/Unity-Technologies/com.autodesk.fbx.git
+    revision: 6317dcfb6dfe9e3f78223d75a826117cf6e83d6d
+    path: 
+  unityLifecycle:
+    version: 4.1.2
     nextVersion: 

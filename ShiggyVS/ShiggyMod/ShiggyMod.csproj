@@ -20,7 +20,7 @@
     <None Remove="Shiggy.bnk" />
     <None Remove="ShiggyAssetBundle" />
     <None Remove="Modules\Survivors\DekuHenryDeku.cs~RF6221a098.TMP" />
-    <None Remove="SkillStates\Skills\MonsterPassiveSkills\LunarExploder.cs~RF19a1c105.TMP" />
+    <None Remove="SkillStates\Skills\Passives\MonsterPassiveSkills\LunarExploder.cs~RF19a1c105.TMP" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,6 +65,10 @@
     <Reference Include="ScrollableLobbyUI">
       <HintPath>bin\Debug\netstandard2.0\ScrollableLobbyUI.dll</HintPath>
     </Reference>
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="SkillStates\Skills\Passives\GodlyPassiveSkills\" />
   </ItemGroup>
 
 </Project>

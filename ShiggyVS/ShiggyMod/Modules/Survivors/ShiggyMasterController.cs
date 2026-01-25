@@ -262,7 +262,18 @@ namespace ShiggyMod.Modules.Survivors
 		}
 
 
+		public void Update()
+		{
 
+            if (Input.GetKeyDown(Config.OpenQuirkMenuHotkey.Value.MainKey) && self.hasEffectiveAuthority)
+            {
+                if (!ShiggyMod.Modules.Quirks.QuirkUI.IsOpen)
+                {
+                    ShiggyMod.Modules.Quirks.QuirkUI.Show(self, extraskillLocator);
+                    //(msg, dur) => energySystem.quirkGetInformation(msg, dur));
+                }
+            }
+        }
 
 		public void FixedUpdate()
 		{
@@ -289,14 +300,6 @@ namespace ShiggyMod.Modules.Survivors
 
 			//}
 
-			if (Input.GetKeyDown(Config.OpenQuirkMenuHotkey.Value.MainKey) && self && self.hasEffectiveAuthority)
-			{
-				if (!ShiggyMod.Modules.Quirks.QuirkUI.IsOpen)
-				{
-					ShiggyMod.Modules.Quirks.QuirkUI.Show(self, extraskillLocator);
-					//(msg, dur) => energySystem.quirkGetInformation(msg, dur));
-				}
-			}
 
 			if (!characterMaster.gameObject)
 			{
@@ -305,6 +308,40 @@ namespace ShiggyMod.Modules.Survivors
 
 
 
+        }
+        public void GrantStockIfSkillPresent(CharacterBody body, SkillDef targetSkillDef, int stockToAdd = 1)
+        {
+            if (!NetworkServer.active || !body || !targetSkillDef)
+                return;
+
+            void TryAdd(GenericSkill skill)
+            {
+                if (!skill || skill.skillDef != targetSkillDef)
+                    return;
+
+                int newStock = Mathf.Min(skill.stock + stockToAdd, skill.maxStock);
+                skill.stock = newStock;
+            }
+
+            // Vanilla skill slots
+            var locator = body.skillLocator;
+            if (locator)
+            {
+                TryAdd(locator.primary);
+                TryAdd(locator.secondary);
+                TryAdd(locator.utility);
+                TryAdd(locator.special);
+            }
+
+            // Extra skill slots
+            var extra = body.GetComponent<ExtraSkillSlots.ExtraSkillLocator>();
+            if (extra)
+            {
+                TryAdd(extra.extraFirst);
+                TryAdd(extra.extraSecond);
+                TryAdd(extra.extraThird);
+                TryAdd(extra.extraFourth);
+            }
         }
 
         public void CheckQuirksForBuffs(CharacterBody body)

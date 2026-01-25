@@ -1,14 +1,15 @@
-﻿using System.Reflection;
-using R2API;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using R2API;
 using RoR2;
-using System.IO;
-using System.Collections.Generic;
 using RoR2.UI;
-using UnityEngine.AddressableAssets;
-using System.Runtime.CompilerServices;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.Modules
 {
@@ -72,7 +73,7 @@ namespace ShiggyMod.Modules
         public static Sprite mortarBuffIcon;
         public static Sprite healBuffIcon;
         public static Sprite attackspeedBuffIcon;
-        public static Sprite gravityBuffIcon;
+        public static Sprite noCooldownBuffIcon;
         public static Sprite bleedBuffIcon;
         public static Sprite skinBuffIcon;
         public static Sprite orbreadyBuffIcon;
@@ -89,6 +90,7 @@ namespace ShiggyMod.Modules
         public static Sprite affixAurelioniteBuffIcon;
         public static Sprite falseSonEnergizedCoreBuffIcon;
         public static Sprite chefOilBuffIcon;
+        public static Sprite soluswingWeakpointDestroyedDebuffIcon;
 
         //game material
         //public static Material alphaconstructShieldBuffMat = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
@@ -196,7 +198,18 @@ namespace ShiggyMod.Modules
         public static GameObject operatorPistolTracerPrefab;
         public static GameObject operatorPistolHitEffectPrefab;
         public static GameObject operatorPistolMuzzlePrefab;
-
+        public static GameObject solusExtractorImpactPrefab;
+        public static GameObject solusExtractorMuzzlePrefab;
+        public static GameObject solusInvalidatorBlastEffectPrefab;
+        public static GameObject solusScorcherBlastEffectPrefab;
+        public static GameObject solusTransporterBlastEffectPrefab;
+        public static GameObject solusFactorMuzzleEffectPrefab1;
+        public static GameObject solusFactorMuzzleEffectPrefab2;
+        public static GameObject solusFactorMuzzleEffectPrefab3;
+        public static GameObject solusFactorMuzzleEffectPrefab4;
+        public static GameObject solusFactorMuzzleEffectPrefab5;
+        public static GameObject solusFactorMuzzleEffectPrefab6;
+        public static GameObject solusFactorBlastEffectPrefab;
 
 
         //game projectiles
@@ -304,7 +317,7 @@ namespace ShiggyMod.Modules
             mortarBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_GainArmor.bdElephantArmorBoost_asset).WaitForCompletion().iconSprite;
             healBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Croco.bdCrocoRegen_asset).WaitForCompletion().iconSprite;
             attackspeedBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_EnergizedOnEquipmentUse.bdEnergized_asset).WaitForCompletion().iconSprite;
-            gravityBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_KillEliteFrenzy.bdNoCooldowns_asset).WaitForCompletion().iconSprite;
+            noCooldownBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_KillEliteFrenzy.bdNoCooldowns_asset).WaitForCompletion().iconSprite;
             bleedBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Common.bdBleeding_asset).WaitForCompletion().iconSprite;
             skinBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_OutOfCombatArmor.bdOutOfCombatArmorBuff_asset).WaitForCompletion().iconSprite;
             orbreadyBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ElementalRings.bdElementalRingsReady_asset).WaitForCompletion().iconSprite;
@@ -321,6 +334,9 @@ namespace ShiggyMod.Modules
             affixAurelioniteBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Elites_EliteAurelionite.bdEliteAurelionite_asset).WaitForCompletion().iconSprite;
             falseSonEnergizedCoreBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_FalseSon.bdEnergizedCore_asset).WaitForCompletion().iconSprite;
             chefOilBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Chef.bdOiled_asset).WaitForCompletion().iconSprite;
+            soluswingWeakpointDestroyedDebuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Buffs.bdSolusWingWeakpointDestroyed_asset).WaitForCompletion().iconSprite;
+
+
 
             //game effects
             voidMegaCrabExplosionEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidMegaCrab.VoidMegacrabAntimatterExplosion_prefab).WaitForCompletion();        
@@ -397,10 +413,23 @@ namespace ShiggyMod.Modules
             strongerBurnEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_StrengthenBurn.StrongerBurnEffect_prefab).WaitForCompletion();
             muzzleflashScavSackPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Scav.MuzzleflashScavSack_prefab).WaitForCompletion();
             tracerHuntressSnipePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Huntress.TracerHuntressSnipe_prefab).WaitForCompletion();
-            chefGlazeEffectMuzzlePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Chef.ChefGlazeImpactEffect_prefab).WaitForCompletion();
+            chefGlazeEffectMuzzlePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC2_Chef.bdOiled_asset).WaitForCompletion();
             operatorPistolTracerPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Drone_Tech.TracerNanoPistolCharged_prefab).WaitForCompletion();
             operatorPistolMuzzlePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Drone_Tech.NanoPistolMuzzleFlashVFX_prefab).WaitForCompletion();
             operatorPistolHitEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Drone_Tech.NanoPistolRicochetImpactEffect_prefab).WaitForCompletion();
+            solusExtractorMuzzlePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_ExtractorUnit.ExtractorUnitHitEffectVFX_prefab).WaitForCompletion();
+            solusExtractorMuzzlePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_ExtractorUnit.ExtractorUnitMeleeActiveVFX_prefab).WaitForCompletion();
+            solusInvalidatorBlastEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_DefectiveUnit.ArtilleryLandedExplosionVFX_prefab).WaitForCompletion();
+            solusScorcherBlastEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Tanker.GreasePuddleExplosion_VFX_prefab).WaitForCompletion();
+            solusTransporterBlastEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_IronHauler.IronHaulerMuzzleFlashVFX_prefab).WaitForCompletion();
+            solusFactorMuzzleEffectPrefab1 = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_SolusMine.SolusMinePreAttackVFX_prefab).WaitForCompletion();
+            solusFactorMuzzleEffectPrefab2 = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_ExtractorUnit.ExtractorUnitHitEffectVFX_prefab).WaitForCompletion();
+            solusFactorMuzzleEffectPrefab3 = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_DefectiveUnit.DenialChargeVFX_prefab).WaitForCompletion();
+            solusFactorMuzzleEffectPrefab4 = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Tanker.TankerAccelerantMuzzleFlashVFX_prefab).WaitForCompletion();
+            solusFactorMuzzleEffectPrefab5 = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_IronHauler.IronHaulerMuzzleFlashVFX_prefab).WaitForCompletion();
+            solusFactorMuzzleEffectPrefab6 = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_WorkerUnit.WorkerUnitHitImpact_prefab).WaitForCompletion();
+            solusFactorBlastEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_IronHauler.IronHaulerCopiedAoEVFX_prefab).WaitForCompletion();
+
 
             //game projectiles
             captainAirStrikeProj = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Captain.CaptainAirstrikeProjectile1_prefab).WaitForCompletion();

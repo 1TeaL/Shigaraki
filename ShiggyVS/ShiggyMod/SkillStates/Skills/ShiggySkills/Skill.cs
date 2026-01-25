@@ -15,6 +15,7 @@ namespace ShiggyMod.SkillStates
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
         public float baseDuration = StaticValues.universalDuration;
         public float duration;
+        public ShiggyMasterController Shiggymastercon;
         public ShiggyController Shiggycon;
         public EnergySystem energySystem;
         public ExtraInputBankTest extrainputBankTest;
@@ -43,6 +44,8 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             //base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+
+            Shiggymastercon = gameObject.GetComponent<ShiggyMasterController>();            
             Shiggycon = gameObject.GetComponent<ShiggyController>();
             energySystem = gameObject.GetComponent<EnergySystem>();
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();

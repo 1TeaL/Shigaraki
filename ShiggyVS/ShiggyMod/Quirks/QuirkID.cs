@@ -52,12 +52,15 @@ namespace ShiggyMod.Modules.Quirks
         LunarExploder_LunarBarrierPassive,
         MiniMushrum_HealingAuraPassive,
         RoboBallMini_SolusBoostPassive,
+        SolusProspector_PrimingPassive,
         VoidBarnacle_VoidMortarPassive,
         VoidJailer_GravityPassive,
         ImpBoss_BleedPassive,
+        AlloyHunter_CritBoostPassive,
         StoneTitan_StoneSkinPassive,
         MagmaWorm_BlazingAuraPassive,
         OverloadingWorm_LightningAuraPassive,
+        SolusAmalgamator_EquipmentBoostPassive,
         Vagrant_OrbPassive,
         Acrid_PoisonPassive,
         Captain_MicrobotsPassive,
@@ -90,6 +93,7 @@ namespace ShiggyMod.Modules.Quirks
         BlackholeGlaive_MechStance_MachineFormPassive,
         BarrierJelly_BlindSenses_ReversalPassive,
         BigBang_Wisper_SupernovaPassive,
+        MiniMushrum_Jellyfish_FalseSon_Seeker_HyperRegenerationPassive,
 
         // ============================
         // Level 1 actives
@@ -97,17 +101,22 @@ namespace ShiggyMod.Modules.Quirks
         Vulture_WindBlastActive,
         BeetleGuard_SlamActive,
         Bison_ChargeActive,
-        Bell_SpikedBallActive,
-        ClayApothecary_MortarActive,
-        ClayTemplar_MinigunActive,
+        Bell_SpikedBallControlActive,
+        ClayApothecary_ClayAirStrikeActive,
+        ClayTemplar_ClayMinigunActive,
         ElderLemurian_FireBlastActive,
         GreaterWisp_SpiritBoostActive,
         Imp_BlinkActive,
-        Jellyfish_HealActive,
+        Jellyfish_RegenerateActive,
         Lemurian_FireballActive,
         LunarGolem_SlideResetActive,
         LunarWisp_MinigunActive,
         Parent_TeleportActive,
+        SolusDistributor_SolusPlantMineActive,
+        SolusExtractor_SolusExtractActive,
+        SolusInvalidator_SolusInvalidateActive,
+        SolusScorcher_SolusAccelerateActive,
+        SolusTransporter_SolusTransportActive,
         StoneGolem_LaserActive,
         VoidReaver_PortalActive,
         Halcyonite_GreedActive,
@@ -171,6 +180,11 @@ namespace ShiggyMod.Modules.Quirks
         BarbedSpikes_Expunge_DeathAuraActive,
         MachPunch_Thunderclap_ExtremeSpeedActive,
         DoubleTime_Omniboost_TheWorldActive,
+
+        // ============================
+        // Level 6 actives
+        // ============================
+        Solusx6_SolusFactorUnleashedActive,
     }
 
 

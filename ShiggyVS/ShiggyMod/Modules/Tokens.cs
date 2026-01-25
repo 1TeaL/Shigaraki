@@ -87,7 +87,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "PEST_DESCRIPTION", $"<style=cIsUtility>Gain 4 extra jumps and jump power</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Blind Vermin- Super Speed] to create [Blind Senses]</style>");
             LanguageAPI.Add(prefix + "CHILD_NAME", "Emergency Teleport");
-            LanguageAPI.Add(prefix + "CHILD_DESCRIPTION", $"Gain the ability to teleport randomly on taking lethal damage. This can be done every {StaticValues.childTeleportCD} seconds. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "CHILD_DESCRIPTION", $"Gain the ability to <style=cIsUtility>teleport randomly on taking lethal damage</style>. This can be done every {StaticValues.childTeleportCD} seconds. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>No pairing yet</style>");
             LanguageAPI.Add(prefix + "VERMIN_NAME", "Super Speed");
             LanguageAPI.Add(prefix + "VERMIN_DESCRIPTION", $"<style=cIsUtility>Gain {StaticValues.verminmovespeedMultiplier}x movespeed and change sprint speed to {StaticValues.verminsprintMultiplier}x</style>. " + Environment.NewLine + Environment.NewLine +
@@ -116,6 +116,9 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "ROBOBALLMINI_NAME", "Solus Boost");
             LanguageAPI.Add(prefix + "ROBOBALLMINI_DESCRIPTION", $"<style=cIsUtility>While holding any skill button, gain {100f * StaticValues.roboballattackspeedMultiplier}% attack speed </style>every second. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Commando- Double Tap] to create [Double Time]</style>");
+            LanguageAPI.Add(prefix + "SOLUSPROSPECTOR_NAME", "Solus Priming");
+            LanguageAPI.Add(prefix + "SOLUSPROSPECTOR_DESCRIPTION", $"Every attack that has a proc coefficient applies Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Pairs with [Solus Scorcher- Solus Accelerate], [Solus Distributor- Solus Plant Mine], [Solus Extractor- Solus Extract], [Solus Invalidator- Solus Invalidate], [Solus Transporter- Solus Transport] to create [Solus Factor Unleashed]</style>");
             //LanguageAPI.Add(prefix + "ROBOBALLMINI_NAME", "Glide");
             //LanguageAPI.Add(prefix + "ROBOBALLMINI_DESCRIPTION", $"<style=cIsUtility> While holding the jump button, glide across the sky without losing height</style>. " + Environment.NewLine + Environment.NewLine +
             //    );
@@ -129,10 +132,16 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VOIDJAILER_DESCRIPTION", $"<style=cIsUtility>While moving</style>, Pull nearby enemies and deal <style=cIsDamage>{100 * StaticValues.voidjailerDamageCoefficient}% damage</style> ." +
                 $"The gap between attacks scales with movespeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Solus Control Unit- Anti Gravity] to create [Gravitational Downforce]</style>");
+            LanguageAPI.Add(prefix + "ALLOYHUNTER_NAME", "Crit Boost");
+            LanguageAPI.Add(prefix + "ALLOYHUNTER_DESCRIPTION", $"All critical attacks deal <style=cIsDamage>{100 * StaticValues.alloyHunterCritBoostMultiplier}x more damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>No pairing yet");
             LanguageAPI.Add(prefix + "IMPBOSS_NAME", "Bleed");
             LanguageAPI.Add(prefix + "IMPBOSS_DESCRIPTION", $"Attacks apply <style=cIsHealth>Bleed</style>. " +
                 $"" + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Magma Worm- Blazing Aura] to create [Expunge]</style>");
+            LanguageAPI.Add(prefix + "SOLUSAMALGAMATOR_NAME", "Equipment Boost");
+            LanguageAPI.Add(prefix + "SOLUSAMALGAMATOR_DESCRIPTION", $"Every attack that has a proc coefficient reduces <style=cIsUtility>Equipment cooldown by {StaticValues.solusAmalgamatorEquipmentBoostCDReduction} seconds on hit</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>No pairing yet");
             LanguageAPI.Add(prefix + "STONETITAN_NAME", "Stone Skin");
             LanguageAPI.Add(prefix + "STONETITAN_DESCRIPTION", $"<style=cIsUtility>Gain {StaticValues.stonetitanarmorGain} armor and flat damage reduction equal to your armor</style>. " +
                 $"When you're below 50% health. damage can be reduced <style=cIsHealing>below zero and heal you</style>. " + Environment.NewLine + Environment.NewLine +
@@ -168,16 +177,94 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>No pairing yet");
             #endregion
 
+
+            #region Synergised Passive
+            LanguageAPI.Add(prefix + "BIGBANG_NAME", "Big Bang");
+            LanguageAPI.Add(prefix + "BIGBANG_DESCRIPTION", $"Each hit on an enemy builds up an explosive charge. On the {StaticValues.bigbangBuffThreshold}th hit, an explosion occurs, dealing <style=cIsDamage>{100f * StaticValues.bigbangBuffCoefficient}% of the hit's damage</style>. " +
+                Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Wandering Vagrant/Clay Templar]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Wisper (Greater Wisp/Grovetender)] to create [Supernova]</style>");
+            LanguageAPI.Add(prefix + "WISPER_NAME", "Wisper");
+            LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Greater Wisp/Grovetender]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Big Bang (Wandering Vagrant/Clay Templar)] to create [Supernova]</style>");
+            LanguageAPI.Add(prefix + "OMNIBOOST_NAME", "Omniboost");
+            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient + 1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>. Lose half your stacks on kill or when you switch targets. " +
+                Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Beetle/Lesser Wisp]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Double Time (Commando/Solus Probe)] to create [The World]</style>");
+            LanguageAPI.Add(prefix + "GACHA_NAME", "Gacha");
+            LanguageAPI.Add(prefix + "GACHA_DESCRIPTION", $"Get a random item every <style=cIsUtility>{StaticValues.gachaBuffThreshold} seconds</style>. " +
+                Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Scavenger/Beetle Queen]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Refresh (Lunar Golem/Lunar Exploder)] to create [Wild Card]</style>");
+            LanguageAPI.Add(prefix + "STONEFORM_NAME", "Stone Form");
+            LanguageAPI.Add(prefix + "STONEFORM_DESCRIPTION", $"While still for {StaticValues.stoneFormWaitDuration} seconds, enter stone form. Gain <style=cIsUtility>{StaticValues.stoneFormBlockChance}% block chance and take no knockback</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Hermit Crab/Stone Titan]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Ingrain (Clay Dunestrider/Mini Mushrum)] to create [Gargoyle Protection]</style>");
+            LanguageAPI.Add(prefix + "AURAOFBLIGHT_NAME", "Aura Of Blight");
+            LanguageAPI.Add(prefix + "AURAOFBLIGHT_DESCRIPTION", $"Apply blight to enemies around you every second, dealing <style=cIsDamage>{StaticValues.auraOfBlightBuffDotDamage * 100f}% over {StaticValues.auraOfBlightBuffDotDuration} seconds</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Acrid/Larva]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Decay Plus Ultra (Decay/Rex)] to create [Decay Awakened]</style>");
+            LanguageAPI.Add(prefix + "BARBEDSPIKES_NAME", "Barbed Spikes");
+            LanguageAPI.Add(prefix + "BARBEDSPIKES_DESCRIPTION", $"Deal <style=cIsDamage>{StaticValues.barbedSpikesDamageCoefficient * 100f}% damage</style> to nearby enemies every {StaticValues.barbedSpikesBuffThreshold} seconds. " +
+                $"Damage increases the area of effect. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Brass Contraption/Gup-Geep-Gip]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Expunge (Imp Overlord/Magma Worm)] to create [Death Aura]</style>");
+            LanguageAPI.Add(prefix + "INGRAIN_NAME", "Ingrain");
+            LanguageAPI.Add(prefix + "INGRAIN_DESCRIPTION", $"Gain health regen equivalent to <style=cIsHealing>{StaticValues.ingrainBuffHealthRegen * 100f}% of your max health</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Clay Dunestrider/Mini Mushrum]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Stone Form (Hermit Crab/Stone Titan)] to create [Gargoyle Protection]</style>");
+            LanguageAPI.Add(prefix + "ELEMENTALFUSION_NAME", "Elemental Fusion");
+            LanguageAPI.Add(prefix + "ELEMENTALFUSION_DESCRIPTION", $"Gain elemental power, allowing you to burn, freeze or shock enemies. Every {StaticValues.elementalFusionThreshold} hits cycle between <style=cIsDamage>burning, freezing or shocking</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Artificer/Grandparent]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Gravitational Downforce (Void Jailer/Solus Control Unit)] to create [Weather Report]</style>");
+            LanguageAPI.Add(prefix + "DOUBLETIME_NAME", "Double Time");
+            LanguageAPI.Add(prefix + "DOUBLETIME_DESCRIPTION", $"Perceive time at a heightened speed. Nearby enemies' <style=cIsUtility>movespeed and attackspeed are slowed down by {StaticValues.doubleTimeSlowCoefficient * 100f}%</style>. Killing enemies grant <style=cIsDamage>{StaticValues.doubleTimeCoefficient * 100f}% damage, attackspeed and movespeed</style> additively. " +
+                $"Stacks are halved every {StaticValues.doubleTimeThreshold} seconds. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Commando/Solus Probe]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Omniboost (Beetle/Lesser Wisp)] to create [The World]</style>");
+            LanguageAPI.Add(prefix + "BLINDSENSES_NAME", "Blind Senses");
+            LanguageAPI.Add(prefix + "BLINDSENSES_DESCRIPTION", $"Gain the heightened senses of blindness. Gain <style=cIsUtility>{StaticValues.blindSensesBlockChance}% dodge chance</style>. <style=cIsUtility>Blocking an attack causes you to counterattack</style>, stunning and dealing <style=cIsDamage>{StaticValues.blindSensesDamageCoefficient * 100f}% of the damage</style> you would have taken to the attacker. Getting Tougher Times increases the chances of this as well. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Blind Pest/Blind Vermin]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with [Barrier Jelly (Jellyfish/Alpha Construct)] to create [Reversal]</style>");
+            #endregion
+
+
+            #region Ultimate Passives
+            LanguageAPI.Add(prefix + "SUPERNOVA_NAME", "Supernova");
+            LanguageAPI.Add(prefix + "SUPERNOVA_DESCRIPTION", $"Absorb the damage you take, charging a supernova within you. When total damage is greater than <style=cIsUtility>{StaticValues.supernovaHealthThreshold * 100f}% of your MAX health</style>, unleash a colossal explosion, dealing <style=cIsDamage>{StaticValues.supernovaDamageCoefficient * 100f}% damage</style> in a large area around you. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Big Bang] [Wisper]</style>");
+            LanguageAPI.Add(prefix + "REVERSAL_NAME", "Reversal");
+            LanguageAPI.Add(prefix + "REVERSAL_DESCRIPTION", $"Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you dash away from the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient * 100f}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Barrier Jelly] [Blind Senses]</style>");
+            LanguageAPI.Add(prefix + "MACHINEFORM_NAME", "Machine Form");
+            LanguageAPI.Add(prefix + "MACHINEFORM_DESCRIPTION", $"Generate machinery around yourself, passively shooting missiles and bullets to nearby enemies, dealing <style=cIsDamage>{StaticValues.machineFormDamageCoefficient * 100f}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Blackhole Glaive] [Mech Stance]</style>");
+            LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_NAME", "Gargoyle Protection");
+            LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_DESCRIPTION", $"Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Ingrain] [Stone Form]</style>");
+            LanguageAPI.Add(prefix + "WEATHERREPORT_NAME", "Weather Report");
+            LanguageAPI.Add(prefix + "WEATHERREPORT_DESCRIPTION", $"Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient * 100f}%</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Gravitational Downforce] [Elemental Fusion]</style>");
+            LanguageAPI.Add(prefix + "DECAYAWAKENED_NAME", "Decay Awakened");
+            LanguageAPI.Add(prefix + "DECAYAWAKENED_DESCRIPTION", $"Awaken Decay's original power. All attacks now <style=cIsDamage>apply Decay</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Decay Plus Ultra] [Aura Of Blight]</style>");
+            LanguageAPI.Add(prefix + "HYPERREGENERATION_NAME", "Hyper Regeneration");
+            LanguageAPI.Add(prefix + "HYPERREGENERATION_DESCRIPTION", $"Regenerate <style=cIsHealing>{Config.HyperRegenerationHealPercent}% of your max HP</style> every {Config.HyperRegenerationInterval} seconds. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>[Mini Mushrum] [Jellyfish] [False Son] [Seeker]</style>");
+            #endregion
+
             #region Actives 
             LanguageAPI.Add(prefix + "VULTURE_NAME", "Wind Blast");
             LanguageAPI.Add(prefix + "VULTURE_DESCRIPTION", $"Create a gust of wind, pushing and stunning enemies in front of you for <style=cIsDamage>{100f*StaticValues.vultureDamageCoefficient}% damage</style>. "
                 + Environment.NewLine + Environment.NewLine + 
                 $"<style=cSub>Pairs with [Engineer- Turret] to create [Wind Shield]</style>");
-            LanguageAPI.Add(prefix + "BEETLEGUARD_NAME", "Fast Drop");
+            LanguageAPI.Add(prefix + "BEETLEGUARD_NAME", "Slam");
             LanguageAPI.Add(prefix + "BEETLEGUARD_DESCRIPTION", $"<style=cIsDamage>Stunning.</style> Drop and slam down, stunning and dealing <style=cIsDamage>{100f * StaticValues.beetleguardSlamDamageCoefficient}% damage</style> and gaining <style=cIsHealing>{Modules.StaticValues.beetleguardSlamBarrierCoefficient * 100f}% of your max health as Barrier</style> on hit. " +
                 $"Damage and radius and barrier gain scales with drop time and movespeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [MUL-T- Power Stance] to create [Mech Stance]</style>");
-            LanguageAPI.Add(prefix + "BISON_NAME", "Charging");
+            LanguageAPI.Add(prefix + "BISON_NAME", "Charge");
             LanguageAPI.Add(prefix + "BISON_DESCRIPTION", $"<style=cIsDamage>Stunning.</style> Charge forward at super speed, and if you slam into a solid object, generates a shockwave that stuns enemies for <style=cIsDamage>{100f * StaticValues.bisonchargeDamageCoefficient}% damage</style> in a radius. Hold the button to keep charging. " +
                 $"Damage and radius scales with charge duration and movespeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Overloading Worm] to create [Thunderclap]</style>");
@@ -201,7 +288,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "IMP_DESCRIPTION", $"Blink a short distance away, scaling with movespeed. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Bandit- Lights out] to create [Shadow Claw]</style>");
             LanguageAPI.Add(prefix + "JELLYFISH_NAME", "Regenerate");
-            LanguageAPI.Add(prefix + "JELLYFISH_DESCRIPTION", $"Store half the damage you take, decaying by <style=cIsUtility>{100f * StaticValues.JellyfishHealTickRate}% of your max HP every second</style>. " +
+            LanguageAPI.Add(prefix + "JELLYFISH_DESCRIPTION", $"Store half the damage you take, decaying by <style=cIsUtility>{100f * StaticValues.JellyfishRegenerateTickRate}% of your max HP every second</style>. " +
                 $"Activate this skill to <style=cIsHealing>Heal based on the number of stacks</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Alpha Construct- Barrier] to create [Barrier Jelly]</style>");
             LanguageAPI.Add(prefix + "LEMURIAN_NAME", "Fireball");
@@ -217,6 +304,25 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "PARENT_DESCRIPTION", $"<style=cIsDamage>Stunning.</style> Teleport to the target you're looking at and generate a shockwave on arrival that stuns enemies for <style=cIsDamage>{100f * StaticValues.parentDamageCoefficient}% damage</style> in a radius. " +
                 $"Damage and radius scales with charge duration. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Loader- Scrap Barrier] to create [Mach Punch]</style>");
+            LanguageAPI.Add(prefix + "SOLUSSCORCHER_NAME", "Solus Accelerate");
+            LanguageAPI.Add(prefix + "SOLUSSCORCHER_DESCRIPTION", $"<style=cIsDamage>Burning. </style>Apply Accelerant and Primed on the area around the target or in front of you, <style=cIsDamage>causing an explosion upon being hit by a fire-related attack</style>. Primed- makes the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine +
+                $"Targetting an already Primed enemy <style=cIsDamage>Ignites them for {StaticValues.solusScorcherAccelerateDamageCoefficient * 100f}% damage</style> as well. " + Environment.NewLine +
+                $"<style=cSub>Pairs with [Solus Distributor- Solus Plant Mine], [Solus Extractor- Solus Extract], [Solus Invalidator- Solus Invalidate], [Solus Prospector- Solus Priming], [Solus Transporter- Solus Transport] to create [Solus Factor Unleashed]</style>");
+            LanguageAPI.Add(prefix + "SOLUSDISTRIBUTOR_NAME", "Solus Plant Mine");
+            LanguageAPI.Add(prefix + "SOLUSDISTRIBUTOR_DESCRIPTION", $"Spawn a mine. It's attacks apply Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Pairs with [Solus Scorcher- Solus Accelerate], [Solus Extractor- Solus Extract], [Solus Invalidator- Solus Invalidate], [Solus Prospector- Solus Priming], [Solus Transporter- Solus Transport] to create [Solus Factor Unleashed]</style>");
+            LanguageAPI.Add(prefix + "SOLUSEXTRACTOR_NAME", "Solus Extract");
+            LanguageAPI.Add(prefix + "SOLUSEXTRACTOR_DESCRIPTION", $"Lunge, on hitting an enemy, bounce back and deal<style=cIsDamage>{StaticValues.solusExtractorLungeDamageCoefficient * 100f}% damage</style>. If the enemy isn't Primed, apply Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine +
+                $"Hitting an already Primed enemy <style=cIsUtility>reduces the cooldowns of all skills by {StaticValues.solusExtractorLungeCooldownReduction} second for each stack of Primed</style>. " + Environment.NewLine +
+                $"<style=cSub>Pairs with [Solus Scorcher- Solus Accelerate], [Solus Distributor- Solus Plant Mine], [Solus Invalidator- Solus Invalidate], [Solus Prospector- Solus Priming], [Solus Transporter- Solus Transport] to create [Solus Factor Unleashed]</style>");
+            LanguageAPI.Add(prefix + "SOLUSINVALIDATOR_NAME", "Solus Invalidate");
+            LanguageAPI.Add(prefix + "SOLUSINVALIDATOR_DESCRIPTION", $"<style=cIsDamage>Stunning. Freezing. </style>Invalidate the area around the target or in front of you, <style=cIsDamage>Stunning</style> them, applying Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine +
+                $"Targetting an already Primed enemy <style=cIsDamage>Freezes</style> them instead. " + Environment.NewLine +
+                $"<style=cSub>Pairs with [Solus Scorcher- Solus Accelerate], [Solus Distributor- Solus Plant Mine], [Solus Extractor- Solus Extract], [Solus Prospector- Solus Priming], [Solus Transporter- Solus Transport] to create [Solus Factor Unleashed]</style>");
+            LanguageAPI.Add(prefix + "SOLUSTRANSPORTER_NAME", "Solus Transport");
+            LanguageAPI.Add(prefix + "SOLUSTRANSPORTER_DESCRIPTION", $"Teleport to the target you're looking at, applying Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine +
+                $"Hitting an already Primed enemy <style=cIsUtility>resets the cooldown of Solus Transport</style>. " + Environment.NewLine +
+                $"<style=cSub>Pairs with [Solus Scorcher- Solus Accelerate], [Solus Distributor- Solus Plant Mine], [Solus Extractor- Solus Extract], [Solus Invalidator- Solus Invalidate], [Solus Prospector- Solus Priming] to create [Solus Factor Unleashed]</style>");
             LanguageAPI.Add(prefix + "STONEGOLEM_NAME", "Laser");
             LanguageAPI.Add(prefix + "STONEGOLEM_DESCRIPTION", $"<style=cIsDamage>Stunning.</style> Hold the button down to charge a laser which, when released, deals <style=cIsDamage>{100f * StaticValues.stonegolemDamageCoefficient}% damage</style>. " +
                 $"Damage and radius scales with charge duration." + Environment.NewLine + Environment.NewLine +
@@ -398,68 +504,17 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Pairs with [Sweeping Beam (Bullet Laser/Stone Golem)] to create [X Beamer]</style>");
             #endregion
 
-            #region Synergised Passive
-            LanguageAPI.Add(prefix + "BIGBANG_NAME", "Big Bang");
-            LanguageAPI.Add(prefix + "BIGBANG_DESCRIPTION", $"Each hit on an enemy builds up an explosive charge. On the {StaticValues.bigbangBuffThreshold}th hit, an explosion occurs, dealing <style=cIsDamage>{100f * StaticValues.bigbangBuffCoefficient}% of the hit's damage</style>. " + 
-                Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Wandering Vagrant/Clay Templar]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Wisper (Greater Wisp/Grovetender)] to create [Supernova]</style>");
-            LanguageAPI.Add(prefix + "WISPER_NAME", "Wisper");
-            LanguageAPI.Add(prefix + "WISPER_DESCRIPTION", $"Every attack that has a proc coefficient shoots a homing wisp towards the target for <style=cIsDamage>{100f * StaticValues.wisperBuffDamageCoefficient}% damage</style> with no proc coefficient. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Greater Wisp/Grovetender]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Big Bang (Wandering Vagrant/Clay Templar)] to create [Supernova]</style>");
-            LanguageAPI.Add(prefix + "OMNIBOOST_NAME", "Omniboost");
-            LanguageAPI.Add(prefix + "OMNIBOOST_DESCRIPTION", $"Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.omniboostBuffCoefficient+1}x</style>. Every {StaticValues.omniboostNumberOfHits}rd hit on the same enemy further boosts this buff by <style=cIsDamage>{StaticValues.omniboostBuffStackCoefficient * 100f}% per stack</style>. Lose half your stacks on kill or when you switch targets. " + 
-                Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Beetle/Lesser Wisp]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Double Time (Commando/Solus Probe)] to create [The World]</style>");
-            LanguageAPI.Add(prefix + "GACHA_NAME", "Gacha");
-            LanguageAPI.Add(prefix + "GACHA_DESCRIPTION", $"Get a random item every <style=cIsUtility>{StaticValues.gachaBuffThreshold} seconds</style>. " + 
-                Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Scavenger/Beetle Queen]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Refresh (Lunar Golem/Lunar Exploder)] to create [Wild Card]</style>");
-            LanguageAPI.Add(prefix + "STONEFORM_NAME", "Stone Form");
-            LanguageAPI.Add(prefix + "STONEFORM_DESCRIPTION", $"While still for {StaticValues.stoneFormWaitDuration} seconds, enter stone form. Gain <style=cIsUtility>{StaticValues.stoneFormBlockChance}% block chance and take no knockback</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Hermit Crab/Stone Titan]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Ingrain (Clay Dunestrider/Mini Mushrum)] to create [Gargoyle Protection]</style>");
-            LanguageAPI.Add(prefix + "AURAOFBLIGHT_NAME", "Aura Of Blight");
-            LanguageAPI.Add(prefix + "AURAOFBLIGHT_DESCRIPTION", $"Apply blight to enemies around you every second, dealing <style=cIsDamage>{StaticValues.auraOfBlightBuffDotDamage * 100f}% over {StaticValues.auraOfBlightBuffDotDuration} seconds</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Acrid/Larva]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Decay Plus Ultra (Decay/Rex)] to create [Decay Awakened]</style>");
-            LanguageAPI.Add(prefix + "BARBEDSPIKES_NAME", "Barbed Spikes");
-            LanguageAPI.Add(prefix + "BARBEDSPIKES_DESCRIPTION", $"Deal <style=cIsDamage>{StaticValues.barbedSpikesDamageCoefficient* 100f}% damage</style> to nearby enemies every {StaticValues.barbedSpikesBuffThreshold} seconds. " +
-                $"Damage increases the area of effect. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Brass Contraption/Gup-Geep-Gip]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Expunge (Imp Overlord/Magma Worm)] to create [Death Aura]</style>");
-            LanguageAPI.Add(prefix + "INGRAIN_NAME", "Ingrain");
-            LanguageAPI.Add(prefix + "INGRAIN_DESCRIPTION", $"Gain health regen equivalent to <style=cIsHealing>{StaticValues.ingrainBuffHealthRegen* 100f}% of your max health</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Clay Dunestrider/Mini Mushrum]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Stone Form (Hermit Crab/Stone Titan)] to create [Gargoyle Protection]</style>");
-            LanguageAPI.Add(prefix + "ELEMENTALFUSION_NAME", "Elemental Fusion");
-            LanguageAPI.Add(prefix + "ELEMENTALFUSION_DESCRIPTION", $"Gain elemental power, allowing you to burn, freeze or shock enemies. Every {StaticValues.elementalFusionThreshold} hits cycle between <style=cIsDamage>burning, freezing or shocking</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Artificer/Grandparent]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Gravitational Downforce (Void Jailer/Solus Control Unit)] to create [Weather Report]</style>");
-            LanguageAPI.Add(prefix + "DOUBLETIME_NAME", "Double Time");
-            LanguageAPI.Add(prefix + "DOUBLETIME_DESCRIPTION", $"Perceive time at a heightened speed. Nearby enemies' <style=cIsUtility>movespeed and attackspeed are slowed down by {StaticValues.doubleTimeSlowCoefficient * 100f}%</style>. Killing enemies grant <style=cIsDamage>{StaticValues.doubleTimeCoefficient * 100f}% damage, attackspeed and movespeed</style> additively. " +
-                $"Stacks are halved every {StaticValues.doubleTimeThreshold} seconds. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Commando/Solus Probe]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Omniboost (Beetle/Lesser Wisp)] to create [The World]</style>");
-            LanguageAPI.Add(prefix + "BLINDSENSES_NAME", "Blind Senses");
-            LanguageAPI.Add(prefix + "BLINDSENSES_DESCRIPTION", $"Gain the heightened senses of blindness. Gain <style=cIsUtility>{StaticValues.blindSensesBlockChance}% dodge chance</style>. <style=cIsUtility>Blocking an attack causes you to counterattack</style>, stunning and dealing <style=cIsDamage>{StaticValues.blindSensesDamageCoefficient* 100f}% of the damage</style> you would have taken to the attacker. Getting Tougher Times increases the chances of this as well. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Blind Pest/Blind Vermin]</style>" + Environment.NewLine +
-                $"<style=cSub>Pairs with [Barrier Jelly (Jellyfish/Alpha Construct)] to create [Reversal]</style>");
-            #endregion
 
             #region Ultimate Actives
             LanguageAPI.Add(prefix + "THEWORLD_NAME", "The World");
-            LanguageAPI.Add(prefix + "THEWORLD_DESCRIPTION", $"Break the rules of The World. <style=cIsUtility>Stop Time, preventing all enemies around you from moving and attacking. Projectiles are also frozen</style>. " + Helpers.Passive($"Drains {100f * StaticValues.theWorldEnergyCost}% plus chaos every second") +"." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "THEWORLD_DESCRIPTION", $"Break the rules of The World. <style=cIsUtility>Stop Time, preventing all enemies around you from moving and attacking. Projectiles are also frozen</style>. " + Helpers.Passive($"Drains {100f * StaticValues.theWorldEnergyCost}% plus chaos every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Double Time] [Omniboost]</style>");
             LanguageAPI.Add(prefix + "EXTREMESPEED_NAME", "Extreme Speed");
             LanguageAPI.Add(prefix + "EXTREMESPEED_DESCRIPTION", $"Instantaneously move at blinding speeds through enemies. After a delay, deal <style=cIsDamage>{StaticValues.extremeSpeedNumberOfHits}x{100f * StaticValues.extremeSpeedDamageCoefficient}% damage</style>. " +
                 $"Number of hits scales with attackspeed." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Mach Punch] [Thunderclap]</style>");
             LanguageAPI.Add(prefix + "DEATHAURA_NAME", "Death Aura");
-            LanguageAPI.Add(prefix + "DEATHAURA_DESCRIPTION", $"Become death itself,<style=cIsUtility> applying a stacking permanent debuff to enemies and a stacking buff to yourself  every {StaticValues.deathAuraThreshold} second</style>. Each debuff stack increases <style=cIsDamage>DoT damage by {100f * StaticValues.deathAuraDebuffCoefficient}% while each buff stack increases your DoT damage by {100f* StaticValues.deathAuraBuffCoefficient}%</style>. " + Helpers.Passive($"Drains {StaticValues.deathAuraBuffEnergyCost} plus chaos every second") + "." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "DEATHAURA_DESCRIPTION", $"Become death itself,<style=cIsUtility> applying a stacking permanent debuff to enemies and a stacking buff to yourself  every {StaticValues.deathAuraThreshold} second</style>. Each debuff stack increases <style=cIsDamage>DoT damage by {100f * StaticValues.deathAuraDebuffCoefficient}% while each buff stack increases your DoT damage by {100f * StaticValues.deathAuraBuffCoefficient}%</style>. " + Helpers.Passive($"Drains {StaticValues.deathAuraBuffEnergyCost} plus chaos every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Barbed Spikes] [Expunge]</style>");
             LanguageAPI.Add(prefix + "OFAFO_NAME", "One For All For One");
             LanguageAPI.Add(prefix + "OFAFO_DESCRIPTION", $"Unlock the true power of One For All and All For One. <style=cIsUtility> Gain {StaticValues.OFAFOLifestealCoefficient * 100f}% lifesteal, {StaticValues.OFAFOEnergyGainCoefficient * 100f}% plus chaos every hit and every passive or buff effect interval is halved</style>. " + Helpers.Passive($"Drains {StaticValues.OFAFOEnergyCostCoefficient}% MAX plus chaos AND {StaticValues.OFAFOHealthCostCoefficient}% health every second") + "." + Environment.NewLine + Environment.NewLine +
@@ -473,7 +528,7 @@ namespace ShiggyMod.Modules
                 Helpers.Passive($"Drains {StaticValues.finalReleaseEnergyCost} plus chaos each use of abilities") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wind Shield] [Wind Slash]</style>");
             LanguageAPI.Add(prefix + "BLASTINGZONE_NAME", "Blasting Zone");
-            LanguageAPI.Add(prefix + "BLASTINGZONE_DESCRIPTION", $"Create a blade of energy and slam it down, hitting enemies in a line in front of you. Each blast deals <style=cIsDamage>{StaticValues.blastingZoneDamageCoefficient* 100f}% damage and applies {StaticValues.blastingZoneDebuffStackApplication} blaze debuff stacks</style>. Afflicted enemies take <style=cIsDamage>{StaticValues.blastingZoneDebuffDamagePerStack}% of their max HP per stack every {StaticValues.blastingZoneDebuffInterval} seconds, halving the number of stacks each pulse</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "BLASTINGZONE_DESCRIPTION", $"Create a blade of energy and slam it down, hitting enemies in a line in front of you. Each blast deals <style=cIsDamage>{StaticValues.blastingZoneDamageCoefficient * 100f}% damage and applies {StaticValues.blastingZoneDebuffStackApplication} blaze debuff stacks</style>. Afflicted enemies take <style=cIsDamage>{StaticValues.blastingZoneDebuffDamagePerStack}% of their max HP per stack every {StaticValues.blastingZoneDebuffInterval} seconds, halving the number of stacks each pulse</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Orbital Strike] [Blast Burn]</style>");
             LanguageAPI.Add(prefix + "WILDCARD_NAME", "Wild Card");
             LanguageAPI.Add(prefix + "WILDCARD_DESCRIPTION", $"Pull out a card. <style=cIsUtility>A random effect will apply to everyone</style>. These include altering speed, damage, teleporting, healing, taking damage, activating glowing meteorite, gaining a random item. " + Environment.NewLine + Environment.NewLine +
@@ -482,30 +537,16 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "LIGHTANDDARKNESS_DESCRIPTION", $"Attempt to control the light and darkness in your heart. Based on your current plus chaos, transform into <style=cIsUtility>Light Form, Darkness Form, or Light And Darkness Form</style>. If you are able to use this skill again while having either Light form or Darkness form active- gain Light and Darkness form. " +
                 $"Attacking in Light Form <style=cIsDamage>applies the light debuff, and hitting enemies with it will chain {StaticValues.lightFormBonusDamage * 100f}% of the damage to nearby enemies, with the bounce damage increasing by {StaticValues.lightFormBonusDamage * 100f}% damage per stack</style>. " + Environment.NewLine +
                 $"Attacking in Dark Form <style=cIsDamage>applies the darkness debuff, and hitting enemies with it will deal {StaticValues.darkFormBonusDamage * 100f}% extra damage per stack</style>. " + Environment.NewLine +
-                $"Attacking in Light And Darkness Form <style=cIsDamage>applies the light and darkness debuff, and hitting enemies with it will deal {StaticValues.lightAndDarknessBonusDamage* 100f}% of the damage and pull nearby enemies to them, increasing by {StaticValues.lightAndDarknessBonusDamage* 100f}% damage as well as pull range increasing per stack</style>. " + Environment.NewLine + Helpers.Passive($"Light Form constantly drains {StaticValues.lightFormEnergyCost} plus chaos every second and deactivates at 0 plus chaos, darkness form instead gains {StaticValues.darkFormEnergyGain} plus chaos every second and deactivates at max plus chaos. Light And Darkness equalizes your plus chaos- constantly setting it to 50%") + "." + Environment.NewLine + Environment.NewLine +
+                $"Attacking in Light And Darkness Form <style=cIsDamage>applies the light and darkness debuff, and hitting enemies with it will deal {StaticValues.lightAndDarknessBonusDamage * 100f}% of the damage and pull nearby enemies to them, increasing by {StaticValues.lightAndDarknessBonusDamage * 100f}% damage as well as pull range increasing per stack</style>. " + Environment.NewLine + Helpers.Passive($"Light Form constantly drains {StaticValues.lightFormEnergyCost} plus chaos every second and deactivates at 0 plus chaos, darkness form instead gains {StaticValues.darkFormEnergyGain} plus chaos every second and deactivates at max plus chaos. Light And Darkness equalizes your plus chaos- constantly setting it to 50%") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Shadow Claw] [Genesis]</style>");
             #endregion
 
-            #region Ultimate Passives
-            LanguageAPI.Add(prefix + "SUPERNOVA_NAME", "Supernova");
-            LanguageAPI.Add(prefix + "SUPERNOVA_DESCRIPTION", $"Absorb the damage you take, charging a supernova within you. When total damage is greater than <style=cIsUtility>{StaticValues.supernovaHealthThreshold* 100f}% of your MAX health</style>, unleash a colossal explosion, dealing <style=cIsDamage>{StaticValues.supernovaDamageCoefficient* 100f}% damage</style> in a large area around you. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Big Bang] [Wisper]</style>");
-            LanguageAPI.Add(prefix + "REVERSAL_NAME", "Reversal");
-            LanguageAPI.Add(prefix + "REVERSAL_DESCRIPTION", $"Sprint to build up reversal stacks. When hit, <style=cIsUtility>damage is removed, and you dash away from the enemy.</style> Freeze enemies around them, dealing <style=cIsDamage>{StaticValues.reversalDamageCoefficient* 100f}% damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Barrier Jelly] [Blind Senses]</style>");
-            LanguageAPI.Add(prefix + "MACHINEFORM_NAME", "Machine Form");
-            LanguageAPI.Add(prefix + "MACHINEFORM_DESCRIPTION", $"Generate machinery around yourself, passively shooting missiles and bullets to nearby enemies, dealing <style=cIsDamage>{StaticValues.machineFormDamageCoefficient* 100f}% damage</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Blackhole Glaive] [Mech Stance]</style>");
-            LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_NAME", "Gargoyle Protection");
-            LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_DESCRIPTION", $"Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Ingrain] [Stone Form]</style>");
-            LanguageAPI.Add(prefix + "WEATHERREPORT_NAME", "Weather Report");
-            LanguageAPI.Add(prefix + "WEATHERREPORT_DESCRIPTION", $"Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient* 100f}%</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Gravitational Downforce] [Elemental Fusion]</style>");
-            LanguageAPI.Add(prefix + "DECAYAWAKENED_NAME", "Decay Awakened");
-            LanguageAPI.Add(prefix + "DECAYAWAKENED_DESCRIPTION", $"Awaken Decay's original power. All attacks now <style=cIsDamage>apply Decay</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>[Decay Plus Ultra] [Aura Of Blight]</style>");
+            #region Transcendental Actives
+            LanguageAPI.Add(prefix + "SOLUSFACTORUNLEASHED_NAME", "Solus Factor Unleashed");
+            LanguageAPI.Add(prefix + "SOLUSFACTORUNLEASHED_DESCRIPTION", $"Become Super Primed. <style=cIsUtility>No longer consume Prime stacks. </style>Every attack that has a proc coefficient applies Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>." + Environment.NewLine + $"Hitting an already Primed enemy <style=cIsDamage>creates a blast, dealing the same damage, but Burning, applying Accelerant and Primed</style> at the same time." + Helpers.Passive($"Spend all Plus Chaos. For each {StaticValues.solusFactorUnleashedEnergyPerStack} plus chaos, have 1 second of duration of the Super Primed Buff.") + Environment.NewLine +
+                $"<style=cSub>[Solus Accelerate] [Solus Plant Mine] [Solus Extract] [Solus Invalidate] [Solus Priming] [Solus Transport]</style>");
             #endregion
+
 
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");

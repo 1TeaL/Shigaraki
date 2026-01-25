@@ -250,13 +250,13 @@ namespace ShiggyMod.Modules.Quirks
             QuirkIconBank.Register(QuirkId.Vulture_WindBlastActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Vulture.VultureBody_prefab, QuirkIconBank.Theme.Active);
             QuirkIconBank.Register(QuirkId.BeetleGuard_SlamActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_BeetleGuard.BeetleGuardBody_prefab, QuirkIconBank.Theme.Active);
             QuirkIconBank.Register(QuirkId.Bison_ChargeActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bison.BisonBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Bell_SpikedBallActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bell.BellBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.ClayApothecary_MortarActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_ClayGrenadier.ClayGrenadierBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.ClayTemplar_MinigunActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ClayBruiser.ClayBruiserBody_prefab, QuirkIconBank.Theme.Active);
+            QuirkIconBank.Register(QuirkId.Bell_SpikedBallControlActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bell.BellBody_prefab, QuirkIconBank.Theme.Active);
+            QuirkIconBank.Register(QuirkId.ClayApothecary_ClayAirStrikeActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_ClayGrenadier.ClayGrenadierBody_prefab, QuirkIconBank.Theme.Active);
+            QuirkIconBank.Register(QuirkId.ClayTemplar_ClayMinigunActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ClayBruiser.ClayBruiserBody_prefab, QuirkIconBank.Theme.Active);
             QuirkIconBank.Register(QuirkId.ElderLemurian_FireBlastActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LemurianBruiser.LemurianBruiserBody_prefab, QuirkIconBank.Theme.Active);
             QuirkIconBank.Register(QuirkId.GreaterWisp_SpiritBoostActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_GreaterWisp.GreaterWispBody_prefab, QuirkIconBank.Theme.Active);
             QuirkIconBank.Register(QuirkId.Imp_BlinkActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Imp.ImpBody_prefab, QuirkIconBank.Theme.Active);
-            QuirkIconBank.Register(QuirkId.Jellyfish_HealActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Jellyfish.JellyfishBody_prefab, QuirkIconBank.Theme.Active);
+            QuirkIconBank.Register(QuirkId.Jellyfish_RegenerateActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Jellyfish.JellyfishBody_prefab, QuirkIconBank.Theme.Active);
             QuirkIconBank.Register(QuirkId.Lemurian_FireballActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Lemurian.LemurianBody_prefab, QuirkIconBank.Theme.Active);
             QuirkIconBank.Register(QuirkId.LunarGolem_SlideResetActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LunarGolem.LunarGolemBody_prefab, QuirkIconBank.Theme.Active);
             QuirkIconBank.Register(QuirkId.LunarWisp_MinigunActive, RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LunarWisp.LunarWispBody_prefab, QuirkIconBank.Theme.Active);

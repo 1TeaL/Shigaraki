@@ -29,19 +29,24 @@ namespace ShiggyMod.Modules
             //active skills
             Modules.Content.AddEntityState(typeof(AlloyVultureWindBlast));
             Modules.Content.AddEntityState(typeof(BisonCharge));
-            Modules.Content.AddEntityState(typeof(BronzongBall));
+            Modules.Content.AddEntityState(typeof(BronzongSpikedBallControl));
             Modules.Content.AddEntityState(typeof(BeetleGuardSlam));
-            Modules.Content.AddEntityState(typeof(ClayApothecaryMortar));
-            Modules.Content.AddEntityState(typeof(ClayTemplarMinigun));
+            Modules.Content.AddEntityState(typeof(ClayApothecaryClayAirStrike));
+            Modules.Content.AddEntityState(typeof(ClayTemplarClayMinigun));
             Modules.Content.AddEntityState(typeof(ElderLemurianFireBlastCharge));
             Modules.Content.AddEntityState(typeof(ElderLemurianFireBlastFire));
-            Modules.Content.AddEntityState(typeof(GreaterWispBuff));
+            Modules.Content.AddEntityState(typeof(GreaterWispSpiritBoost));
             Modules.Content.AddEntityState(typeof(ImpBlink));
-            Modules.Content.AddEntityState(typeof(JellyfishHeal));
+            Modules.Content.AddEntityState(typeof(JellyfishRegenerate));
             Modules.Content.AddEntityState(typeof(LemurianFireball));
             Modules.Content.AddEntityState(typeof(LunarGolemSlide));
             Modules.Content.AddEntityState(typeof(LunarWispMinigun));
             Modules.Content.AddEntityState(typeof(ParentTeleport));
+            Modules.Content.AddEntityState(typeof(SolusDistributorPlantMine));
+            Modules.Content.AddEntityState(typeof(SolusExtractorExtract));
+            Modules.Content.AddEntityState(typeof(SolusInvalidatorInvalidate));
+            Modules.Content.AddEntityState(typeof(SolusScorcherAccelerate));
+            Modules.Content.AddEntityState(typeof(SolusTransporterTransport));
             Modules.Content.AddEntityState(typeof(StoneGolemLaserCharge));
             Modules.Content.AddEntityState(typeof(StoneGolemLaserFire));
             Modules.Content.AddEntityState(typeof(VoidReaverPortal));
@@ -77,35 +82,6 @@ namespace ShiggyMod.Modules
             //collab skills
             Modules.Content.AddEntityState(typeof(DekuOFA));
 
-            //passive skills
-            Modules.Content.AddEntityState(typeof(AlphaConstruct));
-            Modules.Content.AddEntityState(typeof(Beetle));
-            Modules.Content.AddEntityState(typeof(BlindPest));
-            Modules.Content.AddEntityState(typeof(BlindVermin));
-            Modules.Content.AddEntityState(typeof(Gup));
-            Modules.Content.AddEntityState(typeof(HermitCrab));
-            Modules.Content.AddEntityState(typeof(ScavengerThqwibs));
-            Modules.Content.AddEntityState(typeof(Larva));
-            Modules.Content.AddEntityState(typeof(LesserWisp));
-            Modules.Content.AddEntityState(typeof(LunarExploder));
-            Modules.Content.AddEntityState(typeof(MiniMushrum));
-            Modules.Content.AddEntityState(typeof(RoboBallMini));
-            Modules.Content.AddEntityState(typeof(VoidBarnacle));
-            Modules.Content.AddEntityState(typeof(VoidJailer));
-            Modules.Content.AddEntityState(typeof(Child));
-
-            Modules.Content.AddEntityState(typeof(ImpBoss));
-            Modules.Content.AddEntityState(typeof(MagmaWorm));
-            Modules.Content.AddEntityState(typeof(OverloadingWorm));
-            Modules.Content.AddEntityState(typeof(StoneTitan));
-            Modules.Content.AddEntityState(typeof(Vagrant));
-
-            Modules.Content.AddEntityState(typeof(Acrid));
-            Modules.Content.AddEntityState(typeof(Captain));
-            Modules.Content.AddEntityState(typeof(Commando));
-            Modules.Content.AddEntityState(typeof(Chef));
-            Modules.Content.AddEntityState(typeof(Loader));
-            Modules.Content.AddEntityState(typeof(FalseSon));
 
             //synergy active skills
             Modules.Content.AddEntityState(typeof(SweepingBeam));
@@ -140,6 +116,42 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(BlastingZoneBurnComponent));
             Modules.Content.AddEntityState(typeof(WildCard));
             Modules.Content.AddEntityState(typeof(LightAndDarkness));
+            Modules.Content.AddEntityState(typeof(SolusFactorUnleashed));
+
+
+            //passive skills
+            Modules.Content.AddEntityState(typeof(AlphaConstruct));
+            Modules.Content.AddEntityState(typeof(Beetle));
+            Modules.Content.AddEntityState(typeof(BlindPest));
+            Modules.Content.AddEntityState(typeof(BlindVermin));
+            Modules.Content.AddEntityState(typeof(Gup));
+            Modules.Content.AddEntityState(typeof(HermitCrab));
+            Modules.Content.AddEntityState(typeof(ScavengerThqwibs));
+            Modules.Content.AddEntityState(typeof(Larva));
+            Modules.Content.AddEntityState(typeof(LesserWisp));
+            Modules.Content.AddEntityState(typeof(LunarExploder));
+            Modules.Content.AddEntityState(typeof(MiniMushrum));
+            Modules.Content.AddEntityState(typeof(RoboBallMini));
+            Modules.Content.AddEntityState(typeof(SolusProspectorPriming));
+            Modules.Content.AddEntityState(typeof(VoidBarnacle));
+            Modules.Content.AddEntityState(typeof(VoidJailer));
+            Modules.Content.AddEntityState(typeof(Child));
+
+            Modules.Content.AddEntityState(typeof(AlloyHunter));
+            Modules.Content.AddEntityState(typeof(ImpBoss));
+            Modules.Content.AddEntityState(typeof(MagmaWorm));
+            Modules.Content.AddEntityState(typeof(OverloadingWorm));
+            Modules.Content.AddEntityState(typeof(SolusAmalgamator));
+            Modules.Content.AddEntityState(typeof(StoneTitan));
+            Modules.Content.AddEntityState(typeof(Vagrant));
+
+            Modules.Content.AddEntityState(typeof(Acrid));
+            Modules.Content.AddEntityState(typeof(Captain));
+            Modules.Content.AddEntityState(typeof(Commando));
+            Modules.Content.AddEntityState(typeof(Chef));
+            Modules.Content.AddEntityState(typeof(Loader));
+            Modules.Content.AddEntityState(typeof(FalseSon));
+
 
             //synergy passive skills
             Modules.Content.AddEntityState(typeof(BigBangPassive));
@@ -156,6 +168,7 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(SupernovaPassive));
             Modules.Content.AddEntityState(typeof(ReversalPassive));
             Modules.Content.AddEntityState(typeof(WeatherReportPassive));
+            Modules.Content.AddEntityState(typeof(HyperRegenerationPassive));
         }
     }
 }

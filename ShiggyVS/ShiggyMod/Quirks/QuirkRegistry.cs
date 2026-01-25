@@ -13,7 +13,16 @@ using static ShiggyMod.Modules.Survivors.ShiggyMasterController;
 
 namespace ShiggyMod.Modules.Quirks
 {
-    public enum QuirkLevel { Level1 = 1, Level2 = 2, Level3 = 3, Level4 = 4, Level5 = 5 }
+    public enum QuirkLevel 
+    { 
+        Level0, 
+        Level1, 
+        Level2, 
+        Level3, 
+        Level4, 
+        Level5, 
+        Level6
+    }
     public enum QuirkCategory { Active, Passive, Utility }
 
 
@@ -263,32 +272,51 @@ namespace ShiggyMod.Modules.Quirks
             // ============================
             // LEVEL 1 — Utilities
             // ============================
-            AddLeaf(QuirkId.Utility_EmptySkill, QuirkLevel.Level1, QuirkCategory.Utility);
-            AddLeaf(QuirkId.Utility_Choose, QuirkLevel.Level1, QuirkCategory.Utility);
-            AddLeaf(QuirkId.Utility_Remove, QuirkLevel.Level1, QuirkCategory.Utility);
+            AddLeaf(QuirkId.Utility_EmptySkill, QuirkLevel.Level0, QuirkCategory.Utility);
+            AddLeaf(QuirkId.Utility_Choose, QuirkLevel.Level0, QuirkCategory.Utility);
+            AddLeaf(QuirkId.Utility_Remove, QuirkLevel.Level0, QuirkCategory.Utility);
+
+            // ============================
+            // Elite affixes — treat as Level 1 Passives
+            // ============================
+            AddLeaf(QuirkId.Elite_BlazingPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_GlacialPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_MalachitePassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_CelestinePassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_OverloadingPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_LunarPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_MendingPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_VoidPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_GildedPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.Elite_TwistedPassive, QuirkLevel.Level1, QuirkCategory.Passive);
 
             // ============================
             // LEVEL 1 — Actives (standalone)
             // ============================
-            AddLeaf(QuirkId.Shiggy_DecayActive, QuirkLevel.Level1, QuirkCategory.Active);
-            AddLeaf(QuirkId.Shiggy_AirCannonActive, QuirkLevel.Level1, QuirkCategory.Active);
-            AddLeaf(QuirkId.Shiggy_BulletLaserActive, QuirkLevel.Level1, QuirkCategory.Active);
-            AddLeaf(QuirkId.Shiggy_MultiplierActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.Shiggy_DecayActive, QuirkLevel.Level0, QuirkCategory.Active);
+            AddLeaf(QuirkId.Shiggy_AirCannonActive, QuirkLevel.Level0, QuirkCategory.Active);
+            AddLeaf(QuirkId.Shiggy_BulletLaserActive, QuirkLevel.Level0, QuirkCategory.Active);
+            AddLeaf(QuirkId.Shiggy_MultiplierActive, QuirkLevel.Level0, QuirkCategory.Active);
 
             AddLeaf(QuirkId.Vulture_WindBlastActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.BeetleGuard_SlamActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.Bison_ChargeActive, QuirkLevel.Level1, QuirkCategory.Active);
-            AddLeaf(QuirkId.Bell_SpikedBallActive, QuirkLevel.Level1, QuirkCategory.Active);
-            AddLeaf(QuirkId.ClayApothecary_MortarActive, QuirkLevel.Level1, QuirkCategory.Active);
-            AddLeaf(QuirkId.ClayTemplar_MinigunActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.Bell_SpikedBallControlActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.ClayApothecary_ClayAirStrikeActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.ClayTemplar_ClayMinigunActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.ElderLemurian_FireBlastActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.GreaterWisp_SpiritBoostActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.Imp_BlinkActive, QuirkLevel.Level1, QuirkCategory.Active);
-            AddLeaf(QuirkId.Jellyfish_HealActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.Jellyfish_RegenerateActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.Lemurian_FireballActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.LunarGolem_SlideResetActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.LunarWisp_MinigunActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.Parent_TeleportActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.SolusDistributor_SolusPlantMineActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.SolusExtractor_SolusExtractActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.SolusInvalidator_SolusInvalidateActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.SolusScorcher_SolusAccelerateActive, QuirkLevel.Level1, QuirkCategory.Active);
+            AddLeaf(QuirkId.SolusTransporter_SolusTransportActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.StoneGolem_LaserActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.VoidReaver_PortalActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.BeetleQueen_SummonActive, QuirkLevel.Level1, QuirkCategory.Active);
@@ -317,19 +345,104 @@ namespace ShiggyMod.Modules.Quirks
             AddLeaf(QuirkId.VoidFiend_CleanseActive, QuirkLevel.Level1, QuirkCategory.Active);
             AddLeaf(QuirkId.Deku_OFAActive, QuirkLevel.Level1, QuirkCategory.Active);
 
+
+
             // ============================
-            // Elite affixes — treat as Level 1 Passives
+            // Level 2 — Actives (pairs of L1)
             // ============================
-            AddLeaf(QuirkId.Elite_BlazingPassive, QuirkLevel.Level1, QuirkCategory.Passive);
-            AddLeaf(QuirkId.Elite_GlacialPassive, QuirkLevel.Level1, QuirkCategory.Passive);
-            AddLeaf(QuirkId.Elite_MalachitePassive, QuirkLevel.Level1, QuirkCategory.Passive);
-            AddLeaf(QuirkId.Elite_CelestinePassive, QuirkLevel.Level1, QuirkCategory.Passive);
-            AddLeaf(QuirkId.Elite_OverloadingPassive, QuirkLevel.Level1, QuirkCategory.Passive);
-            AddLeaf(QuirkId.Elite_LunarPassive, QuirkLevel.Level1, QuirkCategory.Passive);
-            AddLeaf(QuirkId.Elite_MendingPassive, QuirkLevel.Level1, QuirkCategory.Passive);
-            AddLeaf(QuirkId.Elite_VoidPassive, QuirkLevel.Level1, QuirkCategory.Passive);
-            AddLeaf(QuirkId.Elite_GildedPassive, QuirkLevel.Level1, QuirkCategory.Passive);
-            AddLeaf(QuirkId.Elite_TwistedPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddRecipe(QuirkId.Railgunner_LunarWisp_RapidPierceActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.Railgunner_CryoActive, QuirkId.LunarWisp_MinigunActive);
+            AddRecipe(QuirkId.BulletLaser_StoneGolem_SweepingBeamActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.Shiggy_BulletLaserActive, QuirkId.StoneGolem_LaserActive);
+
+            AddRecipe(QuirkId.VoidDevastator_Huntress_BlackholeGlaiveActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.VoidDevastator_MissilesActive, QuirkId.Huntress_FlurryActive);
+
+            AddRecipe(QuirkId.VoidJailer_SolusControlUnit_GravitationalDownforceActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.VoidJailer_GravityPassive, QuirkId.SolusControlUnit_KnockupActive);
+
+            AddRecipe(QuirkId.Vulture_Engineer_WindShieldActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.Vulture_WindBlastActive, QuirkId.Engineer_TurretActive);
+
+            AddRecipe(QuirkId.XIConstruct_ClayApothecary_GenesisActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.XIConstruct_BeamActive, QuirkId.ClayApothecary_ClayAirStrikeActive);
+
+            AddRecipe(QuirkId.LunarExploder_LunarGolem_RefreshActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.LunarExploder_LunarBarrierPassive, QuirkId.LunarGolem_SlideResetActive);
+
+            AddRecipe(QuirkId.Imp_MagmaWorm_ExpungeActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.ImpBoss_BleedPassive, QuirkId.MagmaWorm_BlazingAuraPassive);
+
+            AddRecipe(QuirkId.Imp_Bandit_ShadowClawActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.Imp_BlinkActive, QuirkId.Bandit_LightsOutActive);
+
+            AddRecipe(QuirkId.Captain_VoidReaver_OrbitalStrikeActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.Captain_MicrobotsPassive, QuirkId.VoidReaver_PortalActive);
+
+            AddRecipe(QuirkId.OverloadingWorm_Bison_ThunderclapActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.OverloadingWorm_LightningAuraPassive, QuirkId.Bison_ChargeActive);
+
+            AddRecipe(QuirkId.ElderLemurian_Lemurian_BlastBurnActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.ElderLemurian_FireBlastActive, QuirkId.Lemurian_FireballActive);
+
+            AddRecipe(QuirkId.AlphaConstruct_Jellyfish_BarrierJellyActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.AlphaConstruct_BarrierPassive, QuirkId.Jellyfish_RegenerateActive);
+
+            AddRecipe(QuirkId.BeetleGuard_MULT_MechStanceActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.BeetleGuard_SlamActive, QuirkId.MULT_PowerStanceActive);
+
+            AddRecipe(QuirkId.AirCannon_Merc_WindSlashActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.Shiggy_AirCannonActive, QuirkId.Merc_DashActive);
+
+            AddRecipe(QuirkId.Multiplier_Deku_LimitBreakActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.Shiggy_MultiplierActive, QuirkId.Deku_OFAActive);
+
+            AddRecipe(QuirkId.VoidBarnacle_VoidFiend_VoidFormActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.VoidBarnacle_VoidMortarPassive, QuirkId.VoidFiend_CleanseActive);
+
+            AddRecipe(QuirkId.REX_Decay_DecayPlusUltraActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.REX_MortarActive, QuirkId.Shiggy_DecayActive);
+
+            AddRecipe(QuirkId.Parent_Loader_MachPunchActive, QuirkLevel.Level2, QuirkCategory.Active,
+                QuirkId.Parent_TeleportActive, QuirkId.Loader_ScrapBarrierPassive);
+
+            // ============================
+            // Level 4 — Actives (pairs of L2)
+            // ============================
+            AddRecipe(QuirkId.ShadowClaw_Genesis_LightAndDarknessActive, QuirkLevel.Level4, QuirkCategory.Active,
+                QuirkId.Imp_Bandit_ShadowClawActive, QuirkId.XIConstruct_ClayApothecary_GenesisActive);
+
+            AddRecipe(QuirkId.Refresh_Gacha_WildCardActive, QuirkLevel.Level4, QuirkCategory.Active,
+                QuirkId.LunarExploder_LunarGolem_RefreshActive, QuirkId.BeetleQueen_Scavenger_GachaPassive);
+
+            AddRecipe(QuirkId.OrbitalStrike_BlastBurn_BlastingZoneActive, QuirkLevel.Level4, QuirkCategory.Active,
+                QuirkId.Captain_VoidReaver_OrbitalStrikeActive, QuirkId.ElderLemurian_Lemurian_BlastBurnActive);
+
+            AddRecipe(QuirkId.WindShield_WindSlash_FinalReleaseActive, QuirkLevel.Level4, QuirkCategory.Active,
+                QuirkId.Vulture_Engineer_WindShieldActive, QuirkId.AirCannon_Merc_WindSlashActive);
+
+            AddRecipe(QuirkId.RapidPierce_SweepingBeam_XBeamerActive, QuirkLevel.Level4, QuirkCategory.Active,
+                QuirkId.Railgunner_LunarWisp_RapidPierceActive, QuirkId.Railgunner_LunarWisp_RapidPierceActive);
+            AddRecipe(QuirkId.RapidPierce_SweepingBeam_XBeamerActive, QuirkLevel.Level4, QuirkCategory.Active,
+                QuirkId.Railgunner_LunarWisp_RapidPierceActive, QuirkId.BulletLaser_StoneGolem_SweepingBeamActive);
+
+            AddRecipe(QuirkId.VoidForm_LimitBreak_OFAFOActive, QuirkLevel.Level4, QuirkCategory.Active,
+                QuirkId.VoidBarnacle_VoidFiend_VoidFormActive, QuirkId.Multiplier_Deku_LimitBreakActive);
+
+            AddRecipe(QuirkId.BarbedSpikes_Expunge_DeathAuraActive, QuirkLevel.Level4, QuirkCategory.Active,
+                QuirkId.Bell_Gup_BarbedSpikesPassive, QuirkId.Imp_MagmaWorm_ExpungeActive);
+
+            AddRecipe(QuirkId.MachPunch_Thunderclap_ExtremeSpeedActive, QuirkLevel.Level4, QuirkCategory.Active,
+                QuirkId.Parent_Loader_MachPunchActive, QuirkId.OverloadingWorm_Bison_ThunderclapActive);
+
+            AddRecipe(QuirkId.DoubleTime_Omniboost_TheWorldActive, QuirkLevel.Level4, QuirkCategory.Active,
+                QuirkId.RoboBallMini_Commando_DoubleTimePassive, QuirkId.LesserWisp_Beetle_OmniboostPassive);
+
+            // ============================
+            // Level 6 — Actives 
+            // ============================
+            AddRecipe(QuirkId.Solusx6_SolusFactorUnleashedActive, QuirkLevel.Level6, QuirkCategory.Active,
+                QuirkId.SolusDistributor_SolusPlantMineActive, QuirkId.SolusExtractor_SolusExtractActive, QuirkId.SolusInvalidator_SolusInvalidateActive, QuirkId.SolusProspector_PrimingPassive, QuirkId.SolusScorcher_SolusAccelerateActive, QuirkId.SolusTransporter_SolusTransportActive);
 
             // ============================
             // LEVEL 1 — Passives (standalone)
@@ -348,6 +461,7 @@ namespace ShiggyMod.Modules.Quirks
             AddLeaf(QuirkId.VoidBarnacle_VoidMortarPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.VoidJailer_GravityPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.ImpBoss_BleedPassive, QuirkLevel.Level1, QuirkCategory.Passive);
+            AddLeaf(QuirkId.SolusProspector_PrimingPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.StoneTitan_StoneSkinPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.MagmaWorm_BlazingAuraPassive, QuirkLevel.Level1, QuirkCategory.Passive);
             AddLeaf(QuirkId.OverloadingWorm_LightningAuraPassive, QuirkLevel.Level1, QuirkCategory.Passive);
@@ -384,7 +498,7 @@ namespace ShiggyMod.Modules.Quirks
                 QuirkId.ClayDunestrider_TarBoostActive, QuirkId.MiniMushrum_HealingAuraPassive);
 
             AddRecipe(QuirkId.Bell_Gup_BarbedSpikesPassive, QuirkLevel.Level2, QuirkCategory.Passive,
-                QuirkId.Bell_SpikedBallActive, QuirkId.Gup_SpikyBodyPassive);
+                QuirkId.Bell_SpikedBallControlActive, QuirkId.Gup_SpikyBodyPassive);
 
             AddRecipe(QuirkId.Acrid_Larva_AuraOfBlightPassive, QuirkLevel.Level2, QuirkCategory.Passive,
                 QuirkId.Acrid_PoisonPassive, QuirkId.Larva_AcidJumpPassive);
@@ -393,72 +507,10 @@ namespace ShiggyMod.Modules.Quirks
                 QuirkId.HermitCrab_MortarPassive, QuirkId.StoneTitan_StoneSkinPassive);
 
             AddRecipe(QuirkId.Vagrant_ClayTemplar_BigBangPassive, QuirkLevel.Level2, QuirkCategory.Passive,
-                QuirkId.Vagrant_OrbPassive, QuirkId.ClayTemplar_MinigunActive);
+                QuirkId.Vagrant_OrbPassive, QuirkId.ClayTemplar_ClayMinigunActive);
 
             AddRecipe(QuirkId.Wisp_Grovetender_WisperPassive, QuirkLevel.Level2, QuirkCategory.Passive,
                 QuirkId.GreaterWisp_SpiritBoostActive, QuirkId.Grovetender_ChainActive);
-
-            // ============================
-            // Level 2 — Actives (pairs of L1)
-            // ============================
-            AddRecipe(QuirkId.Railgunner_LunarWisp_RapidPierceActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.Railgunner_CryoActive, QuirkId.LunarWisp_MinigunActive);
-            AddRecipe(QuirkId.BulletLaser_StoneGolem_SweepingBeamActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.Shiggy_BulletLaserActive, QuirkId.StoneGolem_LaserActive);
-
-            AddRecipe(QuirkId.VoidDevastator_Huntress_BlackholeGlaiveActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.VoidDevastator_MissilesActive, QuirkId.Huntress_FlurryActive);
-
-            AddRecipe(QuirkId.VoidJailer_SolusControlUnit_GravitationalDownforceActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.VoidJailer_GravityPassive, QuirkId.SolusControlUnit_KnockupActive);
-
-            AddRecipe(QuirkId.Vulture_Engineer_WindShieldActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.Vulture_WindBlastActive, QuirkId.Engineer_TurretActive);
-
-            AddRecipe(QuirkId.XIConstruct_ClayApothecary_GenesisActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.XIConstruct_BeamActive, QuirkId.ClayApothecary_MortarActive);
-
-            AddRecipe(QuirkId.LunarExploder_LunarGolem_RefreshActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.LunarExploder_LunarBarrierPassive, QuirkId.LunarGolem_SlideResetActive);
-
-            AddRecipe(QuirkId.Imp_MagmaWorm_ExpungeActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.ImpBoss_BleedPassive, QuirkId.MagmaWorm_BlazingAuraPassive);
-
-            AddRecipe(QuirkId.Imp_Bandit_ShadowClawActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.Imp_BlinkActive, QuirkId.Bandit_LightsOutActive);
-
-            AddRecipe(QuirkId.Captain_VoidReaver_OrbitalStrikeActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.Captain_MicrobotsPassive, QuirkId.VoidReaver_PortalActive);
-
-            AddRecipe(QuirkId.OverloadingWorm_Bison_ThunderclapActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.OverloadingWorm_LightningAuraPassive, QuirkId.Bison_ChargeActive);
-
-            AddRecipe(QuirkId.ElderLemurian_Lemurian_BlastBurnActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.ElderLemurian_FireBlastActive, QuirkId.Lemurian_FireballActive);
-
-            AddRecipe(QuirkId.AlphaConstruct_Jellyfish_BarrierJellyActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.AlphaConstruct_BarrierPassive, QuirkId.Jellyfish_HealActive);
-
-            AddRecipe(QuirkId.BeetleGuard_MULT_MechStanceActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.BeetleGuard_SlamActive, QuirkId.MULT_PowerStanceActive);
-
-            AddRecipe(QuirkId.AirCannon_Merc_WindSlashActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.Shiggy_AirCannonActive, QuirkId.Merc_DashActive);
-
-            AddRecipe(QuirkId.Multiplier_Deku_LimitBreakActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.Shiggy_MultiplierActive, QuirkId.Deku_OFAActive);
-
-            AddRecipe(QuirkId.VoidBarnacle_VoidFiend_VoidFormActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.VoidBarnacle_VoidMortarPassive, QuirkId.VoidFiend_CleanseActive);
-
-            AddRecipe(QuirkId.REX_Decay_DecayPlusUltraActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.REX_MortarActive, QuirkId.Shiggy_DecayActive);
-
-            AddRecipe(QuirkId.Parent_Loader_MachPunchActive, QuirkLevel.Level2, QuirkCategory.Active,
-                QuirkId.Parent_TeleportActive, QuirkId.Loader_ScrapBarrierPassive);
-
-            // Unknown parents for RapidPierce right now — still register the node.
-            AddLeaf(QuirkId.Railgunner_LunarWisp_RapidPierceActive, QuirkLevel.Level2, QuirkCategory.Active);
 
             // ============================
             // Level 4 — Passives (pairs of L2)
@@ -480,44 +532,8 @@ namespace ShiggyMod.Modules.Quirks
 
             AddRecipe(QuirkId.BigBang_Wisper_SupernovaPassive, QuirkLevel.Level4, QuirkCategory.Passive,
                 QuirkId.Vagrant_ClayTemplar_BigBangPassive, QuirkId.Wisp_Grovetender_WisperPassive);
-
-            // ============================
-            // Level 4 — Actives (pairs of L2)
-            // ============================
-            AddRecipe(QuirkId.ShadowClaw_Genesis_LightAndDarknessActive, QuirkLevel.Level4, QuirkCategory.Active,
-                QuirkId.Imp_Bandit_ShadowClawActive, QuirkId.XIConstruct_ClayApothecary_GenesisActive);
-
-            AddRecipe(QuirkId.Refresh_Gacha_WildCardActive, QuirkLevel.Level4, QuirkCategory.Active,
-                QuirkId.LunarExploder_LunarGolem_RefreshActive, QuirkId.BeetleQueen_Scavenger_GachaPassive);
-
-            AddRecipe(QuirkId.OrbitalStrike_BlastBurn_BlastingZoneActive, QuirkLevel.Level4, QuirkCategory.Active,
-                QuirkId.Captain_VoidReaver_OrbitalStrikeActive, QuirkId.ElderLemurian_Lemurian_BlastBurnActive);
-
-            AddRecipe(QuirkId.WindShield_WindSlash_FinalReleaseActive, QuirkLevel.Level4, QuirkCategory.Active,
-                QuirkId.Vulture_Engineer_WindShieldActive, QuirkId.AirCannon_Merc_WindSlashActive);
-
-            AddRecipe(QuirkId.RapidPierce_SweepingBeam_XBeamerActive, QuirkLevel.Level4, QuirkCategory.Active,
-                QuirkId.Railgunner_LunarWisp_RapidPierceActive, QuirkId.Railgunner_LunarWisp_RapidPierceActive);
-            AddRecipe(QuirkId.RapidPierce_SweepingBeam_XBeamerActive, QuirkLevel.Level4, QuirkCategory.Active,
-                QuirkId.Railgunner_LunarWisp_RapidPierceActive, QuirkId.BulletLaser_StoneGolem_SweepingBeamActive);
-
-            AddRecipe(QuirkId.VoidForm_LimitBreak_OFAFOActive, QuirkLevel.Level4, QuirkCategory.Active,
-                QuirkId.VoidBarnacle_VoidFiend_VoidFormActive, QuirkId.Multiplier_Deku_LimitBreakActive);
-
-            AddRecipe(QuirkId.BarbedSpikes_Expunge_DeathAuraActive, QuirkLevel.Level4, QuirkCategory.Active,
-                QuirkId.Bell_Gup_BarbedSpikesPassive, QuirkId.Imp_MagmaWorm_ExpungeActive);
-
-            AddRecipe(QuirkId.MachPunch_Thunderclap_ExtremeSpeedActive, QuirkLevel.Level4, QuirkCategory.Active,
-                QuirkId.Parent_Loader_MachPunchActive, QuirkId.OverloadingWorm_Bison_ThunderclapActive);
-
-            AddRecipe(QuirkId.DoubleTime_Omniboost_TheWorldActive, QuirkLevel.Level4, QuirkCategory.Active,
-                QuirkId.RoboBallMini_Commando_DoubleTimePassive, QuirkId.LesserWisp_Beetle_OmniboostPassive);
-
-            // ============================
-            // (Level 3 and Level 5 reserved)
-            // ============================
-
-
+            AddRecipe(QuirkId.MiniMushrum_Jellyfish_FalseSon_Seeker_HyperRegenerationPassive, QuirkLevel.Level4, QuirkCategory.Passive,
+                QuirkId.MiniMushrum_HealingAuraPassive, QuirkId.Jellyfish_RegenerateActive, QuirkId.FalseSon_StolenInheritancePassive, QuirkId.Seeker_MeditateActive);
 
         }
 
@@ -532,6 +548,7 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.Utility_Choose] = chooseDef,
                 [QuirkId.Utility_Remove] = removeDef,
 
+
                 // =========================
                 // Level 1 — Base Actives
                 // =========================
@@ -543,17 +560,22 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.Vulture_WindBlastActive] = alloyvultureWindBlastDef,
                 [QuirkId.BeetleGuard_SlamActive] = beetleguardslamDef,
                 [QuirkId.Bison_ChargeActive] = bisonchargeDef,
-                [QuirkId.Bell_SpikedBallActive] = bronzongballDef,
-                [QuirkId.ClayApothecary_MortarActive] = clayapothecarymortarDef,
-                [QuirkId.ClayTemplar_MinigunActive] = claytemplarminigunDef,
+                [QuirkId.Bell_SpikedBallControlActive] = bronzongballDef,
+                [QuirkId.ClayApothecary_ClayAirStrikeActive] = clayapothecarymortarDef,
+                [QuirkId.ClayTemplar_ClayMinigunActive] = claytemplarminigunDef,
                 [QuirkId.ElderLemurian_FireBlastActive] = elderlemurianfireblastDef,
                 [QuirkId.GreaterWisp_SpiritBoostActive] = greaterWispBuffDef,
                 [QuirkId.Imp_BlinkActive] = impblinkDef,
-                [QuirkId.Jellyfish_HealActive] = jellyfishHealDef,
+                [QuirkId.Jellyfish_RegenerateActive] = JellyfishRegenerateDef,
                 [QuirkId.Lemurian_FireballActive] = lemurianfireballDef,
                 [QuirkId.LunarGolem_SlideResetActive] = lunargolemSlideDef,
                 [QuirkId.LunarWisp_MinigunActive] = lunarwispminigunDef,
                 [QuirkId.Parent_TeleportActive] = parentteleportDef,
+                [QuirkId.SolusDistributor_SolusPlantMineActive] = solusdistributorplantmineDef,
+                [QuirkId.SolusExtractor_SolusExtractActive] = solusextractorextractDef,
+                [QuirkId.SolusInvalidator_SolusInvalidateActive] = solusinvalidatorinvalidateDef,
+                [QuirkId.SolusScorcher_SolusAccelerateActive] = solusscorcheraccelerateDef,
+                [QuirkId.SolusTransporter_SolusTransportActive] = solustransportertransportDef,
                 [QuirkId.StoneGolem_LaserActive] = stonegolemlaserDef,
                 [QuirkId.VoidReaver_PortalActive] = voidreaverportalDef,
 
@@ -582,12 +604,57 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.VoidFiend_CleanseActive] = voidfiendcleanseDef,
                 [QuirkId.Deku_OFAActive] = DekuOFADef,
 
+
+                // =========================
+                // Level 2 — Actives
+                // =========================
+                [QuirkId.BulletLaser_StoneGolem_SweepingBeamActive] = sweepingBeamDef,
+                [QuirkId.VoidDevastator_Huntress_BlackholeGlaiveActive] = blackholeGlaiveDef,
+                [QuirkId.VoidJailer_SolusControlUnit_GravitationalDownforceActive] = gravitationalDownforceDef,
+                [QuirkId.Vulture_Engineer_WindShieldActive] = windShieldDef,
+                [QuirkId.XIConstruct_ClayApothecary_GenesisActive] = genesisDef,
+                [QuirkId.LunarExploder_LunarGolem_RefreshActive] = refreshDef,
+                [QuirkId.Imp_MagmaWorm_ExpungeActive] = expungeDef,
+                [QuirkId.Imp_Bandit_ShadowClawActive] = shadowClawDef,
+                [QuirkId.Captain_VoidReaver_OrbitalStrikeActive] = orbitalStrikeDef,
+                [QuirkId.OverloadingWorm_Bison_ThunderclapActive] = thunderclapDef,
+                [QuirkId.ElderLemurian_Lemurian_BlastBurnActive] = blastBurnDef,
+                [QuirkId.AlphaConstruct_Jellyfish_BarrierJellyActive] = barrierJellyDef,
+                [QuirkId.BeetleGuard_MULT_MechStanceActive] = mechStanceDef,
+                [QuirkId.AirCannon_Merc_WindSlashActive] = windSlashDef,
+                [QuirkId.Multiplier_Deku_LimitBreakActive] = limitBreakDef,
+                [QuirkId.VoidBarnacle_VoidFiend_VoidFormActive] = voidFormDef,
+                [QuirkId.REX_Decay_DecayPlusUltraActive] = decayPlusUltraDef,
+                [QuirkId.Parent_Loader_MachPunchActive] = machPunchDef,
+                [QuirkId.Railgunner_LunarWisp_RapidPierceActive] = rapidPierceDef,
+
+
+                // =========================
+                // Level 4 — Actives
+                // =========================
+                [QuirkId.ShadowClaw_Genesis_LightAndDarknessActive] = lightAndDarknessDef,
+                [QuirkId.Refresh_Gacha_WildCardActive] = wildCardDef,
+                [QuirkId.OrbitalStrike_BlastBurn_BlastingZoneActive] = blastingZoneDef,
+                [QuirkId.WindShield_WindSlash_FinalReleaseActive] = finalReleaseDef,
+                [QuirkId.RapidPierce_SweepingBeam_XBeamerActive] = xBeamerDef,
+                [QuirkId.VoidForm_LimitBreak_OFAFOActive] = OFAFODef,
+                [QuirkId.BarbedSpikes_Expunge_DeathAuraActive] = deathAuraDef,
+                [QuirkId.MachPunch_Thunderclap_ExtremeSpeedActive] = extremeSpeedDef,
+                [QuirkId.DoubleTime_Omniboost_TheWorldActive] = theWorldDef,
+
+                // =========================
+                // Level 6 — Actives
+                // =========================
+                [QuirkId.Solusx6_SolusFactorUnleashedActive] = solusfactorunleashedDef,
+
+
                 // =========================
                 // Level 1 — Base Passives (as SkillDefs)
                 // =========================
                 [QuirkId.AlphaConstruct_BarrierPassive] = alphaconstructpassiveDef,   // (typo in field name kept)
                 [QuirkId.Beetle_StrengthPassive] = beetlepassiveDef,
                 [QuirkId.Pest_JumpPassive] = pestpassiveDef,
+                [QuirkId.Child_EmergencyTeleportPassive] = childpassiveDef,
                 [QuirkId.Vermin_SpeedPassive] = verminpassiveDef,
                 [QuirkId.Gup_SpikyBodyPassive] = guppassiveDef,
                 [QuirkId.HermitCrab_MortarPassive] = hermitcrabpassiveDef,
@@ -598,9 +665,10 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.RoboBallMini_SolusBoostPassive] = roboballminibpassiveDef,
                 [QuirkId.VoidBarnacle_VoidMortarPassive] = voidbarnaclepassiveDef,
                 [QuirkId.VoidJailer_GravityPassive] = voidjailerpassiveDef,
-                [QuirkId.Child_EmergencyTeleportPassive] = childpassiveDef,
 
+                [QuirkId.AlloyHunter_CritBoostPassive] = alloyhuntercritboostDef,
                 [QuirkId.ImpBoss_BleedPassive] = impbosspassiveDef,
+                [QuirkId.SolusAmalgamator_EquipmentBoostPassive] = solusamalgamatorequipmentboostDef,
                 [QuirkId.StoneTitan_StoneSkinPassive] = stonetitanpassiveDef,
                 [QuirkId.MagmaWorm_BlazingAuraPassive] = magmawormpassiveDef,
                 [QuirkId.OverloadingWorm_LightningAuraPassive] = overloadingwormpassiveDef,
@@ -628,28 +696,6 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.Vagrant_ClayTemplar_BigBangPassive] = bigBangPassiveDef,
                 [QuirkId.Wisp_Grovetender_WisperPassive] = wisperPassiveDef,
 
-                // =========================
-                // Level 2 — Actives
-                // =========================
-                [QuirkId.BulletLaser_StoneGolem_SweepingBeamActive] = sweepingBeamDef, 
-                [QuirkId.VoidDevastator_Huntress_BlackholeGlaiveActive] = blackholeGlaiveDef,
-                [QuirkId.VoidJailer_SolusControlUnit_GravitationalDownforceActive] = gravitationalDownforceDef,
-                [QuirkId.Vulture_Engineer_WindShieldActive] = windShieldDef,
-                [QuirkId.XIConstruct_ClayApothecary_GenesisActive] = genesisDef,
-                [QuirkId.LunarExploder_LunarGolem_RefreshActive] = refreshDef,
-                [QuirkId.Imp_MagmaWorm_ExpungeActive] = expungeDef,
-                [QuirkId.Imp_Bandit_ShadowClawActive] = shadowClawDef,
-                [QuirkId.Captain_VoidReaver_OrbitalStrikeActive] = orbitalStrikeDef,
-                [QuirkId.OverloadingWorm_Bison_ThunderclapActive] = thunderclapDef,
-                [QuirkId.ElderLemurian_Lemurian_BlastBurnActive] = blastBurnDef,
-                [QuirkId.AlphaConstruct_Jellyfish_BarrierJellyActive] = barrierJellyDef,
-                [QuirkId.BeetleGuard_MULT_MechStanceActive] = mechStanceDef,
-                [QuirkId.AirCannon_Merc_WindSlashActive] = windSlashDef,
-                [QuirkId.Multiplier_Deku_LimitBreakActive] = limitBreakDef,
-                [QuirkId.VoidBarnacle_VoidFiend_VoidFormActive] = voidFormDef,
-                [QuirkId.REX_Decay_DecayPlusUltraActive] = decayPlusUltraDef,
-                [QuirkId.Parent_Loader_MachPunchActive] = machPunchDef,
-                [QuirkId.Railgunner_LunarWisp_RapidPierceActive] = rapidPierceDef,
 
                 // =========================
                 // Level 4 — Passives
@@ -660,19 +706,8 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.BlackholeGlaive_MechStance_MachineFormPassive] = machineFormPassiveDef,
                 [QuirkId.BarrierJelly_BlindSenses_ReversalPassive] = reversalPassiveDef,
                 [QuirkId.BigBang_Wisper_SupernovaPassive] = supernovaPassiveDef,
+                [QuirkId.MiniMushrum_Jellyfish_FalseSon_Seeker_HyperRegenerationPassive] = hyperRegenerationPassiveDef,
 
-                // =========================
-                // Level 4 — Actives
-                // =========================
-                [QuirkId.ShadowClaw_Genesis_LightAndDarknessActive] = lightAndDarknessDef,
-                [QuirkId.Refresh_Gacha_WildCardActive] = wildCardDef,
-                [QuirkId.OrbitalStrike_BlastBurn_BlastingZoneActive] = blastingZoneDef,
-                [QuirkId.WindShield_WindSlash_FinalReleaseActive] = finalReleaseDef,
-                [QuirkId.RapidPierce_SweepingBeam_XBeamerActive] = xBeamerDef,
-                [QuirkId.VoidForm_LimitBreak_OFAFOActive] = OFAFODef,
-                [QuirkId.BarbedSpikes_Expunge_DeathAuraActive] = deathAuraDef,
-                [QuirkId.MachPunch_Thunderclap_ExtremeSpeedActive] = extremeSpeedDef,
-                [QuirkId.DoubleTime_Omniboost_TheWorldActive] = theWorldDef,
             };
 
             return m;
@@ -704,11 +739,14 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.LunarExploder_LunarBarrierPassive] = lunarexploderBuff,
                 [QuirkId.MiniMushrum_HealingAuraPassive] = minimushrumBuff,
                 [QuirkId.RoboBallMini_SolusBoostPassive] = roboballminiBuff, // roboballminiattackspeedBuff is a sub-effect
+                [QuirkId.SolusProspector_PrimingPassive] = solusPrimedBuff, // applies the primed debuff
                 [QuirkId.VoidBarnacle_VoidMortarPassive] = voidbarnaclemortarBuff, // *_attackspeedBuff is a sub-effect
                 [QuirkId.VoidJailer_GravityPassive] = voidjailerBuff,
                 [QuirkId.Child_EmergencyTeleportPassive] = childBuff, // childCDDebuff is a debuff to turn it off
 
+                [QuirkId.AlloyHunter_CritBoostPassive] = alloyhunterCritBoostBuff,
                 [QuirkId.ImpBoss_BleedPassive] = impbossBuff,
+                [QuirkId.SolusAmalgamator_EquipmentBoostPassive] = solusamalgamatorEquipmentBoostBuff,
                 [QuirkId.StoneTitan_StoneSkinPassive] = stonetitanBuff,
                 [QuirkId.MagmaWorm_BlazingAuraPassive] = magmawormBuff,
                 [QuirkId.OverloadingWorm_LightningAuraPassive] = overloadingwormBuff,
@@ -735,10 +773,10 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.Wisp_Grovetender_WisperPassive] = wisperBuff,
 
                 // Level 2 actives with persistent effects
-                [QuirkId.Vulture_Engineer_WindShieldActive] = windShieldBuff,
-                [QuirkId.BeetleGuard_MULT_MechStanceActive] = mechStanceBuff,
-                [QuirkId.Multiplier_Deku_LimitBreakActive] = limitBreakBuff,
-                [QuirkId.VoidBarnacle_VoidFiend_VoidFormActive] = voidFormBuff,
+                //[QuirkId.Vulture_Engineer_WindShieldActive] = windShieldBuff,
+                //[QuirkId.BeetleGuard_MULT_MechStanceActive] = mechStanceBuff,
+                //[QuirkId.Multiplier_Deku_LimitBreakActive] = limitBreakBuff,
+                //[QuirkId.VoidBarnacle_VoidFiend_VoidFormActive] = voidFormBuff,
 
                 // Level 4 passives
                 [QuirkId.ShiggyDecay_AuraOfBlight_DecayAwakenedPassive] = decayAwakenedBuff,
@@ -747,13 +785,16 @@ namespace ShiggyMod.Modules.Quirks
                 [QuirkId.BlackholeGlaive_MechStance_MachineFormPassive] = machineFormBuff,
                 [QuirkId.BarrierJelly_BlindSenses_ReversalPassive] = reversalBuff, // + reversalBuffStacks
                 [QuirkId.BigBang_Wisper_SupernovaPassive] = supernovaBuff,
+                [QuirkId.MiniMushrum_Jellyfish_FalseSon_Seeker_HyperRegenerationPassive] = hyperRegenerationBuff,
 
                 // Level 4 actives with toggled/lasting effects
-                [QuirkId.DoubleTime_Omniboost_TheWorldActive] = theWorldBuff,
-                [QuirkId.BarbedSpikes_Expunge_DeathAuraActive] = deathAuraBuff,
-                [QuirkId.VoidForm_LimitBreak_OFAFOActive] = OFAFOBuff,
-                [QuirkId.WindShield_WindSlash_FinalReleaseActive] = finalReleaseBuff,
-                [QuirkId.ShadowClaw_Genesis_LightAndDarknessActive] = lightAndDarknessFormBuff, // NOTE: this form swaps between light/dark/combined.
+                //[QuirkId.DoubleTime_Omniboost_TheWorldActive] = theWorldBuff,
+                //[QuirkId.BarbedSpikes_Expunge_DeathAuraActive] = deathAuraBuff,
+                //[QuirkId.VoidForm_LimitBreak_OFAFOActive] = OFAFOBuff,
+                //[QuirkId.WindShield_WindSlash_FinalReleaseActive] = finalReleaseBuff,
+                //[QuirkId.ShadowClaw_Genesis_LightAndDarknessActive] = lightAndDarknessFormBuff, // NOTE: this form swaps between light/dark/combined.
+
+
             };
 
             // Optional: add UI/“wild card” effect toggles if you want the registry to know them:
@@ -765,10 +806,6 @@ namespace ShiggyMod.Modules.Quirks
         {
             id = QuirkId.None;
             if (!body) return false;
-
-            Debug.Log("Elite bead buff " + body.GetBuffCount(DLC2Content.Buffs.EliteBead));
-            Debug.Log("Elite bead corruption buff " + body.GetBuffCount(DLC2Content.Buffs.EliteBeadCorruption));
-            Debug.Log("Elite bead thorns buff " + body.GetBuffCount(DLC2Content.Buffs.EliteBeadThorns));
 
             // Vanilla elites
             if (body.HasBuff(RoR2Content.Buffs.AffixRed)) { id = QuirkId.Elite_BlazingPassive; return true; }
@@ -868,9 +905,12 @@ namespace ShiggyMod.Modules.Quirks
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_RoboBallBoss.RoboBallMiniBody_prefab).WaitForCompletion().name, QuirkId.RoboBallMini_SolusBoostPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_RoboBallBuddy.RoboBallGreenBuddyBody_prefab).WaitForCompletion().name, QuirkId.RoboBallMini_SolusBoostPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_RoboBallBuddy.RoboBallRedBuddyBody_prefab).WaitForCompletion().name, QuirkId.RoboBallMini_SolusBoostPassive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_WorkerUnit.WorkerUnitBody_prefab).WaitForCompletion().name, QuirkId.SolusProspector_PrimingPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidBarnacle.VoidBarnacleBody_prefab).WaitForCompletion().name, QuirkId.VoidBarnacle_VoidMortarPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidJailer.VoidJailerBody_prefab).WaitForCompletion().name, QuirkId.VoidJailer_GravityPassive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_VultureHunter.VultureHunterBody_prefab).WaitForCompletion().name, QuirkId.AlloyHunter_CritBoostPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ImpBoss.ImpBossBody_prefab).WaitForCompletion().name, QuirkId.ImpBoss_BleedPassive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_SolusAmalgamator.SolusAmalgamatorBody_prefab).WaitForCompletion().name, QuirkId.SolusAmalgamator_EquipmentBoostPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Titan.TitanBody_prefab).WaitForCompletion().name, QuirkId.StoneTitan_StoneSkinPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Titan.TitanGoldBody_prefab).WaitForCompletion().name, QuirkId.StoneTitan_StoneSkinPassive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Vagrant.VagrantBody_prefab).WaitForCompletion().name, QuirkId.Vagrant_OrbPassive);
@@ -889,17 +929,20 @@ namespace ShiggyMod.Modules.Quirks
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Vulture.VultureBody_prefab).WaitForCompletion().name, QuirkId.Vulture_WindBlastActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_BeetleGuard.BeetleGuardBody_prefab).WaitForCompletion().name, QuirkId.BeetleGuard_SlamActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bison.BisonBody_prefab).WaitForCompletion().name, QuirkId.Bison_ChargeActive);
-            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bell.BellBody_prefab).WaitForCompletion().name, QuirkId.Bell_SpikedBallActive);
-            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_ClayGrenadier.ClayGrenadierBody_prefab).WaitForCompletion().name, QuirkId.ClayApothecary_MortarActive);
-            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ClayBruiser.ClayBruiserBody_prefab).WaitForCompletion().name, QuirkId.ClayTemplar_MinigunActive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bell.BellBody_prefab).WaitForCompletion().name, QuirkId.Bell_SpikedBallControlActive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_ClayGrenadier.ClayGrenadierBody_prefab).WaitForCompletion().name, QuirkId.ClayApothecary_ClayAirStrikeActive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ClayBruiser.ClayBruiserBody_prefab).WaitForCompletion().name, QuirkId.ClayTemplar_ClayMinigunActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LemurianBruiser.LemurianBruiserBody_prefab).WaitForCompletion().name, QuirkId.ElderLemurian_FireBlastActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_GreaterWisp.GreaterWispBody_prefab).WaitForCompletion().name, QuirkId.GreaterWisp_SpiritBoostActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Imp.ImpBody_prefab).WaitForCompletion().name, QuirkId.Imp_BlinkActive);
-            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Jellyfish.JellyfishBody_prefab).WaitForCompletion().name, QuirkId.Jellyfish_HealActive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Jellyfish.JellyfishBody_prefab).WaitForCompletion().name, QuirkId.Jellyfish_RegenerateActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Lemurian.LemurianBody_prefab).WaitForCompletion().name, QuirkId.Lemurian_FireballActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LunarGolem.LunarGolemBody_prefab).WaitForCompletion().name, QuirkId.LunarGolem_SlideResetActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LunarWisp.LunarWispBody_prefab).WaitForCompletion().name, QuirkId.LunarWisp_MinigunActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Parent.ParentBody_prefab).WaitForCompletion().name, QuirkId.Parent_TeleportActive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_MinePod.MinePodBody_prefab).WaitForCompletion().name, QuirkId.SolusDistributor_SolusPlantMineActive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_ExtractorUnit.ExtractorUnitBody_prefab).WaitForCompletion().name, QuirkId.SolusExtractor_SolusExtractActive);
+            QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Tanker.TankerBody_prefab).WaitForCompletion().name, QuirkId.SolusScorcher_SolusAccelerateActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Golem.GolemBody_prefab).WaitForCompletion().name, QuirkId.StoneGolem_LaserActive);
             QuirkTargetingMap.Add(Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Nullifier.NullifierBody_prefab).WaitForCompletion().name, QuirkId.VoidReaver_PortalActive);
 

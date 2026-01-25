@@ -23,7 +23,7 @@ namespace ShiggyMod.Modules.Survivors
         public const string PLUGIN_PREFIX = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
         public override string survivorTokenPrefix => PLUGIN_PREFIX;
 
-        //monster passives
+        //monster Lv1 passives
         internal static SkillDef alphaconstructpassiveDef;
         internal static SkillDef beetlepassiveDef;
         internal static SkillDef pestpassiveDef;
@@ -35,20 +35,23 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef lunarexploderpassiveDef;
         internal static SkillDef minimushrumpassiveDef;
         internal static SkillDef roboballminibpassiveDef;
+        internal static SkillDef solusprospectorprimingDef;
         internal static SkillDef voidbarnaclepassiveDef;
         internal static SkillDef voidjailerpassiveDef;
         internal static SkillDef childpassiveDef;
 
 
-        //boss monster passives
+        //boss monster Lv1 passives
+        internal static SkillDef alloyhuntercritboostDef;
         internal static SkillDef impbosspassiveDef;
         internal static SkillDef stonetitanpassiveDef;
         internal static SkillDef magmawormpassiveDef;
         internal static SkillDef overloadingwormpassiveDef;
+        internal static SkillDef solusamalgamatorequipmentboostDef;
         internal static SkillDef vagrantpassiveDef;
 
 
-        //survivor passives
+        //survivor Lv1 passives
         internal static SkillDef acridpassiveDef;
         internal static SkillDef captainpassiveDef;
         internal static SkillDef commandopassiveDef;
@@ -56,7 +59,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef falsesonpassiveDef;
         internal static SkillDef loaderpassiveDef;
 
-        //synergy passives
+        //synergy Lv2 passives
         internal static SkillDef bigBangPassiveDef;
         internal static SkillDef wisperPassiveDef;
         internal static SkillDef omniboostPassiveDef;
@@ -68,15 +71,16 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef doubleTimePassiveDef;
         internal static SkillDef blindSensesPassiveDef;
 
-        //ultimate passives
+        //ultimate Lv4 passives
         internal static SkillDef supernovaPassiveDef;
         internal static SkillDef reversalPassiveDef;
         internal static SkillDef machineFormPassiveDef;
         internal static SkillDef gargoyleProtectionPassiveDef;
         internal static SkillDef weatherReportPassiveDef;
         internal static SkillDef decayAwakenedPassiveDef;
+        internal static SkillDef hyperRegenerationPassiveDef;
 
-        //monster actives
+        //monster Lv1 actives
         internal static SkillDef alloyvultureWindBlastDef;
         internal static SkillDef beetleguardslamDef;
         internal static SkillDef bisonchargeDef;
@@ -86,17 +90,22 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef elderlemurianfireblastDef;
         internal static SkillDef greaterWispBuffDef;
         internal static SkillDef impblinkDef;
-        internal static SkillDef jellyfishHealDef;
+        internal static SkillDef JellyfishRegenerateDef;
         internal static SkillDef lemurianfireballDef;
         internal static SkillDef lunargolemSlideDef;
         internal static SkillDef lunarwispminigunDef;
         internal static SkillDef parentteleportDef;
+        internal static SkillDef solusscorcheraccelerateDef;
+        internal static SkillDef solusdistributorplantmineDef;
+        internal static SkillDef solusextractorextractDef;
+        internal static SkillDef solusinvalidatorinvalidateDef;
+        internal static SkillDef solustransportertransportDef;
         internal static SkillDef stonegolemlaserDef;
         internal static SkillDef voidreaverportalDef;
         internal static SkillDef halcyoniteGreedDef;
 
 
-        //boss monster actives
+        //boss monster Lv1 actives
         internal static SkillDef beetlequeenSummonDef;
         internal static SkillDef grandparentsunDef;
         internal static SkillDef grovetenderChainDef;
@@ -107,7 +116,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef scavengerthqwibDef;
 
 
-        //survivor actives
+        //survivor Lv1 actives
         internal static SkillDef artificerflamethrowerDef;
         internal static SkillDef artificericewallDef;
         internal static SkillDef artificerlightningorbDef;
@@ -124,7 +133,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef seekermeditateDef;
         internal static SkillDef voidfiendcleanseDef;
 
-        //collab actives
+        //collab Lv1 actives
         internal static SkillDef DekuOFADef;
 
         //shiggy skills
@@ -138,7 +147,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef emptySkillDef;
 
 
-        //synergy actives
+        //synergy Lv2 actives
         internal static SkillDef sweepingBeamDef;
         internal static SkillDef blackholeGlaiveDef;
         internal static SkillDef gravitationalDownforceDef;
@@ -161,7 +170,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef rapidPierceDef;
 
 
-        //ultimate actives
+        //ultimate Lv4 actives
         internal static SkillDef theWorldDef;
         internal static SkillDef extremeSpeedDef;
         internal static SkillDef deathAuraDef;
@@ -172,6 +181,8 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef wildCardDef;
         internal static SkillDef lightAndDarknessDef;
 
+        //transcendental Lv6 actives
+        internal static SkillDef solusfactorunleashedDef;
 
         public override GameObject bodyPrefab { get; set; }
         public override GameObject displayPrefab { get; set; }
@@ -862,6 +873,30 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
+            Shiggy.solusprospectorprimingDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SOLUSPROSPECTOR_NAME",
+                skillNameToken = prefix + "SOLUSPROSPECTOR_NAME",
+                skillDescriptionToken = prefix + "SOLUSPROSPECTOR_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.SolusProspector_PrimingPassive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SolusProspectorPriming)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
             Shiggy.voidbarnaclepassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VOIDBARNACLE_NAME",
@@ -934,6 +969,30 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
+            Shiggy.alloyhuntercritboostDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "ALLOYHUNTER_NAME",
+                skillNameToken = prefix + "ALLOYHUNTER_NAME",
+                skillDescriptionToken = prefix + "ALLOYHUNTER_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.AlloyHunter_CritBoostPassive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.AlloyHunter)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
             Shiggy.impbosspassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "IMPBOSS_NAME",
@@ -941,6 +1000,30 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "IMPBOSS_DESCRIPTION",
                 skillIcon = QuirkIconBank.Get(QuirkId.ImpBoss_BleedPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ImpBoss)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
+            Shiggy.solusamalgamatorequipmentboostDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SOLUSAMALGAMATOR_NAME",
+                skillNameToken = prefix + "SOLUSAMALGAMATOR_NAME",
+                skillDescriptionToken = prefix + "SOLUSAMALGAMATOR_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.SolusAmalgamator_EquipmentBoostPassive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SolusAmalgamator)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -1279,8 +1362,8 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "BRONZONG_NAME",
                 skillNameToken = prefix + "BRONZONG_NAME",
                 skillDescriptionToken = prefix + "BRONZONG_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.Bell_SpikedBallActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.BronzongBall)),
+                skillIcon = QuirkIconBank.Get(QuirkId.Bell_SpikedBallControlActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BronzongSpikedBallControl)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 8f,
@@ -1303,8 +1386,8 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "APOTHECARY_NAME",
                 skillNameToken = prefix + "APOTHECARY_NAME",
                 skillDescriptionToken = prefix + "APOTHECARY_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.ClayApothecary_MortarActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.ClayApothecaryMortar)),
+                skillIcon = QuirkIconBank.Get(QuirkId.ClayApothecary_ClayAirStrikeActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ClayApothecaryClayAirStrike)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 8f,
@@ -1327,8 +1410,8 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "TEMPLAR_NAME",
                 skillNameToken = prefix + "TEMPLAR_NAME",
                 skillDescriptionToken = prefix + "TEMPLAR_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.ClayTemplar_MinigunActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.ClayTemplarMinigun)),
+                skillIcon = QuirkIconBank.Get(QuirkId.ClayTemplar_ClayMinigunActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ClayTemplarClayMinigun)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 5f,
@@ -1376,7 +1459,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillNameToken = prefix + "GREATERWISP_NAME",
                 skillDescriptionToken = prefix + "GREATERWISP_DESCRIPTION",
                 skillIcon = QuirkIconBank.Get(QuirkId.GreaterWisp_SpiritBoostActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.GreaterWispBuff)),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.GreaterWispSpiritBoost)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 8f,
@@ -1418,13 +1501,13 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
-            Shiggy.jellyfishHealDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.JellyfishRegenerateDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "JELLYFISH_NAME",
                 skillNameToken = prefix + "JELLYFISH_NAME",
                 skillDescriptionToken = prefix + "JELLYFISH_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.Jellyfish_HealActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.JellyfishHeal)),
+                skillIcon = QuirkIconBank.Get(QuirkId.Jellyfish_RegenerateActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.JellyfishRegenerate)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 12f,
@@ -1537,6 +1620,126 @@ namespace ShiggyMod.Modules.Survivors
                 requiredStock = 1,
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
+            });
+            Shiggy.solusscorcheraccelerateDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SOLUSSCORCHER_NAME",
+                skillNameToken = prefix + "SOLUSSCORCHER_NAME",
+                skillDescriptionToken = prefix + "SOLUSSCORCHER_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.SolusScorcher_SolusAccelerateActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SolusScorcherAccelerate)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 12f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
+            Shiggy.solusdistributorplantmineDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SOLUSDISTRIBUTOR_NAME",
+                skillNameToken = prefix + "SOLUSDISTRIBUTOR_NAME",
+                skillDescriptionToken = prefix + "SOLUSDISTRIBUTOR_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.SolusDistributor_SolusPlantMineActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SolusDistributorPlantMine)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 8f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
+            Shiggy.solusextractorextractDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SOLUSEXTRACTOR_NAME",
+                skillNameToken = prefix + "SOLUSEXTRACTOR_NAME",
+                skillDescriptionToken = prefix + "SOLUSEXTRACTOR_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.SolusExtractor_SolusExtractActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SolusExtractorExtract)),
+                activationStateMachineName = "Body",
+                baseMaxStock = 1,
+                baseRechargeInterval = 8f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
+            Shiggy.solusinvalidatorinvalidateDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SOLUSINVALIDATOR_NAME",
+                skillNameToken = prefix + "SOLUSINVALIDATOR_NAME",
+                skillDescriptionToken = prefix + "SOLUSINVALIDATOR_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.SolusInvalidator_SolusInvalidateActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SolusInvalidatorInvalidate)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 8f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
+            Shiggy.solustransportertransportDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SOLUSTRANSPORTER_NAME",
+                skillNameToken = prefix + "SOLUSTRANSPORTER_NAME",
+                skillDescriptionToken = prefix + "SOLUSTRANSPORTER_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.SolusTransporter_SolusTransportActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SolusTransporterTransport)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 12f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
             Shiggy.stonegolemlaserDef = Skills.CreateSkillDef(new SkillDefInfo
             {
@@ -2893,6 +3096,30 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
+            Shiggy.solusfactorunleashedDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SOLUSFACTORUNLEASHED_NAME",
+                skillNameToken = prefix + "SOLUSFACTORUNLEASHED_NAME",
+                skillDescriptionToken = prefix + "SOLUSFACTORUNLEASHED_DESCRIPTION",
+                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("SolusFactorUnleashed"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.SolusFactorUnleashed)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
             #endregion
 
 
@@ -3323,6 +3550,31 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { }
 
             });
+            hyperRegenerationPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "HYPERREGENERATION_NAME",
+                skillNameToken = prefix + "HYPERREGENERATION_NAME",
+                skillDescriptionToken = prefix + "HYPERREGENERATION_DESCRIPTION",
+                skillIcon = Modules.ShiggyAsset.healBuffIcon,
+                activationState = new SerializableEntityStateType(typeof(SkillStates.HyperRegenerationPassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
             #endregion
 
             #region Chosen Skills
@@ -3363,6 +3615,7 @@ namespace ShiggyMod.Modules.Survivors
 
             SkillDef[] allSkills = new SkillDef[]
             {
+                    //passives
                     alphaconstructpassiveDef,
                     beetlepassiveDef,
                     pestpassiveDef,
@@ -3374,9 +3627,12 @@ namespace ShiggyMod.Modules.Survivors
                     lunarexploderpassiveDef,
                     minimushrumpassiveDef,
                     roboballminibpassiveDef,
+                    solusprospectorprimingDef,
                     voidbarnaclepassiveDef,
                     voidjailerpassiveDef,
+                    alloyhuntercritboostDef,
                     impbosspassiveDef,
+                    solusamalgamatorequipmentboostDef,
                     stonetitanpassiveDef,
                     magmawormpassiveDef,
                     overloadingwormpassiveDef,
@@ -3402,6 +3658,8 @@ namespace ShiggyMod.Modules.Survivors
                     gargoyleProtectionPassiveDef,
                     weatherReportPassiveDef,
                     decayAwakenedPassiveDef,
+                    hyperRegenerationPassiveDef,
+                    //actives
                     alloyvultureWindBlastDef,
                     beetleguardslamDef,
                     bisonchargeDef,
@@ -3411,11 +3669,16 @@ namespace ShiggyMod.Modules.Survivors
                     elderlemurianfireblastDef,
                     greaterWispBuffDef,
                     impblinkDef,
-                    jellyfishHealDef,
+                    JellyfishRegenerateDef,
                     lemurianfireballDef,
                     lunargolemSlideDef,
                     lunarwispminigunDef,
                     parentteleportDef,
+                    solusdistributorplantmineDef,
+                    solusextractorextractDef,
+                    solusinvalidatorinvalidateDef,
+                    solusscorcheraccelerateDef,
+                    solustransportertransportDef,
                     stonegolemlaserDef,
                     voidreaverportalDef,
                     beetlequeenSummonDef,
@@ -3467,6 +3730,7 @@ namespace ShiggyMod.Modules.Survivors
                     blastingZoneDef,
                     wildCardDef,
                     lightAndDarknessDef,
+                    solusfactorunleashedDef
             };
 
             if (Config.allowAllSkills.Value)

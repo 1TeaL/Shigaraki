@@ -485,6 +485,7 @@ namespace ShiggyMod
                     {
                         args.baseAttackSpeedAdd += (StaticValues.roboballattackspeedMultiplier * sender.GetBuffCount(Buffs.roboballminiattackspeedBuff));
 
+
                     }
                     //claydunestrider buff
                     if (sender.HasBuff(Buffs.claydunestriderBuff))
@@ -586,6 +587,12 @@ namespace ShiggyMod
                     {
                         args.baseDamageAdd += StaticValues.falseSonHPCoefficient * sender.healthComponent.fullHealth;
                     }
+                    //alloy hunter crit boost buff
+                    if (sender.HasBuff(Buffs.alloyhunterCritBoostBuff))
+                    {
+                        args.critDamageTotalMult *= (StaticValues.alloyHunterCritBoostMultiplier);
+
+                    }
 
                 }
             }
@@ -639,6 +646,97 @@ namespace ShiggyMod
             bool isNonDot = (damageInfo.damageType & DamageType.DoT) != DamageType.DoT;
             bool hasProcChance = damageInfo.procCoefficient > 0f;
             bool positiveDmg = damageInfo.damage > 0f;
+
+            if(positiveDmg && isNonDot && hasProcChance)
+            {
+                if (attackerBody.HasBuff(Buffs.solusamalgamatorEquipmentBoostBuff))
+                {
+                    // seconds-based reduction
+                    attackerBody.inventory.DeductActiveEquipmentCooldown(StaticValues.solusAmalgamatorEquipmentBoostCDReduction);
+
+                }
+            }
+
+            // Solus Primed: +damage once, then consume (with optional Unleashed behavior)
+            if (positiveDmg && isNonDot && hasProcChance)
+            {
+
+                // victim must be primed
+                if (victimBody.HasBuff(Buffs.solusPrimedDebuff))
+                {
+                    int stacks = victimBody.GetBuffCount(Buffs.solusPrimedDebuff);
+                    // Example: only allow Shiggy (optional)
+                    // attackerAllowed = attackerBody.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME";
+
+                    // Add bonus damage as a second damage instance (cleaner than mutating the original hit)
+                    // This avoids weirdness with crit/bleed/etc. already processed in orig().
+                    float bonus = damageInfo.damage * StaticValues.solusPrimedDamageMult * stacks;
+
+                    var di = new DamageInfo
+                    {
+                        damage = bonus,
+                        position = victimBody.corePosition,
+                        force = Vector3.zero,
+                        crit = false, // or roll crit if you want, but usually keep false for "detonation"
+                        attacker = attackerBody.gameObject,
+                        inflictor = attackerBody.gameObject,
+                        damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary),
+                        procCoefficient = 0f, // IMPORTANT: 0 so it doesn't proc items and recurse
+                        procChainMask = default
+                    };
+                    victimBody.healthComponent.TakeDamage(di);
+
+                    // Consume primed, unless Unleashed behavior says otherwise
+                    bool attackerHasUnleashed = attackerBody.HasBuff(Buffs.solusSuperPrimedBuff);
+
+                    if (!attackerHasUnleashed)
+                    {
+                        //reduce stacks by 1 each hit
+                        victimBody.ApplyBuff(Buffs.solusPrimedDebuff.buffIndex, stacks - 1);
+                    }
+                    else
+                    {
+                        victimBody.ApplyBuff(Buffs.solusPrimedDebuff.buffIndex, stacks + 1);
+                        // Unleashed extras- do a blast attack that ignites, and applies accelerant
+
+                        new BlastAttack
+                        {
+                            attacker = attackerBody.gameObject,
+                            teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject),
+                            crit = false,
+                            falloffModel = BlastAttack.FalloffModel.None,
+                            baseDamage = damageInfo.damage,
+                            damageType = new DamageTypeCombo(DamageType.IgniteOnHit, DamageTypeExtended.Accelerant, DamageSource.Secondary),
+                            damageColorIndex = DamageColorIndex.WeakPoint,
+                            baseForce = 0f,
+                            procChainMask = damageInfo.procChainMask,
+                            position = victimBody.transform.position,
+                            radius = StaticValues.solusFactorUnleashedBlastRadius,
+                            procCoefficient = 0.1f,
+                            attackerFiltering = AttackerFiltering.NeverHitSelf,
+                        }.Fire();
+
+                        var effectPrefab = ShiggyAsset.solusFactorBlastEffectPrefab;
+                        if (effectPrefab)
+                        {
+                            EffectManager.SpawnEffect(
+                                effectPrefab,
+                                new EffectData
+                                {
+                                    origin = victimBody.transform.position,
+                                    scale = StaticValues.solusFactorUnleashedBlastRadius
+                                },
+                                true
+                            );
+                        }
+
+
+
+                    }
+
+                }
+            }
+
             // Final Release stacks
             if (attackerBody.HasBuff(Buffs.finalReleaseBuff) && positiveDmg && isNonDot)
             {
@@ -1387,6 +1485,25 @@ namespace ShiggyMod
                     bool positiveDmg = damageInfo.damage > 0f;
                     bool bypassSelf = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
 
+
+                    //apply primed debuff if you have the primed buff
+                    if (attackerBody.HasBuff(Buffs.solusPrimedBuff))
+                    {
+                        int stacks = victimBody.GetBuffCount(Buffs.solusPrimedDebuff);
+                        victimBody.ApplyBuff(Buffs.solusPrimedDebuff.buffIndex, stacks + 1);
+                    }
+                    // Prospector: any hit applies Primed
+                    if (attackerBody.HasBuff(Buffs.solusPrimedBuff) && positiveDmg && isNonDot && hasProc)
+                    {
+                        // Optional: ignore self hits
+                        if (attackerBody != victimBody)
+                        {
+                            int stacks = victimBody.GetBuffCount(Buffs.solusPrimedDebuff);
+                            victimBody.ApplyBuff(Buffs.solusPrimedDebuff.buffIndex, stacks + 1);
+                        }
+                    }
+
+
                     // supernova stacks (self-damage tracker)
                     if (victimBody.HasBuff(Buffs.supernovaBuff.buffIndex))
                     {
@@ -1466,12 +1583,12 @@ namespace ShiggyMod
                     }
 
                     // jellyfish heal stacks (based on damage taken)
-                    if (victimBody.HasBuff(Buffs.jellyfishHealStacksBuff.buffIndex) && !bypassSelf && positiveDmg && attackerBody != victimBody)
+                    if (victimBody.HasBuff(Buffs.JellyfishRegenerateStacksBuff.buffIndex) && !bypassSelf && positiveDmg && attackerBody != victimBody)
                     {
-                        int currentStacks = victimBody.GetBuffCount(Buffs.jellyfishHealStacksBuff.buffIndex) - 1;
+                        int currentStacks = victimBody.GetBuffCount(Buffs.JellyfishRegenerateStacksBuff.buffIndex) - 1;
                         int damageDealt = Mathf.RoundToInt(damageInfo.damage);
                         int total = (damageDealt / 2) + currentStacks;
-                        victimBody.ApplyBuff(Buffs.jellyfishHealStacksBuff.buffIndex, total);
+                        victimBody.ApplyBuff(Buffs.JellyfishRegenerateStacksBuff.buffIndex, total);
                     }
 
                     // Gup spike blast (reactive; doesn’t alter incoming)

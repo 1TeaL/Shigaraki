@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1579095608
+CRC: 1739611004
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d44d2f84d530c7ab1c643d243f11e880
+    Hash: b29048304416dc2b50e0582c133012db
   TypeTreeHash:
     serializedVersion: 2
     Hash: c6e88c678bec3d38b177b2bfda004c24
@@ -164,6 +164,7 @@ Assets:
 - Assets/Shigaraki/newAnimations/RHandFingerGunStart.anim
 - Assets/Shigaraki/Assets/MeshHand.mesh
 - Assets/Shigaraki/newAnimations/LArmOut.anim
+- Assets/Shigaraki/newAnimations/FullBodyDashSlashStart.anim
 - Assets/Shigaraki/newAnimations/Entrance1Loop.anim
 - Assets/Shigaraki/Assets/mdlShiggy.prefab
 - Assets/Shigaraki/GUI/CombinedSkills/ExtremeSpeed.png
@@ -185,9 +186,10 @@ Assets:
 - Assets/Shigaraki/GUI/CombinedSkills/Refresh.png
 - Assets/Shigaraki/Assets/shiggyCustomUI.prefab
 - Assets/Shigaraki/Assets/FrontHitbox.prefab
+- Assets/Shigaraki/newAnimations/FullBodyDashSlashBounce.anim
 - Assets/Shigaraki/newAnimations/LArmPunchStart.anim
-- Assets/Shigaraki/Assets/Material/Panner.shader
 - Assets/Shigaraki/newAnimations/LArmBlastRelease.anim
+- Assets/Shigaraki/Assets/Material/Panner.shader
 - Assets/Shigaraki/newAnimations/DiveKicking.anim
 - Assets/Shigaraki/newAnimations/FullBodyDashThunderhold.anim
 - Assets/Shigaraki/newAnimations/JumpFast.anim
@@ -210,10 +212,11 @@ Assets:
 - Assets/Shigaraki/Assets/apexAdaptUI.prefab
 - Assets/Shigaraki/newAnimations/ShigarakiLeftArmMask.mask
 - Assets/Shigaraki/newAnimations/LArmGetsugaLtoR.anim
-- Assets/Shigaraki/newAnimations/FullBodyExtremeSpeed.anim
+- Assets/Shigaraki/newAnimations/FullBodyDashSlashPose.anim
 - Assets/Shigaraki/newAnimations/FloatBackward.anim
 - Assets/Shigaraki/GUI/Base/ApexIconCircle.png
 - Assets/Shigaraki/newAnimations/RArmOut.anim
+- Assets/Shigaraki/newAnimations/FullBodyExtremeSpeed.anim
 - Assets/Shigaraki/newAnimations/FullBodyUnleash.anim
 - Assets/Shigaraki/Assets/Material/texFace.png
 - Assets/Shigaraki/GUI/CombinedSkills/DeathAura.png
@@ -240,6 +243,7 @@ Assets:
 - Assets/Shigaraki/GUI/CombinedSkills/TheWorld.png
 - Assets/Shigaraki/newAnimations/FullBodyXBurnering.anim
 - Assets/Shigaraki/Assets/ShiggyDisplay.prefab
+- Assets/Shigaraki/GUI/CombinedSkills/SolusFactorUnleashed.png
 - Assets/Shigaraki/newAnimations/RArmBlastStart.anim
 - Assets/Shigaraki/newAnimations/RArmGetsugaRtoL.anim
 - Assets/Shigaraki/Assets/shigarakiEyesMesh.mesh
