@@ -1,9 +1,9 @@
 ﻿using EntityStates;
 using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
 using RoR2.Audio;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 using static RoR2.BulletAttack;
 
 namespace ShiggyMod.SkillStates
@@ -101,7 +101,7 @@ namespace ShiggyMod.SkillStates
                 hitCallback = laserHitCallback
             };
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
         }
 
         public bool laserHitCallback(BulletAttack bulletRef, ref BulletHit hitInfo)
@@ -153,7 +153,7 @@ namespace ShiggyMod.SkillStates
         }
         public void updateAimRay()
         {
-           aimRay = base.GetAimRay();
+            aimRay = base.GetAimRay();
         }
 
         public override void OnExit()

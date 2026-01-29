@@ -2,13 +2,12 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static ShiggyMod.Modules.Quirks.QuirkRegistry;
 
 namespace ShiggyMod.Modules.Quirks
 {
     /// <summary>
-    /// Screen-space overlay (bottom-center) that shows the aimed target's Quirk name
-    /// and a ✓ checkmark if the player already owns it. Hidden if config disables it.
+    /// Local-only screen-space overlay (bottom-center) that shows the aimed target's Quirk name
+    /// and a ✓ checkmark if the local player already owns it.
     /// </summary>
     public class QuirkHUDOverlay : MonoBehaviour
     {
@@ -35,10 +34,18 @@ namespace ShiggyMod.Modules.Quirks
         private QuirkId _lastId = QuirkId.None;
         private bool _lastOwned;
 
-        // ------------- Public API -------------
+        // Inventory (master-scoped, instance)
+        private CharacterMaster _master;
+        private QuirkInventory _inv;
+        private bool _dirty = true;
+
         public static QuirkHUDOverlay EnsureFor(CharacterBody body)
         {
             if (!body) return null;
+
+            // IMPORTANT: only attach on the client that owns this body
+            if (!body.hasEffectiveAuthority) return null;
+
             var ex = body.GetComponent<QuirkHUDOverlay>();
             if (ex) return ex;
 
@@ -48,17 +55,42 @@ namespace ShiggyMod.Modules.Quirks
             return comp;
         }
 
-        // ------------- Unity -------------
-        private void Awake() => BuildUI();
+        private void Awake()
+        {
+            if (Body == null) Body = GetComponent<CharacterBody>();
+
+            // Safety: never run on non-local bodies (prevents lobby-wide overlays)
+            if (Body == null || !Body.hasEffectiveAuthority)
+            {
+                Destroy(this);
+                return;
+            }
+
+            InputBank = Body.inputBank;
+
+            ResolveInventory();
+            BuildUI();
+        }
 
         private void OnDestroy()
         {
-            if (_canvas) Destroy(_canvas.gameObject);
+            UnhookInventory();
+
+            if (_canvas)
+                Destroy(_canvas.gameObject);
         }
 
         private void FixedUpdate()
         {
-            // Respect config: if name overlay is off, hide and skip work.
+            // If body swapped / lost authority, stop.
+            if (Body == null) Body = GetComponent<CharacterBody>();
+            if (Body == null || !Body.hasEffectiveAuthority)
+            {
+                Hide();
+                return;
+            }
+
+            // Config gate
             if (Modules.Config.ShowQuirkNameOverlay != null &&
                 Modules.Config.ShowQuirkNameOverlay.Value == false)
             {
@@ -70,6 +102,7 @@ namespace ShiggyMod.Modules.Quirks
             if (_updateStopwatch < 1f / Mathf.Max(1f, trackerUpdateFrequency)) return;
             _updateStopwatch = 0f;
 
+            ResolveInventory();
             UpdateTargetAndText();
         }
 
@@ -83,7 +116,7 @@ namespace ShiggyMod.Modules.Quirks
                 return;
             }
 
-            // Aim-based scan (same idea as your controller)
+            // Aim-based scan
             var aimRay = new Ray(InputBank.aimOrigin, InputBank.aimDirection);
             _search.teamMaskFilter = TeamMask.all;
             _search.filterByLoS = true;
@@ -94,8 +127,8 @@ namespace ShiggyMod.Modules.Quirks
             _search.maxAngleFilter = maxTrackingAngle;
             _search.RefreshCandidates();
             _search.FilterOutGameObject(gameObject);
-            var hb = _search.GetResults().FirstOrDefault();
 
+            var hb = _search.GetResults().FirstOrDefault();
             if (!hb || !hb.healthComponent || !hb.healthComponent.body)
             {
                 Hide();
@@ -104,6 +137,7 @@ namespace ShiggyMod.Modules.Quirks
             }
 
             var targetBody = hb.healthComponent.body;
+
             string bodyName = BodyCatalog.GetBodyName(targetBody.bodyIndex);
             if (string.IsNullOrEmpty(bodyName))
                 bodyName = targetBody.baseNameToken;
@@ -111,8 +145,8 @@ namespace ShiggyMod.Modules.Quirks
             // Map body -> quirk id
             if (!QuirkTargetingMap.TryGet(bodyName, out var id) || id == QuirkId.None)
             {
-                _line.text = ""; // nothing for unmapped targets
                 Hide();
+                _line.text = "";
                 _lastHB = hb; _lastId = QuirkId.None; _lastOwned = false;
                 return;
             }
@@ -122,9 +156,9 @@ namespace ShiggyMod.Modules.Quirks
             bool hasRec = QuirkRegistry.TryGet(id, out rec);
             string nice = hasRec ? QuirkInventory.QuirkPickupUI.MakeNiceName(id) : id.ToString();
 
-            bool owned = QuirkInventory.Has(id);
-            bool changed = (hb != _lastHB) || (id != _lastId) || (owned != _lastOwned);
+            bool owned = _inv != null && _inv.Has(id);
 
+            bool changed = _dirty || (hb != _lastHB) || (id != _lastId) || (owned != _lastOwned);
             if (changed)
             {
                 // Color by category
@@ -134,9 +168,8 @@ namespace ShiggyMod.Modules.Quirks
                     rec.Category == QuirkCategory.Active ? new Color(0.85f, 0.9f, 1f, 1f) :
                     new Color(1f, 1f, 1f, 0.95f);
 
-                // Config: show owned check?
                 bool showCheck = Modules.Config.ShowOwnedCheckOverlay == null || Modules.Config.ShowOwnedCheckOverlay.Value;
-                string suffix = (owned && showCheck) ? "  [\u2713]" : ""; // ✓
+                string suffix = (owned && showCheck) ? "  [\u2713]" : "";
 
                 _line.text = nice + suffix;
                 _line.color = c;
@@ -144,48 +177,88 @@ namespace ShiggyMod.Modules.Quirks
                 _lastHB = hb;
                 _lastId = id;
                 _lastOwned = owned;
+                _dirty = false; // IMPORTANT: clear dirty after rebuilding
             }
 
-            // Only show if we actually have text (mapped target)
             if (string.IsNullOrEmpty(_line.text))
                 Hide();
             else
                 Show();
         }
 
+        // ------------- Inventory wiring -------------
+        private void ResolveInventory()
+        {
+            if (!Body) return;
+
+            // Cache master
+            var newMaster = Body.master;
+            if (newMaster != _master)
+            {
+                // Body/master changed (respawn etc)
+                UnhookInventory();
+                _master = newMaster;
+                _inv = null;
+            }
+
+            if (_master != null && _inv == null)
+            {
+                _inv = QuirkInventory.Ensure(_master);
+
+                if (_inv != null)
+                    _inv.OnOwnedChanged += OnInventoryChanged;
+
+                _dirty = true;
+            }
+        }
+
+        private void UnhookInventory()
+        {
+            if (_inv != null)
+                _inv.OnOwnedChanged -= OnInventoryChanged;
+        }
+
+        private void OnInventoryChanged()
+        {
+            _dirty = true;
+        }
+
         // ------------- UI build/show/hide -------------
         private void BuildUI()
         {
-            // root overlay canvas
             var root = new GameObject("QuirkHUDOverlay_Canvas");
-            root.transform.SetParent(null, false);
+            // Parent doesn't really matter for ScreenSpaceOverlay; keep it on the body for cleanup grouping
+            root.transform.SetParent(Body ? Body.transform : null, false);
+
             _canvas = root.AddComponent<Canvas>();
             _canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            _canvas.sortingOrder = 5000; // draw over HUD
+            _canvas.sortingOrder = 5000;
+
             var scaler = root.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
-            root.AddComponent<GraphicRaycaster>(); // harmless; no interaction
+
+            root.AddComponent<GraphicRaycaster>();
 
             _cg = root.AddComponent<CanvasGroup>();
             _cg.interactable = false;
-            _cg.blocksRaycasts = false; // never block WASD or clicks
+            _cg.blocksRaycasts = false;
             _cg.alpha = 0f;
 
-            // container panel (transparent) anchored BOTTOM CENTER
             var panel = new GameObject("Panel").AddComponent<Image>();
             panel.transform.SetParent(_canvas.transform, false);
-            panel.color = new Color(0f, 0f, 0f, 0f); // invisible
+            panel.color = new Color(0f, 0f, 0f, 0f);
             panel.raycastTarget = false;
+
             var prt = panel.rectTransform;
             prt.sizeDelta = new Vector2(900f, 46f);
-            prt.anchorMin = prt.anchorMax = new Vector2(0.5f, 0f); // bottom-center
+            prt.anchorMin = prt.anchorMax = new Vector2(0.5f, 0f);
             prt.pivot = new Vector2(0.5f, 0f);
-            prt.anchoredPosition = new Vector2(0f, 42f); // lift slightly above bottom edge
+            prt.anchoredPosition = new Vector2(0f, 42f);
 
-            // single line text
             var txtGO = new GameObject("Line");
             txtGO.transform.SetParent(panel.transform, false);
+
             var rt = txtGO.AddComponent<RectTransform>();
             rt.anchorMin = new Vector2(0f, 0f);
             rt.anchorMax = new Vector2(1f, 1f);
@@ -204,11 +277,12 @@ namespace ShiggyMod.Modules.Quirks
 
         private void Show()
         {
-            if (_cg.alpha < 1f) _cg.alpha = 1f;
+            if (_cg && _cg.alpha < 1f) _cg.alpha = 1f;
         }
+
         private void Hide()
         {
-            if (_cg.alpha > 0f) _cg.alpha = 0f;
+            if (_cg && _cg.alpha > 0f) _cg.alpha = 0f;
         }
     }
 }

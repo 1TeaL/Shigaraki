@@ -1,6 +1,5 @@
 ﻿using R2API;
 using System;
-using UnityEngine.Bindings;
 
 namespace ShiggyMod.Modules
 {
@@ -66,7 +65,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "AFO_DESCRIPTION", $"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>. "
                 + $" Press the [{Config.OpenQuirkMenuHotkey.Value}] key to <style=cIsUtility>open the quirk menu</style>." +
                     $" Press the [{Config.CloseQuirkMenuHotkey.Value}] key to <style=cIsUtility>close the quirk menu</style>." +
-                " Actives<style=cWorldEvent>[Circle]</style> and Passives<style=cWorldEvent>[Triangle]</style> have different indicators." );
+                " Actives<style=cWorldEvent>[Circle]</style> and Passives<style=cWorldEvent>[Triangle]</style> have different indicators.");
             LanguageAPI.Add(prefix + "CHOOSESKILL_NAME", "Choose Skill Slot");
             LanguageAPI.Add(prefix + "CHOOSESKILL_DESCRIPTION", $"Press this to <style=cIsUtility>slot in the stolen quirk</style>.");
             LanguageAPI.Add(prefix + "REMOVESKILL_NAME", "Remove Skill Slot");
@@ -112,7 +111,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Pairs with [Stone Titan- Stone Skin] to create [Stone Form]</style>");
             LanguageAPI.Add(prefix + "MINIMUSHRUM_NAME", "Healing Aura");
             LanguageAPI.Add(prefix + "MINIMUSHRUM_DESCRIPTION", $"<style=cIsHealing>Heal yourself and nearby allies {100f * StaticValues.minimushrumhealFraction}% max health every second</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Clay Dunestrider- Tar boost] to create [Ingrain]</style>");
+                $"<style=cSub>Pairs with [Clay Dunestrider- Tar boost] to create [Ingrain]. Pairs with [Jellyfish], [False Son], [Seeker] to create [Hyper Regeneration].</style>");
             LanguageAPI.Add(prefix + "ROBOBALLMINI_NAME", "Solus Boost");
             LanguageAPI.Add(prefix + "ROBOBALLMINI_DESCRIPTION", $"<style=cIsUtility>While holding any skill button, gain {100f * StaticValues.roboballattackspeedMultiplier}% attack speed </style>every second. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Commando- Double Tap] to create [Double Time]</style>");
@@ -153,7 +152,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "OVERLOADINGWORM_DESCRIPTION", $"Summon lightning bolts on nearby enemies for <style=cIsDamage>{100 * StaticValues.overloadingCoefficient}% damage</style> every ({StaticValues.overloadingInterval}/Attackspeed) seconds. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Bison- Charging] to create [Thunderclap]</style>");
             LanguageAPI.Add(prefix + "VAGRANT_NAME", "Vagrant's Orb");
-            LanguageAPI.Add(prefix + "VAGRANT_DESCRIPTION", $"When striking an enemy for <style=cIsDamage>{100 * StaticValues.vagrantdamageThreshold}% or more damage</style>, Create a nova Explosion that stuns and deals <style=cIsDamage>{100 * StaticValues.vagrantDamageCoefficient/3}% damage</style>. " +
+            LanguageAPI.Add(prefix + "VAGRANT_DESCRIPTION", $"When striking an enemy for <style=cIsDamage>{100 * StaticValues.vagrantdamageThreshold}% or more damage</style>, Create a nova Explosion that stuns and deals <style=cIsDamage>{100 * StaticValues.vagrantDamageCoefficient / 3}% damage</style>. " +
                 $"This bonus attack has a cooldown of {StaticValues.vagrantCooldown} seconds. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Clay Templar- Clay Minigun] to create [Big Bang]</style>");
             LanguageAPI.Add(prefix + "ACRID_NAME", "Poison");
@@ -174,7 +173,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Pairs with [Parent- Teleport] to create [Mach Punch]</style>");
             LanguageAPI.Add(prefix + "FALSESON_NAME", "Stolen Inheritance");
             LanguageAPI.Add(prefix + "FALSESON_DESCRIPTION", $"Gain <style=cIsDamage>bonus base damage equal to {100f * StaticValues.falseSonHPCoefficient}% of your maximum health</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>No pairing yet");
+                $"<style=cSub>Pairs with [Mini Mushrum], [Jellyfish], [False Son], [Seeker] to create [Hyper Regeneration].");
             #endregion
 
 
@@ -251,14 +250,14 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "DECAYAWAKENED_DESCRIPTION", $"Awaken Decay's original power. All attacks now <style=cIsDamage>apply Decay</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Decay Plus Ultra] [Aura Of Blight]</style>");
             LanguageAPI.Add(prefix + "HYPERREGENERATION_NAME", "Hyper Regeneration");
-            LanguageAPI.Add(prefix + "HYPERREGENERATION_DESCRIPTION", $"Regenerate <style=cIsHealing>{Config.HyperRegenerationHealPercent}% of your max HP</style> every {Config.HyperRegenerationInterval} seconds. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "HYPERREGENERATION_DESCRIPTION", $"Regenerate <style=cIsHealing>{Config.HyperRegenerationHealPercent.Value * 100f}% of your max HP</style> every {Config.HyperRegenerationInterval.Value} seconds. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Mini Mushrum] [Jellyfish] [False Son] [Seeker]</style>");
             #endregion
 
             #region Actives 
             LanguageAPI.Add(prefix + "VULTURE_NAME", "Wind Blast");
-            LanguageAPI.Add(prefix + "VULTURE_DESCRIPTION", $"Create a gust of wind, pushing and stunning enemies in front of you for <style=cIsDamage>{100f*StaticValues.vultureDamageCoefficient}% damage</style>. "
-                + Environment.NewLine + Environment.NewLine + 
+            LanguageAPI.Add(prefix + "VULTURE_DESCRIPTION", $"Create a gust of wind, pushing and stunning enemies in front of you for <style=cIsDamage>{100f * StaticValues.vultureDamageCoefficient}% damage</style>. "
+                + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Engineer- Turret] to create [Wind Shield]</style>");
             LanguageAPI.Add(prefix + "BEETLEGUARD_NAME", "Slam");
             LanguageAPI.Add(prefix + "BEETLEGUARD_DESCRIPTION", $"<style=cIsDamage>Stunning.</style> Drop and slam down, stunning and dealing <style=cIsDamage>{100f * StaticValues.beetleguardSlamDamageCoefficient}% damage</style> and gaining <style=cIsHealing>{Modules.StaticValues.beetleguardSlamBarrierCoefficient * 100f}% of your max health as Barrier</style> on hit. " +
@@ -290,7 +289,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "JELLYFISH_NAME", "Regenerate");
             LanguageAPI.Add(prefix + "JELLYFISH_DESCRIPTION", $"Store half the damage you take, decaying by <style=cIsUtility>{100f * StaticValues.JellyfishRegenerateTickRate}% of your max HP every second</style>. " +
                 $"Activate this skill to <style=cIsHealing>Heal based on the number of stacks</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Alpha Construct- Barrier] to create [Barrier Jelly]</style>");
+                $"<style=cSub>Pairs with [Alpha Construct- Barrier] to create [Barrier Jelly]. Pairs with [Mini Mushrum], [False Son], [Seeker] to create [Hyper Regeneration].</style>");
             LanguageAPI.Add(prefix + "LEMURIAN_NAME", "Fireball");
             LanguageAPI.Add(prefix + "LEMURIAN_DESCRIPTION", $"<style=cIsDamage>Burning.</style> Shoot a fireball, burning and dealing <style=cIsDamage>{100f * StaticValues.lemurianfireballDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Elder Lemurian- Fire Blast] to create [Blast Burn]</style>");
@@ -304,15 +303,19 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "PARENT_DESCRIPTION", $"<style=cIsDamage>Stunning.</style> Teleport to the target you're looking at and generate a shockwave on arrival that stuns enemies for <style=cIsDamage>{100f * StaticValues.parentDamageCoefficient}% damage</style> in a radius. " +
                 $"Damage and radius scales with charge duration. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Loader- Scrap Barrier] to create [Mach Punch]</style>");
+            LanguageAPI.Add(prefix + "SCORCHWORM_NAME", "Lava Bomb");
+            LanguageAPI.Add(prefix + "SCORCHWORM_DESCRIPTION", $"<style=cIsDamage>Burning. </style>Shoot a lava bomb, dealing <style=cIsDamage>{StaticValues.scorchWormLavaBombDamageCoefficient * 100}% damage</style>. " + Environment.NewLine +
+                $"Hitting an already Primed enemy <style=cIsUtility>resets the cooldown of Solus Transport</style>. " + Environment.NewLine +
+                $"<style=cSub>Pairs with nothing</style>");
             LanguageAPI.Add(prefix + "SOLUSSCORCHER_NAME", "Solus Accelerate");
             LanguageAPI.Add(prefix + "SOLUSSCORCHER_DESCRIPTION", $"<style=cIsDamage>Burning. </style>Apply Accelerant and Primed on the area around the target or in front of you, <style=cIsDamage>causing an explosion upon being hit by a fire-related attack</style>. Primed- makes the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine +
                 $"Targetting an already Primed enemy <style=cIsDamage>Ignites them for {StaticValues.solusScorcherAccelerateDamageCoefficient * 100f}% damage</style> as well. " + Environment.NewLine +
                 $"<style=cSub>Pairs with [Solus Distributor- Solus Plant Mine], [Solus Extractor- Solus Extract], [Solus Invalidator- Solus Invalidate], [Solus Prospector- Solus Priming], [Solus Transporter- Solus Transport] to create [Solus Factor Unleashed]</style>");
             LanguageAPI.Add(prefix + "SOLUSDISTRIBUTOR_NAME", "Solus Plant Mine");
-            LanguageAPI.Add(prefix + "SOLUSDISTRIBUTOR_DESCRIPTION", $"Spawn a mine. It's attacks apply Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "SOLUSDISTRIBUTOR_DESCRIPTION", $"Spawn {StaticValues.solusDistributorNumberOfMines} mines. Their attacks apply Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Solus Scorcher- Solus Accelerate], [Solus Extractor- Solus Extract], [Solus Invalidator- Solus Invalidate], [Solus Prospector- Solus Priming], [Solus Transporter- Solus Transport] to create [Solus Factor Unleashed]</style>");
             LanguageAPI.Add(prefix + "SOLUSEXTRACTOR_NAME", "Solus Extract");
-            LanguageAPI.Add(prefix + "SOLUSEXTRACTOR_DESCRIPTION", $"Lunge, on hitting an enemy, bounce back and deal<style=cIsDamage>{StaticValues.solusExtractorLungeDamageCoefficient * 100f}% damage</style>. If the enemy isn't Primed, apply Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine +
+            LanguageAPI.Add(prefix + "SOLUSEXTRACTOR_DESCRIPTION", $"Lunge, on hitting an enemy, bounce back and deal <style=cIsDamage>{StaticValues.solusExtractorLungeDamageCoefficient * 100f}% damage</style>. If the enemy isn't Primed, apply Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>. " + Environment.NewLine +
                 $"Hitting an already Primed enemy <style=cIsUtility>reduces the cooldowns of all skills by {StaticValues.solusExtractorLungeCooldownReduction} second for each stack of Primed</style>. " + Environment.NewLine +
                 $"<style=cSub>Pairs with [Solus Scorcher- Solus Accelerate], [Solus Distributor- Solus Plant Mine], [Solus Invalidator- Solus Invalidate], [Solus Prospector- Solus Priming], [Solus Transporter- Solus Transport] to create [Solus Factor Unleashed]</style>");
             LanguageAPI.Add(prefix + "SOLUSINVALIDATOR_NAME", "Solus Invalidate");
@@ -340,7 +343,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "GROVETENDER_DESCRIPTION", $"<style=cIsUtility>Chain</style> nearby enemies for <style=cIsUtility>{StaticValues.grovetenderDuration} seconds, gathering them in front of you and immobilising them</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Greater Wisp- Spirit Boost] to create [Wisper]</style>");
             LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_NAME", "Tar Boost");
-            LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_DESCRIPTION", $"For the next {StaticValues.claydunestriderbuffDuration} seconds, your attacks <style=cIsDamage>Tar</style>, gain <style=cIsHealing>{100f * StaticValues.claydunestriderHealCoefficient}% Lifesteal</style> and <style=cIsUtility>{100f * (StaticValues.claydunestriderAttackSpeed-1f)}% attackspeed</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "CLAYDUNESTRIDER_DESCRIPTION", $"For the next {StaticValues.claydunestriderbuffDuration} seconds, your attacks <style=cIsDamage>Tar</style>, gain <style=cIsHealing>{100f * StaticValues.claydunestriderHealCoefficient}% Lifesteal</style> and <style=cIsUtility>{100f * (StaticValues.claydunestriderAttackSpeed - 1f)}% attackspeed</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Mini Mushrum- Healing Aura] to create [Ingrain]</style>");
             LanguageAPI.Add(prefix + "SOLUSCONTROLUNIT_NAME", "Anti Gravity");
             LanguageAPI.Add(prefix + "SOLUSCONTROLUNIT_DESCRIPTION", $"Summon a large anti-gravity array. After a delay, it explodes, launching enemies and dealing <style=cIsDamage>{100f * StaticValues.soluscontrolunitDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
@@ -373,13 +376,13 @@ namespace ShiggyMod.Modules
                 $"Kills reset all your cooldowns." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Imp- Blink] to create [Shadow Claw]</style>");
             LanguageAPI.Add(prefix + "DRIFTERSALVAGE_NAME", "Salvage");
-            LanguageAPI.Add(prefix + "DRIFTERSALVAGE_DESCRIPTION", $"Spend" + Helpers.Passive($"{StaticValues.drifterSalvagePlusChaosSpend} plus chaos ") + "to spawn <style=cIsUtility>{StaticValues.drifterSalvageItems} temporary items</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "DRIFTERSALVAGE_DESCRIPTION", $"Spend " + Helpers.Passive($"{StaticValues.drifterSalvagePlusChaosSpend} plus chaos ") + $"per item to spawn up to <style=cIsUtility>{StaticValues.drifterSalvageItems} temporary items</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>No pairing yet</style>");
             LanguageAPI.Add(prefix + "ENGI_NAME", "Turret");
             LanguageAPI.Add(prefix + "ENGI_DESCRIPTION", $"Place a turret that inherits all your items. Fires a cannon for <style=cIsDamage>100% damage</style>. Can place up to 2. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Alloy Vulture- Wind Blast] to create [Wind Shield]</style>");
             LanguageAPI.Add(prefix + "HUNTRESS_NAME", "Flurry");
-            LanguageAPI.Add(prefix + "HUNTRESS_DESCRIPTION", $"Fire {StaticValues.huntressmaxArrowCount/2} seeking arrows at the target for <style=cIsDamage>3x{100f * StaticValues.huntressDamageCoefficient}% damage</style>. " +
+            LanguageAPI.Add(prefix + "HUNTRESS_DESCRIPTION", $"Fire {StaticValues.huntressmaxArrowCount / 2} seeking arrows at the target for <style=cIsDamage>3x{100f * StaticValues.huntressDamageCoefficient}% damage</style>. " +
                 $"<style=cIsUtility>Critical Strikes fire {StaticValues.huntressmaxArrowCount} arrows</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Void Devastator- Void Missiles] to create [Blackhole Glaive]</style>");
             LanguageAPI.Add(prefix + "MERC_NAME", "Wind Assault");
@@ -387,7 +390,7 @@ namespace ShiggyMod.Modules
                  Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Air cannon] to create [Wind Slash]</style>");
             LanguageAPI.Add(prefix + "MULTBUFF_NAME", "Power Stance");
-            LanguageAPI.Add(prefix + "MULTBUFF_DESCRIPTION", $"<style=cIsDamage>Agile.</style>Adopt a stance and gain <style=cIsUtility>{StaticValues.multArmor} armor, {StaticValues.multAttackspeed}x attackspeed but have {StaticValues.multMovespeed}x </style>. " +
+            LanguageAPI.Add(prefix + "MULTBUFF_DESCRIPTION", $"<style=cIsDamage>Agile. </style>Adopt a stance and gain <style=cIsUtility>{StaticValues.multArmor} armor, {StaticValues.multAttackspeed}x attackspeed but have {StaticValues.multMovespeed}x </style>. " +
                 $"Reactivate to cancel the stance." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Beetleguard- Fast Drop] to create [Mech Stance]</style>");
             LanguageAPI.Add(prefix + "MULTBUFFCANCEL_NAME", "Power Stance: Cancel");
@@ -405,13 +408,13 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Pairs with [Decay] to create [Decay Plus Ultra]</style>");
             LanguageAPI.Add(prefix + "SEEKER_NAME", "Meditate");
             LanguageAPI.Add(prefix + "SEEKER_DESCRIPTION", $"Release a pulse, <style=cIsHealing>healing you and your allies for {StaticValues.seekerMeditateCoeffecient * 100f}% of their max hp, overhealing and giving barrier</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>No pairing yet</style>");
+                $"<style=cSub>Pairs with [Mini Mushrum], [Jellyfish], [False Son], [Seeker] to create [Hyper Regeneration].</style>");
             LanguageAPI.Add(prefix + "VOIDFIEND_NAME", "Cleanse");
             LanguageAPI.Add(prefix + "VOIDFIEND_DESCRIPTION", $"Disappear into the Void, <style=cIsUtility>cleansing all debuffs</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Void Barnacle- Void Mortar] to create [Void Form]</style>");
             LanguageAPI.Add(prefix + "DEKUOFA_NAME", "OFA 100%");
-            LanguageAPI.Add(prefix + "DEKUOFA_DESCRIPTION", $"Go beyond your limits, boosting Damage, Attackspeed, Armor and Movespeed by {100f *(1 + StaticValues.OFACoefficient)}% additively, " + Helpers.Damage($"taking {100f * StaticValues.OFAHealthCostCoefficient}% of CURRENT health as damage every second") + "." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Get from [Deku/Newt]</style>" +Environment.NewLine +
+            LanguageAPI.Add(prefix + "DEKUOFA_DESCRIPTION", $"Go beyond your limits, boosting Damage, Attackspeed, Armor and Movespeed by {100f * (1 + StaticValues.OFACoefficient)}% additively, " + Helpers.Damage($"taking {100f * StaticValues.OFAHealthCostCoefficient}% of CURRENT health as damage every second") + "." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Deku/Newt]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Multiplier] to create [Limit Break]</style>");
             LanguageAPI.Add(prefix + "HALCYONITE_NAME", "Greed");
             LanguageAPI.Add(prefix + "HALCYONITE_DESCRIPTION", $"Spend <style=cIsUtility>{StaticValues.halcyoniteGreedGoldRatio * 100f}%</style> of your gold every 10 seconds. Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.halcyoniteGreedBuffDamageCoefficient}</style> and <style=cIsDamage>{StaticValues.halcyoniteGreedBuffAttackspeedCoefficient}</style> respectively per stack of the buff. For every {StaticValues.halcyoniteGreedBuffGoldPerStack} gold, gain 1 stack. " + Environment.NewLine + Environment.NewLine +
@@ -424,7 +427,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Get from [Bullet Laser/Stone Golem]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [RapidPierce (Railgunner/Lunar Chimera)] to create [X Beamer]</style>");
             LanguageAPI.Add(prefix + "BLACKHOLEGLAIVE_NAME", "Black Hole Glaive");
-            LanguageAPI.Add(prefix + "BLACKHOLEGLAIVE_DESCRIPTION", $"Throw a seeking glaive that bounces up to {StaticValues.blackholeGlaiveMaxBounceCount} times for <style=cIsDamage>{100f * StaticValues.blackholeGlaiveDamageCoefficient}% per hit</style>, damaging and pulling nearby enemies as well. Damage increases by <style=cIsDamage>{100f * (StaticValues.blackholeGlaiveDamageCoefficientPerBounce-1f)} per bounce</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "BLACKHOLEGLAIVE_DESCRIPTION", $"Throw a seeking glaive that bounces up to {StaticValues.blackholeGlaiveMaxBounceCount} times for <style=cIsDamage>{100f * StaticValues.blackholeGlaiveDamageCoefficient}% per hit</style>, damaging and pulling nearby enemies as well. Damage increases by <style=cIsDamage>{100f * (StaticValues.blackholeGlaiveDamageCoefficientPerBounce - 1f)} per bounce</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Huntress/Void Devastator]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Mech Stance (MUL-T/Beetleguard)] to create [Machine Form]</style>");
             LanguageAPI.Add(prefix + "GRAVITATIONALDOWNFORCE_NAME", "Gravitational Downforce");
@@ -445,7 +448,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Get from [Lunar Golem/Lunar Exploder]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Gacha (Scavenger/Beetle Queen)] to create [Wild Card]</style>");
             LanguageAPI.Add(prefix + "EXPUNGE_NAME", "Expunge");
-            LanguageAPI.Add(prefix + "EXPUNGE_DESCRIPTION", $"Expunge enemies in an area, dealing <style=cIsDamage>{100f * StaticValues.expungeDamageCoefficient}% damage, with each debuff stack increasing damage by {100f* StaticValues.expungeDamageMultiplier}% additively</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "EXPUNGE_DESCRIPTION", $"Expunge enemies in an area, dealing <style=cIsDamage>{100f * StaticValues.expungeDamageCoefficient}% damage, with each debuff stack increasing damage by {100f * StaticValues.expungeDamageMultiplier}% additively</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Imp Overlord/Magma Worm]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Barbed Spikes (Brass Contraption/Gup-Geep-Gip)] to create [Death Aura]</style>");
             LanguageAPI.Add(prefix + "SHADOWCLAW_NAME", "Shadow Claw");
@@ -473,7 +476,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Get from [Jellyfish/Alpha Construct]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Blind Senses (Blind Pest/Blind Vermin)] to create [Reversal]</style>");
             LanguageAPI.Add(prefix + "MECHSTANCE_NAME", "Mech Stance");
-            LanguageAPI.Add(prefix + "MECHSTANCE_DESCRIPTION", $"Become <style=cIsUtility>immune to fall damage, walking causes quakes that deal {100f* StaticValues.mechStanceDamageCoefficient}% damage</style>. " +
+            LanguageAPI.Add(prefix + "MECHSTANCE_DESCRIPTION", $"Become <style=cIsUtility>immune to fall damage, walking causes quakes that deal {100f * StaticValues.mechStanceDamageCoefficient}% damage</style>. " +
                 $"However, jumping prevents you from gaining height. " +
                 $"Movespeed increases the size and damage of the quakes. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [MUL-T/Beetleguard]</style>" + Environment.NewLine +
@@ -543,7 +546,7 @@ namespace ShiggyMod.Modules
 
             #region Transcendental Actives
             LanguageAPI.Add(prefix + "SOLUSFACTORUNLEASHED_NAME", "Solus Factor Unleashed");
-            LanguageAPI.Add(prefix + "SOLUSFACTORUNLEASHED_DESCRIPTION", $"Become Super Primed. <style=cIsUtility>No longer consume Prime stacks. </style>Every attack that has a proc coefficient applies Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>." + Environment.NewLine + $"Hitting an already Primed enemy <style=cIsDamage>creates a blast, dealing the same damage, but Burning, applying Accelerant and Primed</style> at the same time." + Helpers.Passive($"Spend all Plus Chaos. For each {StaticValues.solusFactorUnleashedEnergyPerStack} plus chaos, have 1 second of duration of the Super Primed Buff.") + Environment.NewLine +
+            LanguageAPI.Add(prefix + "SOLUSFACTORUNLEASHED_DESCRIPTION", $"Become Super Primed. <style=cIsUtility>No longer consume Prime stacks. </style>Every attack that has a proc coefficient applies Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>." + Environment.NewLine + $"Hitting an already Primed enemy <style=cIsDamage>creates a blast, dealing the same damage, but Burning, applying Accelerant and Primed</style> at the same time. " + Helpers.Passive($"Spend all Plus Chaos. For each {StaticValues.solusFactorUnleashedEnergyPerStack} plus chaos, have 1 second of duration of the Super Primed Buff.") + Environment.NewLine +
                 $"<style=cSub>[Solus Accelerate] [Solus Plant Mine] [Solus Extract] [Solus Invalidate] [Solus Priming] [Solus Transport]</style>");
             #endregion
 
@@ -556,7 +559,7 @@ namespace ShiggyMod.Modules
 
 
             #region Keywords
-            LanguageAPI.Add(prefix + "KEYWORD_DECAY", $"<style=cKeywordName>Decay</style>Deal the higher of <style=cIsDamage>{100f *StaticValues.decayDamageCoefficient}% damage or {StaticValues.decayDamagePercentage * 100f}% of the enemy's max HP </style>per second for {StaticValues.decayDamageTimer} seconds. This spreads to nearby targets every {StaticValues.decayadditionalTimer} seconds." +
+            LanguageAPI.Add(prefix + "KEYWORD_DECAY", $"<style=cKeywordName>Decay</style>Deal the higher of <style=cIsDamage>{100f * StaticValues.decayDamageCoefficient}% damage or {StaticValues.decayDamagePercentage * 100f}% of the enemy's max HP </style>per second for {StaticValues.decayDamageTimer} seconds. This spreads to nearby targets every {StaticValues.decayadditionalTimer} seconds." +
                 $"Each <style=cStack>stack reduces movespeed and attackspeed by 4%</style>. " +
                 $"<style=cDeath>Instakills</style> at {StaticValues.decayInstaKillThreshold} stacks.");
             LanguageAPI.Add(prefix + "KEYWORD_PASSIVE", $"<style=cKeywordName>Plus Chaos Meter</style>"
@@ -564,12 +567,14 @@ namespace ShiggyMod.Modules
                 + Environment.NewLine
                 + Environment.NewLine
             + $"<style=cKeywordName>Decay</style>"
-                + $"Melee skills/Overlap attacks apply Decay. Decay deals <style=cIsDamage>{100f *StaticValues.decayDamageCoefficient} damage</style> per second for {StaticValues.decayDamageTimer} seconds. This spreads to nearby targets every {StaticValues.decayadditionalTimer} seconds."
+                + $"<style=cKeywordName>Decay</style>Deal the higher of <style=cIsDamage>{100f * StaticValues.decayDamageCoefficient}% damage or {StaticValues.decayDamagePercentage * 100f}% of the enemy's max HP </style>per second for {StaticValues.decayDamageTimer} seconds. This spreads to nearby targets every {StaticValues.decayadditionalTimer} seconds." +
+                $"Each <style=cStack>stack reduces movespeed and attackspeed by {StaticValues.decaydebuffCoefficient * 100f}%</style>. " +
+                $"<style=cDeath>Instakills</style> at {StaticValues.decayInstaKillThreshold} stacks." 
                 + Environment.NewLine
                 + Environment.NewLine
             + $"<style=cKeywordName>Air Walk</style>"
                 + $"<style=cIsUtility>Double tapping jump in the air toggles flight. Freely move horizontally. Sprinting will have move towards where you're looking at. </style>."
-                + Helpers.Passive($" Drains {StaticValues.airwalkEnergyFraction *100f}% of your max plus chaos every second."
+                + Helpers.Passive($" Drains {StaticValues.airwalkEnergyCost * 100f} of plus chaos every second."
                 + Environment.NewLine
                 + Environment.NewLine
             + $"<style=cKeywordName>Apex Adaptation</style>"

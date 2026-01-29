@@ -1,14 +1,8 @@
 ﻿using EntityStates;
 using RoR2;
-using UnityEngine;
 using ShiggyMod.Modules.Survivors;
-using EntityStates.VoidSurvivor;
-using HG;
+using UnityEngine;
 using static RoR2.BulletAttack;
-using static RoR2.BlastAttack;
-using System.Collections.Generic;
-using EmotesAPI;
-using System.Reflection;
 
 namespace ShiggyMod.SkillStates
 {
@@ -51,14 +45,14 @@ namespace ShiggyMod.SkillStates
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
         }
 
         public override void OnExit()
         {
             base.OnExit();
         }
-         public void Fire()
+        public void Fire()
         {
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
@@ -70,7 +64,7 @@ namespace ShiggyMod.SkillStates
             }
 
             base.characterBody.AddSpreadBloom(1f);
-            base.AddRecoil(-1f , 2f, -0.5f , 0.5f);
+            base.AddRecoil(-1f, 2f, -0.5f, 0.5f);
             EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
             Ray aimRay = base.GetAimRay();
             bool hasHit = false;
@@ -130,13 +124,13 @@ namespace ShiggyMod.SkillStates
             };
 
             bulletAttack.Fire();
-            if(hasHit)
+            if (hasHit)
             {
                 shotsHit++;
             }
             else if (!hasHit)
             {
-                shotsHit -= shotsHit/2;
+                shotsHit -= shotsHit / 2;
             }
 
             fireInterval = baseFireInterval / (this.attackSpeedStat * (1f + shotsHit / 5f));

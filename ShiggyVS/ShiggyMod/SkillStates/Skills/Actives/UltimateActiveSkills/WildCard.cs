@@ -1,18 +1,13 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
+﻿using EntityStates.ScavMonster;
 using R2API.Networking;
-using System;
-using static UnityEngine.UI.Image;
-using System.Linq;
+using RoR2;
+using ShiggyMod.Modules;
 using ShiggyMod.Modules.Networking;
-using EntityStates.ScavMonster;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -27,7 +22,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            duration= baseDuration;
+            duration = baseDuration;
             //play animation and maybe particles? maybe snap fingers idk?
 
             Ray aimRay = base.GetAimRay();
@@ -62,7 +57,7 @@ namespace ShiggyMod.SkillStates
                     };
 
                     search.RefreshCandidates();
-                    
+
 
                     List<HurtBox> target = search.GetResults().ToList<HurtBox>();
                     foreach (HurtBox singularTarget in target)
@@ -70,7 +65,7 @@ namespace ShiggyMod.SkillStates
                         if (singularTarget.healthComponent && singularTarget.healthComponent.body)
                         {
                             //make everyone teleport
-                            Vector3 randRelPos = new Vector3((float)UnityEngine.Random.Range(-StaticValues.wildcardTeleportRange, StaticValues.wildcardTeleportRange), (float)UnityEngine.Random.Range(0f, StaticValues.wildcardTeleportRange ), (float)UnityEngine.Random.Range(-StaticValues.wildcardTeleportRange, StaticValues.wildcardTeleportRange));
+                            Vector3 randRelPos = new Vector3((float)UnityEngine.Random.Range(-StaticValues.wildcardTeleportRange, StaticValues.wildcardTeleportRange), (float)UnityEngine.Random.Range(0f, StaticValues.wildcardTeleportRange), (float)UnityEngine.Random.Range(-StaticValues.wildcardTeleportRange, StaticValues.wildcardTeleportRange));
 
                             if (singularTarget.healthComponent.body.characterMotor)
                             {
@@ -108,7 +103,7 @@ namespace ShiggyMod.SkillStates
                     };
 
                     search.RefreshCandidates();
-                    
+
 
                     List<HurtBox> target2 = search.GetResults().ToList<HurtBox>();
                     foreach (HurtBox singularTarget in target2)
@@ -135,7 +130,7 @@ namespace ShiggyMod.SkillStates
                     };
 
                     search.RefreshCandidates();
-                    
+
 
                     List<HurtBox> target3 = search.GetResults().ToList<HurtBox>();
                     foreach (HurtBox singularTarget in target3)
@@ -162,7 +157,7 @@ namespace ShiggyMod.SkillStates
                     };
 
                     search.RefreshCandidates();
-                    
+
 
                     List<HurtBox> target4 = search.GetResults().ToList<HurtBox>();
                     foreach (HurtBox singularTarget in target4)
@@ -189,7 +184,7 @@ namespace ShiggyMod.SkillStates
                     };
 
                     search.RefreshCandidates();
-                    
+
 
                     List<HurtBox> target5 = search.GetResults().ToList<HurtBox>();
                     foreach (HurtBox singularTarget in target5)
@@ -220,7 +215,7 @@ namespace ShiggyMod.SkillStates
                     };
 
                     search.RefreshCandidates();
-                    
+
 
                     List<HurtBox> target6 = search.GetResults().ToList<HurtBox>();
                     foreach (HurtBox singularTarget in target6)
@@ -247,7 +242,7 @@ namespace ShiggyMod.SkillStates
                     };
 
                     search.RefreshCandidates();
-                    
+
 
                     List<HurtBox> target7 = search.GetResults().ToList<HurtBox>();
                     foreach (HurtBox singularTarget in target7)
@@ -323,7 +318,7 @@ namespace ShiggyMod.SkillStates
         private bool FireMeteor()
         {
             MeteorStormController component = UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/MeteorStorm"), this.characterBody.corePosition, Quaternion.identity).GetComponent<MeteorStormController>();
-            if (!component) 
+            if (!component)
             {
                 UnityEngine.Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/MeteorStorm"), this.characterBody.corePosition, Quaternion.identity).AddComponent<MeteorStormController>();
             }

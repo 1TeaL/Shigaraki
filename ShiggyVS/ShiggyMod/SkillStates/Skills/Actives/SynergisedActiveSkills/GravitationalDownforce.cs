@@ -1,16 +1,11 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
+﻿using EntityStates;
 using R2API.Networking;
-using System;
-using ShiggyMod.Modules.Networking;
 using R2API.Networking.Interfaces;
+using RoR2;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Networking;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -23,7 +18,7 @@ namespace ShiggyMod.SkillStates
         private float force = StaticValues.gravitationalDownforceForce;
         private string muzzleString;
         private Vector3 direction = Vector3.down;
-        
+
         private ChildLocator childLocator;
         private GameObject chargeEffect;
 
@@ -59,9 +54,9 @@ namespace ShiggyMod.SkillStates
                 this.chargeEffect.transform.parent = this.childLocator.FindChild(muzzleString);
             }
 
-            
 
-            
+
+
         }
         public override void OnExit()
         {
@@ -75,12 +70,12 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if(base.fixedAge > fireTime && !hasFired)
+            if (base.fixedAge > fireTime && !hasFired)
             {
                 hasFired = true;
-                new PeformDirectionalForceNetworkRequest(characterBody.masterObjectId, direction, force, damageStat *StaticValues.gravitationalDownforceDamageCoefficient, StaticValues.gravitationalDownforceRange).Send(NetworkDestination.Clients);
+                new PeformDirectionalForceNetworkRequest(characterBody.masterObjectId, direction, force, damageStat * StaticValues.gravitationalDownforceDamageCoefficient, StaticValues.gravitationalDownforceRange).Send(NetworkDestination.Clients);
             }
-            if(base.fixedAge > duration)
+            if (base.fixedAge > duration)
             {
                 this.outer.SetNextStateToMain();
                 return;

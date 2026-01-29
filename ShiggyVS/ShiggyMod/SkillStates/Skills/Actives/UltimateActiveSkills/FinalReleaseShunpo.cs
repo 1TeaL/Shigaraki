@@ -1,14 +1,9 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using EntityStates.LunarGolem;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using EntityStates.Commando;
-using ExtraSkillSlots;
-using ShiggyMod.Modules;
 using EntityStates.Merc;
+using RoR2;
+using ShiggyMod.Modules;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -78,7 +73,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            this.animator.SetBool("attacking", false);
+            base.GetModelAnimator().SetBool("attacking", false);
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
             if (this.characterModel)
             {

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using EntityStates;
-using RoR2.Skills;
+﻿using EntityStates;
 using EntityStates.Merc;
 using EntityStates.Treebot.Weapon;
+using R2API.Networking;
 using RoR2;
+using ShiggyMod.Modules;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using R2API.Networking;
-using ShiggyMod.Modules;
 
 namespace ShiggyMod.SkillStates
 {
@@ -149,7 +148,7 @@ namespace ShiggyMod.SkillStates
 
             GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             animator.SetBool("attacking", true);
-            GetModelAnimator().SetBool("FullBodyDashSlashStart", false);
+            PlayAnimation("FullBody, Override", "FullBodyDashSlashStart", "Attack.playbackRate", duration);
 
             if (base.isAuthority)
             {
@@ -248,7 +247,7 @@ namespace ShiggyMod.SkillStates
                 modelTransform.gameObject.GetComponent<AimAnimator>().enabled = false;
             }
             //characterMotor.velocity /= 1.75f;
-            
+
 
             base.OnExit();
         }
@@ -405,7 +404,7 @@ namespace ShiggyMod.SkillStates
                     {
                         body.characterMotor.velocity = Vector3.zero;
                     }
-                    if(body.rigidbody != null)
+                    if (body.rigidbody != null)
                     {
                         body.rigidbody.velocity = Vector3.zero;
                     }

@@ -1,18 +1,9 @@
 ﻿using EntityStates;
 using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
-using EntityStates.Mage.Weapon;
-using ExtraSkillSlots;
-using static RoR2.BulletAttack;
-using HG;
-using ShiggyMod.Modules;
 using RoR2.Audio;
-using System;
-using Object = UnityEngine.Object;
-using EntityStates.VoidRaidCrab;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -213,7 +204,7 @@ namespace ShiggyMod.SkillStates
                     owner = base.gameObject,
                     weapon = base.gameObject,
                     origin = aimRay.origin,
-                    aimVector = endPosition-startPosition,
+                    aimVector = endPosition - startPosition,
                     minSpread = 0f,
                     damage = this.tickDamageCoefficient * this.damageStat,
                     force = force,

@@ -1,12 +1,9 @@
-﻿using R2API;
-using R2API.Networking;
-using R2API.Networking.Interfaces;
+﻿using R2API.Networking.Interfaces;
 using RoR2;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using static UnityEngine.UI.Image;
 
 
 namespace ShiggyMod.Modules.Networking
@@ -144,7 +141,7 @@ namespace ShiggyMod.Modules.Networking
                     //Debug.Log(debuffCount + "debuffcount");
                     float buffDamage = 0f;
                     float buffBaseDamage = charcharBody.damage * StaticValues.expungeDamageMultiplier;
-                    buffDamage = buffBaseDamage * debuffCount;                
+                    buffDamage = buffBaseDamage * debuffCount;
 
 
                     DamageInfo damageInfo = new DamageInfo
@@ -174,8 +171,8 @@ namespace ShiggyMod.Modules.Networking
                 }
             }
 
-            
-        }      
+
+        }
 
     }
 }

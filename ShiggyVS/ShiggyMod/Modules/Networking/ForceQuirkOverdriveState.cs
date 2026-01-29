@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using R2API.Networking.Interfaces;
 using RoR2;
-using R2API.Networking.Interfaces;
+using ShiggyMod.SkillStates;
 using UnityEngine;
 using UnityEngine.Networking;
-using ShiggyMod.SkillStates;
 
 namespace ShiggyMod.Modules.Networking
 {
-    public class ForceQuirkOverdriveState    : INetMessage
+    public class ForceQuirkOverdriveState : INetMessage
     {
         //network
         NetworkInstanceId netID;
@@ -21,7 +18,7 @@ namespace ShiggyMod.Modules.Networking
 
         public ForceQuirkOverdriveState(NetworkInstanceId netID)
         {
-            this.netID = netID;    
+            this.netID = netID;
         }
 
         public void Deserialize(NetworkReader reader)

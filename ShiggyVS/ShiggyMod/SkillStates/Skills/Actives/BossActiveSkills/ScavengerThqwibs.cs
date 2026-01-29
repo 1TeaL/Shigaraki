@@ -2,10 +2,8 @@
 using EntityStates.ScavMonster;
 using RoR2;
 using RoR2.Projectile;
-using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -25,7 +23,7 @@ namespace ShiggyMod.SkillStates
         private float minSpread = 0f;
         private float maxSpread = 5f;
         private string muzzleName = "RHand";
-        
+
 
         public override void OnEnter()
         {
@@ -50,7 +48,7 @@ namespace ShiggyMod.SkillStates
             }
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
 
         }
         private void Fire()
@@ -114,7 +112,7 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if(base.fixedAge > fireTime && !hasFired)
+            if (base.fixedAge > fireTime && !hasFired)
             {
                 hasFired = true;
                 Fire();

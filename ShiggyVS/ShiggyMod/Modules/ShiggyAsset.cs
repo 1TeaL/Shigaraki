@@ -1,12 +1,8 @@
 ﻿using R2API;
 using RoR2;
-using RoR2.UI;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -102,7 +98,7 @@ namespace ShiggyMod.Modules
         public static Material lightAndDarknessMat;
         public static Material lightFormBuffMat;
         public static Material deathAuraBuffMat;
-        public static Material limitBreakBuffMat; 
+        public static Material limitBreakBuffMat;
         public static Material voidFormBuffMat;
 
         //own effects
@@ -339,31 +335,31 @@ namespace ShiggyMod.Modules
 
 
             //game effects
-            voidMegaCrabExplosionEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidMegaCrab.VoidMegacrabAntimatterExplosion_prefab).WaitForCompletion();        
+            voidMegaCrabExplosionEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidMegaCrab.VoidMegacrabAntimatterExplosion_prefab).WaitForCompletion();
             huntressGlaiveChargeEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Huntress.ChargeGlaive_prefab).WaitForCompletion();
             huntressGlaiveMuzzleEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Huntress.HuntressGlaiveSwing_prefab).WaitForCompletion();
-            bisonEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bison.BisonChargeStep_prefab).WaitForCompletion();       
-            GupSpikeEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_Gup.GupExplosion_prefab).WaitForCompletion();        
-            chargegreaterwispBall = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_GreaterWisp.OmniExplosionVFXGreaterWisp_prefab).WaitForCompletion();      
-            larvajumpEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_AcidLarva.AcidLarvaLeapExplosion_prefab).WaitForCompletion();       
-            elderlemurianexplosionEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LemurianBruiser.OmniExplosionVFXLemurianBruiserFireballImpact_prefab).WaitForCompletion();       
-            parentslamEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Parent.ParentSlamEffect_prefab).WaitForCompletion();      
-            claydunestriderEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ClayBruiser.ClayShockwaveEffect_prefab).WaitForCompletion();     
-            voidjailerEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidJailer.VoidJailerDeathBombExplosion_prefab).WaitForCompletion();      
-            voidjailermuzzleEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidSurvivor.VoidSurvivorBeamTracer_prefab).WaitForCompletion();      
-            xiconstructbeamEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.MajorConstructInitialMuzzleFlash_prefab).WaitForCompletion();      
-            xiconstructSecondMuzzleEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.MajorConstructSecondMuzzleFlash_prefab).WaitForCompletion();       
-            xiconstructDeathEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.MajorConstructDeathEffect_prefab).WaitForCompletion();       
-            xiconstructBeamLaser = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.LaserMajorConstruct_prefab).WaitForCompletion();        
-            lunarGolemSmokeEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LunarGolem.BlastSmokeLunarGolem_prefab).WaitForCompletion();        
-            impBossExplosionEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ImpBoss.ImpBossBlink_prefab).WaitForCompletion();       
+            bisonEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bison.BisonChargeStep_prefab).WaitForCompletion();
+            GupSpikeEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_Gup.GupExplosion_prefab).WaitForCompletion();
+            chargegreaterwispBall = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_GreaterWisp.OmniExplosionVFXGreaterWisp_prefab).WaitForCompletion();
+            larvajumpEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_AcidLarva.AcidLarvaLeapExplosion_prefab).WaitForCompletion();
+            elderlemurianexplosionEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LemurianBruiser.OmniExplosionVFXLemurianBruiserFireballImpact_prefab).WaitForCompletion();
+            parentslamEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Parent.ParentSlamEffect_prefab).WaitForCompletion();
+            claydunestriderEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ClayBruiser.ClayShockwaveEffect_prefab).WaitForCompletion();
+            voidjailerEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidJailer.VoidJailerDeathBombExplosion_prefab).WaitForCompletion();
+            voidjailermuzzleEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidSurvivor.VoidSurvivorBeamTracer_prefab).WaitForCompletion();
+            xiconstructbeamEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.MajorConstructInitialMuzzleFlash_prefab).WaitForCompletion();
+            xiconstructSecondMuzzleEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.MajorConstructSecondMuzzleFlash_prefab).WaitForCompletion();
+            xiconstructDeathEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.MajorConstructDeathEffect_prefab).WaitForCompletion();
+            xiconstructBeamLaser = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.LaserMajorConstruct_prefab).WaitForCompletion();
+            lunarGolemSmokeEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_LunarGolem.BlastSmokeLunarGolem_prefab).WaitForCompletion();
+            impBossExplosionEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ImpBoss.ImpBossBlink_prefab).WaitForCompletion();
             impBossGroundSlamEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_ImpBoss.ImpBossGroundSlam_prefab).WaitForCompletion();
             xiconstructsound = Addressables.LoadAssetAsync<RoR2.Audio.LoopSoundDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_MajorAndMinorConstruct.lsdMajorConstructLaser_asset).WaitForCompletion();
             seekerChakraEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Seeker.MeditateSuccessVFX_prefab).WaitForCompletion();
 
 
-            artificerfireEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MageFlamethrowerEffect_prefab).WaitForCompletion();      
-            artificerlightningorbchargeEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MuzzleflashMageLightningLarge_prefab).WaitForCompletion();       
+            artificerfireEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MageFlamethrowerEffect_prefab).WaitForCompletion();
+            artificerlightningorbchargeEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MuzzleflashMageLightningLarge_prefab).WaitForCompletion();
             artificerlightningorbMuzzleEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MuzzleflashMageLightning_prefab).WaitForCompletion();
             artificerlightningorbprojectileEffect = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MageLightningBombProjectile_prefab).WaitForCompletion();
             artificerCrosshair = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MageCrosshair_prefab).WaitForCompletion();
@@ -421,7 +417,7 @@ namespace ShiggyMod.Modules
             solusExtractorMuzzlePrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_ExtractorUnit.ExtractorUnitMeleeActiveVFX_prefab).WaitForCompletion();
             solusInvalidatorBlastEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_DefectiveUnit.ArtilleryLandedExplosionVFX_prefab).WaitForCompletion();
             solusScorcherBlastEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Tanker.GreasePuddleExplosion_VFX_prefab).WaitForCompletion();
-            solusTransporterBlastEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_IronHauler.IronHaulerMuzzleFlashVFX_prefab).WaitForCompletion();
+            solusTransporterBlastEffectPrefab = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_IronHauler.IronHaulerGravityWellPullBlastVFX_prefab).WaitForCompletion();
             solusFactorMuzzleEffectPrefab1 = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_SolusMine.SolusMinePreAttackVFX_prefab).WaitForCompletion();
             solusFactorMuzzleEffectPrefab2 = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_ExtractorUnit.ExtractorUnitHitEffectVFX_prefab).WaitForCompletion();
             solusFactorMuzzleEffectPrefab3 = Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_DefectiveUnit.DenialChargeVFX_prefab).WaitForCompletion();
@@ -455,7 +451,7 @@ namespace ShiggyMod.Modules
             Material[] warbannerArray = new Material[1];
             warbannerArray[0] = warbannerMat;
 
-            
+
             //Creating spheres and adding the material to them
             sphereIndicator = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
             sphereIndicator.AddComponent<NetworkIdentity>();
@@ -473,7 +469,7 @@ namespace ShiggyMod.Modules
             networkObjDefs.Add(deathAuraIndicator);
             PrefabAPI.RegisterNetworkPrefab(deathAuraIndicator);
 
-            theWorldIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "theWorldIndicator"); 
+            theWorldIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "theWorldIndicator");
 
             MeshRenderer theWorldIndicatorMeshRender = theWorldIndicator.gameObject.GetComponent<MeshRenderer>();
             if (!theWorldIndicatorMeshRender)

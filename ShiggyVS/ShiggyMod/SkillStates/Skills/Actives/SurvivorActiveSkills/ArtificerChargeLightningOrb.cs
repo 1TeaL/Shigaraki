@@ -1,13 +1,10 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
-using EntityStates.Mage.Weapon;
-using RoR2.UI;
-using RoR2.Audio;
 using ExtraSkillSlots;
+using RoR2;
+using RoR2.Audio;
+using RoR2.UI;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -48,7 +45,7 @@ namespace ShiggyMod.SkillStates
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
             skillSwapped = false;
-            
+
 
             this.animator = base.GetModelAnimator();
             this.childLocator = base.GetModelChildLocator();
@@ -102,7 +99,7 @@ namespace ShiggyMod.SkillStates
             }
             EntityState.Destroy(this.chargeEffectInstance);
             //PlayCrossfade("LeftArm, Override", "LeftArmPunch", "Attack.playbackRate", duration, 0.1f);
-            
+
         }
         protected float CalcCharge()
         {

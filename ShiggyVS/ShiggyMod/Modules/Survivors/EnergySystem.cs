@@ -1,6 +1,6 @@
-﻿using System;
-using RoR2;
+﻿using RoR2;
 using RoR2.UI;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -102,7 +102,7 @@ namespace ShiggyMod.Modules.Survivors
             quirkGetStopwatch = duration;
             quirkGetString = stringToPass;
             quirkGetUI.enabled = true;
-            
+
         }
 
         //Creates the label.
@@ -168,7 +168,7 @@ namespace ShiggyMod.Modules.Survivors
                     energyDecayTimer += Time.fixedDeltaTime;
                 }
             }
-            if(ifEnergyRegenAllowed)
+            if (ifEnergyRegenAllowed)
             {
                 currentplusChaos += regenPlusChaos * Time.fixedDeltaTime;
             }

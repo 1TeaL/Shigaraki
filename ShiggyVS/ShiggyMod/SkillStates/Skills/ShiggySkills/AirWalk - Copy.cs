@@ -1,8 +1,4 @@
-﻿using EntityStates;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine;
-
-namespace ShiggyMod.SkillStates
+﻿namespace ShiggyMod.SkillStates
 {
     ////unused 
     //public class Gliding : BaseState

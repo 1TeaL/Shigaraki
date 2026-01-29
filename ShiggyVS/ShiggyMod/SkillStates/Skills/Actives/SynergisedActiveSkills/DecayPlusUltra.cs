@@ -1,18 +1,11 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
-using System;
+﻿using EntityStates;
 using R2API;
-using ShiggyMod.Modules.Networking;
+using R2API.Networking;
 using R2API.Networking.Interfaces;
-using static RoR2.BlastAttack;
+using RoR2;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Networking;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -37,7 +30,7 @@ namespace ShiggyMod.SkillStates
             blastAttack.position = characterBody.footPosition;
             blastAttack.attacker = base.gameObject;
             blastAttack.crit = characterBody.RollCrit();
-            blastAttack.baseDamage = damageStat* Modules.StaticValues.decayPlusUltraDamageCoefficient;
+            blastAttack.baseDamage = damageStat * Modules.StaticValues.decayPlusUltraDamageCoefficient;
             blastAttack.falloffModel = BlastAttack.FalloffModel.None;
             blastAttack.baseForce = StaticValues.decayPlusUltraForce;
             blastAttack.bonusForce = new Vector3(0, StaticValues.decayPlusUltraForce, 0);
@@ -65,7 +58,7 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if(base.fixedAge > fireTime && !hasFired)
+            if (base.fixedAge > fireTime && !hasFired)
             {
                 hasFired = true;
                 Ray aimRay = base.GetAimRay();
@@ -100,7 +93,7 @@ namespace ShiggyMod.SkillStates
                 //play animation and more particles
             }
 
-            if(base.fixedAge > duration)
+            if (base.fixedAge > duration)
             {
                 this.outer.SetNextStateToMain();
                 return;

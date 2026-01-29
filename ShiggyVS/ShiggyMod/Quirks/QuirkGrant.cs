@@ -11,7 +11,6 @@
 
 using R2API.Networking;
 using RoR2;
-using UnityEngine;
 using UnityEngine.Networking;
 
 namespace ShiggyMod.Modules.Quirks

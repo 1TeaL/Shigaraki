@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using EntityStates;
-using EntityStates.VagrantMonster;
-using R2API;
+﻿using EntityStates;
+using EntityStates.Merc;
 using R2API.Networking;
 using RoR2;
 using ShiggyMod.Modules;
-using UnityEngine;
-using static UnityEngine.UI.Image;
-using UnityEngine.Networking;
-using EntityStates.Merc;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -18,26 +14,26 @@ namespace ShiggyMod.SkillStates
     {
         //mach punch + thunder clap
         internal float radius;
-		internal float distance = StaticValues.extremeSpeedDistance;
-		private Vector3 startPos;
-		private Vector3 endPos;
+        internal float distance = StaticValues.extremeSpeedDistance;
+        private Vector3 startPos;
+        private Vector3 endPos;
         private Vector3 theSpot;
         internal Vector3 moveVec;
         private int numberOfHits;
 
         private Transform modelTransform;
         private string muzzleString = "RHand";
-		private GameObject explosionPrefab = ShiggyAsset.loaderOmniImpactLightningEffect;
+        private GameObject explosionPrefab = ShiggyAsset.loaderOmniImpactLightningEffect;
         private GameObject muzzlePrefab = ShiggyAsset.loaderMuzzleFlashEffect;
         public GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
         private readonly BullseyeSearch search = new BullseyeSearch();
 
         public override void OnEnter()
         {
-			
-			base.OnEnter();
+
+            base.OnEnter();
             numberOfHits = Mathf.RoundToInt(StaticValues.extremeSpeedNumberOfHits * attackSpeedStat);
-            if(numberOfHits < StaticValues.extremeSpeedNumberOfHits)
+            if (numberOfHits < StaticValues.extremeSpeedNumberOfHits)
             {
                 numberOfHits = StaticValues.extremeSpeedNumberOfHits;
             }
@@ -53,16 +49,16 @@ namespace ShiggyMod.SkillStates
             //Util.PlaySound(FireMegaNova.novaSoundString, base.gameObject);
             Util.PlaySound(EvisDash.endSoundString, base.gameObject);
             EffectManager.SimpleMuzzleFlash(this.blastEffectPrefab, base.gameObject, this.muzzleString, false);
-			
-			Vector3 startPos = characterBody.transform.position;
-			Ray aimRay = base.GetAimRay();
+
+            Vector3 startPos = characterBody.transform.position;
+            Ray aimRay = base.GetAimRay();
 
             float sprintMultiplier = 1f;
             if (characterBody.isSprinting)
             {
                 sprintMultiplier = 1.5f;
             }
-			moveVec = (aimRay.direction * distance * (moveSpeedStat/characterBody.baseMoveSpeed))/sprintMultiplier;
+            moveVec = (aimRay.direction * distance * (moveSpeedStat / characterBody.baseMoveSpeed)) / sprintMultiplier;
             base.characterMotor.rootMotion += this.moveVec;
 
             if (this.modelTransform)
@@ -79,24 +75,24 @@ namespace ShiggyMod.SkillStates
             EffectManager.SimpleMuzzleFlash(Modules.ShiggyAsset.muzzleflashMageLightningLargePrefab, base.gameObject, this.muzzleString, false);
             CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
         }
-		public override void OnExit()
-		{
-			base.OnExit();
+        public override void OnExit()
+        {
+            base.OnExit();
             endPos = characterBody.transform.position;
             ApplyComponent();
             CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
 
         }
-		public override void FixedUpdate()
-		{
-			base.FixedUpdate();
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
 
 
             if (base.fixedAge >= duration && base.isAuthority)
             {
-				this.outer.SetNextStateToMain();
-			}
-		}
+                this.outer.SetNextStateToMain();
+            }
+        }
 
         private void CreateBlinkEffect(Vector3 origin)
         {

@@ -1,11 +1,11 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using System.Globalization;
 using EntityStates.Bell.BellWeapon;
-using System.Collections.Generic;
+using RoR2;
 using RoR2.Projectile;
+using ShiggyMod.Modules.Survivors;
+using System.Collections.Generic;
+using System.Globalization;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -18,7 +18,7 @@ namespace ShiggyMod.SkillStates
         private float damageCoefficient = Modules.StaticValues.bronzongballDamageCoefficient;
         private float procCoefficient = 1f;
         private float force = 500f;
-        public  float selfForce = 500f;
+        public float selfForce = 500f;
         private float speedOverride = -1f;
 
         private float prepDuration;
@@ -39,7 +39,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            
+
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
@@ -52,9 +52,9 @@ namespace ShiggyMod.SkillStates
             }
 
             this.prepDuration = basePrepDuration / this.attackSpeedStat;
-            this.timeBetweenPreps = (prepDuration/ totalBombs) -0.05f;
+            this.timeBetweenPreps = (prepDuration / totalBombs) - 0.05f;
             this.barrageDuration = baseBarrageDuration / this.attackSpeedStat;
-            this.timeBetweenBarrages = (barrageDuration/ totalBombs) -0.05f;
+            this.timeBetweenBarrages = (barrageDuration / totalBombs) - 0.05f;
             Transform modelTransform = base.GetModelTransform();
             if (modelTransform)
             {
@@ -65,7 +65,7 @@ namespace ShiggyMod.SkillStates
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
 
         }
 

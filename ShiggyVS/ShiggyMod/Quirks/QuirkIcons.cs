@@ -1,11 +1,7 @@
 ﻿using RoR2;
-using RoR2.Skills;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using static ShiggyMod.Modules.Survivors.ShiggyMasterController;
 
 
 namespace ShiggyMod.Modules.Quirks
@@ -204,26 +200,26 @@ namespace ShiggyMod.Modules.Quirks
                 if (!cache.ContainsKey(kv.Key))
                     Get(kv.Key);
         }
-		public static void RegisterFromRegistryData()
-		{
-			foreach (var e in QuirkRegistryData.All)
-			{
-				if (e.Category == QuirkCategory.Utility) continue;
+        public static void RegisterFromRegistryData()
+        {
+            foreach (var e in QuirkRegistryData.All)
+            {
+                if (e.Category == QuirkCategory.Utility) continue;
 
-				// pick a body source (prefer a body path if present)
-				var body = (e.BodyPaths != null && e.BodyPaths.Length > 0) ? e.BodyPaths[0]
-						 : (e.BodyNames != null && e.BodyNames.Length > 0) ? e.BodyNames[0]
-						 : null;
+                // pick a body source (prefer a body path if present)
+                var body = (e.BodyPaths != null && e.BodyPaths.Length > 0) ? e.BodyPaths[0]
+                         : (e.BodyNames != null && e.BodyNames.Length > 0) ? e.BodyNames[0]
+                         : null;
 
-				if (string.IsNullOrEmpty(body)) continue;
+                if (string.IsNullOrEmpty(body)) continue;
 
-				var theme = (e.Category == QuirkCategory.Passive) ? QuirkIconBank.Theme.Passive : QuirkIconBank.Theme.Active;
-				QuirkIconBank.Register(e.Id, body, theme);
-			}
-		}
+                var theme = (e.Category == QuirkCategory.Passive) ? QuirkIconBank.Theme.Passive : QuirkIconBank.Theme.Active;
+                QuirkIconBank.Register(e.Id, body, theme);
+            }
+        }
 
 
-	}
+    }
 
 
 

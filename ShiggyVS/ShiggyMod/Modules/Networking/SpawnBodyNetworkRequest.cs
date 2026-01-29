@@ -1,12 +1,7 @@
-﻿using R2API;
+﻿using R2API.Networking;
 using R2API.Networking.Interfaces;
 using RoR2;
-using RoR2.Networking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
 
@@ -18,6 +13,7 @@ namespace ShiggyMod.Modules.Networking
         private GameObject bodyPrefab;
         private GameObject masterPrefab;
         NetworkInstanceId netID;
+        private BuffIndex buffIndex;
 
         //Don't network these.
 
@@ -32,12 +28,20 @@ namespace ShiggyMod.Modules.Networking
             this.bodyPrefab = bodyPrefab;
             this.masterPrefab = masterPrefab;
         }
+        public SpawnBodyNetworkRequest(NetworkInstanceId netID, GameObject bodyPrefab, GameObject masterPrefab, BuffIndex buffIndex)
+        {
+            this.netID = netID;
+            this.bodyPrefab = bodyPrefab;
+            this.masterPrefab = masterPrefab;
+            this.buffIndex = buffIndex;
+        }
 
         public void Deserialize(NetworkReader reader)
         {
             netID = reader.ReadNetworkId();
             bodyPrefab = reader.ReadGameObject();
             masterPrefab = reader.ReadGameObject();
+            buffIndex = reader.ReadBuffIndex();
         }
 
         public void Serialize(NetworkWriter writer)
@@ -45,6 +49,7 @@ namespace ShiggyMod.Modules.Networking
             writer.Write(netID);
             writer.Write(bodyPrefab);
             writer.Write(masterPrefab);
+            writer.WriteBuffIndex(buffIndex);
         }
 
         public void OnReceived()
@@ -68,6 +73,12 @@ namespace ShiggyMod.Modules.Networking
                 NetworkServer.Spawn(bodyGameObject);
                 master.bodyPrefab = BodyCatalog.FindBodyPrefab(bodyPrefab.name);
                 master.SpawnBody(charBody.corePosition + charBody.characterDirection.forward * 5f, Quaternion.identity);
+
+                //apply a buff if inputted
+                if (buffIndex != null)
+                {
+                    master.GetComponent<CharacterBody>().ApplyBuff(buffIndex, 1);
+                }
 
 
                 //GameObject monsterMaster = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("R").WaitForCompletion(), masterPrefab + bodyPrefab, true);

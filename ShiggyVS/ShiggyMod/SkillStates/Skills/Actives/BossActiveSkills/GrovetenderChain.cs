@@ -1,23 +1,19 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
 using EntityStates.GravekeeperBoss;
-using RoR2.Projectile;
+using R2API.Networking;
+using R2API.Networking.Interfaces;
+using RoR2;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Networking;
+using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
 using System.Linq;
-using IL.RoR2.UI;
-using R2API.Networking;
-using ShiggyMod.Modules.Networking;
-using ShiggyMod.Modules;
-using R2API.Networking.Interfaces;
-using static UnityEngine.UI.Image;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
     public class GrovetenderChain : Skill
-    { 
+    {
         private float baseradius = Modules.StaticValues.grovetenderRadius;
         private float radius;
         private float force = -1000f;
@@ -28,9 +24,9 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             this.duration = this.baseDuration / this.attackSpeedStat;
             radius = baseradius * attackSpeedStat;
-            if(radius < baseradius)
+            if (radius < baseradius)
             {
-                radius= baseradius;
+                radius = baseradius;
             }
             hasFired = false;
 
@@ -58,7 +54,7 @@ namespace ShiggyMod.SkillStates
             int randomAnim = UnityEngine.Random.RandomRangeInt(0, 10);
             base.PlayCrossfade("LeftArm, Override", "L" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            if(base.isAuthority)
+            if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
@@ -126,11 +122,11 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if(base.fixedAge > fireTime && !hasFired)
+            if (base.fixedAge > fireTime && !hasFired)
             {
                 hasFired = true;
                 ChainNearby();
-               
+
             }
 
             if (base.fixedAge >= this.duration && base.isAuthority)

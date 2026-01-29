@@ -1,21 +1,12 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using EntityStates.Merc;
-using R2API.Networking;
-using ShiggyMod.SkillStates.BaseStates;
-using System.Collections.Generic;
-using System;
-using EntityStates.Treebot.Weapon;
+using R2API;
+using RoR2;
 using RoR2.Audio;
 using ShiggyMod.Modules;
-using R2API;
-using HG;
-using UnityEngine.UIElements;
-using TMPro;
+using System;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -89,7 +80,7 @@ namespace ShiggyMod.SkillStates
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
-                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); } 
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
 
             HitBoxGroup hitBoxGroup = null;
@@ -130,7 +121,7 @@ namespace ShiggyMod.SkillStates
             if (this.modelTransform)
             {
                 TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(modelTransform.gameObject);
-                temporaryOverlay.duration = duration* 3;
+                temporaryOverlay.duration = duration * 3;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
@@ -161,7 +152,7 @@ namespace ShiggyMod.SkillStates
             DamageAPI.AddModdedDamageType(blastAttack, Damage.shiggyDecay);
 
             Util.PlaySound(EvisDash.endSoundString, base.gameObject);
-                this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
+            this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
         }
 
         private void CreateBlinkEffect(Vector3 origin)
@@ -226,10 +217,10 @@ namespace ShiggyMod.SkillStates
                 {
                     origin = base.transform.position,
                     genericFloat = this.hitStopDuration / this.attackSpeedStat
-                    
+
                 };
                 effectData.SetNetworkedObjectReference(base.gameObject);
-                EffectManager.SpawnEffect(Modules.ShiggyAsset.overloadingEliteEffect, effectData, true);;
+                EffectManager.SpawnEffect(Modules.ShiggyAsset.overloadingEliteEffect, effectData, true); ;
             }
         }
 
@@ -255,7 +246,7 @@ namespace ShiggyMod.SkillStates
                 }
             }
         }
-        
+
 
         public override void FixedUpdate()
         {

@@ -1,14 +1,8 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
+﻿using EntityStates;
 using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
 using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
-using System;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -51,11 +45,11 @@ namespace ShiggyMod.SkillStates
 
 
             totalBullets = (uint)(Modules.StaticValues.sweepingBeamTotalBullets * attackSpeedStat);
-            fireTime = (duration- duration* StaticValues.universalFiretime) / totalBullets;
+            fireTime = (duration - duration * StaticValues.universalFiretime) / totalBullets;
 
 
 
-            direction = (Quaternion.Euler(0f, -maxAngle/2f, 0f) * aimRay.direction).normalized;
+            direction = (Quaternion.Euler(0f, -maxAngle / 2f, 0f) * aimRay.direction).normalized;
 
         }
         public override void OnExit()
@@ -66,7 +60,7 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if(base.fixedAge > duration * StaticValues.universalFiretime)
+            if (base.fixedAge > duration * StaticValues.universalFiretime)
             {
 
                 if (stopwatch > fireTime)
@@ -80,7 +74,7 @@ namespace ShiggyMod.SkillStates
                 }
             }
 
-            if(base.fixedAge > duration)
+            if (base.fixedAge > duration)
             {
                 this.outer.SetNextStateToMain();
                 return;
@@ -125,7 +119,7 @@ namespace ShiggyMod.SkillStates
             };
             bulletAttack.Fire();
 
-            this.direction = (Quaternion.Euler(0f, maxAngle/totalBullets, 0f) * this.direction).normalized;
+            this.direction = (Quaternion.Euler(0f, maxAngle / totalBullets, 0f) * this.direction).normalized;
 
         }
         public override InterruptPriority GetMinimumInterruptPriority()

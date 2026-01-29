@@ -1,13 +1,10 @@
 ﻿using EntityStates;
 using RoR2;
 using RoR2.Audio;
-using RoR2.Projectile;
 using RoR2.UI;
 using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
-using System;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -41,7 +38,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             this.animator.SetBool("attacking", false);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
             base.AddRecoil(-3f * recoilAmplitude, -4f * recoilAmplitude, -0.5f * recoilAmplitude, 0.5f * recoilAmplitude);
 
             PlayCrossfade("LeftArm, Override", "LArmAimRelease", "Attack.playbackRate", duration, 0.1f);
@@ -50,7 +47,7 @@ namespace ShiggyMod.SkillStates
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
             damageType = new DamageTypeCombo(DamageType.Freeze2s, DamageTypeExtended.Generic, DamageSource.Secondary);
-            
+
             if (effectPrefab)
             {
                 EffectManager.SimpleMuzzleFlash(effectPrefab, base.gameObject, muzzleName, false);
@@ -59,7 +56,7 @@ namespace ShiggyMod.SkillStates
             {
                 this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
             }
-            
+
         }
 
         public override void OnExit()
@@ -78,7 +75,7 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if(base.fixedAge > fireTime && !hasFired)
+            if (base.fixedAge > fireTime && !hasFired)
             {
                 hasFired = true;
                 if (base.isAuthority)

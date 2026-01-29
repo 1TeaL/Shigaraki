@@ -1,12 +1,11 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using EntityStates.Merc;
-using System.Linq;
 using R2API.Networking;
+using RoR2;
+using ShiggyMod.Modules.Survivors;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -77,7 +76,7 @@ namespace ShiggyMod.SkillStates
             }
 
             damageFrequency = 1 / (basedamageFrequency * this.attackSpeedStat);
-            
+
         }
 
         public override void OnExit()

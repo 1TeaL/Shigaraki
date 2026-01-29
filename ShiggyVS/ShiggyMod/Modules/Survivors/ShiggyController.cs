@@ -1,31 +1,18 @@
 ﻿using EntityStates;
-using EntityStates.LunarExploderMonster;
-using EntityStates.MiniMushroom;
-using EntityStates.VoidMegaCrab.BackWeapon;
 using ExtraSkillSlots;
-using IL.RoR2.Achievements.Bandit2;
 using R2API;
 using R2API.Networking;
 using R2API.Networking.Interfaces;
-using RiskOfOptions.Components.Panel;
 using RoR2;
 using RoR2.CharacterAI;
-using RoR2.Items;
-using RoR2.Orbs;
 using RoR2.Projectile;
 using ShiggyMod.Modules.Networking;
 using ShiggyMod.Modules.Quirks;
 using ShiggyMod.SkillStates;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Baselib.LowLevel;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using static UnityEngine.ParticleSystem.PlaybackState;
 using Object = UnityEngine.Object;
 
 namespace ShiggyMod.Modules.Survivors
@@ -116,6 +103,8 @@ namespace ShiggyMod.Modules.Survivors
         private float theWorldTimer;
         private float giveQuirkStopwatch;
         public CharacterBody giveQuirkBody;
+        private bool _stealPending;
+        private float _pendingStealCost;
 
         //Particles
         public ParticleSystem REYE;
@@ -204,15 +193,26 @@ namespace ShiggyMod.Modules.Survivors
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
 
-            QuirkHUDOverlay.EnsureFor(characterBody);
+            if (characterBody && characterBody.hasEffectiveAuthority)
+                QuirkHUDOverlay.EnsureFor(characterBody);
 
             hasStolen = false;
             hasQuirk = false;
 
-
+            //camera disable ui
+            On.RoR2.CameraRigController.LateUpdate += CameraRigController_LateUpdate;
         }
 
+        private void CameraRigController_LateUpdate(On.RoR2.CameraRigController.orig_LateUpdate orig, RoR2.CameraRigController self)
+        {
+            orig(self);
 
+            if (energySystem && characterBody.hasEffectiveAuthority)
+            {
+
+                energySystem.CustomUIObject.SetActive(self.hud.mainUIPanel.activeInHierarchy);
+            }
+        }
 
         public HurtBox GetTrackingTarget()
         {
@@ -257,6 +257,7 @@ namespace ShiggyMod.Modules.Survivors
                 deathAuraIndicatorInstance.SetActive(false);
                 EntityState.Destroy(deathAuraIndicatorInstance.gameObject);
             }
+            On.RoR2.CameraRigController.LateUpdate -= CameraRigController_LateUpdate;
         }
 
         public void OFAFO()
@@ -541,181 +542,6 @@ namespace ShiggyMod.Modules.Survivors
             }
         }
 
-        public void AirWalk()
-        {
-
-            //air walk
-            if(characterBody.characterMotor.jumpCount >= characterBody.maxJumpCount)
-            {
-                if (energySystem.currentplusChaos > 1f)
-                {
-                    if (characterBody.inputBank.jump.down)
-                    {
-                        airwalkTimer += Time.deltaTime;
-                        if (airwalkTimer > 0.5f)
-                        {
-                            //constantly draining energy cost for air walk - based off % of max energy
-                            float plusChaosflatCost = StaticValues.airwalkEnergyFraction * energySystem.maxPlusChaos - (energySystem.costflatplusChaos);
-                            if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
-
-                            float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                            if (plusChaosCost < 0f) plusChaosCost = 0f;
-
-                            if (airwalkEnergyTimer <= 1f)
-                            {
-                                airwalkEnergyTimer += Time.deltaTime;
-                            }
-                            else if (airwalkEnergyTimer > 1f)
-                            {
-                                energySystem.SpendplusChaos(plusChaosCost);
-                                airwalkEnergyTimer = 0f;
-                            }
-
-                            characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 1);
-
-
-                            //direction checks for mouse  
-                            Vector3 moveVector = inputBank.moveVector;
-                            Vector3 aimDirection = inputBank.aimDirection;
-                            Vector3 normalized = new Vector3(aimDirection.x, 0f, aimDirection.z).normalized;
-                            Vector3 up = base.transform.up;
-                            Vector3 normalized2 = Vector3.Cross(up, normalized).normalized;
-
-                            if (characterBody.inputBank.skill1.down
-                            | characterBody.inputBank.skill2.down
-                            | characterBody.inputBank.skill3.down
-                            | characterBody.inputBank.skill4.down
-                            | extrainputBankTest.extraSkill1.down
-                            | extrainputBankTest.extraSkill2.down
-                            | extrainputBankTest.extraSkill3.down
-                            | extrainputBankTest.extraSkill4.down)
-                            {
-                                characterBody.characterMotor.velocity.y = 0f;
-                                //flightExpired = false;
-                            }
-                            else if (!characterBody.inputBank.skill1.down
-                            && !characterBody.inputBank.skill2.down
-                            && !characterBody.inputBank.skill3.down
-                            && !characterBody.inputBank.skill4.down
-                            && !extrainputBankTest.extraSkill1.down
-                            && !extrainputBankTest.extraSkill2.down
-                            && !extrainputBankTest.extraSkill3.down
-                            && !extrainputBankTest.extraSkill4.down)
-                            {
-
-                                //check if you're holding no direction so you go up
-                                if (characterBody.inputBank.moveVector == Vector3.zero)
-                                {
-                                    characterBody.characterMotor.velocity.y += 2f;
-                                    
-                                    //characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                                    //characterBody.characterMotor.rootMotion += Vector3.up * characterBody.moveSpeed * Time.fixedDeltaTime;
-                                }
-                                else if (characterBody.inputBank.moveVector != Vector3.zero)
-                                {
-                                    //check if the direction you're holding is your aim direction, then go in that direction (allowing you to go up or down)
-                                    if (Vector3.Dot(inputBank.moveVector, normalized) >= 0.8f)
-                                    {
-                                        characterBody.characterMotor.velocity = characterBody.inputBank.aimDirection * characterBody.moveSpeed * 2f;
-                                        //characterBody.characterMotor.rootMotion += characterBody.inputBank.aimDirection * characterBody.moveSpeed * Time.fixedDeltaTime;
-                                    }
-                                    else
-                                    {
-                                        //otherwise if not then maintain height        
-                                        if (characterBody.characterMotor.velocity.y <= 0f)
-                                        {
-                                            characterBody.characterMotor.velocity.y = 0f;
-                                        }
-                                        characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.deltaTime;
-                                    }
-                                }
-                                //flightExpired = true;
-                                //characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-
-                            }
-
-
-                            //before air walk timer runs out, can rise regardless besides while using a skill
-                            //if (airwalkTimer <= StaticValues.airwalkThreshold)
-                            //{
-
-                            //    if (characterBody.inputBank.skill1.down
-                            //    | characterBody.inputBank.skill2.down
-                            //    | characterBody.inputBank.skill3.down
-                            //    | characterBody.inputBank.skill4.down
-                            //    | extrainputBankTest.extraSkill1.down
-                            //    | extrainputBankTest.extraSkill2.down
-                            //    | extrainputBankTest.extraSkill3.down
-                            //    | extrainputBankTest.extraSkill4.down)
-                            //    {
-                            //        characterBody.characterMotor.velocity.y = 0f;
-                            //        flightExpired = false;
-                            //    }
-                            //    else
-                            //    {
-                            //        flightExpired = true;
-                            //        //characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                            //        characterBody.characterMotor.velocity = characterBody.inputBank.aimDirection * characterBody.moveSpeed;
-                            //    }
-                            //}
-                            //after airwalk timer, need to ensure not holding any skill or any move direction to rise
-                            //else if (airwalkTimer > StaticValues.airwalkThreshold)
-                            //{
-                            //    flightExpired = true;
-
-                            //    if (characterBody.inputBank.skill1.down
-                            //    | characterBody.inputBank.skill2.down
-                            //    | characterBody.inputBank.skill3.down
-                            //    | characterBody.inputBank.skill4.down
-                            //    | extrainputBankTest.extraSkill1.down
-                            //    | extrainputBankTest.extraSkill2.down
-                            //    | extrainputBankTest.extraSkill3.down
-                            //    | extrainputBankTest.extraSkill4.down)
-                            //    {
-                            //        characterBody.characterMotor.velocity.y = 0f;
-                            //    }
-
-                            //    if (characterBody.inputBank.moveVector == Vector3.zero)
-                            //    {
-                            //        characterBody.characterMotor.velocity.y = characterBody.moveSpeed;
-                            //    }
-                            //    else
-                            //    {
-                            //        characterBody.characterMotor.velocity.y = 0f;
-                            //    }
-                            //}
-
-                        }
-
-
-                    }
-
-                    //move in the direction you're moving at a normal speed
-                    //if (characterBody.inputBank.moveVector != Vector3.zero)
-                    //{
-                    //    //characterBody.characterMotor.velocity = characterBody.inputBank.moveVector * (characterBody.moveSpeed);
-                    //    characterBody.characterMotor.rootMotion += characterBody.inputBank.moveVector * characterBody.moveSpeed * Time.fixedDeltaTime;
-                    //    //characterBody.characterMotor.disableAirControlUntilCollision = false;
-                    //}
-
-
-                }
-            }
-
-            if (characterBody.characterMotor.isGrounded)
-            {
-                //remove airwalk buff when landed
-                //flightExpired = false;
-                airwalkTimer = 0f;
-                if (NetworkServer.active)
-                {
-                    characterBody.ApplyBuff(Modules.Buffs.airwalkBuff.buffIndex, 0);
-                }
-            }
-        }
-    
-
-
         public void MechStance()
         {
 
@@ -979,7 +805,7 @@ namespace ShiggyMod.Modules.Survivors
                         jellyfishtimer = 0f;
                     }
                 }
-                else if(jellyfishtimer <= 1f)
+                else if (jellyfishtimer <= 1f)
                 {
                     jellyfishtimer += Time.fixedDeltaTime;
                 }
@@ -991,7 +817,7 @@ namespace ShiggyMod.Modules.Survivors
             //halcyonite greed buff
             if (characterBody.HasBuff(Buffs.halcyoniteGreedBuff))
             {
-                if(halcyoniteTimer > StaticValues.halcyoniteGreedInterval)
+                if (halcyoniteTimer > StaticValues.halcyoniteGreedInterval)
                 {
                     //find half of the total money player owns
                     uint halfMoney = (uint)Mathf.RoundToInt(characterBody.master.money * StaticValues.halcyoniteGreedGoldRatio);
@@ -1034,7 +860,7 @@ namespace ShiggyMod.Modules.Survivors
                 this.SearchForTarget(aimRay);
 
                 UpdateDefaultIndicator();
-                
+
 
             }
             //UpdateQuirkOverlayIndicators();
@@ -1063,7 +889,7 @@ namespace ShiggyMod.Modules.Survivors
                     HalcyoniteGreedBuff();
                 }
             }
-        }    
+        }
 
 
         public void Particles()
@@ -1074,7 +900,7 @@ namespace ShiggyMod.Modules.Survivors
             if (characterBody.hasEffectiveAuthority)
             {
                 //left eye aura plays when your energy is full only
-                if(booleyeAuraL || energySystem.currentplusChaos == energySystem.maxPlusChaos)
+                if (booleyeAuraL || energySystem.currentplusChaos == energySystem.maxPlusChaos)
                 {
                     if (LEYE.isStopped)
                     {
@@ -1303,75 +1129,120 @@ namespace ShiggyMod.Modules.Survivors
                 Debug.Log(Shiggymastercon.skillListToOverrideOnRespawn[7].skillName + "skill8");
             }
         }
+        private float stealHold;
+        private float giveHold;
+
+        private bool _sentStealThisHold;
+        private bool _sentGiveThisHold;
 
         public void AFO()
         {
-
-
             //steal quirk
 
-            //check if button is released for stealing quirk
-            if(Input.GetKeyUp(Config.AFOHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
+            bool afodown = Input.GetKey(Config.AFOHotkey.Value.MainKey);
+
+            if (!afodown)
             {
-                hasStolen = false;
-                hasQuirk = false;
-                stealQuirkStopwatch = 0f;
+                stealHold = 0f;
+                _sentStealThisHold = false;
             }
+
+            if (afodown && characterBody.hasEffectiveAuthority)
+            {
+                stealHold += Time.deltaTime;
+
+                if (!_sentStealThisHold && stealHold >= Config.holdButtonAFO.Value)
+                {
+                    _sentStealThisHold = true;
+                    TryRequestSteal();
+                }
+            }
+
 
 
 
             if (trackingTarget)
             {
 
-                if (Input.GetKeyDown(Config.AFOHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
-                {
-                    stealQuirkStopwatch += Time.deltaTime;
-                    if (!this.hasStolen && stealQuirkStopwatch > Config.holdButtonAFO.Value && Shiggymastercon.storedAFOSkill[0] == null)
-                    {
 
-                        Debug.Log("attempting steal");
+                //if (Input.GetKeyDown(Config.AFOHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
+                //{
+                //    stealQuirkStopwatch += Time.deltaTime;
+                //    if (!this.hasStolen && stealQuirkStopwatch > Config.holdButtonAFO.Value)
+                //    {
 
-                        //check if close enough to activate
-                        if (!Config.allowRangedAFO.Value)
-                        {
-                            var body = trackingTarget.healthComponent.body;
-                            float distance = Vector2.Distance(body.corePosition, characterBody.aimOrigin);
-                            if (distance > Config.maxAFORange.Value)
-                            {
-                                Chat.AddMessage($"<style=cIsUtility>Out of AFO Range!</style>");
-                                energySystem.quirkGetInformation($"<style=cIsUtility>Out of AFO Range!</style>", 1f);
-                                return;
-                            }
-                        }
+                //        Debug.Log("attempting steal");
 
-                        //energy cost
-                        float plusChaosflatCost = (StaticValues.AFOEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
-                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+                //        //check if close enough to activate
+                //        if (!Config.allowRangedAFO.Value)
+                //        {
+                //            var body = trackingTarget.healthComponent.body;
+                //            float distance = Vector2.Distance(body.corePosition, characterBody.aimOrigin);
+                //            if (distance > Config.maxAFORange.Value)
+                //            {
+                //                //Chat.AddMessage($"<style=cIsUtility>Out of AFO Range!</style>");
+                //                energySystem.quirkGetInformation($"<style=cIsUtility>Out of AFO Range!</style>", 1f);
+                //                return;
+                //            }
+                //        }
 
-                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                        if (plusChaosCost < 0f) plusChaosCost = 0f;
+                //        //energy cost
+                //        float plusChaosflatCost = (StaticValues.AFOEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
+                //        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
-                        if (energySystem.currentplusChaos < plusChaosCost)
-                        {
-                            Chat.AddMessage($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>");
-                            energySystem.quirkGetInformation($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>", 1f);
-                        }
-                        else if (energySystem.currentplusChaos >= plusChaosCost)
-                        {
-                            energySystem.SpendplusChaos(plusChaosCost);
-                            
-                            hasStolen = true;
-                            Debug.Log("Target");
-                            Debug.Log("body name = " + BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
-                            StealQuirk(trackingTarget);
+                //        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                //        if (plusChaosCost < 0f) plusChaosCost = 0f;
 
-                        }
+                //        if (energySystem.currentplusChaos < plusChaosCost)
+                //        {
+                //            //Chat.AddMessage($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>");
+                //            energySystem.quirkGetInformation($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>", 1f);
+                //        }
+                //        else if (energySystem.currentplusChaos >= plusChaosCost)
+                //        {
+                //            energySystem.SpendplusChaos(plusChaosCost);
 
-                    }
+                //            hasStolen = true;
+                //            Debug.Log("Target");
+                //            Debug.Log("body name = " + BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
+                //            if (NetworkServer.active)
+                //            {
+                //                ServerStealQuirk(trackingTarget.healthComponent.body);
+                //            }
+                //            else
+                //            {
+                //                new StealQuirkRequest(characterBody.master.netId, trackingTarget.healthComponent.body.netId, 0)
+                //                    .Send(R2API.Networking.NetworkDestination.Server);
+                //            }
 
-                    //Debug.Log(hasStolen + "hasstolen");
+                //        }
 
-                }
+                //    }
+
+                //    //Debug.Log(hasStolen + "hasstolen");
+
+                //}
+
+
+
+                //bool givedown = Input.GetKey(Config.AFOGiveHotkey.Value.MainKey);
+
+                //if (!givedown)
+                //{
+                //    giveHold = 0f;
+                //    _sentGiveThisHold = false;
+                //}
+
+                //if (givedown && characterBody.hasEffectiveAuthority)
+                //{
+                //    giveHold += Time.deltaTime;
+
+                //    if (!_sentGiveThisHold && stealHold >= Config.holdButtonAFO.Value)
+                //    {
+                //        _sentStealThisHold = true;
+                //        TryRequestSteal(mode: 1);
+                //    }
+                //}
 
                 if (UnityEngine.Input.GetKeyDown(Config.AFOGiveHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority && trackingTarget.teamIndex == TeamIndex.Player)
                 {
@@ -1388,7 +1259,7 @@ namespace ShiggyMod.Modules.Survivors
 
                         if (energySystem.currentplusChaos < plusChaosCost)
                         {
-                            Chat.AddMessage($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>");
+                            //Chat.AddMessage($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>");
                             energySystem.quirkGetInformation($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>", 1f);
                         }
                         else if (energySystem.currentplusChaos >= plusChaosCost)
@@ -1402,7 +1273,7 @@ namespace ShiggyMod.Modules.Survivors
                             {
                                 AkSoundEngine.PostEvent("ShiggyAFO", this.gameObject);
                             }
-                            GiveQuirk(trackingTarget);
+                            GiveQuirk(Target);
 
                         }
 
@@ -1600,76 +1471,77 @@ namespace ShiggyMod.Modules.Survivors
                         }
                     }
                 }
-            }
-            else if (energySystem.currentplusChaos < 1f && characterBody.HasBuff(Buffs.theWorldBuff))
-            {
-                characterBody.ApplyBuff(Buffs.theWorldBuff.buffIndex, 0);
-                //make sure to reset the timer and instance size 
-                overclockTimer = 0f;
-                if (this.theWorldIndicatorInstance)
+
+                else if (energySystem.currentplusChaos < 1f)
                 {
-                    this.theWorldIndicatorInstance.SetActive(false);
-                    EntityState.Destroy(theWorldIndicatorInstance);
-
-                    //allow time to move for enemies
-                    BullseyeSearch search = new BullseyeSearch
+                    characterBody.ApplyBuff(Buffs.theWorldBuff.buffIndex, 0);
+                    //make sure to reset the timer and instance size 
+                    overclockTimer = 0f;
+                    if (this.theWorldIndicatorInstance)
                     {
+                        this.theWorldIndicatorInstance.SetActive(false);
+                        EntityState.Destroy(theWorldIndicatorInstance);
 
-                        teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-                        filterByLoS = false,
-                        searchOrigin = characterBody.corePosition,
-                        searchDirection = UnityEngine.Random.onUnitSphere,
-                        sortMode = BullseyeSearch.SortMode.Distance,
-                        maxDistanceFilter = StaticValues.theWorldMaxRadius * 2f,
-                        maxAngleFilter = 360f
-                    };
-
-                    search.RefreshCandidates();
-                    search.FilterOutGameObject(characterBody.gameObject);
-
-                    List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-                    foreach (HurtBox singularTarget in target)
-                    {
-                        if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                        //allow time to move for enemies
+                        BullseyeSearch search = new BullseyeSearch
                         {
-                            //time o ugokidasu
-                            if (singularTarget.healthComponent.body.HasBuff(Buffs.theWorldDebuff))
+
+                            teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                            filterByLoS = false,
+                            searchOrigin = characterBody.corePosition,
+                            searchDirection = UnityEngine.Random.onUnitSphere,
+                            sortMode = BullseyeSearch.SortMode.Distance,
+                            maxDistanceFilter = StaticValues.theWorldMaxRadius * 2f,
+                            maxAngleFilter = 360f
+                        };
+
+                        search.RefreshCandidates();
+                        search.FilterOutGameObject(characterBody.gameObject);
+
+                        List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+                        foreach (HurtBox singularTarget in target)
+                        {
+                            if (singularTarget.healthComponent && singularTarget.healthComponent.body)
                             {
-                                try
+                                //time o ugokidasu
+                                if (singularTarget.healthComponent.body.HasBuff(Buffs.theWorldDebuff))
                                 {
-                                    singularTarget.healthComponent.body.ApplyBuff(Buffs.theWorldDebuff.buffIndex, 0);
-
-
-                                    if (singularTarget.healthComponent.body.master)
+                                    try
                                     {
-                                        singularTarget.healthComponent.body.master.enabled = true;
-                                        BaseAI[] aiComponents = singularTarget.healthComponent.body.master.aiComponents;
-                                        int num2 = aiComponents.Length;
-                                        for (int j = 0; j < num2; j++)
+                                        singularTarget.healthComponent.body.ApplyBuff(Buffs.theWorldDebuff.buffIndex, 0);
+
+
+                                        if (singularTarget.healthComponent.body.master)
                                         {
-                                            bool flag9 = aiComponents[j];
-                                            if (flag9)
+                                            singularTarget.healthComponent.body.master.enabled = true;
+                                            BaseAI[] aiComponents = singularTarget.healthComponent.body.master.aiComponents;
+                                            int num2 = aiComponents.Length;
+                                            for (int j = 0; j < num2; j++)
                                             {
-                                                aiComponents[j].enabled = true;
+                                                bool flag9 = aiComponents[j];
+                                                if (flag9)
+                                                {
+                                                    aiComponents[j].enabled = true;
+                                                }
                                             }
                                         }
+
+                                        if (singularTarget.healthComponent.body.characterMotor)
+                                        {
+                                            singularTarget.healthComponent.body.characterMotor.enabled = true;
+                                        }
+                                        Animator animCom = singularTarget.healthComponent.body.modelLocator.modelTransform.GetComponent<Animator>();
+                                        if (animCom)
+                                        {
+                                            animCom.enabled = true;
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        Debug.LogWarning("failed to unstop everything");
                                     }
 
-                                    if (singularTarget.healthComponent.body.characterMotor)
-                                    {
-                                        singularTarget.healthComponent.body.characterMotor.enabled = true;
-                                    }
-                                    Animator animCom = singularTarget.healthComponent.body.modelLocator.modelTransform.GetComponent<Animator>();
-                                    if (animCom)
-                                    {
-                                        animCom.enabled = true;
-                                    }
                                 }
-                                catch
-                                {
-                                    Debug.LogWarning("failed to unstop everything");
-                                }
-
                             }
                         }
                     }
@@ -1709,18 +1581,18 @@ namespace ShiggyMod.Modules.Survivors
         }
 
         private void SearchForTarget(Ray aimRay)
-		{
-			this.search.teamMaskFilter = TeamMask.all;
-			this.search.filterByLoS = true;
-			this.search.searchOrigin = aimRay.origin;
-			this.search.searchDirection = aimRay.direction;
-			this.search.sortMode = BullseyeSearch.SortMode.Distance;
-			this.search.maxDistanceFilter = this.maxTrackingDistance;
-			this.search.maxAngleFilter = this.maxTrackingAngle;
-			this.search.RefreshCandidates();
-			this.search.FilterOutGameObject(base.gameObject);
-			this.trackingTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
-		}
+        {
+            this.search.teamMaskFilter = TeamMask.all;
+            this.search.filterByLoS = true;
+            this.search.searchOrigin = aimRay.origin;
+            this.search.searchDirection = aimRay.direction;
+            this.search.sortMode = BullseyeSearch.SortMode.Distance;
+            this.search.maxDistanceFilter = this.maxTrackingDistance;
+            this.search.maxAngleFilter = this.maxTrackingAngle;
+            this.search.RefreshCandidates();
+            this.search.FilterOutGameObject(base.gameObject);
+            this.trackingTarget = this.search.GetResults().FirstOrDefault<HurtBox>();
+        }
 
         public void dropEquipment(EquipmentDef def)
         {
@@ -1750,11 +1622,12 @@ namespace ShiggyMod.Modules.Survivors
         //steal quirk code
         private void GiveQuirk(HurtBox hurtBox)
         {
+            if (!NetworkServer.active) return;
             AFOEffectController AFOCon = hurtBox.healthComponent.body.gameObject.AddComponent<AFOEffectController>();
             AFOCon.attackerBody = characterBody;
             AFOCon.RHandChild = child.FindChild("RHand").transform;
 
-            Chat.AddMessage("<style=cIsUtility>Choose a Passive Quirk to Give</style>");
+            //Chat.AddMessage("<style=cIsUtility>Choose a Passive Quirk to Give</style>");
             energySystem.quirkGetInformation("<style=cIsUtility>Choose a Passive Quirk to Give</style>", 2f);
 
 
@@ -1787,160 +1660,163 @@ namespace ShiggyMod.Modules.Survivors
         // ---------------------------------------------
         // Steal (AFO) – body name → Quirk, elites, auto-craft toasts
         // ---------------------------------------------
-        private void StealQuirk(HurtBox hurtBox)
-        {
-            if (hurtBox == null || hurtBox.healthComponent == null) return;
+        //private void StealQuirk(HurtBox hurtBox)
+        //{
+        //    if (hurtBox == null || hurtBox.healthComponent == null) return;
 
-            var body = hurtBox.healthComponent.body;
-            if (!body) return;
+        //    var body = hurtBox.healthComponent.body;
+        //    if (!body) return;
 
+        //    if (!NetworkServer.active) return;
 
-            string bodyName = BodyCatalog.GetBodyName(body.bodyIndex);
-            Debug.Log($"[StealQuirk] targetBody={bodyName} (index={body.bodyIndex})");
+        //    string bodyName = BodyCatalog.GetBodyName(body.bodyIndex);
+        //    Debug.Log($"[StealQuirk] targetBody={bodyName} (index={body.bodyIndex})");
 
-            // SFX
-            if (Modules.Config.allowVoice.Value)
-                AkSoundEngine.PostEvent(bodyName == "DekuBody" ? "ShiggyOFAGet" : "ShiggyAFO", characterBody.gameObject);
+        //    // SFX
+        //    if (Modules.Config.allowVoice.Value)
+        //        AkSoundEngine.PostEvent(bodyName == "DekuBody" ? "ShiggyOFAGet" : "ShiggyAFO", characterBody.gameObject);
 
-            bool grantedAny = false;
+        //    bool grantedAny = false;
 
-            // Quick sanity: registry must be bound or we can't resolve IDs/skills.
-            if (QuirkRegistry.All == null || QuirkRegistry.All.Count == 0)
-            {
-                Debug.LogWarning("[StealQuirk] QuirkRegistry not bound yet. Call QuirkRegistry.BindQuirkRegistry() earlier (e.g., after content packs build and before the run).");
-            }
+        //    // Quick sanity: registry must be bound or we can't resolve IDs/skills.
+        //    if (QuirkRegistry.All == null || QuirkRegistry.All.Count == 0)
+        //    {
+        //        Debug.LogWarning("[StealQuirk] QuirkRegistry not bound yet. Call QuirkRegistry.BindQuirkRegistry() earlier (e.g., after content packs build and before the run).");
+        //    }
 
-            // 1) Elite affix → passive + equipment
-            if (QuirkRegistry.TryGetEliteQuirkId(body, out var eliteId))
-            {
-                Debug.Log($"[StealQuirk] Elite affix detected -> {eliteId}");
-                if (!body.HasBuff(Buffs.eliteDebuff.buffIndex))
-                {
-                    bool added = QuirkInventory.Add(eliteId);
-                    Debug.Log($"[StealQuirk] Add(eliteId={eliteId}) -> {added}");
-                    if (added)
-                    {
-                        ToastQuirkPickup(eliteId);
+        //    // 1) Elite affix → passive + equipment
+        //    if (QuirkRegistry.TryGetEliteQuirkId(body, out var eliteId))
+        //    {
+        //        Debug.Log($"[StealQuirk] Elite affix detected -> {eliteId}");
+        //        if (!body.HasBuff(Buffs.eliteDebuff.buffIndex))
+        //        {
+        //            bool added = QuirkInventory.Add(eliteId);
+        //            Debug.Log($"[StealQuirk] Add(eliteId={eliteId}) -> {added}");
+        //            if (added)
+        //            {
+        //                ToastQuirkPickup(eliteId);
 
-                        if (QuirkInventory.LastAutoCrafted.Count > 0)
-                            Debug.Log($"[StealQuirk] Auto-crafted: {string.Join(", ", QuirkInventory.LastAutoCrafted.Select(QuirkInventory.QuirkPickupUI.MakeNiceName))}");
+        //                if (QuirkInventory.LastAutoCrafted.Count > 0)
+        //                    Debug.Log($"[StealQuirk] Auto-crafted: {string.Join(", ", QuirkInventory.LastAutoCrafted.Select(QuirkInventory.QuirkPickupUI.MakeNiceName))}");
 
-                        foreach (var crafted in QuirkInventory.LastAutoCrafted)
-                            ToastQuirkPickup(crafted);
-                    }
-                    else
-                    {
-                        energySystem.quirkGetInformation("Already own this Elite Quirk.", 1.5f);
-                    }
+        //                foreach (var crafted in QuirkInventory.LastAutoCrafted)
+        //                    ToastQuirkPickup(crafted);
+        //            }
+        //            else
+        //            {
+        //                energySystem.quirkGetInformation("Already own this Elite Quirk.", 1.5f);
+        //            }
 
-                    var eq = QuirkRegistry.GetEliteEquipmentForId(eliteId);
-                    if (eq) dropEquipment(eq);
+        //            var eq = QuirkRegistry.GetEliteEquipmentForId(eliteId);
+        //            if (eq) dropEquipment(eq);
 
-                    body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
-                    grantedAny = true;
-                }
-                else
-                {
-                    Chat.AddMessage("Can't steal <style=cIsUtility>Elite Quirk</style> until debuff is gone.");
-                }
-            }
+        //            body.ApplyBuff(Buffs.eliteDebuff.buffIndex, 1, 60);
+        //            grantedAny = true;
+        //        }
+        //        else
+        //        {
+        //            //Chat.AddMessage("Can't steal <style=cIsUtility>Elite Quirk</style> until debuff is gone.");
 
-            // 2) Body name map → QuirkId
-            if (QuirkTargetingMap.TryGet(bodyName, out var id) && id != QuirkId.None)
-            {
-                Debug.Log($"[StealQuirk] Body map resolved {bodyName} -> {id}");
+        //            energySystem.quirkGetInformation("Can't steal <style=cIsUtility>Elite Quirk</style> until debuff is gone.", 2f);
+        //        }
+        //    }
 
-                // Optional: verify that this id has a bound SkillDef (so it can appear in the picker).
-                if (!QuirkRegistry.TryGet(id, out var rec))
-                {
-                    Debug.LogWarning($"[StealQuirk] Registry has no record for {id}. Did you call QuirkRegistry.Build()/BindQuirkRegistry()?");
-                }
-                else
-                {
-                    Debug.Log($"[StealQuirk] Registry record ok. SkillDef={(rec.SkillDef ? rec.SkillDef.name : "null")} Category={rec.Category}");
-                }
+        //    // 2) Body name map → QuirkId
+        //    if (QuirkTargetingMap.TryGet(bodyName, out var id) && id != QuirkId.None)
+        //    {
+        //        Debug.Log($"[StealQuirk] Body map resolved {bodyName} -> {id}");
 
-                bool newlyOwned = QuirkInventory.Add(id);
-                Debug.Log($"[StealQuirk] Add(id={id}) -> {newlyOwned}. Owned now: {QuirkInventory.Owned.Count}");
+        //        // Optional: verify that this id has a bound SkillDef (so it can appear in the picker).
+        //        if (!QuirkRegistry.TryGet(id, out var rec))
+        //        {
+        //            Debug.LogWarning($"[StealQuirk] Registry has no record for {id}. Did you call QuirkRegistry.Build()/BindQuirkRegistry()?");
+        //        }
+        //        else
+        //        {
+        //            Debug.Log($"[StealQuirk] Registry record ok. SkillDef={(rec.SkillDef ? rec.SkillDef.name : "null")} Category={rec.Category}");
+        //        }
 
-                if (newlyOwned)
-                {
-                    // Visual flourish
-                    var AFOCon = hurtBox.healthComponent.body.gameObject.AddComponent<AFOEffectController>();
-                    AFOCon.attackerBody = characterBody;
-                    AFOCon.RHandChild = child.FindChild("RHand").transform;
-                    new SetAFOStealStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+        //        bool newlyOwned = QuirkInventory.Add(id);
+        //        Debug.Log($"[StealQuirk] Add(id={id}) -> {newlyOwned}. Owned now: {QuirkInventory.Owned.Count}");
 
-                    ToastQuirkPickup(id);
-                    grantedAny = true;
+        //        if (newlyOwned)
+        //        {
+        //            // Visual flourish
+        //            var AFOCon = hurtBox.healthComponent.body.gameObject.AddComponent<AFOEffectController>();
+        //            AFOCon.attackerBody = characterBody;
+        //            AFOCon.RHandChild = child.FindChild("RHand").transform;
+        //            new SetAFOStealStateMachine(characterBody.masterObjectId).Send(NetworkDestination.Clients);
 
-                    if (QuirkInventory.LastAutoCrafted.Count > 0)
-                        Debug.Log($"[StealQuirk] Auto-crafted: {string.Join(", ", QuirkInventory.LastAutoCrafted.Select(QuirkInventory.QuirkPickupUI.MakeNiceName))}");
+        //            ToastQuirkPickup(id);
+        //            grantedAny = true;
 
-                    foreach (var crafted in QuirkInventory.LastAutoCrafted)
-                        ToastQuirkPickup(crafted);
+        //            if (QuirkInventory.LastAutoCrafted.Count > 0)
+        //                Debug.Log($"[StealQuirk] Auto-crafted: {string.Join(", ", QuirkInventory.LastAutoCrafted.Select(QuirkInventory.QuirkPickupUI.MakeNiceName))}");
 
-
-                    //stop the enemy in their tracks
-                    SetStateOnHurt component = body.healthComponent.GetComponent<SetStateOnHurt>();
-                    bool flag = component == null;
-                    if (!flag)
-                    {
-                        bool canBeHitStunned = component.canBeHitStunned;
-                        if (canBeHitStunned)
-                        {
-                            component.SetPain();
-                            component.SetStun(2f);
-                            if (body.characterMotor)
-                            {
-                                body.characterMotor.velocity = Vector3.zero;
-                            }
-                            if (body.rigidbody != null)
-                            {
-                                body.rigidbody.velocity = Vector3.zero;
-                            }
-                        }
-                    }
-
-                    // The QuirkUI subscribes to QuirkInventory.OnOwnedChanged and will rebuild its pool.
-                    // If the picker is open right now and you want an immediate refresh, you can nudge it:
-                    if (QuirkUI.Current != null)
-                    {
-                        Debug.Log("[StealQuirk] QuirkUI is open; nudging it to rebuild its pool.");
-                        // The UI already listens to OnOwnedChanged, but in case timing matters:
-                        // (This assumes you added a public method to force-refresh the open picker list, otherwise it will
-                        // rebuild next time you open the modal. If not present, this log is enough to confirm the event fired.)
-                        // QuirkUI.Current.ForceRefreshOpenPicker(); // (optional if you add such a method)
-                    }
-                }
-                else
-                {
-                    Chat.AddMessage("<style=cDeath>Already have this Quirk!</style>");
-                    energySystem.quirkGetInformation("Already have this Quirk!", 2f);
-                }
-
-                // force overlay to refresh ownership check immediately
-                _lastQuirkId = QuirkId.None;
-            }
-            else
-            {
-                Debug.Log($"[StealQuirk] No body->quirk mapping for {bodyName} (or mapped to None).");
-            }
+        //            foreach (var crafted in QuirkInventory.LastAutoCrafted)
+        //                ToastQuirkPickup(crafted);
 
 
-            // 3) Refund if we truly found nothing
-            if (!grantedAny)
-            {
-                Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
-                energySystem.quirkGetInformation("No Quirk to <style=cIsUtility>Steal!</style>", 2f);
+        //            //stop the enemy in their tracks
+        //            SetStateOnHurt component = body.healthComponent.GetComponent<SetStateOnHurt>();
+        //            bool flag = component == null;
+        //            if (!flag)
+        //            {
+        //                bool canBeHitStunned = component.canBeHitStunned;
+        //                if (canBeHitStunned)
+        //                {
+        //                    component.SetPain();
+        //                    component.SetStun(2f);
+        //                    if (body.characterMotor)
+        //                    {
+        //                        body.characterMotor.velocity = Vector3.zero;
+        //                    }
+        //                    if (body.rigidbody != null)
+        //                    {
+        //                        body.rigidbody.velocity = Vector3.zero;
+        //                    }
+        //                }
+        //            }
 
-                float plusChaosflatCost = StaticValues.AFOEnergyCost * energySystem.maxPlusChaos - energySystem.costflatplusChaos;
-                if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
-                float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                if (plusChaosCost < 0f) plusChaosCost = 0f;
-                energySystem.GainplusChaos(plusChaosCost);
-            }
-        }
+        //            // The QuirkUI subscribes to QuirkInventory.OnOwnedChanged and will rebuild its pool.
+        //            // If the picker is open right now and you want an immediate refresh, you can nudge it:
+        //            if (QuirkUI.Current != null)
+        //            {
+        //                Debug.Log("[StealQuirk] QuirkUI is open; nudging it to rebuild its pool.");
+        //                // The UI already listens to OnOwnedChanged, but in case timing matters:
+        //                // (This assumes you added a public method to force-refresh the open picker list, otherwise it will
+        //                // rebuild next time you open the modal. If not present, this log is enough to confirm the event fired.)
+        //                // QuirkUI.Current.ForceRefreshOpenPicker(); // (optional if you add such a method)
+        //            }
+        //        }
+        //        else
+        //        {
+        //            //Chat.AddMessage("<style=cDeath>Already have this Quirk!</style>");
+        //            energySystem.quirkGetInformation("Already have this Quirk!", 2f);
+        //        }
+
+        //        // force overlay to refresh ownership check immediately
+        //        _lastQuirkId = QuirkId.None;
+        //    }
+        //    else
+        //    {
+        //        Debug.Log($"[StealQuirk] No body->quirk mapping for {bodyName} (or mapped to None).");
+        //    }
+
+
+        //    // 3) Refund if we truly found nothing
+        //    if (!grantedAny)
+        //    {
+        //        //Chat.AddMessage("No Quirk to <style=cIsUtility>Steal!</style>");
+        //        energySystem.quirkGetInformation("No Quirk to <style=cIsUtility>Steal!</style>", 2f);
+
+        //        float plusChaosflatCost = StaticValues.AFOEnergyCost * energySystem.maxPlusChaos - energySystem.costflatplusChaos;
+        //        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
+        //        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+        //        if (plusChaosCost < 0f) plusChaosCost = 0f;
+        //        energySystem.GainplusChaos(plusChaosCost);
+        //    }
+        ////}
 
 
 
@@ -1954,9 +1830,175 @@ namespace ShiggyMod.Modules.Survivors
             energySystem.quirkGetInformation(msg, 2f);
         }
 
+        private void TryRequestSteal()
+        {
+            if (!characterBody || !characterBody.hasEffectiveAuthority) return;
+            if (!trackingTarget || !trackingTarget.healthComponent || !trackingTarget.healthComponent.body) return;
+
+            var targetBody = trackingTarget.healthComponent.body;
+
+            // Range check local (UX)
+            if (!Config.allowRangedAFO.Value)
+            {
+                float dist = Vector3.Distance(targetBody.corePosition, characterBody.corePosition);
+                if (dist > Config.maxAFORange.Value)
+                {
+                    energySystem.quirkGetInformation("<style=cIsUtility>Out of AFO Range!</style>", 1f);
+                    return;
+                }
+            }
+
+            // Prevent spamming multiple requests before a result returns
+            if (_stealPending) return;
+
+            // Compute cost (same as you already do)
+            float baseCost = StaticValues.AFOEnergyCost * energySystem.maxPlusChaos; // base before reductions
+            float cost = energySystem.GetFinalPlusChaosCost(baseCost);
+
+            if (!energySystem.CanAffordPlusChaos(baseCost))
+            {
+                energySystem.quirkGetInformation($"<style=cIsUtility>Need {cost:0.#} Plus Chaos!</style>", 1f);
+                return;
+            }
+
+            if (energySystem.currentplusChaos < cost)
+            {
+                energySystem.quirkGetInformation($"<style=cIsUtility>Need {cost:0.#} Plus Chaos!</style>", 1f);
+                return;
+            }
+
+            // ---- Best-effort local "already owned" gate (so you don't even request) ----
+            // This must match server resolve logic, or at least be close.
+            var inv = QuirkInventory.Ensure(characterBody.master);
+
+            QuirkId predicted = PredictQuirkFromVictim_Client(targetBody);
+            if (predicted != QuirkId.None && inv != null && inv.Has(predicted))
+            {
+                energySystem.quirkGetInformation("<style=cIsUtility>Already owned.</style>", 1.2f);
+                return;
+            }
+
+            // do NOT spend here
+            _pendingStealCost = cost;
+            _stealPending = true;
+
+            new StealQuirkRequest(characterBody.master.netId, targetBody.netId, cost)
+                .Send(NetworkDestination.Server);
+        }
+
+        // Best-effort client prediction (mirror your server mapping).
+        // Keep it minimal: if you're unsure, return None and let server decide.
+        private static QuirkId PredictQuirkFromVictim_Client(CharacterBody victim)
+        {
+            if (!victim) return QuirkId.None;
+
+            // Elite mapping (same helper your server uses)
+            if (QuirkRegistry.TryGetEliteQuirkId(victim, out var eliteId))
+            {
+                // If you want to match the server's elite debuff block, mirror it:
+                if (victim.HasBuff(ShiggyMod.Modules.Buffs.eliteDebuff.buffIndex))
+                    return QuirkId.None;
+
+                return eliteId;
+            }
+
+            // Body mapping
+            string bodyName = BodyCatalog.GetBodyName(victim.bodyIndex);
+            if (QuirkTargetingMap.TryGet(bodyName, out var id) && id != QuirkId.None)
+                return id;
+
+            return QuirkId.None;
+        }
+
+
+        public void Client_OnStealResult(QuirkId id, bool success, string reason, NetworkInstanceId victimBodyId, bool playVfx, float cost)
+        {
+            if (!characterBody || !characterBody.hasEffectiveAuthority) return;
+
+            _stealPending = false;
+            _pendingStealCost = 0f;
+
+            if (!success)
+            {
+                energySystem.quirkGetInformation(MapStealFailReason(reason), 2f);
+                return;
+            }
+
+            // spend ONLY on real grants
+            if (cost > 0f)
+                energySystem.SpendplusChaos(cost);
+
+            var inv = QuirkInventory.Ensure(characterBody.master);
+            inv?.Client_AddLocalOnly(id);
+
+            var msg = QuirkInventory.QuirkPickupUI.BuildPickupText(id);
+            Chat.AddMessage(msg);
+            energySystem.quirkGetInformation(msg, 2f);
+
+            _lastQuirkId = QuirkId.None;
+
+            // flourish on the owning client only
+            if (playVfx)
+            {
+                var victimObj = Util.FindNetworkObject(victimBodyId);
+                var victimBody = victimObj ? victimObj.GetComponent<CharacterBody>() : null;
+
+                if (victimBody)
+                {
+                    var afoCon = victimBody.gameObject.AddComponent<AFOEffectController>();
+                    afoCon.attackerBody = characterBody;
+                    afoCon.RHandChild = child.FindChild("RHand").transform;
+
+                    // IMPORTANT: do NOT broadcast to all clients unless the message itself filters by attacker id.
+                    // Prefer targeting ONLY the attacker client (see section 3).
+                    // For now, keep local animation trigger:
+                    characterBody.GetComponent<EntityStateMachine>()?.SetNextState(new AFOSteal());
+                }
+            }
+        }
+
+
+
+        private void PlayAFOStealLocal(CharacterBody victimBody)
+        {
+            if (!victimBody) return;
+
+            // victim-side VFX controller (local)
+            var con = victimBody.gameObject.GetComponent<AFOEffectController>();
+            if (!con) con = victimBody.gameObject.AddComponent<AFOEffectController>();
+            con.attackerBody = characterBody;
+            con.RHandChild = child ? child.FindChild("RHand") : null;
+
+            new SetAFOStealStateMachine(characterBody.masterObjectId)
+                .Send(R2API.Networking.NetworkDestination.Clients);
+
+        }
+
+
+        private string MapStealFailReason(string reason)
+        {
+            if (string.IsNullOrEmpty(reason)) return "Steal failed.";
+
+            switch (reason)
+            {
+                case "NoMapping":
+                    return "No Quirk to <style=cIsUtility>Steal!</style>";
+                case "AlreadyOwned":
+                    return "Already have this Quirk!";
+                case "EliteDebuffed":
+                    return "Can't steal <style=cIsUtility>Elite Quirk</style> until debuff is gone.";
+                case "NoVictim":
+                    return "No target.";
+                default:
+                    return reason; // show raw server reason for debugging
+            }
+        }
+
+
+
+
+
     }
-
-
 
 }
 

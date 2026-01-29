@@ -1,10 +1,5 @@
 ﻿using RoR2;
-using System;
-using ShiggyMod.Modules.Survivors;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using System.Linq;
 
 namespace ShiggyMod.SkillStates
 {

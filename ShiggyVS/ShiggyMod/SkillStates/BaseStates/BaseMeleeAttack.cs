@@ -1,5 +1,4 @@
 ﻿using EntityStates;
-using R2API;
 using RoR2;
 using RoR2.Audio;
 using System;
@@ -90,7 +89,7 @@ namespace ShiggyMod.SkillStates.BaseStates
         protected virtual void PlayAttackAnimation()
         {
             //update animations one day
-            base.PlayCrossfade("RightArm, Override", "RArmSwipe" + (1 + swingIndex), "Attack.playbackRate", this.duration/2f, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "RArmSwipe" + (1 + swingIndex), "Attack.playbackRate", this.duration / 2f, 0.05f);
             //base.PlayCrossfade("FullBody, Override", "Slam" , "Slash.playbackRate", this.duration/2, 0.05f);
         }
 

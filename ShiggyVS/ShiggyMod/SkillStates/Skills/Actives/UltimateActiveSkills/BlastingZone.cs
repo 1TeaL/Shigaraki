@@ -1,16 +1,9 @@
-﻿using RoR2;
-using UnityEngine;
-using UnityEngine.Networking;
-using EntityStates;
-using System.Collections.Generic;
-using System.Linq;
-using static RoR2.BlastAttack;
-using R2API.Networking.Interfaces;
+﻿using EntityStates;
 using R2API.Networking;
-using System;
+using RoR2;
 using ShiggyMod.Modules;
-using R2API.Utils;
 using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -65,7 +58,7 @@ namespace ShiggyMod.SkillStates
             {
                 origin = characterBody.corePosition,
                 scale = 1f,
-                rotation= Util.QuaternionSafeLookRotation(characterDirection.forward),
+                rotation = Util.QuaternionSafeLookRotation(characterDirection.forward),
 
             }, true);
 
@@ -125,7 +118,7 @@ namespace ShiggyMod.SkillStates
                 else if (intervalStopwatch >= interval)
                 {
                     interval = 0f;
-                    if(currentHits < totalHits)
+                    if (currentHits < totalHits)
                     {
                         currentHits++;
                         blastAttack.position = theSpot;
@@ -151,7 +144,7 @@ namespace ShiggyMod.SkillStates
                         return;
                     }
                 }
-                
+
             }
 
 

@@ -1,14 +1,10 @@
 ﻿using EntityStates;
 using EntityStates.Huntress;
 using EntityStates.Loader;
-using EntityStates.VagrantMonster;
 using RoR2;
-using RoR2.Audio;
 using ShiggyMod.Modules;
-using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -44,7 +40,7 @@ namespace ShiggyMod.SkillStates
 
         public override void OnEnter()
         {
-            base.OnEnter();            
+            base.OnEnter();
             float[] source = new float[]
             {
                 this.attackSpeedStat,
@@ -112,7 +108,7 @@ namespace ShiggyMod.SkillStates
             Util.PlaySound(BaseChargeFist.endChargeLoopSFXString, base.gameObject);
             base.OnExit();
         }
-        
+
         public override void FixedUpdate()
         {
 
@@ -147,7 +143,7 @@ namespace ShiggyMod.SkillStates
                 }
                 //base.characterMotor.walkSpeedPenaltyCoefficient = 1f - this.chargePercent / 3f;
                 this.IndicatorUpdator();
-            }            
+            }
             else
             {
                 bool isAuthority = base.isAuthority;

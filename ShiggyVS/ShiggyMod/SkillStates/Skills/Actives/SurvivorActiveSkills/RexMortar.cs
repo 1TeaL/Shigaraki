@@ -1,10 +1,10 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using EntityStates.Treebot.Weapon;
+using RoR2;
+using RoR2.Projectile;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -28,7 +28,7 @@ namespace ShiggyMod.SkillStates
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
 
 
             damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);

@@ -1,15 +1,11 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
-using System.Linq;
-using EntityStates.Huntress;
 using EntityStates.LemurianBruiserMonster;
 using EntityStates.Mage.Weapon;
-using System.Collections.Generic;
 using R2API;
+using RoR2;
+using ShiggyMod.Modules.Survivors;
+using System.Linq;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -44,7 +40,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetBool("attacking", false);
             PlayAnimation("RightArm, Override", "LArmBlastRelease", "Attack.playbackRate", duration);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
             Util.PlaySound(FireMegaFireball.attackString, base.gameObject);
             if (FireMegaFireball.muzzleflashEffectPrefab)
             {
@@ -94,7 +90,7 @@ namespace ShiggyMod.SkillStates
                 //Debug.Log(hitCount + "hitcount");
                 for (int i = 0; i < hitCount; i++)
                 {
-                    if(blastAttack.Fire().hitCount > 0)
+                    if (blastAttack.Fire().hitCount > 0)
                     {
                         OnHitEnemyAuthority();
                     }
@@ -105,8 +101,8 @@ namespace ShiggyMod.SkillStates
                         rotation = rotation
                     }, false);
                 }
-                    
-                
+
+
 
             }
 

@@ -1,16 +1,13 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
-using RoR2.UI;
-using R2API.Networking;
-using ShiggyMod.Modules;
-using System;
-using Random = UnityEngine.Random;
 using EntityStates.ImpMonster;
 using R2API;
+using R2API.Networking;
+using RoR2;
+using RoR2.UI;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ShiggyMod.SkillStates
 {
@@ -48,7 +45,7 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             radius *= attackSpeedStat;
-            if(radius < StaticValues.shadowClawRadius)
+            if (radius < StaticValues.shadowClawRadius)
             {
                 radius = StaticValues.shadowClawRadius;
             }
@@ -99,7 +96,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 
             this.animator.SetBool("attacking", true);
-            base.PlayCrossfade("RightArm, Override", "RArmSwipe1Start" , "Attack.playbackRate", duration, 0.05f);
+            base.PlayCrossfade("RightArm, Override", "RArmSwipe1Start", "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
@@ -173,8 +170,8 @@ namespace ShiggyMod.SkillStates
 
             if (keepFiring)
             {
-                base.characterMotor.walkSpeedPenaltyCoefficient = 1f - base.fixedAge/StaticValues.shadowClawMovespeedCharge;
-                if(base.characterMotor.walkSpeedPenaltyCoefficient < 0.3f)
+                base.characterMotor.walkSpeedPenaltyCoefficient = 1f - base.fixedAge / StaticValues.shadowClawMovespeedCharge;
+                if (base.characterMotor.walkSpeedPenaltyCoefficient < 0.3f)
                 {
                     base.characterMotor.walkSpeedPenaltyCoefficient = 0.3f;
                 }

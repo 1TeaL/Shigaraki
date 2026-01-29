@@ -1,18 +1,15 @@
 ﻿using EntityStates;
 using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
-using R2API.Networking.Interfaces;
 using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
     public class QuirkOverdrive : BaseSkillState
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        public float duration = StaticValues.quirkOverdriveDuration;
+        public float duration = Config.ApexHealBlockDuration.Value;
         public ShiggyController Shiggycon;
         private DamageType damageType;
         public HurtBox Target;

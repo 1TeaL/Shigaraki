@@ -128,275 +128,275 @@ AvatarMask:
   - m_Path: Shigaraki Armature/waist/chest/neck/head
     m_Weight: 1
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/forehead
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/forehead/forehead_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/LU_lip_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/LU_lip_A/LU_lip_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/LU_lip_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/LU_lip_B/LU_lip_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/LU_lip_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/LU_lip_C/LU_lip_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/RU_lip_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/RU_lip_A/RU_lip_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/RU_lip_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/RU_lip_B/RU_lip_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/RU_lip_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/RU_lip_C/RU_lip_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/tongue_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/tongue_A/tongue_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/tongue_A/tongue_B/tongue_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/U_lip
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/U_lip/U_lip_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/U_teeth
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/jaw_A/U_teeth/U_teeth_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_A/L_eyebrow_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_A/L_eyebrow_A/L_eyebrow_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_B/L_eyebrow_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_B/L_eyebrow_B/L_eyebrow_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_C/L_eyebrow_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_C/L_eyebrow_C/L_eyebrow_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_D/L_eyebrow_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_D/L_eyebrow_D/L_eyebrow_D_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_E
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_E/L_eyebrow_E
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_browskin_E/L_eyebrow_E/L_eyebrow_E_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_cheek_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_cheek_A/L_cheek_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_cheek_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_cheek_B/L_cheek_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_cheek_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_cheek_C/L_cheek_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_cheek_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_cheek_D/L_cheek_D_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_eye
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/L_eye/L_eye_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LI_eyelid
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LI_eyelid/LI_eyelid_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LO_eyelid
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LO_eyelid/LO_eyelid_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_eyelid_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_eyelid_A/LT_eyelid_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_eyelid_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_eyelid_B/LT_eyelid_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_eyelid_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_eyelid_C/LT_eyelid_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_eyelid_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_eyelid_D/LT_eyelid_D_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_lip_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_lip_A/LT_lip_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_lip_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_lip_B/LT_lip_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_lip_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_lip_C/LT_lip_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_lip_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LT_lip_D/LT_lip_D_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LU_eyelid_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LU_eyelid_A/LU_eyelid_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LU_eyelid_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LU_eyelid_B/LU_eyelid_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LU_eyelid_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LU_eyelid_C/LU_eyelid_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LU_eyelid_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/LU_eyelid_D/LU_eyelid_D_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/nose_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/nose_A/nose_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_A/R_eyebrow_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_A/R_eyebrow_A/R_eyebrow_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_B/R_eyebrow_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_B/R_eyebrow_B/R_eyebrow_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_C/R_eyebrow_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_C/R_eyebrow_C/R_eyebrow_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_D/R_eyebrow_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_D/R_eyebrow_D/R_eyebrow_D_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_E
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_E/R_eyebrow_E
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_browskin_E/R_eyebrow_E/R_eyebrow_E_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_cheek_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_cheek_A/R_cheek_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_cheek_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_cheek_B/R_cheek_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_cheek_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_cheek_C/R_cheek_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_cheek_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_cheek_D/R_cheek_D_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_eye
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/R_eye/R_eye_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RI_eyelid
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RI_eyelid/RI_eyelid_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RO_eyelid
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RO_eyelid/RO_eyelid_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_eyelid_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_eyelid_A/RT_eyelid_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_eyelid_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_eyelid_B/RT_eyelid_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_eyelid_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_eyelid_C/RT_eyelid_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_eyelid_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_eyelid_D/RT_eyelid_D_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_lip_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_lip_A/RT_lip_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_lip_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_lip_B/RT_lip_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_lip_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_lip_C/RT_lip_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_lip_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RT_lip_D/RT_lip_D_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RU_eyelid_A
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RU_eyelid_A/RU_eyelid_A_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RU_eyelid_B
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RU_eyelid_B/RU_eyelid_B_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RU_eyelid_C
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RU_eyelid_C/RU_eyelid_C_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RU_eyelid_D
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/RU_eyelid_D/RU_eyelid_D_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/T_lip
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/T_lip/T_lip_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/T_teeth
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/face/T_teeth/T_teeth_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Shigaraki Armature/waist/chest/neck/head/hair1.F
     m_Weight: 1
   - m_Path: Shigaraki Armature/waist/chest/neck/head/hair1.F/hair2.F

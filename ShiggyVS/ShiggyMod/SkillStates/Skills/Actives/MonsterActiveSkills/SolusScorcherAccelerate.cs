@@ -1,18 +1,11 @@
 ﻿using EntityStates;
-using EntityStates.JellyfishMonster;
-using HG;
 using R2API.Networking;
-using R2API.Networking.Interfaces;
 using RoR2;
-using RoR2BepInExPack.GameAssetPaths.Version_1_39_0;
 using ShiggyMod.Modules;
-using ShiggyMod.Modules.Networking;
-using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using static UnityEngine.ParticleSystem.PlaybackState;
 
 namespace ShiggyMod.SkillStates
 {
@@ -31,12 +24,12 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             search = new BullseyeSearch();
-            range = StaticValues.solusScorcherAccelerateRange * (attackSpeedStat/3);
+            range = StaticValues.solusScorcherAccelerateRange * (attackSpeedStat / 3);
             damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
-            
+
             PlayCrossfade("LeftArm, Override", "LHandDetonate", "Attack.playbackRate", duration, 0.05f);
             Transform modelTransform = base.GetModelTransform();
             //AkSoundEngine.PostEvent("ShiggyExplosion", base.gameObject);
@@ -53,7 +46,7 @@ namespace ShiggyMod.SkillStates
             base.OnExit();
             //PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
             //AkSoundEngine.StopPlayingID(this.soundID);
-            
+
         }
 
 
@@ -61,7 +54,7 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if(base.fixedAge >= fireTime && !hasFired)
+            if (base.fixedAge >= fireTime && !hasFired)
             {
                 hasFired = true;
                 //search for target
@@ -137,14 +130,14 @@ namespace ShiggyMod.SkillStates
 
         private void SearchForTarget(CharacterBody charBody)
         {
-            Ray aimRay = base.GetAimRay(); 
+            Ray aimRay = base.GetAimRay();
             if (Shiggycon.trackingTarget)
             {
                 theSpot = Shiggycon.GetTrackingTarget().healthComponent.body.corePosition;
                 range /= 2f;
                 angle = 360f;
             }
-            else if(!Shiggycon.trackingTarget)
+            else if (!Shiggycon.trackingTarget)
             {
                 theSpot = charBody.transform.position;
                 angle = 180f;

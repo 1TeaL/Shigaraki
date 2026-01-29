@@ -1,13 +1,9 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using EntityStates.LunarGolem;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using EntityStates.Commando;
 using ExtraSkillSlots;
+using RoR2;
 using ShiggyMod.Modules;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {

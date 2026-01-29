@@ -1,18 +1,13 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
-using EntityStates.Captain;
 using EntityStates.Captain.Weapon;
-using RoR2.UI;
-using EntityStates.Treebot.Weapon;
-using EmotesAPI;
-using System;
 using EntityStates.Huntress;
-using Object = UnityEngine.Object;
 using ExtraSkillSlots;
+using RoR2;
+using RoR2.Projectile;
+using RoR2.UI;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ShiggyMod.SkillStates
 {
@@ -103,7 +98,7 @@ namespace ShiggyMod.SkillStates
                 target = null,
                 speedOverride = 0f,
                 fuseOverride = -1f,
-                
+
             };
             ProjectileManager.instance.FireProjectile(fireProjectileInfo);
 
@@ -127,7 +122,7 @@ namespace ShiggyMod.SkillStates
                 this.aimSphere.transform.localScale = new Vector3(5f, 5f, 5f);
             }
             aimRay = base.GetAimRay();
-            bool flag = Physics.Raycast(base.GetAimRay(), out raycastHit, maxDistance, LayerIndex.world.mask | LayerIndex.entityPrecise.mask);            
+            bool flag = Physics.Raycast(base.GetAimRay(), out raycastHit, maxDistance, LayerIndex.world.mask | LayerIndex.entityPrecise.mask);
             if (flag)
             {
                 this.aimSphere.transform.position = raycastHit.point + Vector3.up;

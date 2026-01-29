@@ -2,10 +2,8 @@
 using EntityStates.VoidMegaCrab.BackWeapon;
 using RoR2;
 using RoR2.Projectile;
-using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -35,8 +33,8 @@ namespace ShiggyMod.SkillStates
             Util.PlaySound(FireVoidMissiles.enterSoundString, base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            
-            durationBetweenMissiles = (duration / totalMissileWaveCount)-0.05f;
+
+            durationBetweenMissiles = (duration / totalMissileWaveCount) - 0.05f;
 
             //if (FireVoidMissiles.muzzleEffectPrefab)
             //{
@@ -52,7 +50,7 @@ namespace ShiggyMod.SkillStates
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
         }
         private void FireMissile()
         {

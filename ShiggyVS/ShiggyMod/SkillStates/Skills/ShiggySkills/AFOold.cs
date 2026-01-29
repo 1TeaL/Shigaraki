@@ -1,15 +1,13 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
+﻿using EntityStates;
 using ExtraSkillSlots;
-using ShiggyMod.Modules.Networking;
 using R2API.Networking;
 using R2API.Networking.Interfaces;
+using RoR2;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Networking;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -54,7 +52,7 @@ namespace ShiggyMod.SkillStates
 
             //CheckQuirksForBuffs();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            PlayCrossfade("RightArm, Override", "RightArmPull","Attack.playbackRate", duration, 0.1f);
+            PlayCrossfade("RightArm, Override", "RightArmPull", "Attack.playbackRate", duration, 0.1f);
 
 
             extraskillLocator = base.GetComponent<ExtraSkillLocator>();
@@ -170,9 +168,9 @@ namespace ShiggyMod.SkillStates
             //        }
             //        if(base.fixedAge >= 3f)
             //        {
-                        
+
             //            Chat.AddMessage("<style=cIsUtility>Choose which Quirk to Remove</style>");
-                        
+
             //            //CheckQuirksForBuffs();
             //            this.outer.SetNextStateToMain();
             //            return;
@@ -1472,7 +1470,7 @@ namespace ShiggyMod.SkillStates
         //        }
 
         //    }
-        
+
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.PrioritySkill;

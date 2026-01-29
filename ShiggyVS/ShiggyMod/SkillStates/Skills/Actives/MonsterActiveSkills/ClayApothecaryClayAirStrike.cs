@@ -1,14 +1,14 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
 using EntityStates.ClayGrenadier;
-using UnityEngine.Networking;
-using System.Linq;
-using RoR2.Projectile;
-using System.Collections.Generic;
 using R2API;
+using RoR2;
+using RoR2.Projectile;
 using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -17,12 +17,12 @@ namespace ShiggyMod.SkillStates
 
 
         private float radius = 5f;
-		private float searchradius = 100f;
-		private float damageCoefficient = Modules.StaticValues.clayapothecarymortarDamageCoefficient;
+        private float searchradius = 100f;
+        private float damageCoefficient = Modules.StaticValues.clayapothecarymortarDamageCoefficient;
         private float procCoefficient = 1f;
         private float force = 100f;
-		private float blastUpwardForce = 1000f;
-		private float speedOverride = -1f;
+        private float blastUpwardForce = 1000f;
+        private float speedOverride = -1f;
 
         private Animator modelAnimator;
         private Transform modelTransform;
@@ -33,8 +33,8 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-			damageType = new DamageTypeCombo(DamageType.ClayGoo, DamageTypeExtended.Generic, DamageSource.Secondary);
-			Shiggycon = gameObject.GetComponent<ShiggyController>();
+            damageType = new DamageTypeCombo(DamageType.ClayGoo, DamageTypeExtended.Generic, DamageSource.Secondary);
+            Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
@@ -86,111 +86,111 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-			if (base.fixedAge > this.fireTime && !this.hasFired)
-			{
-				this.hasFired = true;
-				if (this.chargeInstance)
-				{
-					EntityState.Destroy(this.chargeInstance);
-				}
-				Vector3 footPosition = base.characterBody.footPosition;
-				EffectManager.SpawnEffect(FaceSlam.blastImpactEffect, new EffectData
-				{
-					origin = footPosition,
-					scale = radius
-				}, true);
-				if (NetworkServer.active && base.healthComponent)
-				{
-					DamageInfo damageInfo = new DamageInfo();
-					damageInfo.damage = base.healthComponent.fullCombinedHealth * healthCostFraction;
-					damageInfo.position = base.characterBody.corePosition;
-					damageInfo.force = Vector3.zero;
-					damageInfo.damageColorIndex = DamageColorIndex.Default;
-					damageInfo.crit = false;
-					damageInfo.attacker = characterBody.gameObject;
-					damageInfo.inflictor = null;
-					damageInfo.damageType = new DamageTypeCombo(DamageType.NonLethal | DamageType.BypassArmor, DamageTypeExtended.Generic, DamageSource.Secondary);
-					damageInfo.procCoefficient = 0f;
-					damageInfo.procChainMask = default(ProcChainMask);
-					base.healthComponent.TakeDamage(damageInfo);
-				}
-				if (base.isAuthority)
+            if (base.fixedAge > this.fireTime && !this.hasFired)
+            {
+                this.hasFired = true;
+                if (this.chargeInstance)
                 {
-                    
+                    EntityState.Destroy(this.chargeInstance);
+                }
+                Vector3 footPosition = base.characterBody.footPosition;
+                EffectManager.SpawnEffect(FaceSlam.blastImpactEffect, new EffectData
+                {
+                    origin = footPosition,
+                    scale = radius
+                }, true);
+                if (NetworkServer.active && base.healthComponent)
+                {
+                    DamageInfo damageInfo = new DamageInfo();
+                    damageInfo.damage = base.healthComponent.fullCombinedHealth * healthCostFraction;
+                    damageInfo.position = base.characterBody.corePosition;
+                    damageInfo.force = Vector3.zero;
+                    damageInfo.damageColorIndex = DamageColorIndex.Default;
+                    damageInfo.crit = false;
+                    damageInfo.attacker = characterBody.gameObject;
+                    damageInfo.inflictor = null;
+                    damageInfo.damageType = new DamageTypeCombo(DamageType.NonLethal | DamageType.BypassArmor, DamageTypeExtended.Generic, DamageSource.Secondary);
+                    damageInfo.procCoefficient = 0f;
+                    damageInfo.procChainMask = default(ProcChainMask);
+                    base.healthComponent.TakeDamage(damageInfo);
+                }
+                if (base.isAuthority)
+                {
+
                     if (this.modelTransform)
-					{
-						Transform transform = base.FindModelChild("Chest");
-						if (transform)
-						{
-							this.attack = new BlastAttack();
-							this.attack.attacker = base.gameObject;
-							this.attack.inflictor = base.gameObject;
-							this.attack.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
-							this.attack.baseDamage = this.damageStat * damageCoefficient;
-							this.attack.baseForce = force;
-							this.attack.position = transform.position;
-							this.attack.radius = radius;
-							this.attack.falloffModel = BlastAttack.FalloffModel.None;
-							this.attack.bonusForce = new Vector3(0f, blastUpwardForce, 0f);
-							this.attack.damageType = damageType;
-							this.attack.Fire();
+                    {
+                        Transform transform = base.FindModelChild("Chest");
+                        if (transform)
+                        {
+                            this.attack = new BlastAttack();
+                            this.attack.attacker = base.gameObject;
+                            this.attack.inflictor = base.gameObject;
+                            this.attack.teamIndex = TeamComponent.GetObjectTeam(base.gameObject);
+                            this.attack.baseDamage = this.damageStat * damageCoefficient;
+                            this.attack.baseForce = force;
+                            this.attack.position = transform.position;
+                            this.attack.radius = radius;
+                            this.attack.falloffModel = BlastAttack.FalloffModel.None;
+                            this.attack.bonusForce = new Vector3(0f, blastUpwardForce, 0f);
+                            this.attack.damageType = damageType;
+                            this.attack.Fire();
 
                             this.attack.AddModdedDamageType(Damage.shiggyDecay);
 
-                            if(this.attack.Fire().hitCount > 0)
+                            if (this.attack.Fire().hitCount > 0)
                             {
                                 this.OnHitEnemyAuthority();
                             }
-						}
-					}
-					Vector3 position = footPosition;
-					Vector3 up = Vector3.up;
-					RaycastHit raycastHit;
-					if (Physics.Raycast(base.GetAimRay(), out raycastHit, 1000f, LayerIndex.world.mask))
-					{
-						position = raycastHit.point;
-					}
-					BullseyeSearch bullseyeSearch = new BullseyeSearch();
-					bullseyeSearch.viewer = base.characterBody;
-					bullseyeSearch.teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam());
-					bullseyeSearch.sortMode = BullseyeSearch.SortMode.DistanceAndAngle;
-					bullseyeSearch.minDistanceFilter = 0f;
-					bullseyeSearch.maxDistanceFilter = searchradius;
-					bullseyeSearch.searchOrigin = base.transform.position;
-					bullseyeSearch.searchDirection = UnityEngine.Random.onUnitSphere;
-					bullseyeSearch.maxAngleFilter = 360f;
-					bullseyeSearch.filterByLoS = false;
-					bullseyeSearch.RefreshCandidates();
-					bullseyeSearch.FilterOutGameObject(base.gameObject);
+                        }
+                    }
+                    Vector3 position = footPosition;
+                    Vector3 up = Vector3.up;
+                    RaycastHit raycastHit;
+                    if (Physics.Raycast(base.GetAimRay(), out raycastHit, 1000f, LayerIndex.world.mask))
+                    {
+                        position = raycastHit.point;
+                    }
+                    BullseyeSearch bullseyeSearch = new BullseyeSearch();
+                    bullseyeSearch.viewer = base.characterBody;
+                    bullseyeSearch.teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam());
+                    bullseyeSearch.sortMode = BullseyeSearch.SortMode.DistanceAndAngle;
+                    bullseyeSearch.minDistanceFilter = 0f;
+                    bullseyeSearch.maxDistanceFilter = searchradius;
+                    bullseyeSearch.searchOrigin = base.transform.position;
+                    bullseyeSearch.searchDirection = UnityEngine.Random.onUnitSphere;
+                    bullseyeSearch.maxAngleFilter = 360f;
+                    bullseyeSearch.filterByLoS = false;
+                    bullseyeSearch.RefreshCandidates();
+                    bullseyeSearch.FilterOutGameObject(base.gameObject);
 
 
-					List<HurtBox> target = bullseyeSearch.GetResults().ToList<HurtBox>();
-					foreach (HurtBox singularTarget in target)
-					{
-						if (singularTarget)
-						{
-							if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-							{								
+                    List<HurtBox> target = bullseyeSearch.GetResults().ToList<HurtBox>();
+                    foreach (HurtBox singularTarget in target)
+                    {
+                        if (singularTarget)
+                        {
+                            if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                            {
 
-								ProjectileManager.instance.FireProjectile(
-									FaceSlam.projectilePrefab, //prefab
-									singularTarget.healthComponent.body.footPosition, //position
-									Quaternion.identity, //rotation
-									base.gameObject, //owner
-									this.damageStat * damageCoefficient, //damage
-									force, //force
-									Util.CheckRoll(this.critStat, base.characterBody.master), //crit
-									DamageColorIndex.Default, //damage color
-									null, //target
-									speedOverride); //speed
+                                ProjectileManager.instance.FireProjectile(
+                                    FaceSlam.projectilePrefab, //prefab
+                                    singularTarget.healthComponent.body.footPosition, //position
+                                    Quaternion.identity, //rotation
+                                    base.gameObject, //owner
+                                    this.damageStat * damageCoefficient, //damage
+                                    force, //force
+                                    Util.CheckRoll(this.critStat, base.characterBody.master), //crit
+                                    DamageColorIndex.Default, //damage color
+                                    null, //target
+                                    speedOverride); //speed
 
-							}
-						}
-					}
-				}
-			}
+                            }
+                        }
+                    }
+                }
+            }
 
-			if (base.fixedAge >= this.duration && base.isAuthority)
+            if (base.fixedAge >= this.duration && base.isAuthority)
             {
                 this.outer.SetNextStateToMain();
                 return;

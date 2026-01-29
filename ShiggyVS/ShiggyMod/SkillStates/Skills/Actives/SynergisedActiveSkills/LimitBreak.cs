@@ -1,13 +1,7 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
+﻿using R2API.Networking;
 using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
 using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {

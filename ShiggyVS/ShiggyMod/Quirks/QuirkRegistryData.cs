@@ -3,10 +3,8 @@ using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using static ShiggyMod.Modules.Survivors.Shiggy;
 using static ShiggyMod.Modules.Buffs;
+using static ShiggyMod.Modules.Survivors.Shiggy;
 
 namespace ShiggyMod.Modules.Quirks
 {
@@ -100,7 +98,7 @@ namespace ShiggyMod.Modules.Quirks
             yield return E(QuirkId.Elite_TwistedPassive, QuirkLevel.Level1, QuirkCategory.Passive, buff: () => DLC2Content.Buffs.EliteBead);
 
             // =========================
-            // Level 1 passives (skill + buff + body targeting)
+            // P1 Level 1 passives (skill + buff + body targeting)
             // =========================
             yield return E(
                 QuirkId.AlphaConstruct_BarrierPassive, QuirkLevel.Level1, QuirkCategory.Passive,
@@ -185,7 +183,7 @@ namespace ShiggyMod.Modules.Quirks
 
             yield return E(
                 QuirkId.SolusProspector_PrimingPassive, QuirkLevel.Level1, QuirkCategory.Passive,
-                skill: null, // you map this as a passive quirk; if you also have a SkillDef, add it here
+                skill: () => solusprospectorprimingDef, // you map this as a passive quirk; if you also have a SkillDef, add it here
                 buff: () => solusPrimedBuff,
                 bodyPaths: new[]
                 {
@@ -294,7 +292,7 @@ namespace ShiggyMod.Modules.Quirks
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Chef.ChefBody_prefab });
 
             // =========================
-            // Crafted passives — Level 2
+            // P2 Crafted passives — Level 2
             // =========================
             yield return E(
                 QuirkId.Pest_Vermin_BlindSensesPassive, QuirkLevel.Level2, QuirkCategory.Passive,
@@ -370,7 +368,7 @@ namespace ShiggyMod.Modules.Quirks
 
 
             // =========================
-            // Crafted passives — Level 4
+            // P4 Crafted passives — Level 4
             // =========================
             yield return E(
                 QuirkId.ShiggyDecay_AuraOfBlight_DecayAwakenedPassive, QuirkLevel.Level4, QuirkCategory.Passive,
@@ -416,7 +414,7 @@ namespace ShiggyMod.Modules.Quirks
 
 
             // =========================
-            // Level 1 actives (skill + body targeting)
+            // A1 Level 1 actives (skill + body targeting)
             // =========================
             yield return E(QuirkId.Vulture_WindBlastActive, QuirkLevel.Level1, QuirkCategory.Active,
                 skill: () => alloyvultureWindBlastDef,
@@ -474,6 +472,10 @@ namespace ShiggyMod.Modules.Quirks
                 skill: () => parentteleportDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Parent.ParentBody_prefab });
 
+            yield return E(QuirkId.ScorchWorm_LavaBombActive, QuirkLevel.Level1, QuirkCategory.Active,
+                skill: () => scorchwormlavabombDef,
+                bodyPaths: new[] { RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC2_Scorchling.ScorchlingBody_prefab});
+
             yield return E(QuirkId.SolusDistributor_SolusPlantMineActive, QuirkLevel.Level1, QuirkCategory.Active,
                 skill: () => solusdistributorplantmineDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_MinePod.MinePodBody_prefab });
@@ -492,7 +494,7 @@ namespace ShiggyMod.Modules.Quirks
 
             yield return E(QuirkId.SolusTransporter_SolusTransportActive, QuirkLevel.Level1, QuirkCategory.Active,
                 skill: () => solustransportertransportDef,
-                bodyPaths: new[] { RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_IronHauler.IronHaulerBody_prefab});
+                bodyPaths: new[] { RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_IronHauler.IronHaulerBody_prefab });
 
             yield return E(QuirkId.StoneGolem_LaserActive, QuirkLevel.Level1, QuirkCategory.Active,
                 skill: () => stonegolemlaserDef,
@@ -518,6 +520,10 @@ namespace ShiggyMod.Modules.Quirks
             yield return E(QuirkId.Grandparent_SunActive, QuirkLevel.Level1, QuirkCategory.Active,
                 skill: () => grandparentsunDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Grandparent.GrandParentBody_prefab });
+
+            yield return E(QuirkId.Scavenger_ThqwibActive, QuirkLevel.Level1, QuirkCategory.Active,
+                skill: () => scavengerthqwibDef,
+                bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Scav.ScavBody_prefab});
 
             yield return E(QuirkId.SolusControlUnit_AntiGravityActive, QuirkLevel.Level1, QuirkCategory.Active,
                 skill: () => soluscontrolunityknockupDef,
@@ -560,13 +566,17 @@ namespace ShiggyMod.Modules.Quirks
                 skill: () => artificerflamethrowerDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Mage.MageBody_prefab });
 
-            yield return E(QuirkId.Merc_DashActive, QuirkLevel.Level1, QuirkCategory.Active,
+            yield return E(QuirkId.Merc_WindAssaultActive, QuirkLevel.Level1, QuirkCategory.Active,
                 skill: () => mercdashDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Merc.MercBody_prefab });
 
             yield return E(QuirkId.MULT_PowerStanceActive, QuirkLevel.Level1, QuirkCategory.Active,
                 skill: () => multbuffDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Toolbot.ToolbotBody_prefab });
+
+            yield return E(QuirkId.Operator_S141CustomActive, QuirkLevel.Level1, QuirkCategory.Active,
+                skill: () => operators141customDef,
+                bodyPaths: new[] { RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Drone_Tech.DroneTechBody_prefab});
 
             yield return E(QuirkId.Railgunner_CryoActive, QuirkLevel.Level1, QuirkCategory.Active,
                 skill: () => railgunnercryoDef,
@@ -591,7 +601,7 @@ namespace ShiggyMod.Modules.Quirks
                 bodyNames: new[] { "DekuBody" });
 
             // =========================
-            // Crafted: Level 2 actives
+            // A2 Crafted: Level 2 actives
             // =========================
             yield return E(
                 QuirkId.Railgunner_LunarWisp_RapidPierceActive, QuirkLevel.Level2, QuirkCategory.Active,
@@ -666,7 +676,7 @@ namespace ShiggyMod.Modules.Quirks
             yield return E(
                 QuirkId.AirCannon_Merc_WindSlashActive, QuirkLevel.Level2, QuirkCategory.Active,
                 skill: () => windSlashDef,
-                recipes: new[] { new QuirkRecipe(QuirkId.Shiggy_AirCannonActive, QuirkId.Merc_DashActive) });
+                recipes: new[] { new QuirkRecipe(QuirkId.Shiggy_AirCannonActive, QuirkId.Merc_WindAssaultActive) });
 
             yield return E(
                 QuirkId.Multiplier_Deku_LimitBreakActive, QuirkLevel.Level2, QuirkCategory.Active,
@@ -689,7 +699,7 @@ namespace ShiggyMod.Modules.Quirks
                 recipes: new[] { new QuirkRecipe(QuirkId.Parent_TeleportActive, QuirkId.Loader_ScrapBarrierPassive) });
 
             // =========================
-            // Crafted: Level 4 actives
+            // A4 Crafted: Level 4 actives
             // =========================
             yield return E(
                 QuirkId.ShadowClaw_Genesis_LightAndDarknessActive, QuirkLevel.Level4, QuirkCategory.Active,
@@ -739,7 +749,7 @@ namespace ShiggyMod.Modules.Quirks
 
 
             // =========================
-            // Crafted: Level 6 actives
+            // A6 Crafted: Level 6 actives
             // =========================
             yield return E(
                 QuirkId.Solusx6_SolusFactorUnleashedActive, QuirkLevel.Level6, QuirkCategory.Active,
@@ -756,7 +766,7 @@ namespace ShiggyMod.Modules.Quirks
                     )
                 });
 
-            
+
         }
     }
 }

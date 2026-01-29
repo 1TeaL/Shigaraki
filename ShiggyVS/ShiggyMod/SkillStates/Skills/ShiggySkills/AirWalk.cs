@@ -70,7 +70,7 @@ namespace ShiggyMod.SkillStates
             // Util.PlaySound("Play_Shiggy_Flight_Start", gameObject);
 
             body.ApplyBuff(Buffs.airwalkBuff.buffIndex, 1);
-            aerialAccel = Mathf.Max(100f, body.acceleration * 2f); 
+            aerialAccel = Mathf.Max(100f, body.acceleration * 2f);
         }
         public override void FixedUpdate()
         {
@@ -78,7 +78,7 @@ namespace ShiggyMod.SkillStates
             if (!isAuthority) return;
             if (!motor || !input || !body) return;
 
-            
+
             // --- Common speed targets ---
             bool sprintInput = body.isSprinting || input.sprint.down;
             float sprintMult = sprintInput ? body.sprintingSpeedMultiplier : 1f;
@@ -171,7 +171,7 @@ namespace ShiggyMod.SkillStates
                 }
                 else
                 {
-                    float plusChaosflatCost = StaticValues.airwalkEnergyFraction * energySystem.maxPlusChaos - (energySystem.costflatplusChaos);
+                    float plusChaosflatCost = StaticValues.airwalkEnergyCost - (energySystem.costflatplusChaos);
                     if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
                     float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;

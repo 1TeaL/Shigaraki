@@ -1,9 +1,8 @@
 ﻿using BepInEx.Configuration;
+using RiskOfOptions;
 using RiskOfOptions.OptionConfigs;
 using RiskOfOptions.Options;
-using RiskOfOptions;
 using UnityEngine;
-using System;
 
 namespace ShiggyMod.Modules
 {
@@ -56,9 +55,9 @@ namespace ShiggyMod.Modules
             retainLoadout = ShiggyPlugin.instance.Config.Bind("General", "Retain loadout across stages", true, "Should you retain your stolen quirks across stages and respawns.");
             holdButtonAFO = ShiggyPlugin.instance.Config.Bind("General", "Steal, Give and Remove quirk timer", 0f, "Set how long you want to hold the button.");
             allowVoice = ShiggyPlugin.instance.Config.Bind("General", "Allow voice", true, "Allow voice lines of Shigaraki.");
-            StartWithAllQuirks = ShiggyPlugin.instance.Config.Bind("General", "StartWithAllQuirks", false,
+            StartWithAllQuirks = ShiggyPlugin.instance.Config.Bind("General", "Start With All Quirks", false,
                 "Begin runs with all quirks unlocked.");
-
+            allowAllSkills = ShiggyPlugin.instance.Config.Bind("General", "Allow all skils to be picked in the loadout", false, "Should you be allowed to pick all skills in the loadout menu. AFO functionality is not disabled. Will require a Restart.");
 
             //Input configs
             AFOHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "AFO Key", new KeyboardShortcut(UnityEngine.KeyCode.F), "Keybinding for AFO");
@@ -69,7 +68,6 @@ namespace ShiggyMod.Modules
             AirWalkDescentKey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Air Walk Descent Key", new KeyboardShortcut(UnityEngine.KeyCode.X), "Keybinding for descending while in Air Walk");
 
             //AFO configs
-            allowAllSkills = ShiggyPlugin.instance.Config.Bind("AFO", "Allow all skils to be picked", false, "Should you be allowed to pick all skills in the loadout menu. AFO functionality is not disabled. Will require a Restart.");
             allowRangedAFO = ShiggyPlugin.instance.Config.Bind("AFO", "Allow Ranged AFO", false, "Should you be allowed to use AFO from max distance.");
             maxAFORange = ShiggyPlugin.instance.Config.Bind("AFO", "Max Range for AFO", 10f, "Maximum range for AFO, up to 70.");
 
@@ -88,7 +86,7 @@ namespace ShiggyMod.Modules
             ApexAdaptThreshold = ShiggyPlugin.instance.Config.Bind("Apex", "Adaptation threshold stacks", 100, "How many stacks of Adaptation needed to hit the next threshold.");
             ApexAdaptReward = ShiggyPlugin.instance.Config.Bind("Apex", "Adaptation Reward Value", 0.1f, "Percent of stat boosts gained per threshold met.");
             ApexOverdriveChunk = ShiggyPlugin.instance.Config.Bind("Apex", "OverdriveChunk", 0.40f, "Percent Max HP damage when overdrive triggers.");
-            ApexHealBlockDuration = ShiggyPlugin.instance.Config.Bind("Apex", "HealBlockDuration", 5, "Seconds of heal-block during overdrive.");
+            ApexHealBlockDuration = ShiggyPlugin.instance.Config.Bind("Apex", "HealBlockDuration", StaticValues.quirkOverdriveDuration, "Seconds of heal-block during overdrive.");
             ApexHoldSecondsToReset = ShiggyPlugin.instance.Config.Bind("Apex", "HoldSecondsToReset", 0.30f, "Seconds to hold to reset cooldowns.");
 
             //Quirks Configs
@@ -187,7 +185,7 @@ namespace ShiggyMod.Modules
             ModSettingsManager.AddOption(new StepSliderOption(
                 DecayDamagePercentage, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
             ModSettingsManager.AddOption(new IntSliderOption(
-                DecayStacks, new IntSliderConfig() { min = 1, max = 1000}));
+                DecayStacks, new IntSliderConfig() { min = 1, max = 1000 }));
 
             ModSettingsManager.SetModDescription("Shigaraki Mod");
             Sprite icon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("texShiggyIcon");

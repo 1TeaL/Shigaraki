@@ -1,7 +1,6 @@
 ﻿using R2API;
 using RoR2;
 using RoR2.Projectile;
-using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -87,14 +86,14 @@ namespace ShiggyMod.Modules
             lemurianFireBallController.rigidbody.useGravity = false;
             lemurianFireBallController.rigidbody.mass = 1f;
             lemurianFireBallController.procCoefficient = 1f;
-            
+
             ProjectileDamage lemurianFireBallDamage = lemurianFireBall.GetComponent<ProjectileDamage>();
             lemurianFireBallDamage.damageType = new DamageTypeCombo(DamageType.IgniteOnHit, DamageTypeExtended.Generic, DamageSource.Secondary);
 
             if (ShiggyAsset.lemfireBallGhost != null) lemurianFireBallController.ghostPrefab = ShiggyAsset.lemfireBallGhost;
-            lemurianFireBallController.startSound = "";      
-            
-           
+            lemurianFireBallController.startSound = "";
+
+
 
 
         }

@@ -1,12 +1,8 @@
-﻿using RoR2;
-using UnityEngine;
-using UnityEngine.Networking;
-using EntityStates;
-using System.Collections.Generic;
-using System.Linq;
-using ShiggyMod.Modules.Survivors;
-using EntityStates.ParentMonster;
+﻿using EntityStates;
 using R2API;
+using RoR2;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -65,7 +61,7 @@ namespace ShiggyMod.SkillStates
             blastAttack.attackerFiltering = AttackerFiltering.Default;
 
 
-            
+
 
         }
 
@@ -79,8 +75,8 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            
-            if(!hasTeleported && Target)
+
+            if (!hasTeleported && Target)
             {
                 hasTeleported = true;
                 base.characterMotor.velocity = Vector3.zero;

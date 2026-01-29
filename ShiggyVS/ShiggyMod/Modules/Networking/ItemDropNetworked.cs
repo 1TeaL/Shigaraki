@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RoR2;
+﻿using EntityStates.ScavMonster;
 using R2API.Networking.Interfaces;
+using RoR2;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using ShiggyMod.SkillStates;
-using System.Linq;
-using EntityStates.ScavMonster;
 
 namespace ShiggyMod.Modules.Networking
 {
@@ -45,7 +43,7 @@ namespace ShiggyMod.Modules.Networking
         {
             if (NetworkServer.active)
             {
-                
+
                 GameObject masterobject = Util.FindNetworkObject(netID);
                 CharacterMaster charMaster = masterobject.GetComponent<CharacterMaster>();
                 CharacterBody charBody = charMaster.GetBody();

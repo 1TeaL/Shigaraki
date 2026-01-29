@@ -1,11 +1,8 @@
 ﻿using EntityStates;
 using RoR2;
-using RoR2.Projectile;
 using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
-using System;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -48,7 +45,7 @@ namespace ShiggyMod.SkillStates
         private void FireBullet(Ray aimRay)
         {
             TrajectoryAimAssist.ApplyTrajectoryAimAssist(ref aimRay, range, base.gameObject, 1f);
-            
+
             OnFireAuthority(aimRay);
         }
 

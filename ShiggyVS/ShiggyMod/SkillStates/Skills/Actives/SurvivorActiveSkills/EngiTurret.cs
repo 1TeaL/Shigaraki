@@ -1,9 +1,7 @@
 ﻿using EntityStates;
 using RoR2;
-using UnityEngine;
 using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {

@@ -23,7 +23,7 @@ namespace ShiggyMod.SkillStates
 
             // Flight machine (custom)
             flightStateMachine = EntityStateMachine.FindByCustomName(base.gameObject, "Flight");
-            
+
         }
 
         private bool IsInFlight()

@@ -1,9 +1,7 @@
 ﻿using EntityStates;
 using RoR2;
-using UnityEngine;
 using ShiggyMod.Modules.Survivors;
-using EntityStates.VoidSurvivor;
-using ShiggyMod.Modules;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -15,7 +13,7 @@ namespace ShiggyMod.SkillStates
         private float damageCoefficient = Modules.StaticValues.bulletlaserDamageCoefficient;
         private float procCoefficient = Modules.StaticValues.bulletlaserProcCoefficient;
         private float force = 1f;
-        private float speedOverride =1f;
+        private float speedOverride = 1f;
         private string muzzleString;
         private uint bulletcount;
 
@@ -30,7 +28,7 @@ namespace ShiggyMod.SkillStates
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {
-                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); } 
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("ShiggyAttack", base.gameObject); }
             }
             this.muzzleString = "LHand";
             //EffectManager.SimpleMuzzleFlash(EntityStates.Commando.CommandoWeapon.FirePistol2.muzzleEffectPrefab, base.gameObject, this.muzzleString, false);
@@ -38,9 +36,9 @@ namespace ShiggyMod.SkillStates
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
 
-            bulletcount = 5 ;
+
+            bulletcount = 5;
         }
 
         public override void OnExit()

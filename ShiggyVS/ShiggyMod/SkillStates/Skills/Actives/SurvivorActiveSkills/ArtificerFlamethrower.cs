@@ -1,11 +1,9 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using EntityStates.Mage.Weapon;
 using ExtraSkillSlots;
+using RoR2;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -24,7 +22,7 @@ namespace ShiggyMod.SkillStates
         public GameObject flamethrowerEffectPrefab = Modules.ShiggyAsset.artificerfireEffect;
 
         private float force = 1f;
-		public float maxDistance = 16f;
+        public float maxDistance = 16f;
         private float procCoefficientPerTick = Modules.StaticValues.artificerflamethrowerProcCoefficient;
         public float baseFlamethrowerDuration = 3f;
         public float totalDamageCoefficient = Modules.StaticValues.artificerflamethrowerDamageCoefficient;
@@ -94,7 +92,7 @@ namespace ShiggyMod.SkillStates
             {
                 EntityState.Destroy(this.rightFlamethrowerTransform.gameObject);
             }
-            
+
         }
         private void FireGauntlet(string muzzleString)
         {

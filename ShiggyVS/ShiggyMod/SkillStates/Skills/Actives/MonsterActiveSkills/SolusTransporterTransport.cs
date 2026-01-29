@@ -1,14 +1,9 @@
 ﻿using EntityStates;
-using EntityStates.ParentMonster;
-using R2API;
 using R2API.Networking;
 using RoR2;
 using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -51,7 +46,7 @@ namespace ShiggyMod.SkillStates
                 return;
             }
 
-                        
+
 
         }
 
@@ -65,8 +60,8 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            
-            if(!hasTeleported && Target)
+
+            if (!hasTeleported && Target)
             {
                 hasTeleported = true;
                 base.characterMotor.velocity = Vector3.zero;
@@ -79,7 +74,38 @@ namespace ShiggyMod.SkillStates
                 //return stock if has primed
                 if (Target.healthComponent.body.HasBuff(Buffs.solusPrimedDebuff))
                 {
-                    Shiggymastercon.GrantStockIfSkillPresent(characterBody, Shiggy.solustransportertransportDef, 1);
+                    if(skillLocator.primary.skillDef == Shiggy.solustransportertransportDef)
+                    {
+                        skillLocator.primary.AddOneStock();
+                    }
+                    if (skillLocator.secondary.skillDef == Shiggy.solustransportertransportDef)
+                    {
+                        skillLocator.secondary.AddOneStock();
+                    }
+                    if (skillLocator.utility.skillDef == Shiggy.solustransportertransportDef)
+                    {
+                        skillLocator.utility.AddOneStock();
+                    }
+                    if (skillLocator.special.skillDef == Shiggy.solustransportertransportDef)
+                    {
+                        skillLocator.special.AddOneStock();
+                    }
+                    if (extraskillLocator.extraFirst.skillDef == Shiggy.solustransportertransportDef)
+                    {
+                        extraskillLocator.extraFirst.AddOneStock();
+                    }
+                    if (extraskillLocator.extraSecond.skillDef == Shiggy.solustransportertransportDef)
+                    {
+                        extraskillLocator.extraSecond.AddOneStock();
+                    }
+                    if (extraskillLocator.extraThird.skillDef == Shiggy.solustransportertransportDef)
+                    {
+                        extraskillLocator.extraThird.AddOneStock();
+                    }
+                    if (extraskillLocator.extraFourth.skillDef == Shiggy.solustransportertransportDef)
+                    {
+                        extraskillLocator.extraFourth.AddOneStock();
+                    }
                 }
                 Target.healthComponent.body.ApplyBuff(Buffs.solusPrimedDebuff.buffIndex, stacks + 1);
 

@@ -1,18 +1,14 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
-using RoR2.Projectile;
+﻿using EntityStates;
 using EntityStates.Huntress.HuntressWeapon;
-using RoR2.Orbs;
-using ShiggyMod.Modules.Networking;
+using ExtraSkillSlots;
 using R2API.Networking.Interfaces;
+using RoR2;
+using RoR2.Orbs;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -99,7 +95,7 @@ namespace ShiggyMod.SkillStates
             lightningOrb.attacker = base.gameObject;
             lightningOrb.procCoefficient = StaticValues.blackholeGlaiveProcCoefficient;
             lightningOrb.bouncesRemaining = StaticValues.blackholeGlaiveMaxBounceCount;
-            lightningOrb.speed = StaticValues.blackholeGlaiveTravelSpeed;            
+            lightningOrb.speed = StaticValues.blackholeGlaiveTravelSpeed;
             lightningOrb.bouncedObjects = new List<HealthComponent>();
             lightningOrb.range = StaticValues.blackholeGlaiveBounceRange;
             lightningOrb.damageCoefficientPerBounce = StaticValues.blackholeGlaiveDamageCoefficientPerBounce;
@@ -131,7 +127,7 @@ namespace ShiggyMod.SkillStates
             if (!this.hasTriedToThrowGlaive)
             {
                 FireOrbGlaive();
-                
+
             }
             if (!this.hasSuccessfullyThrownGlaive && NetworkServer.active)
             {
@@ -186,7 +182,7 @@ namespace ShiggyMod.SkillStates
                     EntityState.Destroy(this.chargeEffect);
                 }
                 FireOrbGlaive();
-                
+
             }
             CharacterMotor characterMotor = base.characterMotor;
             characterMotor.velocity.y = characterMotor.velocity.y + ThrowGlaive.antigravityStrength * Time.fixedDeltaTime * (1f - base.fixedAge / this.duration);

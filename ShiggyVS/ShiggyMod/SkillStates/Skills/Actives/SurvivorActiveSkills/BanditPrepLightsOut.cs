@@ -1,11 +1,8 @@
 ﻿using EntityStates;
-using ExtraSkillSlots;
 using RoR2;
-using RoR2.Projectile;
 using RoR2.UI;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -40,6 +37,7 @@ namespace ShiggyMod.SkillStates
             {
                 this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, this.crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
             }
+
         }
 
         public override void OnExit()
@@ -55,6 +53,7 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
+            base.FixedUpdate();
             if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.banditlightsoutDef)
             {
 

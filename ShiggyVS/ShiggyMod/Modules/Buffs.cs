@@ -1,10 +1,6 @@
 ﻿using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using UnityEngine.AddressableAssets;
-using System;
 
 namespace ShiggyMod.Modules
 {
@@ -230,7 +226,7 @@ namespace ShiggyMod.Modules
             lightFormBuff = Buffs.AddNewBuff($"Light Form Buff", ShiggyAsset.lunarRootIcon, Color.white, false, false);
             darknessFormBuff = Buffs.AddNewBuff($"Darkness Form Buff", ShiggyAsset.lunarRootIcon, Color.black, false, false);
             lightAndDarknessFormBuff = Buffs.AddNewBuff($"Light And Darkness Form Buff", ShiggyAsset.lunarRootIcon, Color.magenta, false, false);
-            solusSuperPrimedBuff = Buffs.AddNewBuff($"Solus Super Primed Buff- Attacks no longer consume Primed", ShiggyAsset.soluswingWeakpointDestroyedDebuffIcon, Color.magenta, false, false); 
+            solusSuperPrimedBuff = Buffs.AddNewBuff($"Solus Super Primed Buff- Attacks no longer consume Primed", ShiggyAsset.soluswingWeakpointDestroyedDebuffIcon, Color.magenta, false, false);
             halcyoniteGreedBuff = Buffs.AddNewBuff($"Greed Buff- Spend {StaticValues.halcyoniteGreedGoldRatio * 100f}% of your gold every 10 seconds. Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.halcyoniteGreedBuffDamageCoefficient} and {StaticValues.halcyoniteGreedBuffAttackspeedCoefficient} respectively</style> per stack of the buff. For every {StaticValues.halcyoniteGreedBuffGoldPerStack} gold, gain 1 stack.", ShiggyAsset.affixAurelioniteBuffIcon, Color.white, false, false);
             halcyoniteGreedStacksBuff = Buffs.AddNewBuff($"Greed Buff stacks", ShiggyAsset.affixAurelioniteBuffIcon, new Color(255f, 215f, 0f), true, false);
 

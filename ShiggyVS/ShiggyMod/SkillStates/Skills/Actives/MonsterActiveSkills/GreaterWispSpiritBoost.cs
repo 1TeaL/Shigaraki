@@ -1,10 +1,9 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using R2API.Networking;
+using RoR2;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -50,7 +49,7 @@ namespace ShiggyMod.SkillStates
             }
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
             EffectManager.SpawnEffect(Modules.ShiggyAsset.chargegreaterwispBall, new EffectData
             {
                 origin = FindModelChild(LHand).position,
@@ -79,7 +78,7 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-           
+
 
             if (base.fixedAge >= this.duration && base.isAuthority)
             {

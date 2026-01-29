@@ -1,9 +1,7 @@
 ﻿using EntityStates;
 using RoR2;
-using UnityEngine;
 using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -32,7 +30,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.GetModelAnimator().SetBool("attacking", false);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
             base.AddRecoil(-3f * recoilAmplitude, -4f * recoilAmplitude, -0.5f * recoilAmplitude, 0.5f * recoilAmplitude);
 
 

@@ -1,19 +1,16 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
-using System.Linq;
 using EntityStates.Huntress;
 using EntityStates.LemurianBruiserMonster;
+using RoR2;
+using System.Linq;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
     public class ElderLemurianFireBlastCharge : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
-        
+
         private DamageType damageType;
         private Animator animator;
 
@@ -138,7 +135,7 @@ namespace ShiggyMod.SkillStates
                 bool isAuthority = base.isAuthority;
                 if (isAuthority)
                 {
-                    int hitcount = (int)(damageMult/ damageCoefficient);
+                    int hitcount = (int)(damageMult / damageCoefficient);
                     ElderLemurianFireBlastFire fireblast = new ElderLemurianFireBlastFire();
                     fireblast.damageMult = this.damageMult;
                     fireblast.radius = this.radius;

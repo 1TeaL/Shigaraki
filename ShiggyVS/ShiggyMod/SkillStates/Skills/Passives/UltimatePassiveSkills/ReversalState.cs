@@ -1,17 +1,11 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
-using static UnityEngine.ParticleSystem.PlaybackState;
-using EntityStates.Merc;
+﻿using EntityStates;
 using EntityStates.Commando;
 using EntityStates.Huntress;
+using EntityStates.Merc;
+using R2API.Networking;
+using RoR2;
+using ShiggyMod.Modules;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -33,13 +27,13 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             slideDuration = baseslideDuration / attackSpeedStat;
-            basejumpDuration= basejumpDuration / attackSpeedStat;
+            basejumpDuration = basejumpDuration / attackSpeedStat;
 
 
             Ray aimRay = base.GetAimRay();
 
             forwardDirection = (characterBody.corePosition - enemyPos).normalized;
-            characterDirection.forward = forwardDirection; 
+            characterDirection.forward = forwardDirection;
 
             if (base.characterMotor)
             {
@@ -109,7 +103,7 @@ namespace ShiggyMod.SkillStates
             base.OnExit();
 
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
-            
+
             if (this.hurtboxGroup)
             {
                 HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
@@ -132,7 +126,7 @@ namespace ShiggyMod.SkillStates
             blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
             blastAttack.damageType = new DamageTypeCombo(DamageType.Freeze2s, DamageTypeExtended.Generic, DamageSource.Secondary);
             blastAttack.attackerFiltering = AttackerFiltering.Default;
-            blastAttack.Fire(); 
+            blastAttack.Fire();
 
             EffectManager.SpawnEffect(EntityStates.JellyfishMonster.JellyNova.novaEffectPrefab, new EffectData
             {

@@ -1,11 +1,7 @@
 ﻿using RoR2;
-using System;
-using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
 using System.Linq;
-using HG;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -33,7 +29,7 @@ namespace ShiggyMod.SkillStates
 
         }
 
-       
+
         public void ApplyDoT()
         {
             BullseyeSearch search = new BullseyeSearch

@@ -1,45 +1,41 @@
 ﻿// EquipLoadoutRequest.cs
 using ExtraSkillSlots;
+using R2API.Networking;
 using R2API.Networking.Interfaces;
 using RoR2;
 using RoR2.Skills;
 using ShiggyMod.Modules.Quirks;
 using ShiggyMod.Modules.Survivors;
-using System.Collections.Generic;
 using UnityEngine.Networking;
 
 namespace ShiggyMod.Modules.Networking
 {
-    /// <summary>
-    /// Client -> Server: equip a full Shiggy loadout.
-    ///
-    /// Server will:
-    ///  • If body exists now: QuirkEquip.ApplyServer(body, extras, loadout) (this persists 0..7 internally).
-    ///    Then ensure passive buffs match equipped slots (QuirkPassiveSync).
-    ///  • If body does not exist: resolve SkillDefs and persist via writeToSkillList(def, index) for 0..7.
-    /// </summary>
     internal class EquipLoadoutRequest : INetMessage
     {
         private NetworkInstanceId masterId;
+        private NetworkInstanceId requesterNetUserId;   // NEW
         private SelectedQuirkLoadoutNet netLoadout;
 
         public EquipLoadoutRequest() { }
 
-        public EquipLoadoutRequest(NetworkInstanceId masterId, SelectedQuirkLoadout loadout)
+        public EquipLoadoutRequest(NetworkInstanceId masterId, SelectedQuirkLoadout loadout, NetworkInstanceId requesterNetUserId)
         {
             this.masterId = masterId;
             this.netLoadout = SelectedQuirkLoadoutNet.From(loadout);
+            this.requesterNetUserId = requesterNetUserId;
         }
 
         public void Serialize(NetworkWriter writer)
         {
             writer.Write(masterId);
+            writer.Write(requesterNetUserId); // NEW
             netLoadout.Serialize(writer);
         }
 
         public void Deserialize(NetworkReader reader)
         {
             masterId = reader.ReadNetworkId();
+            requesterNetUserId = reader.ReadNetworkId(); // NEW
             netLoadout = SelectedQuirkLoadoutNet.Deserialize(reader);
         }
 
@@ -53,29 +49,44 @@ namespace ShiggyMod.Modules.Networking
             var master = masterGO.GetComponent<CharacterMaster>();
             if (!master) return;
 
-            // Must exist for persistence path
-            var smc = masterGO.GetComponent<ShiggyMasterController>();
-            if (!smc) return;
-
             var loadout = netLoadout.ToRuntime();
             var body = master.GetBody();
 
             if (body)
             {
-                // Apply now (server-authoritative). This should do slot overrides + persist 0..7.
                 var extras = body.GetComponent<ExtraSkillLocator>();
                 QuirkEquip.ApplyServer(body, extras, loadout);
 
-                // Passives are derived from equipped slots, so sync them once after equip.
-                QuirkPassiveSync.SyncFromEquippedSkillsServer(body);
+                // NEW: respond to requesting client so they apply locally
+                SendResultToRequester(loadout);
+
+                return;
             }
-            else
-            {
-                // No body yet — persist 0..7 so CharacterBody.Start will reapply later.
-                var defs = ResolveSkillDefs(loadout);
-                for (int i = 0; i < 8; i++)
-                    smc.writeToSkillList(defs[i], i);
-            }
+
+            // ---- Persistence path only ----
+            var smc = masterGO.GetComponent<ShiggyMasterController>();
+            if (!smc) return;
+
+            var defs = ResolveSkillDefs(loadout);
+            for (int i = 0; i < 8; i++)
+                smc.writeToSkillList(defs[i], i);
+
+            // NEW: even if no body right now, still send result so UI client updates instantly when body exists
+            SendResultToRequester(loadout);
+        }
+
+        private void SendResultToRequester(SelectedQuirkLoadout loadout)
+        {
+            var nuGO = Util.FindNetworkObject(requesterNetUserId);
+            if (!nuGO) return;
+
+            var nu = nuGO.GetComponent<NetworkUser>();
+            if (!nu) return;
+
+            var conn = nu.connectionToClient;
+            if (conn == null) return;
+
+            new EquipLoadoutResult(masterId, loadout).Send(conn);
         }
 
         // ---------------- Helpers ----------------
@@ -89,7 +100,6 @@ namespace ShiggyMod.Modules.Networking
                 if (QuirkRegistry.TryGet(q, out var rec) && rec.SkillDef != null)
                     return rec.SkillDef;
 
-                // Fallbacks for base four (if you keep them outside registry entries)
                 switch (q)
                 {
                     case QuirkId.Shiggy_DecayActive: return Shiggy.decayDef;
@@ -113,14 +123,11 @@ namespace ShiggyMod.Modules.Networking
             };
         }
 
-        // Compact, network-serializable copy of SelectedQuirkLoadout
-        private struct SelectedQuirkLoadoutNet
+        // NOTE: made public so EquipLoadoutResult can reuse it without duplication.
+        internal struct SelectedQuirkLoadoutNet
         {
             public int Primary, Secondary, Utility, Special;
             public int Extra1, Extra2, Extra3, Extra4;
-
-            // Kept for compatibility / future use; not used for passive buffing if passives are slot-based.
-            public List<int> PassiveToggles;
 
             public static SelectedQuirkLoadoutNet From(SelectedQuirkLoadout src)
             {
@@ -134,9 +141,6 @@ namespace ShiggyMod.Modules.Networking
                     Extra2 = (int)src.Extra2,
                     Extra3 = (int)src.Extra3,
                     Extra4 = (int)src.Extra4,
-                    PassiveToggles = src.PassiveToggles != null
-                        ? new List<int>(src.PassiveToggles.ConvertAll(p => (int)p))
-                        : new List<int>(0)
                 };
             }
 
@@ -146,15 +150,11 @@ namespace ShiggyMod.Modules.Networking
                 w.Write(Utility); w.Write(Special);
                 w.Write(Extra1); w.Write(Extra2);
                 w.Write(Extra3); w.Write(Extra4);
-
-                ushort count = (ushort)(PassiveToggles?.Count ?? 0);
-                w.Write(count);
-                for (int i = 0; i < count; i++) w.Write(PassiveToggles[i]);
             }
 
             public static SelectedQuirkLoadoutNet Deserialize(NetworkReader r)
             {
-                var n = new SelectedQuirkLoadoutNet
+                return new SelectedQuirkLoadoutNet
                 {
                     Primary = r.ReadInt32(),
                     Secondary = r.ReadInt32(),
@@ -165,16 +165,11 @@ namespace ShiggyMod.Modules.Networking
                     Extra3 = r.ReadInt32(),
                     Extra4 = r.ReadInt32(),
                 };
-
-                int count = r.ReadUInt16();
-                n.PassiveToggles = new List<int>(count);
-                for (int i = 0; i < count; i++) n.PassiveToggles.Add(r.ReadInt32());
-                return n;
             }
 
             public SelectedQuirkLoadout ToRuntime()
             {
-                var rt = new SelectedQuirkLoadout
+                return new SelectedQuirkLoadout
                 {
                     Primary = (QuirkId)Primary,
                     Secondary = (QuirkId)Secondary,
@@ -184,14 +179,7 @@ namespace ShiggyMod.Modules.Networking
                     Extra2 = (QuirkId)Extra2,
                     Extra3 = (QuirkId)Extra3,
                     Extra4 = (QuirkId)Extra4,
-                    PassiveToggles = new List<QuirkId>(PassiveToggles?.Count ?? 0)
                 };
-
-                if (PassiveToggles != null)
-                    for (int i = 0; i < PassiveToggles.Count; i++)
-                        rt.PassiveToggles.Add((QuirkId)PassiveToggles[i]);
-
-                return rt;
             }
         }
     }

@@ -1,7 +1,5 @@
 ﻿using RoR2;
-using ShiggyMod.Modules;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ShiggyMod.Modules.Survivors
@@ -58,7 +56,7 @@ namespace ShiggyMod.Modules.Survivors
             if (characterDeathState != null)
             {
                 prefabCharacterDeathState.deathState.stateType = characterDeathState;
-                Modules.Content.AddEntityState(characterDeathState); 
+                Modules.Content.AddEntityState(characterDeathState);
             }
             InitializeCharacterModel();
         }

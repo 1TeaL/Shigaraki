@@ -1,15 +1,7 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
+﻿using R2API.Networking;
 using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
 using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
-using System;
-using static UnityEngine.UI.Image;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -22,7 +14,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            duration= baseDuration;
+            duration = baseDuration;
             //play animation and maybe particles?
 
             Ray aimRay = base.GetAimRay();
@@ -38,7 +30,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             this.animator.SetBool("attacking", true);
             int randomAnim = UnityEngine.Random.RandomRangeInt(1, 3);
-            if(randomAnim == 1)
+            if (randomAnim == 1)
             {
                 base.PlayCrossfade("FullBody, Override", "FullBodyTheWorldCrossArm", "Attack.playbackRate", duration, 0.05f);
             }
@@ -53,7 +45,7 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if(base.fixedAge > duration)
+            if (base.fixedAge > duration)
             {
                 this.outer.SetNextStateToMain();
                 return;

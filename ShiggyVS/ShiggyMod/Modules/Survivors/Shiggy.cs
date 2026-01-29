@@ -1,6 +1,5 @@
 ﻿using BepInEx.Configuration;
 using EntityStates;
-using EntityStates.Railgunner.Scope;
 using R2API;
 using RoR2;
 using RoR2.Skills;
@@ -17,7 +16,7 @@ namespace ShiggyMod.Modules.Survivors
     internal class Shiggy : SurvivorBase
     {
 
-        public static GameObject staticBodyPrefab; 
+        public static GameObject staticBodyPrefab;
         public override string prefabBodyName => "Shiggy";
 
         public const string PLUGIN_PREFIX = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
@@ -95,6 +94,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef lunargolemSlideDef;
         internal static SkillDef lunarwispminigunDef;
         internal static SkillDef parentteleportDef;
+        internal static SkillDef scorchwormlavabombDef;
         internal static SkillDef solusscorcheraccelerateDef;
         internal static SkillDef solusdistributorplantmineDef;
         internal static SkillDef solusextractorextractDef;
@@ -422,7 +422,7 @@ namespace ShiggyMod.Modules.Survivors
 
             #endregion
 
-            
+
 
             #region Secondary
 
@@ -1621,6 +1621,30 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
             });
+            Shiggy.scorchwormlavabombDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "SCORCHWORM_NAME",
+                skillNameToken = prefix + "SCORCHWORM_NAME",
+                skillDescriptionToken = prefix + "SCORCHWORM_DESCRIPTION",
+                skillIcon = QuirkIconBank.Get(QuirkId.ScorchWorm_LavaBombActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.ScorchWormLavaBomb)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 8f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
             Shiggy.solusscorcheraccelerateDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "SOLUSSCORCHER_NAME",
@@ -1988,7 +2012,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "ARTIFICERFLAMETHROWER_NAME",
                 skillNameToken = prefix + "ARTIFICERFLAMETHROWER_NAME",
                 skillDescriptionToken = prefix + "ARTIFICERFLAMETHROWER_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.Artificer_FlamethrowerActive),
+                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("ArtificerFire"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ArtificerFlamethrower)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -2012,7 +2036,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "ARTIFICERICEWALL_NAME",
                 skillNameToken = prefix + "ARTIFICERICEWALL_NAME",
                 skillDescriptionToken = prefix + "ARTIFICERICEWALL_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.Artificer_IceWallActive),
+                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("ArtificerIce"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ArtificerIceWall)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -2036,7 +2060,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "ARTIFICERLIGHTNINGORB_NAME",
                 skillNameToken = prefix + "ARTIFICERLIGHTNINGORB_NAME",
                 skillDescriptionToken = prefix + "ARTIFICERLIGHTNINGORB_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.Artificer_LightningOrbActive),
+                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("ArtificerLightning"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.ArtificerChargeLightningOrb)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -2079,7 +2103,7 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_SLAYER" }
             });
-            Shiggy.banditlightsoutDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.driftersalvageDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "DRIFTERSALVAGE_NAME",
                 skillNameToken = prefix + "DRIFTERSALVAGE_NAME",
@@ -2101,7 +2125,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] { "KEYWORD_AGILE"}
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
             Shiggy.engiturretDef = Skills.CreateSkillDef(new SkillDefInfo
             {
@@ -2156,8 +2180,8 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "MERC_NAME",
                 skillNameToken = prefix + "MERC_NAME",
                 skillDescriptionToken = prefix + "MERC_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.Merc_DashActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.MercDash)),
+                skillIcon = QuirkIconBank.Get(QuirkId.Merc_WindAssaultActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.MercWindAssault)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 12f,
@@ -2204,7 +2228,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "MULTBUFFCANCEL_NAME",
                 skillNameToken = prefix + "MULTBUFFCANCEL_NAME",
                 skillDescriptionToken = prefix + "MULTBUFFCANCEL_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.MULT_PowerStanceCancelActive),
+                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("MUL-TCANCEL"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.MultBuffCancel)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -2232,7 +2256,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.OperatorS141Custom)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
-                baseRechargeInterval = 10f,
+                baseRechargeInterval = 8f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -2300,7 +2324,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "SEEKER_NAME",
                 skillNameToken = prefix + "SEEKER_NAME",
                 skillDescriptionToken = prefix + "SEEKER_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.REX_MortarActive),
+                skillIcon = QuirkIconBank.Get(QuirkId.Seeker_MeditateActive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.SeekerMeditate)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -2745,7 +2769,7 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
-            });            
+            });
             limitBreakDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "LIMITBREAK_NAME",
@@ -3147,7 +3171,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] {}
+                keywordTokens = new string[] { }
 
             });
             wisperPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -3172,7 +3196,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] {}
+                keywordTokens = new string[] { }
 
             });
             omniboostPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -3197,7 +3221,7 @@ namespace ShiggyMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new string[] {}
+                keywordTokens = new string[] { }
 
             });
             gachaPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
@@ -3324,7 +3348,7 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { }
 
-            }); 
+            });
             elementalFusionPassiveDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "ELEMENTALFUSION_NAME",
@@ -3639,8 +3663,10 @@ namespace ShiggyMod.Modules.Survivors
                     vagrantpassiveDef,
                     childpassiveDef,
                     acridpassiveDef,
-                    commandopassiveDef,
                     captainpassiveDef,
+                    chefpassiveDef,
+                    commandopassiveDef,
+                    falsesonpassiveDef,
                     loaderpassiveDef,
                     bigBangPassiveDef,
                     wisperPassiveDef,
@@ -3699,6 +3725,7 @@ namespace ShiggyMod.Modules.Survivors
                     multbuffDef,
                     railgunnercryoDef,
                     rexmortarDef,
+                    seekermeditateDef,
                     voidfiendcleanseDef,
                     DekuOFADef,
                     sweepingBeamDef,

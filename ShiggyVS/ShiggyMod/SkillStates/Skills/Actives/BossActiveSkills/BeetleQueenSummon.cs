@@ -1,18 +1,10 @@
 ﻿using EntityStates;
-using EntityStates.BeetleQueenMonster;
 using R2API.Networking;
 using R2API.Networking.Interfaces;
-using RoR2;
-using RoR2.ExpansionManagement;
-using RoR2.Projectile;
-using ShiggyMod.Modules;
 using ShiggyMod.Modules.Networking;
 using ShiggyMod.Modules.Survivors;
-using System;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -30,7 +22,6 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
             randomSurvivor = UnityEngine.Random.RandomRangeInt(0, 17);
-            Summon(randomSurvivor);
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 
@@ -47,7 +38,7 @@ namespace ShiggyMod.SkillStates
         public void Summon(int rand)
         {
             //Debug.Log("randomsurvivor " + randomSurvivor);
-            if(rand == 0)
+            if (rand == 0)
             {
                 new SpawnBodyNetworkRequest(characterBody.masterObjectId, Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidSurvivor.VoidSurvivorBody_prefab).WaitForCompletion(), Addressables.LoadAssetAsync<GameObject>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_VoidSurvivor.VoidSurvivorMonsterMaster_prefab).WaitForCompletion()).Send(NetworkDestination.Server);
             }
@@ -131,7 +122,11 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-
+            if(base.fixedAge > fireTime && !hasFired)
+            {
+                hasFired = true;
+                Summon(randomSurvivor);
+            }
 
             if (base.fixedAge >= this.duration && base.isAuthority)
             {

@@ -1,22 +1,19 @@
-﻿using RoR2;
-using UnityEngine;
-using System.Linq;
-using UnityEngine.Networking;
-using EntityStates;
-using ShiggyMod.Modules.Survivors;
-using System.Collections.Generic;
+﻿using EntityStates;
 using EntityStates.Huntress;
-using R2API.Networking;
 using R2API;
-using static UnityEngine.ParticleSystem.PlaybackState;
+using R2API.Networking;
+using RoR2;
 using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
     public class BeetleGuardSlam : Skill
     {
         public static float dropForce = 80f;
-        public  float dropTimer;
+        public float dropTimer;
         public static float slamRadius = 10f;
         public static float slamProcCoefficient = 1f;
         public static float slamForce = 1000f;
@@ -45,7 +42,7 @@ namespace ShiggyMod.SkillStates
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
 
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
@@ -71,7 +68,7 @@ namespace ShiggyMod.SkillStates
         protected virtual void OnHitEnemyAuthority()
         {
             base.healthComponent.AddBarrierAuthority((healthComponent.fullCombinedHealth / 20) * (this.moveSpeedStat / 7) * dropTimer);
-            
+
 
         }
         protected virtual void OnHitEnemyAuthority(BlastAttack.Result result)
@@ -152,7 +149,7 @@ namespace ShiggyMod.SkillStates
             {
                 AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
                 Ray aimRay = base.GetAimRay();
-                
+
                 base.characterMotor.velocity *= 0.1f;
 
                 BlastAttack blastAttack = new BlastAttack();

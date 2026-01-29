@@ -1,13 +1,10 @@
 ﻿using EntityStates;
+using R2API;
 using RoR2;
-using UnityEngine;
+using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using R2API.Networking;
-using R2API;
-using ShiggyMod.Modules;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -23,9 +20,9 @@ namespace ShiggyMod.SkillStates
         private float damageCoefficient = Modules.StaticValues.aircannonDamageCoefficient;
         private float procCoefficient = 1f;
         private float force = 1f;
-        private float speedOverride =1f;
+        private float speedOverride = 1f;
         private DamageType damageType;
-        
+
         private float previousMass;
         private float rollSpeed;
         private Vector3 previousPosition;
@@ -77,7 +74,8 @@ namespace ShiggyMod.SkillStates
                     effectData.scale = 15;
                     effectData.origin = theSpot2;
                     effectData.rotation = Quaternion.LookRotation(new Vector3(aimRay.direction.x, aimRay.direction.y, aimRay.direction.z));
-                };
+                }
+                ;
 
                 for (int i = 0; i <= 5; i++)
                 {

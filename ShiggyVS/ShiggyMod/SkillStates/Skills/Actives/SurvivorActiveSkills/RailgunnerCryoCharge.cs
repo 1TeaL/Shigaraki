@@ -1,11 +1,8 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
-using RoR2.UI;
 using RoR2.Audio;
+using RoR2.UI;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -23,6 +20,7 @@ namespace ShiggyMod.SkillStates
         public GameObject crosshairOverridePrefab = Modules.ShiggyAsset.railgunnercryoCrosshair;
         public LoopSoundDef loopSoundDef = Modules.ShiggyAsset.railgunnercryochargingSound;
         private LoopSoundManager.SoundLoopPtr loopPtr;
+
 
         public override void OnEnter()
         {
@@ -59,6 +57,7 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
+            base.FixedUpdate();
 
             if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.railgunnercryoDef)
             {

@@ -1,13 +1,8 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
+﻿using R2API.Networking;
 using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
 using ShiggyMod.Modules;
+using UnityEngine;
 using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -19,7 +14,7 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             duration = 0.5f;
 
-            int randomAnim = UnityEngine.Random.RandomRangeInt(1,3);
+            int randomAnim = UnityEngine.Random.RandomRangeInt(1, 3);
             base.PlayCrossfade("LeftArm, Override", "LHandSnap" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             Ray aimRay = base.GetAimRay();
 

@@ -1,12 +1,4 @@
-﻿using RoR2;
-using RoR2.Skills;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using static ShiggyMod.Modules.Survivors.ShiggyMasterController;
-
-namespace ShiggyMod.Modules.Quirks
+﻿namespace ShiggyMod.Modules.Quirks
 {
     //All quirk IDs
     public enum QuirkId
@@ -112,6 +104,7 @@ namespace ShiggyMod.Modules.Quirks
         LunarGolem_SlideResetActive,
         LunarWisp_MinigunActive,
         Parent_TeleportActive,
+        ScorchWorm_LavaBombActive,
         SolusDistributor_SolusPlantMineActive,
         SolusExtractor_SolusExtractActive,
         SolusInvalidator_SolusInvalidateActive,
@@ -135,7 +128,7 @@ namespace ShiggyMod.Modules.Quirks
         Drifter_SalvageActive,
         Engineer_TurretActive,
         Huntress_FlurryActive,
-        Merc_DashActive,
+        Merc_WindAssaultActive,
         MULT_PowerStanceActive,
         MULT_PowerStanceCancelActive,
         Operator_S141CustomActive,

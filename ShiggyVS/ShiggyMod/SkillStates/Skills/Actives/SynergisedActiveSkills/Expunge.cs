@@ -1,16 +1,10 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
+﻿using EntityStates;
 using R2API.Networking;
-using System;
-using ShiggyMod.Modules.Networking;
 using R2API.Networking.Interfaces;
+using RoR2;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Networking;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -23,7 +17,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             radius = StaticValues.expungeRadius * attackSpeedStat;
-            if(radius < StaticValues.expungeRadius)
+            if (radius < StaticValues.expungeRadius)
             {
                 radius = StaticValues.expungeRadius;
             }
@@ -59,7 +53,7 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if(base.fixedAge > fireTime && !hasFired)
+            if (base.fixedAge > fireTime && !hasFired)
             {
                 hasFired = true;
                 Ray aimRay = base.GetAimRay();
@@ -75,7 +69,7 @@ namespace ShiggyMod.SkillStates
 
             }
 
-            if(base.fixedAge > duration)
+            if (base.fixedAge > duration)
             {
                 this.outer.SetNextStateToMain();
                 return;

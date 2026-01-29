@@ -188,8 +188,6 @@ namespace ShiggyMod.Modules.Quirks
             BuildFromData();
             ResolveFromData();
 
-            // Starting quirks / config
-            QuirkInventory.SeedStartingQuirksFromConfig();
 
             //QuirkIconBank.RegisterFromRegistryData();//too late here
         }

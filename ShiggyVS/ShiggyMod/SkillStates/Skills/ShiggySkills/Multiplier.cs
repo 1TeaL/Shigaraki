@@ -1,9 +1,8 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
 using R2API.Networking;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -16,7 +15,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            duration= baseDuration;
+            duration = baseDuration;
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 

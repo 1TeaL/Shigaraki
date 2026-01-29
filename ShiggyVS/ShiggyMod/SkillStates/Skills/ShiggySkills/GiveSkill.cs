@@ -1,13 +1,10 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using ExtraSkillSlots;
 using R2API.Networking;
-using ShiggyMod.Modules;
+using RoR2;
 using RoR2.Skills;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
 
 namespace ShiggyMod.SkillStates
 {
@@ -33,7 +30,7 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             PlayCrossfade("RightArm, Override", "RightArmPull", "Attack.playbackRate", 0.5f, 0.1f);
-                     
+
 
         }
 
@@ -160,13 +157,13 @@ namespace ShiggyMod.SkillStates
                 if (!buffcon)
                 {
                     enemycharBody.gameObject.AddComponent<BuffController>();
-                    
+
                 }
                 enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
             }
             else
             {
-                Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
+                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
                 energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
 
@@ -187,7 +184,7 @@ namespace ShiggyMod.SkillStates
             }
             else
             {
-                Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
+                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
                 energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
@@ -207,7 +204,7 @@ namespace ShiggyMod.SkillStates
             }
             else
             {
-                Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
+                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
                 energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
@@ -227,7 +224,7 @@ namespace ShiggyMod.SkillStates
             }
             else
             {
-                Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
+                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
                 energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
@@ -247,7 +244,7 @@ namespace ShiggyMod.SkillStates
             }
             else
             {
-                Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
+                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
                 energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
@@ -267,7 +264,7 @@ namespace ShiggyMod.SkillStates
             }
             else
             {
-                Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
+                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
                 energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
@@ -287,7 +284,7 @@ namespace ShiggyMod.SkillStates
             }
             else
             {
-                Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
+                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
                 energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }
@@ -307,7 +304,7 @@ namespace ShiggyMod.SkillStates
             }
             else
             {
-                Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
+                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
                 energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
             }
         }

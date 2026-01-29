@@ -1,12 +1,8 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using R2API.Networking;
-using IL.RoR2.Achievements.Bandit2;
+using RoR2;
 using ShiggyMod.Modules;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -55,8 +51,9 @@ namespace ShiggyMod.SkillStates
 
 
         public override void FixedUpdate()
-        {           
-            if(base.fixedAge > fireTime && !hasFired)
+        {
+            base.FixedUpdate();
+            if (base.fixedAge > fireTime && !hasFired)
             {
                 hasFired = true;
 

@@ -2,9 +2,8 @@
 using R2API.Networking.Interfaces;
 using RoR2;
 using ShiggyMod.Modules.Quirks;
-using UnityEngine;
+using ShiggyMod.Modules.Survivors;
 using UnityEngine.Networking;
-using static ShiggyMod.Modules.Quirks.QuirkRegistry;
 
 namespace ShiggyMod.Modules.Networking
 {
@@ -40,7 +39,6 @@ namespace ShiggyMod.Modules.Networking
             targetMasterId = reader.ReadNetworkId();
             quirkIdInt = reader.ReadInt32();
         }
-
         public void OnReceived()
         {
             if (!NetworkServer.active) return;
@@ -53,28 +51,46 @@ namespace ShiggyMod.Modules.Networking
             var targetMaster = targetObj.GetComponent<CharacterMaster>();
             if (!giverMaster || !targetMaster) return;
 
+            var giverBody = giverMaster.GetBody();
             var targetBody = targetMaster.GetBody();
-            if (!targetBody) return;
+            if (!giverBody || !targetBody) return;
 
             var id = (QuirkId)quirkIdInt;
 
+            // Validate quirk record: must be passive + have BuffDef (since you apply via buff)
+            if (!QuirkRegistry.TryGet(id, out var rec)) return;
+            if (rec.Category != QuirkCategory.Passive) return;
+            if (rec.BuffDef == null) return;
 
-            // Only allow PASSIVE category & owned (if you want “owned-only”)
-            if (!QuirkRegistry.TryGet(id, out var rec) || rec.Category != QuirkCategory.Passive)
-                return;
-
-
-            // Validate team/range
+            // Validate team/range (your helper)
             if (!ShiggyMod.Modules.Quirks.QuirkGrant.ValidateGiverAndTarget(giverMaster, targetBody))
                 return;
 
-            // --- Apply ---
+            // Validate giver OWNS the quirk (owned-only rule)
+            var giverInv = QuirkInventory.Ensure(giverMaster);
+            if (giverInv == null) return;
+            if (!giverInv.Has(id)) return;
+
+            // Apply
             bool applied = ShiggyMod.Modules.Quirks.QuirkGrant.ApplyPassiveByIdServer(targetBody, id);
             if (!applied) return;
 
-            // Feedback
-            var disp = QuirkRegistry.GetDisplayName(id);
-            Chat.AddMessage($"<style=cIsUtility>Gave {disp} to {targetBody.GetUserName()}.</style>");
+            // Feedback (server-side -> send to giver's client)
+            // IMPORTANT: don't try to use EnergySystem on master; it's on the body.
+            var energySystem = giverBody.GetComponent<ShiggyMod.Modules.Survivors.EnergySystem>();
+            if (energySystem != null)
+            {
+                var disp = QuirkRegistry.GetDisplayName(id);
+                var targetName = SafeUserName(targetBody);
+                energySystem.quirkGetInformation($"<style=cIsUtility>Gave {disp} to {targetName}.</style>", 1f);
+            }
         }
+
+        private static string SafeUserName(CharacterBody body)
+        {
+            try { return body ? body.GetUserName() : "(None)"; }
+            catch { return body ? body.name : "(None)"; }
+        }
+
     }
 }

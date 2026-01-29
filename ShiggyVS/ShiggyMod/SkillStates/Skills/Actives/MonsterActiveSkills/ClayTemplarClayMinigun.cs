@@ -5,7 +5,6 @@ using RoR2;
 using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -75,7 +74,7 @@ namespace ShiggyMod.SkillStates
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
         }
         private void UpdateCrits()
         {
@@ -154,6 +153,7 @@ namespace ShiggyMod.SkillStates
         }
         public override void FixedUpdate()
         {
+            base.FixedUpdate();
             base.characterBody.SetAimTimer(1f);
             if (!IsHeldDown())
             {

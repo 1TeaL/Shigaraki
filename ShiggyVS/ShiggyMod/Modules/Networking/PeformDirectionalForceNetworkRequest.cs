@@ -1,11 +1,9 @@
-﻿using R2API.Networking;
-using R2API.Networking.Interfaces;
+﻿using R2API.Networking.Interfaces;
 using RoR2;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using static UnityEngine.UI.Image;
 
 
 namespace ShiggyMod.Modules.Networking
@@ -122,7 +120,7 @@ namespace ShiggyMod.Modules.Networking
                             rotation = Quaternion.LookRotation(direction),
 
                         }, true);
-                        
+
                     }
                 }
             }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using R2API.Networking.Interfaces;
 using RoR2;
-using R2API.Networking.Interfaces;
+using ShiggyMod.SkillStates;
 using UnityEngine;
 using UnityEngine.Networking;
-using ShiggyMod.SkillStates;
 
 namespace ShiggyMod.Modules.Networking
 {
@@ -26,7 +23,7 @@ namespace ShiggyMod.Modules.Networking
         public ForceReversalState(NetworkInstanceId netID, Vector3 enemyPos)
         {
             this.netID = netID;
-            this.enemyPos = enemyPos;       
+            this.enemyPos = enemyPos;
         }
 
         public void Deserialize(NetworkReader reader)

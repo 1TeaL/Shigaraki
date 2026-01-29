@@ -1,8 +1,7 @@
 ﻿using ShiggyMod.SkillStates;
-using System.Collections.Generic;
-using System;
 using ShiggyMod.SkillStates.BaseStates;
-using ShiggyMod.SkillStates;
+using System;
+using System.Collections.Generic;
 
 namespace ShiggyMod.Modules
 {
@@ -16,6 +15,7 @@ namespace ShiggyMod.Modules
 
 
             //base skills
+            Modules.Content.AddEntityState(typeof(Idle));
             Modules.Content.AddEntityState(typeof(Decay));
             Modules.Content.AddEntityState(typeof(BulletLaser));
             Modules.Content.AddEntityState(typeof(AirCannon));
@@ -42,6 +42,7 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(LunarGolemSlide));
             Modules.Content.AddEntityState(typeof(LunarWispMinigun));
             Modules.Content.AddEntityState(typeof(ParentTeleport));
+            Modules.Content.AddEntityState(typeof(ScorchWormLavaBomb));
             Modules.Content.AddEntityState(typeof(SolusDistributorPlantMine));
             Modules.Content.AddEntityState(typeof(SolusExtractorExtract));
             Modules.Content.AddEntityState(typeof(SolusInvalidatorInvalidate));
@@ -70,7 +71,7 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(EngiTurret));
             Modules.Content.AddEntityState(typeof(HuntressBlink));
             Modules.Content.AddEntityState(typeof(HuntressAttack));
-            Modules.Content.AddEntityState(typeof(MercDash));
+            Modules.Content.AddEntityState(typeof(MercWindAssault));
             Modules.Content.AddEntityState(typeof(MercDashAttack));
             Modules.Content.AddEntityState(typeof(MultBuff));
             Modules.Content.AddEntityState(typeof(OperatorS141Custom));

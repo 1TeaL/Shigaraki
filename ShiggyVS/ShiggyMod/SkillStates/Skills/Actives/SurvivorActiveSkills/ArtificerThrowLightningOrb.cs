@@ -1,14 +1,11 @@
 ﻿using EntityStates;
 using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
-using EntityStates.Mage.Weapon;
-using RoR2.UI;
 using RoR2.Audio;
-using System;
+using RoR2.Projectile;
+using RoR2.UI;
 using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -43,7 +40,7 @@ namespace ShiggyMod.SkillStates
 
             AkSoundEngine.PostEvent("ShiggyAirCannon", base.gameObject);
             Shiggycon = gameObject.GetComponent<ShiggyController>();
-            
+
             this.duration = this.baseDuration / this.attackSpeedStat;
             if (this.muzzleflashEffectPrefab)
             {

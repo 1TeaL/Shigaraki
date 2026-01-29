@@ -1,19 +1,13 @@
 ﻿using EntityStates;
-using ExtraSkillSlots;
 using R2API.Networking;
 using R2API.Networking.Interfaces;
 using RoR2;
-using RoR2.ExpansionManagement;
 using ShiggyMod.Modules;
 using ShiggyMod.Modules.Networking;
 using ShiggyMod.Modules.Survivors;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.Networking;
-using static UnityEngine.ParticleSystem.PlaybackState;
 
 namespace ShiggyMod.SkillStates
 {
@@ -50,6 +44,7 @@ namespace ShiggyMod.SkillStates
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
+            search = new BullseyeSearch();
 
 
 
@@ -106,7 +101,7 @@ namespace ShiggyMod.SkillStates
                         float healAmount = singularTarget.healthComponent.fullHealth * StaticValues.seekerMeditateCoeffecient;
                         float missingHP = singularTarget.healthComponent.fullHealth - singularTarget.healthComponent.health;
                         float extraBarrier = healAmount - missingHP;
-                        
+
                         if (missingHP >= singularTarget.healthComponent.fullHealth * StaticValues.seekerMeditateCoeffecient)
                         {
                             new HealNetworkRequest(singularTarget.healthComponent.body.masterObjectId, healAmount).Send(NetworkDestination.Clients);
@@ -124,8 +119,9 @@ namespace ShiggyMod.SkillStates
 
         private void SearchForTarget(CharacterBody charBody)
         {
-            TeamIndex enemyTeam = TeamIndex.Neutral |TeamIndex.Monster | TeamIndex.None | TeamIndex.Void | TeamIndex.Count | TeamIndex.Lunar;
-            this.search.teamMaskFilter = TeamMask.AllExcept(enemyTeam);
+            TeamMask mask = TeamMask.none;
+            mask.AddTeam(TeamIndex.Player);
+            search.teamMaskFilter = mask;
             this.search.filterByLoS = true;
             this.search.searchOrigin = charBody.transform.position;
             this.search.searchDirection = Vector3.up;

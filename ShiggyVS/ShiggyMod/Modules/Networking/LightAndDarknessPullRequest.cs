@@ -19,7 +19,7 @@ namespace ShiggyMod.Modules.Networking
         private float damage;
         private float angle;
         private bool playEffect;
-        
+
         //Don't network these.
         GameObject bodyObj;
         private BullseyeSearch search;
@@ -49,7 +49,7 @@ namespace ShiggyMod.Modules.Networking
             origin = reader.ReadVector3();
             direction = reader.ReadVector3();
             pullRange = reader.ReadSingle();
-            searchRange= reader.ReadSingle();
+            searchRange = reader.ReadSingle();
             damage = reader.ReadSingle();
             angle = reader.ReadSingle();
             playEffect = reader.ReadBoolean();
@@ -109,11 +109,11 @@ namespace ShiggyMod.Modules.Networking
                         {
                             if (singularTarget.healthComponent.body.characterMotor)
                             {
-                                Weight = singularTarget.healthComponent.body.characterMotor.mass/5;
+                                Weight = singularTarget.healthComponent.body.characterMotor.mass / 5;
                             }
                             else if (singularTarget.healthComponent.body.rigidbody)
                             {
-                                Weight = singularTarget.healthComponent.body.rigidbody.mass/5;
+                                Weight = singularTarget.healthComponent.body.rigidbody.mass / 5;
                             }
 
                         }

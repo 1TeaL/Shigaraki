@@ -1,7 +1,6 @@
-﻿using ShiggyMod.Modules.Survivors;
-using R2API;
+﻿using R2API;
 using RoR2;
-using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
 using UnityEngine;
 

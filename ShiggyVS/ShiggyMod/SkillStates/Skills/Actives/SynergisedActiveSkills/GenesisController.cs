@@ -1,13 +1,6 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
+﻿using RoR2;
 using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -47,7 +40,7 @@ namespace ShiggyMod.SkillStates
                 rotation = Quaternion.LookRotation(Vector3.down),
 
             }, true);
-        }    
+        }
 
         public void Update()
         {
@@ -102,7 +95,7 @@ namespace ShiggyMod.SkillStates
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
                         hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,
                     }.Fire();
-                    
+
                 }
             }
             else if (numberOfHits >= totalHits)

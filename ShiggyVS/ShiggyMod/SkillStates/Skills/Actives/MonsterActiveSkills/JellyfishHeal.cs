@@ -1,13 +1,11 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
 using EntityStates.JellyfishMonster;
-using UnityEngine.Networking;
 using R2API.Networking;
-using ShiggyMod.Modules.Networking;
-using ShiggyMod.Modules;
 using R2API.Networking.Interfaces;
+using RoR2;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Networking;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -27,19 +25,19 @@ namespace ShiggyMod.SkillStates
 
         public override void OnEnter()
         {
-            base.OnEnter(); 
-            radius = 30 * (attackSpeedStat/3);
+            base.OnEnter();
+            radius = 30 * (attackSpeedStat / 3);
             damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
 
-            
+
             PlayCrossfade("LeftArm, Override", "LHandDetonate", "Attack.playbackRate", duration, 0.1f);
             Transform modelTransform = base.GetModelTransform();
             //AkSoundEngine.PostEvent("ShiggyExplosion", base.gameObject);
             this.soundID = Util.PlaySound(JellyNova.chargingSoundString, base.gameObject);
-            
-            
+
+
 
         }
 
@@ -48,7 +46,7 @@ namespace ShiggyMod.SkillStates
             base.OnExit();
             //PlayCrossfade("LeftArm, Override", "BufferEmpty", "Attack.playbackRate", 0.1f, 0.1f);
             AkSoundEngine.StopPlayingID(this.soundID);
-            
+
         }
 
 
@@ -56,7 +54,7 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if(base.fixedAge >= fireTime && !hasFired)
+            if (base.fixedAge >= fireTime && !hasFired)
             {
                 hasFired = true;
                 new HealNetworkRequest(characterBody.masterObjectId, characterBody.GetBuffCount(Buffs.JellyfishRegenerateStacksBuff)).Send(NetworkDestination.Clients);

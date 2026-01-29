@@ -2,8 +2,6 @@
 // Uses server-authoritative equip via QuirkEquip.RequestApplyFromClient -> EquipLoadoutRequest
 
 using ExtraSkillSlots;
-using R2API.Networking;
-using R2API.Networking.Interfaces;
 using RoR2;
 using RoR2.Skills;
 using RoR2.UI;
@@ -27,7 +25,11 @@ namespace ShiggyMod.Modules.Quirks
         public static QuirkUI Show(CharacterBody body, ExtraSkillLocator extras, Action<string, float> toast = null)
         {
             if (!body) return null;
-            if (Current) return Current; // already open
+
+            // Only local player can open their UI
+            if (!body.hasEffectiveAuthority) return null;
+
+            if (Current) return Current;
 
             var root = new GameObject("Shiggy_QuirkUI_Root");
             UnityEngine.Object.DontDestroyOnLoad(root);
@@ -35,6 +37,7 @@ namespace ShiggyMod.Modules.Quirks
             Current = root.AddComponent<QuirkUI>();
             Current._body = body;
             Current._extras = extras;
+            Current._inv = body.master ? QuirkInventory.Ensure(body.master) : null;
             Current._toast = toast;
             Current.BuildUI();
             return Current;
@@ -44,7 +47,7 @@ namespace ShiggyMod.Modules.Quirks
         private CharacterBody _body;
         private ExtraSkillLocator _extras;
         private Action<string, float> _toast;
-
+        private QuirkInventory _inv;
         private Canvas _canvas;
 
         // slot selection (QuirkId.None means empty)
@@ -59,6 +62,12 @@ namespace ShiggyMod.Modules.Quirks
 
         // slot buttons we update with chosen names
         private Button _btnPrimary, _btnSecondary, _btnUtility, _btnSpecial, _btnE1, _btnE2, _btnE3, _btnE4;
+
+        // Local preview override key + last applied skilldefs so we can Unset cleanly
+        private static readonly object s_localPreviewOverrideKey = new object();
+
+        private SkillDef _prevPrimaryDef, _prevSecondaryDef, _prevUtilityDef, _prevSpecialDef;
+        private SkillDef _prevE1Def, _prevE2Def, _prevE3Def, _prevE4Def;
 
         // canonical pool for the picker
         private List<QuirkId> _activePool;
@@ -174,7 +183,10 @@ namespace ShiggyMod.Modules.Quirks
         private void Subscribe()
         {
             if (_subscribed) return;
-            QuirkInventory.OnOwnedChanged += HandleOwnedChanged;
+
+            if (_inv != null)
+                _inv.OnOwnedChanged += HandleOwnedChanged;
+
             _subscribed = true;
         }
         // === Pool builders ===
@@ -186,9 +198,12 @@ namespace ShiggyMod.Modules.Quirks
             foreach (var q in BaseShiggyActives)
                 pool.Add(q);
 
-            foreach (var q in QuirkInventory.Owned)
-                if (TryGet(q, out var rec) && rec.SkillDef != null)
-                    pool.Add(q);
+            if (_inv != null)
+            {
+                foreach (var q in _inv.Owned)
+                    if (TryGet(q, out var rec) && rec.SkillDef != null)
+                        pool.Add(q);
+            }
 
             if (Modules.Config.StartWithAllQuirks != null && Modules.Config.StartWithAllQuirks.Value)
                 foreach (var kv in QuirkRegistry.All)
@@ -387,10 +402,14 @@ namespace ShiggyMod.Modules.Quirks
                 Extra2 = _selE2,
                 Extra3 = _selE3,
                 Extra4 = _selE4,
-                PassiveToggles = null
             };
 
+            // LOCAL PREVIEW (non-host needs this so the slots actually change immediately)
+            // Server remains authoritative; this is only client-side presentation.
+            ApplyLocalPreviewOverrides(loadout);
+
             // Send to server (host client included). No authority gating here.
+            // NOTE: ideally this should send MASTER netId, not body, but keep your API for now.
             QuirkEquip.RequestApplyFromClient(_body, loadout);
 
             _toast?.Invoke("<style=cIsUtility>Quirks equipped!</style>", 1.8f);
@@ -409,14 +428,18 @@ namespace ShiggyMod.Modules.Quirks
         {
             if (_subscribed)
             {
-                QuirkInventory.OnOwnedChanged -= HandleOwnedChanged;
+                if (_inv != null)
+                    _inv.OnOwnedChanged -= HandleOwnedChanged;
                 _subscribed = false;
             }
+
+            ClearLocalPreviewOverrides(); // NEW
 
             UICursorUtil.CloseGameCursor();
             if (Current == this) Current = null;
             Destroy(gameObject);
         }
+
 
         private void Update()
         {
@@ -471,11 +494,120 @@ namespace ShiggyMod.Modules.Quirks
             return btn;
         }
 
+        private static SkillDef GetSkillDefSafe(QuirkId q)
+        {
+            if (q == QuirkId.None) return null;
+
+            // Registry-backed
+            if (QuirkRegistry.TryGet(q, out var rec) && rec.SkillDef != null)
+                return rec.SkillDef;
+
+            // Fallbacks for base actives
+            switch (q)
+            {
+                case QuirkId.Shiggy_DecayActive: return ShiggyMod.Modules.Survivors.Shiggy.decayDef;
+                case QuirkId.Shiggy_AirCannonActive: return ShiggyMod.Modules.Survivors.Shiggy.aircannonDef;
+                case QuirkId.Shiggy_BulletLaserActive: return ShiggyMod.Modules.Survivors.Shiggy.bulletlaserDef;
+                case QuirkId.Shiggy_MultiplierActive: return ShiggyMod.Modules.Survivors.Shiggy.multiplierDef;
+                default: return null;
+            }
+        }
+
+        private static void UnsetIfSet(GenericSkill slot, object key, SkillDef def)
+        {
+            if (!slot || !def) return;
+            slot.UnsetSkillOverride(key, def, GenericSkill.SkillOverridePriority.Contextual);
+        }
+
+        private static void SetOverride(GenericSkill slot, object key, SkillDef def)
+        {
+            if (!slot || !def) return;
+            slot.SetSkillOverride(key, def, GenericSkill.SkillOverridePriority.Contextual);
+        }
+
+        private void ClearLocalPreviewOverrides()
+        {
+            if (_body == null) return;
+
+            var sl = _body.skillLocator;
+            var ex = _extras ? _extras : _body.GetComponent<ExtraSkillLocator>();
+
+            // Unset previous preview overrides only (so we don't touch server overrides)
+            if (sl)
+            {
+                UnsetIfSet(sl.primary, s_localPreviewOverrideKey, _prevPrimaryDef);
+                UnsetIfSet(sl.secondary, s_localPreviewOverrideKey, _prevSecondaryDef);
+                UnsetIfSet(sl.utility, s_localPreviewOverrideKey, _prevUtilityDef);
+                UnsetIfSet(sl.special, s_localPreviewOverrideKey, _prevSpecialDef);
+            }
+
+            if (ex)
+            {
+                UnsetIfSet(ex.extraFirst, s_localPreviewOverrideKey, _prevE1Def);
+                UnsetIfSet(ex.extraSecond, s_localPreviewOverrideKey, _prevE2Def);
+                UnsetIfSet(ex.extraThird, s_localPreviewOverrideKey, _prevE3Def);
+                UnsetIfSet(ex.extraFourth, s_localPreviewOverrideKey, _prevE4Def);
+            }
+
+            _prevPrimaryDef = _prevSecondaryDef = _prevUtilityDef = _prevSpecialDef = null;
+            _prevE1Def = _prevE2Def = _prevE3Def = _prevE4Def = null;
+        }
+
+        private void ApplyLocalPreviewOverrides(SelectedQuirkLoadout loadout)
+        {
+            if (_body == null) return;
+
+            var sl = _body.skillLocator;
+            var ex = _extras ? _extras : _body.GetComponent<ExtraSkillLocator>();
+
+            // Always clear our preview key first to avoid stacking
+            ClearLocalPreviewOverrides();
+
+            var pDef = GetSkillDefSafe(loadout.Primary);
+            var sDef = GetSkillDefSafe(loadout.Secondary);
+            var uDef = GetSkillDefSafe(loadout.Utility);
+            var spDef = GetSkillDefSafe(loadout.Special);
+
+            var e1Def = GetSkillDefSafe(loadout.Extra1);
+            var e2Def = GetSkillDefSafe(loadout.Extra2);
+            var e3Def = GetSkillDefSafe(loadout.Extra3);
+            var e4Def = GetSkillDefSafe(loadout.Extra4);
+
+            if (sl)
+            {
+                SetOverride(sl.primary, s_localPreviewOverrideKey, pDef);
+                SetOverride(sl.secondary, s_localPreviewOverrideKey, sDef);
+                SetOverride(sl.utility, s_localPreviewOverrideKey, uDef);
+                SetOverride(sl.special, s_localPreviewOverrideKey, spDef);
+
+                _prevPrimaryDef = pDef;
+                _prevSecondaryDef = sDef;
+                _prevUtilityDef = uDef;
+                _prevSpecialDef = spDef;
+            }
+
+            if (ex)
+            {
+                SetOverride(ex.extraFirst, s_localPreviewOverrideKey, e1Def);
+                SetOverride(ex.extraSecond, s_localPreviewOverrideKey, e2Def);
+                SetOverride(ex.extraThird, s_localPreviewOverrideKey, e3Def);
+                SetOverride(ex.extraFourth, s_localPreviewOverrideKey, e4Def);
+
+                _prevE1Def = e1Def;
+                _prevE2Def = e2Def;
+                _prevE3Def = e3Def;
+                _prevE4Def = e4Def;
+            }
+
+            // Force UI/skill refresh locally (helps some HUDs update instantly)
+            if (_body) _body.MarkAllStatsDirty();
+        }
+
         private void OnEnable()
         {
             if (!_subscribed)
             {
-                QuirkInventory.OnOwnedChanged += HandleOwnedChanged;
+                if (_inv != null) _inv.OnOwnedChanged += HandleOwnedChanged;
                 _subscribed = true;
             }
         }
@@ -484,7 +616,7 @@ namespace ShiggyMod.Modules.Quirks
         {
             if (_subscribed)
             {
-                QuirkInventory.OnOwnedChanged -= HandleOwnedChanged;
+                if (_inv != null) _inv.OnOwnedChanged -= HandleOwnedChanged;
                 _subscribed = false;
             }
         }
@@ -501,16 +633,16 @@ namespace ShiggyMod.Modules.Quirks
             var sl = _body ? _body.skillLocator : null;
             var ex = _extras ? _extras : (_body ? _body.GetComponent<ExtraSkillLocator>() : null);
 
-            _selPrimary   = (sl && sl.primary   && sl.primary.skillDef   && QuirkRegistry.QuirkLookup.TryFromSkill(sl.primary.skillDef, out q))   ? q : QuirkId.None;
+            _selPrimary = (sl && sl.primary && sl.primary.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(sl.primary.skillDef, out q)) ? q : QuirkId.None;
             _selSecondary = (sl && sl.secondary && sl.secondary.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(sl.secondary.skillDef, out q)) ? q : QuirkId.None;
-            _selUtility   = (sl && sl.utility   && sl.utility.skillDef   && QuirkRegistry.QuirkLookup.TryFromSkill(sl.utility.skillDef, out q))   ? q : QuirkId.None;
-            _selSpecial   = (sl && sl.special   && sl.special.skillDef   && QuirkRegistry.QuirkLookup.TryFromSkill(sl.special.skillDef, out q))   ? q : QuirkId.None;
+            _selUtility = (sl && sl.utility && sl.utility.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(sl.utility.skillDef, out q)) ? q : QuirkId.None;
+            _selSpecial = (sl && sl.special && sl.special.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(sl.special.skillDef, out q)) ? q : QuirkId.None;
 
             if (ex)
             {
-                _selE1 = (ex.extraFirst  && ex.extraFirst.skillDef  && QuirkRegistry.QuirkLookup.TryFromSkill(ex.extraFirst.skillDef,  out q)) ? q : QuirkId.None;
+                _selE1 = (ex.extraFirst && ex.extraFirst.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(ex.extraFirst.skillDef, out q)) ? q : QuirkId.None;
                 _selE2 = (ex.extraSecond && ex.extraSecond.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(ex.extraSecond.skillDef, out q)) ? q : QuirkId.None;
-                _selE3 = (ex.extraThird  && ex.extraThird.skillDef  && QuirkRegistry.QuirkLookup.TryFromSkill(ex.extraThird.skillDef,  out q)) ? q : QuirkId.None;
+                _selE3 = (ex.extraThird && ex.extraThird.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(ex.extraThird.skillDef, out q)) ? q : QuirkId.None;
                 _selE4 = (ex.extraFourth && ex.extraFourth.skillDef && QuirkRegistry.QuirkLookup.TryFromSkill(ex.extraFourth.skillDef, out q)) ? q : QuirkId.None;
             }
         }

@@ -1,12 +1,8 @@
 ﻿using EntityStates;
 using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
 using RoR2.Projectile;
-using EntityStates.LemurianMonster;
-using EmotesAPI;
-using R2API;
-using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -29,7 +25,7 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
             duration = baseDuration / attackSpeedStat;
-            
+
             //play animation with right hand
             base.characterBody.SetAimTimer(this.duration);
             this.muzzleString = "RHand";

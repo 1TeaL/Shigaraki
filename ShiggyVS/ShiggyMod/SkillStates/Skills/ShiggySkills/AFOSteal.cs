@@ -1,13 +1,10 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using ExtraSkillSlots;
 using R2API.Networking;
-using ShiggyMod.Modules;
+using RoR2;
 using RoR2.Skills;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
 
 namespace ShiggyMod.SkillStates
 {
@@ -201,7 +198,7 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if(base.fixedAge > 1f)
+            if (base.fixedAge > 1f)
             {
                 this.outer.SetNextStateToMain();
                 return;

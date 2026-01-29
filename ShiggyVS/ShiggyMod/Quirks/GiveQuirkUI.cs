@@ -1,46 +1,31 @@
-﻿// GiveQuirkUI.cs
-// Runtime-built, singleton “Give Passive Quirk” UI.
-// IMPORTANT: Sends request to SERVER (server-authoritative give).
-//
-// Notes:
-// - Uses QuirkInventory.Owned as the local display list (you should still validate on server).
-// - Uses QuirkRegistry.GetDisplayName if available; otherwise falls back to QuirkInventory.QuirkPickupUI.MakeNiceName.
-// - Fixes ScrollRect hierarchy/wiring (matches your working QuirkUI pattern).
-
+﻿using R2API.Networking;
+using R2API.Networking.Interfaces;
 using RoR2;
 using RoR2.UI;
-
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-
+using ShiggyMod.Modules.Networking;
+using ShiggyMod.Modules.Quirks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using R2API.Networking;
-using R2API.Networking.Interfaces;
-
-using ShiggyMod.Modules.Networking; // GivePassiveRequest
-using ShiggyMod.Modules.Quirks;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace ShiggyMod.Modules.UI
 {
-    /// <summary>
-    /// Runtime-built, singleton “Give Passive Quirk” UI. Mirrors QuirkUI style.
-    /// </summary>
     public class GiveQuirkUI : MonoBehaviour
     {
         // ---------- Singleton ----------
         public static GiveQuirkUI Current { get; private set; }
         public static bool IsOpen => Current != null;
 
-        /// <summary>
-        /// Open the Give UI for 'giver' targeting 'allyTarget'.
-        /// </summary>
         public static GiveQuirkUI Show(CharacterBody giver, CharacterBody allyTarget, Action<string, float> toast = null)
         {
             if (!giver || !allyTarget) return null;
+
+            // Only the local controlling client should open this UI
+            if (!giver.hasEffectiveAuthority) return null;
+
             if (Current) return Current;
 
             var root = new GameObject("Shiggy_GiveQuirkUI_Root");
@@ -69,11 +54,18 @@ namespace ShiggyMod.Modules.UI
 
         private List<QuirkId> _ownedPassives = new List<QuirkId>();
         private readonly Dictionary<QuirkId, Button> _rowButtons = new Dictionary<QuirkId, Button>();
+
         private bool _subscribed;
+
+        // NEW: instance inventory (giver's master-scoped)
+        private QuirkInventory _giverInv;
 
         // ---------- Build ----------
         private void BuildUI()
         {
+            // Resolve giver inventory FIRST (so list-building works)
+            ResolveGiverInventory();
+
             // Canvas
             var canvasGO = new GameObject("Canvas");
             canvasGO.transform.SetParent(transform, false);
@@ -132,7 +124,6 @@ namespace ShiggyMod.Modules.UI
             scrollRT.offsetMin = new Vector2(10f, 90f);
             scrollRT.offsetMax = new Vector2(-10f, -70f);
 
-            // Graphic so it can receive raycasts
             var scrollImg = scrollGO.AddComponent<Image>();
             scrollImg.color = new Color(0f, 0f, 0f, 0f);
 
@@ -140,7 +131,6 @@ namespace ShiggyMod.Modules.UI
             _scroll.horizontal = false;
             _scroll.vertical = true;
 
-            // Viewport as child of ScrollRect
             var viewportGO = new GameObject("Viewport");
             viewportGO.transform.SetParent(scrollGO.transform, false);
             var viewportRT = viewportGO.AddComponent<RectTransform>();
@@ -154,7 +144,6 @@ namespace ShiggyMod.Modules.UI
 
             _scroll.viewport = viewportRT;
 
-            // Content as child of Viewport
             var contentGO = new GameObject("Content");
             contentGO.transform.SetParent(viewportGO.transform, false);
             _content = contentGO.AddComponent<RectTransform>();
@@ -183,34 +172,51 @@ namespace ShiggyMod.Modules.UI
             BuildRows();
             SelectFirstIfAny();
 
-            // Cursor
             UICursorUtil.OpenGameCursor();
 
-            // Live refresh on inventory changes
-            OnEnable();
+            // subscribe after UI is up
+            TrySubscribe();
+        }
+        private void OnEnable() => TrySubscribe();
+        private void TrySubscribe()
+        {
+            ResolveGiverInventory();
+
+            if (!_subscribed && _giverInv != null)
+            {
+                _giverInv.OnOwnedChanged += HandleOwnedChanged;
+                _subscribed = true;
+            }
+        }
+        private void ResolveGiverInventory()
+        {
+            if (_giverInv != null) return;
+            if (!_giver || !_giver.master) return;
+
+            _giverInv = QuirkInventory.Ensure(_giver.master);
         }
 
         private static string SafeUserName(CharacterBody body)
         {
-            try
-            {
-                if (!body) return "(None)";
-                // GetUserName() is an extension in some setups; guard it.
-                return body.GetUserName();
-            }
-            catch
-            {
-                return body ? body.name : "(None)";
-            }
+            try { return body ? body.GetUserName() : "(None)"; }
+            catch { return body ? body.name : "(None)"; }
         }
 
         private void RebuildOwnedPassiveList()
         {
-            // Restrict to actual auto-buff passives (BuffDef != null).
-            _ownedPassives = QuirkInventory.Owned
-                .Where(id => QuirkRegistry.TryGet(id, out var rec)
-                             && rec.Category == QuirkCategory.Passive
-                             && rec.BuffDef != null)
+            ResolveGiverInventory();
+
+            if (_giverInv == null)
+            {
+                _ownedPassives = new List<QuirkId>();
+                return;
+            }
+
+            _ownedPassives = _giverInv.Owned
+                .Where(id =>
+                    QuirkRegistry.TryGet(id, out var rec) &&
+                    rec.Category == QuirkCategory.Passive &&
+                    rec.BuffDef != null)
                 .OrderBy(id => QuirkRegistry.Get(id).Level)
                 .ThenBy(id => QuirkInventory.QuirkPickupUI.MakeNiceName(id))
                 .ToList();
@@ -237,7 +243,6 @@ namespace ShiggyMod.Modules.UI
                 var btn = row.gameObject.AddComponent<Button>();
                 btn.targetGraphic = row;
 
-                // icon (if available)
                 var icon = QuirkRegistry.GetIcon(q);
                 if (icon != null)
                 {
@@ -284,7 +289,6 @@ namespace ShiggyMod.Modules.UI
             }
         }
 
-        // Local-only UX validation (server must revalidate!)
         private bool LocalValidateRangeAndTeam(float maxDistSqr = 30f * 30f)
         {
             if (!_giver || !_target) return false;
@@ -317,27 +321,11 @@ namespace ShiggyMod.Modules.UI
                 return;
             }
 
-            // SERVER authoritative
             new GivePassiveRequest(_giver.master.netId, _target.master.netId, _selected)
                 .Send(NetworkDestination.Server);
 
-            _toast?.Invoke($"<style=cIsUtility>Requested: {GetDisplayNameSafe(_selected)}</style>", 1.2f);
+            _toast?.Invoke($"<style=cIsUtility>Requested: {QuirkInventory.QuirkPickupUI.MakeNiceName(_selected)}</style>", 1.2f);
             Close();
-        }
-
-        private static string GetDisplayNameSafe(QuirkId id)
-        {
-            // If you do NOT have QuirkRegistry.GetDisplayName implemented, this keeps the UI compiling.
-            // Recommended: implement GetDisplayName in QuirkRegistry to centralize naming.
-            try
-            {
-                // If you add this method later, switch to: return QuirkRegistry.GetDisplayName(id);
-                return QuirkRegistry.GetDisplayName(id);
-            }
-            catch
-            {
-                return id.ToString();
-            }
         }
 
         private void Close()
@@ -349,32 +337,37 @@ namespace ShiggyMod.Modules.UI
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) Close();
+            if (!_giver || !_target) { Close(); return; }
+            if (Input.GetKey(KeyCode.Escape) || Input.GetKey(Config.CloseQuirkMenuHotkey.Value.MainKey)) 
+            {
+                Close();
+            } 
         }
 
-        private void OnEnable()
-        {
-            if (!_subscribed)
-            {
-                QuirkInventory.OnOwnedChanged += HandleOwnedChanged;
-                _subscribed = true;
-            }
-        }
 
         private void OnDisable()
         {
-            if (_subscribed)
+            if (_subscribed && _giverInv != null)
             {
-                QuirkInventory.OnOwnedChanged -= HandleOwnedChanged;
+                _giverInv.OnOwnedChanged -= HandleOwnedChanged;
                 _subscribed = false;
             }
         }
 
+        private void OnDestroy()
+        {
+            // Ensure unsubscribe even if Unity skips OnDisable in some destroy paths
+            if (_subscribed && _giverInv != null)
+            {
+                _giverInv.OnOwnedChanged -= HandleOwnedChanged;
+                _subscribed = false;
+            }
+
+            if (Current == this) Current = null;
+        }
+
         private void HandleOwnedChanged()
         {
-            // If you have LateRebindIfMissing, call it. Otherwise remove this.
-            // QuirkRegistry.LateRebindIfMissing();
-
             RebuildOwnedPassiveList();
             BuildRows();
             if (!_ownedPassives.Contains(_selected)) SelectFirstIfAny();
@@ -429,7 +422,6 @@ namespace ShiggyMod.Modules.UI
             return btn;
         }
 
-        // ---------- Cursor helper ----------
         public static class UICursorUtil
         {
             private static MPEventSystem GetLocalMPES()

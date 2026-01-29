@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1739611004
+CRC: 2974429243
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b29048304416dc2b50e0582c133012db
+    Hash: 1bb9956723b51be45f66d6d9eae3814b
   TypeTreeHash:
     serializedVersion: 2
     Hash: c6e88c678bec3d38b177b2bfda004c24
@@ -82,6 +82,7 @@ Assets:
 - Assets/Shigaraki/newAnimations/QuirkOverheat.anim
 - Assets/Shigaraki/Assets/Particle/DecayAttack.prefab
 - Assets/Shigaraki/GUI/BaseSkills/OFA.png
+- Assets/Free Game VFX/Materials/lightning01_02_22.mat
 - Assets/Shigaraki/Assets/Particle/limbAura.prefab
 - Assets/Shigaraki/newAnimations/LArmSwing2.anim
 - Assets/Shigaraki/Emotes/humanoidShigarakiFinalAvatar.asset
@@ -94,28 +95,36 @@ Assets:
 - Assets/Shigaraki/newAnimations/FloatLeftold.anim
 - Assets/Shigaraki/GUI/BaseSkills/aircannon.PNG
 - Assets/Shigaraki/GUI/CombinedSkills/WindShield.png
+- Assets/Free Game VFX/Materials/Default-Particle.mat
+- Assets/Free Game VFX/Materials/tf-28.mat
 - Assets/Shigaraki/newAnimations/BothHandDown.anim
-- Assets/Shigaraki/Assets/Material/matShiggyBody.mat
 - Assets/Shigaraki/GUI/VFX/Decay VFX.png
+- Assets/Shigaraki/Assets/Material/matShiggyBody.mat
 - Assets/Shigaraki/newAnimations/LHandFingerGunStart.anim
 - Assets/Shigaraki/GUI/CombinedSkills/ThunderClap.png
 - Assets/Shigaraki/newAnimations/FloatDownTransition.anim
 - Assets/Shigaraki/Assets/Material/ShiggyMat.mat
 - Assets/Shigaraki/GUI/Base/texShiggyIcon.png
 - Assets/Shigaraki/Assets/Particle/SwingEffect.prefab
+- Assets/Free Game VFX/Materials/mat_vfx-ult_particle_sprite_droplet-add-[3.0].mat
 - Assets/Shigaraki/newAnimations/LArmThrow.anim
 - Assets/Shigaraki/Assets/shigarakiHairMesh.mesh
+- Assets/Free Game VFX/Materials/Plane.mat
 - Assets/Shigaraki/newAnimations/Idle.anim
 - Assets/Shigaraki/GUI/CombinedSkills/Reversal.png
 - Assets/Shigaraki/newAnimations/RHandDown.anim
+- Assets/Free Game VFX/Materials/Back Glow.mat
 - Assets/Shigaraki/Assets/Particle/RainbowParticle.prefab
 - Assets/Shigaraki/newAnimations/BothArmOut.anim
 - Assets/Shigaraki/newAnimations/RArmSwing1Start.anim
 - Assets/Shigaraki/newAnimations/LArmBlastStart.anim
+- Assets/Free Game VFX/Materials/M_2D_Ray_01.mat
+- Assets/Free Game VFX/Materials/Epic Pulse.mat
 - Assets/Shigaraki/GUI/Base/AdaptabilityOuterRing.png
 - Assets/Shigaraki/newAnimations/FullBodyDashThunder.anim
 - Assets/Shigaraki/GUI/CombinedSkills/MachineForm.png
 - Assets/Shigaraki/GUI/CombinedSkills/WeatherReport.png
+- Assets/Free Game VFX/Materials/bl_02-4.mat
 - Assets/Shigaraki/Assets/Particle/WindSwordAuraLeft.prefab
 - Assets/Shigaraki/GUI/CombinedSkills/GargoyleProtection.png
 - Assets/Shigaraki/newAnimations/RHandFist.anim
@@ -125,40 +134,55 @@ Assets:
 - Assets/Shigaraki/newAnimations/FullbodyMugetsuRArm.anim
 - Assets/Shigaraki/GUI/CombinedSkills/MachPunch.png
 - Assets/Shigaraki/newAnimations/RArmBlastRelease.anim
+- Assets/Free Game VFX/Materials/DungeonRingGuid.mat
 - Assets/Shigaraki/Assets/Material/LightAndDarknessMat.mat
 - Assets/Shigaraki/newAnimations/Landing.anim
 - Assets/Shigaraki/Assets/Material/Mask1.png
 - Assets/Shigaraki/Assets/Material/noise3blur.png
-- Assets/Shigaraki/newAnimations/RArmFling.anim
+- Assets/Free Game VFX/Materials/stone02_3.mat
+- Assets/Free Game VFX/Materials/Gradient_Beam_007.mat
 - Assets/Shigaraki/newAnimations/EntranceHair.anim
 - Assets/Shigaraki/Assets/Particle/OFA lightning.prefab
-- Assets/Shigaraki/newAnimations/RHandSnap.anim
+- Assets/Shigaraki/newAnimations/RArmFling.anim
 - Assets/Shigaraki/GUI/CombinedSkills/Genesis.png
 - Assets/Shigaraki/Emotes/humanoidShigaraki.prefab
+- Assets/Shigaraki/newAnimations/RHandSnap.anim
 - Assets/Shigaraki/newAnimations/EntrancePose2.anim
+- Assets/Free Game VFX/Materials/Aura_Flame_001.mat
+- Assets/Free Game VFX/Materials/pd_07a_3.mat
 - Assets/Shigaraki/GUI/CombinedSkills/ShadowClaw.png
 - Assets/Shigaraki/newAnimations/LHandPoint.anim
 - Assets/Shigaraki/newAnimations/RHandLift.anim
 - Assets/Shigaraki/GUI/CombinedSkills/DecayPlusUltra.png
 - Assets/Shigaraki/GUI/Base/Shiggybaseskin.png
+- Assets/Free Game VFX/Materials/Spark.mat
 - Assets/Shigaraki/newAnimations/ShigarakiRightArmMask.mask
+- Assets/Free Game VFX/Materials/particle_sprite_01.mat
 - Assets/Shigaraki/GUI/BaseSkills/bulletlaser.png
 - Assets/Shigaraki/newAnimations/RHandSnap2.anim
 - Assets/Shigaraki/newAnimations/LArmBlast.anim
+- Assets/Free Game VFX/Materials/glow_ball2_grey_5.mat
 - Assets/Shigaraki/newAnimations/IdleScratch.anim
 - Assets/Shigaraki/Assets/Material/EmptyMat.mat
 - Assets/Shigaraki/Assets/Material/EmptyMaterial.mat
 - Assets/Shigaraki/newAnimations/RArmThrow.anim
-- Assets/Shigaraki/newAnimations/Jump.anim
+- Assets/Free Game VFX/Materials/Slash16.mat
+- Assets/Free Game VFX/Materials/star_CPdr_wyy_006_alpha_01.mat
+- Assets/Free Game VFX/Materials/fm-g01-06.mat
 - Assets/Shigaraki/GUI/CombinedSkills/LimitBreak.png
+- Assets/Shigaraki/newAnimations/Jump.anim
 - Assets/Shigaraki/Assets/Material/texHair.png
+- Assets/Free Game VFX/Materials/firerock 2.mat
 - Assets/Shigaraki/newAnimations/LHandFingerGun.anim
 - Assets/Shigaraki/newAnimations/AFOSteal.anim
 - Assets/Shigaraki/GUI/CombinedSkills/BlackholeGlaive.png
 - Assets/Shigaraki/Assets/Particle/WindSwordAura.prefab
 - Assets/Shigaraki/newAnimations/RArmPunchStart.anim
 - Assets/Shigaraki/Assets/Material/matShiggyEyes.mat
+- Assets/Free Game VFX/Shaders/Alpha Blended.shader
 - Assets/Shigaraki/newAnimations/LHandDetonate.anim
+- Assets/Shigaraki/GUI/BaseSkills/ArtificerIce.png
+- Assets/Free Game VFX/Materials/Fx_Rin022.mat
 - Assets/Shigaraki/GUI/BaseSkills/multiplier.png
 - Assets/Shigaraki/GUI/CombinedSkills/OneForAllForOne.png
 - Assets/Shigaraki/newAnimations/RHandFingerGunStart.anim
@@ -170,62 +194,78 @@ Assets:
 - Assets/Shigaraki/GUI/CombinedSkills/ExtremeSpeed.png
 - Assets/Shigaraki/newAnimations/LArmOutStart.anim
 - Assets/Shigaraki/newAnimations/LHandFingerGunRelease.anim
+- Assets/Free Game VFX/Materials/Front Glow.mat
 - Assets/Shigaraki/Assets/Particle/Decay.prefab
 - Assets/Shigaraki/newAnimations/FloatForwardold.anim
 - Assets/Shigaraki/newAnimations/TheWorldPoint.anim
+- Assets/Free Game VFX/Materials/grad10_09.mat
 - Assets/Shigaraki/GUI/CombinedSkills/BarbedSpikes.png
 - Assets/Shigaraki/GUI/CombinedSkills/BlindSenses.png
-- Assets/Shigaraki/GUI/CombinedSkills/LightAndDarkness.png
+- Assets/Free Game VFX/Materials/glowa_hot_grey_9.mat
 - Assets/Shigaraki/GUI/CombinedSkills/Wisper.png
+- Assets/Shigaraki/GUI/CombinedSkills/LightAndDarkness.png
 - Assets/Shigaraki/newAnimations/EntranceHairLoop.anim
 - Assets/Shigaraki/newAnimations/FloatDownFast.anim
 - Assets/Shigaraki/Assets/shigarakiFaceMesh.mesh
 - Assets/Shigaraki/GUI/CombinedSkills/DecayAwakened.png
 - Assets/Shigaraki/newAnimations/FloatLeft.anim
+- Assets/Shigaraki/GUI/BaseSkills/MUL-TCANCEL.png
 - Assets/Shigaraki/newAnimations/LArmPunchHold.anim
 - Assets/Shigaraki/GUI/CombinedSkills/Refresh.png
 - Assets/Shigaraki/Assets/shiggyCustomUI.prefab
+- Assets/Free Game VFX/Materials/Dust.mat
+- Assets/Free Game VFX/Materials/firerock 3.mat
 - Assets/Shigaraki/Assets/FrontHitbox.prefab
 - Assets/Shigaraki/newAnimations/FullBodyDashSlashBounce.anim
-- Assets/Shigaraki/newAnimations/LArmPunchStart.anim
 - Assets/Shigaraki/newAnimations/LArmBlastRelease.anim
-- Assets/Shigaraki/Assets/Material/Panner.shader
+- Assets/Shigaraki/newAnimations/LArmPunchStart.anim
 - Assets/Shigaraki/newAnimations/DiveKicking.anim
 - Assets/Shigaraki/newAnimations/FullBodyDashThunderhold.anim
 - Assets/Shigaraki/newAnimations/JumpFast.anim
 - Assets/Shigaraki/newAnimations/RHandFingerGunWeak.anim
 - Assets/Shigaraki/newAnimations/BothHandFist.anim
 - Assets/Shigaraki/newAnimations/RArmSwing2.anim
+- Assets/Shigaraki/Assets/Material/Panner.shader
 - Assets/Shigaraki/newAnimations/Tpose.anim
 - Assets/Shigaraki/Assets/Material/texBody.png
 - Assets/Shigaraki/newAnimations/RHandFingerGun.anim
+- Assets/Free Game VFX/Materials/Slash17.mat
 - Assets/Shigaraki/GUI/CombinedSkills/Ingrain.png
+- Assets/Free Game VFX/Materials/flare.mat
 - Assets/Shigaraki/newAnimations/FloatUp.anim
 - Assets/Shigaraki/GUI/CombinedSkills/GravitationalDownforce.png
 - Assets/Shigaraki/newAnimations/LHandDown.anim
 - Assets/Shigaraki/newAnimations/FullbodySlam.anim
 - Assets/Shigaraki/newAnimations/FloatRightold.anim
 - Assets/Shigaraki/Assets/Material/texEyes.png
+- Assets/Free Game VFX/Materials/vfx_twinkle-blurred-add-[1.0] 1.mat
 - Assets/Shigaraki/GUI/Base/ApexIconCircleBackground.png
-- Assets/Shigaraki/newAnimations/Shigaraki War ArcAvatar.asset
 - Assets/Shigaraki/GUI/CombinedSkills/XBeamer.png
 - Assets/Shigaraki/Assets/apexAdaptUI.prefab
 - Assets/Shigaraki/newAnimations/ShigarakiLeftArmMask.mask
-- Assets/Shigaraki/newAnimations/LArmGetsugaLtoR.anim
 - Assets/Shigaraki/newAnimations/FullBodyDashSlashPose.anim
+- Assets/Free Game VFX/Materials/FX_smoke_02.mat
+- Assets/Shigaraki/newAnimations/FullBodyExtremeSpeed.anim
 - Assets/Shigaraki/newAnimations/FloatBackward.anim
 - Assets/Shigaraki/GUI/Base/ApexIconCircle.png
+- Assets/Shigaraki/newAnimations/LArmGetsugaLtoR.anim
 - Assets/Shigaraki/newAnimations/RArmOut.anim
-- Assets/Shigaraki/newAnimations/FullBodyExtremeSpeed.anim
 - Assets/Shigaraki/newAnimations/FullBodyUnleash.anim
 - Assets/Shigaraki/Assets/Material/texFace.png
+- Assets/Free Game VFX/Materials/M_Glow_01C.mat
+- Assets/Free Game VFX/Materials/sd_21a_9.mat
+- Assets/Free Game VFX/Shaders/Additive.shader
+- Assets/Shigaraki/newAnimations/Shigaraki War ArcAvatar.asset
 - Assets/Shigaraki/GUI/CombinedSkills/DeathAura.png
 - Assets/Shigaraki/newAnimations/ShigarakiUpperBodyMask.mask
-- Assets/Shigaraki/newAnimations/RArmBlastStartHold.anim
+- Assets/Free Game VFX/Materials/fm-g01-10.mat
 - Assets/Shigaraki/GUI/CombinedSkills/RapidPierce.png
+- Assets/Free Game VFX/Materials/hit_02.mat
 - Assets/Shigaraki/newAnimations/RHandFingerGunRelease.anim
+- Assets/Free Game VFX/Materials/FlameDecal04.mat
 - Assets/Shigaraki/GUI/CombinedSkills/StoneForm.png
 - Assets/Shigaraki/GUI/CombinedSkills/SweepingBeam.png
+- Assets/Shigaraki/newAnimations/RArmBlastStartHold.anim
 - Assets/Shigaraki/GUI/CombinedSkills/Omniboost.png
 - Assets/Shigaraki/Assets/Particle/MainBeam.prefab
 - Assets/Shigaraki/newAnimations/JumpDouble.anim
@@ -241,18 +281,21 @@ Assets:
 - Assets/Shigaraki/newAnimations/RArmPunchRelease.anim
 - Assets/Shigaraki/GUI/CombinedSkills/VoidForm.png
 - Assets/Shigaraki/GUI/CombinedSkills/TheWorld.png
-- Assets/Shigaraki/newAnimations/FullBodyXBurnering.anim
+- Assets/Free Game VFX/Materials/A38.mat
 - Assets/Shigaraki/Assets/ShiggyDisplay.prefab
 - Assets/Shigaraki/GUI/CombinedSkills/SolusFactorUnleashed.png
 - Assets/Shigaraki/newAnimations/RArmBlastStart.anim
 - Assets/Shigaraki/newAnimations/RArmGetsugaRtoL.anim
 - Assets/Shigaraki/Assets/shigarakiEyesMesh.mesh
+- Assets/Shigaraki/newAnimations/FullBodyXBurnering.anim
 - Assets/Shigaraki/Assets/Particle/ImpactEffect.prefab
 - Assets/Shigaraki/Assets/Material/matShiggyHair.mat
 - Assets/Shigaraki/newAnimations/RHandStretch.anim
 - Assets/Shigaraki/newAnimations/FullBodyDashThunderStart.anim
+- Assets/Free Game VFX/Materials/flare_b_W01.mat
 - Assets/Shigaraki/Assets/Material/ShiggyMat.png
 - Assets/Shigaraki/newAnimations/FullBodyDashStart.anim
+- Assets/Free Game VFX/Materials/decal_fire10.mat
 - Assets/Shigaraki/Assets/Material/MultiplierMat.mat
 - Assets/Shigaraki/newAnimations/FloatDown.anim
 - Assets/Shigaraki/newAnimations/LHandSnap.anim
@@ -261,28 +304,35 @@ Assets:
 - Assets/Shigaraki/newAnimations/EntrancePose2 1.anim
 - Assets/Shigaraki/newAnimations/FullbodyBankai.anim
 - Assets/Shigaraki/Assets/Particle/DecayBuff.prefab
+- Assets/Shigaraki/GUI/BaseSkills/ArtificerLightning.png
 - Assets/Shigaraki/GUI/CombinedSkills/AuraOfBlight.png
-- Assets/Shigaraki/GUI/CombinedSkills/Gacha.png
 - Assets/Shigaraki/GUI/CombinedSkills/WildCard.png
-- Assets/Shigaraki/Assets/Material/DeathAuraMat.mat
+- Assets/Shigaraki/GUI/CombinedSkills/Gacha.png
 - Assets/Shigaraki/newAnimations/DiveKickStart.anim
+- Assets/Free Game VFX/Materials/ring_03.mat
+- Assets/Shigaraki/Assets/Material/DeathAuraMat.mat
 - Assets/Shigaraki/newAnimations/FloatForward.anim
+- Assets/Free Game VFX/Materials/zxv effects_textures.mat
+- Assets/Free Game VFX/Materials/Sparkle_Ink_008.mat
+- Assets/Free Game VFX/Materials/FlameNoise_01.mat
 - Assets/Shigaraki/Assets/shigarakiPantsMesh.mesh
 - Assets/Shigaraki/newAnimations/RArmAimStart.anim
 - Assets/Shigaraki/GUI/Base/AdaptabilityRing.png
+- Assets/Free Game VFX/Materials/glow_point2_yellow_4.mat
 - Assets/Shigaraki/newAnimations/TheWorldCrossArm.anim
 - Assets/Shigaraki/Assets/Particle/DecaySpread.prefab
 - Assets/Shigaraki/GUI/Base/allforone.png
 - Assets/Shigaraki/newAnimations/LArmBlastStartHold.anim
 - Assets/Shigaraki/newAnimations/RArmOutStart.anim
+- Assets/Free Game VFX/Materials/alpha_ball3.mat
 - Assets/Shigaraki/newAnimations/animShiggy.controller
-- Assets/Shigaraki/newAnimations/RArmGetsugaLtoR.anim
 - Assets/Shigaraki/GUI/CombinedSkills/DoubleTime.png
 - Assets/Shigaraki/GUI/VFX/DecayVFXMat.mat
 - Assets/Shigaraki/newAnimations/LArmAimStart.anim
 - Assets/Shigaraki/newAnimations/FullBodyXBurnerStart.anim
 - Assets/Shigaraki/Assets/Particle/DecayPlusUltra.prefab
 - Assets/Shigaraki/newAnimations/BothHandLift.anim
+- Assets/Shigaraki/newAnimations/RArmGetsugaLtoR.anim
 - Assets/Shigaraki/Assets/Material/HealthMoteAura.mat
 - Assets/Shigaraki/newAnimations/LArmPunch.anim
 - Assets/Shigaraki/newAnimations/EntraceLoop.anim
@@ -290,12 +340,15 @@ Assets:
 - Assets/Shigaraki/newAnimations/Entrance.anim
 - Assets/Shigaraki/newAnimations/LHandFist.anim
 - Assets/Shigaraki/Assets/SphereIndicator.prefab
+- Assets/Free Game VFX/Materials/Shock_05.mat
 - Assets/Shigaraki/GUI/CombinedSkills/WindSlash.png
+- Assets/Free Game VFX/Materials/suipianlizi_00000.mat
 - Assets/Shigaraki/Assets/Particle/XiConstructBeam.prefab
 - Assets/Shigaraki/newAnimations/LArmFling.anim
 - Assets/Shigaraki/newAnimations/RArmSwing1Release.anim
 - Assets/Shigaraki/newAnimations/FloatSprint.anim
 - Assets/Shigaraki/newAnimations/LHandLift.anim
+- Assets/Free Game VFX/Materials/Color_Ring_003.mat
 - Assets/Shigaraki/Assets/LineRendererAFO.prefab
 - Assets/Shigaraki/newAnimations/LHandSnap2.anim
 - Assets/Shigaraki/newAnimations/RArmPunchStartHold.anim
@@ -306,22 +359,29 @@ Assets:
 - Assets/Shigaraki/newAnimations/RArmSwing1.anim
 - Assets/Shigaraki/GUI/CombinedSkills/BigBang.png
 - Assets/Shigaraki/Assets/Particle/FinalReleaseAura.prefab
+- Assets/Free Game VFX/Materials/Sheet_purple_W01.mat
 - Assets/Shigaraki/newAnimations/LArmPunchRelease.anim
+- Assets/Free Game VFX/Materials/glow_green3tail_2.mat
 - Assets/Shigaraki/newAnimations/RArmPunch.anim
 - Assets/Shigaraki/GUI/CombinedSkills/BarrierJelly.jpg
 - Assets/Shigaraki/Assets/Particle/AirCannon.prefab
-- Assets/Shigaraki/newAnimations/EntranceHairStart.anim
+- Assets/Free Game VFX/Materials/Yellow_line_02.mat
 - Assets/Shigaraki/newAnimations/FullBodyDashThunderClap1.anim
+- Assets/Free Game VFX/Materials/grad10_08.mat
+- Assets/Free Game VFX/Materials/glow_ball2_grey_3 1.mat
+- Assets/Shigaraki/GUI/BaseSkills/ArtificerFire.png
+- Assets/Shigaraki/newAnimations/EntranceHairStart.anim
 - Assets/Shigaraki/GUI/Base/ApexIconCirclesmaller.png
-- Assets/Shigaraki/newAnimations/RHandPoint.anim
-- Assets/Shigaraki/newAnimations/FloatBackwardold.anim
 - Assets/Shigaraki/GUI/CombinedSkills/BlastingZone.png
 - Assets/Shigaraki/GUI/CombinedSkills/MechStance.png
+- Assets/Free Game VFX/Materials/Background_paticle_purple_W01.mat
 - Assets/Shigaraki/newAnimations/animShiggyDiplay.controller
 - Assets/Shigaraki/newAnimations/BothHandSnap2.anim
 - Assets/Shigaraki/newAnimations/FullBodyDashThunderClap.anim
+- Assets/Shigaraki/newAnimations/FloatBackwardold.anim
+- Assets/Free Game VFX/Materials/trail05.mat
 - Assets/Shigaraki/Assets/Material/matShiggyFace.mat
-- Assets/Shigaraki/newAnimations/RHandDetonate.anim
 - Assets/Shigaraki/GUI/CombinedSkills/FinalRelease.png
-Dependencies:
-- F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyVS/ShiggyMod/fx_textures_flare_materials.unity3d
+- Assets/Shigaraki/newAnimations/RHandDetonate.anim
+- Assets/Shigaraki/newAnimations/RHandPoint.anim
+Dependencies: []

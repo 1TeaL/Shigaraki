@@ -2,24 +2,17 @@
 using EntityStates.MiniMushroom;
 using EntityStates.VoidMegaCrab.BackWeapon;
 using ExtraSkillSlots;
-using HG;
-using On.EntityStates.Huntress;
 using R2API;
 using R2API.Networking;
 using R2API.Networking.Interfaces;
 using RoR2;
-using RoR2.Items;
 using RoR2.Orbs;
 using RoR2.Projectile;
 using ShiggyMod.Modules.Networking;
-using ShiggyMod.SkillStates;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
-using static UnityEngine.ParticleSystem.PlaybackState;
 using Object = UnityEngine.Object;
 
 namespace ShiggyMod.Modules.Survivors
@@ -30,15 +23,15 @@ namespace ShiggyMod.Modules.Survivors
 
         public float AFOTimer;
         public float overloadingtimer;
-		public float magmawormtimer;
-		public float vagranttimer;
-		public float alphaconstructshieldtimer;
-		public float lunarTimer;
-		public float larvaTimer;
+        public float magmawormtimer;
+        public float vagranttimer;
+        public float alphaconstructshieldtimer;
+        public float lunarTimer;
+        public float larvaTimer;
         public float attackSpeedGain;
         public float mortarTimer;
-		private float voidmortarTimer;
-		private float voidjailerTimer;
+        private float voidmortarTimer;
+        private float voidjailerTimer;
         private float roboballTimer;
         private float gachaBuffThreshold;
         private float omniboostTimer;
@@ -56,7 +49,7 @@ namespace ShiggyMod.Modules.Survivors
         private Ray downRay;
         public GameObject doubleTimeIndicatorInstance;
         public GameObject auraOfBlightIndicatorInstance;
-		public GameObject mortarIndicatorInstance;
+        public GameObject mortarIndicatorInstance;
         public GameObject voidmortarIndicatorInstance;
         public GameObject barbedSpikesIndicatorInstance;
         private GameObject weatherReportIndicatorInstance;
@@ -64,23 +57,23 @@ namespace ShiggyMod.Modules.Survivors
         public HurtBox Target;
 
         private CharacterBody characterBody;
-		private InputBankTest inputBank;
-		private readonly BullseyeSearch search = new BullseyeSearch();
-		private CharacterMaster characterMaster;
+        private InputBankTest inputBank;
+        private readonly BullseyeSearch search = new BullseyeSearch();
+        private CharacterMaster characterMaster;
 
         public NetworkInstanceId networkInstanceID;
         public ShiggyMasterController Shiggymastercon;
-		public ShiggyController Shiggycon;
+        public ShiggyController Shiggycon;
         private EnergySystem energySystem;
         private ExtraInputBankTest extrainputBankTest;
         private ExtraSkillLocator extraskillLocator;
 
         public bool larvabuffGiven;
-		public bool verminjumpbuffGiven;
+        public bool verminjumpbuffGiven;
         private uint minimushrumsoundID;
         public GameObject mushroomWard;
-		public GameObject magmawormWard;
-		public GameObject overloadingWard;
+        public GameObject magmawormWard;
+        public GameObject overloadingWard;
 
 
         public int captainitemcount;
@@ -88,8 +81,8 @@ namespace ShiggyMod.Modules.Survivors
 
         public void Awake()
         {
-	
-			//On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+
+            //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
 
 
         }
@@ -108,7 +101,7 @@ namespace ShiggyMod.Modules.Survivors
 
         }
 
-		public void OnDestroy()
+        public void OnDestroy()
         {
             if (mortarIndicatorInstance)
             {
@@ -140,7 +133,7 @@ namespace ShiggyMod.Modules.Survivors
                 weatherReportIndicatorInstance.SetActive(false);
                 EntityState.Destroy(weatherReportIndicatorInstance.gameObject);
             }
-            if (mushroomWard) EntityState.Destroy (mushroomWard.gameObject);
+            if (mushroomWard) EntityState.Destroy(mushroomWard.gameObject);
             if (magmawormWard) EntityState.Destroy(magmawormWard);
 
         }
@@ -1201,7 +1194,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     hyperRegenerationTimer += Time.fixedDeltaTime;
                 }
-                else if(hyperRegenerationTimer >= Config.HyperRegenerationInterval.Value)
+                else if (hyperRegenerationTimer >= Config.HyperRegenerationInterval.Value)
                 {
                     hyperRegenerationTimer = 0f;
                     new HealNetworkRequest(characterBody.masterObjectId, Config.HyperRegenerationHealPercent.Value * characterBody.healthComponent.fullHealth).Send(NetworkDestination.Clients);
@@ -1213,7 +1206,7 @@ namespace ShiggyMod.Modules.Survivors
 
         public void FixedUpdate()
         {
-            if(characterBody != null)
+            if (characterBody != null)
             {
 
                 if (characterBody.hasEffectiveAuthority)
@@ -1242,53 +1235,53 @@ namespace ShiggyMod.Modules.Survivors
 
                 }
             }
-            
-
-
-		}
-
-		public void MagmawormFire()
-		{
-			Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
-			BullseyeSearch search = new BullseyeSearch
-			{
-
-				teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-				filterByLoS = false,
-				searchOrigin = characterBody.corePosition,
-				searchDirection = UnityEngine.Random.onUnitSphere,
-				sortMode = BullseyeSearch.SortMode.Distance,
-				maxDistanceFilter = StaticValues.magmawormRadius,
-				maxAngleFilter = 360f
-			};
-
-			search.RefreshCandidates();
-			search.FilterOutGameObject(characterBody.gameObject);
 
 
 
-			List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-			foreach (HurtBox singularTarget in target)
-			{
-				if (singularTarget.healthComponent)
-				{
-					if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-					{
-						InflictDotInfo info = new InflictDotInfo();
-						info.attackerObject = characterBody.gameObject;
-						info.victimObject = singularTarget.healthComponent.body.gameObject;
-						info.duration = Modules.StaticValues.magmawormDuration;
-						info.dotIndex = DotController.DotIndex.Burn;
-						info.totalDamage = characterBody.damage * Modules.StaticValues.magmawormCoefficient;
-						info.damageMultiplier = 1f;
+        }
 
-						RoR2.StrengthenBurnUtils.CheckDotForUpgrade(characterBody.inventory, ref info);
-						DotController.InflictDot(ref info);
-					}
-				}
-			}
+        public void MagmawormFire()
+        {
+            Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
+            BullseyeSearch search = new BullseyeSearch
+            {
 
-		}
+                teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                filterByLoS = false,
+                searchOrigin = characterBody.corePosition,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = StaticValues.magmawormRadius,
+                maxAngleFilter = 360f
+            };
+
+            search.RefreshCandidates();
+            search.FilterOutGameObject(characterBody.gameObject);
+
+
+
+            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+            foreach (HurtBox singularTarget in target)
+            {
+                if (singularTarget.healthComponent)
+                {
+                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                    {
+                        InflictDotInfo info = new InflictDotInfo();
+                        info.attackerObject = characterBody.gameObject;
+                        info.victimObject = singularTarget.healthComponent.body.gameObject;
+                        info.duration = Modules.StaticValues.magmawormDuration;
+                        info.dotIndex = DotController.DotIndex.Burn;
+                        info.totalDamage = characterBody.damage * Modules.StaticValues.magmawormCoefficient;
+                        info.damageMultiplier = 1f;
+
+                        RoR2.StrengthenBurnUtils.CheckDotForUpgrade(characterBody.inventory, ref info);
+                        DotController.InflictDot(ref info);
+                    }
+                }
+            }
+
+        }
 
 
         public void ApplyDoubleTimeDebuff()
@@ -1383,59 +1376,59 @@ namespace ShiggyMod.Modules.Survivors
         }
 
         public void VoidJailerPull()
-		{
-			BullseyeSearch search = new BullseyeSearch
-			{
+        {
+            BullseyeSearch search = new BullseyeSearch
+            {
 
-				teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-				filterByLoS = false,
-				searchOrigin = characterBody.corePosition,
-				searchDirection = UnityEngine.Random.onUnitSphere,
-				sortMode = BullseyeSearch.SortMode.Distance,
-				maxDistanceFilter = StaticValues.voidjailermaxpullDistance,
-				maxAngleFilter = 360f
-			};
+                teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                filterByLoS = false,
+                searchOrigin = characterBody.corePosition,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = StaticValues.voidjailermaxpullDistance,
+                maxAngleFilter = 360f
+            };
 
-			search.RefreshCandidates();
-			search.FilterOutGameObject(characterBody.gameObject);
+            search.RefreshCandidates();
+            search.FilterOutGameObject(characterBody.gameObject);
 
 
 
-			List<HurtBox> target = search.GetResults().ToList<HurtBox>();
-			foreach (HurtBox singularTarget in target)
-			{
-				if (singularTarget)
-				{
-					Vector3 a = singularTarget.transform.position - characterBody.corePosition;
-					float magnitude = a.magnitude;
-					Vector3 vector = a / magnitude;
-					if (singularTarget.healthComponent && singularTarget.healthComponent.body)
-					{
-						float Weight = 1f;
-						if (singularTarget.healthComponent.body.characterMotor)
-						{
-							Weight = singularTarget.healthComponent.body.characterMotor.mass;
-						}
-						else if (singularTarget.healthComponent.body.rigidbody)
-						{
-							Weight = singularTarget.healthComponent.body.rigidbody.mass;
-						}
-						Vector3 a2 = vector;
-						float d = Trajectory.CalculateInitialYSpeedForHeight(Mathf.Abs(StaticValues.voidjailerminpullDistance - magnitude)) * Mathf.Sign(StaticValues.voidjailerminpullDistance - magnitude);
-						a2 *= d;
-						a2.y = StaticValues.voidjailerpullLiftVelocity;
-						DamageInfo damageInfo = new DamageInfo
-						{
-							attacker = base.gameObject,
-							damage = characterBody.damage * Modules.StaticValues.voidjailerDamageCoefficient,
-							position = singularTarget.transform.position,
-							procCoefficient = 0.5f,
-							damageType = new DamageTypeCombo(DamageType.SlowOnHit, DamageTypeExtended.Generic, DamageSource.Secondary),
+            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+            foreach (HurtBox singularTarget in target)
+            {
+                if (singularTarget)
+                {
+                    Vector3 a = singularTarget.transform.position - characterBody.corePosition;
+                    float magnitude = a.magnitude;
+                    Vector3 vector = a / magnitude;
+                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                    {
+                        float Weight = 1f;
+                        if (singularTarget.healthComponent.body.characterMotor)
+                        {
+                            Weight = singularTarget.healthComponent.body.characterMotor.mass;
+                        }
+                        else if (singularTarget.healthComponent.body.rigidbody)
+                        {
+                            Weight = singularTarget.healthComponent.body.rigidbody.mass;
+                        }
+                        Vector3 a2 = vector;
+                        float d = Trajectory.CalculateInitialYSpeedForHeight(Mathf.Abs(StaticValues.voidjailerminpullDistance - magnitude)) * Mathf.Sign(StaticValues.voidjailerminpullDistance - magnitude);
+                        a2 *= d;
+                        a2.y = StaticValues.voidjailerpullLiftVelocity;
+                        DamageInfo damageInfo = new DamageInfo
+                        {
+                            attacker = base.gameObject,
+                            damage = characterBody.damage * Modules.StaticValues.voidjailerDamageCoefficient,
+                            position = singularTarget.transform.position,
+                            procCoefficient = 0.5f,
+                            damageType = new DamageTypeCombo(DamageType.SlowOnHit, DamageTypeExtended.Generic, DamageSource.Secondary),
 
-						};
-						singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);
-						singularTarget.healthComponent.TakeDamage(damageInfo);
-						GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
+                        };
+                        singularTarget.healthComponent.TakeDamageForce(a2 * (Weight / 2), true, true);
+                        singularTarget.healthComponent.TakeDamage(damageInfo);
+                        GlobalEventManager.instance.OnHitEnemy(damageInfo, singularTarget.healthComponent.gameObject);
 
 
                         EffectManager.SpawnEffect(Modules.ShiggyAsset.voidjailerEffect, new EffectData
@@ -1445,24 +1438,24 @@ namespace ShiggyMod.Modules.Survivors
 
                         }, true);
 
-						Vector3 position = singularTarget.transform.position;
-						Vector3 start = characterBody.corePosition;
-						Transform transform = characterBody.transform;
-						if (transform)
-						{
-							start = transform.position;
-						}
-						EffectData effectData = new EffectData
-						{
-							origin = position,
-							start = start
-						};
-						EffectManager.SpawnEffect(Modules.ShiggyAsset.voidjailermuzzleEffect, effectData, true);
-						
-					}
-				}
-			}
-		}
+                        Vector3 position = singularTarget.transform.position;
+                        Vector3 start = characterBody.corePosition;
+                        Transform transform = characterBody.transform;
+                        if (transform)
+                        {
+                            start = transform.position;
+                        }
+                        EffectData effectData = new EffectData
+                        {
+                            origin = position,
+                            start = start
+                        };
+                        EffectManager.SpawnEffect(Modules.ShiggyAsset.voidjailermuzzleEffect, effectData, true);
+
+                    }
+                }
+            }
+        }
 
         public void Update()
         {
@@ -1470,8 +1463,8 @@ namespace ShiggyMod.Modules.Survivors
             UpdateIndicator();
 
         }
-        
-     
+
+
 
         public void UpdateIndicator()
         {
@@ -1493,20 +1486,20 @@ namespace ShiggyMod.Modules.Survivors
                 this.mortarIndicatorInstance.transform.parent = characterBody.transform;
                 this.mortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.mortarRadius * (characterBody.armor / characterBody.baseArmor);
                 //this.mortarIndicatorInstance.transform.localPosition = Vector3.zero;
-			}
-			if (this.voidmortarIndicatorInstance)
+            }
+            if (this.voidmortarIndicatorInstance)
             {
                 this.voidmortarIndicatorInstance.transform.parent = characterBody.transform;
                 this.voidmortarIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.voidmortarRadius * (characterBody.attackSpeed);
                 //this.voidmortarIndicatorInstance.transform.localPosition = Vector3.zero;
-			}
-            if(this.doubleTimeIndicatorInstance)
+            }
+            if (this.doubleTimeIndicatorInstance)
             {
                 this.doubleTimeIndicatorInstance.transform.parent = characterBody.transform;
                 this.doubleTimeIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.doubleTimeRadius;
                 //this.doubleTimeIndicatorInstance.transform.localPosition = Vector3.zero;
             }
-            if(this.auraOfBlightIndicatorInstance)
+            if (this.auraOfBlightIndicatorInstance)
             {
                 this.auraOfBlightIndicatorInstance.transform.parent = characterBody.transform;
                 this.auraOfBlightIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.auraOfBlightBuffRadius;
@@ -1535,7 +1528,7 @@ namespace ShiggyMod.Modules.Survivors
         {
             if (ShiggyAsset.auraOfBlightIndicator)
             {
-                this.auraOfBlightIndicatorInstance= Object.Instantiate<GameObject>(ShiggyAsset.auraOfBlightIndicator);
+                this.auraOfBlightIndicatorInstance = Object.Instantiate<GameObject>(ShiggyAsset.auraOfBlightIndicator);
                 this.auraOfBlightIndicatorInstance.SetActive(true);
 
                 this.auraOfBlightIndicatorInstance.transform.parent = characterBody.transform;
@@ -1577,8 +1570,8 @@ namespace ShiggyMod.Modules.Survivors
         }
         //hermit crab mortar
         public void CreateMortarIndicator()
-		{
-			if (ShiggyAsset.hermitCrabMortarIndicator)
+        {
+            if (ShiggyAsset.hermitCrabMortarIndicator)
             {
                 this.mortarIndicatorInstance = Object.Instantiate<GameObject>(ShiggyAsset.hermitCrabMortarIndicator);
                 this.mortarIndicatorInstance.SetActive(true);
@@ -1588,11 +1581,11 @@ namespace ShiggyMod.Modules.Survivors
                 this.mortarIndicatorInstance.transform.localPosition = Vector3.zero;
 
             }
-		}
+        }
         //void barnacle mortar	
         public void CreateVoidMortarIndicator()
-		{
-			if (ShiggyAsset.voidBarnacleMortarIndicator)
+        {
+            if (ShiggyAsset.voidBarnacleMortarIndicator)
             {
                 this.voidmortarIndicatorInstance = Object.Instantiate<GameObject>(ShiggyAsset.voidBarnacleMortarIndicator);
                 this.voidmortarIndicatorInstance.SetActive(true);
@@ -1602,7 +1595,7 @@ namespace ShiggyMod.Modules.Survivors
                 this.voidmortarIndicatorInstance.transform.localPosition = Vector3.zero;
 
             }
-		}
+        }
 
         //code for both mortars
         public void FireMortar()
@@ -1631,7 +1624,7 @@ namespace ShiggyMod.Modules.Survivors
 
             }, true);
 
-        
+
 
             //BullseyeSearch search = new BullseyeSearch
             //{
@@ -1678,7 +1671,7 @@ namespace ShiggyMod.Modules.Survivors
 
             //    //}, true);
             //}
-            
+
         }
 
         //     MortarOrb mortarOrb = new MortarOrb
@@ -1709,42 +1702,42 @@ namespace ShiggyMod.Modules.Survivors
 
         //overloading orb
         public void OverloadingFire()
-		{
-			Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
-			BullseyeSearch search = new BullseyeSearch
-			{
+        {
+            Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
+            BullseyeSearch search = new BullseyeSearch
+            {
 
-				teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
-				filterByLoS = false,
-				searchOrigin = characterBody.corePosition,
-				searchDirection = UnityEngine.Random.onUnitSphere,
-				sortMode = BullseyeSearch.SortMode.Distance,
-				maxDistanceFilter = StaticValues.overloadingRadius,
-				maxAngleFilter = 360f
-			};
+                teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                filterByLoS = false,
+                searchOrigin = characterBody.corePosition,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = StaticValues.overloadingRadius,
+                maxAngleFilter = 360f
+            };
 
-			search.RefreshCandidates();
-			search.FilterOutGameObject(characterBody.gameObject);
+            search.RefreshCandidates();
+            search.FilterOutGameObject(characterBody.gameObject);
 
-			HurtBox target = this.search.GetResults().FirstOrDefault<HurtBox>();
-			ProcChainMask procChainMask1 = default(ProcChainMask);
-			procChainMask1.AddProc(ProcType.LightningStrikeOnHit);
+            HurtBox target = this.search.GetResults().FirstOrDefault<HurtBox>();
+            ProcChainMask procChainMask1 = default(ProcChainMask);
+            procChainMask1.AddProc(ProcType.LightningStrikeOnHit);
 
-			OrbManager.instance.AddOrb(new SimpleLightningStrikeOrb
-			{
-				attacker = characterBody.gameObject,
-				damageColorIndex = DamageColorIndex.Item,
-				damageValue = characterBody.damage * Modules.StaticValues.overloadingCoefficient,
-				origin = characterBody.corePosition,
-				procChainMask = procChainMask1,
-				procCoefficient = 1f,
-				isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
-				teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
-				target = target,
+            OrbManager.instance.AddOrb(new SimpleLightningStrikeOrb
+            {
+                attacker = characterBody.gameObject,
+                damageColorIndex = DamageColorIndex.Item,
+                damageValue = characterBody.damage * Modules.StaticValues.overloadingCoefficient,
+                origin = characterBody.corePosition,
+                procChainMask = procChainMask1,
+                procCoefficient = 1f,
+                isCrit = Util.CheckRoll(characterBody.crit, characterBody.master),
+                teamIndex = characterBody.GetComponent<TeamComponent>()?.teamIndex ?? TeamIndex.Neutral,
+                target = target,
 
-			});
+            });
 
-		}
+        }
 
         //drop equipment elite
         public void dropEquipment(EquipmentDef def)

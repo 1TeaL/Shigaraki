@@ -1,11 +1,5 @@
-﻿using IL.RoR2;
-using IL.RoR2.Skills;
-using On.RoR2.Skills;
-using RoR2;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ShiggyMod.Modules
 {
@@ -24,16 +18,16 @@ namespace ShiggyMod.Modules
         internal static float backupGain = 10f;
         internal static float afterburnerGain = 30f;
         internal static float lysateGain = 15f;
-        internal const float airwalkEnergyFraction = 0.05f;
+        internal const float airwalkEnergyCost = 5f;
         //internal const float airwalkThreshold = 10f;
         internal const float AFOEnergyCost = 0.5f;
 
         internal const float maxTrackingDistance = 70f;
 
-        internal const float quirkOverdriveDuration = 4f;
+        internal const int quirkOverdriveDuration = 4;
 
         internal const float universalDuration = 1f;
-        internal const float universalFiretime = 11/30f;
+        internal const float universalFiretime = 11 / 30f;
 
         internal const float vulturePushRange = 70f;
         internal const float vulturePushAngle = 180f;
@@ -48,8 +42,8 @@ namespace ShiggyMod.Modules
         internal const int chefOilBurstStacks = 6;
         internal const float chefOilDamageCoefficient = 2.5f;
 
-        internal const float drifterSalvagePlusChaosSpend = 80f;
-        internal const int drifterSalvageItems = 4;
+        internal const float drifterSalvagePlusChaosSpend = 20f;
+        internal const int drifterSalvageItems = 10;
 
         internal const float commandoProcCoefficient = 1f;
         internal const float commandoDamageMultiplier = 0.1f;
@@ -98,7 +92,7 @@ namespace ShiggyMod.Modules
         //internal const float lunarexploderRadius = 2.5f;
         //internal const float lunarexploderDamageCoefficient = 1f;
 
-        internal const float larvaForce= 400f;
+        internal const float larvaForce = 400f;
         internal const float larvaRadius = 5f;
         internal const float larvaDamageCoefficient = 1f;
         internal const float larvaProcCoefficient = 1f;
@@ -136,6 +130,7 @@ namespace ShiggyMod.Modules
 
 
 
+        internal const float decaydebuffCoefficient = 0.04f;
         internal const float decayspreadRadius = 10f;
         internal const float decayadditionalTimer = 6f;
         internal const float decayDamageCoefficient = 1f;
@@ -217,12 +212,16 @@ namespace ShiggyMod.Modules
         internal const float parentDamageCoefficient = 6f;
         internal const float parentProcCoefficient = 1f;
 
-        internal const float solusAmalgamatorEquipmentBoostCDReduction= 0.5f;
+        internal const float solusAmalgamatorEquipmentBoostCDReduction = 0.5f;
 
         internal const float solusFactorUnleashedEnergyPerStack = 10f;
         internal const float solusFactorUnleashedBlastRadius = 8f;
 
         internal const float solusPrimedDamageMult = 0.1f;
+
+        internal const float scorchWormLavaBombDamageCoefficient = 2f;
+
+        internal const int solusDistributorNumberOfMines = 6;
 
         internal const float solusExtractorLungeCooldownReduction = 1f;
         internal const float solusExtractorLungeDamageCoefficient = 2f;
@@ -324,7 +323,7 @@ namespace ShiggyMod.Modules
 
         internal const int bigbangBuffThreshold = 5;
         internal const float bigbangBuffCoefficient = 10f;
-        internal const float bigbangBuffRadius= 20f;
+        internal const float bigbangBuffRadius = 20f;
 
         internal const float wisperBuffDamageCoefficient = 2f;
 
@@ -511,7 +510,7 @@ namespace ShiggyMod.Modules
         internal static float finalReleaseEnergyCost = 10f;
         internal static float finalReleaseTapSpeed = 0.5f;
         internal static float finalReleaseThreshold = 1f;
-        internal static float finalReleaseDamageCoefficient= 1f;
+        internal static float finalReleaseDamageCoefficient = 1f;
         internal static float finalReleaseProcCoefficient = 0.2f;
         internal static float finalReleaseDamagePerStackCoefficient = 1f;
         internal static float finalReleaseForceCoefficient = 200f;
@@ -539,7 +538,7 @@ namespace ShiggyMod.Modules
         internal static float blastingZoneInterval = 0.1f;
         internal static int blastingZoneTotalHits = 6;
         internal static float blastingZoneDebuffInterval = 1f;
-        internal static float blastingZoneRadius= 10f;
+        internal static float blastingZoneRadius = 10f;
 
         internal static float wildcardRangeGlobal = 500f;
         internal static int wildcardDuration = 15;
@@ -555,7 +554,7 @@ namespace ShiggyMod.Modules
         internal static float lightAndDarknessRange = 20f;
         internal static float lightAndDarknessRangeAddition = 2f;
         internal static float lightAndDarknessBonusDamage = 0.2f;
-        
+
 
         public enum IndicatorType : uint
         {
@@ -1042,7 +1041,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.stonegolemlaserDef.skillName, Survivors.Shiggy.bulletlaserDef},
             };
 
-            
+
             passiveToBuff = new Dictionary<string, RoR2.BuffDef>
             {
                 { Survivors.Shiggy.alphaconstructpassiveDef.skillName, Buffs.alphashieldonBuff },
@@ -1261,7 +1260,7 @@ namespace ShiggyMod.Modules
                 { "MercBody", Survivors.Shiggy.mercdashDef },
                 { "ToolbotBody", Survivors.Shiggy.multbuffDef },
                 { "TreebotBody", Survivors.Shiggy.rexmortarDef },
-                { "RailgunnerBody", Survivors.Shiggy.railgunnercryoDef }, 
+                { "RailgunnerBody", Survivors.Shiggy.railgunnercryoDef },
                 { "VoidSurvivorBody", Survivors.Shiggy.voidfiendcleanseDef },
 
 
@@ -1452,7 +1451,7 @@ namespace ShiggyMod.Modules
                 { "RailgunnerBody", IndicatorType.ACTIVE },
                 { "VoidSurvivorBody", IndicatorType.ACTIVE },
 
-                { "DekuBody", IndicatorType.ACTIVE },   
+                { "DekuBody", IndicatorType.ACTIVE },
                 { "ShopkeeperBody", IndicatorType.ACTIVE },
             };
         }

@@ -3,7 +3,6 @@ using R2API.Networking;
 using R2API.Networking.Interfaces;
 using RoR2;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -96,7 +95,7 @@ namespace ShiggyMod.Modules.Networking
 
                 int buffcount = enemycharBody.GetBuffCount(Modules.Buffs.extremeSpeedHitsDebuff.buffIndex);
 
-                enemycharBody.ApplyBuff(Modules.Buffs.extremeSpeedHitsDebuff.buffIndex, buffcount-1);
+                enemycharBody.ApplyBuff(Modules.Buffs.extremeSpeedHitsDebuff.buffIndex, buffcount - 1);
 
                 DamageInfo damageInfo = new DamageInfo
                 {
@@ -115,7 +114,7 @@ namespace ShiggyMod.Modules.Networking
                 enemycharBody.healthComponent.TakeDamage(damageInfo);
                 GlobalEventManager.instance.OnHitEnemy(damageInfo, enemycharBody.healthComponent.gameObject);
 
-                
+
 
                 EffectManager.SpawnEffect(blastEffectPrefab, new EffectData
                 {
@@ -125,7 +124,7 @@ namespace ShiggyMod.Modules.Networking
 
                 }, true);
             }
-        }      
+        }
 
     }
 }

@@ -1,17 +1,11 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
+﻿using EntityStates;
 using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
-using ShiggyMod.Modules.Networking;
 using RoR2.Audio;
-using R2API.Networking.Interfaces;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -20,7 +14,7 @@ namespace ShiggyMod.SkillStates
         //Xi construct + Clay apothecary
 
         private float totalHits;
-        
+
 
         private string muzzleString;
 
@@ -35,9 +29,9 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             this.duration = this.baseDuration / this.attackSpeedStat;
             totalHits = StaticValues.genesisNumberOfAttacks * attackSpeedStat;
-            if(totalHits < StaticValues.genesisNumberOfAttacks)
+            if (totalHits < StaticValues.genesisNumberOfAttacks)
             {
-                totalHits = StaticValues.genesisNumberOfAttacks;   
+                totalHits = StaticValues.genesisNumberOfAttacks;
             }
             Ray aimRay = base.GetAimRay();
             base.characterBody.SetAimTimer(this.duration);
@@ -122,7 +116,7 @@ namespace ShiggyMod.SkillStates
                 }
 
             }
-           
+
         }
 
         public override void FixedUpdate()

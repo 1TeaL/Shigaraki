@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using R2API.Networking.Interfaces;
 using RoR2;
-using R2API.Networking.Interfaces;
 using UnityEngine;
 using UnityEngine.Networking;
-using ShiggyMod.SkillStates;
 
 namespace ShiggyMod.Modules.Networking
 {

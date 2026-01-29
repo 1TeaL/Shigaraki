@@ -1,16 +1,10 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
-using System;
-using static UnityEngine.UI.Image;
+﻿using EntityStates;
 using R2API;
+using R2API.Networking;
+using RoR2;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -33,7 +27,7 @@ namespace ShiggyMod.SkillStates
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "FullBodyMugetsu", "Attack.playbackRate", duration, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            
+
             AkSoundEngine.PostEvent("ShiggyBankaiMugetsu", base.gameObject);
 
             //animation to last as long as duration before damage
@@ -44,7 +38,7 @@ namespace ShiggyMod.SkillStates
             base.FixedUpdate();
 
             //do mugetsu if no energy- need to put this in the skill as well
-            if(base.fixedAge > fireTime)
+            if (base.fixedAge > fireTime)
             {
                 if (finalReleaseMugetsuTimer >= 0f)
                 {
@@ -157,12 +151,12 @@ namespace ShiggyMod.SkillStates
                 }
 
             }
-            if(base.fixedAge > duration)
+            if (base.fixedAge > duration)
             {
                 this.outer.SetNextStateToMain();
                 return;
             }
-            
+
         }
 
         public override void OnExit()

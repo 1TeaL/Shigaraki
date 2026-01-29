@@ -1,17 +1,10 @@
-﻿using ShiggyMod.Modules.Survivors;
-using EntityStates;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using ShiggyMod.Modules;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using ExtraSkillSlots;
-using R2API.Networking;
-using System;
-using static UnityEngine.UI.Image;
-using ShiggyMod.Modules.Networking;
+﻿using R2API.Networking;
 using R2API.Networking.Interfaces;
+using RoR2;
+using ShiggyMod.Modules;
+using ShiggyMod.Modules.Networking;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -32,9 +25,9 @@ namespace ShiggyMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
-            energySystem = base.gameObject.GetComponent<EnergySystem>(); 
+            energySystem = base.gameObject.GetComponent<EnergySystem>();
             //check minimum energy requirement so we don't get back to back mugetsu. 
-            if(energySystem.currentplusChaos < StaticValues.finalReleaseInitialEnergyRequirement)
+            if (energySystem.currentplusChaos < StaticValues.finalReleaseInitialEnergyRequirement)
             {
                 if (characterBody.HasBuff(Buffs.finalReleaseBuff.buffIndex))
                 {
@@ -60,7 +53,7 @@ namespace ShiggyMod.SkillStates
                 {
                     base.PlayAnimation("FullBody, Override", "FullBodyBankai", "Attack.playbackRate", duration);
                     characterBody.ApplyBuff(Buffs.finalReleaseBuff.buffIndex, 1);
-                    if(base.isAuthority)
+                    if (base.isAuthority)
                     {
                         shiggyCon.PlayFinalReleaseLoop();
                     }
@@ -91,7 +84,7 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if(base.fixedAge> duration)
+            if (base.fixedAge > duration)
             {
                 this.outer.SetNextStateToMain();
                 return;

@@ -2,14 +2,12 @@
 using BepInEx.Bootstrap;
 using EmotesAPI;
 using EntityStates;
-using EntityStates.JellyfishMonster;
 using EntityStates.VagrantMonster;
 using R2API;
 using R2API.Networking;
 using R2API.Networking.Interfaces;
 using R2API.Utils;
 using RoR2;
-using RoR2.Items;
 using RoR2.Navigation;
 using RoR2.Orbs;
 using RoR2.Projectile;
@@ -20,19 +18,13 @@ using ShiggyMod.Modules.Networking;
 using ShiggyMod.Modules.Quirks;
 //using ShiggyMod.Modules.Networking;
 using ShiggyMod.Modules.Survivors;
-using ShiggyMod.Modules.UI;
 using ShiggyMod.SkillStates;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
-using UnityEngine.UIElements;
-using static ShiggyMod.Modules.Quirks.QuirkRegistry;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -77,7 +69,7 @@ namespace ShiggyMod
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
 
-    
+
     public class ShiggyPlugin : BaseUnityPlugin
     {
         // if you don't change these you're giving permission to deprecate the mod-
@@ -88,7 +80,7 @@ namespace ShiggyMod
 
         public ShiggyController Shiggycon;
         public ShiggyMasterController Shiggymastercon;
-        
+
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
         public const string MODVERSION = "3.0.0";
@@ -108,7 +100,7 @@ namespace ShiggyMod
         //public static Dictionary<ItemBase, bool> ItemStatusDictionary = new Dictionary<ItemBase, bool>();
         //public static Dictionary<EquipmentBase, bool> EquipmentStatusDictionary = new Dictionary<EquipmentBase, bool>();
         private BlastAttack blastAttack;
-        
+
 
         private void Awake()
         {
@@ -131,9 +123,9 @@ namespace ShiggyMod
             Modules.Tokens.AddTokens(); // register name tokens
             Modules.ItemDisplays.PopulateDisplays(); // collect item display prefabs for use in our display rules
 
-
             // IMPORTANT: do this BEFORE creating SkillDefs, because SkillDef creation calls QuirkIconBank.Get(...)
             Modules.Quirks.QuirkIconBank.RegisterFromRegistryData();
+            QuirkSeeding.Init();
 
             // Create survivor SkillDefs (and anything else that calls QuirkIconBank.Get)
             new Shiggy().Initialize();
@@ -164,10 +156,19 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<ExpungeNetworkRequest>();
 
             NetworkingAPI.RegisterMessageType<ApexResetSlotRequest>();
+            NetworkingAPI.RegisterMessageType<ApexOverdriveNotifyMessage>();
+            NetworkingAPI.RegisterMessageType<ApexSyncAdaptationMessage>();
             NetworkingAPI.RegisterMessageType<EquipLoadoutRequest>();
+            NetworkingAPI.RegisterMessageType<EquipLoadoutResult>();
             NetworkingAPI.RegisterMessageType<GivePassiveRequest>();
             NetworkingAPI.RegisterMessageType<ForceQuirkOverdriveState>();
             NetworkingAPI.RegisterMessageType<SetAFOStealStateMachine>();
+            NetworkingAPI.RegisterMessageType<StealQuirkRequest>();
+            NetworkingAPI.RegisterMessageType<StealQuirkResult>();
+            NetworkingAPI.RegisterMessageType<AFOStealVfxRequest>();
+            NetworkingAPI.RegisterMessageType<GivePassiveQuirkRequest>();
+            NetworkingAPI.RegisterMessageType<GivePassiveQuirkResult>();
+            NetworkingAPI.RegisterMessageType<QuirkInventoryAddRequest>();
 
 
 
@@ -175,7 +176,7 @@ namespace ShiggyMod
             new Modules.ContentPacks().Initialize();
 
             RoR2.ContentManagement.ContentManager.onContentPacksAssigned += LateSetup;
-            
+
             Hook();
 
         }
@@ -203,8 +204,7 @@ namespace ShiggyMod
             On.RoR2.CharacterBody.OnDeathStart += CharacterBody_OnDeathStart;
             On.RoR2.CharacterModel.Awake += CharacterModel_Awake;
             On.RoR2.CharacterModel.Start += CharacterModel_Start;
-            RoR2.Run.onRunStartGlobal += Run_onRunStartGlobal;
-            RoR2.Run.onRunDestroyGlobal += Run_onRunDestroyGlobal;
+            On.RoR2.CharacterMaster.Start += CharacterMaster_Start;
             //On.RoR2.CharacterBody.Start += CharacterBody_Start;
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
@@ -222,12 +222,22 @@ namespace ShiggyMod
             On.RoR2.BlastAttack.Fire += BlastAttack_Fire;
             CharacterBody.onBodyStartGlobal += CharacterBody_onBodyStartGlobal;
 
-           
+
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
             {
                 On.RoR2.SurvivorCatalog.Init += SurvivorCatalog_Init;
             }
+        }
+
+        private void CharacterMaster_Start(On.RoR2.CharacterMaster.orig_Start orig, CharacterMaster self)
+        {
+
+            if (!self || !self.bodyPrefab) return;
+            if (self.bodyPrefab != BodyCatalog.FindBodyPrefab("ShiggyBody")) return;
+
+            if (!self.GetComponent<ShiggyMasterController>())
+                self.gameObject.AddComponent<ShiggyMasterController>();
         }
 
         //make sure quirk passives are added 
@@ -240,8 +250,8 @@ namespace ShiggyMod
             if (obj.bodyIndex != BodyCatalog.FindBodyIndex("ShiggyBody")) return;
 
             QuirkPassiveSync.SyncFromEquippedSkillsServer(obj);
-        } 
-        
+        }
+
 
         private static bool IsVanillaAffix(BuffDef buff)
         {
@@ -258,15 +268,6 @@ namespace ShiggyMod
                 || buff == DLC2Content.Buffs.EliteBead;
         }
 
-        private void Run_onRunStartGlobal(Run obj)
-        {
-            QuirkInventory.SeedStartingQuirksFromConfig();
-        }
-        private void Run_onRunDestroyGlobal(Run obj)
-        {
-            QuirkInventory.ResetSeedFlagForNextRun();
-            QuirkInventory.Clear(); // optional: wipe at run end
-        }
 
         private BlastAttack.Result BlastAttack_Fire(On.RoR2.BlastAttack.orig_Fire orig, BlastAttack self)
         {
@@ -433,7 +434,7 @@ namespace ShiggyMod
                         origin = self.target.transform.position,
                         scale = StaticValues.blackholeGlaiveBlastRange
                     }, true);
-                    
+
 
                 }
             }
@@ -492,7 +493,7 @@ namespace ShiggyMod
                     //fly buff
                     if (sender.HasBuff(Buffs.airwalkBuff))
                     {
-                        sender.acceleration *= 2f;                        
+                        sender.acceleration *= 2f;
                     }
                     //beetlebuff
                     if (sender.HasBuff(Buffs.beetleBuff))
@@ -613,7 +614,7 @@ namespace ShiggyMod
             bool hasProcChance = damageInfo.procCoefficient > 0f;
             bool positiveDmg = damageInfo.damage > 0f;
 
-            if(positiveDmg && isNonDot && hasProcChance)
+            if (positiveDmg && isNonDot && hasProcChance)
             {
                 if (attackerBody.HasBuff(Buffs.solusamalgamatorEquipmentBoostBuff))
                 {
@@ -665,7 +666,7 @@ namespace ShiggyMod
                         victimBody.ApplyBuff(Buffs.solusPrimedDebuff.buffIndex, stacks + 1);
                         // Unleashed extras- do a blast attack that ignites, and applies accelerant
 
-                        new BlastAttack
+                        BlastAttack.Result result = new BlastAttack
                         {
                             attacker = attackerBody.gameObject,
                             teamIndex = TeamComponent.GetObjectTeam(attackerBody.gameObject),
@@ -678,9 +679,20 @@ namespace ShiggyMod
                             procChainMask = damageInfo.procChainMask,
                             position = victimBody.transform.position,
                             radius = StaticValues.solusFactorUnleashedBlastRadius,
-                            procCoefficient = 0.1f,
+                            procCoefficient = 0f,
                             attackerFiltering = AttackerFiltering.NeverHitSelf,
                         }.Fire();
+
+                        if (result.hitCount > 0)
+                        {
+                            foreach (BlastAttack.HitPoint hitPoint in result.hitPoints)
+                            {
+                                if (hitPoint.hurtBox.healthComponent.body)
+                                {
+                                    hitPoint.hurtBox.healthComponent.body.ApplyBuff(Buffs.solusPrimedDebuff.buffIndex, stacks + 1);
+                                }
+                            }
+                        }
 
                         var effectPrefab = ShiggyAsset.solusFactorBlastEffectPrefab;
                         if (effectPrefab)
@@ -743,7 +755,7 @@ namespace ShiggyMod
                     Ray projectileRay = new Ray(attackerBody.aimOrigin, attackerBody.inputBank.aimDirection);
                     float x = UnityEngine.Random.Range(0f, attackerBody.spreadBloomAngle + EntityStates.Chef.Glaze.xDeviationSpread);
                     float z = UnityEngine.Random.Range(0f, 360f);
-                    
+
                     Vector3 up = Vector3.up;
                     Vector3 axis = Vector3.Cross(up, projectileRay.direction);
                     Vector3 vector = Quaternion.Euler(0f, 0f, z) * (Quaternion.Euler(x, 0f, 0f) * Vector3.forward);
@@ -887,7 +899,7 @@ namespace ShiggyMod
                         new EffectData { origin = victimBody.transform.position, scale = 1f }, false);
                 }
             }
-        
+
 
             // Big Bang stacking → nova
             if (attackerBody.HasBuff(Buffs.bigbangBuff) && positiveDmg && isNonDot && hasProcChance)
@@ -1042,7 +1054,7 @@ namespace ShiggyMod
         private void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
         {
             orig.Invoke(self, damageReport);
-            
+
 
             if (damageReport.attackerBody && damageReport.victimBody)
             {
@@ -1072,7 +1084,7 @@ namespace ShiggyMod
                     if (damageReport.damageInfo.damage > 0)
                     {
                         int omniBoostBuffStacksBuffCount = damageReport.attackerBody.GetBuffCount(Buffs.omniboostBuffStacks);
-                        damageReport.attackerBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, Mathf.RoundToInt(omniBoostBuffStacksBuffCount/2));
+                        damageReport.attackerBody.ApplyBuff(Buffs.omniboostBuffStacks.buffIndex, Mathf.RoundToInt(omniBoostBuffStacksBuffCount / 2));
                     }
                 }
 
@@ -1155,9 +1167,8 @@ namespace ShiggyMod
                     var energySys = damageInfo.attacker.GetComponent<EnergySystem>();
                     if (energySys)
                     {
-                        float flatCost = Mathf.Max(0f, StaticValues.multiplierEnergyCost - energySys.costflatplusChaos);
-                        float cost = Mathf.Max(0f, energySys.costmultiplierplusChaos * flatCost);
-                        if (energySys.currentplusChaos < cost)
+                        float cost = energySys.GetFinalPlusChaosCost(StaticValues.multiplierEnergyCost);
+                        if (!energySys.CanAffordPlusChaos(StaticValues.multiplierEnergyCost))
                         {
                             attackerBody.ApplyBuff(Buffs.multiplierBuff.buffIndex, 0);
                             energySys.TriggerGlow(0.3f, 0.3f, Color.black);
@@ -1373,7 +1384,7 @@ namespace ShiggyMod
 
                 }
 
-                if(validHitForBlocks && victimBody.HasBuff(Buffs.childBuff.buffIndex) && damageInfo.damage > self.combinedHealth && !victimBody.HasBuff(Buffs.childCDDebuff))
+                if (validHitForBlocks && victimBody.HasBuff(Buffs.childBuff.buffIndex) && damageInfo.damage > self.combinedHealth && !victimBody.HasBuff(Buffs.childCDDebuff))
                 {
                     damageInfo.rejected = true;
 
@@ -1451,22 +1462,15 @@ namespace ShiggyMod
                     bool positiveDmg = damageInfo.damage > 0f;
                     bool bypassSelf = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
 
-
-                    //apply primed debuff if you have the primed buff
-                    if (attackerBody.HasBuff(Buffs.solusPrimedBuff))
+                    if(hasProc && isNonDot)
                     {
-                        int stacks = victimBody.GetBuffCount(Buffs.solusPrimedDebuff);
-                        victimBody.ApplyBuff(Buffs.solusPrimedDebuff.buffIndex, stacks + 1);
-                    }
-                    // Prospector: any hit applies Primed
-                    if (attackerBody.HasBuff(Buffs.solusPrimedBuff) && positiveDmg && isNonDot && hasProc)
-                    {
-                        // Optional: ignore self hits
-                        if (attackerBody != victimBody)
+                        //apply primed debuff if you have the primed buff
+                        if (attackerBody.HasBuff(Buffs.solusPrimedBuff))
                         {
                             int stacks = victimBody.GetBuffCount(Buffs.solusPrimedDebuff);
                             victimBody.ApplyBuff(Buffs.solusPrimedDebuff.buffIndex, stacks + 1);
                         }
+
                     }
 
 
@@ -1577,6 +1581,7 @@ namespace ShiggyMod
                         DamageAPI.AddModdedDamageType(blast, Damage.shiggyDecay);
                         blast.Fire();
 
+
                         EffectManager.SpawnEffect(Modules.ShiggyAsset.GupSpikeEffect, new EffectData
                         {
                             origin = self.transform.position,
@@ -1634,8 +1639,8 @@ namespace ShiggyMod
                 if (self.HasBuff(Buffs.decayDebuff))
                 {
                     float decaybuffcount = self.GetBuffCount(Buffs.decayDebuff);
-                    self.attackSpeed *= Mathf.Pow(0.96f, decaybuffcount);
-                    self.moveSpeed *= Mathf.Pow(0.96f, decaybuffcount);
+                    self.attackSpeed *= Mathf.Pow(1f-StaticValues.decaydebuffCoefficient, decaybuffcount);
+                    self.moveSpeed *= Mathf.Pow(1f - StaticValues.decaydebuffCoefficient, decaybuffcount);
                     if (decaybuffcount >= Modules.StaticValues.decayInstaKillThreshold)
                     {
                         if (NetworkServer.active && self.healthComponent)
@@ -1667,7 +1672,7 @@ namespace ShiggyMod
 
 
             }
-            
+
 
         }
 
@@ -1726,9 +1731,9 @@ namespace ShiggyMod
                 }
                 else
                 {
-                    if (Modules.Config.allowVoice.Value) 
-                    { 
-                        AkSoundEngine.PostEvent(1896314350, self.gameObject); 
+                    if (Modules.Config.allowVoice.Value)
+                    {
+                        AkSoundEngine.PostEvent(1896314350, self.gameObject);
                     }
                 }
             }
@@ -1748,7 +1753,7 @@ namespace ShiggyMod
                     this.OverlayFunction(Modules.ShiggyAsset.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.voidFormBuff), self);
                     this.OverlayFunction(Modules.ShiggyAsset.voidFormBuffMat, self.body.HasBuff(Modules.Buffs.decayDebuff), self);
                     this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.deathAuraBuff), self);
-                    this.OverlayFunction(Modules.ShiggyAsset.deathAuraBuffMat, self.body.HasBuff(Modules.Buffs.deathAuraDebuff), self); 
+                    this.OverlayFunction(Modules.ShiggyAsset.deathAuraBuffMat, self.body.HasBuff(Modules.Buffs.deathAuraDebuff), self);
                     this.OverlayFunction(EntityStates.ImpMonster.BlinkState.destealthMaterial, self.body.HasBuff(Modules.Buffs.darknessFormBuff), self);
                     this.OverlayFunction(Modules.ShiggyAsset.lightFormBuffMat, self.body.HasBuff(Modules.Buffs.lightFormBuff), self);
                     this.OverlayFunction(Modules.ShiggyAsset.lightAndDarknessMat, self.body.HasBuff(Modules.Buffs.lightAndDarknessFormBuff), self);

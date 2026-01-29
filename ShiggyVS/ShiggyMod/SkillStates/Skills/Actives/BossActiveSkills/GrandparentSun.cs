@@ -1,12 +1,10 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using EntityStates.GrandParent;
-using RoR2.Navigation;
+using RoR2;
 using ShiggyMod.Modules;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -65,7 +63,7 @@ namespace ShiggyMod.SkillStates
                 }
 
             }
-            if(sunInstance)
+            if (sunInstance)
             {
                 float plusChaosflatCost = (StaticValues.grandparentSunEnergyCost) - (energySystem.costflatplusChaos);
                 if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
@@ -130,7 +128,7 @@ namespace ShiggyMod.SkillStates
                     return;
                 }
             }
-            if(sunInstance)
+            if (sunInstance)
             {
                 if (timer < duration)
                 {
@@ -146,7 +144,7 @@ namespace ShiggyMod.SkillStates
                     float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
                     if (plusChaosCost < 0f) plusChaosCost = 0f;
 
-                    if(energySystem.currentplusChaos < plusChaosCost)
+                    if (energySystem.currentplusChaos < plusChaosCost)
                     {
                         energySystem.TriggerGlow(0.3f, 0.3f, Color.black);
                         this.outer.SetNextStateToMain();
@@ -160,7 +158,7 @@ namespace ShiggyMod.SkillStates
 
             }
         }
-        
+
 
 
 

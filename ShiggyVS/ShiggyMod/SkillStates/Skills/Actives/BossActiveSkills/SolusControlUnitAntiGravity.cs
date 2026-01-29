@@ -2,7 +2,6 @@
 using EntityStates.RoboBallBoss.Weapon;
 using RoR2;
 using RoR2.Projectile;
-using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,41 +39,41 @@ namespace ShiggyMod.SkillStates
             }
 
             EffectManager.SimpleMuzzleFlash(FireDelayKnockup.muzzleEffectPrefab, base.gameObject, "Chest", false);
-			
-			if (NetworkServer.active)
-			{
-				BullseyeSearch bullseyeSearch = new BullseyeSearch();
-				bullseyeSearch.teamMaskFilter = TeamMask.allButNeutral;
-				if (base.teamComponent)
-				{
-					bullseyeSearch.teamMaskFilter.RemoveTeam(base.teamComponent.teamIndex);
-				}
-				bullseyeSearch.maxDistanceFilter = radius;
-				bullseyeSearch.maxAngleFilter = 360f;
-				bullseyeSearch.searchOrigin = aimRay.origin;
-				bullseyeSearch.searchDirection = aimRay.direction;
-				bullseyeSearch.filterByLoS = false;
-				bullseyeSearch.sortMode = BullseyeSearch.SortMode.Angle;
-				bullseyeSearch.RefreshCandidates();
-				List<HurtBox> list = bullseyeSearch.GetResults().ToList<HurtBox>();
-				int num = 0;
-				for (int i = 0; i < this.knockupCount; i++)
-				{
-					if (num >= list.Count)
-					{
-						num = 0;
-					}
-					HurtBox hurtBox = list[num];
-					if (hurtBox)
-					{
-						Vector2 vector = UnityEngine.Random.insideUnitCircle * this.randomPositionRadius;
-						Vector3 vector2 = hurtBox.transform.position + new Vector3(vector.x, 0f, vector.y);
-						RaycastHit raycastHit;
-						if (Physics.Raycast(new Ray(vector2 + Vector3.up * 1f, Vector3.down), out raycastHit, 200f, LayerIndex.world.mask, QueryTriggerInteraction.Ignore))
-						{
-							vector2 = raycastHit.point;
-						}
-						//ProjectileManager.instance.FireProjectile(FireDelayKnockup.projectilePrefab, vector2, Quaternion.identity, base.gameObject, this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
+
+            if (NetworkServer.active)
+            {
+                BullseyeSearch bullseyeSearch = new BullseyeSearch();
+                bullseyeSearch.teamMaskFilter = TeamMask.allButNeutral;
+                if (base.teamComponent)
+                {
+                    bullseyeSearch.teamMaskFilter.RemoveTeam(base.teamComponent.teamIndex);
+                }
+                bullseyeSearch.maxDistanceFilter = radius;
+                bullseyeSearch.maxAngleFilter = 360f;
+                bullseyeSearch.searchOrigin = aimRay.origin;
+                bullseyeSearch.searchDirection = aimRay.direction;
+                bullseyeSearch.filterByLoS = false;
+                bullseyeSearch.sortMode = BullseyeSearch.SortMode.Angle;
+                bullseyeSearch.RefreshCandidates();
+                List<HurtBox> list = bullseyeSearch.GetResults().ToList<HurtBox>();
+                int num = 0;
+                for (int i = 0; i < this.knockupCount; i++)
+                {
+                    if (num >= list.Count)
+                    {
+                        num = 0;
+                    }
+                    HurtBox hurtBox = list[num];
+                    if (hurtBox)
+                    {
+                        Vector2 vector = UnityEngine.Random.insideUnitCircle * this.randomPositionRadius;
+                        Vector3 vector2 = hurtBox.transform.position + new Vector3(vector.x, 0f, vector.y);
+                        RaycastHit raycastHit;
+                        if (Physics.Raycast(new Ray(vector2 + Vector3.up * 1f, Vector3.down), out raycastHit, 200f, LayerIndex.world.mask, QueryTriggerInteraction.Ignore))
+                        {
+                            vector2 = raycastHit.point;
+                        }
+                        //ProjectileManager.instance.FireProjectile(FireDelayKnockup.projectilePrefab, vector2, Quaternion.identity, base.gameObject, this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
 
                         ProjectileManager.instance.FireProjectile(
                             FireDelayKnockup.projectilePrefab, //prefab
@@ -89,11 +88,11 @@ namespace ShiggyMod.SkillStates
                             speedOverride); //speed }}   
 
                     }
-					num++;
-				}
-			}
+                    num++;
+                }
+            }
 
-            
+
 
         }
 

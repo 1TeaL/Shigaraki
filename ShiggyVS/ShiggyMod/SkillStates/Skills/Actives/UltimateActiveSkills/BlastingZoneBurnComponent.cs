@@ -1,14 +1,9 @@
-﻿using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Networking;
-using R2API.Networking;
+﻿using R2API.Networking;
 using R2API.Networking.Interfaces;
+using RoR2;
 using ShiggyMod.Modules;
-using Random = UnityEngine.Random;
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using static UnityEngine.ParticleSystem.PlaybackState;
+using ShiggyMod.Modules.Networking;
+using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
@@ -31,12 +26,12 @@ namespace ShiggyMod.SkillStates
             int debuffCount = charBody.GetBuffCount(Buffs.blastingZoneBurnDebuff);
             int debuffDecreaseAmount = debuffCount - StaticValues.blastingZoneDebuffStackRemoval;
 
-            if(debuffDecreaseAmount < 0)
+            if (debuffDecreaseAmount < 0)
             {
                 debuffDecreaseAmount = 0;
             }
 
-            new BlastingZoneDebuffDamageRequest(attackerBody.masterObjectId, charBody.masterObjectId, charBody.healthComponent.fullCombinedHealth * Modules.StaticValues.blastingZoneDebuffDamagePerStack * debuffCount).Send (NetworkDestination.Clients);
+            new BlastingZoneDebuffDamageRequest(attackerBody.masterObjectId, charBody.masterObjectId, charBody.healthComponent.fullCombinedHealth * Modules.StaticValues.blastingZoneDebuffDamagePerStack * debuffCount).Send(NetworkDestination.Clients);
 
             EffectManager.SpawnEffect(EntityStates.LemurianMonster.FireFireball.effectPrefab, new EffectData
             {

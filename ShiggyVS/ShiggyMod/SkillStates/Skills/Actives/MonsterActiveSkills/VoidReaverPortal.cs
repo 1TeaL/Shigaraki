@@ -1,14 +1,9 @@
 ﻿using EntityStates;
 using EntityStates.NullifierMonster;
-using ExtraSkillSlots;
 using RoR2;
 using RoR2.Projectile;
 using ShiggyMod.Modules.Survivors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -36,7 +31,7 @@ namespace ShiggyMod.SkillStates
             EffectManager.SimpleMuzzleFlash(FirePortalBomb.muzzleflashEffectPrefab, base.gameObject, muzzleString, true);
             Shiggycon = base.GetComponent<ShiggyController>();
 
-            
+
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.GetModelAnimator().SetBool("attacking", true);
@@ -142,7 +137,7 @@ namespace ShiggyMod.SkillStates
                         fireTimer = 0f;
 
                         this.PortalFire();
-                        
+
 
                     }
                 }

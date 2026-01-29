@@ -1,12 +1,10 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
-using EntityStates.Huntress;
-using RoR2.Orbs;
 using EntityStates.Huntress.HuntressWeapon;
+using RoR2;
+using RoR2.Orbs;
+using ShiggyMod.Modules.Survivors;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
@@ -32,7 +30,7 @@ namespace ShiggyMod.SkillStates
         private bool isCrit;
         private int firedArrowCount;
         private GameObject muzzleflashEffectPrefab;
-        private int maxArrowCount = Modules.StaticValues.huntressmaxArrowCount/2;
+        private int maxArrowCount = Modules.StaticValues.huntressmaxArrowCount / 2;
         private int critMaxArrowCount = Modules.StaticValues.huntressmaxArrowCount;
         private float arrowReloadTimer;
         private string muzzleString = "RHand";
@@ -93,7 +91,7 @@ namespace ShiggyMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-			this.FireOrbArrow();
+            this.FireOrbArrow();
         }
         protected virtual GenericDamageOrb CreateArrowOrb()
         {
@@ -114,7 +112,7 @@ namespace ShiggyMod.SkillStates
             genericDamageOrb.attacker = base.gameObject;
             genericDamageOrb.procCoefficient = procCoefficient;
             genericDamageOrb.damageType = damageType;
-            
+
             HurtBox hurtBox = this.Target;
             if (hurtBox)
             {

@@ -1,8 +1,8 @@
 ﻿using R2API.Networking.Interfaces;
 using RoR2;
+using ShiggyMod.SkillStates;
 using UnityEngine;
 using UnityEngine.Networking;
-using ShiggyMod.SkillStates;
 
 namespace ShiggyMod.Modules.Networking
 {
@@ -71,8 +71,8 @@ namespace ShiggyMod.Modules.Networking
             {
                 //if (stateMachine.customName == "Body")
                 //{
-                    stateMachine.SetState(new TheWorldFreeze());
-                    return;
+                stateMachine.SetState(new TheWorldFreeze());
+                return;
                 //}
             }
         }

@@ -1,22 +1,16 @@
 ﻿using EntityStates;
-using RoR2;
-using UnityEngine;
-using ShiggyMod.Modules.Survivors;
-using UnityEngine.Networking;
-using RoR2.Projectile;
 using EntityStates.Merc;
-using R2API.Networking;
-using ShiggyMod.SkillStates.BaseStates;
-using System.Collections.Generic;
-using System;
-using EntityStates.Treebot.Weapon;
+using RoR2;
 using RoR2.Audio;
 using ShiggyMod.Modules;
-using R2API;
+using ShiggyMod.Modules.Survivors;
+using System;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class MercDash : Skill
+    public class MercWindAssault : Skill
 
     {
         public ShiggyController shiggyCon;
@@ -134,8 +128,8 @@ namespace ShiggyMod.SkillStates
             }
 
             Util.PlaySound(Assaulter2.endSoundString, base.gameObject);
-            shiggyCon.boolswordAuraL = true;
-            
+            shiggyCon.boolswordAuraR = true;
+
         }
 
         private void CreateBlinkEffect(Vector3 origin)
@@ -163,7 +157,7 @@ namespace ShiggyMod.SkillStates
 
         public override void OnExit()
         {
-            shiggyCon.boolswordAuraL = false;
+            shiggyCon.boolswordAuraR = false;
             if (!this.hasFired) this.FireAttack();
 
             base.OnExit();
@@ -207,7 +201,7 @@ namespace ShiggyMod.SkillStates
                 {
                     origin = base.transform.position,
                     genericFloat = this.hitStopDuration / this.attackSpeedStat
-                    
+
                 };
                 effectData.SetNetworkedObjectReference(base.gameObject);
                 EffectManager.SpawnEffect(Assaulter2.selfOnHitOverlayEffectPrefab, effectData, true);
@@ -237,7 +231,7 @@ namespace ShiggyMod.SkillStates
                 }
             }
         }
-        
+
 
         public override void FixedUpdate()
         {

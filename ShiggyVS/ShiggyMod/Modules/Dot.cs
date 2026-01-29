@@ -1,7 +1,5 @@
-﻿using RoR2;
-using System.Collections.Generic;
-using R2API;
-using System;
+﻿using R2API;
+using RoR2;
 using ShiggyMod.Modules.Survivors;
 
 namespace ShiggyMod.Modules
@@ -11,7 +9,7 @@ namespace ShiggyMod.Modules
         public static DotController.DotDef decaydef;
         public static DotController.DotIndex decayDot;
         public static ShiggyController Shiggycon;
-        
+
 
         public static DotController.DotDef CreateDot(float interval, float damageCoefficient, DamageColorIndex damageColorIndex, BuffDef associatedBuff)
         {
@@ -38,15 +36,15 @@ namespace ShiggyMod.Modules
                 float decaydamage = 0f;
                 decaydamage += attackerBody.damage;
                 dotStack.damage = GetMax(victimBody.healthComponent.fullCombinedHealth * Modules.StaticValues.decayDamagePercentage, decaydamage * damageMultiplier);
-                dotStack.damageType = DamageType.DoT;                
+                dotStack.damageType = DamageType.DoT;
                 dotStack.attackerObject = attackerBody.gameObject;
-                
+
             }
         }
 
         public static float GetMax(float first, float second)
         {
-            return first > second ? first : second; 
+            return first > second ? first : second;
         }
 
     }
