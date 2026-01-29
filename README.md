@@ -478,8 +478,8 @@ Shigaraki can sprint in any direction and has a double jump.
     <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/40bbe57f-736d-4614-a117-b97bd790d392"></td>
   </tr>
   <tr>
-    <td>Poison</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/BaseSkills/Acrid.jpg?raw=true"></td>
+    <td>Poison - Acrid</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Acrid.png"></td>
     <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/f42e4034-191a-426c-b884-2fa7f4f0b37e"></td>
   </tr>
   <tr>
@@ -501,10 +501,10 @@ Shigaraki can sprint in any direction and has a double jump.
 </table>
 </details>
 
-### Synergy Actives
+### Combined Actives
 
 <details>
-<summary>Click to expand synergy actives</summary>	
+<summary>Click to expand combined actives</summary>	
 <table>
 <thead>
   <tr>
@@ -614,16 +614,60 @@ Shigaraki can sprint in any direction and has a double jump.
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/RapidPierce.png?raw=true" width="256" ></td>
     <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154006703466098769/image.png"></td>
   </tr>
- 
+  <tr>
+    <td>The World</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/TheWorld.png?raw=true" width="256" ></td>
+    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154006981795913758/image.png"></td>
+  </tr>
+  <tr>
+    <td>Extreme Speed</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/ExtremeSpeed.png?raw=true" width="256" ></td>
+    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007163170197554/image.png"></td>
+  </tr>
+  <tr>
+    <td>Death Aura</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/DeathAura.png?raw=true" width="256" ></td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/cdc8ed14-bfa6-4ee0-a044-a51ee29eeef7"></td>
+  </tr>
+  <tr>
+    <td>One For All For One</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/OneForAllForOne.png?raw=true" width="256" ></td>
+    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007389427728504/image.png"></td>
+  </tr>
+  <tr>
+    <td>X Beamer</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/XBeamer.png?raw=true" width="256" ></td>
+    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007536370995302/image.png"></td>
+  </tr>
+  <tr>
+    <td>Final Release</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/FinalRelease.png?raw=true" width="256" ></td>
+    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007721524351017/image.png"></td>
+  </tr>
+  <tr>
+    <td>Blasting Zone</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BlastingZone.png?raw=true" width="256" ></td>
+    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007882694676560/image.png"></td>
+  </tr>
+  <tr>
+    <td>Wild Card</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/WildCard.png?raw=true" width="256" ></td>
+    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007801190957137/image.png"></td>
+  </tr>
+  <tr>
+    <td>Light And Darkness</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/LightAndDarkness.png?raw=true" width="256" ></td>
+    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154008055118315541/image.png"></td>
+  </tr>
 </tbody>
 </table>
 </details>
 
 	
-### Synergy Passives
+### Combined Passives
 
 <details>
-<summary>Click to expand synergy passives</summary>	
+<summary>Click to expand combined passives</summary>	
 <table>
 <thead>
   <tr>
@@ -683,86 +727,7 @@ Shigaraki can sprint in any direction and has a double jump.
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BlindSenses.png?raw=true" width="256" ></td>
     <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/5fb63eea-00d9-4599-ac94-4b121e662b7d"></td>
   </tr>
-</tbody>
-</table>
-</details>
-	
-### Ultimate Actives
-
-<details>
-<summary>Click to expand ultimate actives</summary>	
-<table>
-<thead>
-  <tr>
-    <th>Quirk</th>
-    <th>Icon</th>
-    <th>Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>The World</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/TheWorld.png?raw=true" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154006981795913758/image.png"></td>
-  </tr>
-  <tr>
-    <td>Extreme Speed</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/ExtremeSpeed.png?raw=true" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007163170197554/image.png"></td>
-  </tr>
-  <tr>
-    <td>Death Aura</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/DeathAura.png?raw=true" width="256" ></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/cdc8ed14-bfa6-4ee0-a044-a51ee29eeef7"></td>
-  </tr>
-  <tr>
-    <td>One For All For One</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/OneForAllForOne.png?raw=true" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007389427728504/image.png"></td>
-  </tr>
-  <tr>
-    <td>X Beamer</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/XBeamer.png?raw=true" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007536370995302/image.png"></td>
-  </tr>
-  <tr>
-    <td>Final Release</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/FinalRelease.png?raw=true" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007721524351017/image.png"></td>
-  </tr>
-  <tr>
-    <td>Blasting Zone</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/BlastingZone.png?raw=true" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007882694676560/image.png"></td>
-  </tr>
-  <tr>
-    <td>Wild Card</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/WildCard.png?raw=true" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007801190957137/image.png"></td>
-  </tr>
-  <tr>
-    <td>Light And Darkness</td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/SynergyAndUltimate/LightAndDarkness.png?raw=true" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154008055118315541/image.png"></td>
-  </tr>
-</tbody>
-</table>
-</details>
-
-### Ultimate Passives
-
-<details>
-<summary>Click to expand ultimate passives</summary>	
-<table>
-<thead>
-  <tr>
-    <th>Quirk</th>
-    <th>Icon</th>
-    <th>Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
+	<tr>
     <td>Supernova</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/878eb0b8-0225-4975-9835-1f4fa7ce8abb" width="256" ></td>
     <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/4fe69668-9879-4c44-9767-6e9078e4ce2e"></td>
@@ -795,10 +760,14 @@ Shigaraki can sprint in any direction and has a double jump.
 </tbody>
 </table>
 </details>
+	
+
+
+
 
 ## Numbers
 ##### Armor = 10 + 0.5 per level
-##### Damage = 5 + 1 per level
+##### Damage = 1 + 1 per level
 ##### Regen = 1 + 0.2 per level 
 ##### Health = 141 + 41 per level
 ##### Movespeed = 7
@@ -1067,11 +1036,12 @@ rest of changelog on github.
 
 ## OG Pictures
 ![128x128Icon](https://user-images.githubusercontent.com/93917577/168004591-39480a52-c7fe-4962-997f-cd9460bb4d4a.png)
-![Character Select](https://github.com/1TeaL/Shigaraki/assets/93917577/5682234e-9b60-489d-9f36-2a35f060fa0e)
-![BlastingZonePic](https://github.com/1TeaL/Shigaraki/assets/93917577/4052cff0-8a47-432d-9d0f-8957d1c5c0f6)
-![FinalReleaseGetsugaPic](https://github.com/1TeaL/Shigaraki/assets/93917577/10f18a9e-0339-461d-ab08-a306477a4767)
-![TheWorldPic](https://github.com/1TeaL/Shigaraki/assets/93917577/4f6287ea-6d40-46d8-bd1d-d302919573fe)
-![AFOStealPic](https://github.com/1TeaL/Shigaraki/assets/93917577/3637a749-4066-4f01-80f9-3f104461d53c)
+![Character Select](https://github.com/user-attachments/assets/1dbefd26-8eaf-4c47-9a2e-3ff739613af9)
+![QuirkUI](https://github.com/user-attachments/assets/bf843ff3-8f62-4fb5-8c77-00b35c9cc271)
+
+![DecaySwingPic](https://github.com/user-attachments/assets/48485919-aeec-4904-bf72-44a62d1fe48d)
+![DecayPlusUltraPic](https://github.com/user-attachments/assets/0c627cec-a39e-4a77-a9e8-11600461f661)
+![AFOStealPic](https://github.com/user-attachments/assets/a28807f5-6b61-4d33-be9c-96bb20d6a5bb)
 
 ![Passive](https://github.com/1TeaL/Shigaraki/assets/93917577/07984117-9535-4e63-af1b-7b5e1367a3b3)
 
