@@ -81,15 +81,16 @@ If you enjoy my work, support me on Ko-fi!
     	- To mimic the surgery that Shigaraki went through in the series, a new system has been implemented.
      	- By holding down the respective skill slot, you can RESET that skills cooldown.
       	- By resetting the skill- 2 things happen
-      	- You gain **Apex** stacks per second of skill reset- indicated by the inner circle of this UI. <img src="https://github.com/user-attachments/assets/74f85c95-5ae5-4017-af33-afbbbafc868f">.
+      	- <img width="128" height="128" alt="image" src="https://github.com/user-attachments/assets/e285879c-1fc3-4cd3-a988-86d79f889e8d" />
+      	- You gain **Apex** stacks per second of skill reset- indicated by the inner circle of this UI.
       		- These apply a negative debuff to your health regen, and at it's limit will result in a **Quirk Overdrive**, making you take damage and be unable to act as well as unable to heal for 4 seconds.
-      	- You gain **adaptation** stacks per second of skill reset- indicated by the outer ring of this UI. <img src="https://github.com/user-attachments/assets/74f85c95-5ae5-4017-af33-afbbbafc868f">.
+      	- You gain **adaptation** stacks per second of skill reset- indicated by the outer ring of this UI.
       		- This stacks throughout the run and as you hit the threshold of 100 stacks (100 seconds of resetting), you gain permanent bonuses to damage, armor and movespeed, as well as increasing your apex stack limit.
       	 - These 2 mechanics were done in order to give Shigaraki that feeling of being able to push his body to it's limits and use his quirks (skills) more, however his body can only handle so much, thus the apex stacks. Over time he gets used to his body and is able to better control and adapt to it.
     - ### Balance changes
     	- As mentioned before, Shigaraki has a lot more power due to the ability to easily optimise your build at any point in the run. Along with this, some skills have been udpated due to the ability to reset.
      	- Shigaraki's **base damage** 5 -> 1. Still gains 1 damage per level. I know- this seems ridiculous but this mostly matters with Shigaraki's early-mid game due to the ease of gaining quirks and bufffs, his damage had to be toned down. Quirks like the Strength - Beetle passive still give him 5 damage and are there to still help his early game.
-      	- **Omniboost** - damage and attack speed 1.3x -> 1.2x, every 3rd hit gain 5% -> 2% damage and attack speed. Lose half the stacks when hitting a different enemy. Omniboost was a very powerful multiplier. The build-up of it is very powerful now especially since skills can be reset. It's now been balanced to halve stacks when hitting a different enemy, similar to when killing one.
+      	- **Omniboost** - damage and attack speed 1.3x -> 1.2x, every 3rd hit gain 5% -> 4% damage and attack speed. Lose half the stacks when hitting a different enemy. Omniboost was a very powerful multiplier. The build-up of it is very powerful now especially since skills can be reset. It's now been balanced to halve stacks when hitting a different enemy, similar to when killing one.
       	- **Refresh** - Cooldown increased from 20 to 60 seconds. This skill previously reset ALL skills' cooldowns as well as refund half of your total energy. Being easily accessible at 20 seconds for the value of all 8 skillslots (not including some passive skills) resetting was too powerful.
     - ### New Quirks
     	- CHEF - **Oil Burst Passive**- Every 6 attacks, shoot a glob of oil.
@@ -99,14 +100,14 @@ If you enjoy my work, support me on Ko-fi!
      	- Seeker - **Meditate**- Give everyone around you 25% of their max HP as barrier.
       	- Scorch Worm - **Lava Bomb**- Shoot a lava bomb, dealing 200% damage.
       	- Halcyonite - **Halcyonite's Greed**- Spend your money. Gain a buff based on how much money is spent, draining over time. (?)
-      	-  Solus Distributor - **Solus Spawn Mine**- Summon 6 mines. Each can apply the **Primed debuff**- a new debuff that causes enemies to take 10% bonus damage per stack, reducing by 1 per hit.
+      	-  Solus Distributor - **Solus Plant Mine**- Summon 6 mines. Each can apply the **Primed debuff**- a new debuff that causes enemies to take 10% bonus damage per stack, reducing by 1 per hit.
       	-  Solus Extractor - **Solus Extract**- Dash and stab, bouncing off the first enemy hit. Apply the **Primed debuff**- a new debuff that causes enemies to take 10% bonus damage per stack, reducing by 1 per hit. Hitting a Primed enemy reduces the cooldowns of all skills based on how many stacks they have.
       	-  Solus Invalidator - **Solus Invalidate**- Stun Target and enemies around. Apply the **Primed debuff**- a new debuff that causes enemies to take 10% bonus damage per stack, reducing by 1 per hit. Targetting a Primed enemy freezes them instead.
-      	-  Solus Prospector - **Priming Passive**- Attacks apply the primed debuff.
+      	-  Solus Prospector - **Solus Priming Passive**- Attacks apply the primed debuff.
       	-  Solus Scorcher - **Solus Accelerate**- Apply accelerant to Target and enemies around. Apply the **Primed debuff**- a new debuff that causes enemies to take 10% bonus damage per stack, reducing by 1 per hit. Targetting a Primed enemy also burns them.
       	-  Solus Transporter - **Solus Transport**- Teleport to Target. Apply the **Primed debuff**- a new debuff that causes enemies to take 10% bonus damage per stack, reducing by 1 per hit. Targetting a Primed enemy resets this specific skill's cooldown.
 		-  Alloy Hunter - **Crit Boost Passive**- Critical hits deal 2x damage.
-      	-  Solus Amalgamator - **Equipment Boost Passive**- Every hit reduces equipment cooldowns by 1 second.
+      	-  Solus Amalgamator - **Equipment Boost Passive**- Every hit reduces equipment cooldowns by 0.5 seconds.
       	-  **Solus Factor Unleashed** NEW combined skill requiring all 6 Solus enemies' quirks to be owned- Spend all plus chaos. For every 10 plus chaos, gain 1 second of the **Super Primed Buff**- a new debuff that makes it so you no longer reduce the stacks of the primed debuff, instead increasing them if the enemy is primed as well as causing a blast attack, applying primed to all enemies hit.
       	-  **Hyper Regeneration Passive** NEW combined skill requiring Jellyfish, Mini Mushrum, False Son and Seeker- Heal 10% of hp every second.
 		
@@ -263,7 +264,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Mini Mushrum - Healing Aura</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Mini_Mushrum.png"></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/b634a153-99f6-4a63-8eed-8579d50aa66f"></td>
+    <td><img src="https://github.com/user-attachments/assets/f8aa2d8e-2a20-4d82-85a5-72018a524661"></td>
   </tr>
   <tr>
     <td>Solus Probe - Solus Boost</td>
@@ -271,9 +272,9 @@ Shigaraki can sprint in any direction and has a double jump.
     <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/a452f7b4-7f8e-44fa-ade5-93c3b2903baf"></td>
   </tr>
 	  <tr>
-    <td>Solus Prospector - Priming</td>
+    <td>Solus Prospector - Solus Priming</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/SolusProspector.png"></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/57340141-b3ee-474e-b744-5244ddaa9aa5"></td>
   </tr>
   <tr>
     <td>Void Barnacle - Void Mortar</td>
@@ -288,7 +289,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Alloy Hunter - Crit Boost</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Alloy_Hunter.png"></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/c0797cf6-4e46-42d5-a81c-a83df3ea873f"></td>
   </tr>
   <tr>
     <td>Imp Overlord - Bleed</td>
@@ -308,7 +309,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Solus Amalgamator - Equipment Boost</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Solus_Amalgamator.png"></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/5895fef2-40c4-45e8-a723-63c203dd6bec"></td>
   </tr>
   <tr>
     <td>Stone Titan - Stone Skin</td>
@@ -333,12 +334,17 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>CHEF - Oil Burst</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/CHEF.png"></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/9542d230-035b-4a3b-942a-ddbb79c648d9"></td>
+    <td><img src="https://github.com/user-attachments/assets/4451ea4e-9c20-49b3-97c3-97ee36614a41"></td>
   </tr>
   <tr>
     <td>Commando - Double Tap</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Commando.png"></td>
     <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/9542d230-035b-4a3b-942a-ddbb79c648d9"></td>
+  </tr>
+	<tr>
+    <td>False Son - Stolen Inheritance</td>
+    <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/False_Son.png"></td>
+    <td><img src="https://github.com/user-attachments/assets/8e77c42b-c78d-43b0-8dbe-707ba34039a5"></td>
   </tr>
   <tr>
     <td>Loader - Scrap Barrier</td>
@@ -375,7 +381,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Omniboost</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/Omniboost.png" width="256" ></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/75de7000-5a50-4898-974b-5295ed469caa"></td>
   </tr>
   <tr>
     <td>Gacha</td>
@@ -445,7 +451,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Hyper Regeneration</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/HyperRegeneration.png" width="256" ></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/5103971f-fa17-4825-9754-dadab80d0fff"></td>
   </tr>
 </tbody>
 </table>
@@ -488,7 +494,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Clay Apothecary - Clay AirStrike</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Clay_Apothecary.png"></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/75268fb7-eeb0-4b5b-b8ff-cbe77abd53cf"></td>
+    <td><img src="https://github.com/user-attachments/assets/d01ed3f6-de5e-4a3e-a872-91271283212b"></td>
   </tr>
   <tr>
     <td>Clay Templar - Clay Minigun</td>
@@ -514,7 +520,7 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Jellyfish - Regenerate</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Jellyfish.png"></td>
-    <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/45fd67ae-3863-4bdb-9bd5-7069d7ec17cb"></td>
+    <td><img src="https://github.com/user-attachments/assets/63cdee5b-a4f5-46cd-836c-55ac0004c740"></td>
   </tr>
   <tr>
     <td>Lemurian - Fireball</td>
@@ -537,29 +543,29 @@ Shigaraki can sprint in any direction and has a double jump.
     <td><img src="https://github.com/1TeaL/Shigaraki/assets/93917577/edb227f5-ae8c-4bdd-9220-ba0bb714af10"></td>
   </tr>
   <tr>
-    <td>Solus Distributor - Solus Spawn Mine</td>
+    <td>Solus Distributor - Solus Plant Mine</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Solus_Distributor.png"></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/7b59ce02-1f8d-4901-ad45-247d14ec6108"></td>
   </tr>
   <tr>
     <td>Solus Extractor - Solus Extract</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Solus_Extractor.png"></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/cb341dcf-cfb3-48f5-8373-5407dd0d1bd7"></td>
   </tr>
   <tr>
     <td>Solus Invalidator - Solus Invalidate</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Solus_Invalidator.png"></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/8fb08d47-017e-420b-a0e5-8e70249f09bd"></td>
   </tr>
   <tr>
     <td>Solus Scorcer - Solus Accelerate</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Solus_Scorcher.png"></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/9cb23bef-38d3-4b9a-bd57-c482def25a10"></td>
   </tr>
   <tr>
     <td>Solus Transporter - Solus Transport</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/EnemyIcons/Solus_Transporter.png"></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/8dcddd61-d5f0-4eb5-883a-9c3cd90c794e"></td>
   </tr>
   <tr>
     <td>Stone Golem - Laser</td>
@@ -787,17 +793,17 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>Rapid Pierce</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/RapidPierce.png" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154006703466098769/image.png"></td>
+    <td><img src="https://github.com/user-attachments/assets/89565371-fa6f-435d-addf-49738cdcf835"></td>
   </tr>
   <tr>
     <td>The World</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/TheWorld.png" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154006981795913758/image.png"></td>
+    <td><img src="https://github.com/user-attachments/assets/0e13058d-acfc-4b75-98ab-65e468e98b8d"></td>
   </tr>
   <tr>
     <td>Extreme Speed</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/ExtremeSpeed.png" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007163170197554/image.png"></td>
+    <td><img src="https://github.com/user-attachments/assets/9a013622-b67b-4bca-ae20-5307076c9fe0"></td>
   </tr>
   <tr>
     <td>Death Aura</td>
@@ -807,37 +813,37 @@ Shigaraki can sprint in any direction and has a double jump.
   <tr>
     <td>One For All For One</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/OneForAllForOne.png" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007389427728504/image.png"></td>
+    <td><img src="https://github.com/user-attachments/assets/978c18fd-e427-4581-bcbc-bed90f765bba"></td>
   </tr>
   <tr>
     <td>X Beamer</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/XBeamer.png" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007536370995302/image.png"></td>
+    <td><img src="https://github.com/user-attachments/assets/ef12d3ed-c860-4ee0-bd19-11cf6ed75b84"></td>
   </tr>
   <tr>
     <td>Final Release</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/FinalRelease.png" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007721524351017/image.png"></td>
+    <td><img src="https://github.com/user-attachments/assets/7039e330-f7de-4db9-9971-b418e605d3e9"></td>
   </tr>
   <tr>
     <td>Blasting Zone</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/BlastingZone.png" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007882694676560/image.png"></td>
+    <td><img src="https://github.com/user-attachments/assets/3660855e-6285-4c26-bf21-61643610ab13"></td>
   </tr>
   <tr>
     <td>Wild Card</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/WildCard.png" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154007801190957137/image.png"></td>
+    <td><img src="https://github.com/user-attachments/assets/171f790b-9972-420a-a2b8-87163ff44845"></td>
   </tr>
   <tr>
     <td>Light And Darkness</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/LightAndDarkness.png" width="256" ></td>
-    <td><img src="https://cdn.discordapp.com/attachments/399901440023330816/1154008055118315541/image.png"></td>
+    <td><img src="https://github.com/user-attachments/assets/d9c4f37e-59a2-43b1-96d5-e17a72c8d68b"></td>
   </tr>
   <tr>
     <td>Solus Factor Unleashed</td>
     <td><img src="https://github.com/1TeaL/Shigaraki/blob/main/ShiggyUnity/Assets/Shigaraki/GUI/CombinedSkills/SolusFactorUnleashed.png" width="256" ></td>
-    <td><img src=""></td>
+    <td><img src="https://github.com/user-attachments/assets/1d10403b-00e5-46c9-9c71-fa3d7f3af6a8"></td>
   </tr>
 </tbody>
 </table>
@@ -860,6 +866,7 @@ These stats are prone to change.
 ## Credits
 ##### HenryMod for the template.
 ##### Mr.Bones for supplying base shigaraki skill icons.
+##### Finally, Thank you Horikoshi Sensei for creating this legendary series.
 
 rest of changelog on github.
 ## Changelog
@@ -1158,12 +1165,15 @@ rest of changelog on github.
 ![AcidJump](https://github.com/1TeaL/Shigaraki/assets/93917577/ac4054ec-035b-4c26-ad00-c0bbfa0e1fba)
 ![Haste](https://github.com/1TeaL/Shigaraki/assets/93917577/a6f69af8-378b-4a6e-ac3d-9013e57c6268)
 ![LunarBarrier](https://github.com/1TeaL/Shigaraki/assets/93917577/d02e76d6-9b4e-4489-a831-1127dafcf00f)
-![HealingAura](https://github.com/1TeaL/Shigaraki/assets/93917577/b634a153-99f6-4a63-8eed-8579d50aa66f)
+![HealingAura](https://github.com/user-attachments/assets/f8aa2d8e-2a20-4d82-85a5-72018a524661)
 ![SolusBoost](https://github.com/1TeaL/Shigaraki/assets/93917577/a452f7b4-7f8e-44fa-ade5-93c3b2903baf)
 ![VoidMortar](https://github.com/1TeaL/Shigaraki/assets/93917577/34ae7614-a775-4ca2-9dbc-6f8824f99558)
 ![Gravity](https://github.com/1TeaL/Shigaraki/assets/93917577/e92eb812-a12a-43dd-b762-b673e7095bb6)
 ![Bleed](https://github.com/1TeaL/Shigaraki/assets/93917577/f4a90506-e103-4d54-b31a-09c296be1a22)
 ![StoneSkin](https://github.com/1TeaL/Shigaraki/assets/93917577/f1dd6ae4-08a9-44bb-aecd-325d6fc2ff6e)
+![SolusPriming](https://github.com/user-attachments/assets/57340141-b3ee-474e-b744-5244ddaa9aa5)
+![CritBoost](https://github.com/user-attachments/assets/c0797cf6-4e46-42d5-a81c-a83df3ea873f)
+![EquipmentBoost](https://github.com/user-attachments/assets/5895fef2-40c4-45e8-a723-63c203dd6bec)
 ![BlazingAura](https://github.com/1TeaL/Shigaraki/assets/93917577/650ca0ec-0bd1-4a17-8c72-d57cec64352c)
 ![LightningAura](https://github.com/1TeaL/Shigaraki/assets/93917577/3c71f9ab-a87e-4244-97f2-b13e76e91c36)
 ![Vagrant'sOrb](https://github.com/1TeaL/Shigaraki/assets/93917577/40bbe57f-736d-4614-a117-b97bd790d392)
@@ -1171,10 +1181,12 @@ rest of changelog on github.
 ![DoubleTap](https://github.com/1TeaL/Shigaraki/assets/93917577/9542d230-035b-4a3b-942a-ddbb79c648d9)
 ![DefensiveMicrobots](https://github.com/1TeaL/Shigaraki/assets/93917577/d2e22b41-f977-4574-8d0b-3707cc4b7ea8)
 ![ScrapBarrier](https://github.com/1TeaL/Shigaraki/assets/93917577/de311eca-97b2-4fd9-8779-7b35b028a567)
+![OilBurst](https://github.com/user-attachments/assets/4451ea4e-9c20-49b3-97c3-97ee36614a41)
+![StolenInheritance](https://github.com/user-attachments/assets/8e77c42b-c78d-43b0-8dbe-707ba34039a5)
 
 ![BigBang](https://github.com/1TeaL/Shigaraki/assets/93917577/90f108ea-4c51-4095-a95c-fb7a10f28f45)
 ![Wisper](https://github.com/1TeaL/Shigaraki/assets/93917577/0a35bbdc-3250-4aee-aa91-e34a49065dda)
-![Omniboost](https://github.com/1TeaL/Shigaraki/assets/93917577/8113eb88-c9a1-4272-9055-7332b5f87bee)
+![Omniboost](https://github.com/user-attachments/assets/75de7000-5a50-4898-974b-5295ed469caa)
 ![Gacha](https://github.com/1TeaL/Shigaraki/assets/93917577/0d6d323e-747a-4b0e-8412-d16ea9e0da94)
 ![StoneForm](https://github.com/1TeaL/Shigaraki/assets/93917577/8e3186fc-58d1-40b7-913a-04af350a1a19)
 ![AuraOfBlight](https://github.com/1TeaL/Shigaraki/assets/93917577/d8f4f096-258e-4ae7-9e23-392c699c8358)
@@ -1182,6 +1194,7 @@ rest of changelog on github.
 ![Ingrain](https://github.com/1TeaL/Shigaraki/assets/93917577/910877c4-fd5f-4390-bc61-ada92cb4ed59)
 ![DoubleTime](https://github.com/1TeaL/Shigaraki/assets/93917577/90df831f-eb72-4004-8d0d-72953d2df24f)
 ![BlindSense](https://github.com/1TeaL/Shigaraki/assets/93917577/5fb63eea-00d9-4599-ac94-4b121e662b7d)
+![HyperRegeneration](https://github.com/user-attachments/assets/5103971f-fa17-4825-9754-dadab80d0fff)
 
 ![Supernova](https://github.com/1TeaL/Shigaraki/assets/93917577/4fe69668-9879-4c44-9767-6e9078e4ce2e)
 ![Reversal](https://github.com/1TeaL/Shigaraki/assets/93917577/c7102544-c459-4ed3-9c1b-142f1f50edc5)
@@ -1194,15 +1207,20 @@ rest of changelog on github.
 ![FastDrop](https://github.com/1TeaL/Shigaraki/assets/93917577/006823bd-9f3e-4325-b2dc-7fd783323626)
 ![Charging](https://github.com/1TeaL/Shigaraki/assets/93917577/a1a61e45-ab3e-4753-8efe-1013ee1085f2)
 ![SpikedBallControl](https://github.com/1TeaL/Shigaraki/assets/93917577/33809b62-4ede-4967-a16f-a949be6790b1)
-![ClayAirStrike](https://github.com/1TeaL/Shigaraki/assets/93917577/75268fb7-eeb0-4b5b-b8ff-cbe77abd53cf)
+![ClayAirStrike](https://github.com/user-attachments/assets/d01ed3f6-de5e-4a3e-a872-91271283212b)
 ![ClayMinigun](https://github.com/1TeaL/Shigaraki/assets/93917577/66a3f815-838f-4d71-8a6b-861bfd3f43b7)
 ![FireBlast](https://github.com/1TeaL/Shigaraki/assets/93917577/3e7c2b0b-8b60-46bb-9a88-63f72536166e)
 ![SpiritBoost](https://github.com/1TeaL/Shigaraki/assets/93917577/1d326440-c26d-4081-a8f9-050f36cdc1fc)
 ![Blink](https://github.com/1TeaL/Shigaraki/assets/93917577/af278b95-3a84-4e49-bb73-1e62b0cfb7d0)
-![Regenerate](https://github.com/1TeaL/Shigaraki/assets/93917577/45fd67ae-3863-4bdb-9bd5-7069d7ec17cb)
+![Regenerate](https://github.com/user-attachments/assets/63cdee5b-a4f5-46cd-836c-55ac0004c740)
 ![Fireball](https://github.com/1TeaL/Shigaraki/assets/93917577/d52879af-40be-405c-881b-aab3c3e711b7)
 ![SlideReset](https://github.com/1TeaL/Shigaraki/assets/93917577/f8f2d6fe-9075-4e3d-b536-f4900d2c341a)
 ![LunarMinigun](https://github.com/1TeaL/Shigaraki/assets/93917577/9d262f32-66fd-4ad3-a178-349423f25544)
+![SolusPlantMine](https://github.com/user-attachments/assets/7b59ce02-1f8d-4901-ad45-247d14ec6108)
+![SolusExtract](https://github.com/user-attachments/assets/cb341dcf-cfb3-48f5-8373-5407dd0d1bd7)
+![SolusInvalidate](https://github.com/user-attachments/assets/8fb08d47-017e-420b-a0e5-8e70249f09bd)
+![SolusAccelerate](https://github.com/user-attachments/assets/9cb23bef-38d3-4b9a-bd57-c482def25a10)
+![SolusTransport](https://github.com/user-attachments/assets/8dcddd61-d5f0-4eb5-883a-9c3cd90c794e)
 ![Teleport](https://github.com/1TeaL/Shigaraki/assets/93917577/edb227f5-ae8c-4bdd-9220-ba0bb714af10)
 ![Laser](https://github.com/1TeaL/Shigaraki/assets/93917577/bd652eb3-ce3e-4c26-a7c7-d785d59b8cf5)
 ![NullifierArtillery](https://github.com/1TeaL/Shigaraki/assets/93917577/1744df7f-5e82-4bea-aec2-81567f8a78cb)
@@ -1246,17 +1264,18 @@ rest of changelog on github.
 ![ElementalFusion](https://github.com/1TeaL/Shigaraki/assets/93917577/d2719c5e-d245-4b01-a97a-d168d5b41dfa)
 ![DecayPlusUltra](https://github.com/1TeaL/Shigaraki/assets/93917577/31b75bb8-69ea-4b06-8560-e421593e04a4)
 ![MachPunch](https://github.com/1TeaL/Shigaraki/assets/93917577/65ca0675-f7b9-419b-befe-d5c45e474685)
-![Rapid Pierce](https://cdn.discordapp.com/attachments/399901440023330816/1154006703466098769/image.png)
+![Rapid Pierce](https://github.com/user-attachments/assets/89565371-fa6f-435d-addf-49738cdcf835)
 
-![TheWorld](https://cdn.discordapp.com/attachments/399901440023330816/1154006981795913758/image.png)
-![ExtremeSpeed](https://cdn.discordapp.com/attachments/399901440023330816/1154007163170197554/image.png)
+![TheWorld](https://github.com/user-attachments/assets/0e13058d-acfc-4b75-98ab-65e468e98b8d)
+![ExtremeSpeed](https://github.com/user-attachments/assets/9a013622-b67b-4bca-ae20-5307076c9fe0)
 ![DeathAura](https://github.com/1TeaL/Shigaraki/assets/93917577/cdc8ed14-bfa6-4ee0-a044-a51ee29eeef7)
-![OneForAllForOne](https://cdn.discordapp.com/attachments/399901440023330816/1154007389427728504/image.png)
-![XBeamer](https://cdn.discordapp.com/attachments/399901440023330816/1154007536370995302/image.png)
-![FinalRelease](https://cdn.discordapp.com/attachments/399901440023330816/1154007721524351017/image.png)
-![BlastingZone](https://cdn.discordapp.com/attachments/399901440023330816/1154007882694676560/image.png)
-![WildCard](https://cdn.discordapp.com/attachments/399901440023330816/1154007801190957137/image.png)
-![LightAndDarkness](https://cdn.discordapp.com/attachments/399901440023330816/1154008055118315541/image.png)
+![OneForAllForOne](https://github.com/user-attachments/assets/978c18fd-e427-4581-bcbc-bed90f765bba)
+![XBeamer](https://github.com/user-attachments/assets/ef12d3ed-c860-4ee0-bd19-11cf6ed75b84)
+![FinalRelease](https://github.com/user-attachments/assets/7039e330-f7de-4db9-9971-b418e605d3e9)
+![BlastingZone](https://github.com/user-attachments/assets/3660855e-6285-4c26-bf21-61643610ab13)
+![WildCard](https://github.com/user-attachments/assets/171f790b-9972-420a-a2b8-87163ff44845)
+![LightAndDarkness](https://github.com/user-attachments/assets/d9c4f37e-59a2-43b1-96d5-e17a72c8d68b)
+![SolusFactorUnleashed](https://github.com/user-attachments/assets/1d10403b-00e5-46c9-9c71-fa3d7f3af6a8)
 
 </details>
 
