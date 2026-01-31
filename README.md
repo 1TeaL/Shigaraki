@@ -70,6 +70,11 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 3.0.1- Hotfix
+    - Fixed skills that could be held down to continue their use not doing that
+    - Fixed configs for Decay not being properly used
+    - Fixed some names of skills
+    - Added his base skills to be all selectable from the loadout- note that you can also add them during a run at anytime
 - 3.0.0- Major Update- The Quirk Rework!
     - New Model and animations for Shigaraki, based off his Season 5 look
     - ### Reworked All For One System
