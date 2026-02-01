@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using ExtraSkillSlots;
 using RoR2.Audio;
 using RoR2.UI;
 using ShiggyMod.Modules.Survivors;
@@ -41,6 +42,7 @@ namespace ShiggyMod.SkillStates
             {
                 this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, this.crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
             }
+            SetSkillDef(Shiggy.railgunnercryoDef);
         }
 
         public override void OnExit()
@@ -59,67 +61,21 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.railgunnercryoDef)
-            {
 
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.railgunnercryoDef)
+            if (!IsHeldDown())
             {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.railgunnercryoDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.railgunnercryoDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.railgunnercryoDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.railgunnercryoDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.railgunnercryoDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.railgunnercryoDef)
-            {
-
-                keepFiring = true;
-            }
-            else
-            {
-                keepFiring = false;
-            }
-
-            if (base.characterBody)
-            {
-                base.characterBody.SetAimTimer(this.duration);
-            }
-            if (base.fixedAge >= this.duration && base.isAuthority && !keepFiring)
-            {
-                CrosshairUtils.OverrideRequest overrideRequest = this.crosshairOverrideRequest;
-                if (overrideRequest != null)
+                if (base.fixedAge >= this.duration && base.isAuthority && !keepFiring)
                 {
-                    overrideRequest.Dispose();
+                    CrosshairUtils.OverrideRequest overrideRequest = this.crosshairOverrideRequest;
+                    if (overrideRequest != null)
+                    {
+                        overrideRequest.Dispose();
+                    }
+                    this.outer.SetNextState(new RailgunnerCryoFire());
+                    return;
                 }
-                this.outer.SetNextState(new RailgunnerCryoFire());
-                return;
             }
         }
-
 
 
 

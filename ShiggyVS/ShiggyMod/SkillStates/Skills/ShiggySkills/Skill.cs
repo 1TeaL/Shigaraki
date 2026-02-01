@@ -1,6 +1,7 @@
 ﻿using EntityStates;
 using ExtraSkillSlots;
 using RoR2;
+using RoR2.Skills;
 using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine;
@@ -30,15 +31,9 @@ namespace ShiggyMod.SkillStates
         private float procCoefficient = 1f;
         private float force = 1f;
         private float speedOverride = -1f;
+        protected bool exitOnDuration = false; // default behavior
 
-        public enum HeldSlot
-        {
-            None,
-            Primary, Secondary, Utility, Special,
-            Extra1, Extra2, Extra3, Extra4
-        }
-
-        public HeldSlot _heldSlot;
+        public SkillDef skillDef;
 
         public override void OnEnter()
         {
@@ -58,10 +53,6 @@ namespace ShiggyMod.SkillStates
             extrainputBankTest = outer.GetComponent<ExtraInputBankTest>();
             damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
 
-            _heldSlot = ResolveHeldSlot();
-            if (_heldSlot == HeldSlot.None)
-                _heldSlot = HeldSlot.Primary; // safe fallback
-
 
         }
 
@@ -77,64 +68,39 @@ namespace ShiggyMod.SkillStates
 
 
 
-            if (base.fixedAge >= this.duration && base.isAuthority)
+            if (base.fixedAge >= this.duration && base.isAuthority && exitOnDuration)
             {
                 this.outer.SetNextStateToMain();
                 return;
             }
         }
-
-
-        public HeldSlot ResolveHeldSlot()
+        public void SetSkillDef(SkillDef skillDefofSKill)
         {
-            // Base slots
-            var sl = characterBody ? characterBody.skillLocator : null;
-            if (sl != null)
-            {
-                if (sl.primary != null && sl.primary.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Primary;
-                if (sl.secondary != null && sl.secondary.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Secondary;
-                if (sl.utility != null && sl.utility.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Utility;
-                if (sl.special != null && sl.special.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Special;
-            }
+            this.skillDef = skillDefofSKill;
 
-            // Extra slots
-            var extras = GetComponent<ExtraSkillLocator>();
-            if (extras != null)
-            {
-                if (extras.extraFirst != null && extras.extraFirst.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Extra1;
-                if (extras.extraSecond != null && extras.extraSecond.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Extra2;
-                if (extras.extraThird != null && extras.extraThird.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Extra3;
-                if (extras.extraFourth != null && extras.extraFourth.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Extra4;
-            }
-
-            return HeldSlot.None;
         }
 
         public bool IsHeldDown()
         {
-            if (!inputBank) return false;
 
-            // Base buttons
-            switch (_heldSlot)
-            {
-                case HeldSlot.Primary: return inputBank.skill1.down;
-                case HeldSlot.Secondary: return inputBank.skill2.down;
-                case HeldSlot.Utility: return inputBank.skill3.down;
-                case HeldSlot.Special: return inputBank.skill4.down;
-            }
+            bool held =
+                (inputBank.skill1.down && (characterBody.skillLocator.primary.skillDef = skillDef)) ||
+                (inputBank.skill2.down && (characterBody.skillLocator.secondary.skillDef = skillDef)) ||
+                (inputBank.skill3.down && (characterBody.skillLocator.utility.skillDef = skillDef)) ||
+                (inputBank.skill4.down && (characterBody.skillLocator.special.skillDef = skillDef));
 
-            // Extra buttons
             var extraInput = GetComponent<ExtraInputBankTest>();
-            if (!extraInput) return false;
-
-            switch (_heldSlot)
+            var extras = GetComponent<ExtraSkillLocator>();
+            if (!held && extraInput && extras)
             {
-                case HeldSlot.Extra1: return extraInput.extraSkill1.down;
-                case HeldSlot.Extra2: return extraInput.extraSkill2.down;
-                case HeldSlot.Extra3: return extraInput.extraSkill3.down;
-                case HeldSlot.Extra4: return extraInput.extraSkill4.down;
-                default: return false;
+                held =
+                    (extraInput.extraSkill1.down && (extras.extraFirst.skillDef = skillDef)) ||
+                    (extraInput.extraSkill2.down && (extras.extraSecond.skillDef = skillDef)) ||
+                    (extraInput.extraSkill3.down && (extras.extraThird.skillDef = skillDef)) ||
+                    (extraInput.extraSkill4.down && (extras.extraFourth.skillDef = skillDef));
             }
+
+            return held;
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

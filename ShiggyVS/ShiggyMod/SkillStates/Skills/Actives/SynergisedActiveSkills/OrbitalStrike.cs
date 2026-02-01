@@ -63,6 +63,7 @@ namespace ShiggyMod.SkillStates
             this.aimSphere = Object.Instantiate<GameObject>(ArrowRain.areaIndicatorPrefab);
             aimSphere.SetActive(true);
 
+            SetSkillDef(Shiggy.captainpassiveDef);
         }
 
         public override void OnExit()
@@ -142,60 +143,11 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
+            base.FixedUpdate();
             base.characterBody.SetAimTimer(this.duration);
 
 
-            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.orbitalStrikeDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.orbitalStrikeDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.orbitalStrikeDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.orbitalStrikeDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.orbitalStrikeDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.orbitalStrikeDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.orbitalStrikeDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.orbitalStrikeDef)
-            {
-
-                keepFiring = true;
-            }
-            else
-            {
-                keepFiring = false;
-            }
-
-            if (keepFiring)
-            {
-
-
-            }
-            else if (!keepFiring)
+            if (!IsHeldDown())
             {
                 ReleaseKey();
 
@@ -225,7 +177,7 @@ namespace ShiggyMod.SkillStates
 
         }
 
-
+        
 
 
         public override InterruptPriority GetMinimumInterruptPriority()

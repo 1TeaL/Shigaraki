@@ -13,6 +13,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            exitOnDuration = true;
 
             if (!characterBody.HasBuff(Buffs.decayAwakenedBuff.buffIndex))
             {

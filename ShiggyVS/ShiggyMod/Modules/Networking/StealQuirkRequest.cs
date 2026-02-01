@@ -5,6 +5,7 @@
     using RoR2;
     using ShiggyMod.Modules.Quirks;
     using ShiggyMod.Modules.Survivors;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Networking;
 
@@ -52,34 +53,50 @@
             var attackerBody = attackerMaster.GetBody();
             if (!attackerBody) return;
 
-            Debug.Log($"[StealQuirkRequest] recv attacker={attackerMasterId} victim={victimBodyId} cost={cost}");
+            if (cost < 0f) cost = 0f;
 
+            Debug.Log($"[StealQuirkRequest] recv attacker={attackerMasterId} victim={victimBodyId} cost={cost}");
 
             var inv = QuirkInventory.Ensure(attackerMaster);
             if (!inv)
             {
-                new StealQuirkResult(attackerMasterId, victimBodyId, (int)QuirkId.None, false, "MissingInventory", false, 0f)
+                new StealQuirkResult(attackerMasterId, victimBodyId, (int)QuirkId.None, false, "MissingInventory", false, cost)
                     .Send(NetworkDestination.Clients);
                 return;
             }
 
-            bool isElite;
-            QuirkId resolved = ResolveQuirkFromVictim_Server(victimBody, out string reason, out isElite);
-            if (resolved == QuirkId.None)
+            // Resolve candidates: elite + base
+            var candidates = new List<QuirkId>(2);
+            ResolveQuirksFromVictim_Server(victimBody, candidates, out bool victimHadElite);
+
+            if (candidates.Count == 0)
             {
-                new StealQuirkResult(attackerMasterId, victimBodyId, (int)QuirkId.None, false, reason, false, 0f)
+                // IMPORTANT: include cost so client can refund/clear pending
+                new StealQuirkResult(attackerMasterId, victimBodyId, (int)QuirkId.None, false, "NoMapping", false, cost)
                     .Send(NetworkDestination.Clients);
                 return;
             }
 
-            if (inv.Has(resolved))
+            // Try grant both, skipping already owned
+            var granted = new List<QuirkId>(2);
+            foreach (var q in candidates)
             {
-                new StealQuirkResult(attackerMasterId, victimBodyId, (int)resolved, false, "AlreadyOwned", false, 0f)
+                if (q == QuirkId.None) continue;
+                if (inv.Has(q)) continue;
+
+                inv.Server_Add(q);
+                granted.Add(q);
+            }
+
+            if (granted.Count == 0)
+            {
+                // Nothing new -> fail (refund). include cost.
+                new StealQuirkResult(attackerMasterId, victimBodyId, (int)QuirkId.None, false, "AlreadyOwned", false, cost)
                     .Send(NetworkDestination.Clients);
                 return;
             }
 
-            // stun only on real steals
+            // Stun only on real steals (at least one granted)
             var ssoh = victimBody.healthComponent ? victimBody.healthComponent.GetComponent<SetStateOnHurt>() : null;
             if (ssoh != null && ssoh.canBeHitStunned)
             {
@@ -89,16 +106,28 @@
                 if (victimBody.rigidbody) victimBody.rigidbody.velocity = Vector3.zero;
             }
 
-            // apply
-            inv.Server_Add(resolved);
-
-            // elite equipment drop (server only)
-            if (isElite)
+            // Apply elite-only side effects if elite quirk was among granted
+            bool grantedElite = false;
+            QuirkId eliteGrantedId = QuirkId.None;
+            if (victimHadElite)
             {
-                var eq = QuirkRegistry.GetEliteEquipmentForId(resolved);
+                // If the first candidate was elite, you can track it more explicitly;
+                // easiest is: check if granted contains any elite-id by recomputing.
+                if (QuirkRegistry.TryGetEliteQuirkId(victimBody, out var eliteId) && eliteId != QuirkId.None)
+                {
+                    if (granted.Contains(eliteId))
+                    {
+                        grantedElite = true;
+                        eliteGrantedId = eliteId;
+                    }
+                }
+            }
+
+            if (grantedElite)
+            {
+                var eq = QuirkRegistry.GetEliteEquipmentForId(eliteGrantedId);
                 if (eq)
                 {
-                    // inline droplet spawn (don’t rely on client authority)
                     PickupIndex pickup = PickupCatalog.FindPickupIndex(eq.equipmentIndex);
                     if (pickup != PickupIndex.none)
                     {
@@ -111,46 +140,54 @@
                     }
                 }
 
-                // if you still want elite debuff lockout
                 victimBody.ApplyBuff(ShiggyMod.Modules.Buffs.eliteDebuff.buffIndex, 1, 60f);
             }
 
-            // SUCCESS: echo cost back so owning client spends locally
-            if (cost < 0f) cost = 0f;
-            new StealQuirkResult(attackerMasterId, victimBodyId, (int)resolved, true, "OK", true, cost)
-                .Send(NetworkDestination.Clients);
+            // Send one result per granted quirk.
+            // Only LAST message carries cost so client finalizes spend/refund once.
+            for (int i = 0; i < granted.Count; i++)
+            {
+                bool isLast = (i == granted.Count - 1);
 
+                // Play VFX only once (first success)
+                bool doVfx = (i == 0);
+
+                new StealQuirkResult(attackerMasterId, victimBodyId, (int)granted[i], true, "OK", doVfx, isLast ? cost : 0f)
+                    .Send(NetworkDestination.Clients);
+            }
         }
 
 
 
 
-        private static QuirkId ResolveQuirkFromVictim_Server(CharacterBody victim, out string reason, out bool isElite)
+
+        private static void ResolveQuirksFromVictim_Server(CharacterBody victim, List<QuirkId> outIds, out bool victimHadElite)
         {
-            isElite = false;
-            reason = "OK";
-            if (!victim) { reason = "NoVictim"; return QuirkId.None; }
+            outIds.Clear();
+            victimHadElite = false;
 
-            if (QuirkRegistry.TryGetEliteQuirkId(victim, out var eliteId))
+            if (!victim) return;
+
+            // Elite mapping first (but do NOT early-return)
+            if (QuirkRegistry.TryGetEliteQuirkId(victim, out var eliteId) && eliteId != QuirkId.None)
             {
-                isElite = true;
+                victimHadElite = true;
 
-                if (victim.HasBuff(ShiggyMod.Modules.Buffs.eliteDebuff.buffIndex))
-                {
-                    reason = "EliteDebuffed";
-                    return QuirkId.None;
-                }
-
-                return eliteId;
+                // Elite debuff blocks ONLY elite steal, not the base/body quirk
+                if (!victim.HasBuff(ShiggyMod.Modules.Buffs.eliteDebuff.buffIndex))
+                    outIds.Add(eliteId);
             }
 
+            // Base/body mapping always considered
             string bodyName = BodyCatalog.GetBodyName(victim.bodyIndex);
-            if (QuirkTargetingMap.TryGet(bodyName, out var id) && id != QuirkId.None)
-                return id;
-
-            reason = "NoMapping";
-            return QuirkId.None;
+            if (QuirkTargetingMap.TryGet(bodyName, out var baseId) && baseId != QuirkId.None)
+            {
+                if (!outIds.Contains(baseId))
+                    outIds.Add(baseId);
+            }
         }
+
+
 
     }
 }

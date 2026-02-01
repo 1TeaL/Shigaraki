@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using ExtraSkillSlots;
 using RoR2;
 using RoR2.UI;
 using ShiggyMod.Modules.Survivors;
@@ -38,6 +39,7 @@ namespace ShiggyMod.SkillStates
                 this.crosshairOverrideRequest = CrosshairUtils.RequestOverrideForBody(base.characterBody, this.crosshairOverridePrefab, CrosshairUtils.OverridePriority.Skill);
             }
 
+            SetSkillDef(Shiggy.banditlightsoutDef);
         }
 
         public override void OnExit()
@@ -54,62 +56,23 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.banditlightsoutDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.banditlightsoutDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.banditlightsoutDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.banditlightsoutDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.banditlightsoutDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.banditlightsoutDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.banditlightsoutDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.banditlightsoutDef)
-            {
-
-                keepFiring = true;
-            }
-            else
-            {
-                keepFiring = false;
-            }
 
             if (base.characterBody)
             {
                 base.characterBody.SetAimTimer(this.duration);
             }
-            if (base.fixedAge >= this.duration && base.isAuthority && !keepFiring)
+
+            if (!IsHeldDown())
             {
-                this.outer.SetNextState(new BanditFireLightsOut());
-                return;
+                if (base.fixedAge >= this.duration && base.isAuthority && !keepFiring)
+                {
+                    this.outer.SetNextState(new BanditFireLightsOut());
+                    return;
+                }
             }
         }
-
+       
+        
 
 
 

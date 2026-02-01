@@ -182,7 +182,7 @@ namespace ShiggyMod.Modules.Quirks
                 });
 
             yield return E(
-                QuirkId.SolusProspector_PrimingPassive, QuirkLevel.Level1, QuirkCategory.Passive,
+                QuirkId.SolusProspector_SolusPrimingPassive, QuirkLevel.Level1, QuirkCategory.Passive,
                 skill: () => solusprospectorprimingDef, // you map this as a passive quirk; if you also have a SkillDef, add it here
                 buff: () => solusPrimedBuff,
                 bodyPaths: new[]
@@ -420,12 +420,12 @@ namespace ShiggyMod.Modules.Quirks
                 skill: () => alloyvultureWindBlastDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Vulture.VultureBody_prefab });
 
-            yield return E(QuirkId.BeetleGuard_SlamActive, QuirkLevel.Level1, QuirkCategory.Active,
-                skill: () => beetleguardslamDef,
+            yield return E(QuirkId.BeetleGuard_FastDropActive, QuirkLevel.Level1, QuirkCategory.Active,
+                skill: () => beetleguardfastdropDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_BeetleGuard.BeetleGuardBody_prefab });
 
-            yield return E(QuirkId.Bison_ChargeActive, QuirkLevel.Level1, QuirkCategory.Active,
-                skill: () => bisonchargeDef,
+            yield return E(QuirkId.Bison_ChargingActive, QuirkLevel.Level1, QuirkCategory.Active,
+                skill: () => bisonchargingDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bison.BisonBody_prefab });
 
             yield return E(QuirkId.Bell_SpikedBallControlActive, QuirkLevel.Level1, QuirkCategory.Active,
@@ -433,7 +433,7 @@ namespace ShiggyMod.Modules.Quirks
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Bell.BellBody_prefab });
 
             yield return E(QuirkId.ClayApothecary_ClayAirStrikeActive, QuirkLevel.Level1, QuirkCategory.Active,
-                skill: () => clayapothecarymortarDef,
+                skill: () => clayapothecaryclayairstrikeDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_ClayGrenadier.ClayGrenadierBody_prefab });
 
             yield return E(QuirkId.ClayTemplar_ClayMinigunActive, QuirkLevel.Level1, QuirkCategory.Active,
@@ -500,8 +500,8 @@ namespace ShiggyMod.Modules.Quirks
                 skill: () => stonegolemlaserDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Golem.GolemBody_prefab });
 
-            yield return E(QuirkId.VoidReaver_PortalActive, QuirkLevel.Level1, QuirkCategory.Active,
-                skill: () => voidreaverportalDef,
+            yield return E(QuirkId.VoidReaver_NullifierArtilleryActive, QuirkLevel.Level1, QuirkCategory.Active,
+                skill: () => voidreavernullifierartilleryDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_Base_Nullifier.NullifierBody_prefab });
 
             // Boss/other actives you mapped (body paths exist in your targeting paste)
@@ -651,12 +651,12 @@ namespace ShiggyMod.Modules.Quirks
             yield return E(
                 QuirkId.Captain_VoidReaver_OrbitalStrikeActive, QuirkLevel.Level2, QuirkCategory.Active,
                 skill: () => orbitalStrikeDef,
-                recipes: new[] { new QuirkRecipe(QuirkId.Captain_MicrobotsPassive, QuirkId.VoidReaver_PortalActive) });
+                recipes: new[] { new QuirkRecipe(QuirkId.Captain_MicrobotsPassive, QuirkId.VoidReaver_NullifierArtilleryActive) });
 
             yield return E(
                 QuirkId.OverloadingWorm_Bison_ThunderclapActive, QuirkLevel.Level2, QuirkCategory.Active,
                 skill: () => thunderclapDef,
-                recipes: new[] { new QuirkRecipe(QuirkId.OverloadingWorm_LightningAuraPassive, QuirkId.Bison_ChargeActive) });
+                recipes: new[] { new QuirkRecipe(QuirkId.OverloadingWorm_LightningAuraPassive, QuirkId.Bison_ChargingActive) });
 
             yield return E(
                 QuirkId.ElderLemurian_Lemurian_BlastBurnActive, QuirkLevel.Level2, QuirkCategory.Active,
@@ -671,7 +671,7 @@ namespace ShiggyMod.Modules.Quirks
             yield return E(
                 QuirkId.BeetleGuard_MULT_MechStanceActive, QuirkLevel.Level2, QuirkCategory.Active,
                 skill: () => mechStanceDef,
-                recipes: new[] { new QuirkRecipe(QuirkId.BeetleGuard_SlamActive, QuirkId.MULT_PowerStanceActive) });
+                recipes: new[] { new QuirkRecipe(QuirkId.BeetleGuard_FastDropActive, QuirkId.MULT_PowerStanceActive) });
 
             yield return E(
                 QuirkId.AirCannon_Merc_WindSlashActive, QuirkLevel.Level2, QuirkCategory.Active,
@@ -760,7 +760,7 @@ namespace ShiggyMod.Modules.Quirks
                         QuirkId.SolusDistributor_SolusPlantMineActive,
                         QuirkId.SolusExtractor_SolusExtractActive,
                         QuirkId.SolusInvalidator_SolusInvalidateActive,
-                        QuirkId.SolusProspector_PrimingPassive,
+                        QuirkId.SolusProspector_SolusPrimingPassive,
                         QuirkId.SolusScorcher_SolusAccelerateActive,
                         QuirkId.SolusTransporter_SolusTransportActive
                     )

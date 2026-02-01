@@ -44,7 +44,7 @@
         LunarExploder_LunarBarrierPassive,
         MiniMushrum_HealingAuraPassive,
         RoboBallMini_SolusBoostPassive,
-        SolusProspector_PrimingPassive,
+        SolusProspector_SolusPrimingPassive,
         VoidBarnacle_VoidMortarPassive,
         VoidJailer_GravityPassive,
         ImpBoss_BleedPassive,
@@ -91,8 +91,8 @@
         // Level 1 actives
         // ============================
         Vulture_WindBlastActive,
-        BeetleGuard_SlamActive,
-        Bison_ChargeActive,
+        BeetleGuard_FastDropActive,
+        Bison_ChargingActive,
         Bell_SpikedBallControlActive,
         ClayApothecary_ClayAirStrikeActive,
         ClayTemplar_ClayMinigunActive,
@@ -111,7 +111,7 @@
         SolusScorcher_SolusAccelerateActive,
         SolusTransporter_SolusTransportActive,
         StoneGolem_LaserActive,
-        VoidReaver_PortalActive,
+        VoidReaver_NullifierArtilleryActive,
         Halcyonite_GreedActive,
         BeetleQueen_SummonActive,
         Grandparent_SunActive,

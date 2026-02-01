@@ -166,7 +166,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "CAPTAIN_DESCRIPTION", $"Passively gain Microbots that shoot down nearby enemy projectiles. Drones are also given Microbots. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Void Reaver- Nullifier Artillery] to create [Orbital Strike]</style>");
             LanguageAPI.Add(prefix + "CHEF_NAME", "Oil Burst");
-            LanguageAPI.Add(prefix + "CHEF_DESCRIPTION", $"Every <style=cIsDamage>{StaticValues.chefOilBurstStacks}th attack, fire globs dealing {100f * StaticValues.chefOilDamageCoefficient}, </style>applying weak and oiled on enemies. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "CHEF_DESCRIPTION", $"Every <style=cIsDamage>{StaticValues.chefOilBurstStacks}th attack, fire globs dealing {100f * StaticValues.chefOilDamageCoefficient}% damage, </style>applying weak and oiled on enemies. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>No pairing yet");
             LanguageAPI.Add(prefix + "LOADER_NAME", "Scrap Barrier");
             LanguageAPI.Add(prefix + "LOADER_DESCRIPTION", $"Gain <style=cIsUtility>{100f * StaticValues.loaderBarrierGainCoefficient}% of your damage as barrier</style> on all attacks. " + Environment.NewLine + Environment.NewLine +
@@ -219,7 +219,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Get from [Artificer/Grandparent]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Gravitational Downforce (Void Jailer/Solus Control Unit)] to create [Weather Report]</style>");
             LanguageAPI.Add(prefix + "DOUBLETIME_NAME", "Double Time");
-            LanguageAPI.Add(prefix + "DOUBLETIME_DESCRIPTION", $"Perceive time at a heightened speed. Nearby enemies' <style=cIsUtility>movespeed and attackspeed are slowed down by {StaticValues.doubleTimeSlowCoefficient * 100f}%</style>. Killing enemies grant <style=cIsDamage>{StaticValues.doubleTimeCoefficient * 100f}% damage, attackspeed and movespeed</style> additively. " +
+            LanguageAPI.Add(prefix + "DOUBLETIME_DESCRIPTION", $"Perceive time at a heightened speed. Nearby enemies' <style=cIsUtility>movespeed and attackspeed are slowed down by {Config.DoubleTimeSlowMultiplier.Value * 100f}%</style>. Killing enemies grant <style=cIsDamage>{StaticValues.doubleTimeCoefficient * 100f}% damage, attackspeed and movespeed</style> additively. " +
                 $"Stacks are halved every {StaticValues.doubleTimeThreshold} seconds. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Commando/Solus Probe]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Omniboost (Beetle/Lesser Wisp)] to create [The World]</style>");
@@ -241,7 +241,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "MACHINEFORM_DESCRIPTION", $"Generate machinery around yourself, passively shooting missiles and bullets to nearby enemies, dealing <style=cIsDamage>{StaticValues.machineFormDamageCoefficient * 100f}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Blackhole Glaive] [Mech Stance]</style>");
             LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_NAME", "Gargoyle Protection");
-            LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_DESCRIPTION", $"Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {StaticValues.gargoyleProtectionDamageReductionCoefficient * 100f}% and reflecting it back to the attacker</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "GARGOYLEPROTECTION_DESCRIPTION", $"Gain the protection of a gargoyle, <style=cIsUtility>reducing damage taken by {Config.GargoyleProtectionDamageReductionPercent.Value * 100f}% and reflecting it back to the attacker</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Ingrain] [Stone Form]</style>");
             LanguageAPI.Add(prefix + "WEATHERREPORT_NAME", "Weather Report");
             LanguageAPI.Add(prefix + "WEATHERREPORT_DESCRIPTION", $"Gain the ability to manipulate the weather. Every {StaticValues.weatherReportThreshold} seconds, cause nearby enemies to randomly be <style=cIsDamage>struck by lightning, be frozen, hit with a fire tornado, sent flying up or sent down, dealing {StaticValues.weatherReportDamageCoefficient * 100f}%</style>. " + Environment.NewLine + Environment.NewLine +
@@ -498,7 +498,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Get from [Decay/Rex]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Aura Of Blight (Acrid/Larva)] to create [Decay Awakened]</style>");
             LanguageAPI.Add(prefix + "MACHPUNCH_NAME", "Mach Punch");
-            LanguageAPI.Add(prefix + "MACHPUNCH_DESCRIPTION", $"Hold to gather energy in your fist. When the button is released, teleport and smash nearby enemies, dealing<style=cIsDamage>{100f * StaticValues.machPunchDamageCoefficient}% - {3f * 100f * StaticValues.machPunchDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "MACHPUNCH_DESCRIPTION", $"Hold to gather energy in your fist. When the button is released, teleport and smash nearby enemies, dealing <style=cIsDamage>{100f * StaticValues.machPunchDamageCoefficient}% - {3f * 100f * StaticValues.machPunchDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Loader/Parent]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Thunderclap (Bison/Overloading Worm)]</style> to create [Extreme Speed]" + Environment.NewLine + "<style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "RAPIDPIERCE_NAME", "Rapid Pierce");
@@ -520,18 +520,18 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "DEATHAURA_DESCRIPTION", $"Become death itself,<style=cIsUtility> applying a stacking permanent debuff to enemies and a stacking buff to yourself  every {StaticValues.deathAuraThreshold} second</style>. Each debuff stack increases <style=cIsDamage>DoT damage by {100f * StaticValues.deathAuraDebuffCoefficient}% while each buff stack increases your DoT damage by {100f * StaticValues.deathAuraBuffCoefficient}%</style>. " + Helpers.Passive($"Drains {StaticValues.deathAuraBuffEnergyCost} plus chaos every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Barbed Spikes] [Expunge]</style>");
             LanguageAPI.Add(prefix + "OFAFO_NAME", "One For All For One");
-            LanguageAPI.Add(prefix + "OFAFO_DESCRIPTION", $"Unlock the true power of One For All and All For One. <style=cIsUtility> Gain {StaticValues.OFAFOLifestealCoefficient * 100f}% lifesteal, {StaticValues.OFAFOEnergyGainCoefficient * 100f}% plus chaos every hit and every passive or buff effect interval is halved</style>. " + Helpers.Passive($"Drains {StaticValues.OFAFOEnergyCostCoefficient}% MAX plus chaos AND {StaticValues.OFAFOHealthCostCoefficient}% health every second") + "." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "OFAFO_DESCRIPTION", $"Unlock the true power of One For All and All For One. <style=cIsUtility> Gain {StaticValues.OFAFOLifestealCoefficient * 100f}% lifesteal, {StaticValues.OFAFOEnergyGainCoefficient * 100f}% plus chaos every hit and every passive or buff effect interval is halved</style>. " + Helpers.Passive($"Drains {StaticValues.OFAFOEnergyCostCoefficient * 100f}% MAX plus chaos AND {StaticValues.OFAFOHealthCostCoefficient * 100f}% health every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Limit Break] [Void Form]</style>");
             LanguageAPI.Add(prefix + "XBEAMER_NAME", "X Beamer");
             LanguageAPI.Add(prefix + "XBEAMER_DESCRIPTION", $"Charge a beam of concentrated energy while holding the button. On release, fire it, dealing <style=cIsDamage> {StaticValues.xBeamerDamageCoefficient * 100f}% damage minimum, increasing based on charge time</style>. " + Helpers.Passive($"Costs {StaticValues.xBeamerBaseEnergyCost} plus chaos initially. Drains plus chaos every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Rapid Pierce] [Sweeping Beam]</style>");
             LanguageAPI.Add(prefix + "FINALRELEASE_NAME", "Final Release");
             LanguageAPI.Add(prefix + "FINALRELEASE_DESCRIPTION", $"Materialize a spirit of wind. During this state, holding down any skill button will fire blades of wind dealing <style=cIsDamage>8x{100f * StaticValues.finalReleaseDamageCoefficient}% damage</style>. <style=cIsUtility>Activating sprint will cause you to dash in the direction you're moving</style>. Every enemy hit generates final release stacks. Attackspeed increases the rate of using both wind blades and dash. " + Environment.NewLine +
-                $"Upon running out of energy or deactivating the skill, release multiple blasts of wind around you, dealing <style=cIsDamage> {StaticValues.finalReleaseDamagePerStackCoefficient * 100f}% damage per stack</style>. The radius also increases based on the number of stacks. The number of blasts are based off threshold increments of {StaticValues.finalReleaseCountIncrement}buff stacks. Each blast will be larger and deal more damage than the previous one. " + Environment.NewLine +
+                $"Upon running out of energy or deactivating the skill, release multiple blasts of wind around you, dealing <style=cIsDamage> {StaticValues.finalReleaseDamagePerStackCoefficient * 100f}% damage per stack</style>. The radius also increases based on the number of stacks. The number of blasts are based off threshold increments of {StaticValues.finalReleaseCountIncrement} stacks. Each blast will be larger and deal more damage than the previous one. " + Environment.NewLine +
                 Helpers.Passive($"Drains {StaticValues.finalReleaseEnergyCost} plus chaos each use of abilities") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Wind Shield] [Wind Slash]</style>");
             LanguageAPI.Add(prefix + "BLASTINGZONE_NAME", "Blasting Zone");
-            LanguageAPI.Add(prefix + "BLASTINGZONE_DESCRIPTION", $"Create a blade of energy and slam it down, hitting enemies in a line in front of you. Each blast deals <style=cIsDamage>{StaticValues.blastingZoneDamageCoefficient * 100f}% damage and applies {StaticValues.blastingZoneDebuffStackApplication} blaze debuff stacks</style>. Afflicted enemies take <style=cIsDamage>{StaticValues.blastingZoneDebuffDamagePerStack}% of their max HP per stack every {StaticValues.blastingZoneDebuffInterval} seconds, halving the number of stacks each pulse</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "BLASTINGZONE_DESCRIPTION", $"Create a blade of energy and slam it down, hitting enemies in a line in front of you. Each blast deals <style=cIsDamage>{StaticValues.blastingZoneDamageCoefficient * 100f}% damage and applies {StaticValues.blastingZoneDebuffStackApplication} blaze debuff stacks</style>. Afflicted enemies take <style=cIsDamage>{StaticValues.blastingZoneDebuffDamagePerStack * 100f}% of their max HP per stack every {StaticValues.blastingZoneDebuffInterval} seconds, halving the number of stacks each pulse</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>[Orbital Strike] [Blast Burn]</style>");
             LanguageAPI.Add(prefix + "WILDCARD_NAME", "Wild Card");
             LanguageAPI.Add(prefix + "WILDCARD_DESCRIPTION", $"Pull out a card. <style=cIsUtility>A random effect will apply to everyone</style>. These include altering speed, damage, teleporting, healing, taking damage, activating glowing meteorite, gaining a random item. " + Environment.NewLine + Environment.NewLine +
@@ -546,7 +546,7 @@ namespace ShiggyMod.Modules
 
             #region Transcendental Actives
             LanguageAPI.Add(prefix + "SOLUSFACTORUNLEASHED_NAME", "Solus Factor Unleashed");
-            LanguageAPI.Add(prefix + "SOLUSFACTORUNLEASHED_DESCRIPTION", $"Become Super Primed. <style=cIsUtility>No longer consume Prime stacks. </style>Every attack that has a proc coefficient applies Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>." + Environment.NewLine + $"Hitting an already Primed enemy <style=cIsDamage>creates a blast, dealing the same damage, but Burning, applying Accelerant and Primed</style> at the same time. " + Helpers.Passive($"Spend all Plus Chaos. For each {StaticValues.solusFactorUnleashedEnergyPerStack} plus chaos, have 1 second of duration of the Super Primed Buff.") + Environment.NewLine +
+            LanguageAPI.Add(prefix + "SOLUSFACTORUNLEASHED_DESCRIPTION", $"Become Super Primed. <style=cIsUtility>No longer consume Prime stacks. </style>Every attack that has a proc coefficient applies Primed- making the next attack deal <style=cIsDamage>{StaticValues.solusPrimedDamageMult * 100}% bonus damage for each stack</style>." + Environment.NewLine + $"Hitting an already Primed enemy <style=cIsDamage>creates a blast, dealing the same damage, but applying Primed</style> at the same time. " + Helpers.Passive($"Spend all Plus Chaos. For each {StaticValues.solusFactorUnleashedEnergyPerStack} plus chaos, have 1 second of duration of the Super Primed Buff.") + Environment.NewLine +
                 $"<style=cSub>[Solus Accelerate] [Solus Plant Mine] [Solus Extract] [Solus Invalidate] [Solus Priming] [Solus Transport]</style>");
             #endregion
 
@@ -559,7 +559,7 @@ namespace ShiggyMod.Modules
 
 
             #region Keywords
-            LanguageAPI.Add(prefix + "KEYWORD_DECAY", $"<style=cKeywordName>Decay</style>Deal the higher of <style=cIsDamage>{100f * StaticValues.decayDamageCoefficient}% damage or {StaticValues.decayDamagePercentage * 100f}% of the enemy's max HP </style>per second for {StaticValues.decayDamageTimer} seconds. This spreads to nearby targets every {StaticValues.decayadditionalTimer} seconds." +
+            LanguageAPI.Add(prefix + "KEYWORD_DECAY", $"<style=cKeywordName>Decay</style>Deal the higher of <style=cIsDamage>{100f * StaticValues.decayDamageCoefficient}% damage or {Modules.Config.DecayDamagePercentage.Value * 100f}% of the enemy's max HP </style>per second for {Modules.Config.DecayDuration.Value} seconds. This spreads to nearby targets every {Modules.Config.DecayInterval.Value} seconds." +
                 $"Each <style=cStack>stack reduces movespeed and attackspeed by 4%</style>. " +
                 $"<style=cDeath>Instakills</style> at {StaticValues.decayInstaKillThreshold} stacks.");
             LanguageAPI.Add(prefix + "KEYWORD_PASSIVE", $"<style=cKeywordName>Plus Chaos Meter</style>"
@@ -567,7 +567,7 @@ namespace ShiggyMod.Modules
                 + Environment.NewLine
                 + Environment.NewLine
             + $"<style=cKeywordName>Decay</style>"
-                + $"<style=cKeywordName>Decay</style>Deal the higher of <style=cIsDamage>{100f * StaticValues.decayDamageCoefficient}% damage or {StaticValues.decayDamagePercentage * 100f}% of the enemy's max HP </style>per second for {StaticValues.decayDamageTimer} seconds. This spreads to nearby targets every {StaticValues.decayadditionalTimer} seconds." +
+                + $"<style=cKeywordName>Decay</style>Deal the higher of <style=cIsDamage>{100f * Modules.Config.DecayBaseDamage.Value}% damage or {Modules.Config.DecayDamagePercentage.Value * 100f}% of the enemy's max HP </style>per second for {Modules.Config.DecayDuration.Value} seconds. This spreads to nearby targets every {Modules.Config.DecayInterval.Value} seconds." +
                 $"Each <style=cStack>stack reduces movespeed and attackspeed by {StaticValues.decaydebuffCoefficient * 100f}%</style>. " +
                 $"<style=cDeath>Instakills</style> at {StaticValues.decayInstaKillThreshold} stacks." 
                 + Environment.NewLine

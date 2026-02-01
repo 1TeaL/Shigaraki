@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using EntityStates.GolemMonster;
+using ExtraSkillSlots;
 using RoR2;
 using ShiggyMod.Modules.Survivors;
 using System.Linq;
@@ -86,6 +87,7 @@ namespace ShiggyMod.SkillStates
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
 
+            SetSkillDef(Shiggy.stonegolemlaserDef);
         }
 
         public override void OnExit()
@@ -144,58 +146,8 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.stonegolemlaserDef)
-            {
 
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.stonegolemlaserDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.stonegolemlaserDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.stonegolemlaserDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.stonegolemlaserDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.stonegolemlaserDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.stonegolemlaserDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.stonegolemlaserDef)
-            {
-
-                keepFiring = true;
-            }
-            else
-            {
-                keepFiring = false;
-            }
-
-            if (keepFiring)
-            {
-                this.chargePercent = base.fixedAge / this.maxCharge;
-                this.damageCoefficient = (Modules.StaticValues.stonegolemDamageCoefficient + 1f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoefficient));
-                this.radius = (this.baseRadius * this.damageCoefficient + 20f) / 4f;
-            }
-            else if (!keepFiring)
+            if (!IsHeldDown())
             {
                 if (base.fixedAge >= this.duration && base.isAuthority)
                 {
@@ -206,12 +158,17 @@ namespace ShiggyMod.SkillStates
                     this.outer.SetNextState(fireLaser);
                     return;
                 }
-
+            }
+            else
+            {
+                this.chargePercent = base.fixedAge / this.maxCharge;
+                this.damageCoefficient = (Modules.StaticValues.stonegolemDamageCoefficient + 1f * (this.chargePercent * Modules.StaticValues.stonegolemDamageCoefficient));
+                this.radius = (this.baseRadius * this.damageCoefficient + 20f) / 4f;
             }
         }
 
 
-
+        
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {

@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using ExtraSkillSlots;
 using RoR2;
 using RoR2.Audio;
 using ShiggyMod.Modules.Survivors;
@@ -102,6 +103,7 @@ namespace ShiggyMod.SkillStates
             };
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
+            SetSkillDef(Shiggy.xiconstructbeamDef);
         }
 
         public bool laserHitCallback(BulletAttack bulletRef, ref BulletHit hitInfo)
@@ -175,7 +177,15 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (base.IsKeyDownAuthority())
+            if (!IsHeldDown())
+            {
+                if (base.isAuthority)
+                {
+                    base.outer.SetNextStateToMain();
+                }
+                return;
+            }
+            else
             {
                 if (!beamPlay)
                 {
@@ -193,16 +203,11 @@ namespace ShiggyMod.SkillStates
                     attack.Fire();
                     fireTimer = 0f;
                 }
-
-            }
-            else
-            {
-                base.outer.SetNextStateToMain();
             }
 
         }
 
-
+       
 
 
         public override InterruptPriority GetMinimumInterruptPriority()

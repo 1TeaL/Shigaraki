@@ -40,7 +40,7 @@ namespace ShiggyMod.SkillStates
                 searchOrigin = charBody.corePosition,
                 searchDirection = UnityEngine.Random.onUnitSphere,
                 sortMode = BullseyeSearch.SortMode.Distance,
-                maxDistanceFilter = Modules.StaticValues.decayspreadRadius,
+                maxDistanceFilter = Modules.Config.DecaySpreadRadius.Value,
                 maxAngleFilter = 360f
             };
 
@@ -59,7 +59,7 @@ namespace ShiggyMod.SkillStates
                         InflictDotInfo info = new InflictDotInfo();
                         info.attackerObject = attackerBody.gameObject;
                         info.victimObject = singularTarget.healthComponent.body.gameObject;
-                        info.duration = Modules.StaticValues.decayDamageTimer;
+                        info.duration = Modules.Config.DecayDuration.Value;
                         info.dotIndex = Modules.Dots.decayDot;
 
                         DotController.InflictDot(ref info);
@@ -117,7 +117,7 @@ namespace ShiggyMod.SkillStates
                 }
 
                 timer += Time.fixedDeltaTime;
-                if (timer > Modules.StaticValues.decayadditionalTimer)
+                if (timer > Modules.Config.DecayInterval.Value)
                 {
                     //Debug.Log("ApplyingDoTfromController");
                     timer = 0;

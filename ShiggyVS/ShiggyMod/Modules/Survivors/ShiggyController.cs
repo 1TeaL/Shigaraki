@@ -1910,52 +1910,71 @@ namespace ShiggyMod.Modules.Survivors
             return QuirkId.None;
         }
 
-
         public void Client_OnStealResult(QuirkId id, bool success, string reason, NetworkInstanceId victimBodyId, bool playVfx, float cost)
         {
             if (!characterBody || !characterBody.hasEffectiveAuthority) return;
 
-            _stealPending = false;
-            _pendingStealCost = 0f;
+            // "Finalizer" means: this message ends the pending request.
+            // In your scheme: the last success carries cost, failure always finalizes.
+            bool isFinalizer = (!success) || (cost > 0f);
 
             if (!success)
             {
+                // If you *ever* decide to pre-spend on request, refund here using _pendingStealCost.
+                // Right now you don't pre-spend, so just clear pending when finalizer (it is).
+                if (isFinalizer)
+                {
+                    _stealPending = false;
+                    _pendingStealCost = 0f;
+                }
+
                 energySystem.quirkGetInformation(MapStealFailReason(reason), 2f);
                 return;
             }
 
-            // spend ONLY on real grants
-            if (cost > 0f)
-                energySystem.SpendplusChaos(cost);
+            // SUCCESS PATH ----------------------------------------------------
 
+            // Add locally for each granted quirk (this is the whole point of multi-grant)
             var inv = QuirkInventory.Ensure(characterBody.master);
             inv?.Client_AddLocalOnly(id);
 
+            // Toast each granted quirk
             var msg = QuirkInventory.QuirkPickupUI.BuildPickupText(id);
             Chat.AddMessage(msg);
             energySystem.quirkGetInformation(msg, 2f);
 
+            // Spend ONLY on the finalizer message (the one that includes the cost)
+            if (cost > 0f)
+                energySystem.SpendplusChaos(cost);
+
+            // Clear pending ONLY on finalizer
+            if (isFinalizer)
+            {
+                _stealPending = false;
+                _pendingStealCost = 0f;
+            }
+
             _lastQuirkId = QuirkId.None;
 
-            // flourish on the owning client only
+            // Play flourish only once (server already sets playVfx only for first grant)
             if (playVfx)
             {
-                var victimObj = Util.FindNetworkObject(victimBodyId);
+                // Prefer ClientScene on clients; Util.FindNetworkObject can be inconsistent on non-host.
+                var victimObj = ClientScene.FindLocalObject(victimBodyId);
                 var victimBody = victimObj ? victimObj.GetComponent<CharacterBody>() : null;
 
                 if (victimBody)
                 {
-                    var afoCon = victimBody.gameObject.AddComponent<AFOEffectController>();
+                    var afoCon = victimBody.gameObject.GetComponent<AFOEffectController>();
+                    if (!afoCon) afoCon = victimBody.gameObject.AddComponent<AFOEffectController>();
                     afoCon.attackerBody = characterBody;
-                    afoCon.RHandChild = child.FindChild("RHand").transform;
+                    afoCon.RHandChild = child ? child.FindChild("RHand")?.transform : null;
 
-                    // IMPORTANT: do NOT broadcast to all clients unless the message itself filters by attacker id.
-                    // Prefer targeting ONLY the attacker client (see section 3).
-                    // For now, keep local animation trigger:
                     characterBody.GetComponent<EntityStateMachine>()?.SetNextState(new AFOSteal());
                 }
             }
         }
+
 
 
 

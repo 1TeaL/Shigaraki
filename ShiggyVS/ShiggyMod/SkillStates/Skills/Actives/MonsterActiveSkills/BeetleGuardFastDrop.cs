@@ -10,7 +10,7 @@ using UnityEngine.Networking;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BeetleGuardSlam : Skill
+    public class BeetleGuardFastDrop : Skill
     {
         public static float dropForce = 80f;
         public float dropTimer;

@@ -49,7 +49,7 @@ namespace ShiggyMod.SkillStates
             }
 
 
-
+            SetSkillDef(Shiggy.lemurianfireballDef);
 
 
         }
@@ -123,10 +123,6 @@ namespace ShiggyMod.SkillStates
             }
 
         }
-
-
-
-
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {

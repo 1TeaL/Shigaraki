@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using EntityStates.LemurianMonster;
+using ExtraSkillSlots;
 using RoR2;
 using ShiggyMod.Modules;
 using ShiggyMod.Modules.Survivors;
@@ -56,6 +57,7 @@ namespace ShiggyMod.SkillStates
                 this.chargeVfxInstance.transform.parent = FindModelChild(this.muzzleString).transform;
             }
 
+            SetSkillDef(Shiggy.blastBurnDef);
         }
 
         public override void OnExit()
@@ -71,54 +73,16 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-
-            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.blastBurnDef)
+            base.FixedUpdate();
+            if (!IsHeldDown())
             {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.blastBurnDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.blastBurnDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.blastBurnDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.blastBurnDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.blastBurnDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.blastBurnDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.blastBurnDef)
-            {
-
-                keepFiring = true;
+                if (base.isAuthority)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+                return;
             }
             else
-            {
-                keepFiring = false;
-            }
-
-
-            if (keepFiring)
             {
                 stopwatch += Time.fixedDeltaTime;
                 if (stopwatch > fireInterval)
@@ -150,15 +114,9 @@ namespace ShiggyMod.SkillStates
 
                 }
             }
-            else if (!keepFiring)
-            {
-
-                this.outer.SetNextStateToMain();
-                return;
-            }
-
 
         }
+
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.PrioritySkill;

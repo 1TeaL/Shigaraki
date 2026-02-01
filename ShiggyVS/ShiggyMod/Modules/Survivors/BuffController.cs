@@ -511,11 +511,11 @@ namespace ShiggyMod.Modules.Survivors
             //double time buff removal
             if (characterBody.HasBuff(Buffs.doubleTimeBuffStacks))
             {
-                if (doubleTimeStacksTimer <= StaticValues.doubleTimeThreshold)
+                if (doubleTimeStacksTimer <= Modules.Config.DoubleTimeDuration.Value)
                 {
                     doubleTimeStacksTimer += Time.fixedDeltaTime;
                 }
-                else if (doubleTimeStacksTimer > StaticValues.doubleTimeThreshold)
+                else if (doubleTimeStacksTimer > Modules.Config.DoubleTimeDuration.Value)
                 {
                     doubleTimeStacksTimer = 0f;
                     int doubleTimeStacksBuffcount = characterBody.GetBuffCount(Buffs.doubleTimeBuffStacks);
@@ -1294,7 +1294,7 @@ namespace ShiggyMod.Modules.Survivors
                 searchOrigin = characterBody.corePosition,
                 searchDirection = UnityEngine.Random.onUnitSphere,
                 sortMode = BullseyeSearch.SortMode.Distance,
-                maxDistanceFilter = Modules.StaticValues.doubleTimeRadius,
+                maxDistanceFilter = Modules.Config.DoubleTimeRadius.Value,
                 maxAngleFilter = 360f
             };
 
@@ -1496,7 +1496,7 @@ namespace ShiggyMod.Modules.Survivors
             if (this.doubleTimeIndicatorInstance)
             {
                 this.doubleTimeIndicatorInstance.transform.parent = characterBody.transform;
-                this.doubleTimeIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.doubleTimeRadius;
+                this.doubleTimeIndicatorInstance.transform.localScale = Vector3.one * Modules.Config.DoubleTimeRadius.Value;
                 //this.doubleTimeIndicatorInstance.transform.localPosition = Vector3.zero;
             }
             if (this.auraOfBlightIndicatorInstance)
@@ -1548,7 +1548,7 @@ namespace ShiggyMod.Modules.Survivors
                 this.doubleTimeIndicatorInstance.SetActive(true);
 
                 this.doubleTimeIndicatorInstance.transform.parent = characterBody.transform;
-                this.doubleTimeIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.doubleTimeRadius;
+                this.doubleTimeIndicatorInstance.transform.localScale = Vector3.one * Modules.Config.DoubleTimeRadius.Value;
                 this.doubleTimeIndicatorInstance.transform.localPosition = Vector3.zero;
 
             }

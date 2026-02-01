@@ -67,8 +67,8 @@ namespace ShiggyMod.SkillStates
             base.StartAimMode(0.5f + this.duration, false);
             base.characterBody.outOfCombatStopwatch = 0f;
             this.animator.SetBool("attacking", true);
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayCrossfade("FullBody, Override", "FullBodyDashSlash", "Attack.playbackRate", duration, 0.05f);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat * 2f);
+            base.PlayCrossfade("FullBody, Override", "FullBodyDashSlash", "Attack.playbackRate", duration/2f, 0.05f);
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             if (base.isAuthority)
             {

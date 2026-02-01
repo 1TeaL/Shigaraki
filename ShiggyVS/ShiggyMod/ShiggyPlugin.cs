@@ -83,7 +83,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "3.0.0";
+        public const string MODVERSION = "3.0.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -539,15 +539,15 @@ namespace ShiggyMod
                     if (sender.HasBuff(Buffs.doubleTimeBuffStacks))
                     {
                         int doubletimeBuffcount = sender.GetBuffCount(Buffs.doubleTimeBuffStacks);
-                        args.damageMultAdd += StaticValues.doubleTimeCoefficient * doubletimeBuffcount;
-                        args.attackSpeedMultAdd += StaticValues.doubleTimeCoefficient * doubletimeBuffcount;
-                        args.moveSpeedMultAdd += StaticValues.doubleTimeCoefficient * doubletimeBuffcount;
+                        args.damageMultAdd += Modules.Config.DoubleTimeStatMultiplier.Value * doubletimeBuffcount;
+                        args.attackSpeedMultAdd += Modules.Config.DoubleTimeStatMultiplier.Value * doubletimeBuffcount;
+                        args.moveSpeedMultAdd += Modules.Config.DoubleTimeStatMultiplier.Value * doubletimeBuffcount;
                     }
                     //double time debuff
                     if (sender.HasBuff(Buffs.doubleTimeDebuff))
                     {
-                        args.attackSpeedMultAdd -= StaticValues.doubleTimeSlowCoefficient;
-                        args.moveSpeedMultAdd -= StaticValues.doubleTimeSlowCoefficient;
+                        args.attackSpeedMultAdd -= Modules.Config.DoubleTimeSlowMultiplier.Value;
+                        args.moveSpeedMultAdd -= Modules.Config.DoubleTimeSlowMultiplier.Value;
                     }
                     //false son buff
                     if (sender.HasBuff(Buffs.falsesonStolenInheritanceBuff))
@@ -1224,7 +1224,7 @@ namespace ShiggyMod
                 // Gargoyle protection: reduce damage + reflect the reduced portion
                 if (attackerBody && victimBody.HasBuff(Buffs.gargoyleProtectionBuff) && damageInfo.damage > 0f && attackerBody != victimBody)
                 {
-                    float reflect = damageInfo.damage * StaticValues.gargoyleProtectionDamageReductionCoefficient;
+                    float reflect = damageInfo.damage * ShiggyMod.Modules.Config.GargoyleProtectionDamageReductionPercent.Value;
                     damageInfo.damage -= reflect;
 
                     var reflectDI = new DamageInfo
@@ -1641,7 +1641,7 @@ namespace ShiggyMod
                     float decaybuffcount = self.GetBuffCount(Buffs.decayDebuff);
                     self.attackSpeed *= Mathf.Pow(1f-StaticValues.decaydebuffCoefficient, decaybuffcount);
                     self.moveSpeed *= Mathf.Pow(1f - StaticValues.decaydebuffCoefficient, decaybuffcount);
-                    if (decaybuffcount >= Modules.StaticValues.decayInstaKillThreshold)
+                    if (decaybuffcount >= Modules.Config.DecayStacks.Value)
                     {
                         if (NetworkServer.active && self.healthComponent)
                         {

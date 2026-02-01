@@ -33,16 +33,6 @@ namespace ShiggyMod.SkillStates
         private uint windLoopSoundID;
         private uint shootLoopSoundID;
 
-        // ---- hold-to-fire binding (resolved once) ----
-        private enum HeldSlot
-        {
-            None,
-            Primary, Secondary, Utility, Special,
-            Extra1, Extra2, Extra3, Extra4
-        }
-
-        private HeldSlot _heldSlot;
-
         public override void OnEnter()
         {
             base.OnEnter();
@@ -64,10 +54,6 @@ namespace ShiggyMod.SkillStates
             }
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
-            // Resolve which button we should track for "hold to fire"
-            _heldSlot = ResolveHeldSlot();
-            if (_heldSlot == HeldSlot.None)
-                _heldSlot = HeldSlot.Primary; // safe fallback
             baseBulletCount = StaticValues.lunarwispminigunBullets;
 
             this.muzzleTransformOne = base.FindModelChild(this.muzzleString);
@@ -84,6 +70,7 @@ namespace ShiggyMod.SkillStates
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
 
+            SetSkillDef(Shiggy.lunarwispminigunDef);
         }
         private void UpdateCrits()
         {
@@ -191,57 +178,6 @@ namespace ShiggyMod.SkillStates
         }
 
 
-        private HeldSlot ResolveHeldSlot()
-        {
-            // Base slots
-            var sl = characterBody ? characterBody.skillLocator : null;
-            if (sl != null)
-            {
-                if (sl.primary != null && sl.primary.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Primary;
-                if (sl.secondary != null && sl.secondary.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Secondary;
-                if (sl.utility != null && sl.utility.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Utility;
-                if (sl.special != null && sl.special.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Special;
-            }
-
-            // Extra slots
-            var extras = GetComponent<ExtraSkillLocator>();
-            if (extras != null)
-            {
-                if (extras.extraFirst != null && extras.extraFirst.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Extra1;
-                if (extras.extraSecond != null && extras.extraSecond.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Extra2;
-                if (extras.extraThird != null && extras.extraThird.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Extra3;
-                if (extras.extraFourth != null && extras.extraFourth.skillDef == Shiggy.claytemplarminigunDef) return HeldSlot.Extra4;
-            }
-
-            return HeldSlot.None;
-        }
-
-        private bool IsHeldDown()
-        {
-            if (!inputBank) return false;
-
-            // Base buttons
-            switch (_heldSlot)
-            {
-                case HeldSlot.Primary: return inputBank.skill1.down;
-                case HeldSlot.Secondary: return inputBank.skill2.down;
-                case HeldSlot.Utility: return inputBank.skill3.down;
-                case HeldSlot.Special: return inputBank.skill4.down;
-            }
-
-            // Extra buttons
-            var extraInput = GetComponent<ExtraInputBankTest>();
-            if (!extraInput) return false;
-
-            switch (_heldSlot)
-            {
-                case HeldSlot.Extra1: return extraInput.extraSkill1.down;
-                case HeldSlot.Extra2: return extraInput.extraSkill2.down;
-                case HeldSlot.Extra3: return extraInput.extraSkill3.down;
-                case HeldSlot.Extra4: return extraInput.extraSkill4.down;
-                default: return false;
-            }
-        }
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {

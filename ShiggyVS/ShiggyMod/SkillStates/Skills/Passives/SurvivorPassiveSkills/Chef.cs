@@ -8,6 +8,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            exitOnDuration = true;
             if (NetworkServer.active)
             {
                 characterBody.ApplyBuff(Modules.Buffs.chefOilBurstBuff.buffIndex, 1);

@@ -1,8 +1,8 @@
 {
     "name": "ShigarakiMod",
-    "version_number": "2.4.0",
+    "version_number": "3.0.1",
     "website_url": "https://github.com/1TeaL/Shigaraki",
-    "description": "Go Beyond... 2.4.0- Fixes to beetle queen, to latest version", 
+    "description": "Go Beyond... 3.0.0- The Quirk Rework! 3.0.1- hotfix", 
     "dependencies": [
          "RiskofThunder-R2API_Core-5.1.2",
          "RiskofThunder-R2API_Sound-1.0.3",

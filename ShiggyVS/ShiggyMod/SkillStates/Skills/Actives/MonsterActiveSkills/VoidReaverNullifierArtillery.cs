@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using EntityStates.NullifierMonster;
+using ExtraSkillSlots;
 using RoR2;
 using RoR2.Projectile;
 using ShiggyMod.Modules.Survivors;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
-    public class VoidReaverPortal : Skill
+    public class VoidReaverNullifierArtillery : Skill
     {
 
         private float damageCoefficient = Modules.StaticValues.voidreaverDamageCoefficient;
@@ -38,6 +39,7 @@ namespace ShiggyMod.SkillStates
             PlayCrossfade("RightArm, Override", "RArmOutStart", "Attack.playbackRate", duration, 0.1f);
             //need hand to stay out the whole time
             AkSoundEngine.PostEvent("ShiggyExplosion", base.gameObject);
+            SetSkillDef(Shiggy.voidreavernullifierartilleryDef);
         }
 
         public void PortalFire()
@@ -71,52 +73,16 @@ namespace ShiggyMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.voidreaverportalDef)
+            
+            if (!IsHeldDown())
             {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.voidreaverportalDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.voidreaverportalDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.voidreaverportalDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.voidreaverportalDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.voidreaverportalDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.voidreaverportalDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.voidreaverportalDef)
-            {
-
-                keepFiring = true;
+                if (base.fixedAge >= this.duration)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+                return;
             }
             else
-            {
-                keepFiring = false;
-            }
-
-            if (keepFiring)
             {
                 if (base.isAuthority)
                 {
@@ -141,20 +107,11 @@ namespace ShiggyMod.SkillStates
 
                     }
                 }
-
             }
-            else if (!keepFiring)
-            {
-                if (base.fixedAge >= this.duration)
-                {
-                    this.outer.SetNextStateToMain();
-                }
-            }
-
         }
 
 
-
+       
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {

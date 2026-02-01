@@ -49,6 +49,13 @@ namespace ShiggyMod.Modules
         public static ConfigEntry<float> DecayDamagePercentage;
         public static ConfigEntry<float> DecaySpreadRadius;
 
+        public static ConfigEntry<float> GargoyleProtectionDamageReductionPercent;
+
+        public static ConfigEntry<float> DoubleTimeSlowMultiplier;
+        public static ConfigEntry<float> DoubleTimeStatMultiplier;
+        public static ConfigEntry<float> DoubleTimeDuration;
+        public static ConfigEntry<float> DoubleTimeRadius;
+
         public static void ReadConfig()
         {
             //General configs
@@ -79,25 +86,32 @@ namespace ShiggyMod.Modules
             //Apex
             ApexStacksPerSecondReset = ShiggyPlugin.instance.Config.Bind("Apex", "Stacks Per Second Reset", 1, "Debuff stacks added per second of cooldown reset.");
             ApexAdaptPerSecondReset = ShiggyPlugin.instance.Config.Bind("Apex", "Adapt Per Second Reset", 1, "Adaptation stacks gained per second of cooldown reset.");
-            ApexHPDrainPerStackPerSecond = ShiggyPlugin.instance.Config.Bind("Apex", "HP Drain Per Stack Per Second", 0.5f, "Negative HP Regen per Apex Surgery Debuff stack.");
+            ApexHPDrainPerStackPerSecond = ShiggyPlugin.instance.Config.Bind("Apex", "HP Drain Per Stack Per Second", 0.2f, "Negative HP Regen per Apex Surgery Debuff stack.");
             ApexDamagePenaltyPerStack = ShiggyPlugin.instance.Config.Bind("Apex", "Damage Penalty Per Stack", 0.01f, "Outgoing damage penalty per stack (0.01 = 1%).");
             ApexOverdriveBaseCap = ShiggyPlugin.instance.Config.Bind("Apex", "Overdrive Base Cap", 20, "Base debuff stack cap before overdrive triggers.");
             ApexOverdriveCapPerAdapt = ShiggyPlugin.instance.Config.Bind("Apex", "Over drive Cap Per 100 Adapt", 10, "Cap increases by this many stacks per Adaptation threshold.");
             ApexAdaptThreshold = ShiggyPlugin.instance.Config.Bind("Apex", "Adaptation threshold stacks", 100, "How many stacks of Adaptation needed to hit the next threshold.");
             ApexAdaptReward = ShiggyPlugin.instance.Config.Bind("Apex", "Adaptation Reward Value", 0.1f, "Percent of stat boosts gained per threshold met.");
-            ApexOverdriveChunk = ShiggyPlugin.instance.Config.Bind("Apex", "OverdriveChunk", 0.40f, "Percent Max HP damage when overdrive triggers.");
-            ApexHealBlockDuration = ShiggyPlugin.instance.Config.Bind("Apex", "HealBlockDuration", StaticValues.quirkOverdriveDuration, "Seconds of heal-block during overdrive.");
-            ApexHoldSecondsToReset = ShiggyPlugin.instance.Config.Bind("Apex", "HoldSecondsToReset", 0.30f, "Seconds to hold to reset cooldowns.");
+            ApexOverdriveChunk = ShiggyPlugin.instance.Config.Bind("Apex", "Overdrive Damage", 0.40f, "Percent Max HP damage when overdrive triggers.");
+            ApexHealBlockDuration = ShiggyPlugin.instance.Config.Bind("Apex", "Heal Block Duration", StaticValues.quirkOverdriveDuration, "Seconds of heal-block during overdrive.");
+            ApexHoldSecondsToReset = ShiggyPlugin.instance.Config.Bind("Apex", "Hold Seconds To Reset", 0.30f, "Seconds to hold to reset cooldowns.");
 
             //Quirks Configs
-            HyperRegenerationInterval = ShiggyPlugin.instance.Config.Bind("Quirks", "HyperRegenerationInterval", StaticValues.hyperRegenInterval, "Seconds between each heal tick.");
-            HyperRegenerationHealPercent = ShiggyPlugin.instance.Config.Bind("Quirks", "HyperRegenerationHealPercent", StaticValues.hyperRegenHealthCoefficient, "Percentage healing (out of 1 = 100%) of your Max HP that you are healed.");
-            DecayInterval = ShiggyPlugin.instance.Config.Bind("Quirks", "DecaySpreadInterval", StaticValues.decayadditionalTimer, "Seconds between each decay spread.");
-            DecayDuration = ShiggyPlugin.instance.Config.Bind("Quirks", "DecayDuration", StaticValues.decayDamageTimer, "How many seconds decay lasts.");
-            DecayBaseDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "DecayAttackerDamage", StaticValues.decayDamageStack, "How much damage decay does based on player damage.");
-            DecayDamagePercentage = ShiggyPlugin.instance.Config.Bind("Quirks", "DecayHPDamagePercentage", StaticValues.decayDamagePercentage, "How much damage decay does based on enemy max HP.");
-            DecaySpreadRadius = ShiggyPlugin.instance.Config.Bind("Quirks", "DecaySpreadRadius", StaticValues.decayspreadRadius, "How far decay can spread.");
-            DecayStacks = ShiggyPlugin.instance.Config.Bind("Quirks", "DecayInstakillThreshold", StaticValues.decayInstaKillThreshold, "How many stacks to instakill an enemy.");
+            HyperRegenerationInterval = ShiggyPlugin.instance.Config.Bind("Quirks", "Hyper Regeneration Interval", StaticValues.hyperRegenInterval, "Seconds between each heal tick.");
+            HyperRegenerationHealPercent = ShiggyPlugin.instance.Config.Bind("Quirks", "Hyper Regeneration Heal Percent", StaticValues.hyperRegenHealthCoefficient, "Percentage healing (out of 1 = 100%) of your Max HP that you are healed.");
+            DecayInterval = ShiggyPlugin.instance.Config.Bind("Quirks", "Decay Spread Interval", StaticValues.decayadditionalTimer, "Seconds between each decay spread.");
+            DecayDuration = ShiggyPlugin.instance.Config.Bind("Quirks", "Decay Duration", StaticValues.decayDamageTimer, "How many seconds decay lasts.");
+            DecayBaseDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "Decay Attacker Damage", StaticValues.decayDamageStack, "How much damage decay does based on player damage.");
+            DecayDamagePercentage = ShiggyPlugin.instance.Config.Bind("Quirks", "Decay HP Damage Percentage", StaticValues.decayDamagePercentage, "How much damage decay does based on enemy max HP.");
+            DecaySpreadRadius = ShiggyPlugin.instance.Config.Bind("Quirks", "Decay Spread Radius", StaticValues.decayspreadRadius, "How far decay can spread.");
+            DecayStacks = ShiggyPlugin.instance.Config.Bind("Quirks", "Decay Instakill Threshold", StaticValues.decayInstaKillThreshold, "How many stacks to instakill an enemy.");
+
+            GargoyleProtectionDamageReductionPercent = ShiggyPlugin.instance.Config.Bind("Quirks", "Gargoyle Protection Damage Reduction Percent", StaticValues.gargoyleProtectionDamageReductionCoefficient, "Damage Reduction for Gargoyle Protection.");
+
+            DoubleTimeDuration = ShiggyPlugin.instance.Config.Bind("Quirks", "Double Time Duration", StaticValues.doubleTimeThreshold, "How many seconds till Double Time buff stacks are halved.");
+            DoubleTimeRadius = ShiggyPlugin.instance.Config.Bind("Quirks", "Double Time Radius", StaticValues.doubleTimeRadius, "Radius of effect of Double Time.");
+            DoubleTimeSlowMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Double Time Slow Multiplier", StaticValues.doubleTimeSlowCoefficient, "How slowed enemies are.");
+            DoubleTimeStatMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Double Time Stat Multiplier", StaticValues.doubleTimeCoefficient, "How much damage, attackspeed and movespeed are gained on kill.");
 
         }
 
@@ -186,6 +200,18 @@ namespace ShiggyMod.Modules
                 DecayDamagePercentage, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
             ModSettingsManager.AddOption(new IntSliderOption(
                 DecayStacks, new IntSliderConfig() { min = 1, max = 1000 }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               GargoyleProtectionDamageReductionPercent, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               DoubleTimeRadius, new StepSliderConfig() { min = 1f, max = 100f, increment = 1f}));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               DoubleTimeDuration, new StepSliderConfig() { min = 1f, max = 100, increment = 1f}));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               DoubleTimeSlowMultiplier, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               DoubleTimeStatMultiplier, new StepSliderConfig() { min = 0.1f, max = 10f, increment = 0.1f }));
 
             ModSettingsManager.SetModDescription("Shigaraki Mod");
             Sprite icon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("texShiggyIcon");

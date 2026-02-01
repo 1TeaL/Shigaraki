@@ -328,7 +328,7 @@ namespace ShiggyMod.Modules
         internal const float wisperBuffDamageCoefficient = 2f;
 
         internal const float omniboostBuffCoefficient = 0.2f;
-        internal const float omniboostBuffStackCoefficient = 0.02f;
+        internal const float omniboostBuffStackCoefficient = 0.04f;
         internal const int omniboostNumberOfHits = 3;
         internal const float omniboostBuffTimer = 1f;
 
@@ -722,7 +722,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.acridpassiveDef.skillName, Survivors.Shiggy.acridpassiveDef},
                 { Survivors.Shiggy.larvapassiveDef.skillName, Survivors.Shiggy.larvapassiveDef},
 
-                { Survivors.Shiggy.beetleguardslamDef.skillName, Survivors.Shiggy.beetleguardslamDef},
+                { Survivors.Shiggy.beetleguardfastdropDef.skillName, Survivors.Shiggy.beetleguardfastdropDef},
                 { Survivors.Shiggy.multbuffDef.skillName, Survivors.Shiggy.multbuffDef},
 
                 { Survivors.Shiggy.hermitcrabpassiveDef.skillName, Survivors.Shiggy.hermitcrabpassiveDef},
@@ -735,10 +735,10 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.lemurianfireballDef.skillName, Survivors.Shiggy.lemurianfireballDef},
 
                 { Survivors.Shiggy.overloadingwormpassiveDef.skillName, Survivors.Shiggy.overloadingwormpassiveDef},
-                { Survivors.Shiggy.bisonchargeDef.skillName, Survivors.Shiggy.bisonchargeDef},
+                { Survivors.Shiggy.bisonchargingDef.skillName, Survivors.Shiggy.bisonchargingDef},
 
                 { Survivors.Shiggy.captainpassiveDef.skillName, Survivors.Shiggy.captainpassiveDef},
-                { Survivors.Shiggy.voidreaverportalDef.skillName, Survivors.Shiggy.voidreaverportalDef},
+                { Survivors.Shiggy.voidreavernullifierartilleryDef.skillName, Survivors.Shiggy.voidreavernullifierartilleryDef},
 
                 { Survivors.Shiggy.impblinkDef.skillName, Survivors.Shiggy.impblinkDef},
                 { Survivors.Shiggy.banditlightsoutDef.skillName, Survivors.Shiggy.banditlightsoutDef},
@@ -750,7 +750,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.magmawormpassiveDef.skillName, Survivors.Shiggy.magmawormpassiveDef},
 
                 { Survivors.Shiggy.xiconstructbeamDef.skillName, Survivors.Shiggy.xiconstructbeamDef},
-                { Survivors.Shiggy.clayapothecarymortarDef.skillName, Survivors.Shiggy.clayapothecarymortarDef},
+                { Survivors.Shiggy.clayapothecaryclayairstrikeDef.skillName, Survivors.Shiggy.clayapothecaryclayairstrikeDef},
 
                 { Survivors.Shiggy.alloyvultureWindBlastDef.skillName, Survivors.Shiggy.alloyvultureWindBlastDef},
                 { Survivors.Shiggy.engiturretDef.skillName, Survivors.Shiggy.engiturretDef},
@@ -894,7 +894,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.acridpassiveDef.skillName, Survivors.Shiggy.auraOfBlightPassiveDef},
                 { Survivors.Shiggy.larvapassiveDef.skillName, Survivors.Shiggy.auraOfBlightPassiveDef},
 
-                { Survivors.Shiggy.beetleguardslamDef.skillName, Survivors.Shiggy.mechStanceDef},
+                { Survivors.Shiggy.beetleguardfastdropDef.skillName, Survivors.Shiggy.mechStanceDef},
                 { Survivors.Shiggy.multbuffDef.skillName, Survivors.Shiggy.mechStanceDef},
 
                 { Survivors.Shiggy.hermitcrabpassiveDef.skillName, Survivors.Shiggy.stoneFormPassiveDef},
@@ -907,10 +907,10 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.lemurianfireballDef.skillName, Survivors.Shiggy.blastBurnDef},
 
                 { Survivors.Shiggy.overloadingwormpassiveDef.skillName, Survivors.Shiggy.thunderclapDef},
-                { Survivors.Shiggy.bisonchargeDef.skillName, Survivors.Shiggy.thunderclapDef},
+                { Survivors.Shiggy.bisonchargingDef.skillName, Survivors.Shiggy.thunderclapDef},
 
                 { Survivors.Shiggy.captainpassiveDef.skillName, Survivors.Shiggy.orbitalStrikeDef},
-                { Survivors.Shiggy.voidreaverportalDef.skillName, Survivors.Shiggy.orbitalStrikeDef},
+                { Survivors.Shiggy.voidreavernullifierartilleryDef.skillName, Survivors.Shiggy.orbitalStrikeDef},
 
                 { Survivors.Shiggy.impblinkDef.skillName, Survivors.Shiggy.shadowClawDef},
                 { Survivors.Shiggy.banditlightsoutDef.skillName, Survivors.Shiggy.shadowClawDef},
@@ -922,7 +922,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.magmawormpassiveDef.skillName, Survivors.Shiggy.expungeDef},
 
                 { Survivors.Shiggy.xiconstructbeamDef.skillName, Survivors.Shiggy.genesisDef},
-                { Survivors.Shiggy.clayapothecarymortarDef.skillName, Survivors.Shiggy.genesisDef},
+                { Survivors.Shiggy.clayapothecaryclayairstrikeDef.skillName, Survivors.Shiggy.genesisDef},
 
                 { Survivors.Shiggy.alloyvultureWindBlastDef.skillName, Survivors.Shiggy.windShieldDef},
                 { Survivors.Shiggy.engiturretDef.skillName, Survivors.Shiggy.windShieldDef},
@@ -990,8 +990,8 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.acridpassiveDef.skillName, Survivors.Shiggy.larvapassiveDef},
                 { Survivors.Shiggy.larvapassiveDef.skillName, Survivors.Shiggy.acridpassiveDef},
 
-                { Survivors.Shiggy.beetleguardslamDef.skillName, Survivors.Shiggy.multbuffDef},
-                { Survivors.Shiggy.multbuffDef.skillName, Survivors.Shiggy.beetleguardslamDef},
+                { Survivors.Shiggy.beetleguardfastdropDef.skillName, Survivors.Shiggy.multbuffDef},
+                { Survivors.Shiggy.multbuffDef.skillName, Survivors.Shiggy.beetleguardfastdropDef},
 
                 { Survivors.Shiggy.hermitcrabpassiveDef.skillName, Survivors.Shiggy.stonetitanpassiveDef},
                 { Survivors.Shiggy.stonetitanpassiveDef.skillName, Survivors.Shiggy.hermitcrabpassiveDef},
@@ -1002,11 +1002,11 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, Survivors.Shiggy.lemurianfireballDef},
                 { Survivors.Shiggy.lemurianfireballDef.skillName, Survivors.Shiggy.elderlemurianfireblastDef},
 
-                { Survivors.Shiggy.overloadingwormpassiveDef.skillName, Survivors.Shiggy.bisonchargeDef},
-                { Survivors.Shiggy.bisonchargeDef.skillName, Survivors.Shiggy.overloadingwormpassiveDef},
+                { Survivors.Shiggy.overloadingwormpassiveDef.skillName, Survivors.Shiggy.bisonchargingDef},
+                { Survivors.Shiggy.bisonchargingDef.skillName, Survivors.Shiggy.overloadingwormpassiveDef},
 
-                { Survivors.Shiggy.captainpassiveDef.skillName, Survivors.Shiggy.voidreaverportalDef},
-                { Survivors.Shiggy.voidreaverportalDef.skillName, Survivors.Shiggy.captainpassiveDef},
+                { Survivors.Shiggy.captainpassiveDef.skillName, Survivors.Shiggy.voidreavernullifierartilleryDef},
+                { Survivors.Shiggy.voidreavernullifierartilleryDef.skillName, Survivors.Shiggy.captainpassiveDef},
 
                 { Survivors.Shiggy.impblinkDef.skillName, Survivors.Shiggy.banditlightsoutDef},
                 { Survivors.Shiggy.banditlightsoutDef.skillName, Survivors.Shiggy.impblinkDef},
@@ -1017,8 +1017,8 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.impbosspassiveDef.skillName, Survivors.Shiggy.magmawormpassiveDef},
                 { Survivors.Shiggy.magmawormpassiveDef.skillName, Survivors.Shiggy.impbosspassiveDef},
 
-                { Survivors.Shiggy.xiconstructbeamDef.skillName, Survivors.Shiggy.clayapothecarymortarDef},
-                { Survivors.Shiggy.clayapothecarymortarDef.skillName, Survivors.Shiggy.xiconstructbeamDef},
+                { Survivors.Shiggy.xiconstructbeamDef.skillName, Survivors.Shiggy.clayapothecaryclayairstrikeDef},
+                { Survivors.Shiggy.clayapothecaryclayairstrikeDef.skillName, Survivors.Shiggy.xiconstructbeamDef},
 
                 { Survivors.Shiggy.alloyvultureWindBlastDef.skillName, Survivors.Shiggy.engiturretDef},
                 { Survivors.Shiggy.engiturretDef.skillName, Survivors.Shiggy.alloyvultureWindBlastDef},
@@ -1132,10 +1132,10 @@ namespace ShiggyMod.Modules
                 
                 //active skill to info
                 { Survivors.Shiggy.alloyvultureWindBlastDef.skillName, "<style=cIsUtility>Wind Blast Quirk</style> Get! (Active)" },
-                { Survivors.Shiggy.beetleguardslamDef.skillName, "<style=cIsUtility>Fast Drop Quirk</style> Get! (Active)" },
-                { Survivors.Shiggy.bisonchargeDef.skillName, "<style=cIsUtility>Charging Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.beetleguardfastdropDef.skillName, "<style=cIsUtility>Fast Drop Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.bisonchargingDef.skillName, "<style=cIsUtility>Charging Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.bronzongballDef.skillName, "<style=cIsUtility>Spiked Ball Control Quirk</style> Get! (Active)" },
-                { Survivors.Shiggy.clayapothecarymortarDef.skillName, "<style=cIsUtility>Clay AirStrike Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.clayapothecaryclayairstrikeDef.skillName, "<style=cIsUtility>Clay AirStrike Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.claytemplarminigunDef.skillName, "<style=cIsUtility>Clay Minigun Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, "<style=cIsUtility>Fire Blast Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.greaterWispBuffDef.skillName, "<style=cIsUtility>Spirit Boost Quirk</style> Get! (Active)" },
@@ -1146,7 +1146,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.lunarwispminigunDef.skillName, "<style=cIsUtility>Lunar Minigun Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.parentteleportDef.skillName, "<style=cIsUtility>Teleport Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.stonegolemlaserDef.skillName, "<style=cIsUtility>Laser Quirk</style> Get! (Active)" },
-                { Survivors.Shiggy.voidreaverportalDef.skillName, "<style=cIsUtility>Nullifier Artillery Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.voidreavernullifierartilleryDef.skillName, "<style=cIsUtility>Nullifier Artillery Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.beetlequeenSummonDef.skillName, "<style=cIsUtility>Summon Ally Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.grandparentsunDef.skillName, "<style=cIsUtility>Solar Flare Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.grovetenderChainDef.skillName, "<style=cIsUtility>Chain Quirk</style> Get! (Active)" },
@@ -1230,10 +1230,10 @@ namespace ShiggyMod.Modules
                 { "LoaderBody", Survivors.Shiggy.loaderpassiveDef },
 
                 { "VultureBody", Survivors.Shiggy.alloyvultureWindBlastDef },
-                { "BeetleGuardBody", Survivors.Shiggy.beetleguardslamDef },
-                { "BisonBody", Survivors.Shiggy.bisonchargeDef },
+                { "BeetleGuardBody", Survivors.Shiggy.beetleguardfastdropDef },
+                { "BisonBody", Survivors.Shiggy.bisonchargingDef },
                 { "BellBody", Survivors.Shiggy.bronzongballDef },
-                { "ClayGrenadierBody", Survivors.Shiggy.clayapothecarymortarDef },
+                { "ClayGrenadierBody", Survivors.Shiggy.clayapothecaryclayairstrikeDef },
                 { "ClayBruiserBody", Survivors.Shiggy.claytemplarminigunDef },
                 { "LemurianBruiserBody", Survivors.Shiggy.elderlemurianfireblastDef },
                 { "GreaterWispBody", Survivors.Shiggy.greaterWispBuffDef },
@@ -1244,7 +1244,7 @@ namespace ShiggyMod.Modules
                 { "LunarWispBody", Survivors.Shiggy.lunarwispminigunDef },
                 { "ParentBody", Survivors.Shiggy.parentteleportDef },
                 { "GolemBody", Survivors.Shiggy.stonegolemlaserDef },
-                { "NullifierBody", Survivors.Shiggy.voidreaverportalDef },
+                { "NullifierBody", Survivors.Shiggy.voidreavernullifierartilleryDef },
                 { "BeetleQueen2Body", Survivors.Shiggy.beetlequeenSummonDef },
                 { "GravekeeperBody", Survivors.Shiggy.grovetenderChainDef },
                 { "ClayBossBody", Survivors.Shiggy.claydunestriderbuffDef },
@@ -1311,10 +1311,10 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.decayAwakenedPassiveDef.skillName, skillType.PASSIVE },
 
                 { Survivors.Shiggy.alloyvultureWindBlastDef.skillName, skillType.ACTIVE },
-                { Survivors.Shiggy.beetleguardslamDef.skillName, skillType.ACTIVE },
-                { Survivors.Shiggy.bisonchargeDef.skillName, skillType.ACTIVE },
+                { Survivors.Shiggy.beetleguardfastdropDef.skillName, skillType.ACTIVE },
+                { Survivors.Shiggy.bisonchargingDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.bronzongballDef.skillName, skillType.ACTIVE },
-                { Survivors.Shiggy.clayapothecarymortarDef.skillName, skillType.ACTIVE },
+                { Survivors.Shiggy.clayapothecaryclayairstrikeDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.claytemplarminigunDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.elderlemurianfireblastDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.greaterWispBuffDef.skillName, skillType.ACTIVE },
@@ -1325,7 +1325,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.lunarwispminigunDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.parentteleportDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.stonegolemlaserDef.skillName, skillType.ACTIVE },
-                { Survivors.Shiggy.voidreaverportalDef.skillName, skillType.ACTIVE },
+                { Survivors.Shiggy.voidreavernullifierartilleryDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.beetlequeenSummonDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.grandparentsunDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.grovetenderChainDef.skillName, skillType.ACTIVE },

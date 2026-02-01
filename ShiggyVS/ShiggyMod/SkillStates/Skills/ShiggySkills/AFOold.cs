@@ -300,7 +300,7 @@ namespace ShiggyMod.SkillStates
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Fast Drop Quirk</style> Get!");
 
-                    Shiggymastercon.writeToAFOSkillList(Shiggy.beetleguardslamDef, 0);
+                    Shiggymastercon.writeToAFOSkillList(Shiggy.beetleguardfastdropDef, 0);
                 }
                 if (newbodyPrefab.name == "BisonBody")
                 {
@@ -308,7 +308,7 @@ namespace ShiggyMod.SkillStates
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Charging Quirk</style> Get!");
 
-                    Shiggymastercon.writeToAFOSkillList(Shiggy.bisonchargeDef, 0);
+                    Shiggymastercon.writeToAFOSkillList(Shiggy.bisonchargingDef, 0);
                 }
                 if (newbodyPrefab.name == "FlyingVerminBody")
                 {
@@ -342,7 +342,7 @@ namespace ShiggyMod.SkillStates
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Clay AirStrike Quirk</style> Get!");
 
-                    Shiggymastercon.writeToAFOSkillList(Shiggy.clayapothecarymortarDef, 0);
+                    Shiggymastercon.writeToAFOSkillList(Shiggy.clayapothecaryclayairstrikeDef, 0);
                 }
                 if (newbodyPrefab.name == "ClayBruiserBody")
                 {
@@ -511,7 +511,7 @@ namespace ShiggyMod.SkillStates
                     hasQuirk = true;
                     Chat.AddMessage("<style=cIsUtility>Nullifier Artillery Quirk</style> Get!");
 
-                    Shiggymastercon.writeToAFOSkillList(Shiggy.voidreaverportalDef, 0);
+                    Shiggymastercon.writeToAFOSkillList(Shiggy.voidreavernullifierartilleryDef, 0);
                 }
 
 
@@ -863,10 +863,10 @@ namespace ShiggyMod.SkillStates
         public void RemovePrimary()
         {
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.alloyvultureWindBlastDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetleguardfastdropDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.bisonchargingDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.clayapothecaryclayairstrikeDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -876,7 +876,7 @@ namespace ShiggyMod.SkillStates
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.voidreavernullifierartilleryDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.beetlequeenSummonDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggy.grovetenderChainDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -902,10 +902,10 @@ namespace ShiggyMod.SkillStates
         public void RemoveSecondary()
         {
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.alloyvultureWindBlastDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.beetleguardfastdropDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.bisonchargingDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.clayapothecaryclayairstrikeDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -915,7 +915,7 @@ namespace ShiggyMod.SkillStates
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.voidreavernullifierartilleryDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.beetlequeenSummonDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggy.grovetenderChainDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -942,10 +942,10 @@ namespace ShiggyMod.SkillStates
         public void RemoveUtility()
         {
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.alloyvultureWindBlastDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.beetleguardfastdropDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.bisonchargingDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.clayapothecaryclayairstrikeDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -955,7 +955,7 @@ namespace ShiggyMod.SkillStates
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.voidreavernullifierartilleryDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.beetlequeenSummonDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.utility.UnsetSkillOverride(characterBody.skillLocator.utility, Shiggy.grovetenderChainDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -982,10 +982,10 @@ namespace ShiggyMod.SkillStates
         public void RemoveSpecial()
         {
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.alloyvultureWindBlastDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.beetleguardslamDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.bisonchargeDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.beetleguardfastdropDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.bisonchargingDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.bronzongballDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.clayapothecarymortarDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.clayapothecaryclayairstrikeDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.claytemplarminigunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.greaterWispBuffDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.impblinkDef, GenericSkill.SkillOverridePriority.Contextual);
@@ -995,7 +995,7 @@ namespace ShiggyMod.SkillStates
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.lunarwispminigunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.parentteleportDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.stonegolemlaserDef, GenericSkill.SkillOverridePriority.Contextual);
-            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.voidreaverportalDef, GenericSkill.SkillOverridePriority.Contextual);
+            characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.voidreavernullifierartilleryDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.beetlequeenSummonDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.grandparentsunDef, GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.special.UnsetSkillOverride(characterBody.skillLocator.special, Shiggy.grovetenderChainDef, GenericSkill.SkillOverridePriority.Contextual);

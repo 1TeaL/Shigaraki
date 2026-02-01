@@ -28,9 +28,9 @@ namespace ShiggyMod.Modules
 
             //active skills
             Modules.Content.AddEntityState(typeof(AlloyVultureWindBlast));
-            Modules.Content.AddEntityState(typeof(BisonCharge));
+            Modules.Content.AddEntityState(typeof(BisonCharging));
             Modules.Content.AddEntityState(typeof(BronzongSpikedBallControl));
-            Modules.Content.AddEntityState(typeof(BeetleGuardSlam));
+            Modules.Content.AddEntityState(typeof(BeetleGuardFastDrop));
             Modules.Content.AddEntityState(typeof(ClayApothecaryClayAirStrike));
             Modules.Content.AddEntityState(typeof(ClayTemplarClayMinigun));
             Modules.Content.AddEntityState(typeof(ElderLemurianFireBlastCharge));
@@ -50,7 +50,7 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(SolusTransporterTransport));
             Modules.Content.AddEntityState(typeof(StoneGolemLaserCharge));
             Modules.Content.AddEntityState(typeof(StoneGolemLaserFire));
-            Modules.Content.AddEntityState(typeof(VoidReaverPortal));
+            Modules.Content.AddEntityState(typeof(VoidReaverNullifierArtillery));
 
             Modules.Content.AddEntityState(typeof(BeetleQueenSummon));
             Modules.Content.AddEntityState(typeof(ClayDunestriderBuff));

@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using ExtraSkillSlots;
 using RoR2;
 using RoR2.Audio;
 using ShiggyMod.Modules;
@@ -131,6 +132,8 @@ namespace ShiggyMod.SkillStates
             {
                 this.loopPtr = LoopSoundManager.PlaySoundLoopLocal(base.gameObject, this.loopSoundDef);
             }
+
+            SetSkillDef(Shiggy.xBeamerDef);
         }
 
         public override void Update()
@@ -230,7 +233,7 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-
+            base.FixedUpdate();
             switch (state)
             {
                 case BeamState.CHARGE:
@@ -238,71 +241,28 @@ namespace ShiggyMod.SkillStates
 
                     this.chargePercent = base.fixedAge / StaticValues.xBeamerChargeCoefficient;
 
-                    if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.xBeamerDef)
+                    if (!IsHeldDown())
                     {
+                        state = BeamState.ACTIVE;
 
-                        keepFiring = true;
-                    }
-                    else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.xBeamerDef)
-                    {
+                        //energy cost
+                        float plusChaosflatCost = (StaticValues.xBeamerEnergyCost) - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
+                        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
-                        keepFiring = true;
-                    }
-                    else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.xBeamerDef)
-                    {
-
-                        keepFiring = true;
-                    }
-                    else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.xBeamerDef)
-                    {
-
-                        keepFiring = true;
-                    }
-                    else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.xBeamerDef)
-                    {
-
-                        keepFiring = true;
-                    }
-                    if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.xBeamerDef)
-                    {
-
-                        keepFiring = true;
-                    }
-                    if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.xBeamerDef)
-                    {
-
-                        keepFiring = true;
-                    }
-                    if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.xBeamerDef)
-                    {
-
-                        keepFiring = true;
+                        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
+                        if (plusChaosCost < 0f) plusChaosCost = 0f;
+                        energySystem.SpendplusChaos(plusChaosCost);
+                        if (energySystem.currentplusChaos < 1f)
+                        {
+                            state = BeamState.ACTIVE;
+                        }
                     }
                     else
                     {
-                        keepFiring = false;
-                    }
-
-
-                    if (keepFiring)
-                    {
                         Charge();
-                    }
-                    if (!keepFiring)
-                    {
-                        state = BeamState.ACTIVE;
-                    }
-                    //energy cost
-                    float plusChaosflatCost = (StaticValues.xBeamerEnergyCost) - (energySystem.costflatplusChaos * StaticValues.costFlatContantlyDrainingCoefficient);
-                    if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
 
-                    float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                    if (plusChaosCost < 0f) plusChaosCost = 0f;
-                    energySystem.SpendplusChaos(plusChaosCost);
-                    if (energySystem.currentplusChaos < 1f)
-                    {
-                        state = BeamState.ACTIVE;
                     }
+
 
                     break;
                 //case BeamState.BEGIN:
@@ -355,7 +315,7 @@ namespace ShiggyMod.SkillStates
             }
 
         }
-
+        
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.PrioritySkill;

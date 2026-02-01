@@ -81,10 +81,10 @@ namespace ShiggyMod.Modules.Survivors
 
         //monster Lv1 actives
         internal static SkillDef alloyvultureWindBlastDef;
-        internal static SkillDef beetleguardslamDef;
-        internal static SkillDef bisonchargeDef;
+        internal static SkillDef beetleguardfastdropDef;
+        internal static SkillDef bisonchargingDef;
         internal static SkillDef bronzongballDef;
-        internal static SkillDef clayapothecarymortarDef;
+        internal static SkillDef clayapothecaryclayairstrikeDef;
         internal static SkillDef claytemplarminigunDef;
         internal static SkillDef elderlemurianfireblastDef;
         internal static SkillDef greaterWispBuffDef;
@@ -101,7 +101,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef solusinvalidatorinvalidateDef;
         internal static SkillDef solustransportertransportDef;
         internal static SkillDef stonegolemlaserDef;
-        internal static SkillDef voidreaverportalDef;
+        internal static SkillDef voidreavernullifierartilleryDef;
         internal static SkillDef halcyoniteGreedDef;
 
 
@@ -878,7 +878,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "SOLUSPROSPECTOR_NAME",
                 skillNameToken = prefix + "SOLUSPROSPECTOR_NAME",
                 skillDescriptionToken = prefix + "SOLUSPROSPECTOR_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.SolusProspector_PrimingPassive),
+                skillIcon = QuirkIconBank.Get(QuirkId.SolusProspector_SolusPrimingPassive),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.SolusProspectorPriming)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -1309,13 +1309,13 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
-            Shiggy.beetleguardslamDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.beetleguardfastdropDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BEETLEGUARD_NAME",
                 skillNameToken = prefix + "BEETLEGUARD_NAME",
                 skillDescriptionToken = prefix + "BEETLEGUARD_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.BeetleGuard_SlamActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.BeetleGuardSlam)),
+                skillIcon = QuirkIconBank.Get(QuirkId.BeetleGuard_FastDropActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BeetleGuardFastDrop)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
                 baseRechargeInterval = 8f,
@@ -1333,13 +1333,13 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", prefix + "KEYWORD_DECAY", "KEYWORD_STUNNING" }
             });
-            Shiggy.bisonchargeDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.bisonchargingDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "BISON_NAME",
                 skillNameToken = prefix + "BISON_NAME",
                 skillDescriptionToken = prefix + "BISON_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.Bison_ChargeActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.BisonCharge)),
+                skillIcon = QuirkIconBank.Get(QuirkId.Bison_ChargingActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.BisonCharging)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
                 baseRechargeInterval = 8f,
@@ -1381,7 +1381,7 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
-            Shiggy.clayapothecarymortarDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.clayapothecaryclayairstrikeDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "APOTHECARY_NAME",
                 skillNameToken = prefix + "APOTHECARY_NAME",
@@ -1789,13 +1789,13 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE", "KEYWORD_STUNNING" }
             });
-            Shiggy.voidreaverportalDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.voidreavernullifierartilleryDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "VOIDREAVER_NAME",
                 skillNameToken = prefix + "VOIDREAVER_NAME",
                 skillDescriptionToken = prefix + "VOIDREAVER_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.VoidReaver_PortalActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.VoidReaverPortal)),
+                skillIcon = QuirkIconBank.Get(QuirkId.VoidReaver_NullifierArtilleryActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.VoidReaverNullifierArtillery)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 5f,
@@ -3579,7 +3579,7 @@ namespace ShiggyMod.Modules.Survivors
                 skillName = prefix + "HYPERREGENERATION_NAME",
                 skillNameToken = prefix + "HYPERREGENERATION_NAME",
                 skillDescriptionToken = prefix + "HYPERREGENERATION_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.healBuffIcon,
+                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("HyperRegeneration"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.HyperRegenerationPassive)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
@@ -3607,34 +3607,62 @@ namespace ShiggyMod.Modules.Survivors
             Skills.AddPrimarySkills(bodyPrefab, new SkillDef[]
             {
                     decayDef,
+                    bulletlaserDef,
+                    aircannonDef,
+                    multiplierDef,
             });
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
                     bulletlaserDef,
+                    decayDef,
+                    aircannonDef,
+                    multiplierDef,
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
                     aircannonDef,
+                    decayDef,
+                    bulletlaserDef,
+                    multiplierDef,
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
                     multiplierDef,
+                    decayDef,
+                    bulletlaserDef,
+                    aircannonDef,
             });
             Modules.Skills.AddFirstExtraSkills(bodyPrefab, new SkillDef[]
             {
                     emptySkillDef,
+                    decayDef,
+                    bulletlaserDef,
+                    aircannonDef,
+                    multiplierDef,
             });
             Modules.Skills.AddSecondExtraSkills(bodyPrefab, new SkillDef[]
             {
                     emptySkillDef,
+                    decayDef,
+                    bulletlaserDef,
+                    aircannonDef,
+                    multiplierDef,
             });
             Modules.Skills.AddThirdExtraSkills(bodyPrefab, new SkillDef[]
             {
                     emptySkillDef,
+                    decayDef,
+                    bulletlaserDef,
+                    aircannonDef,
+                    multiplierDef,
             });
             Modules.Skills.AddFourthExtraSkills(bodyPrefab, new SkillDef[]
             {
                     emptySkillDef,
+                    decayDef,
+                    bulletlaserDef,
+                    aircannonDef,
+                    multiplierDef,
             });
 
             SkillDef[] allSkills = new SkillDef[]
@@ -3687,10 +3715,10 @@ namespace ShiggyMod.Modules.Survivors
                     hyperRegenerationPassiveDef,
                     //actives
                     alloyvultureWindBlastDef,
-                    beetleguardslamDef,
-                    bisonchargeDef,
+                    beetleguardfastdropDef,
+                    bisonchargingDef,
                     bronzongballDef,
-                    clayapothecarymortarDef,
+                    clayapothecaryclayairstrikeDef,
                     claytemplarminigunDef,
                     elderlemurianfireblastDef,
                     greaterWispBuffDef,
@@ -3706,7 +3734,7 @@ namespace ShiggyMod.Modules.Survivors
                     solusscorcheraccelerateDef,
                     solustransportertransportDef,
                     stonegolemlaserDef,
-                    voidreaverportalDef,
+                    voidreavernullifierartilleryDef,
                     beetlequeenSummonDef,
                     grandparentsunDef,
                     grovetenderChainDef,

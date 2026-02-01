@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using ExtraSkillSlots;
 using RoR2;
 using ShiggyMod.Modules.Survivors;
 using UnityEngine;
@@ -45,6 +46,7 @@ namespace ShiggyMod.SkillStates
 
 
             Shiggycon = gameObject.GetComponent<ShiggyController>();
+            SetSkillDef(Shiggy.rapidPierceDef);
 
         }
 
@@ -140,55 +142,17 @@ namespace ShiggyMod.SkillStates
 
         public override void FixedUpdate()
         {
-
-            if (base.inputBank.skill1.down && characterBody.skillLocator.primary.skillDef == Shiggy.rapidPierceDef)
+            base.FixedUpdate();
+            
+            if (!IsHeldDown())
             {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill2.down && characterBody.skillLocator.secondary.skillDef == Shiggy.rapidPierceDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill3.down && characterBody.skillLocator.utility.skillDef == Shiggy.rapidPierceDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (base.inputBank.skill4.down && characterBody.skillLocator.special.skillDef == Shiggy.rapidPierceDef)
-            {
-
-                keepFiring = true;
-            }
-            else if (extrainputBankTest.extraSkill1.down && extraskillLocator.extraFirst.skillDef == Shiggy.rapidPierceDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill2.down && extraskillLocator.extraSecond.skillDef == Shiggy.rapidPierceDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill3.down && extraskillLocator.extraThird.skillDef == Shiggy.rapidPierceDef)
-            {
-
-                keepFiring = true;
-            }
-            if (extrainputBankTest.extraSkill4.down && extraskillLocator.extraFourth.skillDef == Shiggy.rapidPierceDef)
-            {
-
-                keepFiring = true;
+                if (base.isAuthority)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+                return;
             }
             else
-            {
-                keepFiring = false;
-            }
-
-
-
-            if (keepFiring)
             {
                 this.fireTimer -= Time.fixedDeltaTime;
                 if (this.fireTimer <= 0f)
@@ -197,21 +161,10 @@ namespace ShiggyMod.SkillStates
                     this.fireTimer += num;
                     this.Fire();
                 }
-
-            }
-            else if (!keepFiring)
-            {
-                if (base.isAuthority)
-                {
-                    this.outer.SetNextStateToMain();
-                    return;
-
-                }
-
             }
         }
 
-
+      
 
 
         public override InterruptPriority GetMinimumInterruptPriority()

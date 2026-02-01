@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ShiggyMod.SkillStates
 {
-    public class BisonCharge : Skill
+    public class BisonCharging : Skill
     {
         string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
         private DamageType damageType;

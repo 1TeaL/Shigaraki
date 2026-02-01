@@ -113,86 +113,86 @@ namespace ShiggyMod.SkillStates
             //Shiggymastercon.writeToAFOSkillList(null, 0);
         }
 
-        public void CheckQuirksForBuffs(CharacterBody characterBody)
-        {
-            //check passive
+        //public void CheckQuirksForBuffs(CharacterBody characterBody)
+        //{
+        //    //check passive
 
-            foreach (var skillname in StaticValues.passiveToBuff)
-            {
+        //    foreach (var skillname in StaticValues.passiveToBuff)
+        //    {
 
-                if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
-                {
-                    characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 1);
-                }
-                else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
-                {
-                    characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 0);
-                }
-            }
+        //        if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
+        //        {
+        //            characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 1);
+        //        }
+        //        else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
+        //        {
+        //            characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 0);
+        //        }
+        //    }
 
-        }
-        public bool SearchSkillSlotsForQuirks(SkillDef skillDef, CharacterBody characterBody)
-        {
-            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+        //}
+        //public bool SearchSkillSlotsForQuirks(SkillDef skillDef, CharacterBody characterBody)
+        //{
+        //    extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
 
-            return !(extraskillLocator.extraFirst.skillDef != skillDef
-                && extraskillLocator.extraSecond.skillDef != skillDef
-                && extraskillLocator.extraThird.skillDef != skillDef
-                && extraskillLocator.extraFourth.skillDef != skillDef
-                && characterBody.skillLocator.primary.skillDef != skillDef
-                && characterBody.skillLocator.secondary.skillDef != skillDef
-                && characterBody.skillLocator.utility.skillDef != skillDef
-                && characterBody.skillLocator.special.skillDef != skillDef);
-        }
+        //    return !(extraskillLocator.extraFirst.skillDef != skillDef
+        //        && extraskillLocator.extraSecond.skillDef != skillDef
+        //        && extraskillLocator.extraThird.skillDef != skillDef
+        //        && extraskillLocator.extraFourth.skillDef != skillDef
+        //        && characterBody.skillLocator.primary.skillDef != skillDef
+        //        && characterBody.skillLocator.secondary.skillDef != skillDef
+        //        && characterBody.skillLocator.utility.skillDef != skillDef
+        //        && characterBody.skillLocator.special.skillDef != skillDef);
+        //}
 
-        protected virtual void AddSkill1()
-        {
-            Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 0);
-            this.outer.SetNextStateToMain();
-            return;
-        }
-        protected virtual void AddSkill2()
-        {
-            Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 1);
-            this.outer.SetNextStateToMain();
-            return;
-        }
-        protected virtual void AddSkill3()
-        {
-            Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 2);
-            this.outer.SetNextStateToMain();
-            return;
-        }
-        protected virtual void AddSkill4()
-        {
-            Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 3);
-            this.outer.SetNextStateToMain();
-            return;
-        }
-        protected virtual void AddExtraSkill1()
-        {
-            Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 4);
-            this.outer.SetNextStateToMain();
-            return;
-        }
-        protected virtual void AddExtraSkill2()
-        {
-            Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 5);
-            this.outer.SetNextStateToMain();
-            return;
-        }
-        protected virtual void AddExtraSkill3()
-        {
-            Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 6);
-            this.outer.SetNextStateToMain();
-            return;
-        }
-        protected virtual void AddExtraSkill4()
-        {
-            Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 7);
-            this.outer.SetNextStateToMain();
-            return;
-        }
+        //protected virtual void AddSkill1()
+        //{
+        //    Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 0);
+        //    this.outer.SetNextStateToMain();
+        //    return;
+        //}
+        //protected virtual void AddSkill2()
+        //{
+        //    Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 1);
+        //    this.outer.SetNextStateToMain();
+        //    return;
+        //}
+        //protected virtual void AddSkill3()
+        //{
+        //    Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 2);
+        //    this.outer.SetNextStateToMain();
+        //    return;
+        //}
+        //protected virtual void AddSkill4()
+        //{
+        //    Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 3);
+        //    this.outer.SetNextStateToMain();
+        //    return;
+        //}
+        //protected virtual void AddExtraSkill1()
+        //{
+        //    Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 4);
+        //    this.outer.SetNextStateToMain();
+        //    return;
+        //}
+        //protected virtual void AddExtraSkill2()
+        //{
+        //    Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 5);
+        //    this.outer.SetNextStateToMain();
+        //    return;
+        //}
+        //protected virtual void AddExtraSkill3()
+        //{
+        //    Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 6);
+        //    this.outer.SetNextStateToMain();
+        //    return;
+        //}
+        //protected virtual void AddExtraSkill4()
+        //{
+        //    Shiggymastercon.writeToSkillList(Shiggymastercon.storedAFOSkill[0], 7);
+        //    this.outer.SetNextStateToMain();
+        //    return;
+        //}
 
         public override void FixedUpdate()
         {
