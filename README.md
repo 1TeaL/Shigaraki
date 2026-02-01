@@ -70,6 +70,9 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 3.0.2- Additional features
+    - Made the game pause when opening the menu (in single player only)
+    - Added more configs for a bunch of quirks
 - 3.0.1- Hotfix
     - Fixed skills that could be held down to continue their use not doing that
     - Fixed configs for Decay not being properly used
