@@ -14,13 +14,13 @@ namespace ShiggyMod.SkillStates
 
 
         private float radius = 15f;
-        private float damageCoefficient = Modules.StaticValues.railgunnerDamageCoefficient;
+        private float damageCoefficient = Modules.Config.CryoChargedRailgunDamage.Value;
         private float procCoefficient = Modules.StaticValues.railgunnerProcCoefficient;
         private float force = 1f;
         private float speedOverride = -1f;
         private float recoilAmplitude = 4f;
         private GameObject effectPrefab = Modules.ShiggyAsset.banditmuzzleEffect;
-        private string muzzleName = "RHand";
+        private string muzzleName = "LHand";
         private float bulletCount = 1;
         public LoopSoundDef loopSoundDef = Modules.ShiggyAsset.railgunnercryoofflineSound;
         private LoopSoundManager.SoundLoopPtr loopPtr;

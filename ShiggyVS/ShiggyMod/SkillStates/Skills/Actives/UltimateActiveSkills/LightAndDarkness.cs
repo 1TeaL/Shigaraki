@@ -17,6 +17,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             duration = baseDuration;
+            exitOnDuration = true;
             energySystem = GetComponent<EnergySystem>();
 
 

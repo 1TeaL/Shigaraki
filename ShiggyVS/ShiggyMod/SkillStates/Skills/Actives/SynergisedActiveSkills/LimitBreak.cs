@@ -13,6 +13,7 @@ namespace ShiggyMod.SkillStates
             base.OnEnter();
             duration = 1f;
             Ray aimRay = base.GetAimRay();
+            exitOnDuration = true;
 
             //play animation, also need to play particles in controller
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);

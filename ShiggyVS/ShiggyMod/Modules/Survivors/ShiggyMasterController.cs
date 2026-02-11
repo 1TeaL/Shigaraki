@@ -267,7 +267,7 @@ namespace ShiggyMod.Modules.Survivors
         {
             var body = characterMaster ? characterMaster.GetBody() : null;
 
-            if (body && body.hasEffectiveAuthority && Input.GetKeyDown(Config.OpenQuirkMenuHotkey.Value.MainKey))
+            if (body && body.hasEffectiveAuthority && Input.GetKey(Config.OpenQuirkMenuHotkey.Value.MainKey))
             {
                 if (!ShiggyMod.Modules.Quirks.QuirkUI.IsOpen)
                 {

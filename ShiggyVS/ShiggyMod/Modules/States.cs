@@ -25,6 +25,8 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(EmptySkill));
             Modules.Content.AddEntityState(typeof(GiveSkill));
             Modules.Content.AddEntityState(typeof(QuirkOverdrive));
+            Modules.Content.AddEntityState(typeof(AirWalk));
+            Modules.Content.AddEntityState(typeof(Emote));
 
             //active skills
             Modules.Content.AddEntityState(typeof(AlloyVultureWindBlast));
@@ -75,7 +77,7 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(MercDashAttack));
             Modules.Content.AddEntityState(typeof(MultBuff));
             Modules.Content.AddEntityState(typeof(OperatorS141Custom));
-            Modules.Content.AddEntityState(typeof(RailgunnerCryoCharge));
+            Modules.Content.AddEntityState(typeof(RailgunnerCryoChargedRailgun));
             Modules.Content.AddEntityState(typeof(RailgunnerCryoFire));
             Modules.Content.AddEntityState(typeof(RexMortar));
             Modules.Content.AddEntityState(typeof(VoidFiendCleanse));

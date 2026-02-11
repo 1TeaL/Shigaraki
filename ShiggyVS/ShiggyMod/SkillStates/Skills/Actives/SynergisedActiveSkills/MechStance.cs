@@ -11,6 +11,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            exitOnDuration = true;
 
             Ray aimRay = base.GetAimRay();
             EffectManager.SpawnEffect(ShiggyAsset.multCryoExplosionEffect, new EffectData

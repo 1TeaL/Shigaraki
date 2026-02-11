@@ -70,6 +70,22 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 3.0.3- Additional features and fixes
+	- Fixes
+ 		- Air walk descend key (by default x) now works properly. Also while sprinting, can use left and right movement to influence as well as ascend and descend as well. 
+		- Fixed issue where skills with hold into release inputs would not work.
+     	- Fixed issue where some skills wouldn't exit like OFA. 		
+    	- Fixed Beetle Queen- Summon Ally summons when they have elite buffs not allowing AFO steal from working.    	
+ 	- New Features
+    	- Added a button to confirm the quirk menu (by default enter/return).
+     	- <img width="628" height="189" alt="image" src="https://github.com/user-attachments/assets/b5600f2b-dc0b-47f2-98f3-c532879954aa" />
+    	- Tooltips now added while in quirk menu while hovering over each quirk so that the player knows what they do.
+     	- Added Emote- Lay Down. While pressing the emote key (K by default) Shigaraki will enter the Lay Down animation he does while fast falling. Press it again to cancel. It doesn't fully override animations so it will look a bit weird at times. 
+    - Noted issue that Giving quirks doesn't work- will look into it for future update.
+    - Noted issue that if you pause while in the Quirk Menu, and close it, the game crashes.
+- 3.0.2- Additional features
+    - Made the game pause when opening the menu (in single player only)
+    - Added more configs for a bunch of quirks
 - 3.0.1- Hotfix
     - Fixed skills that could be held down to continue their use not doing that
     - Fixed configs for Decay not being properly used

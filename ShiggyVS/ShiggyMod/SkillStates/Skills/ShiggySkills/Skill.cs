@@ -84,20 +84,18 @@ namespace ShiggyMod.SkillStates
         {
 
             bool held =
-                (inputBank.skill1.down && (characterBody.skillLocator.primary.skillDef = skillDef)) ||
-                (inputBank.skill2.down && (characterBody.skillLocator.secondary.skillDef = skillDef)) ||
-                (inputBank.skill3.down && (characterBody.skillLocator.utility.skillDef = skillDef)) ||
-                (inputBank.skill4.down && (characterBody.skillLocator.special.skillDef = skillDef));
+                (inputBank.skill1.down && (characterBody.skillLocator.primary.skillDef == skillDef)) ||
+                (inputBank.skill2.down && (characterBody.skillLocator.secondary.skillDef == skillDef)) ||
+                (inputBank.skill3.down && (characterBody.skillLocator.utility.skillDef == skillDef)) ||
+                (inputBank.skill4.down && (characterBody.skillLocator.special.skillDef == skillDef));
 
-            var extraInput = GetComponent<ExtraInputBankTest>();
-            var extras = GetComponent<ExtraSkillLocator>();
-            if (!held && extraInput && extras)
+            if (!held)
             {
                 held =
-                    (extraInput.extraSkill1.down && (extras.extraFirst.skillDef = skillDef)) ||
-                    (extraInput.extraSkill2.down && (extras.extraSecond.skillDef = skillDef)) ||
-                    (extraInput.extraSkill3.down && (extras.extraThird.skillDef = skillDef)) ||
-                    (extraInput.extraSkill4.down && (extras.extraFourth.skillDef = skillDef));
+                    (extrainputBankTest.extraSkill1.down && (extraskillLocator.extraFirst.skillDef == skillDef)) ||
+                    (extrainputBankTest.extraSkill2.down && (extraskillLocator.extraSecond.skillDef == skillDef)) ||
+                    (extrainputBankTest.extraSkill3.down && (extraskillLocator.extraThird.skillDef == skillDef)) ||
+                    (extrainputBankTest.extraSkill4.down && (extraskillLocator.extraFourth.skillDef == skillDef));
             }
 
             return held;

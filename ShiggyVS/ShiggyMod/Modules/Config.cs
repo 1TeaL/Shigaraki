@@ -18,13 +18,15 @@ namespace ShiggyMod.Modules
         //public static ConfigEntry<KeyboardShortcut> RemoveHotkey;
         public static ConfigEntry<KeyboardShortcut> AFOGiveHotkey;
         public static ConfigEntry<KeyboardShortcut> OpenQuirkMenuHotkey;
+        public static ConfigEntry<KeyboardShortcut> ConfirmQuirkMenuHotkey;
         public static ConfigEntry<KeyboardShortcut> CloseQuirkMenuHotkey;
         public static ConfigEntry<bool> ShowQuirkNameOverlay;
         public static ConfigEntry<bool> ShowOwnedCheckOverlay;
         public static ConfigEntry<bool> StartWithAllQuirks;
-        //public static ConfigEntry<float> glideSpeed;
-        //public static ConfigEntry<float> glideAcceleration;
+        //public static ConfigEntry<float> AirWalkSpeedMultiplier;
+        //public static ConfigEntry<float> glideAcceleration
         public static ConfigEntry<KeyboardShortcut> AirWalkDescentKey;
+        public static ConfigEntry<KeyboardShortcut> LayDownKey;
 
         public static ConfigEntry<int> ApexStacksPerSecondReset;       // how many debuff stacks per 1s of cooldown reset
         public static ConfigEntry<int> ApexAdaptPerSecondReset;        // how many adaptation stacks per 1s reset
@@ -56,6 +58,29 @@ namespace ShiggyMod.Modules
         public static ConfigEntry<float> DoubleTimeDuration;
         public static ConfigEntry<float> DoubleTimeRadius;
 
+        public static ConfigEntry<float> BulletLaserDamage;
+
+        public static ConfigEntry<float> StolenInheritanceHPCoefficient;
+
+        public static ConfigEntry<float> CryoChargedRailgunDamage;
+
+        public static ConfigEntry<float> StoneSkinArmorGain;
+
+        public static ConfigEntry<float> DoubleTapProc;
+        public static ConfigEntry<float> DoubleTapDamage;
+
+        public static ConfigEntry<float> ScrapBarrierBarrierGain;
+
+        public static ConfigEntry<float> LimitBreakDamageMultiplier;
+        public static ConfigEntry<float> LimitBreakHealthCostPercentage;
+
+        public static ConfigEntry<float> OFAMultiplierAdditive;
+        public static ConfigEntry<float> OFAHealthCostPercentage;
+
+        public static ConfigEntry<float> StrengthBoostBaseDamage;
+
+        public static ConfigEntry<float> HasteAttackSpeedAdditive;
+
         public static void ReadConfig()
         {
             //General configs
@@ -71,8 +96,10 @@ namespace ShiggyMod.Modules
             //RemoveHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Remove Quirk Key", new KeyboardShortcut(UnityEngine.KeyCode.V), "Keybinding for Remove Quirk");
             AFOGiveHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Give Quirk Key", new KeyboardShortcut(UnityEngine.KeyCode.C), "Keybinding for Give Quirk");
             OpenQuirkMenuHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Quirk UI Key", new KeyboardShortcut(UnityEngine.KeyCode.V), "Keybinding for Opening the Quirk UI");
+            ConfirmQuirkMenuHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Quirk UI Confirm Key", new KeyboardShortcut(UnityEngine.KeyCode.Return), "Keybinding for Confirming the Quirk UI");
             CloseQuirkMenuHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Quirk UI Close Key", new KeyboardShortcut(UnityEngine.KeyCode.Tilde), "Keybinding for Closing the Quirk UI");
             AirWalkDescentKey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Air Walk Descent Key", new KeyboardShortcut(UnityEngine.KeyCode.X), "Keybinding for descending while in Air Walk");
+            LayDownKey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "Lay Down Key", new KeyboardShortcut(UnityEngine.KeyCode.K), "Keybinding for Lay Down Animation Emote");
 
             //AFO configs
             allowRangedAFO = ShiggyPlugin.instance.Config.Bind("AFO", "Allow Ranged AFO", false, "Should you be allowed to use AFO from max distance.");
@@ -113,6 +140,29 @@ namespace ShiggyMod.Modules
             DoubleTimeSlowMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Double Time Slow Multiplier", StaticValues.doubleTimeSlowCoefficient, "How slowed enemies are.");
             DoubleTimeStatMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Double Time Stat Multiplier", StaticValues.doubleTimeCoefficient, "How much damage, attackspeed and movespeed are gained on kill.");
 
+            BulletLaserDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "Bullet Laser Damage", StaticValues.bulletlaserDamageCoefficient, "How much damage each hit of Bullet Laser does.");
+
+            StolenInheritanceHPCoefficient = ShiggyPlugin.instance.Config.Bind("Quirks", "Stolen Inheritance HP ratio", StaticValues.falseSonHPCoefficient, "How much percentage of max HP is converted to base damage.");
+
+            CryoChargedRailgunDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "CryoCharged Railgun Damage", StaticValues.railgunnerDamageCoefficient, "How much damage Cryo Charged Railgun does.");
+
+            StoneSkinArmorGain = ShiggyPlugin.instance.Config.Bind("Quirks", "Stone Skin Armor Gain", StaticValues.stonetitanarmorGain, "How much armor gain Stone Skin provides.");
+
+            DoubleTapDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "Double Tap Damage", StaticValues.commandoDamageMultiplier, "How much damage the 2nd hit with Double Tap does compared to the initial hit.");
+            DoubleTapProc = ShiggyPlugin.instance.Config.Bind("Quirks", "Double Tap Proc Chance", StaticValues.commandoProcCoefficient, "How much proc the 2nd hit with Double Tap does.");
+
+            ScrapBarrierBarrierGain = ShiggyPlugin.instance.Config.Bind("Quirks", "Scrap Barrier Barrier Gain", StaticValues.loaderBarrierGainCoefficient, "How much percentage of max HP is gained as barrier on attacks.");
+
+            LimitBreakDamageMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Limit Break Damage Multiplier", StaticValues.limitBreakCoefficient, "How much damage is multiplied with Limit Break.");
+            LimitBreakHealthCostPercentage = ShiggyPlugin.instance.Config.Bind("Quirks", "Limit Break Health Cost Percentage", StaticValues.limitBreakHealthCostCoefficient, "How much percentage of max HP is spent per attack with Limit Break.");
+
+            OFAMultiplierAdditive = ShiggyPlugin.instance.Config.Bind("Quirks", "One For All Multiplier", StaticValues.OFACoefficient, "How much percentage of stats are gained additively.");
+            OFAHealthCostPercentage = ShiggyPlugin.instance.Config.Bind("Quirks", "One For All Health Cost Percentage", StaticValues.OFAHealthCostCoefficient, "How much percentage of current HP is spent every second.");
+
+            StrengthBoostBaseDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "Strength Boost Base Damage", StaticValues.beetleFlatDamage, "How much base damage gain Strength Boost provides.");
+
+            HasteAttackSpeedAdditive = ShiggyPlugin.instance.Config.Bind("Quirks", "Haste Attack Speed", StaticValues.lesserwispFlatAttackSpeed, "How much attack speed gain Haste provides.");
+
         }
 
         // this helper automatically makes config entries for disabling survivors
@@ -136,9 +186,13 @@ namespace ShiggyMod.Modules
             ModSettingsManager.AddOption(new KeyBindOption(
                 OpenQuirkMenuHotkey));
             ModSettingsManager.AddOption(new KeyBindOption(
+                ConfirmQuirkMenuHotkey));
+            ModSettingsManager.AddOption(new KeyBindOption(
                 CloseQuirkMenuHotkey));
             ModSettingsManager.AddOption(new KeyBindOption(
                 AirWalkDescentKey));
+            ModSettingsManager.AddOption(new KeyBindOption(
+                LayDownKey));
             ModSettingsManager.AddOption(new CheckBoxOption(
                 ShowQuirkNameOverlay));
             ModSettingsManager.AddOption(new CheckBoxOption(
@@ -212,6 +266,44 @@ namespace ShiggyMod.Modules
                DoubleTimeSlowMultiplier, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
             ModSettingsManager.AddOption(new StepSliderOption(
                DoubleTimeStatMultiplier, new StepSliderConfig() { min = 0.1f, max = 10f, increment = 0.1f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               BulletLaserDamage, new StepSliderConfig() { min = 0.1f, max = 100f, increment = 0.1f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               StolenInheritanceHPCoefficient, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               CryoChargedRailgunDamage, new StepSliderConfig() { min = 0.1f, max = 1000f, increment = 0.1f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               StoneSkinArmorGain, new StepSliderConfig() { min = 1f, max = 1000f, increment = 1f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               DoubleTapDamage, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               DoubleTapProc, new StepSliderConfig() { min = 0.1f, max = 10f, increment = 0.1f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               ScrapBarrierBarrierGain, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               LimitBreakDamageMultiplier, new StepSliderConfig() { min = 1f, max = 100f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               LimitBreakHealthCostPercentage, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OFAMultiplierAdditive, new StepSliderConfig() { min = 0.1f, max = 100f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OFAHealthCostPercentage, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               StrengthBoostBaseDamage, new StepSliderConfig() { min = 1f, max = 100f, increment = 0.1f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               HasteAttackSpeedAdditive, new StepSliderConfig() { min = 0.1f, max = 10f, increment = 0.1f }));
+
+
 
             ModSettingsManager.SetModDescription("Shigaraki Mod");
             Sprite icon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("texShiggyIcon");

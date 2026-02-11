@@ -11,13 +11,14 @@ namespace ShiggyMod.Modules
             string prefix = ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_";
 
             string desc = $"Shiggy is a multi-option survivor that can steal quirks from monster and base survivors to create his own playstyle.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            desc = desc + $"< ! > Steal quirk with {Config.AFOHotkey.Value}. Open the quirk menu with {Config.OpenQuirkMenuHotkey.Value} and close it with {Config.CloseQuirkMenuHotkey.Value}. Give quirks with {Config.AFOGiveHotkey.Value}. All rebindable in the configs." + Environment.NewLine + Environment.NewLine;
+            desc = desc + $"< ! > Steal quirk with {Config.AFOHotkey.Value}. Open the quirk menu with {Config.OpenQuirkMenuHotkey.Value}, confirm the selection with {Config.ConfirmQuirkMenuHotkey.Value} and close it with {Config.CloseQuirkMenuHotkey.Value}. Give quirks with {Config.AFOGiveHotkey.Value}. All rebindable in the configs." + Environment.NewLine + Environment.NewLine;
             desc = desc + $"< ! > There's also configs to enable ALL quirks selectable in the loadout if you'd like to choose them from the beginning." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Grabbing a quirk when owning a specific quirk already will create a combination, these combinations can further combine." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > There are Quirks that can only be made if you own a combination of Quirks." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > The Plus Chaos Meter in the middle increases naturally and by killing enemies, it is used for All For One and certain skills." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Some quirks are passive buffs, while others are active skills." + Environment.NewLine + Environment.NewLine;
             desc = desc + "< ! > Try out all the quirks and craft your ultimate build!" + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Aim to get a mixture of base skills, synergy skills and ultimate skills as they aren't necessarily direct upgrades. For example, the Beetle Queen's Summon Ally quirk allows you to summon the base survivors, providing you more quirks." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > Aim to get a mixture of base skills and crafted skills as they aren't necessarily direct upgrades. For example, the Beetle Queen's Summon Ally quirk allows you to summon the base survivors, providing you more quirks." + Environment.NewLine + Environment.NewLine;
+            desc = desc + $"< ! > Press the {Config.LayDownKey.Value} to Lay Down (just an emote)." + Environment.NewLine + Environment.NewLine;
 
 
 
@@ -39,7 +40,7 @@ namespace ShiggyMod.Modules
 
             #region Passive
             LanguageAPI.Add(prefix + "PASSIVE_NAME", "All For One");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Steal quirks by looking at a target and pressing {Config.AFOHotkey.Value}, costing " + Helpers.Passive($"{StaticValues.AFOEnergyCost * 100f}% Plus Chaos") + $". Open the quirk menu with {Config.OpenQuirkMenuHotkey.Value} and close it with {Config.CloseQuirkMenuHotkey.Value}. Give passive quirks to targets by pressing {Config.AFOGiveHotkey.Value}." + Environment.NewLine +
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Steal quirks by looking at a target and pressing {Config.AFOHotkey.Value}, costing " + Helpers.Passive($"{StaticValues.AFOEnergyCost * 100f}% Plus Chaos") + $". Open the quirk menu with {Config.OpenQuirkMenuHotkey.Value}, confirm the selection with {Config.ConfirmQuirkMenuHotkey.Value} and close it with {Config.CloseQuirkMenuHotkey.Value}. Give passive quirks to targets by pressing {Config.AFOGiveHotkey.Value}." + Environment.NewLine +
                 Helpers.Passive("[Plus Chaos Meter] [Decay] [Air Walk]") + Environment.NewLine +
                 "<style=cIsUtility>He has a double jump. He can sprint in any direction.</style>");
             #endregion
@@ -51,7 +52,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Pairs with [Rex- Seed Barrage] to create [Decay Plus Ultra]</style> <style=cWorldEvent>[Decay]</style>");
             LanguageAPI.Add(prefix + "BULLETLASER_NAME", "Bullet Laser");
             LanguageAPI.Add(prefix + "BULLETLASER_DESCRIPTION", $"<style=cIsDamage>Agile." +
-                $"</style> Shoot piercing lasers for <style=cIsDamage>5x{100f * StaticValues.bulletlaserDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"</style> Shoot piercing lasers for <style=cIsDamage>5x{100f * Modules.Config.BulletLaserDamage.Value}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Stone Golem- Laser] to create [Sweeping Beam]</style>");
             LanguageAPI.Add(prefix + "AIRCANNON_NAME", "Air Cannon");
             LanguageAPI.Add(prefix + "AIRCANNON_DESCRIPTION", $"" +
@@ -80,7 +81,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "ALPHACONSTRUCT_DESCRIPTION", $"Gain a barrier that blocks the next hit. Recharges after {StaticValues.alphaconstructCooldown} seconds. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Jellyfish- Regenerate] to create [Barrier Jelly]</style>");
             LanguageAPI.Add(prefix + "BEETLE_NAME", "Strength Boost");
-            LanguageAPI.Add(prefix + "BEETLE_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.beetleFlatDamage} base damage</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "BEETLE_DESCRIPTION", $"<style=cIsDamage>Gain {Modules.Config.StrengthBoostBaseDamage.Value} base damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Lesser Wisp- Haste] to create [Omniboost]</style>");
             LanguageAPI.Add(prefix + "PEST_NAME", "Jump Boost");
             LanguageAPI.Add(prefix + "PEST_DESCRIPTION", $"<style=cIsUtility>Gain 4 extra jumps and jump power</style>. " + Environment.NewLine + Environment.NewLine +
@@ -98,7 +99,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "LARVA_DESCRIPTION", $"<style=cIsDamage>Release an Acidic blast</style> when <style=cIsUtility>jumping and landing</style>.  " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Acrid- Poison] to create [Aura Of Blight]</style>");
             LanguageAPI.Add(prefix + "LESSERWISP_NAME", "Haste");
-            LanguageAPI.Add(prefix + "LESSERWISP_DESCRIPTION", $"<style=cIsDamage>Gain {StaticValues.lesserwispFlatAttackSpeed} flat attackspeed</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "LESSERWISP_DESCRIPTION", $"<style=cIsDamage>Gain {Modules.Config.HasteAttackSpeedAdditive.Value} flat attackspeed</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Beetle- Strength Boost] to create [Blind Senses]</style>");
             LanguageAPI.Add(prefix + "LUNAREXPLODER_NAME", "Lunar Barrier");
             LanguageAPI.Add(prefix + "LUNAREXPLODER_DESCRIPTION", $"Gain a <style=cIsUtility>Shield equal to {StaticValues.lunarexploderShieldCoefficient * 100f}% of your max health</style>. " + Environment.NewLine + Environment.NewLine +
@@ -142,7 +143,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "SOLUSAMALGAMATOR_DESCRIPTION", $"Every attack that has a proc coefficient reduces <style=cIsUtility>Equipment cooldown by {StaticValues.solusAmalgamatorEquipmentBoostCDReduction} seconds on hit</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>No pairing yet");
             LanguageAPI.Add(prefix + "STONETITAN_NAME", "Stone Skin");
-            LanguageAPI.Add(prefix + "STONETITAN_DESCRIPTION", $"<style=cIsUtility>Gain {StaticValues.stonetitanarmorGain} armor and flat damage reduction equal to your armor</style>. " +
+            LanguageAPI.Add(prefix + "STONETITAN_DESCRIPTION", $"<style=cIsUtility>Gain {Modules.Config.StoneSkinArmorGain.Value} armor and flat damage reduction equal to your armor</style>. " +
                 $"When you're below 50% health. damage can be reduced <style=cIsHealing>below zero and heal you</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Hermit Crab- Mortar] to create [Stone Form]</style>");
             LanguageAPI.Add(prefix + "MAGMAWORM_NAME", "Blazing Aura");
@@ -160,7 +161,7 @@ namespace ShiggyMod.Modules
                 $"" + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Larva- Acid Jump] to create [Aura of Blight]</style>");
             LanguageAPI.Add(prefix + "COMMANDO_NAME", "Double Tap");
-            LanguageAPI.Add(prefix + "COMMANDO_DESCRIPTION", $"All attacks hit twice, dealing <style=cIsDamage>{100 * StaticValues.commandoDamageMultiplier}% damage</style> of the attack, with a proc coefficient of {StaticValues.commandoProcCoefficient}.  " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "COMMANDO_DESCRIPTION", $"All attacks hit twice, dealing <style=cIsDamage>{100 * Modules.Config.DoubleTapDamage.Value}% damage</style> of the attack, with a proc coefficient of {Modules.Config.DoubleTapProc.Value}.  " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Solus Probe- Solus Boost] to create [Double Time]</style>");
             LanguageAPI.Add(prefix + "CAPTAIN_NAME", "Defensive Microbots");
             LanguageAPI.Add(prefix + "CAPTAIN_DESCRIPTION", $"Passively gain Microbots that shoot down nearby enemy projectiles. Drones are also given Microbots. " + Environment.NewLine + Environment.NewLine +
@@ -169,10 +170,10 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "CHEF_DESCRIPTION", $"Every <style=cIsDamage>{StaticValues.chefOilBurstStacks}th attack, fire globs dealing {100f * StaticValues.chefOilDamageCoefficient}% damage, </style>applying weak and oiled on enemies. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>No pairing yet");
             LanguageAPI.Add(prefix + "LOADER_NAME", "Scrap Barrier");
-            LanguageAPI.Add(prefix + "LOADER_DESCRIPTION", $"Gain <style=cIsUtility>{100f * StaticValues.loaderBarrierGainCoefficient}% of your damage as barrier</style> on all attacks. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "LOADER_DESCRIPTION", $"Gain <style=cIsUtility>{100f * Modules.Config.ScrapBarrierBarrierGain.Value}% of your damage as barrier</style> on all attacks. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Parent- Teleport] to create [Mach Punch]</style>");
             LanguageAPI.Add(prefix + "FALSESON_NAME", "Stolen Inheritance");
-            LanguageAPI.Add(prefix + "FALSESON_DESCRIPTION", $"Gain <style=cIsDamage>bonus base damage equal to {100f * StaticValues.falseSonHPCoefficient}% of your maximum health</style>. " + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "FALSESON_DESCRIPTION", $"Gain <style=cIsDamage>bonus base damage equal to {100f * Modules.Config.StolenInheritanceHPCoefficient.Value}% of your maximum health</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Mini Mushrum], [Jellyfish], [False Son], [Seeker] to create [Hyper Regeneration].");
             #endregion
 
@@ -401,7 +402,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>No pairing yet</style>");
             LanguageAPI.Add(prefix + "RAILGUNNNER_NAME", "Cryocharged Railgun");
             LanguageAPI.Add(prefix + "RAILGUNNNER_DESCRIPTION", $"<style=cIsDamage>Freezing.</style> Hold to ready a freezing, piercing round. " +
-                $"Release to fire the round for <style=cIsDamage>{100f * StaticValues.railgunnerDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
+                $"Release to fire the round for <style=cIsDamage>{100f * Modules.Config.CryoChargedRailgunDamage.Value}% damage</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Lunar Chimera- Lunar Minigun] to create [Rapid Pierce]</style>");
             LanguageAPI.Add(prefix + "REX_NAME", "Seed Barrage");
             LanguageAPI.Add(prefix + "REX_DESCRIPTION", $"<style=cIsHealth>Costs {100f * StaticValues.rexHealthCost}% health</style>. Launch a mortar into the sky for <style=cIsDamage>{100f * StaticValues.rexDamageCoefficient}% damage</style>. " + Environment.NewLine + Environment.NewLine +
@@ -413,7 +414,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VOIDFIEND_DESCRIPTION", $"Disappear into the Void, <style=cIsUtility>cleansing all debuffs</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Void Barnacle- Void Mortar] to create [Void Form]</style>");
             LanguageAPI.Add(prefix + "DEKUOFA_NAME", "OFA 100%");
-            LanguageAPI.Add(prefix + "DEKUOFA_DESCRIPTION", $"Go beyond your limits, boosting Damage, Attackspeed, Armor and Movespeed by {100f * (1 + StaticValues.OFACoefficient)}% additively, " + Helpers.Damage($"taking {100f * StaticValues.OFAHealthCostCoefficient}% of CURRENT health as damage every second") + "." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "DEKUOFA_DESCRIPTION", $"Go beyond your limits, boosting Damage, Attackspeed, Armor and Movespeed by {100f * Modules.Config.OFAMultiplierAdditive.Value}% additively, " + Helpers.Damage($"taking {100f * Modules.Config.OFAHealthCostPercentage.Value}% of CURRENT health as damage every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Deku/Newt]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Multiplier] to create [Limit Break]</style>");
             LanguageAPI.Add(prefix + "HALCYONITE_NAME", "Greed");
@@ -486,7 +487,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Get from [Mercenary/Air Cannon]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Wind Shield (Alloy Vulture/Engineer)] to create [Final Release]</style>");
             LanguageAPI.Add(prefix + "LIMITBREAK_NAME", "Limit Break");
-            LanguageAPI.Add(prefix + "LIMITBREAK_DESCRIPTION", $"Break your limits, boosting Damage by {StaticValues.limitBreakCoefficient}x multiplicatively, " + Helpers.Damage($"taking {100f * StaticValues.limitBreakHealthCostCoefficient}% of MAX health as damage every time you hit an enemy") + "." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "LIMITBREAK_DESCRIPTION", $"Break your limits, boosting Damage by {Modules.Config.LimitBreakDamageMultiplier.Value}x multiplicatively, " + Helpers.Damage($"taking {100f * Modules.Config.LimitBreakHealthCostPercentage.Value}% of MAX health as damage every time you hit an enemy") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Multiplier/One For All]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Void Form (Void Barnacle/Void Fiend)] to create [One For All For One]</style>");
             LanguageAPI.Add(prefix + "VOIDFORM_NAME", "Void Form");
@@ -573,7 +574,7 @@ namespace ShiggyMod.Modules
                 + Environment.NewLine
                 + Environment.NewLine
             + $"<style=cKeywordName>Air Walk</style>"
-                + $"<style=cIsUtility>Double tapping jump in the air toggles flight. Freely move horizontally. Sprinting will have move towards where you're looking at. </style>."
+                + $"<style=cIsUtility>Double tapping jump in the air toggles flight. Freely move horizontally. Sprinting will have move towards where you're looking at. Press jump to ascend and {Config.AirWalkDescentKey} to descend. </style>."
                 + Helpers.Passive($" Drains {StaticValues.airwalkEnergyCost * 100f} of plus chaos every second."
                 + Environment.NewLine
                 + Environment.NewLine

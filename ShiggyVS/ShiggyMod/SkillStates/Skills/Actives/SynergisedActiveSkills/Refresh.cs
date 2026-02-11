@@ -13,7 +13,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-
+            exitOnDuration = true;
             //play animation?
             PlayAnimation("LeftArm, Override", "LHandFist", "Attack.playbackRate", duration / 2f);
 

@@ -26,6 +26,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             Ray aimRay = base.GetAimRay();
+            exitOnDuration = true;
             //base.characterBody.SetAimTimer(this.duration);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "BothHandFist", "Attack.playbackRate", duration, 0.05f);

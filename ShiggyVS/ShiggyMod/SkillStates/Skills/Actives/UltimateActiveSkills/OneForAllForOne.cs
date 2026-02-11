@@ -15,6 +15,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             duration = baseDuration;
+            exitOnDuration = true;
             //play differnt animation and maybe particles?
 
             Ray aimRay = base.GetAimRay();

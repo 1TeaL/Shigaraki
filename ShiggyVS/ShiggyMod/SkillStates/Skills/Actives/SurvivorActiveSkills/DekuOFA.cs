@@ -10,6 +10,7 @@ namespace ShiggyMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            exitOnDuration = true;
 
             PlayCrossfade("FullBody, Override", "FullBodyUnleash", "Attack.playbackRate", duration, 0.1f);
             Ray aimRay = base.GetAimRay();

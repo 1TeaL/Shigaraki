@@ -537,7 +537,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     OFATimer = 0f;
                     //take damage every second based off current hp
-                    new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.combinedHealth * StaticValues.OFAHealthCostCoefficient).Send(NetworkDestination.Clients);
+                    new SpendHealthNetworkRequest(characterBody.masterObjectId, characterBody.healthComponent.health* Modules.Config.OFAHealthCostPercentage.Value).Send(NetworkDestination.Clients);
                 }
             }
         }
@@ -887,10 +887,27 @@ namespace ShiggyMod.Modules.Survivors
                     VagrantDisableBuff();
                     JellyfishRegenerateStacks();
                     HalcyoniteGreedBuff();
+                    Emote();
                 }
             }
         }
+        private float emoteCooldown;
+        private bool emotePressed;
+        public void Emote()
+        {
+            emoteCooldown -= Time.fixedDeltaTime;
 
+            if (Input.GetKeyDown(Config.LayDownKey.Value.MainKey))
+                emotePressed = true;
+            if (emotePressed && emoteCooldown <= 0f)
+            {
+                emotePressed = false;
+                emoteCooldown = 0.2f;
+
+                new SetEmoteState(characterBody.masterObjectId)
+                    .Send(NetworkDestination.Server);
+            }
+        }
 
         public void Particles()
         {
@@ -933,7 +950,7 @@ namespace ShiggyMod.Modules.Survivors
                         REYE.Stop();
                     }
                 }
-
+                
                 //sword aura L
                 if (boolswordAuraL || characterBody.HasBuff(Buffs.finalReleaseBuff))
                 {
@@ -1159,8 +1176,6 @@ namespace ShiggyMod.Modules.Survivors
             }
 
 
-
-
             if (trackingTarget)
             {
 
@@ -1244,7 +1259,7 @@ namespace ShiggyMod.Modules.Survivors
                 //    }
                 //}
 
-                if (UnityEngine.Input.GetKeyDown(Config.AFOGiveHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority && trackingTarget.teamIndex == TeamIndex.Player)
+                if (UnityEngine.Input.GetKey(Config.AFOGiveHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority && trackingTarget.teamIndex == TeamIndex.Player)
                 {
                     giveQuirkStopwatch += Time.deltaTime;
                     if (!this.hasStolen && giveQuirkStopwatch > Config.holdButtonAFO.Value)
@@ -1871,12 +1886,18 @@ namespace ShiggyMod.Modules.Survivors
             // This must match server resolve logic, or at least be close.
             var inv = QuirkInventory.Ensure(characterBody.master);
 
-            QuirkId predicted = PredictQuirkFromVictim_Client(targetBody);
-            if (predicted != QuirkId.None && inv != null && inv.Has(predicted))
+            PredictQuirksFromVictim_Client(targetBody, out var eliteId, out var bodyId);
+
+            // Only block if there is nothing new to gain
+            bool eliteBlockedOrOwned = (eliteId == QuirkId.None) || (inv != null && inv.Has(eliteId));
+            bool bodyOwnedOrNone = (bodyId == QuirkId.None) || (inv != null && inv.Has(bodyId));
+
+            if (eliteBlockedOrOwned && bodyOwnedOrNone)
             {
                 energySystem.quirkGetInformation("<style=cIsUtility>Already owned.</style>", 1.2f);
                 return;
             }
+
 
             // do NOT spend here
             _pendingStealCost = cost;
@@ -1888,28 +1909,25 @@ namespace ShiggyMod.Modules.Survivors
 
         // Best-effort client prediction (mirror your server mapping).
         // Keep it minimal: if you're unsure, return None and let server decide.
-        private static QuirkId PredictQuirkFromVictim_Client(CharacterBody victim)
+        private static void PredictQuirksFromVictim_Client(CharacterBody victim, out QuirkId eliteId, out QuirkId bodyId)
         {
-            if (!victim) return QuirkId.None;
+            eliteId = QuirkId.None;
+            bodyId = QuirkId.None;
+            if (!victim) return;
 
-            // Elite mapping (same helper your server uses)
-            if (QuirkRegistry.TryGetEliteQuirkId(victim, out var eliteId))
+            // Elite
+            if (QuirkRegistry.TryGetEliteQuirkId(victim, out var e))
             {
-                // If you want to match the server's elite debuff block, mirror it:
-                if (victim.HasBuff(ShiggyMod.Modules.Buffs.eliteDebuff.buffIndex))
-                    return QuirkId.None;
-
-                return eliteId;
+                // mirror your server rule: elite debuff blocks elite steal only
+                if (!victim.HasBuff(ShiggyMod.Modules.Buffs.eliteDebuff.buffIndex))
+                    eliteId = e;
             }
 
-            // Body mapping
+            // Body map
             string bodyName = BodyCatalog.GetBodyName(victim.bodyIndex);
-            if (QuirkTargetingMap.TryGet(bodyName, out var id) && id != QuirkId.None)
-                return id;
-
-            return QuirkId.None;
+            if (QuirkTargetingMap.TryGet(bodyName, out var b) && b != QuirkId.None)
+                bodyId = b;
         }
-
         public void Client_OnStealResult(QuirkId id, bool success, string reason, NetworkInstanceId victimBodyId, bool playVfx, float cost)
         {
             if (!characterBody || !characterBody.hasEffectiveAuthority) return;

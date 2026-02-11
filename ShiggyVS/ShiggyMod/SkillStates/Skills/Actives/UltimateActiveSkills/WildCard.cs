@@ -23,6 +23,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             duration = baseDuration;
+            exitOnDuration = true;
             //play animation and maybe particles? maybe snap fingers idk?
 
             Ray aimRay = base.GetAimRay();

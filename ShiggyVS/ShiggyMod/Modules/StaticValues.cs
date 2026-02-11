@@ -681,7 +681,7 @@ namespace ShiggyMod.Modules
             skillNameToSkillDef = new Dictionary<string, RoR2.Skills.SkillDef>
             {
                 //base skillname to skilldef
-                { Survivors.Shiggy.railgunnercryoDef.skillName, Survivors.Shiggy.railgunnercryoDef},
+                { Survivors.Shiggy.railgunnercryochargedrailgunDef.skillName, Survivors.Shiggy.railgunnercryochargedrailgunDef},
                 { Survivors.Shiggy.lunarwispminigunDef.skillName, Survivors.Shiggy.lunarwispminigunDef},
 
                 { Survivors.Shiggy.parentteleportDef.skillName, Survivors.Shiggy.parentteleportDef},
@@ -853,7 +853,7 @@ namespace ShiggyMod.Modules
 
             baseSkillUpgrade = new Dictionary<string, RoR2.Skills.SkillDef>
             {
-                { Survivors.Shiggy.railgunnercryoDef.skillName, Survivors.Shiggy.sweepingBeamDef},
+                { Survivors.Shiggy.railgunnercryochargedrailgunDef.skillName, Survivors.Shiggy.sweepingBeamDef},
                 { Survivors.Shiggy.lunarwispminigunDef.skillName, Survivors.Shiggy.sweepingBeamDef},
 
                 { Survivors.Shiggy.parentteleportDef.skillName, Survivors.Shiggy.machPunchDef},
@@ -949,8 +949,8 @@ namespace ShiggyMod.Modules
 
             baseSkillPair = new Dictionary<string, RoR2.Skills.SkillDef>
             {
-                { Survivors.Shiggy.railgunnercryoDef.skillName, Survivors.Shiggy.lunarwispminigunDef},
-                { Survivors.Shiggy.lunarwispminigunDef.skillName, Survivors.Shiggy.railgunnercryoDef},
+                { Survivors.Shiggy.railgunnercryochargedrailgunDef.skillName, Survivors.Shiggy.lunarwispminigunDef},
+                { Survivors.Shiggy.lunarwispminigunDef.skillName, Survivors.Shiggy.railgunnercryochargedrailgunDef},
 
                 { Survivors.Shiggy.parentteleportDef.skillName, Survivors.Shiggy.loaderpassiveDef},
                 { Survivors.Shiggy.loaderpassiveDef.skillName, Survivors.Shiggy.parentteleportDef},
@@ -1162,7 +1162,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.mercdashDef.skillName, "<style=cIsUtility>Wind Assault Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.multbuffDef.skillName, "<style=cIsUtility>Power Stance Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.rexmortarDef.skillName, "<style=cIsUtility>Seed Barrage Quirk</style> Get! (Active)" },
-                { Survivors.Shiggy.railgunnercryoDef.skillName, "<style=cIsUtility>Cryocharged Railgun Quirk</style> Get! (Active)" },
+                { Survivors.Shiggy.railgunnercryochargedrailgunDef.skillName, "<style=cIsUtility>Cryocharged Railgun Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.voidfiendcleanseDef.skillName, "<style=cIsUtility>Cleanse Quirk</style> Get! (Active)" },
                 { Survivors.Shiggy.DekuOFADef.skillName, "<style=cIsUtility>One For All Quirk</style> Get!!! (Active)" },
                 //synergy active skill to info
@@ -1260,7 +1260,7 @@ namespace ShiggyMod.Modules
                 { "MercBody", Survivors.Shiggy.mercdashDef },
                 { "ToolbotBody", Survivors.Shiggy.multbuffDef },
                 { "TreebotBody", Survivors.Shiggy.rexmortarDef },
-                { "RailgunnerBody", Survivors.Shiggy.railgunnercryoDef },
+                { "RailgunnerBody", Survivors.Shiggy.railgunnercryochargedrailgunDef },
                 { "VoidSurvivorBody", Survivors.Shiggy.voidfiendcleanseDef },
 
 
@@ -1343,7 +1343,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.mercdashDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.multbuffDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.multbuffcancelDef.skillName, skillType.ACTIVE },
-                { Survivors.Shiggy.railgunnercryoDef.skillName, skillType.ACTIVE },
+                { Survivors.Shiggy.railgunnercryochargedrailgunDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.rexmortarDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.voidfiendcleanseDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.DekuOFADef.skillName, skillType.ACTIVE },

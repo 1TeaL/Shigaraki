@@ -29,7 +29,7 @@ namespace ShiggyMod.SkillStates
         private ModelLocator modelLocator;
         private Animator animator;
         private Vector3 lastPlanarFacing = Vector3.forward; // helps avoid jitter when inputs are tiny
-
+        float airwalkSprintMult = 1.5f;
 
         // Energy drain timer
         private float airwalkEnergyTimer;
@@ -82,36 +82,67 @@ namespace ShiggyMod.SkillStates
             // --- Common speed targets ---
             bool sprintInput = body.isSprinting || input.sprint.down;
             float sprintMult = sprintInput ? body.sprintingSpeedMultiplier : 1f;
-            float targetSpeed = body.moveSpeed * sprintMult;
+            float targetSpeed = body.moveSpeed * sprintMult * (sprintInput ? airwalkSprintMult : 1f);
 
             Vector3 velocity = motor.velocity;
 
-            // ===== BRANCH A: SPRINT = full 3D flight along aim (includes Y) =====
+            // ===== BRANCH A: SPRINT = Tenkaichi-style flight =====
             if (sprintInput)
             {
+                // Tuning knobs
+                const float wasdInfluence = 1f;   // 0 = pure aim, 1 = strong steering
+                const float verticalSpeed = 12f;     // up/down speed while sprinting
+                const float verticalAccel = 80f;     // smoothness for vertical changes
+
                 Vector3 aimDir = input.aimDirection;
-                if (aimDir.sqrMagnitude > 0.0001f)
+                if (aimDir.sqrMagnitude < 0.0001f) aimDir = charDir ? charDir.forward : Vector3.forward;
+                aimDir.Normalize();
+
+                // Planar steering from WASD (camera-relative already)
+                Vector3 movePlanar = Vector3.ProjectOnPlane(input.moveVector, Vector3.up);
+                if (movePlanar.sqrMagnitude > 0.0001f) movePlanar.Normalize();
+
+                // Aim planar
+                Vector3 aimPlanar = Vector3.ProjectOnPlane(aimDir, Vector3.up);
+                if (aimPlanar.sqrMagnitude > 0.0001f) aimPlanar.Normalize();
+
+                // Blend planar: mostly aim, with WASD pulling your heading
+                Vector3 blendedPlanar = aimPlanar;
+                if (movePlanar.sqrMagnitude > 0.0001f)
+                    blendedPlanar = (aimPlanar + movePlanar * wasdInfluence).normalized;
+
+                // Rebuild full direction: planar from blend, vertical from aim
+                Vector3 desiredDir = blendedPlanar + Vector3.up * aimDir.y;
+                if (desiredDir.sqrMagnitude > 0.0001f) desiredDir.Normalize();
+
+                // Vertical control while sprinting (optional but very Tenkaichi)
+                float vy = velocity.y;
+                bool descendHeld = Input.GetKey(Config.AirWalkDescentKey.Value.MainKey);
+
+                if (input.jump.down) vy = Mathf.MoveTowards(vy, +verticalSpeed, verticalAccel * Time.fixedDeltaTime);
+                else if (descendHeld) vy = Mathf.MoveTowards(vy, -verticalSpeed, verticalAccel * Time.fixedDeltaTime);
+                else
                 {
-                    aimDir.Normalize();
-
-                    // Move whole velocity toward aim * targetSpeed (true 3D sprint flight)
-                    Vector3 targetVel = aimDir * targetSpeed;
-                    velocity = Vector3.MoveTowards(velocity, targetVel, aerialAccel * Time.fixedDeltaTime);
-
-                    // Animator sprint flag
-                    if (animator) animator.SetBool("isFlightSprint", true);
-
-                    // Face planar component of the aim to avoid pitch jitter on CharacterDirection
-                    Vector3 flatAim = Vector3.ProjectOnPlane(aimDir, Vector3.up);
-                    if (flatAim.sqrMagnitude > 0.0001f)
-                        lastPlanarFacing = flatAim.normalized;
+                    vy = Mathf.MoveTowards(vy, 0f, 25f * Time.fixedDeltaTime);
                 }
+
+                Vector3 targetVel = desiredDir * targetSpeed;
+                targetVel.y = vy; // override vertical with our controlled vy
+
+                velocity = Vector3.MoveTowards(velocity, targetVel, aerialAccel * Time.fixedDeltaTime);
+
+                if (animator) animator.SetBool("isFlightSprint", true);
+
+                // Face the blended planar direction (prevents jitter)
+                if (blendedPlanar.sqrMagnitude > 0.0001f)
+                    lastPlanarFacing = blendedPlanar;
             }
+
             // ===== BRANCH B: NOT SPRINTING = hover controls (Jump up / descend / damp to 0) =====
             else
             {
-                if (animator) animator.SetBool("isFlightSprint", false);
-                bool descendHeld = Input.GetKeyDown(Config.AFOHotkey.Value.MainKey);
+                if (animator) animator.SetBool("isFlightSprint", false); 
+                bool descendHeld = Input.GetKey(Config.AirWalkDescentKey.Value.MainKey);
                 // Vertical
                 float vy = velocity.y;
                 if (input.jump.down)

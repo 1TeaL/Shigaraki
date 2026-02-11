@@ -1,0 +1,75 @@
+﻿using R2API.Networking.Interfaces;
+using RoR2;
+using ShiggyMod.SkillStates;
+using UnityEngine;
+using UnityEngine.Networking;
+
+namespace ShiggyMod.Modules.Networking
+{
+    public class SetEmoteState : INetMessage
+    {
+        //network
+        NetworkInstanceId netID;
+
+        public SetEmoteState()
+        {
+
+        }
+
+        public SetEmoteState(NetworkInstanceId netID)
+        {
+            this.netID = netID;
+        }
+
+        public void Deserialize(NetworkReader reader)
+        {
+            netID = reader.ReadNetworkId();
+        }
+        public void Serialize(NetworkWriter writer)
+        {
+            writer.Write(netID);
+        }
+        public void OnReceived()
+        {
+            if (NetworkServer.active)
+            {
+                GameObject masterobj = Util.FindNetworkObject(netID);
+                if (!masterobj)
+                {
+                    Debug.Log("masterobj not found");
+                    return;
+                }
+                CharacterMaster charmast = masterobj.GetComponent<CharacterMaster>();
+                if (!charmast)
+                {
+                    Debug.Log("charmast not found");
+                    return;
+                }
+                GameObject charbodyobj = charmast.GetBodyObject();
+                if (!charbodyobj)
+                {
+                    Debug.Log("charbodyobj not found");
+                    return;
+                }
+
+
+                EntityStateMachine[] statemachines = charbodyobj.GetComponents<EntityStateMachine>();
+
+                foreach (EntityStateMachine sm in charbodyobj.GetComponents<EntityStateMachine>())
+                {
+                    if (sm.customName == "Emote")
+                    {
+                        if (sm.state is Emote)
+                            sm.SetNextStateToMain();
+                        else
+                            sm.SetState(new Emote());
+
+                        break;
+                    }
+                }
+
+            }
+        }
+
+    }
+}

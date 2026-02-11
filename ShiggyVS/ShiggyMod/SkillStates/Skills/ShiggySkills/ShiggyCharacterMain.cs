@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using RoR2;
+using ShiggyMod.Modules;
 using UnityEngine;
 
 namespace ShiggyMod.SkillStates
@@ -9,6 +10,7 @@ namespace ShiggyMod.SkillStates
     {
         private EntityStateMachine weaponStateMachine;
         private EntityStateMachine flightStateMachine;
+        private EntityStateMachine emoteStateMachine;
 
         // double-tap detection
         private float lastJumpTapTime;
@@ -24,12 +26,22 @@ namespace ShiggyMod.SkillStates
             // Flight machine (custom)
             flightStateMachine = EntityStateMachine.FindByCustomName(base.gameObject, "Flight");
 
+            // Emote machine (custom)
+            emoteStateMachine = EntityStateMachine.FindByCustomName(base.gameObject, "Emote");
+
         }
 
         private bool IsInFlight()
         {
             return flightStateMachine && flightStateMachine.state is AirWalk;
         }
+
+        private bool IsInEmote()
+        {
+            return emoteStateMachine && emoteStateMachine.state is Emote;
+        }
+
+
 
         public override void ProcessJump()
         {
@@ -61,6 +73,7 @@ namespace ShiggyMod.SkillStates
                     lastJumpTapTime = now;
                 }
             }
+
         }
 
         public override void OnExit()

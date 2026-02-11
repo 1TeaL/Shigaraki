@@ -68,7 +68,6 @@ namespace ShiggyMod.SkillStates
 
 
             search = new BullseyeSearch();
-            SearchForTarget();
 
 
         }
@@ -122,6 +121,13 @@ namespace ShiggyMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if(base.fixedAge > fireTime && !hasFired)
+            {
+                hasFired = true;
+                SearchForTarget();
+            }
+
             if (base.fixedAge > duration)
             {
                 this.outer.SetNextStateToMain();

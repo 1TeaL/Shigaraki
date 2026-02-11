@@ -70,9 +70,9 @@ namespace ShiggyMod.Modules.Quirks
             // =========================
             // Utility / internal
             // =========================
-            yield return E(QuirkId.Utility_EmptySkill, QuirkLevel.Level0, QuirkCategory.Utility, skill: () => emptySkillDef);
-            yield return E(QuirkId.Utility_Choose, QuirkLevel.Level0, QuirkCategory.Utility, skill: () => chooseDef);
-            yield return E(QuirkId.Utility_Remove, QuirkLevel.Level0, QuirkCategory.Utility, skill: () => removeDef);
+            //yield return E(QuirkId.Utility_EmptySkill, QuirkLevel.Level0, QuirkCategory.Utility, skill: () => emptySkillDef);
+            //yield return E(QuirkId.Utility_Choose, QuirkLevel.Level0, QuirkCategory.Utility, skill: () => chooseDef);
+            //yield return E(QuirkId.Utility_Remove, QuirkLevel.Level0, QuirkCategory.Utility, skill: () => removeDef);
 
             // =========================
             // Base Shiggy actives
@@ -578,8 +578,8 @@ namespace ShiggyMod.Modules.Quirks
                 skill: () => operators141customDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Drone_Tech.DroneTechBody_prefab});
 
-            yield return E(QuirkId.Railgunner_CryoActive, QuirkLevel.Level1, QuirkCategory.Active,
-                skill: () => railgunnercryoDef,
+            yield return E(QuirkId.Railgunner_CryoChargedRailgunActive, QuirkLevel.Level1, QuirkCategory.Active,
+                skill: () => railgunnercryochargedrailgunDef,
                 bodyPaths: new[] { RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC1_Railgunner.RailgunnerBody_prefab });
 
             yield return E(QuirkId.REX_MortarActive, QuirkLevel.Level1, QuirkCategory.Active,
@@ -606,7 +606,7 @@ namespace ShiggyMod.Modules.Quirks
             yield return E(
                 QuirkId.Railgunner_LunarWisp_RapidPierceActive, QuirkLevel.Level2, QuirkCategory.Active,
                 skill: () => rapidPierceDef,
-                recipes: new[] { new QuirkRecipe(QuirkId.Railgunner_CryoActive, QuirkId.LunarWisp_MinigunActive) });
+                recipes: new[] { new QuirkRecipe(QuirkId.Railgunner_CryoChargedRailgunActive, QuirkId.LunarWisp_MinigunActive) });
 
             yield return E(
                 QuirkId.BulletLaser_StoneGolem_SweepingBeamActive, QuirkLevel.Level2, QuirkCategory.Active,
@@ -641,7 +641,7 @@ namespace ShiggyMod.Modules.Quirks
             yield return E(
                 QuirkId.Imp_MagmaWorm_ExpungeActive, QuirkLevel.Level2, QuirkCategory.Active,
                 skill: () => expungeDef,
-                recipes: new[] { new QuirkRecipe(QuirkId.Imp_BlinkActive, QuirkId.MagmaWorm_BlazingAuraPassive) });
+                recipes: new[] { new QuirkRecipe(QuirkId.ImpBoss_BleedPassive, QuirkId.MagmaWorm_BlazingAuraPassive) });
 
             yield return E(
                 QuirkId.Imp_Bandit_ShadowClawActive, QuirkLevel.Level2, QuirkCategory.Active,

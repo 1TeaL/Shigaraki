@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3879070590
+CRC: 132890362
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0e36d84b37d136ea460fde070facf9ff
+    Hash: 0347c92e1f2376774b1951a2cbdc9d32
   TypeTreeHash:
     serializedVersion: 2
     Hash: c6e88c678bec3d38b177b2bfda004c24
@@ -89,6 +89,7 @@ Assets:
 - Assets/Shigaraki/Emotes/humanoidShigarakiFinalAvatar.asset
 - Assets/Shigaraki/newAnimations/FullBodyDashSlash.anim
 - Assets/Shigaraki/newAnimations/RArmBlast.anim
+- Assets/Shigaraki/newAnimations/ShigarakiUpperBodyMask 1.mask
 - Assets/Shigaraki/Assets/Material/LimitBreakMat.mat
 - Assets/Shigaraki/GUI/CombinedSkills/ElementalFusion.png
 - Assets/Shigaraki/newAnimations/LArmAimRelease.anim
@@ -266,7 +267,7 @@ Assets:
 - Assets/Shigaraki/newAnimations/ShigarakiLeftArmMask.mask
 - Assets/Shigaraki/newAnimations/Shigaraki War ArcAvatar.asset
 - Assets/Shigaraki/GUI/CombinedSkills/DeathAura.png
-- Assets/Shigaraki/newAnimations/ShigarakiUpperBodyMask.mask
+- Assets/Shigaraki/newAnimations/ShigarakiFullBodyMask.mask
 - Assets/Free Game VFX/Materials/fm-g01-10.mat
 - Assets/Shigaraki/GUI/CombinedSkills/RapidPierce.png
 - Assets/Free Game VFX/Materials/hit_02.mat

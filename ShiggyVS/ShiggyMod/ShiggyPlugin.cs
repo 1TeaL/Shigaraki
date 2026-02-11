@@ -83,7 +83,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "3.0.1";
+        public const string MODVERSION = "3.0.3";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -154,6 +154,7 @@ namespace ShiggyMod
             NetworkingAPI.RegisterMessageType<LightAndDarknessPullRequest>();
             NetworkingAPI.RegisterMessageType<BlastingZoneDebuffDamageRequest>();
             NetworkingAPI.RegisterMessageType<ExpungeNetworkRequest>();
+            NetworkingAPI.RegisterMessageType<SetEmoteState>();
 
             NetworkingAPI.RegisterMessageType<ApexResetSlotRequest>();
             NetworkingAPI.RegisterMessageType<ApexOverdriveNotifyMessage>();
@@ -471,7 +472,7 @@ namespace ShiggyMod
                     //stonetitanarmor buff
                     if (sender.HasBuff(Buffs.stonetitanBuff))
                     {
-                        args.armorAdd += StaticValues.stonetitanarmorGain;
+                        args.armorAdd += Modules.Config.StoneSkinArmorGain.Value;
                     }
                     //voidbarnaclemortarattackspeed buff
                     if (sender.HasBuff(Buffs.voidbarnaclemortarattackspeedBuff))
@@ -498,12 +499,12 @@ namespace ShiggyMod
                     //beetlebuff
                     if (sender.HasBuff(Buffs.beetleBuff))
                     {
-                        args.baseDamageAdd += StaticValues.beetleFlatDamage;
+                        args.baseDamageAdd += Modules.Config.StrengthBoostBaseDamage.Value;
                     }
                     //lesserwispbuff
                     if (sender.HasBuff(Buffs.lesserwispBuff))
                     {
-                        args.baseAttackSpeedAdd += StaticValues.lesserwispFlatAttackSpeed;
+                        args.baseAttackSpeedAdd += Modules.Config.HasteAttackSpeedAdditive.Value;
                     }
                     //lunar exploder
                     if (sender.HasBuff(Buffs.lunarexploderBuff))
@@ -531,9 +532,9 @@ namespace ShiggyMod
                     //ofa buff
                     if (sender.HasBuff(Buffs.OFABuff))
                     {
-                        args.armorAdd += sender.armor * (1 + StaticValues.OFACoefficient);
-                        args.attackSpeedMultAdd += StaticValues.OFACoefficient;
-                        args.moveSpeedMultAdd += StaticValues.OFACoefficient;
+                        args.armorAdd += sender.armor * Modules.Config.OFAMultiplierAdditive.Value;
+                        args.attackSpeedMultAdd += Modules.Config.OFAMultiplierAdditive.Value;
+                        args.moveSpeedMultAdd += Modules.Config.OFAMultiplierAdditive.Value;
                     }
                     //double time buff
                     if (sender.HasBuff(Buffs.doubleTimeBuffStacks))
@@ -552,7 +553,7 @@ namespace ShiggyMod
                     //false son buff
                     if (sender.HasBuff(Buffs.falsesonStolenInheritanceBuff))
                     {
-                        args.baseDamageAdd += StaticValues.falseSonHPCoefficient * sender.healthComponent.fullHealth;
+                        args.baseDamageAdd += Modules.Config.StolenInheritanceHPCoefficient.Value * sender.healthComponent.fullHealth;
                     }
                     //alloy hunter crit boost buff
                     if (sender.HasBuff(Buffs.alloyhunterCritBoostBuff))
@@ -727,10 +728,10 @@ namespace ShiggyMod
             {
                 var di = new DamageInfo
                 {
-                    damage = damageInfo.damage * StaticValues.commandoDamageMultiplier,
+                    damage = damageInfo.damage * Modules.Config.DoubleTapDamage.Value,
                     position = victimBody.corePosition,
                     force = Vector3.zero,
-                    procCoefficient = StaticValues.commandoProcCoefficient,
+                    procCoefficient = Modules.Config.DoubleTapProc.Value,
                     damageColorIndex = DamageColorIndex.Default,
                     crit = false,
                     attacker = attackerBody.gameObject,
@@ -996,7 +997,7 @@ namespace ShiggyMod
             if (attackerBody.HasBuff(Buffs.limitBreakBuff) && positiveDmg && isNonDot)
             {
                 new SpendHealthNetworkRequest(attackerBody.masterObjectId,
-                    attackerBody.healthComponent.fullHealth * StaticValues.limitBreakHealthCostCoefficient)
+                    attackerBody.healthComponent.fullHealth * Modules.Config.LimitBreakHealthCostPercentage.Value)
                     .Send(NetworkDestination.Clients);
             }
 
@@ -1136,7 +1137,7 @@ namespace ShiggyMod
             if (!flag && report.attackerBody.HasBuff(Modules.Buffs.loaderBuff))
             {
                 CharacterBody attackerBody = report.attackerBody;
-                attackerBody.healthComponent.AddBarrierAuthority(report.damageDealt * StaticValues.loaderBarrierGainCoefficient);
+                attackerBody.healthComponent.AddBarrierAuthority(report.damageDealt * Modules.Config.ScrapBarrierBarrierGain.Value);
             }
 
         }
@@ -1628,7 +1629,7 @@ namespace ShiggyMod
                 //limiter removal buff
                 if (self.HasBuff(Buffs.limitBreakBuff))
                 {
-                    self.damage *= StaticValues.limitBreakCoefficient;
+                    self.damage *= Modules.Config.LimitBreakDamageMultiplier.Value;
                 }
                 //grovetender debuff
                 if (self.HasBuff(Buffs.grovetenderChainDebuff))

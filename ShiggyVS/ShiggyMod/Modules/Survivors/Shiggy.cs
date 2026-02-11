@@ -128,7 +128,7 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef multbuffDef;
         internal static SkillDef multbuffcancelDef;
         internal static SkillDef operators141customDef;
-        internal static SkillDef railgunnercryoDef;
+        internal static SkillDef railgunnercryochargedrailgunDef;
         internal static SkillDef rexmortarDef;
         internal static SkillDef seekermeditateDef;
         internal static SkillDef voidfiendcleanseDef;
@@ -239,9 +239,20 @@ namespace ShiggyMod.Modules.Survivors
                 flightESM.customName = "Flight";
             }
 
+            // Find or add the dedicated "Emote" machine
+            var emoteESM = EntityStateMachine.FindByCustomName(bodyPrefab, "Emote");
+            if (!emoteESM)
+            {
+                emoteESM = bodyPrefab.AddComponent<EntityStateMachine>();
+                emoteESM.customName = "Emote";
+            }
+
             // Idle is a no-op state for this side-machine
             flightESM.initialStateType = new SerializableEntityStateType(typeof(EntityStates.Idle));
             flightESM.mainStateType = new SerializableEntityStateType(typeof(EntityStates.Idle));
+
+            emoteESM.initialStateType = new SerializableEntityStateType(typeof(EntityStates.Idle));
+            emoteESM.mainStateType = new SerializableEntityStateType(typeof(EntityStates.Idle));
 
             // Append to NetworkStateMachine without clobbering existing entries (Body/Weapon/etc.)
             var list = new System.Collections.Generic.List<EntityStateMachine>(nsm.stateMachines);
@@ -250,10 +261,16 @@ namespace ShiggyMod.Modules.Survivors
                 list.Add(flightESM);
                 nsm.stateMachines = list.ToArray();
             }
+            if (!list.Contains(emoteESM))
+            {
+                list.Add(emoteESM);
+                nsm.stateMachines = list.ToArray();
+            }
 
             // Register flight states (CharacterMain already added by base via characterMainState)
             //Modules.Content.AddEntityState(typeof(EntityStates.Idle));
             Modules.Content.AddEntityState(typeof(AirWalk));
+            Modules.Content.AddEntityState(typeof(Emote));
         }
         public override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[] {
 
@@ -2271,13 +2288,13 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
-            Shiggy.railgunnercryoDef = Skills.CreateSkillDef(new SkillDefInfo
+            Shiggy.railgunnercryochargedrailgunDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = prefix + "RAILGUNNNER_NAME",
                 skillNameToken = prefix + "RAILGUNNNER_NAME",
                 skillDescriptionToken = prefix + "RAILGUNNNER_DESCRIPTION",
-                skillIcon = QuirkIconBank.Get(QuirkId.Railgunner_CryoActive),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.RailgunnerCryoCharge)),
+                skillIcon = QuirkIconBank.Get(QuirkId.Railgunner_CryoChargedRailgunActive),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.RailgunnerCryoChargedRailgun)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
                 baseRechargeInterval = 15f,
@@ -3751,7 +3768,7 @@ namespace ShiggyMod.Modules.Survivors
                     huntressattackDef,
                     mercdashDef,
                     multbuffDef,
-                    railgunnercryoDef,
+                    railgunnercryochargedrailgunDef,
                     rexmortarDef,
                     seekermeditateDef,
                     voidfiendcleanseDef,

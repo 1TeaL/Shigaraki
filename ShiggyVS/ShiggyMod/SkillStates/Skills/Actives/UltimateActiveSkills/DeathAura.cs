@@ -15,6 +15,7 @@ namespace ShiggyMod.SkillStates
         {
             base.OnEnter();
             //play animation and maybe particles?
+            exitOnDuration = true;
 
             Ray aimRay = base.GetAimRay();
             EffectManager.SpawnEffect(ShiggyAsset.impBossExplosionEffect, new EffectData

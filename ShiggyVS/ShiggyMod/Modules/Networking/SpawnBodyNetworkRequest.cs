@@ -67,7 +67,13 @@ namespace ShiggyMod.Modules.Networking
 
 
                 master.teamIndex = charMaster.teamIndex;
-                master.inventory = charMaster.inventory;
+                // copy contents instead
+                if (master.inventory && charMaster.inventory)
+                {
+                    master.inventory.CopyItemsFrom(charMaster.inventory);
+                    master.inventory.CopyEquipmentFrom(charMaster.inventory, true);
+
+                }
 
 
                 NetworkServer.Spawn(bodyGameObject);
@@ -75,10 +81,12 @@ namespace ShiggyMod.Modules.Networking
                 master.SpawnBody(charBody.corePosition + charBody.characterDirection.forward * 5f, Quaternion.identity);
 
                 //apply a buff if inputted
-                if (buffIndex != null)
+                if (buffIndex != BuffIndex.None)
                 {
-                    master.GetComponent<CharacterBody>().ApplyBuff(buffIndex, 1);
+                    var body = master.GetBody();
+                    if (body) body.AddBuff(buffIndex);
                 }
+            }
 
 
                 //GameObject monsterMaster = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("R").WaitForCompletion(), masterPrefab + bodyPrefab, true);
@@ -100,7 +108,7 @@ namespace ShiggyMod.Modules.Networking
 
 
 
-            }
+            
 
         }
     }

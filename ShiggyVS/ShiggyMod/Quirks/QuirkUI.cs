@@ -6,8 +6,10 @@ using RoR2;
 using RoR2.Skills;
 using RoR2.UI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -21,6 +23,13 @@ namespace ShiggyMod.Modules.Quirks
         public static QuirkUI Current { get; private set; }
         public static bool IsOpen => Current != null;
         private bool _subscribed;
+
+        // --- smooth pause on open (singleplayer only)
+        private Coroutine _pauseEaseCoroutine;
+        private float _preMenuTimeScale = 1f;
+        private bool _didPauseForMenu;
+
+
 
         public static QuirkUI Show(CharacterBody body, ExtraSkillLocator extras, Action<string, float> toast = null)
         {
@@ -48,7 +57,10 @@ namespace ShiggyMod.Modules.Quirks
         private ExtraSkillLocator _extras;
         private Action<string, float> _toast;
         private QuirkInventory _inv;
-        private Canvas _canvas;
+        private Canvas _canvas; 
+        private Image _tooltipRoot;
+        private RectTransform _tooltipRT; 
+        private HGTextMeshProUGUI _tooltipText;
 
         // slot selection (QuirkId.None means empty)
         private QuirkId _selPrimary = QuirkId.None;
@@ -95,6 +107,10 @@ namespace ShiggyMod.Modules.Quirks
             scaler.referenceResolution = new Vector2(1920, 1080);
 
             canvasGO.AddComponent<GraphicRaycaster>();
+
+            //tooltip top layer
+            BuildTooltip();
+
 
             // Dimmer (also closes on click)
             var dim = NewUI<Image>("Dim", canvasGO.transform);
@@ -179,7 +195,89 @@ namespace ShiggyMod.Modules.Quirks
             UICursorUtil.OpenGameCursor();
 
             Subscribe();
+
+            //pause
+            BeginSingleplayerSlowPause();
         }
+        private void BuildTooltip()
+        {
+            _tooltipRoot = NewUI<Image>("Tooltip", _canvas.transform);
+            _tooltipRoot.color = new Color(0f, 0f, 0f, 0.9f);
+            _tooltipRT = _tooltipRoot.rectTransform;
+            _tooltipRT.pivot = new Vector2(0f, 1f);
+            _tooltipRT.sizeDelta = new Vector2(520f, 120f);
+            _tooltipRoot.gameObject.SetActive(false);
+
+            _tooltipText = NewHGText("TooltipText", _tooltipRoot.transform, "");
+            _tooltipText.alignment = TextAlignmentOptions.TopLeft;
+            _tooltipText.enableAutoSizing = false;
+            _tooltipText.fontSize = 16f;
+            _tooltipText.richText = true;
+            _tooltipText.enableWordWrapping = true;
+
+            // keep tooltip object above everything
+            _tooltipRoot.transform.SetAsLastSibling();
+
+            var ttr = _tooltipText.rectTransform;
+            StretchFull(ttr);
+            ttr.offsetMin = new Vector2(10f, 10f);
+            ttr.offsetMax = new Vector2(-10f, -10f);
+        }
+
+        private void BeginSingleplayerSlowPause()
+        {
+            // only in real singleplayer (no MP, no host-mp)
+            if (!RoR2Application.isInSinglePlayer) return;
+
+            // If you're already paused by something else, don't touch it.
+            if (Time.timeScale <= 0f) return;
+
+            _preMenuTimeScale = Time.timeScale;
+            _didPauseForMenu = true;
+
+            if (_pauseEaseCoroutine != null) StopCoroutine(_pauseEaseCoroutine);
+            _pauseEaseCoroutine = StartCoroutine(CoEaseTimeScaleToZero(0.12f)); // 120ms feels snappy
+        }
+
+        private void EndSingleplayerSlowPause()
+        {
+            if (!_didPauseForMenu) return;
+
+            if (_pauseEaseCoroutine != null)
+            {
+                StopCoroutine(_pauseEaseCoroutine);
+                _pauseEaseCoroutine = null;
+            }
+
+            // restore to what it was (normally 1)
+            Time.timeScale = (_preMenuTimeScale > 0f) ? _preMenuTimeScale : 1f;
+            _didPauseForMenu = false;
+        }
+
+        private IEnumerator CoEaseTimeScaleToZero(float durationSeconds)
+        {
+            // Unscaled time so it still runs while we slow down.
+            float start = Time.timeScale;
+            float t = 0f;
+
+            while (t < durationSeconds)
+            {
+                t += Time.unscaledDeltaTime;
+                float a = Mathf.Clamp01(t / durationSeconds);
+
+                // Ease-out curve (fast drop, smooth finish)
+                float eased = 1f - (1f - a) * (1f - a);
+
+                // Interpolate to a tiny epsilon, then hard 0 at end.
+                Time.timeScale = Mathf.Lerp(start, 0.0001f, eased);
+                yield return null;
+            }
+
+            Time.timeScale = 0f; // hard pause
+            _pauseEaseCoroutine = null;
+        }
+
+
         private void Subscribe()
         {
             if (_subscribed) return;
@@ -214,8 +312,8 @@ namespace ShiggyMod.Modules.Quirks
             if (pool.Count == 0)
                 _activePool.AddRange(BaseShiggyActives);
             else
-                _activePool.AddRange(pool.OrderBy(id => QuirkInventory.QuirkPickupUI.MakeNiceName(id)));
-            Debug.Log("[QuirkUI] pool=" + string.Join(", ", _activePool.Select(id => QuirkInventory.QuirkPickupUI.MakeNiceName(id))));
+                _activePool.AddRange(pool.OrderBy(id => GetLocalizedName(id)));
+            Debug.Log("[QuirkUI] pool=" + string.Join(", ", _activePool.Select(GetLocalizedName)));
 
         }
 
@@ -270,8 +368,8 @@ namespace ShiggyMod.Modules.Quirks
 
         private void UpdateSlotButton(Button btn, QuirkId q)
         {
-            var t = btn.GetComponentInChildren<Text>();
-            t.text = q == QuirkId.None ? "(None)" : QuirkInventory.QuirkPickupUI.MakeNiceName(q);
+            var t = btn.GetComponentInChildren<Text>(); 
+            t.text = GetLocalizedName(q);
         }
 
         private void OpenPicker(string title, Action<QuirkId> onPicked)
@@ -318,6 +416,7 @@ namespace ShiggyMod.Modules.Quirks
             var scroll = scrollGO.AddComponent<ScrollRect>();
             scroll.horizontal = false;
             scroll.vertical = true;
+            scroll.scrollSensitivity = 50f; //scroll speed
 
             // Viewport as *child* of ScrollRect
             var viewportGO = new GameObject("Viewport");
@@ -356,20 +455,47 @@ namespace ShiggyMod.Modules.Quirks
                 rrt.anchoredPosition = new Vector2(0f, y);
                 y -= 32f;
 
+                var forward = row.gameObject.AddComponent<ScrollDragForwarder>();
+                forward.scroll = scroll;
+                
                 var btn = row.gameObject.AddComponent<Button>();
                 btn.targetGraphic = row;
 
-                var lab = NewText("Label", row.transform, q == QuirkId.None ? "(None)" : QuirkInventory.QuirkPickupUI.MakeNiceName(q));
+                var lab = NewText("Label", row.transform, GetLocalizedName(q));
                 lab.alignment = TextAnchor.MiddleLeft;
                 var lrt = lab.rectTransform; StretchFull(lrt); lrt.offsetMin = new Vector2(8f, 0f);
 
                 btn.onClick.AddListener(() =>
                 {
+                    HideTooltip();
                     onPicked?.Invoke(q);
                     Destroy(modal.gameObject);
                 });
+                lab.raycastTarget = false;
+                //hover tooltip
+                var trig = row.gameObject.AddComponent<EventTrigger>();
+
+                void AddTrigger(EventTriggerType type, Action action)
+                {
+                    var entry = new EventTrigger.Entry { eventID = type };
+                    entry.callback.AddListener(_ => action());
+                    trig.triggers.Add(entry);
+                }
+
+                AddTrigger(EventTriggerType.PointerEnter, () =>
+                {
+                    if (q == QuirkId.None) return;
+
+                    string name = GetLocalizedName(q);
+                    string desc = GetLocalizedDesc(q);
+
+                    ShowTooltip($"{name}\n\n{desc}");
+                });
+
+                AddTrigger(EventTriggerType.PointerExit, HideTooltip);
             }
             crt.sizeDelta = new Vector2(0f, Mathf.Max(0f, -y + 6f));
+
 
             var closeBtn = BuildButton((RectTransform)panel.transform, "Close", () => Destroy(modal.gameObject));
             var cbrt = closeBtn.GetComponent<RectTransform>();
@@ -378,6 +504,35 @@ namespace ShiggyMod.Modules.Quirks
             cbrt.pivot = new Vector2(1f, 0f);
             cbrt.anchoredPosition = new Vector2(-12f, 12f);
         }
+        private static HGTextMeshProUGUI NewHGText(string name, Transform parent, string text)
+        {
+            var t = NewUI<HGTextMeshProUGUI>(name, parent);
+            t.text = text;
+            t.color = Color.white;
+            t.richText = true;
+            t.enableWordWrapping = true;
+            t.alignment = TextAlignmentOptions.TopLeft;
+            return t;
+        }
+        private void ShowTooltip(string text)
+        {
+            if (!_tooltipRoot || !_tooltipText) return;
+
+            _tooltipText.text = text;
+            _tooltipRoot.gameObject.SetActive(true);
+
+            // ensure top draw order every time (picker panels are created later)
+            _tooltipRoot.transform.SetAsLastSibling();
+
+            PositionTooltipAtMouse();
+        }
+
+        private void HideTooltip()
+        {
+            if (_tooltipRoot)
+                _tooltipRoot.gameObject.SetActive(false);
+        }
+
 
         // ---------- Confirm / Close ----------
         private void OnConfirm()
@@ -437,14 +592,48 @@ namespace ShiggyMod.Modules.Quirks
 
             UICursorUtil.CloseGameCursor();
             if (Current == this) Current = null;
+
+            EndSingleplayerSlowPause();
+            HideTooltip();
             Destroy(gameObject);
         }
 
 
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(Config.CloseQuirkMenuHotkey.Value.MainKey))
+
+            // confirm hotkey
+            if (UnityEngine.Input.GetKey(Config.ConfirmQuirkMenuHotkey.Value.MainKey))
+                OnConfirm();
+            // cancel hotkey
+            if (UnityEngine.Input.GetKey(Config.CloseQuirkMenuHotkey.Value.MainKey))
                 Close();
+
+            if (_tooltipRoot && _tooltipRoot.gameObject.activeSelf)
+                PositionTooltipAtMouse();
+        }
+
+        private void PositionTooltipAtMouse()
+        {
+            Vector2 pos = Input.mousePosition;
+            pos.x += 20f;
+            pos.y -= 20f;
+
+            _tooltipRT.position = pos;
+
+            float w = _tooltipRT.sizeDelta.x;
+            float h = _tooltipRT.sizeDelta.y;
+
+            _tooltipRT.position = new Vector3(
+                Mathf.Clamp(_tooltipRT.position.x, 0f, Screen.width - w),
+                Mathf.Clamp(_tooltipRT.position.y, h, Screen.height),
+                0f
+            );
+        }
+
+        private void OnDestroy()
+        {
+            EndSingleplayerSlowPause();
         }
 
         // ---------- Small UI helpers ----------
@@ -671,6 +860,36 @@ namespace ShiggyMod.Modules.Quirks
                 _selE3 = From(_extras.extraThird);
                 _selE4 = From(_extras.extraFourth);
             }
+        }
+        private static string GetLocalizedName(QuirkId q)
+        {
+            if (q == QuirkId.None) return "(None)";
+
+            var def = GetSkillDefSafe(q);
+            if (def != null && !string.IsNullOrEmpty(def.skillNameToken))
+                return Language.GetString(def.skillNameToken);
+
+            // fallback to your nice name
+            return QuirkInventory.QuirkPickupUI.MakeNiceName(q);
+        }
+
+        private static string GetLocalizedDesc(QuirkId q)
+        {
+            var def = GetSkillDefSafe(q);
+            if (def != null && !string.IsNullOrEmpty(def.skillDescriptionToken))
+                return Language.GetString(def.skillDescriptionToken);
+
+            return string.Empty;
+        }
+
+        private class ScrollDragForwarder : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IScrollHandler
+        {
+            public ScrollRect scroll;
+
+            public void OnBeginDrag(PointerEventData eventData) => scroll?.OnBeginDrag(eventData);
+            public void OnDrag(PointerEventData eventData) => scroll?.OnDrag(eventData);
+            public void OnEndDrag(PointerEventData eventData) => scroll?.OnEndDrag(eventData);
+            public void OnScroll(PointerEventData eventData) => scroll?.OnScroll(eventData);
         }
 
         // ---------- Cursor helper ----------

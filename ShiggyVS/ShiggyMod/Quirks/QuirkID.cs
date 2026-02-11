@@ -132,7 +132,7 @@
         MULT_PowerStanceActive,
         MULT_PowerStanceCancelActive,
         Operator_S141CustomActive,
-        Railgunner_CryoActive,
+        Railgunner_CryoChargedRailgunActive,
         REX_MortarActive,
         Seeker_MeditateActive,
         VoidFiend_CleanseActive,

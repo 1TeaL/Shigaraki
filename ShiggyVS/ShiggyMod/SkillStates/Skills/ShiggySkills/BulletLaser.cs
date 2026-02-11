@@ -10,7 +10,7 @@ namespace ShiggyMod.SkillStates
 
         private float range = 100f;
         private float radius = 15f;
-        private float damageCoefficient = Modules.StaticValues.bulletlaserDamageCoefficient;
+        private float damageCoefficient = Modules.Config.BulletLaserDamage.Value;
         private float procCoefficient = Modules.StaticValues.bulletlaserProcCoefficient;
         private float force = 1f;
         private float speedOverride = 1f;
