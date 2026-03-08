@@ -75,6 +75,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef doubleTimeBuff;
         internal static BuffDef doubleTimeBuffStacks;
         internal static BuffDef blindSensesBuff;
+        internal static BuffDef lifeForceBuff;
 
         //synergy debuffs
         internal static BuffDef bigbangDebuff;
@@ -101,6 +102,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef darknessFormBuff;
         internal static BuffDef lightAndDarknessFormBuff;
         internal static BuffDef hyperRegenerationBuff;
+        internal static BuffDef overclockAscensionBuff;
 
         //ultimate debuffs
         internal static BuffDef theWorldDebuff;
@@ -110,6 +112,7 @@ namespace ShiggyMod.Modules
         internal static BuffDef lightFormDebuff;
         internal static BuffDef darknessFormDebuff;
         internal static BuffDef lightAndDarknessFormDebuff;
+        internal static BuffDef overclockAscensionDebuff;
 
         //survivor buffs
         internal static BuffDef acridBuff;
@@ -208,6 +211,7 @@ namespace ShiggyMod.Modules
             chefOilBurstStacksBuff = Buffs.AddNewBuff($"Oil Burst Buff stacks", ShiggyAsset.chefOilBuffIcon, Color.black, true, false);
             solusPrimedBuff = Buffs.AddNewBuff($"Solus Primed Buff- attacks apply Primed debuff", ShiggyAsset.soluswingWeakpointDestroyedDebuffIcon, Color.black, false, false);
             hyperRegenerationBuff = Buffs.AddNewBuff($"Hyper Regeneration Buff- attacks apply Primed debuff", ShiggyAsset.healBuffIcon, Color.white, false, false);
+            lifeForceBuff = Buffs.AddNewBuff($"Life Force Buff- multiply your health by {Config.LifeForceHealthMultiplier.Value}", ShiggyAsset.revitalizeBuffIcon, Color.red, false, false);
 
             //shiggy buffs
             airwalkBuff = Buffs.AddNewBuff($"Air walk acceleration Buff", ShiggyAsset.jumpBuffIcon, Color.magenta, false, false);
@@ -229,6 +233,7 @@ namespace ShiggyMod.Modules
             solusSuperPrimedBuff = Buffs.AddNewBuff($"Solus Super Primed Buff- Attacks no longer consume Primed", ShiggyAsset.soluswingWeakpointDestroyedDebuffIcon, Color.magenta, false, false);
             halcyoniteGreedBuff = Buffs.AddNewBuff($"Greed Buff- Spend {StaticValues.halcyoniteGreedGoldRatio * 100f}% of your gold every 10 seconds. Damage and attackspeed is boosted by <style=cIsDamage>{StaticValues.halcyoniteGreedBuffDamageCoefficient} and {StaticValues.halcyoniteGreedBuffAttackspeedCoefficient} respectively</style> per stack of the buff. For every {StaticValues.halcyoniteGreedBuffGoldPerStack} gold, gain 1 stack.", ShiggyAsset.affixAurelioniteBuffIcon, Color.white, false, false);
             halcyoniteGreedStacksBuff = Buffs.AddNewBuff($"Greed Buff stacks", ShiggyAsset.affixAurelioniteBuffIcon, new Color(255f, 215f, 0f), true, false);
+            overclockAscensionBuff = Buffs.AddNewBuff($"Overclock Ascension Buff- Gain {Config.OverclockAscensionAttackspeedMultiplier.Value} attackspeed, {Config.OverclockAscensionDodgeChance.Value} dodge chance, {Config.OverclockAscensionMovespeedMultiplier.Value} movespeed, {Config.OverclockAscensionSprintspeedMultiplier.Value} sprint speed and heal {Config.OverclockAscensionHealAmount.Value * 100f}% of your max HP every second. Enemies and projectiles in a {Config.OverclockAscensionRadius.Value}m radius have their attackspeed and movespeed slowed by {Config.OverclockAscensionSlowMultiplier.Value}%. Gain negative regen that increases over time. ", ShiggyAsset.sureProceBuffIcon, Color.white, false, false);
 
             //wild card buffs
             wildcardSpeedBuff = Buffs.AddNewBuff($"Wildcard Speed Buff- Move {StaticValues.wildcardSpeedCoefficient}x faster. ", ShiggyAsset.speedBuffIcon, Color.white, false, false);
@@ -251,6 +256,7 @@ namespace ShiggyMod.Modules
             lightAndDarknessFormDebuff = Buffs.AddNewBuff($"Light And Darkness Form Debuff", ShiggyAsset.crippleBuffIcon, Color.magenta, true, true);
             childCDDebuff = Buffs.AddNewBuff($"Emergency Teleport Debuff- Can't teleport while this is active</style>. ", ShiggyAsset.decayBuffIcon, Color.black, false, true);
             solusPrimedDebuff = Buffs.AddNewBuff($"Solus Primed Debuff stacks", ShiggyAsset.soluswingWeakpointDestroyedDebuffIcon, Color.cyan, true, true);
+            overclockAscensionDebuff = Buffs.AddNewBuff($"Overclock Ascension Debuff", ShiggyAsset.sureProceBuffIcon, Color.black, false, true);
             //Sprite TransformBuff = Addressables.LoadAssetAsync<BuffDef>($"RoR2/Base/LunarSkillReplacements/bdLunarSecondaryRoot.asset").WaitForCompletion().iconSprite;
             //transformBuff = AddNewBuff($"TransformTimer", TransformBuff, Color.yellow, false, false);
 

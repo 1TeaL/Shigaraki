@@ -70,6 +70,9 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef doubleTimePassiveDef;
         internal static SkillDef blindSensesPassiveDef;
 
+        //superior Lv3 passives
+        internal static SkillDef lifeForcePassiveDef;
+
         //ultimate Lv4 passives
         internal static SkillDef supernovaPassiveDef;
         internal static SkillDef reversalPassiveDef;
@@ -165,9 +168,10 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef limitBreakDef;
         internal static SkillDef voidFormDef;
         internal static SkillDef elementalFusionPassiveDef;
-        internal static SkillDef decayPlusUltraDef;
+        internal static SkillDef decayPlusChaosDef;
         internal static SkillDef machPunchDef;
         internal static SkillDef rapidPierceDef;
+        internal static SkillDef invisibilityDef;
 
 
         //ultimate Lv4 actives
@@ -181,8 +185,14 @@ namespace ShiggyMod.Modules.Survivors
         internal static SkillDef wildCardDef;
         internal static SkillDef lightAndDarknessDef;
 
+        //godly Lv5 actives
+
         //transcendental Lv6 actives
         internal static SkillDef solusfactorunleashedDef;
+
+        //unbelievable Lv8 actives
+        internal static SkillDef overclockAscensionDef;
+
 
         public override GameObject bodyPrefab { get; set; }
         public override GameObject displayPrefab { get; set; }
@@ -452,7 +462,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BulletLaser)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
-                baseRechargeInterval = 6f,
+                baseRechargeInterval = Config.BulletLaserCooldown.Value,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -480,7 +490,7 @@ namespace ShiggyMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(SkillStates.AirCannon)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
-                baseRechargeInterval = 8f,
+                baseRechargeInterval = Config.AirCannonCooldown.Value,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -2837,16 +2847,41 @@ namespace ShiggyMod.Modules.Survivors
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
 
             });
-            decayPlusUltraDef = Skills.CreateSkillDef(new SkillDefInfo
+            decayPlusChaosDef = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "DECAYPLUSULTRA_NAME",
-                skillNameToken = prefix + "DECAYPLUSULTRA_NAME",
-                skillDescriptionToken = prefix + "DECAYPLUSULTRA_DESCRIPTION",
-                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("DecayPlusUltra"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.DecayPlusUltra)),
+                skillName = prefix + "DECAYPLUSCHAOS_NAME",
+                skillNameToken = prefix + "DECAYPLUSCHAOS_NAME",
+                skillDescriptionToken = prefix + "DECAYPLUSCHAOS_DESCRIPTION",
+                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("DecayPlusChaos"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.DecayPlusChaos)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
-                baseRechargeInterval = 10f,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+
+            });
+            invisibilityDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "INVISIBILITY_NAME",
+                skillNameToken = prefix + "INVISIBILITY_NAME",
+                skillDescriptionToken = prefix + "INVISIBILITY_DESCRIPTION",
+                skillIcon = ShiggyAsset.cloakBuffIcon,
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Invisibility)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 16f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -3161,6 +3196,30 @@ namespace ShiggyMod.Modules.Survivors
                 stockToConsume = 1,
                 keywordTokens = new string[] { "KEYWORD_AGILE" }
             });
+            Shiggy.overclockAscensionDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "OVERCLOCKASCENSION_NAME",
+                skillNameToken = prefix + "OVERCLOCKASCENSION_NAME",
+                skillDescriptionToken = prefix + "OVERCLOCKASCENSION_DESCRIPTION",
+                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("OverclockAscension"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.OverclockAscension)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { "KEYWORD_AGILE" }
+            });
             #endregion
 
 
@@ -3423,6 +3482,31 @@ namespace ShiggyMod.Modules.Survivors
                 skillDescriptionToken = prefix + "BLINDSENSES_DESCRIPTION",
                 skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("BlindSenses"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.BlindSensesPassive)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+                keywordTokens = new string[] { }
+
+            });
+            lifeForcePassiveDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "LIFEFORCE_NAME",
+                skillNameToken = prefix + "LIFEFORCE_NAME",
+                skillDescriptionToken = prefix + "LIFEFORCE_DESCRIPTION",
+                skillIcon = Modules.ShiggyAsset.mainAssetBundle.LoadAsset<Sprite>("LifeForce"),
+                activationState = new SerializableEntityStateType(typeof(SkillStates.LifeForcePassive)),
                 activationStateMachineName = "Weapon",
                 baseMaxStock = 1,
                 baseRechargeInterval = 1f,
@@ -3730,6 +3814,7 @@ namespace ShiggyMod.Modules.Survivors
                     weatherReportPassiveDef,
                     decayAwakenedPassiveDef,
                     hyperRegenerationPassiveDef,
+                    lifeForcePassiveDef,
                     //actives
                     alloyvultureWindBlastDef,
                     beetleguardfastdropDef,
@@ -3790,7 +3875,8 @@ namespace ShiggyMod.Modules.Survivors
                     limitBreakDef,
                     voidFormDef,
                     elementalFusionPassiveDef,
-                    decayPlusUltraDef,
+                    decayPlusChaosDef,
+                    invisibilityDef,
                     machPunchDef,
                     rapidPierceDef,
                     theWorldDef,
@@ -3802,7 +3888,8 @@ namespace ShiggyMod.Modules.Survivors
                     blastingZoneDef,
                     wildCardDef,
                     lightAndDarknessDef,
-                    solusfactorunleashedDef
+                    solusfactorunleashedDef,
+                    overclockAscensionDef,
             };
 
             if (Config.allowAllSkills.Value)

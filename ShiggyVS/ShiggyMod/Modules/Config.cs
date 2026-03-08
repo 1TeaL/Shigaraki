@@ -12,6 +12,7 @@ namespace ShiggyMod.Modules
         public static ConfigEntry<bool> allowAllSkills;
         public static ConfigEntry<bool> allowVoice;
         public static ConfigEntry<bool> allowRangedAFO;
+        public static ConfigEntry<bool> allowEyeGlow;
         public static ConfigEntry<float> maxAFORange;   // determine max afo range, up to 70 which is the range of the indicator
         public static ConfigEntry<float> holdButtonAFO;
         public static ConfigEntry<KeyboardShortcut> AFOHotkey;
@@ -58,7 +59,15 @@ namespace ShiggyMod.Modules
         public static ConfigEntry<float> DoubleTimeDuration;
         public static ConfigEntry<float> DoubleTimeRadius;
 
+        public static ConfigEntry<float> AirCannonDamage;
+        public static ConfigEntry<float> AirCannonSpeed;
+        public static ConfigEntry<float> AirCannonRange;
+        public static ConfigEntry<float> AirCannonCooldown;
+
         public static ConfigEntry<float> BulletLaserDamage;
+        public static ConfigEntry<float> BulletLaserRange;
+        public static ConfigEntry<float> BulletLaserCooldown;
+        public static ConfigEntry<float> BulletLaserSize;
 
         public static ConfigEntry<float> StolenInheritanceHPCoefficient;
 
@@ -81,6 +90,23 @@ namespace ShiggyMod.Modules
 
         public static ConfigEntry<float> HasteAttackSpeedAdditive;
 
+        public static ConfigEntry<float> LifeForceHealthMultiplier;
+
+        public static ConfigEntry<float> OverclockAscensionMovespeedMultiplier;
+        public static ConfigEntry<float> OverclockAscensionSprintspeedMultiplier;
+        public static ConfigEntry<float> OverclockAscensionAttackspeedMultiplier;
+        public static ConfigEntry<float> OverclockAscensionDodgeChance;
+        public static ConfigEntry<float> OverclockAscensionHealAmount;
+        public static ConfigEntry<float> OverclockAscensionHealthRegenCost;
+        public static ConfigEntry<float> OverclockAscensionHealthRegenCostIncrease;
+        public static ConfigEntry<float> OverclockAscensionSlowMultiplier;
+        public static ConfigEntry<float> OverclockAscensionRadius;
+
+        public static ConfigEntry<float> DecayPlusChaosDamage;
+        public static ConfigEntry<float> DecayPlusChaosRange;
+        public static ConfigEntry<float> DecayPlusChaosHealthCost;
+
+
         public static void ReadConfig()
         {
             //General configs
@@ -90,6 +116,8 @@ namespace ShiggyMod.Modules
             StartWithAllQuirks = ShiggyPlugin.instance.Config.Bind("General", "Start With All Quirks", false,
                 "Begin runs with all quirks unlocked.");
             allowAllSkills = ShiggyPlugin.instance.Config.Bind("General", "Allow all skils to be picked in the loadout", false, "Should you be allowed to pick all skills in the loadout menu. AFO functionality is not disabled. Will require a Restart.");
+            allowEyeGlow = ShiggyPlugin.instance.Config.Bind("General", "Allow eye glow effect", true, "Should you have the eye glow effects based on how much plus chaos you own.");
+            
 
             //Input configs
             AFOHotkey = ShiggyPlugin.instance.Config.Bind<KeyboardShortcut>("Input", "AFO Key", new KeyboardShortcut(UnityEngine.KeyCode.F), "Keybinding for AFO");
@@ -141,6 +169,14 @@ namespace ShiggyMod.Modules
             DoubleTimeStatMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Double Time Stat Multiplier", StaticValues.doubleTimeCoefficient, "How much damage, attackspeed and movespeed are gained on kill.");
 
             BulletLaserDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "Bullet Laser Damage", StaticValues.bulletlaserDamageCoefficient, "How much damage each hit of Bullet Laser does.");
+            BulletLaserCooldown = ShiggyPlugin.instance.Config.Bind("Quirks", "Bullet Laser Cooldown", StaticValues.bulletlaserCooldown, "What cooldown Bullet Laser has.");
+            BulletLaserRange = ShiggyPlugin.instance.Config.Bind("Quirks", "Bullet Laser Range", StaticValues.bulletlaserRange, "How much range Bullet Laser has.");
+            BulletLaserSize = ShiggyPlugin.instance.Config.Bind("Quirks", "Bullet Laser Size", StaticValues.bulletlaserSize, "How much size each laser Bullet Laser has.");
+
+            AirCannonDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "Air Cannon Damage", StaticValues.aircannonDamageCoefficient, "How much damage Air Cannon does.");
+            AirCannonCooldown = ShiggyPlugin.instance.Config.Bind("Quirks", "Air Cannon Cooldown", StaticValues.aircannonCoodldown, "What cooldown Air Cannon has.");
+            AirCannonRange = ShiggyPlugin.instance.Config.Bind("Quirks", "Air Cannon Range", StaticValues.aircannonRadius, "How much range the Air Cannon blast has.");
+            AirCannonSpeed = ShiggyPlugin.instance.Config.Bind("Quirks", "Air Cannon Speed", StaticValues.aircannonSpeedCoefficient, "How much speed Air Cannon has.");
 
             StolenInheritanceHPCoefficient = ShiggyPlugin.instance.Config.Bind("Quirks", "Stolen Inheritance HP ratio", StaticValues.falseSonHPCoefficient, "How much percentage of max HP is converted to base damage.");
 
@@ -162,6 +198,22 @@ namespace ShiggyMod.Modules
             StrengthBoostBaseDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "Strength Boost Base Damage", StaticValues.beetleFlatDamage, "How much base damage gain Strength Boost provides.");
 
             HasteAttackSpeedAdditive = ShiggyPlugin.instance.Config.Bind("Quirks", "Haste Attack Speed", StaticValues.lesserwispFlatAttackSpeed, "How much attack speed gain Haste provides.");
+
+            LifeForceHealthMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Life Force Health Multiplier", StaticValues.lifeForceMultiplier, "How much health is multiplied by with Life Force.");
+
+            OverclockAscensionAttackspeedMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Overclock Ascension Attackspeed Multiplier", StaticValues.overclockAscensionAttackspeed, "How much attackspeed is increased additively with Overclock Ascension.");
+            OverclockAscensionMovespeedMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Overclock Ascension Movespeed Multiplier", StaticValues.overclockAscensionMovespeed, "How much movespeed is increased additively with Overclock Ascension.");
+            OverclockAscensionSprintspeedMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Overclock Ascension Sprint speed Multiplier", StaticValues.overclockAscensionSprintspeed, "How much sprint speed is increased additively with Overclock Ascension.");
+            OverclockAscensionDodgeChance = ShiggyPlugin.instance.Config.Bind("Quirks", "Overclock Ascension Dodge Chance", StaticValues.overclockAscensionDodgeChance, "How much dodge chance with Overclock Ascension.");
+            OverclockAscensionHealAmount = ShiggyPlugin.instance.Config.Bind("Quirks", "Overclock Ascension Heal Amount", StaticValues.overclockAscensionHeal, "How much percentage of max HP is healed every second with Overclock Ascension.");
+            OverclockAscensionHealthRegenCost = ShiggyPlugin.instance.Config.Bind("Quirks", "Overclock Ascension Health Regen Cost", StaticValues.overclockAscensionHealthRegenCost, "How much negative health regen is given with Overclock Ascension.");
+            OverclockAscensionHealthRegenCostIncrease = ShiggyPlugin.instance.Config.Bind("Quirks", "Overclock Ascension Health Regen Cost Increase", StaticValues.overclockAscensionHealthRegenCost, "How much negative health regen increases every second with Overclock Ascension.");
+            OverclockAscensionSlowMultiplier = ShiggyPlugin.instance.Config.Bind("Quirks", "Overclock Ascension Slow Multiplier", StaticValues.overclockAscensionSlowMultiplier, "How much enemy movespeed and attackspeed are slowed by with Overclock Ascension.");
+            OverclockAscensionRadius = ShiggyPlugin.instance.Config.Bind("Quirks", "Overclock Ascension Radius", StaticValues.overclockAscensionRadius, "The radius with Overclock Ascension.");
+
+            DecayPlusChaosDamage = ShiggyPlugin.instance.Config.Bind("Quirks", "Decay Plus Chaos Damage", StaticValues.decayPlusChaosDamageCoefficient, "How much damage Decay Plus Chaos does.");
+            DecayPlusChaosHealthCost = ShiggyPlugin.instance.Config.Bind("Quirks", "Decay Plus Chaos Health Cost", StaticValues.decayPlusChaosHealthCostCoefficient, "How much percentage of max HP is spent when Decay Plus Chaos is used.");
+            DecayPlusChaosRange = ShiggyPlugin.instance.Config.Bind("Quirks", "Decay Plus Chaos Range", StaticValues.decayPlusChaosRadius, "How much range Decay Plus Chaos has.");
 
         }
 
@@ -205,6 +257,8 @@ namespace ShiggyMod.Modules
                 allowAllSkills));
             ModSettingsManager.AddOption(new CheckBoxOption(
                 allowVoice));
+            ModSettingsManager.AddOption(new CheckBoxOption(
+                allowEyeGlow));
             ModSettingsManager.AddOption(new StepSliderOption(
                 holdButtonAFO, new StepSliderConfig() { min = 0, max = 10, increment = 1f }));
 
@@ -236,6 +290,8 @@ namespace ShiggyMod.Modules
                 ApexShowAdaptationOverlay));
             ModSettingsManager.AddOption(new StepSliderOption(
                 ApexHoldSecondsToReset, new StepSliderConfig() { min = 0.01f, max = 10f, increment = 0.01f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+                ApexAdaptReward, new StepSliderConfig() { min = 0.1f, max = 10f, increment = 0.1f }));
 
             ModSettingsManager.AddOption(new StepSliderOption(
                 HyperRegenerationInterval, new StepSliderConfig() { min = 0.1f, max = 5f, increment = 0.1f }));
@@ -269,6 +325,12 @@ namespace ShiggyMod.Modules
 
             ModSettingsManager.AddOption(new StepSliderOption(
                BulletLaserDamage, new StepSliderConfig() { min = 0.1f, max = 100f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               BulletLaserCooldown, new StepSliderConfig() { min = 1f, max = 100f, increment = 1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               BulletLaserRange, new StepSliderConfig() { min = 10f, max = 500f, increment = 1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               BulletLaserSize, new StepSliderConfig() { min = 0.1f, max = 10f, increment = 0.1f }));
 
             ModSettingsManager.AddOption(new StepSliderOption(
                StolenInheritanceHPCoefficient, new StepSliderConfig() { min = 0.01f, max = 1f, increment = 0.01f }));
@@ -303,6 +365,43 @@ namespace ShiggyMod.Modules
             ModSettingsManager.AddOption(new StepSliderOption(
                HasteAttackSpeedAdditive, new StepSliderConfig() { min = 0.1f, max = 10f, increment = 0.1f }));
 
+            ModSettingsManager.AddOption(new StepSliderOption(
+               LifeForceHealthMultiplier, new StepSliderConfig() { min = 0f, max = 10000f, increment = 1f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OverclockAscensionAttackspeedMultiplier, new StepSliderConfig() { min = 0f, max = 10f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OverclockAscensionMovespeedMultiplier, new StepSliderConfig() { min = 0f, max = 10f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OverclockAscensionSprintspeedMultiplier, new StepSliderConfig() { min = 0f, max = 10f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OverclockAscensionHealAmount, new StepSliderConfig() { min = 0f, max = 10f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OverclockAscensionHealthRegenCost, new StepSliderConfig() { min = 0f, max = 1000f, increment = 1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OverclockAscensionHealthRegenCostIncrease, new StepSliderConfig() { min = 0f, max = 100f, increment = 1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OverclockAscensionDodgeChance, new StepSliderConfig() { min = 0f, max = 1f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OverclockAscensionSlowMultiplier, new StepSliderConfig() { min = 0f, max = 1f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               OverclockAscensionRadius, new StepSliderConfig() { min = 0f, max = 300f, increment = 1f }));
+                        
+            ModSettingsManager.AddOption(new StepSliderOption(
+               AirCannonRange, new StepSliderConfig() { min = 1f, max = 100f, increment = 1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               AirCannonSpeed, new StepSliderConfig() { min = 1f, max = 500f, increment = 1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               AirCannonCooldown, new StepSliderConfig() { min = 1f, max = 100f, increment = 1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               AirCannonDamage, new StepSliderConfig() { min = 0.1f, max = 100f, increment = 0.1f }));
+
+            ModSettingsManager.AddOption(new StepSliderOption(
+               DecayPlusChaosDamage, new StepSliderConfig() { min = 0.1f, max = 1000f, increment = 0.1f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               DecayPlusChaosHealthCost, new StepSliderConfig() { min = 0f, max = 1f, increment = 0.01f }));
+            ModSettingsManager.AddOption(new StepSliderOption(
+               DecayPlusChaosRange, new StepSliderConfig() { min = 1f, max = 300f, increment = 1f }));
 
 
             ModSettingsManager.SetModDescription("Shigaraki Mod");

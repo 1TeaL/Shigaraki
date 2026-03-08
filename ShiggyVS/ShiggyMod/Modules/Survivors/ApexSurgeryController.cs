@@ -116,7 +116,7 @@ namespace ShiggyMod.Modules.Quirks
         private bool _uiInitialized;
         private bool _uiActivated;
 
-        private readonly Vector2 _uiOffset = new Vector2(330f, 20f);
+        private readonly Vector2 _uiOffset = new Vector2(330f, 100f); // 330f, 20f 
         private readonly Vector3 _uiScale = Vector3.one;
 
         // ---------- misc ----------
@@ -712,5 +712,82 @@ namespace ShiggyMod.Modules.Quirks
         }
 
 
+        //public info
+        public int GetCurrentApexStacks()
+        {
+            return _body ? _body.GetBuffCount(Buffs.ApexSurgeryDebuff) : 0;
+        }
+
+        public int GetCurrentApexCap()
+        {
+            return ComputeOverdriveCap();
+        }
+
+        public int GetAdaptationPerThreshold()
+        {
+            return Mathf.Max(1, Modules.Config.ApexAdaptThreshold.Value);
+        }
+
+        public float GetAdaptRewardPerThreshold()
+        {
+            return Mathf.Max(0f, Modules.Config.ApexAdaptReward.Value);
+        }
+
+        public float GetCurrentDamageMultiplier()
+        {
+            int thresholds = GetAdaptationThresholds();
+            float reward = GetAdaptRewardPerThreshold();
+            return 1f + thresholds * reward;
+        }
+
+        public float GetCurrentMoveMultiplier()
+        {
+            int thresholds = GetAdaptationThresholds();
+            float reward = GetAdaptRewardPerThreshold();
+            return 1f + thresholds * reward;
+        }
+
+        public float GetCurrentRegenMultiplier()
+        {
+            int thresholds = GetAdaptationThresholds();
+            float reward = GetAdaptRewardPerThreshold();
+            return 1f + thresholds * reward;
+        }
+
+        public float GetCurrentArmorBonus()
+        {
+            float mult = GetCurrentDamageMultiplier();
+            return (mult - 1f) * 20f;
+        }
+        public string GetDebugSummaryRichText()
+        {
+            int adapt = GetAdaptationStacks();
+            int per = GetAdaptationPerThreshold();
+            int thresholds = GetAdaptationThresholds();
+            int within = adapt % per;
+
+            int apex = GetCurrentApexStacks();
+            int cap = GetCurrentApexCap();
+
+            float reward = GetAdaptRewardPerThreshold();
+            float damageMult = GetCurrentDamageMultiplier();
+            float moveMult = GetCurrentMoveMultiplier();
+            float regenMult = GetCurrentRegenMultiplier();
+            float armorBonus = GetCurrentArmorBonus();
+
+            return
+                $"<b><color=#D68CFF>Apex Adaptation</color></b>\n" +
+                $"Adapt stacks: <color=#FFFFFF>{adapt}</color>\n" +
+                $"Tier progress: <color=#FFFFFF>{within}/{per}</color>\n" +
+                $"Thresholds: <color=#FFFFFF>{thresholds}</color>\n" +
+                $"Apex stacks: <color=#FFFFFF>{apex}</color>\n" +
+                $"Apex limit: <color=#FFFFFF>{cap}</color>\n\n" +
+                $"Per-threshold reward: <color=#A8FFB0>+{reward * 100f:0.#}% dmg / move / regen</color>\n" +
+                $"Armor per threshold: <color=#A8FFB0>+{reward * 20f:0.#}</color>\n\n" +
+                $"Current damage: <color=#A8FFB0>x{damageMult:0.##}</color>\n" +
+                $"Current move: <color=#A8FFB0>x{moveMult:0.##}</color>\n" +
+                $"Current regen: <color=#A8FFB0>x{regenMult:0.##}</color>\n" +
+                $"Current armor: <color=#A8FFB0>+{armorBonus:0.#}</color>";
+        }
     }
 }

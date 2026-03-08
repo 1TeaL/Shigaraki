@@ -14,9 +14,9 @@
         Shiggy_MultiplierActive,
 
         // Utility / internal
-        Utility_EmptySkill,
-        Utility_Choose,
-        Utility_Remove,
+        //Utility_EmptySkill,
+        //Utility_Choose,
+        //Utility_Remove,
 
         // ============================
         // Level 1 passives
@@ -158,8 +158,9 @@
         AirCannon_Merc_WindSlashActive,
         Multiplier_Deku_LimitBreakActive,
         VoidBarnacle_VoidFiend_VoidFormActive,
-        REX_Decay_DecayPlusUltraActive,
+        REX_Decay_DecayPlusChaosActive,
         Parent_Loader_MachPunchActive,
+        Bandit_HermitCrab_InvisibilityActive,
 
         // ============================
         // Level 4 actives
@@ -178,6 +179,7 @@
         // Level 6 actives
         // ============================
         Solusx6_SolusFactorUnleashedActive,
+        BlindSenses_HyperRegeneration_DoubleTime_OverclockAscensionActive,
     }
 
 

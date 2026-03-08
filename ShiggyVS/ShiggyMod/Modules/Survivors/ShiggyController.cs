@@ -24,6 +24,8 @@ namespace ShiggyMod.Modules.Survivors
 
         private GameObject theWorldIndicatorInstance;
         public GameObject deathAuraIndicatorInstance;
+        public GameObject overclockAscensionIndicatorInstance;
+
 
         public float AFOTimer;
         public float overloadingtimer;
@@ -42,7 +44,7 @@ namespace ShiggyMod.Modules.Survivors
         //public bool flightExpired;
         private float OFATimer;
         private float voidFormTimer;
-        private float overclockTimer;
+        private float theworldTimer;
         private float deathAuraTimer;
         private float OFAFOTimer;
         public float OFAFOTimeMultiplier;
@@ -256,6 +258,11 @@ namespace ShiggyMod.Modules.Survivors
             {
                 deathAuraIndicatorInstance.SetActive(false);
                 EntityState.Destroy(deathAuraIndicatorInstance.gameObject);
+            }
+            if (overclockAscensionIndicatorInstance)
+            {
+                overclockAscensionIndicatorInstance.SetActive(false);
+                EntityState.Destroy(overclockAscensionIndicatorInstance.gameObject);
             }
             On.RoR2.CameraRigController.LateUpdate -= CameraRigController_LateUpdate;
         }
@@ -807,7 +814,7 @@ namespace ShiggyMod.Modules.Survivors
                 }
                 else if (jellyfishtimer <= 1f)
                 {
-                    jellyfishtimer += Time.fixedDeltaTime;
+                    jellyfishtimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                 }
             }
         }
@@ -829,7 +836,7 @@ namespace ShiggyMod.Modules.Survivors
                 }
                 else if (halcyoniteTimer <= StaticValues.halcyoniteGreedInterval)
                 {
-                    halcyoniteTimer += Time.fixedDeltaTime;
+                    halcyoniteTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
                 }
             }
 
@@ -887,10 +894,149 @@ namespace ShiggyMod.Modules.Survivors
                     VagrantDisableBuff();
                     JellyfishRegenerateStacks();
                     HalcyoniteGreedBuff();
+                    OverclockAscension();
                     Emote();
                 }
             }
         }
+        private float overclockTimer;
+        public float overclockRegenValue;
+        public void OverclockAscension()
+        {
+
+            //double time slow effect
+            if (characterBody.HasBuff(Buffs.overclockAscensionBuff))
+            {
+                if (overclockTimer <= 1f)
+                {
+                    overclockTimer += Time.fixedDeltaTime * OFAFOTimeMultiplier;
+                }
+                else if (overclockTimer > 1f)
+                {
+                    ApplyOverclockAscensionDebuff();
+                    overclockTimer = 0f;
+
+
+                    new HealNetworkRequest(characterBody.masterObjectId, Config.OverclockAscensionHealAmount.Value * characterBody.healthComponent.fullHealth).Send(NetworkDestination.Clients);
+
+                    float currentRegen = Config.OverclockAscensionHealthRegenCost.Value + overclockRegenValue;
+                    overclockRegenValue = currentRegen + Config.OverclockAscensionHealthRegenCostIncrease.Value;
+                }
+
+                if (!overclockAscensionIndicatorInstance)
+                {
+                    CreateOverclockAscensionIndicator();
+                }
+            }
+            else if (!characterBody.HasBuff(Buffs.overclockAscensionBuff))
+            {
+                overclockRegenValue = 0f;
+                if (overclockAscensionIndicatorInstance)
+                {
+                    overclockAscensionIndicatorInstance.SetActive(false);
+                    EntityState.Destroy(overclockAscensionIndicatorInstance.gameObject);
+                }
+            }
+        }
+
+        public class OverclockProjectileSlow : MonoBehaviour
+        {
+            public bool applied;
+        }
+
+        public void ApplyOverclockAscensionDebuff()
+        {
+
+            Collider[] array = Physics.OverlapSphere(characterBody.corePosition, Config.OverclockAscensionRadius.Value, LayerIndex.projectile.mask);
+            for (int i = 0; i < array.Length; i++)
+            {
+                ProjectileController projectileController = array[i].GetComponent<ProjectileController>();
+                if (projectileController)
+                {
+                    if (!projectileController.owner) continue;
+
+                    TeamComponent ownerTeam = projectileController.owner.GetComponent<TeamComponent>();
+                    if (ownerTeam && ownerTeam.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
+                    {
+                        OverclockProjectileSlow marker = projectileController.GetComponent<OverclockProjectileSlow>();
+                        if (!marker)
+                        {
+                            marker = projectileController.gameObject.AddComponent<OverclockProjectileSlow>();
+                        }
+
+                        if (!marker.applied)
+                        {
+                            bool slowed = false;
+
+                            ProjectileSimple projectileSimple = projectileController.GetComponent<ProjectileSimple>();
+                            if (projectileSimple)
+                            {
+                                projectileSimple.desiredForwardSpeed *= 0.7f;
+                                slowed = true;
+                            }
+
+                            Rigidbody rb = projectileController.GetComponent<Rigidbody>();
+                            if (rb)
+                            {
+                                rb.velocity *= 0.7f;
+                                slowed = true;
+                            }
+
+                            if (slowed)
+                            {
+                                marker.applied = true;
+
+                                EffectData effectData = new EffectData();
+                                effectData.origin = projectileController.transform.position;
+                                effectData.scale = 1f;
+                                EffectManager.SpawnEffect(EntityStates.BeetleMonster.HeadbuttState.hitEffectPrefab, effectData, false);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            BullseyeSearch search = new BullseyeSearch
+            {
+
+                teamMaskFilter = TeamMask.GetEnemyTeams(TeamIndex.Player),
+                filterByLoS = false,
+                searchOrigin = characterBody.corePosition,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = Modules.Config.OverclockAscensionRadius.Value,
+                maxAngleFilter = 360f
+            };
+
+            search.RefreshCandidates();
+            search.FilterOutGameObject(characterBody.gameObject);
+
+
+
+            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+            foreach (HurtBox singularTarget in target)
+            {
+                if (singularTarget)
+                {
+                    if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                    {
+                        singularTarget.healthComponent.body.ApplyBuff(Buffs.overclockAscensionBuff.buffIndex, 1, 2);
+                    }
+
+
+                    EffectManager.SpawnEffect(HealthComponent.AssetReferences.fragileDamageBonusBreakEffectPrefab, new EffectData
+                    {
+                        origin = singularTarget.transform.position,
+                        scale = 1f,
+                        rotation = Quaternion.identity
+
+                    }, true);
+
+                }
+            }
+        }
+
         private float emoteCooldown;
         private bool emotePressed;
         public void Emote()
@@ -919,7 +1065,7 @@ namespace ShiggyMod.Modules.Survivors
                 //left eye aura plays when your energy is full only
                 if (booleyeAuraL || energySystem.currentplusChaos == energySystem.maxPlusChaos)
                 {
-                    if (LEYE.isStopped)
+                    if (LEYE.isStopped && Config.allowEyeGlow.Value)
                     {
                         LEYE.Play();
                     }
@@ -937,7 +1083,7 @@ namespace ShiggyMod.Modules.Survivors
                 //right aura only plays when you have > 50%
                 if (booleyeAuraR || energySystem.currentplusChaos >= StaticValues.AFOEnergyCost * energySystem.maxPlusChaos)
                 {
-                    if (REYE.isStopped)
+                    if (REYE.isStopped && Config.allowEyeGlow.Value)
                     {
                         REYE.Play();
                     }
@@ -1180,86 +1326,8 @@ namespace ShiggyMod.Modules.Survivors
             {
 
 
-                //if (Input.GetKeyDown(Config.AFOHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
-                //{
-                //    stealQuirkStopwatch += Time.deltaTime;
-                //    if (!this.hasStolen && stealQuirkStopwatch > Config.holdButtonAFO.Value)
-                //    {
-
-                //        Debug.Log("attempting steal");
-
-                //        //check if close enough to activate
-                //        if (!Config.allowRangedAFO.Value)
-                //        {
-                //            var body = trackingTarget.healthComponent.body;
-                //            float distance = Vector2.Distance(body.corePosition, characterBody.aimOrigin);
-                //            if (distance > Config.maxAFORange.Value)
-                //            {
-                //                //Chat.AddMessage($"<style=cIsUtility>Out of AFO Range!</style>");
-                //                energySystem.quirkGetInformation($"<style=cIsUtility>Out of AFO Range!</style>", 1f);
-                //                return;
-                //            }
-                //        }
-
-                //        //energy cost
-                //        float plusChaosflatCost = (StaticValues.AFOEnergyCost * energySystem.maxPlusChaos) - (energySystem.costflatplusChaos);
-                //        if (plusChaosflatCost < 0f) plusChaosflatCost = StaticValues.minimumCostFlatPlusChaosSpend;
-
-                //        float plusChaosCost = energySystem.costmultiplierplusChaos * plusChaosflatCost;
-                //        if (plusChaosCost < 0f) plusChaosCost = 0f;
-
-                //        if (energySystem.currentplusChaos < plusChaosCost)
-                //        {
-                //            //Chat.AddMessage($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>");
-                //            energySystem.quirkGetInformation($"<style=cIsUtility>Need {plusChaosCost} Plus Chaos!</style>", 1f);
-                //        }
-                //        else if (energySystem.currentplusChaos >= plusChaosCost)
-                //        {
-                //            energySystem.SpendplusChaos(plusChaosCost);
-
-                //            hasStolen = true;
-                //            Debug.Log("Target");
-                //            Debug.Log("body name = " + BodyCatalog.FindBodyPrefab(BodyCatalog.GetBodyName(trackingTarget.healthComponent.body.bodyIndex)));
-                //            if (NetworkServer.active)
-                //            {
-                //                ServerStealQuirk(trackingTarget.healthComponent.body);
-                //            }
-                //            else
-                //            {
-                //                new StealQuirkRequest(characterBody.master.netId, trackingTarget.healthComponent.body.netId, 0)
-                //                    .Send(R2API.Networking.NetworkDestination.Server);
-                //            }
-
-                //        }
-
-                //    }
-
-                //    //Debug.Log(hasStolen + "hasstolen");
-
-                //}
-
-
-
-                //bool givedown = Input.GetKey(Config.AFOGiveHotkey.Value.MainKey);
-
-                //if (!givedown)
-                //{
-                //    giveHold = 0f;
-                //    _sentGiveThisHold = false;
-                //}
-
-                //if (givedown && characterBody.hasEffectiveAuthority)
-                //{
-                //    giveHold += Time.deltaTime;
-
-                //    if (!_sentGiveThisHold && stealHold >= Config.holdButtonAFO.Value)
-                //    {
-                //        _sentStealThisHold = true;
-                //        TryRequestSteal(mode: 1);
-                //    }
-                //}
-
-                if (UnityEngine.Input.GetKey(Config.AFOGiveHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority && trackingTarget.teamIndex == TeamIndex.Player)
+                
+                if (UnityEngine.Input.GetKey(Config.AFOGiveHotkey.Value.MainKey) && characterBody.hasEffectiveAuthority)
                 {
                     giveQuirkStopwatch += Time.deltaTime;
                     if (!this.hasStolen && giveQuirkStopwatch > Config.holdButtonAFO.Value)
@@ -1390,8 +1458,8 @@ namespace ShiggyMod.Modules.Survivors
                 if (energySystem.currentplusChaos > StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos)
                 {
                     //radius increases overtime
-                    overclockTimer += Time.deltaTime * OFAFOTimeMultiplier;
-                    float maxRadius = overclockTimer * StaticValues.theWorldCoefficient * StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos;
+                    theworldTimer += Time.deltaTime * OFAFOTimeMultiplier;
+                    float maxRadius = theworldTimer * StaticValues.theWorldCoefficient * StaticValues.theWorldEnergyCost * energySystem.maxPlusChaos;
                     if (maxRadius > StaticValues.theWorldMaxRadius)
                     {
                         maxRadius = StaticValues.theWorldMaxRadius;
@@ -1491,7 +1559,7 @@ namespace ShiggyMod.Modules.Survivors
                 {
                     characterBody.ApplyBuff(Buffs.theWorldBuff.buffIndex, 0);
                     //make sure to reset the timer and instance size 
-                    overclockTimer = 0f;
+                    theworldTimer = 0f;
                     if (this.theWorldIndicatorInstance)
                     {
                         this.theWorldIndicatorInstance.SetActive(false);
@@ -1580,7 +1648,22 @@ namespace ShiggyMod.Modules.Survivors
             }
         }
 
-        //overclock indicator
+        //overclock ascension Indicator 
+        private void CreateOverclockAscensionIndicator()
+        {
+            if (ShiggyAsset.overclockAscensionIndicator)
+            {
+                this.overclockAscensionIndicatorInstance = Object.Instantiate<GameObject>(ShiggyAsset.overclockAscensionIndicator);
+                this.overclockAscensionIndicatorInstance.SetActive(true);
+
+                this.overclockAscensionIndicatorInstance.transform.parent = characterBody.transform;
+                this.overclockAscensionIndicatorInstance.transform.localScale = Vector3.one * (Config.OverclockAscensionRadius.Value);
+                this.overclockAscensionIndicatorInstance.transform.localPosition = Vector3.zero;
+
+            }
+        }
+
+        //the world indicator
         private void CreateTheWorldIndicator()
         {
             if (ShiggyAsset.theWorldIndicator)
@@ -1650,6 +1733,16 @@ namespace ShiggyMod.Modules.Survivors
             GameObject newbodyPrefab = BodyCatalog.FindBodyPrefab(name);
             //new ForceGiveQuirkState(characterBody.masterObjectId, hurtBox.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
             giveQuirkBody = hurtBox.healthComponent.body;
+
+            //make sure skills are saved before overwriting
+            Shiggymastercon.writeToSkillList(characterBody.skillLocator.primary.skillDef, 0);
+            Shiggymastercon.writeToSkillList(characterBody.skillLocator.secondary.skillDef, 1);
+            Shiggymastercon.writeToSkillList(characterBody.skillLocator.utility.skillDef, 2);
+            Shiggymastercon.writeToSkillList(characterBody.skillLocator.special.skillDef, 3);
+            Shiggymastercon.writeToSkillList(extraskillLocator.extraFirst.skillDef, 4);
+            Shiggymastercon.writeToSkillList(extraskillLocator.extraSecond.skillDef, 5);
+            Shiggymastercon.writeToSkillList(extraskillLocator.extraThird.skillDef, 6);
+            Shiggymastercon.writeToSkillList(extraskillLocator.extraFourth.skillDef, 7);
 
             characterBody.skillLocator.primary.UnsetSkillOverride(characterBody.skillLocator.primary, Shiggymastercon.skillListToOverrideOnRespawn[0], GenericSkill.SkillOverridePriority.Contextual);
             characterBody.skillLocator.secondary.UnsetSkillOverride(characterBody.skillLocator.secondary, Shiggymastercon.skillListToOverrideOnRespawn[1], GenericSkill.SkillOverridePriority.Contextual);

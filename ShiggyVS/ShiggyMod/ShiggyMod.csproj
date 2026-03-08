@@ -68,6 +68,7 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <Folder Include="SkillStates\Skills\Actives\GodlyActiveSkills\" />
     <Folder Include="SkillStates\Skills\Passives\GodlyPassiveSkills\" />
   </ItemGroup>
 

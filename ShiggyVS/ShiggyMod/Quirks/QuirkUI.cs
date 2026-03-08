@@ -29,7 +29,11 @@ namespace ShiggyMod.Modules.Quirks
         private float _preMenuTimeScale = 1f;
         private bool _didPauseForMenu;
 
-
+        //apex surgery info
+        private ApexSurgeryController _apexController;
+        private Image _apexInfoRoot;
+        private HGTextMeshProUGUI _apexInfoText;
+        private float _apexInfoRefreshTimer;
 
         public static QuirkUI Show(CharacterBody body, ExtraSkillLocator extras, Action<string, float> toast = null)
         {
@@ -47,6 +51,7 @@ namespace ShiggyMod.Modules.Quirks
             Current._body = body;
             Current._extras = extras;
             Current._inv = body.master ? QuirkInventory.Ensure(body.master) : null;
+            Current._apexController = body.master ? body.master.GetComponent<ApexSurgeryController>() : null; //apex surgery info
             Current._toast = toast;
             Current.BuildUI();
             return Current;
@@ -94,6 +99,7 @@ namespace ShiggyMod.Modules.Quirks
         };
 
         // ---------- UI ----------
+
         private void BuildUI()
         {
             // Canvas
@@ -108,9 +114,8 @@ namespace ShiggyMod.Modules.Quirks
 
             canvasGO.AddComponent<GraphicRaycaster>();
 
-            //tooltip top layer
+            // tooltip top layer
             BuildTooltip();
-
 
             // Dimmer (also closes on click)
             var dim = NewUI<Image>("Dim", canvasGO.transform);
@@ -123,7 +128,7 @@ namespace ShiggyMod.Modules.Quirks
             var panel = NewUI<Image>("Panel", canvasGO.transform);
             panel.color = new Color(0.08f, 0.08f, 0.08f, 0.95f);
             var prt = panel.rectTransform;
-            prt.sizeDelta = new Vector2(900f, 420f);
+            prt.sizeDelta = new Vector2(1220f, 500f);
             prt.anchorMin = prt.anchorMax = new Vector2(0.5f, 0.5f);
             prt.anchoredPosition = Vector2.zero;
 
@@ -138,22 +143,64 @@ namespace ShiggyMod.Modules.Quirks
             trt.sizeDelta = new Vector2(0f, 46f);
             trt.anchoredPosition = new Vector2(0f, -10f);
 
-            // Two columns
-            var left = NewUI<Image>("Left", panel.transform);
+            // ===== Apex info panel (far left) =====
+            var apexPanel = NewUI<Image>("ApexInfoPanel", panel.transform);
+            apexPanel.color = new Color(1f, 1f, 1f, 0.05f);
+            var art = apexPanel.rectTransform;
+            art.anchorMin = new Vector2(0f, 0f);
+            art.anchorMax = new Vector2(0f, 1f);
+            art.pivot = new Vector2(0f, 0.5f);
+            art.offsetMin = new Vector2(14f, 72f);
+            art.offsetMax = new Vector2(249f, -70f);
+
+            var apexTitle = NewText("ApexTitle", apexPanel.transform, "Apex Adaptation");
+            apexTitle.alignment = TextAnchor.MiddleCenter;
+            apexTitle.fontSize = 20;
+            var atrt = apexTitle.rectTransform;
+            atrt.anchorMin = new Vector2(0f, 1f);
+            atrt.anchorMax = new Vector2(1f, 1f);
+            atrt.pivot = new Vector2(0.5f, 1f);
+            atrt.sizeDelta = new Vector2(0f, 34f);
+            atrt.anchoredPosition = new Vector2(0f, -8f);
+
+            _apexInfoRoot = apexPanel;
+
+            _apexInfoText = NewHGText("ApexInfoText", apexPanel.transform, "");
+            _apexInfoText.alignment = TextAlignmentOptions.TopLeft;
+            _apexInfoText.fontSize = 15f;
+            _apexInfoText.enableAutoSizing = false;
+            _apexInfoText.enableWordWrapping = true;
+
+            var airt = _apexInfoText.rectTransform;
+            airt.anchorMin = new Vector2(0f, 0f);
+            airt.anchorMax = new Vector2(1f, 1f);
+            airt.offsetMin = new Vector2(10f, 10f);
+            airt.offsetMax = new Vector2(-10f, -40f);
+
+            // ===== Content area to the right of the Apex panel =====
+            var contentRoot = new GameObject("ContentRoot").AddComponent<RectTransform>();
+            contentRoot.SetParent(panel.transform, false);
+            contentRoot.anchorMin = new Vector2(0f, 0f);
+            contentRoot.anchorMax = new Vector2(1f, 1f);
+            contentRoot.offsetMin = new Vector2(263f, 72f);
+            contentRoot.offsetMax = new Vector2(-14f, -70f);
+
+            // ===== Two equal columns inside contentRoot =====
+            var left = NewUI<Image>("Left", contentRoot);
             left.color = new Color(1f, 1f, 1f, 0.05f);
             var lrt = left.rectTransform;
             lrt.anchorMin = new Vector2(0f, 0f);
             lrt.anchorMax = new Vector2(0.5f, 1f);
-            lrt.offsetMin = new Vector2(14f, 60f);
-            lrt.offsetMax = new Vector2(-7f, -60f);
+            lrt.offsetMin = new Vector2(0f, 0f);
+            lrt.offsetMax = new Vector2(-6f, 0f);
 
-            var right = NewUI<Image>("Right", panel.transform);
+            var right = NewUI<Image>("Right", contentRoot);
             right.color = new Color(1f, 1f, 1f, 0.05f);
             var rrt = right.rectTransform;
             rrt.anchorMin = new Vector2(0.5f, 0f);
             rrt.anchorMax = new Vector2(1f, 1f);
-            rrt.offsetMin = new Vector2(7f, 60f);
-            rrt.offsetMax = new Vector2(-14f, -60f);
+            rrt.offsetMin = new Vector2(6f, 0f);
+            rrt.offsetMax = new Vector2(0f, 0f);
 
             float ly = -10f;
             _btnPrimary = AddSlotRow(left.transform, ref ly, "Primary", () => OpenPicker("Primary", q => { _selPrimary = q; UpdateSlotButton(_btnPrimary, q); }));
@@ -167,16 +214,21 @@ namespace ShiggyMod.Modules.Quirks
             _btnE3 = AddSlotRow(right.transform, ref ry, "Extra 3", () => OpenPicker("Extra 3", q => { _selE3 = q; UpdateSlotButton(_btnE3, q); }));
             _btnE4 = AddSlotRow(right.transform, ref ry, "Extra 4", () => OpenPicker("Extra 4", q => { _selE4 = q; UpdateSlotButton(_btnE4, q); }));
 
-            // Bottom buttons
+            // ===== Bottom buttons =====
             var btnRow = NewUI<HorizontalLayoutGroup>("Buttons", panel.transform);
-            btnRow.childAlignment = TextAnchor.MiddleRight;
-            btnRow.spacing = 8f;
+            btnRow.childAlignment = TextAnchor.MiddleCenter;
+            btnRow.spacing = 12f;
+            btnRow.childForceExpandWidth = false;
+            btnRow.childForceExpandHeight = false;
+            btnRow.childControlWidth = true;
+            btnRow.childControlHeight = true;
+
             var btnRowRT = (RectTransform)btnRow.transform;
-            btnRowRT.anchorMin = new Vector2(0f, 0f);
-            btnRowRT.anchorMax = new Vector2(1f, 0f);
-            btnRowRT.pivot = new Vector2(1f, 0f);
-            btnRowRT.sizeDelta = new Vector2(-22f, 40f);
-            btnRowRT.anchoredPosition = new Vector2(-11f, 12f);
+            btnRowRT.anchorMin = new Vector2(0.5f, 0f);
+            btnRowRT.anchorMax = new Vector2(0.5f, 0f);
+            btnRowRT.pivot = new Vector2(0.5f, 0f);
+            btnRowRT.sizeDelta = new Vector2(340f, 40f);
+            btnRowRT.anchoredPosition = new Vector2(0f, 18f);
 
             BuildButton(btnRowRT, "Confirm", OnConfirm);
             BuildButton(btnRowRT, "Cancel", Close);
@@ -196,7 +248,10 @@ namespace ShiggyMod.Modules.Quirks
 
             Subscribe();
 
-            //pause
+            // Apex info
+            RefreshApexInfo();
+
+            // pause
             BeginSingleplayerSlowPause();
         }
         private void BuildTooltip()
@@ -611,6 +666,13 @@ namespace ShiggyMod.Modules.Quirks
 
             if (_tooltipRoot && _tooltipRoot.gameObject.activeSelf)
                 PositionTooltipAtMouse();
+
+            _apexInfoRefreshTimer += Time.unscaledDeltaTime;
+            if (_apexInfoRefreshTimer >= 0.1f)
+            {
+                _apexInfoRefreshTimer = 0f;
+                RefreshApexInfo();
+            }
         }
 
         private void PositionTooltipAtMouse()
@@ -667,10 +729,20 @@ namespace ShiggyMod.Modules.Quirks
         {
             var go = new GameObject(text);
             go.transform.SetParent(parent, false);
+
             var img = go.AddComponent<Image>();
             img.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+
             var btn = go.AddComponent<Button>();
             btn.targetGraphic = img;
+
+            var layout = go.AddComponent<LayoutElement>();
+            layout.minWidth = 150f;
+            layout.preferredWidth = 150f;
+            layout.minHeight = 34f;
+            layout.preferredHeight = 34f;
+            layout.flexibleWidth = 0f;
+            layout.flexibleHeight = 0f;
 
             var t = NewText("Label", go.transform, text);
             t.alignment = TextAnchor.MiddleCenter;
@@ -678,8 +750,6 @@ namespace ShiggyMod.Modules.Quirks
 
             btn.onClick.AddListener(() => onClick?.Invoke());
 
-            var rt = go.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(140f, 32f);
             return btn;
         }
 
@@ -891,6 +961,51 @@ namespace ShiggyMod.Modules.Quirks
             public void OnEndDrag(PointerEventData eventData) => scroll?.OnEndDrag(eventData);
             public void OnScroll(PointerEventData eventData) => scroll?.OnScroll(eventData);
         }
+
+        private void RefreshApexInfo()
+        {
+            if (_apexInfoText == null)
+                return;
+
+            if (_apexController == null)
+            {
+                _apexInfoText.text = "<color=#888888>Controller not found.</color>";
+                return;
+            }
+
+            int adapt = _apexController.GetAdaptationStacks();
+            int per = _apexController.GetAdaptationPerThreshold();
+            int thresholds = _apexController.GetAdaptationThresholds();
+            int within = adapt % per;
+
+            int apex = _apexController.GetCurrentApexStacks();
+            int cap = _apexController.GetCurrentApexCap();
+
+            float reward = _apexController.GetAdaptRewardPerThreshold();
+            float damageMult = _apexController.GetCurrentDamageMultiplier();
+            float moveMult = _apexController.GetCurrentMoveMultiplier();
+            float regenMult = _apexController.GetCurrentRegenMultiplier();
+            float armorBonus = _apexController.GetCurrentArmorBonus();
+
+            _apexInfoText.text =
+                $"<b>Stacks</b>\n" +
+                $"Adapt: <color=#FFFFFF>{adapt}</color>\n" +
+                $"Progress: <color=#FFFFFF>{within}/{per}</color>\n" +
+                $"Thresholds: <color=#FFFFFF>{thresholds}</color>\n" +
+                $"Apex: <color=#FFFFFF>{apex}</color>\n" +
+                $"Limit: <color=#FFFFFF>{cap}</color>\n\n" +
+                $"<b>Per Threshold</b>\n" +
+                $"Damage: <color=#A8FFB0>+{reward * 100f:0.#}%</color>\n" +
+                $"Move: <color=#A8FFB0>+{reward * 100f:0.#}%</color>\n" +
+                $"Regen: <color=#A8FFB0>+{reward * 100f:0.#}%</color>\n" +
+                $"Armor: <color=#A8FFB0>+{reward * 20f:0.#}</color>\n\n" +
+                $"<b>Current Total</b>\n" +
+                $"Damage: <color=#A8FFB0>x{damageMult:0.##}</color>\n" +
+                $"Move: <color=#A8FFB0>x{moveMult:0.##}</color>\n" +
+                $"Regen: <color=#A8FFB0>x{regenMult:0.##}</color>\n" +
+                $"Armor: <color=#A8FFB0>+{armorBonus:0.#}</color>";
+        }
+
 
         // ---------- Cursor helper ----------
         public static class UICursorUtil

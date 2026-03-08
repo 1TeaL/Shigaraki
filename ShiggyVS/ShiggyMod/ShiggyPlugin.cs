@@ -83,7 +83,7 @@ namespace ShiggyMod
 
         public const string MODUID = "com.TeaL.ShigarakiMod";
         public const string MODNAME = "ShigarakiMod";
-        public const string MODVERSION = "3.0.3";
+        public const string MODVERSION = "3.1.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -1330,6 +1330,46 @@ namespace ShiggyMod
                     }
                 }
 
+                // Overlcock Ascension: chance to block completely (zero force)
+                if (validHitForBlocks && victimBody.HasBuff(Buffs.overclockAscensionBuff.buffIndex))
+                {
+                    damageInfo.force = Vector3.zero;
+                    if (Util.CheckRoll(Modules.Config.OverclockAscensionDodgeChance.Value, victimBody.master))
+                    {
+                        // If also has Blind Senses, fire counter orb
+                        if (victimBody.HasBuff(Buffs.blindSensesBuff.buffIndex))
+                        {
+                            var orb = new LightningOrb
+                            {
+                                attacker = victimBody.gameObject,
+                                bouncesRemaining = 0,
+                                damageCoefficientPerBounce = 1f,
+                                damageColorIndex = DamageColorIndex.Item,
+                                damageValue = damageInfo.damage * StaticValues.blindSensesDamageCoefficient,
+                                isCrit = victimBody.RollCrit(),
+                                lightningType = LightningOrb.LightningType.RazorWire,
+                                origin = victimBody.corePosition,
+                                procChainMask = default,
+                                procCoefficient = 1f,
+                                damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary),
+                                range = 0f,
+                                teamIndex = victimBody.teamComponent.teamIndex,
+                                target = attackerBody.mainHurtBox
+                            };
+                            OrbManager.instance.AddOrb(orb);
+                        }
+
+                        damageInfo.rejected = true;
+
+                        EffectManager.SpawnEffect(HealthComponent.AssetReferences.bearEffectPrefab, new EffectData
+                        {
+                            origin = damageInfo.position,
+                            rotation = Util.QuaternionSafeLookRotation((damageInfo.force != Vector3.zero) ? damageInfo.force : UnityEngine.Random.onUnitSphere)
+                        }, true);
+
+                    }
+                }
+
                 // Stone Form (still): chance to block completely (zero force)
                 if (validHitForBlocks && victimBody.HasBuff(Buffs.stoneFormStillBuff.buffIndex))
                 {
@@ -1601,6 +1641,34 @@ namespace ShiggyMod
             {
                 orig.Invoke(self);
 
+                //overclock ascension buff
+                if (self.HasBuff(Buffs.overclockAscensionBuff))
+                {
+                    self.moveSpeed *= (1 + Modules.Config.OverclockAscensionMovespeedMultiplier.Value);
+                    self.attackSpeed *= (1 + Modules.Config.OverclockAscensionAttackspeedMultiplier.Value);
+                    self.sprintingSpeedMultiplier *= (1 + Modules.Config.OverclockAscensionSprintspeedMultiplier.Value);
+
+                    if (self.baseNameToken == ShiggyPlugin.developerPrefix + "_SHIGGY_BODY_NAME")
+                    {
+                        var shiggycon = self.gameObject.GetComponent<ShiggyController>();
+                        if (shiggycon)
+                        {
+                            self.regen -= shiggycon.overclockRegenValue;
+                        }
+                    }
+
+                }
+                //overclock ascension debuff
+                if (self.HasBuff(Buffs.overclockAscensionDebuff))
+                {
+                    self.moveSpeed *= (1-Modules.Config.OverclockAscensionSlowMultiplier.Value);
+                    self.attackSpeed *= (1 - Modules.Config.OverclockAscensionSlowMultiplier.Value);
+                }
+                //lifeforce buff
+                if (self.HasBuff(Buffs.lifeForceBuff))
+                {
+                    self.maxHealth *= Modules.Config.LifeForceHealthMultiplier.Value;
+                }
                 //greed buff
                 if (self.HasBuff(Buffs.halcyoniteGreedStacksBuff))
                 {
@@ -1620,7 +1688,7 @@ namespace ShiggyMod
                 {
                     self.moveSpeed /= StaticValues.wildcardSpeedCoefficient;
                 }
-                //overclock debuff
+                //the world debuff
                 if (self.HasBuff(Buffs.theWorldDebuff))
                 {
                     self.attackSpeed *= 0f;

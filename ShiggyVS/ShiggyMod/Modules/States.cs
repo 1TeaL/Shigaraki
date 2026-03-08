@@ -120,6 +120,8 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(WildCard));
             Modules.Content.AddEntityState(typeof(LightAndDarkness));
             Modules.Content.AddEntityState(typeof(SolusFactorUnleashed));
+            Modules.Content.AddEntityState(typeof(OverclockAscension));
+            Modules.Content.AddEntityState(typeof(Invisibility));
 
 
             //passive skills
@@ -172,6 +174,7 @@ namespace ShiggyMod.Modules
             Modules.Content.AddEntityState(typeof(ReversalPassive));
             Modules.Content.AddEntityState(typeof(WeatherReportPassive));
             Modules.Content.AddEntityState(typeof(HyperRegenerationPassive));
+            Modules.Content.AddEntityState(typeof(LifeForcePassive));
         }
     }
 }

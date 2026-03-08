@@ -70,6 +70,19 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 3.1.0- Additional features and fixes
+	- New Quirks (Will add them to the readme in the future)
+		- Life Force- Multiply your health by 3x. Made with False Son, Bison and Stone Titan.
+		- Invisibility- Become invisible for 8 seconds. Made with Bandit and Hermit Crab.
+		- Overclock Ascension- Overclock yourself to the limit, warping the flow of time around you. Gain 30% move speed, attack speed, sprint speed, dodge chance. Nearby enemies attack speed and movespeed are slowed by 30% and projectiles are slowed by 30%. Heal 10% of your max HP every second. However, gain -10 regen that increases by 1 every second. Made with Double Time, Blind Senses and Hyper Regeneration
+	- Changes
+ 		- Decay Plus Ultra now renamed to Decay Plus Chaos to match his theme better. Also can only be used while grounded, only hits grounded enemies (or enemies close to the ground if flying). No longer has a cooldown as it does cost health anyway.
+	- Fixes
+		- Give Quirk should work with anything as well as work with any future passives added to Shigaraki.
+	- Additional features
+		- You can now see extra information relating to the apex adaptation system such as the stats and numbers when opening the quirk menu.
+		- More configs have been added.
+
 - 3.0.3- Additional features and fixes
 	- Fixes
  		- Air walk descend key (by default x) now works properly. Also while sprinting, can use left and right movement to influence as well as ascend and descend as well. 
@@ -139,7 +152,7 @@ If you enjoy my work, support me on Ko-fi!
       	- Additional configs- all risk of options support- for everything with the apex adapt. Configs for some mechanics as well like decay, and some other quirks. Plans to add more in the future.
 
 - Next update(s)
-    - More Quirks! either more from the series itself or from anything.
+    - More Quirks! either more from the series itself or from anything.		
     - Changing/adding new models/skins
     - Bug fixes. 
     - More/Improved animations.

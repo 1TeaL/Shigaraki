@@ -15,9 +15,9 @@ namespace ShiggyMod.SkillStates
         public GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
         public static event Action<int> Compacted;
 
-        public float SpeedCoefficient = StaticValues.aircannonSpeedCoefficient;
-        private float radius = 15f;
-        private float damageCoefficient = Modules.StaticValues.aircannonDamageCoefficient;
+        public float SpeedCoefficient = Config.AirCannonSpeed.Value;
+        private float radius = Config.AirCannonRange.Value;
+        private float damageCoefficient = Config.AirCannonDamage.Value;
         private float procCoefficient = 1f;
         private float force = 1f;
         private float speedOverride = 1f;

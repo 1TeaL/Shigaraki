@@ -4,6 +4,7 @@ using R2API.Networking;
 using RoR2;
 using RoR2.Skills;
 using ShiggyMod.Modules;
+using ShiggyMod.Modules.Quirks;
 using ShiggyMod.Modules.Survivors;
 
 namespace ShiggyMod.SkillStates
@@ -110,204 +111,10 @@ namespace ShiggyMod.SkillStates
             {
                 extraskillLocator.extraFourth.SetSkillOverride(extraskillLocator.extraFourth, Shiggy.emptySkillDef, GenericSkill.SkillOverridePriority.Contextual);
             }
-            CheckQuirksForBuffs(characterBody);
 
             Shiggymastercon.writeToAFOSkillList(null, 0);
         }
 
-        public void CheckQuirksForBuffs(CharacterBody characterBody)
-        {
-            //check passive
-
-            foreach (var skillname in StaticValues.passiveToBuff)
-            {
-
-                if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
-                {
-                    characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 1);
-                }
-                else if (SearchSkillSlotsForQuirks(StaticValues.skillNameToSkillDef[skillname.Key], characterBody))
-                {
-                    characterBody.ApplyBuff(StaticValues.passiveToBuff[skillname.Key].buffIndex, 0);
-                }
-            }
-
-        }
-        public bool SearchSkillSlotsForQuirks(SkillDef skillDef, CharacterBody characterBody)
-        {
-            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
-
-            return !(extraskillLocator.extraFirst.skillDef != skillDef
-                && extraskillLocator.extraSecond.skillDef != skillDef
-                && extraskillLocator.extraThird.skillDef != skillDef
-                && extraskillLocator.extraFourth.skillDef != skillDef
-                && characterBody.skillLocator.primary.skillDef != skillDef
-                && characterBody.skillLocator.secondary.skillDef != skillDef
-                && characterBody.skillLocator.utility.skillDef != skillDef
-                && characterBody.skillLocator.special.skillDef != skillDef);
-        }
-
-        protected virtual void GiveSkill1()
-        {
-            RoR2.Skills.SkillDef skilldef = Shiggymastercon.skillListToOverrideOnRespawn[0];
-
-            if (StaticValues.skillDict[skilldef.skillName] == StaticValues.skillType.PASSIVE)
-            {
-                BuffController buffcon = enemycharBody.gameObject.GetComponent<BuffController>();
-                if (!buffcon)
-                {
-                    enemycharBody.gameObject.AddComponent<BuffController>();
-
-                }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
-            }
-            else
-            {
-                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
-            }
-
-        }
-        protected virtual void GiveSkill2()
-        {
-            RoR2.Skills.SkillDef skilldef = Shiggymastercon.skillListToOverrideOnRespawn[1];
-
-            if (StaticValues.skillDict[skilldef.skillName] == StaticValues.skillType.PASSIVE)
-            {
-                BuffController buffcon = enemycharBody.gameObject.GetComponent<BuffController>();
-                if (!buffcon)
-                {
-                    enemycharBody.gameObject.AddComponent<BuffController>();
-
-                }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
-            }
-            else
-            {
-                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
-            }
-        }
-        protected virtual void GiveSkill3()
-        {
-            RoR2.Skills.SkillDef skilldef = Shiggymastercon.skillListToOverrideOnRespawn[2];
-
-            if (StaticValues.skillDict[skilldef.skillName] == StaticValues.skillType.PASSIVE)
-            {
-                BuffController buffcon = enemycharBody.gameObject.GetComponent<BuffController>();
-                if (!buffcon)
-                {
-                    enemycharBody.gameObject.AddComponent<BuffController>();
-
-                }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
-            }
-            else
-            {
-                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
-            }
-        }
-        protected virtual void GiveSkill4()
-        {
-            RoR2.Skills.SkillDef skilldef = Shiggymastercon.skillListToOverrideOnRespawn[3];
-
-            if (StaticValues.skillDict[skilldef.skillName] == StaticValues.skillType.PASSIVE)
-            {
-                BuffController buffcon = enemycharBody.gameObject.GetComponent<BuffController>();
-                if (!buffcon)
-                {
-                    enemycharBody.gameObject.AddComponent<BuffController>();
-
-                }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
-            }
-            else
-            {
-                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
-            }
-        }
-        protected virtual void GiveExtraSkill1()
-        {
-            RoR2.Skills.SkillDef skilldef = Shiggymastercon.skillListToOverrideOnRespawn[4];
-
-            if (StaticValues.skillDict[skilldef.skillName] == StaticValues.skillType.PASSIVE)
-            {
-                BuffController buffcon = enemycharBody.gameObject.GetComponent<BuffController>();
-                if (!buffcon)
-                {
-                    enemycharBody.gameObject.AddComponent<BuffController>();
-
-                }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
-            }
-            else
-            {
-                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
-            }
-        }
-        protected virtual void GiveExtraSkill2()
-        {
-            RoR2.Skills.SkillDef skilldef = Shiggymastercon.skillListToOverrideOnRespawn[5];
-
-            if (StaticValues.skillDict[skilldef.skillName] == StaticValues.skillType.PASSIVE)
-            {
-                BuffController buffcon = enemycharBody.gameObject.GetComponent<BuffController>();
-                if (!buffcon)
-                {
-                    enemycharBody.gameObject.AddComponent<BuffController>();
-
-                }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
-            }
-            else
-            {
-                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
-            }
-        }
-        protected virtual void GiveExtraSkill3()
-        {
-            RoR2.Skills.SkillDef skilldef = Shiggymastercon.skillListToOverrideOnRespawn[6];
-
-            if (StaticValues.skillDict[skilldef.skillName] == StaticValues.skillType.PASSIVE)
-            {
-                BuffController buffcon = enemycharBody.gameObject.GetComponent<BuffController>();
-                if (!buffcon)
-                {
-                    enemycharBody.gameObject.AddComponent<BuffController>();
-
-                }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
-            }
-            else
-            {
-                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
-            }
-        }
-        protected virtual void GiveExtraSkill4()
-        {
-            RoR2.Skills.SkillDef skilldef = Shiggymastercon.skillListToOverrideOnRespawn[7];
-
-            if (StaticValues.skillDict[skilldef.skillName] == StaticValues.skillType.PASSIVE)
-            {
-                BuffController buffcon = enemycharBody.gameObject.GetComponent<BuffController>();
-                if (!buffcon)
-                {
-                    enemycharBody.gameObject.AddComponent<BuffController>();
-
-                }
-                enemycharBody.ApplyBuff(StaticValues.passiveToBuff[skilldef.skillName].buffIndex, 1);
-            }
-            else
-            {
-                //Chat.AddMessage("<style=cIsUtility>Not a Passive Quirk!</style>");
-                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
-            }
-        }
 
         public override void FixedUpdate()
         {
@@ -317,50 +124,53 @@ namespace ShiggyMod.SkillStates
             {
                 if (inputBank.skill1.down)
                 {
-                    GiveSkill1();
+                    TryGivePassiveFromIndex(0);
 
                 }
                 if (inputBank.skill2.down)
                 {
-                    GiveSkill2();
-
+                    TryGivePassiveFromIndex(1);
                 }
                 if (inputBank.skill3.down)
                 {
-                    GiveSkill3();
-
+                    TryGivePassiveFromIndex(2);
                 }
                 if (inputBank.skill4.down)
                 {
-                    GiveSkill4();
-
+                    TryGivePassiveFromIndex(3);
                 }
                 if (extrainputBankTest.extraSkill1.down)
                 {
-                    GiveExtraSkill1();
-
+                    TryGivePassiveFromIndex(4);
                 }
                 if (extrainputBankTest.extraSkill2.down)
                 {
-                    GiveExtraSkill2();
-
+                    TryGivePassiveFromIndex(5);
                 }
                 if (extrainputBankTest.extraSkill3.down)
                 {
-                    GiveExtraSkill3();
-
+                    TryGivePassiveFromIndex(6);
                 }
                 if (extrainputBankTest.extraSkill4.down)
                 {
-                    GiveExtraSkill4();
-
+                    TryGivePassiveFromIndex(7);
                 }
                 this.outer.SetNextStateToMain();
                 return;
             }
         }
 
+        protected virtual void TryGivePassiveFromIndex(int index)
+        {
+            SkillDef skilldef = Shiggymastercon.skillListToOverrideOnRespawn[index];
 
+            QuirkRegistry.GiveQuirkBuffFromSkill(enemycharBody, skilldef);
+
+            if (!QuirkRegistry.GiveQuirkBuffFromSkill(enemycharBody, skilldef))
+            {
+                energySystem.quirkGetInformation("<style=cIsUtility>Not a Passive Quirk!</style>", 2f);
+            }
+        }
 
 
         public override InterruptPriority GetMinimumInterruptPriority()

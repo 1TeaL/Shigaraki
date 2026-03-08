@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using R2API.Networking;
+using RoR2;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,9 @@ namespace ShiggyMod.Modules.Quirks
         Level3,
         Level4,
         Level5,
-        Level6
+        Level6,
+        Level7,
+        Level8,
     }
 
     public enum QuirkCategory { Active, Passive, Utility }
@@ -260,6 +263,64 @@ namespace ShiggyMod.Modules.Quirks
             QuirkLookup.RebuildReverseMaps();
         }
 
+        public static bool TryGetRecordFromSkill(SkillDef skillDef, out QuirkRecord rec)
+        {
+            rec = default;
+
+            if (skillDef == null)
+                return false;
+
+            if (!_skillToId.TryGetValue(skillDef, out var id))
+                return false;
+
+            return _records.TryGetValue(id, out rec);
+        }
+
+        public static bool TryGetBuffFromSkill(SkillDef skillDef, out BuffDef buffDef)
+        {
+            buffDef = null;
+
+            if (!TryGetRecordFromSkill(skillDef, out var rec))
+                return false;
+
+            buffDef = rec.BuffDef;
+            return buffDef != null;
+        }
+
+        public static bool IsPassive(SkillDef skillDef)
+        {
+            return TryGetRecordFromSkill(skillDef, out var rec)
+                && rec.Category == QuirkCategory.Passive;
+        }
+
+        public static bool IsAutoBuffPassive(SkillDef skillDef)
+        {
+            return TryGetRecordFromSkill(skillDef, out var rec)
+                && rec.Category == QuirkCategory.Passive
+                && rec.BuffDef != null;
+        }
+
+        public static bool TryGetIdFromSkill(SkillDef skillDef, out QuirkId id)
+        {
+            id = QuirkId.None;
+            return skillDef != null && _skillToId.TryGetValue(skillDef, out id);
+        }
+
+        public static bool GiveQuirkBuffFromSkill(CharacterBody body, SkillDef skillDef)
+        {
+            if (!body || skillDef == null)
+                return false;
+
+            if (!TryGetRecordFromSkill(skillDef, out var rec))
+                return false;
+
+            if (rec.Category != QuirkCategory.Passive || rec.BuffDef == null)
+                return false;
+
+            body.ApplyBuff(rec.BuffDef.buffIndex, 1);
+            return true;
+        }
+
         // Optional: expose icon (null allowed)
         public static Sprite GetIcon(QuirkId id)
         {
@@ -368,4 +429,7 @@ namespace ShiggyMod.Modules.Quirks
             return set;
         }
     }
+
+
+
 }

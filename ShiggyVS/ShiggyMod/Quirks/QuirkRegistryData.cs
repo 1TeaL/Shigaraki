@@ -689,14 +689,19 @@ namespace ShiggyMod.Modules.Quirks
                 recipes: new[] { new QuirkRecipe(QuirkId.VoidBarnacle_VoidMortarPassive, QuirkId.VoidFiend_CleanseActive) });
 
             yield return E(
-                QuirkId.REX_Decay_DecayPlusUltraActive, QuirkLevel.Level2, QuirkCategory.Active,
-                skill: () => decayPlusUltraDef,
+                QuirkId.REX_Decay_DecayPlusChaosActive, QuirkLevel.Level2, QuirkCategory.Active,
+                skill: () => decayPlusChaosDef,
                 recipes: new[] { new QuirkRecipe(QuirkId.REX_MortarActive, QuirkId.Shiggy_DecayActive) });
 
             yield return E(
                 QuirkId.Parent_Loader_MachPunchActive, QuirkLevel.Level2, QuirkCategory.Active,
                 skill: () => machPunchDef,
                 recipes: new[] { new QuirkRecipe(QuirkId.Parent_TeleportActive, QuirkId.Loader_ScrapBarrierPassive) });
+
+            yield return E(
+                QuirkId.Bandit_HermitCrab_InvisibilityActive, QuirkLevel.Level2, QuirkCategory.Active,
+                skill: () => invisibilityDef,
+                recipes: new[] { new QuirkRecipe(QuirkId.HermitCrab_MortarPassive, QuirkId.Bandit_LightsOutActive) });
 
             // =========================
             // A4 Crafted: Level 4 actives
@@ -760,6 +765,26 @@ namespace ShiggyMod.Modules.Quirks
                         QuirkId.SolusDistributor_SolusPlantMineActive,
                         QuirkId.SolusExtractor_SolusExtractActive,
                         QuirkId.SolusInvalidator_SolusInvalidateActive,
+                        QuirkId.SolusProspector_SolusPrimingPassive,
+                        QuirkId.SolusScorcher_SolusAccelerateActive,
+                        QuirkId.SolusTransporter_SolusTransportActive
+                    )
+                });
+
+
+
+            // =========================
+            // A6 Crafted: Level 8 actives
+            // =========================
+            yield return E(
+                QuirkId.BlindSenses_HyperRegeneration_DoubleTime_OverclockAscensionActive, QuirkLevel.Level8, QuirkCategory.Active,
+                skill: () => overclockAscensionDef,
+                recipes: new[]
+                {
+                    new QuirkRecipe(
+                        QuirkId.Pest_Vermin_BlindSensesPassive,
+                        QuirkId.MiniMushrum_Jellyfish_FalseSon_Seeker_HyperRegenerationPassive,
+                        QuirkId.RoboBallMini_Commando_DoubleTimePassive,
                         QuirkId.SolusProspector_SolusPrimingPassive,
                         QuirkId.SolusScorcher_SolusAccelerateActive,
                         QuirkId.SolusTransporter_SolusTransportActive

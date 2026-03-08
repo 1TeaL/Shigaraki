@@ -8,7 +8,7 @@ namespace ShiggyMod.SkillStates
     public class BulletLaser : Skill
     {
 
-        private float range = 100f;
+        private float range = Modules.Config.BulletLaserRange.Value;
         private float radius = 15f;
         private float damageCoefficient = Modules.Config.BulletLaserDamage.Value;
         private float procCoefficient = Modules.StaticValues.bulletlaserProcCoefficient;
@@ -76,7 +76,7 @@ namespace ShiggyMod.SkillStates
                     smartCollision = false,
                     procChainMask = default(ProcChainMask),
                     procCoefficient = procCoefficient,
-                    radius = 1f,
+                    radius = Modules.Config.BulletLaserSize.Value,
                     sniper = false,
                     stopperMask = LayerIndex.noCollision.mask,
                     weapon = null,

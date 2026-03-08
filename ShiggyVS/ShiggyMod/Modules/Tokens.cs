@@ -109,7 +109,7 @@ namespace ShiggyMod.Modules
                 $"gain <style=cIsUtility>{StaticValues.mortararmorGain} armor </style> every ({StaticValues.mortarbaseDuration}/Attackspeed) second(s). " +
                 $"Radius and Damage scales with armor and attackspeed. " +
                 $"" + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Stone Titan- Stone Skin] to create [Stone Form]</style>");
+                $"<style=cSub>Pairs with [Stone Titan- Stone Skin] to create [Stone Form]. Pairs with [Bandit] to create [Invisibility].</style>");
             LanguageAPI.Add(prefix + "MINIMUSHRUM_NAME", "Healing Aura");
             LanguageAPI.Add(prefix + "MINIMUSHRUM_DESCRIPTION", $"<style=cIsHealing>Heal yourself and nearby allies {100f * StaticValues.minimushrumhealFraction}% max health every second</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Clay Dunestrider- Tar boost] to create [Ingrain]. Pairs with [Jellyfish], [False Son], [Seeker] to create [Hyper Regeneration].</style>");
@@ -145,7 +145,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "STONETITAN_NAME", "Stone Skin");
             LanguageAPI.Add(prefix + "STONETITAN_DESCRIPTION", $"<style=cIsUtility>Gain {Modules.Config.StoneSkinArmorGain.Value} armor and flat damage reduction equal to your armor</style>. " +
                 $"When you're below 50% health. damage can be reduced <style=cIsHealing>below zero and heal you</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Hermit Crab- Mortar] to create [Stone Form]</style>");
+                $"<style=cSub>Pairs with [Hermit Crab- Mortar] to create [Stone Form]. Pairs with [Bison] and [False Son] to create Life Force.</style>");
             LanguageAPI.Add(prefix + "MAGMAWORM_NAME", "Blazing Aura");
             LanguageAPI.Add(prefix + "MAGMAWORM_DESCRIPTION", $"Burn nearby enemies for <style=cIsDamage>{100 * StaticValues.magmawormCoefficient}% damage over {StaticValues.magmawormDuration} seconds</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Imp Overlord- Bleed] to create [Expunge]</style>");
@@ -174,7 +174,7 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>Pairs with [Parent- Teleport] to create [Mach Punch]</style>");
             LanguageAPI.Add(prefix + "FALSESON_NAME", "Stolen Inheritance");
             LanguageAPI.Add(prefix + "FALSESON_DESCRIPTION", $"Gain <style=cIsDamage>bonus base damage equal to {100f * Modules.Config.StolenInheritanceHPCoefficient.Value}% of your maximum health</style>. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Mini Mushrum], [Jellyfish], [False Son], [Seeker] to create [Hyper Regeneration].");
+                $"<style=cSub>Pairs with [Mini Mushrum], [Jellyfish], [False Son], [Seeker] to create [Hyper Regeneration]. Pairs with [Bison] and [Stone Titan] to create Life Force.");
             #endregion
 
 
@@ -228,6 +228,10 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BLINDSENSES_DESCRIPTION", $"Gain the heightened senses of blindness. Gain <style=cIsUtility>{StaticValues.blindSensesBlockChance}% dodge chance</style>. <style=cIsUtility>Blocking an attack causes you to counterattack</style>, stunning and dealing <style=cIsDamage>{StaticValues.blindSensesDamageCoefficient * 100f}% of the damage</style> you would have taken to the attacker. Getting Tougher Times increases the chances of this as well. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Blind Pest/Blind Vermin]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Barrier Jelly (Jellyfish/Alpha Construct)] to create [Reversal]</style>");
+            LanguageAPI.Add(prefix + "LIFEFORCE_NAME", "Life Force");
+            LanguageAPI.Add(prefix + "LIFEFORCE_DESCRIPTION", $"Multiply your health by <style=cIsUtility>{Config.LifeForceHealthMultiplier.Value}x</style>. " + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [False Son/Bison/Stone Titan]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with nothing</style>");
             #endregion
 
 
@@ -267,7 +271,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BISON_NAME", "Charge");
             LanguageAPI.Add(prefix + "BISON_DESCRIPTION", $"<style=cIsDamage>Stunning.</style> Charge forward at super speed, and if you slam into a solid object, generates a shockwave that stuns enemies for <style=cIsDamage>{100f * StaticValues.bisonchargeDamageCoefficient}% damage</style> in a radius. Hold the button to keep charging. " +
                 $"Damage and radius scales with charge duration and movespeed. " + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Overloading Worm] to create [Thunderclap]</style>");
+                $"<style=cSub>Pairs with [Overloading Worm] to create [Thunderclap]. Pairs with [False Son] and [Stone Titan] to create Life Force.</style>");
             LanguageAPI.Add(prefix + "BRONZONG_NAME", "Spiked Ball Control");
             LanguageAPI.Add(prefix + "BRONZONG_DESCRIPTION", $"Summon 3 spiked balls, then release them, dealing <style=cIsDamage>{100f * StaticValues.bronzongballDamageCoefficient}% damage</style> per ball. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Pairs with [Gup-Spiky Body] to create [Barbed Spikes]</style>");
@@ -375,7 +379,7 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "BANDIT_DESCRIPTION", $"<style=cIsDamage>Slayer.</style> <style=cIsUtility>Cloak yourself for {StaticValues.banditcloakDuration} seconds</style> and ready a shot while holding the button. " +
                 $"Release to fire the shot for <style=cIsDamage>{100f * StaticValues.banditDamageCoefficient}% damage</style>. " +
                 $"Kills reset all your cooldowns." + Environment.NewLine + Environment.NewLine +
-                $"<style=cSub>Pairs with [Imp- Blink] to create [Shadow Claw]</style>");
+                $"<style=cSub>Pairs with [Imp- Blink] to create [Shadow Claw]. Pairs with [Hermit Crab] to create [Invisibility].</style>");
             LanguageAPI.Add(prefix + "DRIFTERSALVAGE_NAME", "Salvage");
             LanguageAPI.Add(prefix + "DRIFTERSALVAGE_DESCRIPTION", $"Spend " + Helpers.Passive($"{StaticValues.drifterSalvagePlusChaosSpend} plus chaos ") + $"per item to spawn up to <style=cIsUtility>{StaticValues.drifterSalvageItems} temporary items</style>. " + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>No pairing yet</style>");
@@ -494,8 +498,8 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "VOIDFORM_DESCRIPTION", $"Accept the void, constantly cleansing yourself, but " + Helpers.Damage($"taking {100f * StaticValues.voidFormHealthCostCoefficient}% of CURRENT health as damage every second") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Void Barnacle/Void Fiend]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Limit Break (Multiplier/One For All)] to create [One For All For One]</style>");
-            LanguageAPI.Add(prefix + "DECAYPLUSULTRA_NAME", "Decay Plus Ultra");
-            LanguageAPI.Add(prefix + "DECAYPLUSULTRA_DESCRIPTION", $"Push your body and Decay beyond their limits, dealing <style=cIsDamage>{100f * StaticValues.decayPlusUltraDamageCoefficient}% damage</style> in an enormous area. " + Helpers.Damage($"Take {100f * StaticValues.decayPlusUltraHealthCostCoefficient}% of MAX health as damage") + "." + Environment.NewLine + Environment.NewLine +
+            LanguageAPI.Add(prefix + "DECAYPLUSCHAOS_NAME", "Decay Plus Chaos");
+            LanguageAPI.Add(prefix + "DECAYPLUSCHAOS_DESCRIPTION", $"Push your body and Decay beyond their limits, dealing <style=cIsDamage>{100f * Config.DecayPlusChaosDamage.Value}% damage</style> in an enormous area. Only usable while grounded and hits only grounded enemies." + Helpers.Damage($"Take {100f * Config.DecayPlusChaosHealthCost.Value}% of MAX health as damage") + "." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Decay/Rex]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Aura Of Blight (Acrid/Larva)] to create [Decay Awakened]</style>");
             LanguageAPI.Add(prefix + "MACHPUNCH_NAME", "Mach Punch");
@@ -506,6 +510,10 @@ namespace ShiggyMod.Modules
             LanguageAPI.Add(prefix + "RAPIDPIERCE_DESCRIPTION", $"Shoot a railgun, dealing <style=cIsDamage>{100f * StaticValues.rapidPierceDamageCoefficient}% damage</style> in a long line. <style=cIsUtility>Hitting targets consecutively increases the firerate</style>." + Environment.NewLine + Environment.NewLine +
                 $"<style=cSub>Get from [Railgunner/Lunar Chimera]</style>" + Environment.NewLine +
                 $"<style=cSub>Pairs with [Sweeping Beam (Bullet Laser/Stone Golem)] to create [X Beamer]</style>");
+            LanguageAPI.Add(prefix + "INVISIBILITY_NAME", "Invisibility");
+            LanguageAPI.Add(prefix + "INVISIBILITY_DESCRIPTION", $"Become invisible for <style=cIsUtility>{100f * StaticValues.invisibilityDuration} seconds</style>." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Bandit/Hermit Crab]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with nothing</style>");
             #endregion
 
 
@@ -551,6 +559,12 @@ namespace ShiggyMod.Modules
                 $"<style=cSub>[Solus Accelerate] [Solus Plant Mine] [Solus Extract] [Solus Invalidate] [Solus Priming] [Solus Transport]</style>");
             #endregion
 
+            #region Unbelievable Actives
+            LanguageAPI.Add(prefix + "OVERCLOCKASCENSION_NAME", "Overclock Ascension");
+            LanguageAPI.Add(prefix + "OVERCLOCKASCENSION_DESCRIPTION", $"Overclock yourself to the limit, warping the flow of time around you. Gain <style=cIsUtility>{Config.OverclockAscensionAttackspeedMultiplier.Value} attackspeed, {Config.OverclockAscensionDodgeChance.Value} dodge chance, {Config.OverclockAscensionMovespeedMultiplier.Value} movespeed, {Config.OverclockAscensionSprintspeedMultiplier.Value} sprint speed and heal {Config.OverclockAscensionHealAmount.Value * 100f}% of your max HP every second. Enemies and projectiles in a {Config.OverclockAscensionRadius.Value}m radius have their attackspeed and movespeed slowed by {Config.OverclockAscensionSlowMultiplier.Value}%. Gain {Config.OverclockAscensionHealthRegenCost} negative regen that increases by {Config.OverclockAscensionHealthRegenCostIncrease} every second.</style>." + Environment.NewLine + Environment.NewLine +
+                $"<style=cSub>Get from [Double Time/Blind Senses/Hyper Regeneration]</style>" + Environment.NewLine +
+                $"<style=cSub>Pairs with nothing</style>");
+            #endregion
 
             #region Achievements
             LanguageAPI.Add("ACHIEVEMENT_" + prefix + "MASTERYUNLOCKABLE_ACHIEVEMENT_NAME", "Shiggy: Mastery");

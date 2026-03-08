@@ -145,9 +145,14 @@ namespace ShiggyMod.Modules
         internal const float aircannonSpeedCoefficient = 10f;
         internal const float aircannonDamageCoefficient = 4f;
         internal const float aircannonProcCoefficient = 1f;
+        internal const float aircannonRadius = 15f;
+        internal const float aircannonCoodldown = 8f;
 
         internal const float bulletlaserDamageCoefficient = 2f;
         internal const float bulletlaserProcCoefficient = 0.3f;
+        internal const float bulletlaserCooldown = 6f;
+        internal const float bulletlaserRange = 100f;
+        internal const float bulletlaserSize = 1f;
 
         internal const float alloyHunterCritBoostMultiplier = 2f;
 
@@ -341,6 +346,10 @@ namespace ShiggyMod.Modules
         internal const int gachaTier2Amount = 1;
         internal const int gachaTier3Amount = 1;
 
+        internal const float invisibilityDuration = 8f;
+
+        internal const float lifeForceMultiplier = 3f;
+
         internal const float windShieldRadius = 8f;
         internal const float windShieldDuration = 8f;
         internal const float windShieldDamageCoefficient = 0.1f;
@@ -425,12 +434,12 @@ namespace ShiggyMod.Modules
 
         internal static int elementalFusionThreshold = 5;
 
-        internal static float decayPlusUltraHealthCostCoefficient = 0.1f;
-        internal static float decayPlusUltraDuration = 1.5f;
-        internal static float decayPlusUltraDamageCoefficient = 10f;
-        internal static float decayPlusUltraProcCoefficient = 1f;
-        internal static float decayPlusUltraRadius = 50f;
-        internal static float decayPlusUltraForce = 1000f;
+        internal static float decayPlusChaosHealthCostCoefficient = 0.1f;
+        internal static float decayPlusChaosDuration = 1.5f;
+        internal static float decayPlusChaosDamageCoefficient = 10f;
+        internal static float decayPlusChaosProcCoefficient = 1f;
+        internal static float decayPlusChaosRadius = 50f;
+        internal static float decayPlusChaosForce = 1000f;
 
         internal static float doubleTimeCoefficient = 0.5f;
         internal static float doubleTimeSlowCoefficient = 0.5f;
@@ -555,6 +564,15 @@ namespace ShiggyMod.Modules
         internal static float lightAndDarknessRangeAddition = 2f;
         internal static float lightAndDarknessBonusDamage = 0.2f;
 
+        internal static float overclockAscensionRadius = 30f;
+        internal static float overclockAscensionMovespeed = 3f;
+        internal static float overclockAscensionAttackspeed = 3f;
+        internal static float overclockAscensionSprintspeed = 3f;
+        internal static float overclockAscensionHealthRegenCost = 10f;
+        internal static float overclockAscensionHealthRegenCostIncrease = 1f;
+        internal static float overclockAscensionHeal = 0.1f;
+        internal static float overclockAscensionDodgeChance = 0.3f;
+        internal static float overclockAscensionSlowMultiplier = 0.3f; // 1 - float
 
         public enum IndicatorType : uint
         {
@@ -592,8 +610,8 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.orbitalStrikeDef.skillName, Survivors.Shiggy.blastBurnDef},
                 { Survivors.Shiggy.blastBurnDef.skillName, Survivors.Shiggy.orbitalStrikeDef},
 
-                { Survivors.Shiggy.decayPlusUltraDef.skillName, Survivors.Shiggy.auraOfBlightPassiveDef},
-                { Survivors.Shiggy.auraOfBlightPassiveDef.skillName, Survivors.Shiggy.decayPlusUltraDef},
+                { Survivors.Shiggy.decayPlusChaosDef.skillName, Survivors.Shiggy.auraOfBlightPassiveDef},
+                { Survivors.Shiggy.auraOfBlightPassiveDef.skillName, Survivors.Shiggy.decayPlusChaosDef},
 
                 { Survivors.Shiggy.gravitationalDownforceDef.skillName, Survivors.Shiggy.elementalFusionPassiveDef},
                 { Survivors.Shiggy.elementalFusionPassiveDef.skillName, Survivors.Shiggy.gravitationalDownforceDef},
@@ -640,7 +658,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.orbitalStrikeDef.skillName, Survivors.Shiggy.blastingZoneDef},
                 { Survivors.Shiggy.blastBurnDef.skillName, Survivors.Shiggy.blastingZoneDef},
 
-                { Survivors.Shiggy.decayPlusUltraDef.skillName, Survivors.Shiggy.decayAwakenedPassiveDef},
+                { Survivors.Shiggy.decayPlusChaosDef.skillName, Survivors.Shiggy.decayAwakenedPassiveDef},
                 { Survivors.Shiggy.auraOfBlightPassiveDef.skillName, Survivors.Shiggy.decayAwakenedPassiveDef},
 
                 { Survivors.Shiggy.gravitationalDownforceDef.skillName, Survivors.Shiggy.weatherReportPassiveDef},
@@ -783,7 +801,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.orbitalStrikeDef.skillName, Survivors.Shiggy.orbitalStrikeDef},
                 { Survivors.Shiggy.blastBurnDef.skillName, Survivors.Shiggy.blastBurnDef},
 
-                { Survivors.Shiggy.decayPlusUltraDef.skillName, Survivors.Shiggy.decayPlusUltraDef},
+                { Survivors.Shiggy.decayPlusChaosDef.skillName, Survivors.Shiggy.decayPlusChaosDef},
                 { Survivors.Shiggy.auraOfBlightPassiveDef.skillName, Survivors.Shiggy.auraOfBlightPassiveDef},
 
                 { Survivors.Shiggy.gravitationalDownforceDef.skillName, Survivors.Shiggy.gravitationalDownforceDef},
@@ -865,8 +883,8 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.roboballminibpassiveDef.skillName, Survivors.Shiggy.doubleTimePassiveDef},
                 { Survivors.Shiggy.commandopassiveDef.skillName, Survivors.Shiggy.doubleTimePassiveDef},
 
-                { Survivors.Shiggy.rexmortarDef.skillName, Survivors.Shiggy.decayPlusUltraDef},
-                { Survivors.Shiggy.decayDef.skillName, Survivors.Shiggy.decayPlusUltraDef},
+                { Survivors.Shiggy.rexmortarDef.skillName, Survivors.Shiggy.decayPlusChaosDef},
+                { Survivors.Shiggy.decayDef.skillName, Survivors.Shiggy.decayPlusChaosDef},
 
                 { Survivors.Shiggy.grandparentsunDef.skillName, Survivors.Shiggy.elementalFusionPassiveDef},
                 { Survivors.Shiggy.artificerflamethrowerDef.skillName, Survivors.Shiggy.elementalFusionPassiveDef},
@@ -1182,7 +1200,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.windSlashDef.skillName, "<style=cIsUtility>Wind Slash Synergy</style> Gained! (Active)" },
                 { Survivors.Shiggy.limitBreakDef.skillName, "<style=cIsUtility>Limit Break Synergy</style> Gained! (Active)" },
                 { Survivors.Shiggy.voidFormDef.skillName, "<style=cIsUtility>Void Form Synergy</style> Gained! (Active)" },
-                { Survivors.Shiggy.decayPlusUltraDef.skillName, "<style=cIsUtility>Decay Plus Ultra Synergy</style> Gained! (Active)" },
+                { Survivors.Shiggy.decayPlusChaosDef.skillName, "<style=cIsUtility>Decay Plus Ultra Synergy</style> Gained! (Active)" },
                 { Survivors.Shiggy.machPunchDef.skillName, "<style=cIsUtility>Mach Punch Synergy</style> Gained! (Active)" },
                 { Survivors.Shiggy.rapidPierceDef.skillName, "<style=cIsUtility>Rapid Pierce Synergy</style> Gained! (Active)" },
                 //ultimate active skill to info
@@ -1371,7 +1389,7 @@ namespace ShiggyMod.Modules
                 { Survivors.Shiggy.limitBreakDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.voidFormDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.elementalFusionPassiveDef.skillName, skillType.ACTIVE },
-                { Survivors.Shiggy.decayPlusUltraDef.skillName, skillType.ACTIVE },
+                { Survivors.Shiggy.decayPlusChaosDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.machPunchDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.rapidPierceDef.skillName, skillType.ACTIVE },
                 { Survivors.Shiggy.theWorldDef.skillName, skillType.ACTIVE },

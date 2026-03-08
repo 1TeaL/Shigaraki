@@ -87,6 +87,8 @@ namespace ShiggyMod.Modules
         public static Sprite falseSonEnergizedCoreBuffIcon;
         public static Sprite chefOilBuffIcon;
         public static Sprite soluswingWeakpointDestroyedDebuffIcon;
+        public static Sprite revitalizeBuffIcon;
+        public static Sprite sureProceBuffIcon;
 
         //game material
         //public static Material alphaconstructShieldBuffMat = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield");
@@ -221,6 +223,7 @@ namespace ShiggyMod.Modules
         internal static GameObject sphereIndicator;
         internal static GameObject deathAuraIndicator;
         internal static GameObject theWorldIndicator;
+        internal static GameObject overclockAscensionIndicator;
         internal static GameObject hermitCrabMortarIndicator;
         internal static GameObject voidBarnacleMortarIndicator;
         internal static GameObject barbedSpikesIndicator;
@@ -331,7 +334,8 @@ namespace ShiggyMod.Modules
             falseSonEnergizedCoreBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_FalseSon.bdEnergizedCore_asset).WaitForCompletion().iconSprite;
             chefOilBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPathsBetter.RoR2_DLC2_Chef.bdOiled_asset).WaitForCompletion().iconSprite;
             soluswingWeakpointDestroyedDebuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Buffs.bdSolusWingWeakpointDestroyed_asset).WaitForCompletion().iconSprite;
-
+            revitalizeBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC2_Seeker_RevitalizeBuff.bdRevitalizeBuff_asset).WaitForCompletion().iconSprite;
+            sureProceBuffIcon = Addressables.LoadAssetAsync<BuffDef>(RoR2BepInExPack.GameAssetPaths.Version_1_39_0.RoR2_DLC3_Parry.bdParrying_asset).WaitForCompletion().iconSprite;
 
 
             //game effects
@@ -480,6 +484,18 @@ namespace ShiggyMod.Modules
             theWorldIndicatorMeshRender.material.SetColor("_TintColor", Color.cyan);
             networkObjDefs.Add(theWorldIndicator);
             PrefabAPI.RegisterNetworkPrefab(theWorldIndicator);
+
+            overclockAscensionIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "overclockAscensionIndicator");
+
+            MeshRenderer overclockAscensionIndicatorMeshRender = overclockAscensionIndicator.gameObject.GetComponent<MeshRenderer>();
+            if (!overclockAscensionIndicatorMeshRender)
+            {
+                Debug.Log("Failed to find Mesh renderer!");
+            }
+            overclockAscensionIndicatorMeshRender.materials = warbannerArray;
+            overclockAscensionIndicatorMeshRender   .material.SetColor("_TintColor", Color.blue);
+            networkObjDefs.Add(overclockAscensionIndicator);
+            PrefabAPI.RegisterNetworkPrefab(overclockAscensionIndicator);
 
 
             hermitCrabMortarIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "hermitCrabMortarIndicator");

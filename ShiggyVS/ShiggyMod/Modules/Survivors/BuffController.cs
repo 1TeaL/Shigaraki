@@ -53,6 +53,7 @@ namespace ShiggyMod.Modules.Survivors
         public GameObject voidmortarIndicatorInstance;
         public GameObject barbedSpikesIndicatorInstance;
         private GameObject weatherReportIndicatorInstance;
+        public GameObject overclockAscensionIndicatorInstance;
 
         public HurtBox Target;
 
@@ -132,6 +133,11 @@ namespace ShiggyMod.Modules.Survivors
             {
                 weatherReportIndicatorInstance.SetActive(false);
                 EntityState.Destroy(weatherReportIndicatorInstance.gameObject);
+            }
+            if (overclockAscensionIndicatorInstance)
+            {
+                overclockAscensionIndicatorInstance.SetActive(false);
+                EntityState.Destroy(overclockAscensionIndicatorInstance.gameObject);
             }
             if (mushroomWard) EntityState.Destroy(mushroomWard.gameObject);
             if (magmawormWard) EntityState.Destroy(magmawormWard);
@@ -1504,6 +1510,12 @@ namespace ShiggyMod.Modules.Survivors
                 this.auraOfBlightIndicatorInstance.transform.parent = characterBody.transform;
                 this.auraOfBlightIndicatorInstance.transform.localScale = Vector3.one * Modules.StaticValues.auraOfBlightBuffRadius;
                 //this.auraOfBlightIndicatorInstance.transform.localPosition = Vector3.zero;
+            }
+            if (this.overclockAscensionIndicatorInstance)
+            {
+                this.overclockAscensionIndicatorInstance.transform.parent = characterBody.transform;
+                this.overclockAscensionIndicatorInstance.transform.localScale = Vector3.one * Modules.Config.DoubleTimeRadius.Value;
+                //this.doubleTimeIndicatorInstance.transform.localPosition = Vector3.zero;
             }
         }
 
